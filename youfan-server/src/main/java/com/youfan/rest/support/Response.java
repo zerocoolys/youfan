@@ -6,6 +6,7 @@ package com.youfan.rest.support;
 public class Response {
     private int code;
 
+
     private Object payload;
 
     private String msg;
