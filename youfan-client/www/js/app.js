@@ -20,6 +20,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 // org.apache.cordova.statusbar required
                 StatusBar.styleLightContent();
             }
+
+            // loading page
+
         });
     })
 
