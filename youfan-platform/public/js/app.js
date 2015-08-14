@@ -2,23 +2,26 @@
  * Created by Administrator on 2015/8/14.
  */
 //х╗оч
-angular.module('app', [
+var app = angular.module('app', [
+    'ngRoute',
     'app.Authority',
     //'app.SysManager',
     //'app.ClientManager',
     //'app.MerchantManager',
 ])
-    //.config(['$stateProvider', '$urlRouterProvider',
-    //function (){
-    //    console.log("config")
-    //    //$stateProvider
-    //    //    .state('/', {
-    //    //        url: '/',
-    //    //        templateUrl: 'login.html'
-    //    //    });
-    //    //$stateProvider
-    //    //    .state('index', {
-    //    //        url: "/index",
-    //    //        templateUrl: "index.html"
-    //    //    })
-    //}])
+
+app.config(['$routeProvider',function ($routeProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: '/.html',
+            controller: 'RouteListCtl'
+        })
+        .when('/list/:id', {
+            templateUrl: 'views/route/detail.html',
+            controller: 'RouteDetailCtl'
+        })
+        .otherwise({
+            redirectTo: '/list'
+        });
+    console.log("router")
+}])

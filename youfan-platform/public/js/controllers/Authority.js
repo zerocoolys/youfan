@@ -3,27 +3,27 @@
  */
 
 //注册，系统管理 应该用不到
-angular.module('app.Authority', []).controller('regCtrl', function ($scope) {
-    console.log("regCtrl")
-});
-
-//修改信息
-angular.module('app.Authority', []).controller('editCtrl', function ($scope) {
-    console.log("regCtrl")
-});
+//angular.module('app.Authority', []).controller('regCtrl', function ($scope) {
+//    console.log("regCtrl")
+//});
+//
+////修改信息
+//angular.module('app.Authority', []).controller('editCtrl', function ($scope) {
+//    console.log("regCtrl")
+//});
 //登录
-angular.module('app.Authority', []).controller('loginCtrl', function ($scope,$state) {
+angular.module('app.Authority', []).controller('loginCtrl', function ($scope) {
     console.log("loginCtrl")
     $scope.count = "admin"
 
     //登录
     $scope.login = function () {
         console.log("login")
-        $state.go("index.html");
+        //$state.go("index.html");
     }
-});
+})
 
 //退出
-angular.module('app.Authority', []).controller('logoutCtrl', function ($scope) {
-    console.log("logoutCtrl")
-});
+//angular.module('app.Authority', []).controller('logoutCtrl', function ($scope) {
+//    console.log("logoutCtrl")
+//});
