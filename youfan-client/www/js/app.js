@@ -68,7 +68,24 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-
+            .state('tab.login', {
+                url: '/login',
+                views: {
+                    'tab-login': {
+                        templateUrl: 'templates/tab-login.html'
+//                        controller: 'ChatsCtrl'
+                    }
+                }
+            })
+            .state('tab.listDetail', {
+                url: '/listDetail',
+                views: {
+                    'tab-chats': {
+                        templateUrl: 'templates/tab-listDetail.html'
+//                        controller: 'ChatsCtrl'
+                    }
+                }
+            })
             .state('tab.account', {
                 url: '/account',
                 views: {
@@ -80,6 +97,6 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             });
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/dash');
+        $urlRouterProvider.otherwise('/tab/listDetail');
 
     });
