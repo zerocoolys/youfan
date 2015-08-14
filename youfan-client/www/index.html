@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/z-style.css" rel="stylesheet">
 
@@ -27,13 +27,32 @@
     <script src="js/config.js"></script>
     <script src="js/controller/ControllerModule.js"></script>
     <script src="js/service/ServiceModule.js"></script>
+    <script src="js/controller/SlideBoxCtrl.js"></script>
     <script src="js/controller/DashCtrl.js"></script>
     <script src="js/controller/ChatsCtrl.js"></script>
     <script src="js/controller/ChatDetailCtrl.js"></script>
     <script src="js/controller/AccountCtrl.js"></script>
+    <script src="js/service/InitPageService.js"></script>
     <script src="js/service/ChatsService.js"></script>
 </head>
 <body ng-app="youfan.client">
+<!-- App loading page -->
+<ion-modal-view ng-style="{ 'display': 'none' }" ng-controller="SlideBoxCtrl">
+    <script id="image-modal.html" type="text/ng-template">
+        <div class="modal image-modal transparent"
+             ng-click="closeModal()">
+            <ion-slide-box on-slide-changed="slideChanged(index)"
+                           show-pager="false">
+                <ion-slide ng-repeat="oImage in aImages">
+                    <img ng-src="{{oImage.src}}" class="fullscreen-image"/>
+
+                    <p class="info">{{oImage.msg}}</p>
+                </ion-slide>
+            </ion-slide-box>
+        </div>
+    </script>
+</ion-modal-view>
+
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
@@ -47,5 +66,7 @@
   have templates inline in this html file if you'd like).
 -->
 <ion-nav-view></ion-nav-view>
+
+<ion-view></ion-view>
 </body>
 </html>
