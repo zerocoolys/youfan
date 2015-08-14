@@ -1,4 +1,3 @@
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
 # 0.1.11-alpha (01-15-2014)
 
 ### New
@@ -477,6 +476,4 @@ ngCordova is ready for some bleeding edge testing. So far we support the followi
 
 
 Give it a try, and please report lots of issues and contribute PRs. :icecream:
-=======
 Please refer to the [Github ngCordova Releases file](https://github.com/driftyco/ng-cordova/releases) for detailed information.
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352

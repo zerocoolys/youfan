@@ -1,10 +1,6 @@
 {
   "name": "ngCordova",
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-  "version": "0.1.17-alpha",
-=======
   "version": "0.1.20-alpha",
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
   "homepage": "http://ngCordova.com/",
   "authors": [
     "Max Lynch <max@drifty.com>",
@@ -22,12 +18,8 @@
     "src",
     "config",
     "demo",
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-    "CONTRIBUTING.md"
-=======
     "CONTRIBUTING.md",
     "CODE_OF_CONDUCT.md"
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
   ],
   "dependencies": {
     "angular": ">= 1.2.23"

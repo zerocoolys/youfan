@@ -2,11 +2,7 @@
   "name": "ng-cordova",
   "private": false,
   "main": "dist/ng-cordova",
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-  "version": "0.1.17-alpha",
-=======
   "version": "0.1.20-alpha",
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
   "repository": {
     "url": "git://github.com/driftyco/ng-cordova.git"
   },
@@ -35,19 +31,12 @@
     }
   ],
   "scripts": {
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-    "test": "gulp karma --browsers=PhantomJS --reporters=progress"
-=======
     "test": "gulp lint && gulp karma --browsers=PhantomJS --reporters=progress"
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
   },
   "dependencies": {
     "conventional-changelog": "0.0.11",
     "fs": "0.0.2",
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-=======
     "gulp-git": "^1.2.4",
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
     "q": "^1.1.2"
   }
 }

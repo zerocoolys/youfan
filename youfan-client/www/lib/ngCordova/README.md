@@ -1,5 +1,3 @@
-[ngCordova](http://ngcordova.com/)
-==========
 
 [![Travis](http://img.shields.io/travis/driftyco/ng-cordova.svg?style=flat)](https://travis-ci.org/driftyco/ng-cordova) [![Bower](http://img.shields.io/badge/bower-ngCordova-FFCC2F.svg?style=flat)](http://bower.io/search/?q=ngCordova)
 
@@ -30,17 +28,14 @@ Install manually, or from bower:
 $ bower install ngCordova
 ```
 
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
 ## Plugins `(63+)`
 
 - [Action Sheet](https://github.com/EddyVerbruggen/cordova-plugin-actionsheet)
 - [AdMob](https://github.com/floatinghotpot/cordova-plugin-admob)
-=======
 ## Plugins `(64+)`
 
 - [Action Sheet](https://github.com/EddyVerbruggen/cordova-plugin-actionsheet)
 - [AdMob](https://github.com/floatinghotpot/cordova-plugin-admob) (:warning: share % Ad revenue)
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
 - [App Availability](https://github.com/ohh2ahh/AppAvailability)
 - [App Preferences](https://github.com/dferrell/plugins-application-preferences)
 - [App Rate](https://github.com/pushandplay/cordova-plugin-apprate)
@@ -49,11 +44,7 @@ $ bower install ngCordova
 - [Badge](https://github.com/katzer/cordova-plugin-badge)
 - [Barcode Scanner](https://github.com/wildabeast/BarcodeScanner)
 - [Battery Status](https://github.com/apache/cordova-plugin-battery-status) *
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-- [Bluetooth Low Energy](https://github.com/evothings/cordova-ble)
-=======
 - [Bluetooth Low Energy](https://github.com/don/cordova-plugin-ble-central)
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
 - [Bluetooth Serial](https://github.com/don/BluetoothSerial)
 - [Brightness](https://github.com/fiscal-cliff/phonegap-plugin-brightness)
 - [Calendar](https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin)
@@ -68,20 +59,6 @@ $ bower install ngCordova
 - [Dialogs](https://github.com/apache/cordova-plugin-dialogs) *
 - [Email Composer](https://github.com/katzer/cordova-plugin-email-composer)
 - [Facebook Connect](https://github.com/Wizcorp/phonegap-facebook-plugin)
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-- [Facebook AudienceNetwork Ads](https://github.com/floatinghotpot/cordova-plugin-facebookads)
-- [File](https://github.com/apache/cordova-plugin-file) *
-- [File Transfer](https://github.com/apache/cordova-plugin-file-transfer) *
-- [Flashlight](https://github.com/EddyVerbruggen/Flashlight-PhoneGap-Plugin)
-- [Flurry Ads](https://github.com/floatinghotpot/cordova-plugin-flurry)
-- [Geolocation](https://github.com/apache/cordova-plugin-geolocation) *
-- [Globalization](https://github.com/apache/cordova-plugin-globalization) *
-- [Google Ads](https://github.com/floatinghotpot/cordova-admob-pro)
-- [Google Analytics](https://github.com/danwilson/google-analytics-plugin)
-- [HealthKit for iOS](https://github.com/Telerik-Verified-Plugins/HealthKit)
-- [Httpd (Web Server)](https://github.com/floatinghotpot/cordova-httpd)
-- [Apple iAd](https://github.com/floatinghotpot/cordova-iad-pro)
-=======
 - [Facebook AudienceNetwork Ads](https://github.com/floatinghotpot/cordova-plugin-facebookads) (:warning: share % Ad revenue)
 - [File](https://github.com/apache/cordova-plugin-file) *
 - [File Transfer](https://github.com/apache/cordova-plugin-file-transfer) *
@@ -95,19 +72,16 @@ $ bower install ngCordova
 - [HealthKit for iOS](https://github.com/Telerik-Verified-Plugins/HealthKit)
 - [Httpd (Web Server)](https://github.com/floatinghotpot/cordova-httpd)
 - [Apple iAd](https://github.com/floatinghotpot/cordova-iad-pro) (:warning: share % Ad revenue)
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
 - [Image Picker](https://github.com/wymsee/cordova-imagePicker)
 - [InAppBrowser](https://github.com/apache/cordova-plugin-inappbrowser)*
 - [Keyboard](https://github.com/driftyco/ionic-plugins-keyboard)
 - [Keychain](https://github.com/shazron/KeychainPlugin)
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
 - [Local Notifications](https://github.com/katzer/cordova-plugin-local-notifications/)
 - [Media Capture](https://github.com/apache/cordova-plugin-media-capture)
 - [Media](https://github.com/apache/cordova-plugin-media) *
 - [MillennialMedia Ads](https://github.com/floatinghotpot/cordova-plugin-mmedia)
 - [MobFox Ads](https://github.com/floatinghotpot/cordova-mobfox-pro)
 - [MoPub Ads](https://github.com/floatinghotpot/cordova-plugin-mopub)
-=======
 - [Launch Navigator](https://github.com/dpa99c/phonegap-launch-navigator)
 - [Local Notifications](https://github.com/katzer/cordova-plugin-local-notifications/)
 - [Media Capture](https://github.com/apache/cordova-plugin-media-capture)
@@ -115,7 +89,6 @@ $ bower install ngCordova
 - [MillennialMedia Ads](https://github.com/floatinghotpot/cordova-plugin-mmedia) (:warning: share % Ad revenue)
 - [MobFox Ads](https://github.com/floatinghotpot/cordova-mobfox-pro) (:warning: share % Ad revenue)
 - [MoPub Ads](https://github.com/floatinghotpot/cordova-plugin-mopub) (:warning: share % Ad revenue)
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
 - [Native Audio](https://github.com/SidneyS/cordova-plugin-nativeaudio)
 - [Network Information](https://github.com/apache/cordova-plugin-network-information) *
 - [Oauth](https://github.com/nraboy/ng-cordova-oauth)
@@ -148,17 +121,12 @@ $ bower install ngCordova
 
 - https://twitter.com/paolobernasconi
 - https://github.com/pbernasconi
-
-<<<<<<< e84af3a6688c39f93ef9359262133ffca0fe134d
-=======
 ## Project Maintainer
 
 #### George Stocker
  - https://twitter.com/gortok
  - https://github.com/gortok
  
->>>>>>> de1e748b0f4c98d84068693bf662cfffe75a9352
-
 ## LICENSE
 
 ngCordova is licensed under the MIT Open Source license. For more information, see the LICENSE file in this repository.
