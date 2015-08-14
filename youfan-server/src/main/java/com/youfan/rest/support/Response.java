@@ -26,23 +26,26 @@ public class Response {
         return code;
     }
 
-    public void setCode(int code) {
+    public Response setCode(int code) {
         this.code = code;
+        return this;
     }
 
     public Object getPayload() {
         return payload;
     }
 
-    public void setPayload(Object payload) {
+    public Response setPayload(Object payload) {
         this.payload = payload;
+        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public Response setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 }

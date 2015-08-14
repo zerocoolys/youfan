@@ -1,12 +1,16 @@
 package com.youfan.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youfan.data.dao.OrderDAO;
 import com.youfan.rest.objs.Order;
+import com.youfan.rest.params.OrderParams;
 import com.youfan.rest.support.Response;
 import com.youfan.rest.support.Responses;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -22,7 +26,6 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     public Response getOrder(@PathVariable String id) {
 
-        orderDAO.say();
         return Responses.SUCCESS();
     }
 
@@ -33,13 +36,30 @@ public class OrderController {
         return Responses.SUCCESS();
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/order")
-    public Response create(@RequestBody Order order) {
+    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public Response create(@RequestBody String orderParamStr) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        OrderParams orderParams = null;
+        try {
+            orderParams = mapper.readValue(orderParamStr, OrderParams.class);
 
 
-        // TODO 检查订单是否有效
+            Order order = new Order();
 
+            order.setBuyerId(orderParams.getBuyerId());
+            order.setSellerId(orderParams.getSellerId());
+            order.setMemo(orderParams.getMemo());
+            order.setOrderStatus(orderParams.getOrderStatus());
 
-        return Responses.SUCCESS();
+            
+            orderDAO.insert(order);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Response response = Responses.SUCCESS().setPayload(order);
+        return response;
     }
 }
