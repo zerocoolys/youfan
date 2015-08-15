@@ -13,7 +13,7 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
 
     <!-- socket.io client -->
@@ -27,20 +27,18 @@
     <script src="js/config.js"></script>
     <script src="js/controller/ControllerModule.js"></script>
     <script src="js/service/ServiceModule.js"></script>
-    <script src="js/controller/SlideBoxCtrl.js"></script>
+    <script src="js/controller/SplashScreenCtrl.js"></script>
     <script src="js/controller/DashCtrl.js"></script>
     <script src="js/controller/ChatsCtrl.js"></script>
     <script src="js/controller/ChatDetailCtrl.js"></script>
     <script src="js/controller/AccountCtrl.js"></script>
-    <script src="js/service/InitPageService.js"></script>
     <script src="js/service/ChatsService.js"></script>
 </head>
 <body ng-app="youfan.client">
 <!-- App loading page -->
-<ion-modal-view ng-style="{ 'display': 'none' }" ng-controller="SlideBoxCtrl">
+<ion-modal-view ng-style="{ 'display': 'none' }" ng-controller="SplashScreenCtrl">
     <script id="image-modal.html" type="text/ng-template">
-        <div class="modal image-modal transparent"
-             ng-click="closeModal()">
+        <div class="modal image-modal transparent">
             <ion-slide-box on-slide-changed="slideChanged(index)"
                            show-pager="false">
                 <ion-slide ng-repeat="oImage in aImages">
@@ -66,7 +64,5 @@
   have templates inline in this html file if you'd like).
 -->
 <ion-nav-view></ion-nav-view>
-
-<ion-view></ion-view>
 </body>
 </html>

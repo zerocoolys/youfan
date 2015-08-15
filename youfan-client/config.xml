@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.youfan" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
-    <name>youfan-client</name>
+    <name>优饭</name>
     <description>
-        An Ionic Framework and Cordova project.
+        Youfan user client, an Ionic Framework and Cordova project.
     </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">
         Ionic Framework Team

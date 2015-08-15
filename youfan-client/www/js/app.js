@@ -21,8 +21,6 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 StatusBar.styleLightContent();
             }
 
-            // loading page
-
         });
     })
 
@@ -100,6 +98,6 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             });
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/listDetail');
+        $urlRouterProvider.otherwise('/tab/dash');
 
     });
