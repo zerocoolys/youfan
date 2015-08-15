@@ -19,7 +19,6 @@ public class Main implements CommandLineRunner {
     private static ApplicationContext context;
 
     public static void main(String[] args) {
-
         context = SpringApplication.run(Main.class, args);
     }
 
@@ -28,6 +27,5 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        sqlSession.commit();
     }
 }

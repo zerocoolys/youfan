@@ -17,23 +17,33 @@ public class OrderDishRelEntity {
         this.id = id;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrderNo(Long orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getDishId() {
-        return dishId;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setDishId(String dishId) {
-        this.dishId = dishId;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
-    private Long orderId;
+    private int count;
 
-    private String dishId;
+    private Long orderNo;
+
+    private String itemId;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

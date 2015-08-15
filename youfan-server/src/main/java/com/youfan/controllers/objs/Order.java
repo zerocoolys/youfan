@@ -1,4 +1,6 @@
-package com.youfan.rest.objs;
+package com.youfan.controllers.objs;
+
+import java.util.List;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -13,6 +15,8 @@ public class Order {
     private int orderStatus;
     private double price;
     private String orderNo;
+
+    private List<String> itemList;
 
     public Long getOrderId() {
         return orderId;
@@ -83,5 +87,13 @@ public class Order {
 
     public String getOrderNo() {
         return orderNo;
+    }
+
+    public List<String> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<String> itemList) {
+        this.itemList = itemList;
     }
 }

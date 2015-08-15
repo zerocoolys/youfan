@@ -28,7 +28,7 @@
     </insert>
 
     <insert id="createOrderDishRel" parameterType="com.youfan.data.models.OrderDishRelEntity">
-        INSERT INTO TBL_REL_ODR_DISH(ODR_ID,DISH_ID) VALUES(#{orderId},#{dishId})
+        INSERT INTO TBL_REL_ODR_DISH(ODR_ID,DISH_ID) VALUES(#{orderNo},#{itemId})
     </insert>
 
 </mapper>

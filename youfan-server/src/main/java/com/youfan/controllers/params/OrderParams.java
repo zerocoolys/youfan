@@ -1,4 +1,4 @@
-package com.youfan.rest.params;
+package com.youfan.controllers.params;
 
 import java.util.HashMap;
 import java.util.Map;

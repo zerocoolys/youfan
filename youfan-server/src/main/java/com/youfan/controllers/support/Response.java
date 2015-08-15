@@ -1,4 +1,4 @@
-package com.youfan.rest.support;
+package com.youfan.controllers.support;
 
 /**
  * Created by yousheng on 15/8/13.

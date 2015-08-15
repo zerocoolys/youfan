@@ -1,4 +1,4 @@
-package com.youfan.services;
+package com.youfan.services.commons;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;

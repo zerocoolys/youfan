@@ -1,11 +1,11 @@
-package com.youfan.rest;
+package com.youfan.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youfan.controllers.objs.Order;
+import com.youfan.controllers.params.OrderParams;
+import com.youfan.controllers.support.Response;
+import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.OrderDAO;
-import com.youfan.rest.objs.Order;
-import com.youfan.rest.params.OrderParams;
-import com.youfan.rest.support.Response;
-import com.youfan.rest.support.Responses;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,9 +23,14 @@ public class OrderController {
     @Resource
     private OrderDAO orderDAO;
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public Response getOrder(@PathVariable String id) {
+    @RequestMapping(method = RequestMethod.GET, path = "/{orderNo}")
+    public Response getOrder(@PathVariable String orderNo) {
 
+        Order order = orderDAO.getOrderByOrderNo(orderNo);
+
+        if (order == null) {
+
+        }
         return Responses.SUCCESS();
     }
 
@@ -43,23 +48,26 @@ public class OrderController {
         OrderParams orderParams = null;
         try {
             orderParams = mapper.readValue(orderParamStr, OrderParams.class);
-
-
-            Order order = new Order();
-
-            order.setBuyerId(orderParams.getBuyerId());
-            order.setSellerId(orderParams.getSellerId());
-            order.setMemo(orderParams.getMemo());
-            order.setOrderStatus(orderParams.getOrderStatus());
-
-            
-            orderDAO.insert(order);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Order order = new Order();
 
-        Response response = Responses.SUCCESS().setPayload(order);
+        order.setBuyerId(orderParams.getBuyerId());
+        order.setSellerId(orderParams.getSellerId());
+        order.setMemo(orderParams.getMemo());
+        order.setOrderStatus(orderParams.getOrderStatus());
+
+        Order result = orderDAO.insert(order);
+
+        Response response = null;
+        if (result == null) {
+            response = Responses.FAILED();
+        } else {
+            response = Responses.SUCCESS().setPayload(result);
+        }
+
         return response;
+
     }
 }
