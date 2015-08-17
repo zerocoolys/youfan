@@ -52,6 +52,22 @@
 
                 });
 
+            $stateProvider
+                .state('editkitchen', {
+                    url: '/editkitchen',
+                    templateUrl: 'templates/editkitchen/editkitchen.html'
+                })
+                .state('kitcheninfo',{
+                    url:'/kitcheninfo',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo.html',
+                    controller: 'kitcheninfo'
+                })
+                .state('personinfo',{
+                    url:'/personinfo',
+                    templateUrl: 'templates/editkitchen/editkitchen-personinfo.html',
+                    controller: 'kitcheninfo'
+                })
+            ;
             $urlRouterProvider.otherwise('/login');
 
 
