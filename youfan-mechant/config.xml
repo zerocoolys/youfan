@@ -8,6 +8,9 @@
       Ionic Framework Team&#xD;
     </author>
   <content src="index.html"/>
+  <content src="login.html"/>
+  <content src="editKitchen.html"/>
+  <content src="editKitchenInfo.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>

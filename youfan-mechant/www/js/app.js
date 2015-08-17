@@ -117,4 +117,73 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.settings_con
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/settings/index');
 
+});
+//angular.module('starter', ['ionic'])
+//
+//    .run(function ($ionicPlatform) {
+//        $ionicPlatform.ready(function () {
+//            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+//            // for form inputs)
+//            if (window.cordova && window.cordova.plugins.Keyboard) {
+//                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+//            }
+//            if (window.StatusBar) {
+//                StatusBar.styleDefault();
+//            }
+//        });
+//    });
+
+
+//angular.module('login', ['ionic'])
+//
+//    .controller('login', function ($scope, $http) {
+//        $scope.signIn = function (user) {
+//            //var login_url = "youfan-server/login?user={'userName':\'" + user.username + "\','passWord':\'" + user.password + "\'}";
+//            //$http(login_url).success(function (data) {
+//                $scope.isSuccess = user.username;
+//            //});
+//        }
+//    });
+//
+//    //.factory('loginService', function ($http) {
+//    //    return {
+//    //        GetUser: function () {
+//    //            return $http.get("some url here").then(function (response) {
+//    //                //Process Stuff Here
+//    //                return response;
+//    //            });
+//    //        },
+//    //    }
+//    //})
+//angular.module('editKitchener', ['ionic'])
+//
+//    .controller('editKitchener', function ($scope, $http) {
+//
+//    });
+//    //
+//    //.factory('editKitchenerService', function ($http) {
+//    //    return {
+//    //        GetUser: function () {
+//    //            return $http.get("some url here").then(function (response) {
+//    //                //Process Stuff Here
+//    //                return response;
+//    //            });
+//    //        },
+//    //    }
+//    //})
+angular.module('editKitchenInfo', ['ionic'])
+    .controller('editKitchenInfo', function ($scope) {
+        //$scope.test = function(){
+        //    editKitchenInfoerService.saveKitchenInfo($scope.kitchenInfo).then(function (response) {
+        //        $scope.kitchenInfo = response;
+        //    });
+        //}
+        $scope.name = "tutyutuytyu";
+        //$scope.testfun = function(){
+        //    $scope.test = 2;
+        //    //$http.get("http://www.baidu.com").success(function(data){
+        //    //    $scope.test = 1;
+        //    //});
+        //};
+        //$scope.testfun();
     });
