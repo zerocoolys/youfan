@@ -1,0 +1,10 @@
+<!-- 免责声明 -->
+<ion-view view-title="免责声明">
+    <ion-content class="padding">
+        <ion-refresher
+                pulling-text="下拉能够刷新"
+                on-refresh="doRefresh()">
+        </ion-refresher>
+        <div data-ng-bind="disclaimerText"></div>
+    </ion-content>
+</ion-view>

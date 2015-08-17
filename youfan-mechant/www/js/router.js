@@ -3,7 +3,7 @@
 
 
     angular
-        .module('yf_mechant')
+        .module('yf_merchant')
         .config(function ($stateProvider, $urlRouterProvider) {
 
 
