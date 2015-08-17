@@ -1,0 +1,11 @@
+<div class="span2" ng-controller="leftMenuCtrl">
+    <ul class="nav nav-list" >
+
+        <li ng-repeat="menu in adminmenus" data-ng-if="$index == selectedRow" class="active">
+            <a href="">{{menu.title}}</a>
+        </li>
+        <li ng-repeat="menu in adminmenus" data-ng-if="$index !=selectedRow" ng-click="selectRestaurant($index)">
+            <a href="">{{menu.title}}</a>
+        </li>
+    </ul>
+</div>

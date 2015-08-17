@@ -1,27 +1,23 @@
 /**
  * Created by Administrator on 2015/8/14.
  */
-//Ȩ��
-var app = angular.module('app', [
-    'ngRoute',
-    'app.Authority',
-    //'app.SysManager',
-    //'app.ClientManager',
-    //'app.MerchantManager',
-])
 
-app.config(['$routeProvider',function ($routeProvider) {
-    $routeProvider
-        .when('/', {
-            templateUrl: '/.html',
-            controller: 'RouteListCtl'
-        })
-        .when('/list/:id', {
-            templateUrl: 'views/route/detail.html',
-            controller: 'RouteDetailCtl'
-        })
-        .otherwise({
-            redirectTo: '/list'
-        });
-    console.log("router")
-}])
+define([
+    "angular",
+    "js002",
+    "js003",
+    "js006",
+    "./angularjs/ui-bootstrap-tpls",
+    "./angularjs/ui-grid-unstable.min",
+
+    //业务模块控制器
+    "./controllers/loginCtrl",
+    "./controllers/leftMenuCtrl",
+    "./controllers/indexCtrl",
+], function (angular) {
+    'use strict';
+    var myApp = angular.module("myApp", [
+        "app.controllers",
+    ]);
+    return myApp;
+});

@@ -1,32 +1,66 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('login.html', {});
-});
-//router.get("/user",function(req,res){
-//  res.send( 'Hello ,ÓÎ¿Í' );
+//router.get("/", function (req, res, next) {
+//
+//  //åˆ¤å®šæ˜¯å¦ç™»å½•å†³å®šè·³è½¬æ–¹å‘
+//  console.log("æœªç™»å½•è·³è½¬åˆ°ç™»å½•é¡µé¢")
+//  res.redirect('/login');
 //});
+router.get("/", function (req, res, next) {
+    res.render("login.html", {});
+});
 
-router.all("/login",function(req,res,next){
-  console.log("ÓÃ»§µÇÂ¼")
-  res.render("login.html", {});
-})
-router.all("/reg",function(req,res,next){
-  console.log("ÓÃ»§×¢²á")
-  res.render("reg.html", {});
-})
-router.all("/user/:username",function(req,res,next){
-  console.log("¼ì²éÓÃ»§Ãû£º"+req.params.username)
-  next();
-})
-//Ò»¸öÂ·¾¶°ó¶¨¶à¸öÂ·ÓÉÏìÓ¦
-router.get("/user/:username",function(req,res,next){
-  //res.send( 'Hello ,'+req.params.username );
-  console.log("Ò»¸öÂ·¾¶¶à¸öÂ·ÓÉ  NextÏìÓ¦")
-  next();
+router.get("/login", function (req, res, next) {
+    res.render("login.html", {});
 });
-router.get("/user/:username",function(req,res){
-  res.send( req.params.username+" now is:"+new Date().toString() );
+
+router.get("/index", function (req, res, next) {
+    res.render("index.html", {});
 });
+
+router.get("/*.html", function (req, res, next) {
+    if (req.url != "/conf.html") {
+        var url = req.url.substring(1);
+        if (!url)
+            url = "index";
+        res.render((url.indexOf(".html")) > -1 ? url : url + ".html", {});
+    } else {
+        res.render("login.html", {});
+    }
+});
+
+router.get('/reg.html', function (req, res, next) {
+    console.log("reg.html")
+    res.render("reg.html", {});
+});
+
+//router.get("/index", function (req, res, next) {
+//  res.render("index.html", {});
+//});
+////router.get("/user",function(req,res){
+////  res.send( 'Hello ,æ¸¸å®¢' );
+////});
+//
+//router.all("/login",function(req,res,next){
+//  console.log("ç”¨æˆ·ç™»å½•")
+//  res.render("login.html", {});
+//})
+//router.all("/reg",function(req,res,next){
+//  console.log("ç”¨æˆ·æ³¨å†Œ")
+//  res.render("reg.html", {});
+//})
+//router.all("/user/:username",function(req,res,next){
+//  console.log("æ£€æŸ¥ç”¨æˆ·åï¼š"+req.params.username)
+//  next();
+//})
+////ä¸€ä¸ªè·¯å¾„ç»‘å®šå¤šä¸ªè·¯ç”±å“åº”
+//router.get("/user/:username",function(req,res,next){
+//  //res.send( 'Hello ,'+req.params.username );
+//  console.log("ä¸€ä¸ªè·¯å¾„å¤šä¸ªè·¯ç”±  Nextå“åº”")
+//  next();
+//});
+//router.get("/user/:username",function(req,res){
+//  res.send( req.params.username+" now is:"+new Date().toString() );
+//});
 module.exports = router;

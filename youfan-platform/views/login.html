@@ -2,10 +2,9 @@
 <html lang="ch">
 <head>
     <% include comm/header.html %>
-    <script src="js/controllers/Authority.js"></script>
     <title>登录</title>
 </head>
-<body>
+<body ng-controller="loginCtrl">
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span4">
@@ -19,7 +18,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid" ng-app="app" ng-controller="loginCtrl">
+<div class="container-fluid"  >
     <div class="row-fluid">
         <div class="span4">
         </div>
@@ -34,7 +33,7 @@
                 <div class="control-group">
                     <label class="control-label" for="inputPassword">密码</label>
                     <div class="controls">
-                        <input id="inputPassword" type="password" />
+                        <input id="inputPassword" type="password" data-ng-model="psw"/>
                     </div>
                 </div>
                 <div class="control-group">
@@ -52,6 +51,6 @@
 </div>
 
 <!--<% include comm/footer.html %>-->
-
+<script data-main="js/main" src="../js/require-min.js"></script>
 </body>
 </html>
