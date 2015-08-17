@@ -1,0 +1,49 @@
+<ion-view view-title="我的关注" hide-tab-bar>
+    <ion-content>
+        <div>
+            <ul class="slide-tab">
+                <li ng-class="slideIndex == 0 ? 'current':''"><a href="#" ng-click="activeSlide(0)">通知</a></li>
+                <li ng-class="slideIndex == 1 ? 'current':''"><a href="#" ng-click="activeSlide(1)">评论</a></li>
+            </ul>
+            <!-- / tabs -->
+        </div>
+        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
+            <ion-slide>
+                <div>
+                    <div class="item item-image">
+                        <img src="img/2.jpeg">
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="img/2.jpeg">
+
+                        <h2>Pretty Hate Machine</h2>
+
+                        <p>Nine Inch Nails</p>
+                    </div>
+                    <a class="item item-icon-left assertive" href="#">
+                        <i class="icon ion-music-note"></i>
+                        Start listening
+                    </a>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div>
+                    <div class="item item-image">
+                        <img src="img/2.jpeg">
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="img/2.jpeg">
+
+                        <h2>Pretty Hate Machine</h2>
+
+                        <p>Nine Inch Nails</p>
+                    </div>
+                    <a class="item item-icon-left assertive" href="#">
+                        <i class="icon ion-music-note"></i>
+                        Start listening
+                    </a>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-view>

@@ -6,7 +6,6 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerModule', 'ServiceModule', 'ngCordova'])
-
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -24,7 +23,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+        $ionicConfigProvider.tabs.position('bottom');
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
@@ -50,7 +50,46 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-
+            .state('tab.detail', {
+                url: "/detail",
+                views: {
+                    'tab-dash': {
+                        templateUrl: "templates/shop-detail.html",
+                        controller: 'shopDetailCtrl'
+                    }
+                }
+            })
+            //菜品详情
+            .state('tab.food-detail', {
+                url: "/food-detail",
+                views: {
+                    'tab-dash': {
+                        templateUrl: "templates/food-detail.html",
+                        controller: 'foodDetailCtrl'
+                    }
+                }
+            })
+            //商家详情
+            .state('tab.seller-detail', {
+                url: "/seller-detail",
+                views: {
+                    'tab-dash': {
+                        templateUrl: "templates/seller-detail.html",
+                        controller: 'sellerDetailCtrl'
+                    }
+                }
+            })
+            //评论详情
+            .state('tab.comment-detail', {
+                url: "/comment-detail",
+                views: {
+                    'tab-dash': {
+                        templateUrl: "templates/commentlist.html",
+                        controller: 'commentDetailCtrl'
+                    }
+                }
+            })
+            //个人中心
             .state('tab.chats', {
                 url: '/chats',
                 views: {
@@ -69,6 +108,27 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+            //个人中心-我的关注
+            .state('tab.care', {
+                url: "/care",
+                views: {
+                    'tab-dash': {
+                        templateUrl: "templates/care.html",
+                        controller: 'careCtrl'
+                    }
+                }
+            })
+            //个人中心-我的消息
+            .state('tab.message', {
+                url: "/message",
+                views: {
+                    'tab-dash': {
+                        templateUrl: "templates/message.html",
+                        controller: 'messageCtrl'
+                    }
+                }
+            })
+
             .state('tab.login', {
                 url: '/login',
                 views: {
@@ -100,4 +160,27 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tab/dash');
 
+    })
+    .directive('hideTabBar', function ($timeout) {
+        var style = angular.element('<style>').html(
+            '.has-tabs.no-tabs:not(.has-tabs-top) { bottom: 0; }\n' +
+            '.no-tabs.has-tabs-top { top: 44px; }');
+        document.body.appendChild(style[0]);
+        return {
+            restrict: 'A',
+            compile: function (element, attr) {
+                var tabBar = document.querySelector('.tab-nav');
+                return function ($scope, $element, $attr) {
+                    var scroll = $element[0].querySelector('.scroll-content');
+                    $scope.$on('$ionicView.beforeEnter', function () {
+                        tabBar.classList.add('slide-away');
+                        scroll.classList.add('no-tabs');
+                    })
+                    $scope.$on('$ionicView.beforeLeave', function () {
+                        tabBar.classList.remove('slide-away');
+                        scroll.classList.remove('no-tabs')
+                    });
+                }
+            }
+        };
     });

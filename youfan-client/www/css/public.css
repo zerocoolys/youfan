@@ -1,5 +1,17 @@
 /* Empty. Add your own CSS if you like */
 /**底部导航**/
-ion-tabs.tabs-color-active-positive .tab-item.tab-item-active{
+ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
     color: #1dbeaf
+}
+
+.alleft {
+    float: left;
+}
+
+.alright {
+    float: right;
+}
+
+.hide-tab-bar .tabs {
+    display: none;
 }

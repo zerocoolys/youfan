@@ -1,0 +1,138 @@
+<ion-view view-title="" hide-nav-bar="true" class="shop_detail" hide-tab-bar>
+    <ion-header-bar class="bar-header bar-light  ">
+        <a href="#/tab/dash"><i class="ion-ios-arrow-left"></i></a>
+
+        <div class="top_share ">
+            <i class="ion-ios-heart-outline"></i>
+            <i class="ion-ios-star-outline"></i>
+            <i class="ion-ios-redo-outline"></i>
+        </div>
+    </ion-header-bar>
+    <ion-content style="background:#fff;">
+        <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
+                       slide-interval="2000">
+            <ion-slide>
+                <div class="box blue"><img src="img/2.jpeg" alt=""/></div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box yellow"><img src="img/2.jpeg" alt=""/></div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box pink"><img src="img/2.jpeg" alt=""/></div>
+            </ion-slide>
+        </ion-slide-box>
+        <ion-list class="home_item">
+            <div class="item-avatar">
+                <img src="img/2.jpeg">
+                <ul>
+                    <li>桂香私厨</li>
+                    <ul class="rating">
+                        <li><i class="ion-ios-star"></i></li>
+                        <li><i class="ion-ios-star"></i></li>
+                        <li><i class="ion-ios-star-outline"></i></li>
+                        <li><i class="ion-ios-star-outline"></i></li>
+                        <li><i class="ion-ios-star-half"></i></li>
+                    </ul>
+                    <li>刘女士 黑龙江人</li>
+                    <li>09:00 -20:00 厨房开放</li>
+                </ul>
+                <a class="button button-outline  button-balanced">30条评论</a>
+                <a class="button button-outline  button-balanced">联系厨房</a>
+            </div>
+            <!--<div class="list">-->
+            <!--<a class="item item-avatar" href="#">-->
+            <!--<img src="venkman.jpg">-->
+            <!--<h2>Venkman</h2>-->
+            <!--<p>Back off, man. I'm a scientist.</p>-->
+            <!--</a>-->
+            <!--</div>-->
+
+        </ion-list>
+        <ion-list>
+            <ion-item class="item-icon-left item-button-right item-toggle item-icon-right">
+                <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item)"></ion-delete-button>
+                <i class="icon ion-ios-albums-outline"></i>
+
+                <h2 class="padding">我是一名退伍老兵，在部队锻炼出一声严谨的工作作风，退伍以后爱上了自己炒菜，平时喜欢研究菜品，喜欢做菜给家人或朋友品尝</h2>
+
+                <i class="icon ion-ios-arrow-right" style="right: 15px;"></i>
+            </ion-item>
+            <ion-item class="item-icon-left item-button-right item-toggle item-icon-right">
+                <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item)"></ion-delete-button>
+                <i class="icon ion-ios-location"></i>
+
+                <h2 class="padding">成都市高新区天府大道一段1999号4单元一楼</h2>
+                <i class="icon ion-ios-arrow-right" style="right: 15px;"></i>
+            </ion-item>
+            <div class="row">
+                <div class="col col-center">
+                    <p>配送说明：暂无说明</p>
+
+                    <p>配送范围：2000米以内</p>
+
+                    <p>相距：300米/ 外送费：2.0元</p>
+
+                    <p>可容纳：暂不支持食堂</p></div>
+
+            </div>
+
+        </ion-list>
+        <div>
+            <ul class="slide-tab">
+                <li ng-class="slideIndex == 0 ? 'current':''"><a href="#" ng-click="activeSlide(0)">今日就餐</a></li>
+                <li ng-class="slideIndex == 1 ? 'current':''"><a href="#" ng-click="activeSlide(1)">明日预定</a></li>
+            </ul>
+            <!-- / tabs -->
+        </div>
+        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
+            <ion-slide>
+                <div>
+                    <div class="item item-image">
+                        <img src="img/2.jpeg">
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="img/2.jpeg">
+
+                        <h2>Pretty Hate Machine</h2>
+
+                        <p>Nine Inch Nails</p>
+                    </div>
+                    <a class="item item-icon-left assertive" href="#">
+                        <i class="icon ion-music-note"></i>
+                        Start listening
+                    </a>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div>
+
+
+                    <div class="item item-image">
+                        <img src="img/2.jpeg">
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="img/2.jpeg">
+
+                        <h2>Pretty Hate Machine</h2>
+
+                        <p>Nine Inch Nails</p>
+                    </div>
+                    <a class="item item-icon-left assertive" href="#">
+                        <i class="icon ion-music-note"></i>
+                        Start listening
+                    </a>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+    <div class="bar bar-footer bar-balanced">
+        <a class="tab-item">
+            <i class="icon ion-home"></i>
+            Home
+        </a>
+        <a class="tab-item">
+            <i class="icon ion-star"></i>
+            Favorites
+        </a>
+    </div>
+</ion-view>
