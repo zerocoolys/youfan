@@ -45,7 +45,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: '/dash',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/tab-dash.html',
+                        templateUrl: 'templates/homepage/tab-dash.html',
                         controller: 'DashCtrl'
                     }
                 }
@@ -54,7 +54,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: "/detail",
                 views: {
                     'tab-dash': {
-                        templateUrl: "templates/shop-detail.html",
+                        templateUrl: "templates/homepage/shop-detail.html",
                         controller: 'shopDetailCtrl'
                     }
                 }
@@ -64,7 +64,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: "/food-detail",
                 views: {
                     'tab-dash': {
-                        templateUrl: "templates/food-detail.html",
+                        templateUrl: "templates/homepage/food-detail.html",
                         controller: 'foodDetailCtrl'
                     }
                 }
@@ -74,7 +74,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: "/seller-detail",
                 views: {
                     'tab-dash': {
-                        templateUrl: "templates/seller-detail.html",
+                        templateUrl: "templates/homepage/seller-detail.html",
                         controller: 'sellerDetailCtrl'
                     }
                 }
@@ -84,7 +84,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: "/comment-detail",
                 views: {
                     'tab-dash': {
-                        templateUrl: "templates/commentlist.html",
+                        templateUrl: "templates/homepage/commentlist.html",
                         controller: 'commentDetailCtrl'
                     }
                 }
@@ -94,7 +94,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: '/chats',
                 views: {
                     'tab-chats': {
-                        templateUrl: 'templates/tab-chats.html',
+                        templateUrl: 'templates/personalcenter/tab-chats.html',
                         controller: 'ChatsCtrl'
                     }
                 }
@@ -113,7 +113,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: "/care",
                 views: {
                     'tab-dash': {
-                        templateUrl: "templates/care.html",
+                        templateUrl: "templates/personalcenter/care.html",
                         controller: 'careCtrl'
                     }
                 }
@@ -123,7 +123,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: "/message",
                 views: {
                     'tab-dash': {
-                        templateUrl: "templates/message.html",
+                        templateUrl: "templates/personalcenter/message.html",
                         controller: 'messageCtrl'
                     }
                 }
