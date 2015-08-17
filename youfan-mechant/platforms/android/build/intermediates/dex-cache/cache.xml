@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/perfection/git/gitFile/youfan/youfan-mechant/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="53128ddb81086be004e455e9595e67615c3d664b">
+        <dex dex="/home/perfection/git/gitFile/youfan/youfan-mechant/platforms/android/build/intermediates/pre-dexed/debug/classes-430ff96010e756d32ec4cfaa739b3759a92f90a9.jar" />
+    </item>
+
+</items>
