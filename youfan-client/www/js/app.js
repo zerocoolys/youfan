@@ -138,12 +138,30 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            .state('tab.listDetail', {
-                url: '/listDetail',
+            .state('tab.dash-detail', {
+                url: '/dash/:dashId',
                 views: {
-                    'tab-chats': {
-                        templateUrl: 'templates/tab-listDetail.html'
-//                        controller: 'ChatsCtrl'
+                    'tab-dash': {
+                        templateUrl: 'templates/dash-detail.html',
+                        controller: 'DashDetailCtr'
+                    }
+                }
+            })
+            .state('tab.confirm-order', {
+                url: '/confirm-order/:orderId',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/confirm-order.html'
+//                        controller: 'DashDetailCtr'
+                    }
+                }
+            })
+            .state('tab.pay-page', {
+                url: '/pay-page/:payId',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/pay-page.html'
+//                        controller: 'DashDetailCtr'
                     }
                 }
             })
