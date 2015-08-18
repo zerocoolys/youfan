@@ -1,3 +1,3 @@
-ControllerModule.controller('sellerDetailCtrl', function ($scope, $stateParams,$ionicSlideBoxDelegate) {
+ControllerModule.controller('SellerDetailCtrl', function ($scope, $stateParams,$ionicSlideBoxDelegate) {
     $scope.$root.tabsHidden = "tabs-hide";
 })

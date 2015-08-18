@@ -149,6 +149,25 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+            //个人中心-添加送餐地址
+            .state('tab.add-address', {
+                url: "/add-address",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/add-address.html",
+                        controller: 'AddressCtrl'
+                    }
+                }
+            })
+            //个人中心-设置
+            .state('tab.set', {
+                url: "/set",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/set.html"
+                    }
+                }
+            })
             .state('tab.login', {
                 url: '/login',
                 views: {

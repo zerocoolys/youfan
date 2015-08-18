@@ -1,4 +1,4 @@
-ControllerModule.controller('addressCtrl', function ($scope, $stateParams,$ionicSlideBoxDelegate) {
+ControllerModule.controller('AddressCtrl', function ($scope, $stateParams,$ionicSlideBoxDelegate) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
     // Called each time the slide changes
