@@ -17,10 +17,10 @@
 
     <ion-scroll  class="stable-bg" style="height:100%; " >
             <div class="  button-bar light-bg dishes" >
-                <a class="button button-clear  dark" href="#">配送 <i class="calm">10</i>  </a>
-                <a class="button button-clear dark"  href="#">已完成  <i class="calm">15</i>   </a>
-                <a class=" button button-clear dark" href="#">退款中  <i class="calm">20</i>   </a>
-                <a class=" button button-clear dark"href="#">已退款 <i class="calm">30</i>  </a>
+                <a class="button button-clear  " href="#" >配送 <i class="calm">10</i>  </a>
+                <a class="button button-clear "  href="#">已完成  <i class="calm">15</i>   </a>
+                <a class=" button button-clear " href="#">退款中  <i class="calm">20</i>   </a>
+                <a class=" button button-clear " href="#">已退款 <i class="calm">30</i>  </a>
 
 
 
@@ -32,7 +32,7 @@
         <ul class="list">
             <li class="item  item-icon-right" ng-repeat="order in orders" style="margin: 15px 0">
                 <h3 style="float: right;font-size: 14px " class="energized" >{{order.ways}}</h3>
-                <h2 class="calm">{{$index+1}}.{{order.phone}}</h2>
+                <h2 class="calm" >{{$index+1}}.{{order.phone}}</h2>
                 <p class="padding">就餐时间：{{order.time}}</p>
                 <i class="icon  ion-ios-arrow-right"></i>
             </li>

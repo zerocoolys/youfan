@@ -2,4 +2,29 @@
 @import url(less.less);
 .dishes a{
     font-size: 14px;
+    text-decoration: none;
+}
+.shop-course-title{
+    text-align: center;
+    height:20px;
+    line-height:50px;
+    font-weight:100;
+    font-size: 12px;
+}
+.shop-course-tishi{
+    text-align: center;
+    height:40px;
+    line-height:70px;
+    font-weight:100;
+    font-size: 12px;
+}
+.shop-course li{
+    margin-top: 30px;
+}
+.shop-number{
+    float: left;
+    margin-right: 20px;
+    text-align: center;
+    padding: 2.5% 0;
+    width: 10%;
 }

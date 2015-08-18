@@ -23,6 +23,24 @@
                     templateUrl: 'templates/overview/overview.html',
                     controller: 'overview'
 
+                })
+               .state('dishes', {
+                    url: '/dishes',
+                    templateUrl: 'templates/overview/dishes.html',
+                    controller: 'dishes'
+
+                })
+               .state('today-order', {
+                    url: '/today-order',
+                    templateUrl: 'templates/overview/today-order.html',
+                    controller: ''
+
+                })
+                .state('shop-course', {
+                    url: '/shop-course',
+                    templateUrl: 'templates/overview/shop-course.html',
+                    controller: ''
+
                 });
 
             //????
@@ -68,6 +86,7 @@
                     controller: 'kitcheninfo'
                 })
             ;
+
             $urlRouterProvider.otherwise('/login');
 
 
