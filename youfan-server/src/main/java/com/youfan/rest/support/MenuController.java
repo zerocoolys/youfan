@@ -27,7 +27,7 @@ public class MenuController {
     @Resource
     private MenuDAO menuDAO;
 
-    @RequestMapping(name = "/list/{sellerId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(path = "/list/{sellerId}", method = RequestMethod.GET, produces = "application/json")
     public ModelAndView list(@PathVariable Long sellerId) {
         List<MenuEntity> menuList = menuDAO.list(sellerId);
         Map<String, Object> menuMap = new HashMap<>();
@@ -39,7 +39,7 @@ public class MenuController {
         return new ModelAndView(jsonView);
     }
 
-    @RequestMapping(name = "/add", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(path = "/add", method = RequestMethod.POST, produces = "application/json")
     public ModelAndView add(@RequestBody List<MenuEntity> menuEntities) {
         menuDAO.insert(menuEntities);
         return new ModelAndView();

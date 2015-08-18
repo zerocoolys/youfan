@@ -2,6 +2,7 @@ package com.youfan.data.dao.impl;
 
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.models.MenuEntity;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,9 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public List<MenuEntity> list(Long sellerId) {
-        List<MenuEntity> list = mongoTemplate.find(buildQuery(sellerId, null, true), getEntityClass(), COLLECTION_MENU);
+        Query query = Query.query(Criteria.where(SELLER_ID).is(sellerId).and(DATA_STATUS).is(1));
+//        List<MenuEntity> list = mongoTemplate.find(buildQuery(sellerId, null, true), getEntityClass(), COLLECTION_MENU);
+        List<MenuEntity> list = mongoTemplate.find(query, getEntityClass(), COLLECTION_MENU);
 
         if (list == null || list.isEmpty())
             return Collections.emptyList();
