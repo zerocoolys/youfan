@@ -50,6 +50,16 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+            //详情页
+            .state('tab.dash-detail', {
+                url: '/dash/:dashId',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/dash-detail.html',
+                        controller: 'DashDetailCtr'
+                    }
+                }
+            })
             .state('tab.detail', {
                 url: "/detail",
                 views: {
@@ -79,6 +89,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+
             //评论详情
             .state('tab.comment-detail', {
                 url: "/comment-detail",
@@ -112,7 +123,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             .state('tab.care', {
                 url: "/care",
                 views: {
-                    'tab-dash': {
+                    'tab-chats': {
                         templateUrl: "templates/personalcenter/care.html",
                         controller: 'careCtrl'
                     }
@@ -122,13 +133,22 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             .state('tab.message', {
                 url: "/message",
                 views: {
-                    'tab-dash': {
+                    'tab-chats': {
                         templateUrl: "templates/personalcenter/message.html",
                         controller: 'messageCtrl'
                     }
                 }
             })
-
+            //个人中心-送餐地址
+            .state('tab.address', {
+                url: "/address",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/address.html",
+                        controller: 'addressCtrl'
+                    }
+                }
+            })
             .state('tab.login', {
                 url: '/login',
                 views: {
@@ -138,15 +158,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            .state('tab.dash-detail', {
-                url: '/dash/:dashId',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/homepage/dash-detail.html',
-                        controller: 'DashDetailCtr'
-                    }
-                }
-            })
+
             .state('tab.confirm-order', {
                 url: '/confirm-order/:orderId',
                 views: {
@@ -179,26 +191,14 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         $urlRouterProvider.otherwise('/tab/dash');
 
     })
-    .directive('hideTabBar', function ($timeout) {
-        var style = angular.element('<style>').html(
-            '.has-tabs.no-tabs:not(.has-tabs-top) { bottom: 0; }\n' +
-            '.no-tabs.has-tabs-top { top: 44px; }');
-        document.body.appendChild(style[0]);
+    .directive('hideTabs', function($rootScope) {
         return {
             restrict: 'A',
-            compile: function (element, attr) {
-                var tabBar = document.querySelector('.tab-nav');
-                return function ($scope, $element, $attr) {
-                    var scroll = $element[0].querySelector('.scroll-content');
-                    $scope.$on('$ionicView.beforeEnter', function () {
-                        tabBar.classList.add('slide-away');
-                        scroll.classList.add('no-tabs');
-                    })
-                    $scope.$on('$ionicView.beforeLeave', function () {
-                        tabBar.classList.remove('slide-away');
-                        scroll.classList.remove('no-tabs')
-                    });
-                }
+            link: function($scope, $el) {
+                $rootScope.hideTabs = true;
+                $scope.$on('$destroy', function() {
+                    $rootScope.hideTabs = false;
+                });
             }
         };
     });
