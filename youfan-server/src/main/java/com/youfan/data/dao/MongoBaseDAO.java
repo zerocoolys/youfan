@@ -1,7 +1,7 @@
 package com.youfan.data.dao;
 
 import com.youfan.commons.Constants;
-import com.youfan.services.MongoPool;
+import com.youfan.system.mongo.MongoPool;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.util.List;
