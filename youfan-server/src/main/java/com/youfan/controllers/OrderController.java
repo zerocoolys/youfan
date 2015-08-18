@@ -6,7 +6,6 @@ import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.orders.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,7 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(method = RequestMethod.GET, path = "/{orderNo}")
-    public Response getOrder(@PathVariable String orderNo) {
+    public Response getOrder(@PathVariable final String orderNo) {
 
         Order order = orderService.findByOrderNo(orderNo);
 
@@ -45,6 +44,7 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
     public Response listByUserId(@PathVariable String userId) {
 
+        return Responses.SUCCESS();
 
     }
 
@@ -83,6 +83,7 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.POST, params = "/{orderNo}")
     public Response refund(@PathVariable String orderNo, @RequestBody String orderInfo) {
 
+        return Responses.SUCCESS();
     }
 
 }
