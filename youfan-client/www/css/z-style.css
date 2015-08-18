@@ -1,15 +1,16 @@
+/*公用样式*/
 .fl{
     float: left;
 }
 .fr{
     float: right;
 }
+.mainColor{
+    color: #1dbeaf !important;
+}
 .existingAccount{
     margin-top: 90px;
     text-align: center;
-}
-.bar.bar-light .login{
-    color:  #1dbeaf;
 }
 .list_detail_person_img{
     width: 100%;
@@ -22,12 +23,6 @@
     margin-top: -15px;
     position: absolute;
     z-index: 10000;
-}
-.cook_info{
-    text-align: center;
-}
-.cook_info h2{
-    margin-top: 40px;
 }
 /*分享的icon*/
 .share_icon{
@@ -58,4 +53,12 @@
     display: block;
     color: #ccc;
     line-height: 30px;
+}
+/*就餐方式*/
+.delivery_address{
+    margin-left: 20px;
+    color: #ccc;
+}
+.delivery_address p{
+    color: #ccc;
 }

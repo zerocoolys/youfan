@@ -1,19 +1,19 @@
-<ion-view view-title="确认订单">
+<ion-view view-title="确认订单" hide-tab-bar>
     <ion-content>
         <ion-list>
-            <ion-item class="item-icon-right">
+            <ion-item class="item-icon-right" href="#/tab/dining-way">
                 就餐方式
                 <span class="item-note">
                   请选择<i class="icon ion-chevron-right"></i>
                 </span>
             </ion-item>
-            <ion-item class="item-icon-right">
+            <ion-item class="item-icon-right" ng-click="modal.show()">
                 给厨房捎句话
                  <span class="item-note">
                   <i class="icon ion-chevron-right"></i>
                 </span>
             </ion-item>
-            <ion-item class="item-icon-right">
+            <ion-item class="item-icon-right" ng-click="CouponsModal.show()">
                 优惠券支付
                 <span class="item-note">
                   1元试吃券<i class="icon ion-chevron-right"></i>
@@ -53,6 +53,8 @@
         <br>
         <br>
         <br>
+        <br>
+
         <div class="bar bar-footer bar-calm">
             <div class="button-bar">
                 <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">还需支付 ￥1</a>
@@ -61,3 +63,60 @@
         </div>
     </ion-content>
 </ion-view>
+<script id="templates/remarks.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-header">
+            <button class="button button-clear" ng-click="modal.hide()">取消</button>
+            <h1 class="title">捎句话</h1>
+            <button class="button button-clear mainColor" ng-click="modal.hide()">完成</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <ion-list>
+                <ion-item class="item-input">
+                    <textarea placeholder="给厨房捎句话~" style="height: 120px"></textarea>
+                </ion-item>
+                <button class="button-clear fr">140字</button>
+                <div class="row">
+                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">不吃辣</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="col col-25 button-calm button-small button button-outline">微辣</a>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">多放辣椒</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="col col-25 button-calm button-small button button-outline">不放蒜</a>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">不放香菜</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="col col-25 button-calm button-small button button-outline">少放盐</a>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">米饭多点</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="col col-25 button-calm button-small button button-outline">菜量多点</a>
+                </div>
+            </ion-list>
+        </ion-content>
+    </ion-modal-view>
+</script>
+<!--优惠券-->
+<script id="templates/Coupons.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-header">
+            <button class="button button-clear" ng-click="CouponsModal.hide()">取消</button>
+            <h1 class="title">优惠券</h1>
+            <button class="button button-clear mainColor" ng-click="CouponsModal.hide()">完成</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <ion-list>
+                <ion-item class="item-icon-right item-avatar">
+                    <img class="full-image" src="img/2.jpeg">
+                    优惠券折扣
+                <span class="item-note">
+                  -￥11
+                </span>
+                </ion-item>
+            </ion-list>
+            <button class="button button-full button-calm">
+                本次不适用优惠券
+            </button>
+        </ion-content>
+    </ion-modal-view>
+</script>

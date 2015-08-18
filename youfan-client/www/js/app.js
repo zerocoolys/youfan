@@ -158,22 +158,43 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-
+//            列表详情页
+            .state('tab.dash-detail', {
+                url: '/dash/:dashId',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/dash-detail.html',
+                        controller: 'DashDetailCtr'
+                    }
+                }
+            })
+//            确认订单页
             .state('tab.confirm-order', {
                 url: '/confirm-order/:orderId',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/confirm-order.html'
-//                        controller: 'DashDetailCtr'
+                        templateUrl: 'templates/confirm-order.html',
+                        controller: 'ConfirmOrderCtrl'
                     }
                 }
             })
+//            支付页面
             .state('tab.pay-page', {
                 url: '/pay-page/:payId',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/pay-page.html'
 //                        controller: 'DashDetailCtr'
+                    }
+                }
+            })
+//            就餐方式页
+            .state('tab.dining-way', {
+                url: '/dining-way',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/dining-way.html',
+                        controller: 'DiningWayCtrl'
                     }
                 }
             })
