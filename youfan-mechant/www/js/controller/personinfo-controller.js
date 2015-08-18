@@ -5,32 +5,40 @@
     'use strict';
 
     angular
-        .module('yf_mechant')
+        .module('yf_merchant')
         .controller('personinfo', personInfo);
 
     function personInfo($scope, $filter, $state) {
-        $scope.orders=[
-            {
-                phone:"138-114-8670",
-                ways:"堂食",
-                time:"15:00"
-            },
-            {
-                phone:"131-124-8620",
-                ways:"自取",
-                time:"13:00"
-            },
-            {
-                phone:"185-114-2570",
-                ways:"堂食",
-                time:"18:00"
-            },
-            {
-                phone:"151-154-8650",
-                ways:"自取",
-                time:"20:00"
-            }
-        ];
-
+        //$ionicHistory.clearHistory();
+        //$scope.images = [];
+        //console.log(firebaseio);
+        //var fbAuth = firebaseio.getAuth();
+        //if (fbAuth) {
+        //    var userReference = firebaseio.child("users/" + fbAuth.uid);
+        //    var syncArray = $firebaseArray(userReference.child("images"));
+        //    $scope.images = syncArray;
+        //} else {
+        //    $state.go("firebase");
+        //}
+        //$scope.upload = function () {
+        //    var options = {
+        //        quality: 95,
+        //        destinationType: Camera.DestinationType.DATA_URL,
+        //        sourceType: Camera.PictureSourceType.CAMERA,
+        //        allowEdit: true,
+        //        encodingType: Camera.EncodingType.JPEG,
+        //        popoverOptions: CameraPopoverOptions,
+        //        targetWidth: 500,
+        //        targetHeight: 500,
+        //        saveToPhotoAlbum: false
+        //    };
+        //    $cordovaCamera.getPicture(options).then(function (imageData) {
+        //        syncArray.$add({image: imageData}).then(function () {
+        //            alert("图片已上传!");
+        //        });
+        //    }, function (error) {
+        //        console.error(error);
+        //    });
+        //}
     }
 })();
