@@ -1,4 +1,4 @@
-ControllerModule.controller('shopDetailCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate) {
+ControllerModule.controller('ShopDetailCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
     // Called each time the slide changes
