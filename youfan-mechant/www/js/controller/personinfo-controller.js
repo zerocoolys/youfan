@@ -5,7 +5,7 @@
     'use strict';
 
     angular
-        .module('yf_mechant')
+        .module('yf_merchant')
         .controller('personinfo', personInfo);
 
     function personInfo($scope, $filter, $state) {
