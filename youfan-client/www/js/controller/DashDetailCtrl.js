@@ -4,4 +4,7 @@
 ControllerModule.controller('DashDetailCtr', function ($scope, $stateParams) {
 //    $scope.dash = Dash.get($stateParams.dashId);
     $scope.$root.tabsHidden = "tabs-hide";
+
+
+
 });
