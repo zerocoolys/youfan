@@ -1,4 +1,4 @@
-<ion-view view-title="" hide-nav-bar="true">
+<ion-view view-title="" hide-nav-bar="true" hide-tab-bar>
     <ion-content>
         <div class="share_icon">
             <a href="#"><i class="icon ion-android-favorite"></i><span>10</span></a>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <ion-list>
-            <ion-item class="item-icon-left item-icon-right">
+            <ion-item class="item-icon-left item-icon-right" href="#/tab/seller-detail">
                 <i class="address_img icon ion-ios-location-outline"></i>
                 <h2>我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
                 <i class="icon ion-ios-arrow-right"></i>
@@ -63,8 +63,8 @@
         </ion-list>
         <ion-list class="card">
             <ion-item class="item-body">
-                <img class="full-image" src="img/2.jpeg">
-                <ion-item class="item-icon-left item-icon-right">
+                <a href="#/tab/food-detail"> <img class="full-image" src="img/2.jpeg"></a>
+                <ion-item class="item-icon-left item-icon-right"  href="#/tab/food-detail">
                     <i class="icon ion-coffee"></i>
                     <h2>自制养生茶饮（2支）</h2>
                     <p>5中任选:</p>
@@ -106,12 +106,11 @@
         <br>
         <br>
         <br>
-        <div class="bar bar-footer bar-calm">
-            <div class="button-bar">
-                <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">￥0.00</a>
-                <a class="button button-clear" href="#/tab/confirm-order/0">选好了</a>
-            </div>
-        </div>
     </ion-content>
-
+    <div class="bar bar-footer bar-calm">
+        <div class="button-bar">
+            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">￥0.00</a>
+            <a class="button button-clear" href="#/tab/confirm-order/0">选好了</a>
+        </div>
+    </div>
 </ion-view>

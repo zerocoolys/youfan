@@ -142,7 +142,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: '/dash/:dashId',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/dash-detail.html',
+                        templateUrl: 'templates/homepage/dash-detail.html',
                         controller: 'DashDetailCtr'
                     }
                 }
