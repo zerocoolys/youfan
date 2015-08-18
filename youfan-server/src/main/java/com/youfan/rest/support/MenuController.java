@@ -1,8 +1,8 @@
 package com.youfan.rest.support;
 
 import com.alibaba.fastjson.JSON;
-import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.models.MenuEntity;
+import com.youfan.services.menus.MenuService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,13 +25,13 @@ import java.util.Map;
 public class MenuController {
 
     @Resource
-    private MenuDAO menuDAO;
+    private MenuService menuService;
 
     @RequestMapping(path = "/list/{sellerId}", method = RequestMethod.GET, produces = "application/json")
     public ModelAndView list(@PathVariable Long sellerId) {
-        List<MenuEntity> menuList = menuDAO.list(sellerId);
+        List<MenuEntity> menuList = menuService.list(sellerId);
         Map<String, Object> menuMap = new HashMap<>();
-        menuMap.put("menu", JSON.toJSONString(menuList));
+        menuMap.put("menus", JSON.toJSONString(menuList));
 
         AbstractView jsonView = new MappingJackson2JsonView();
         jsonView.setAttributesMap(menuMap);
@@ -40,8 +40,7 @@ public class MenuController {
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST, produces = "application/json")
-    public ModelAndView add(@RequestBody List<MenuEntity> menuEntities) {
-        menuDAO.insert(menuEntities);
-        return new ModelAndView();
+    public void add(@RequestBody List<MenuEntity> menuEntities) {
+        menuService.insert(menuEntities);
     }
 }

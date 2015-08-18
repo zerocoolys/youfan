@@ -2,14 +2,12 @@ package com.youfan.data.dao.impl;
 
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.models.MenuEntity;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created on 2015-08-18.
@@ -19,24 +17,25 @@ import java.util.concurrent.locks.ReentrantLock;
 @Repository("menuDAO")
 public class MenuDAOImpl implements MenuDAO {
 
-    private final ReentrantLock lock = new ReentrantLock();
-
-
     @Override
     public List<MenuEntity> list(Long sellerId) {
-        Query query = Query.query(Criteria.where(SELLER_ID).is(sellerId).and(DATA_STATUS).is(1));
-//        List<MenuEntity> list = mongoTemplate.find(buildQuery(sellerId, null, true), getEntityClass(), COLLECTION_MENU);
-        List<MenuEntity> list = mongoTemplate.find(query, getEntityClass(), COLLECTION_MENU);
-
-        if (list == null || list.isEmpty())
-            return Collections.emptyList();
-
-        return list;
+        return mongoTemplate.find(
+                buildQuery(sellerId, null, true),
+                getEntityClass(),
+                COLLECTION_MENU);
     }
 
     @Override
-    public List<MenuEntity> list() {
+    public List<MenuEntity> findAll() {
         return Collections.emptyList();
+    }
+
+    @Override
+    public MenuEntity findOne(Long menuId) {
+        return mongoTemplate.findOne(
+                buildQuery(null, menuId, true),
+                getEntityClass(),
+                COLLECTION_MENU);
     }
 
     @Override
@@ -50,13 +49,13 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
-    public MenuEntity update(MenuEntity menu) {
-        return null;
+    public void update(MenuEntity menu) {
+
     }
 
     @Override
-    public void delete(MenuEntity menuEntity) {
-        Query query = buildQuery(menuEntity.getSellerId(), menuEntity.getMenuId(), true);
+    public void delete(Long menuId) {
+        Query query = buildQuery(null, menuId, true);
         mongoTemplate.updateFirst(query, Update.update(DATA_STATUS, 0), getEntityClass());
     }
 
@@ -66,50 +65,37 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
-    public int minusRestNum(Long sellerId, Long menuId) {
-        lock.lock();
-        int restNum;
+    public int minusRestNum(Long menuId) {
+        MenuEntity menuEntity = findOne(menuId);
+        if (menuEntity == null || menuEntity.getRestNum() == 0)
+            return -1;
 
-        try {
-            Query query = buildQuery(sellerId, menuId, true);
-
-            restNum = mongoTemplate.findOne(
-                    query,
-                    getEntityClass(),
-                    COLLECTION_MENU).getRestNum() - 1;
-
-            mongoTemplate.updateFirst(query, Update.update(REST_NUM, restNum), getEntityClass());
-        } finally {
-            lock.unlock();
-        }
+        int restNum = menuEntity.getRestNum() - 1;
+        mongoTemplate.updateFirst(
+                buildQuery(null, menuId, true),
+                Update.update(REST_NUM, restNum),
+                getEntityClass());
 
         return restNum;
     }
 
     @Override
-    public int plusTasteNum(Long sellerId, Long menuId) {
-        lock.lock();
-        int tasteNum;
+    public int plusTasteNum(Long menuId) {
+        MenuEntity menuEntity = findOne(menuId);
+        if (menuEntity == null)
+            return -1;
 
-        try {
-            Query query = buildQuery(sellerId, menuId, true);
-
-            tasteNum = mongoTemplate.findOne(
-                    query,
-                    getEntityClass(),
-                    COLLECTION_MENU).getTasteNum() + 1;
-
-            mongoTemplate.updateFirst(query, Update.update(TASTE_NUM, tasteNum), getEntityClass());
-        } finally {
-            lock.unlock();
-        }
-
+        int tasteNum = menuEntity.getTasteNum() + 1;
+        mongoTemplate.updateFirst(
+                buildQuery(null, menuId, true),
+                Update.update(TASTE_NUM, tasteNum),
+                getEntityClass());
 
         return tasteNum;
     }
 
     @Override
-    public void resetRestNum(Long sellerId, int restNum) {
+    public void resetRestNumBySellerId(Long sellerId, int restNum) {
         mongoTemplate.updateMulti(
                 buildQuery(sellerId, null, true),
                 Update.update(REST_NUM, restNum),
@@ -117,9 +103,9 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
-    public void resetRestNum(Long sellerId, int restNum, Long menuId) {
+    public void resetRestNumByMenuId(Long menuId, int restNum) {
         mongoTemplate.updateFirst(
-                buildQuery(sellerId, menuId, true),
+                buildQuery(null, menuId, true),
                 Update.update(REST_NUM, restNum),
                 getEntityClass());
     }

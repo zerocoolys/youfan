@@ -16,15 +16,17 @@ public interface MongoBaseDAO<T> extends Constants {
     MongoTemplate mongoTemplate = MongoPool.getMongoTemplate(MONGO_YOUFAN);
 
 
-    List<T> list();
+    List<T> findAll();
+
+    T findOne(Long id);
 
     void insert(T t);
 
     void insert(List<T> ts);
 
-    void delete(T t);
+    void delete(Long id);
 
-    T update(T t);
+    void update(T t);
 
     Class<T> getEntityClass();
 
