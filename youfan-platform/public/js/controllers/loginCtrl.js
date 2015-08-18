@@ -6,16 +6,19 @@
 define(["./module"], function (ctrs) {
     ctrs.controller('loginCtrl',function ($scope, $rootScope, $q,$state,$http) {
         console.log("loginCtrl")
+
         $scope.login = function () {
-            $http({
-                method: 'GET',
-                url: '/server/login'
-            }).success(function (data, status) {
-                console.log(status)
-                if(status==200){
-                    $state.go("index")
-                }
-            })
+            console.log($state)
+            $state.go("index",{})
+            //$http({
+            //    method: 'GET',
+            //    url: '/server/login'
+            //}).success(function (data, status) {
+            //    console.log(status)
+            //    if(status==200){
+            //        $state.go("index")
+            //    }
+            //})
         }
     })
 });
