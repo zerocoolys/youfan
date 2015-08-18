@@ -31,4 +31,11 @@
         INSERT INTO TBL_REL_ODR_DISH(ODR_ID,DISH_ID) VALUES(#{orderNo},#{itemId})
     </insert>
 
+    <select id="findAll">
+        SELECT * FROM TBL_ORDERS
+    </select>
+
+    <select id="findAllByPagination" parameterType="com.youfan.commons.Pagination">
+        SELECT *  FROM TBL_ORDERS LIMIT #{start}, #{end} ORDER BY #{orderBy} #{asc}
+    </select>
 </mapper>

@@ -35,11 +35,9 @@ public class TokenController {
 
         User user = null;
 
-        String msg = null;
         try {
             user = usersService.validate(name, password);
         } catch (UserException ue) {
-
             return Responses.FAILED().setMsg(ue.getMessage());
         }
 

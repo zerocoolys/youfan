@@ -1,11 +1,12 @@
 package com.youfan.data.dao.impl;
 
+import com.youfan.commons.OrderNoGenerator;
+import com.youfan.commons.Pagination;
+import com.youfan.controllers.objs.Order;
 import com.youfan.data.dao.OrderDAO;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
-import com.youfan.controllers.objs.Order;
-import com.youfan.commons.OrderNoGenerator;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +30,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public Order insert(Order order) {
-
 
         OrderEntity orderEntity = createEntity(order);
 
@@ -57,6 +57,15 @@ public class OrderDAOImpl implements OrderDAO {
         List<OrderDishRelEntity> dishList = sqlSession.selectList("getOrderItemsByOrderNo", orderNo);
 
         return null;
+    }
+
+    @Override
+    public List<Order> findAll(Pagination pagination) {
+
+        List<Order> list = sqlSession.selectList("findAllByPagination", pagination);
+
+
+        return list;
     }
 
 

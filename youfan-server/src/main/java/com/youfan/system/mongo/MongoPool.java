@@ -1,4 +1,4 @@
-package com.youfan.services;
+package com.youfan.system.mongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
