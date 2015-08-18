@@ -65,7 +65,7 @@
                 .state('personinfo',{
                     url:'/personinfo',
                     templateUrl: 'templates/editkitchen/editkitchen-personinfo.html',
-                    controller: 'kitcheninfo'
+                    controller: 'personinfo'
                 })
             ;
             $urlRouterProvider.otherwise('/login');
