@@ -1,4 +1,4 @@
-package com.youfan.services.redis;
+package com.youfan.system.redis;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;

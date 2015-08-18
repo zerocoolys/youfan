@@ -1,4 +1,4 @@
-package com.youfan.services.config;
+package com.youfan.system.config;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;

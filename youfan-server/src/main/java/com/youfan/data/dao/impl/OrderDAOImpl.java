@@ -5,7 +5,7 @@ import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
 import com.youfan.controllers.objs.Order;
-import com.youfan.services.commons.OrderNoGenerator;
+import com.youfan.commons.OrderNoGenerator;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

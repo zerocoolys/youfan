@@ -1,4 +1,4 @@
-package com.youfan.services.config;
+package com.youfan.system.config;
 
 import com.youfan.exceptions.AuthenticationFailedException;
 import org.springframework.stereotype.Component;
