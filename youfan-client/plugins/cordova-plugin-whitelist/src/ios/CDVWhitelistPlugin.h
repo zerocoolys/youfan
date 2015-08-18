@@ -20,12 +20,11 @@
 #import <UIKit/UIKit.h>
 #import <Cordova/CDVPlugin.h>
 #import <Cordova/CDVWhitelist.h>
+#import <Cordova/CDVURLRequestFilter.h>
 
-@interface CDVNavigationWhitelistPlugin : CDVPlugin {}
+@interface CDVWhitelistPlugin : CDVPlugin <CDVURLRequestFilter>{}
 
-@property (nonatomic, readonly, strong) CDVWhitelist* whitelist; // readonly for public
-
-- (BOOL)shouldAllowNavigationToURL:(NSURL *)url;
-- (BOOL)shouldAllowRequestForURL:(NSURL *)url;
+@property (nonatomic, readonly, strong) CDVWhitelist* navigationWhitelist; // readonly for public
+@property (nonatomic, readonly, strong) CDVWhitelist* accessWhitelist; // readonly for public
 
 @end
