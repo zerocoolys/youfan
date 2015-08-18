@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-light">
+        <h1 class="title login">验证码登录</h1>
+        <button class="button button-clear button-primary login" ng-click="modal.hide()">取消</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="输入手机号">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="输入验证码">
+                <button class="button button-calm" style="margin-right: 20px">
+                    获取验证码
+                </button>
+            </label>
+            <button class="button button-block button-calm">
+                登录
+            </button>
+            <p style="text-align: center">点击登录，即表示你同意<a href="#">用户协议</a></p>
+            <!--绝对居中偏下-->
+            <p class="existingAccount">已有账户？<a href="#">密码登录</a></p>
+        </div>
+    </ion-content>
+</ion-modal-view>

@@ -1,0 +1,61 @@
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.existingAccount{
+    margin-top: 90px;
+    text-align: center;
+}
+.bar.bar-light .login{
+    color:  #1dbeaf;
+}
+.list_detail_person_img{
+    width: 100%;
+    text-align: center;
+}
+.list_detail_person_img img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-top: -15px;
+    position: absolute;
+    z-index: 10000;
+}
+.cook_info{
+    text-align: center;
+}
+.cook_info h2{
+    margin-top: 40px;
+}
+/*分享的icon*/
+.share_icon{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    z-index: 1000;
+}
+.share_icon a{
+    display: inline-block;
+    color: #fff;
+    font-size: 18px;
+    margin-left: 10px;
+}
+.share_icon span{
+    position: absolute;
+    top: 20px;
+    text-align: center;
+    font-size: 12px;
+    z-index: 1000;
+    color: #fff;
+}
+/**/
+.tip_menu{
+    line-height: 30px;
+}
+.address_detail_info label{
+    display: block;
+    color: #ccc;
+    line-height: 30px;
+}
