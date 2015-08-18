@@ -39,7 +39,8 @@
                 .state('shop-course', {
                     url: '/shop-course',
                     templateUrl: 'templates/overview/shop-course.html',
-                    controller: ''
+                    controller:'shop'
+
 
                 });
 

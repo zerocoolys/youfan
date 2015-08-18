@@ -8,7 +8,7 @@
         .module('yf_merchant')
         .controller('dishes', dishes);
 
-    function dishes($scope, $filter, $state) {
+    function dishes($scope, $filter, $state,$ionicSlideBoxDelegate) {
         $scope.orders=[
             {
                 phone:"138-114-8670",
@@ -31,6 +31,29 @@
                 time:"20:00"
             }
         ];
+
+        $scope.slideIndex=0;
+        $scope.slideChanged = function (index) {
+            $scope.slideIndex = index;
+        };
+        $scope.activeSlide = function (index) {
+            $ionicSlideBoxDelegate.slide(index);
+            console.log(index);
+
+        };
+
+        $scope.dishesIndex=0;
+        $scope.dishesChanged = function (index) {
+            $scope.dishesIndex = index;
+        };
+        $scope.activedishes = function (index) {
+            $ionicSlideBoxDelegate.slide(index);
+
+        };
+
+
+        $scope.dorders=[1,2,3,4,5];
+        $scope.ways=[1,2,3]
 
     }
 })();
