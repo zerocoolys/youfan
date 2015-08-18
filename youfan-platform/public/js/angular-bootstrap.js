@@ -5,7 +5,7 @@ require([
         "angular",
         'js004',
         "./app",
-        "./router",
+        //"./router",
         "js007",
     ],
     function (angular) {

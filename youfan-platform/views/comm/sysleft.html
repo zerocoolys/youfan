@@ -1,11 +1,23 @@
-<div class="span2" ng-controller="leftMenuCtrl">
-    <ul class="nav nav-list" >
 
-        <li ng-repeat="menu in adminmenus" data-ng-if="$index == selectedRow" class="active">
-            <a href="">{{menu.title}}</a>
-        </li>
-        <li ng-repeat="menu in adminmenus" data-ng-if="$index !=selectedRow" ng-click="selectRestaurant($index)">
-            <a href="">{{menu.title}}</a>
-        </li>
-    </ul>
+<div class="span2">
+    <div class="accordion">
+        <div class="accordion-group">
+        <div ng-repeat="menu in curmenus">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" href="{{menu.href}}" ng-click="changeMenu($index,menu.templateUrl)">{{menu.title}}</a>
+            </div>
+        </div>
+        <!--<div class="accordion-heading">-->
+            <!--<a class="accordion-toggle" data-toggle="collapse" href="#/main">运营概况</a>-->
+        <!--</div>-->
+        <!--<div class="accordion-heading">-->
+            <!--<a class="accordion-toggle" data-toggle="collapse" href="#/message">消息推送</a>-->
+        <!--</div>-->
+        <!--<div class="accordion-heading">-->
+            <!--<a class="accordion-toggle" data-toggle="collapse" href="#/pay">支付管理</a>-->
+        <!--</div>-->
+        <!--<div class="accordion-heading">-->
+            <!--<a class="accordion-toggle" data-toggle="collapse" href="#/activity">活动管理</a>-->
+        </div>
+    </div>
 </div>

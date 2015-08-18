@@ -3,6 +3,6 @@
  */
 define(['angular','angular-cookies'], function (ng) {
     'use strict';
-    var ngModule=ng.module('app.controllers', ['ngCookies']);
+    var ngModule=ng.module('sys.controllers', ['ngCookies']);
     return ngModule;
 });
