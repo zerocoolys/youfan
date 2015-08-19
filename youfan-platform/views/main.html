@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <title>运营概况</title>
+    <% include comm/header.html %>
+</head>
+
+<body >
+<!--导航栏-->
+<% include comm/nav.html %>
+<div class="container-fluid" >
+    <div class="row-fluid" >
+        <% include comm/left.html %>
+        <div class="span10" ui-view>
+        </div>
+    </div>
+</div>
+<script data-main="js/main" src="/js/require-min.js"></script>
+</body>
+</html>

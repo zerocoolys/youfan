@@ -4,19 +4,21 @@
     <title>首页</title>
     <% include comm/header.html %>
 </head>
-<body>
-<!--引用导航栏-->
 
-<div class="container-fluid" id="heatmap">
-    <% include comm/nav.html %>
-    <div class="containers">
-        <% include comm/left.html %>
-        <div class="hero-unit">
-            <h1>欢迎进入优饭管理平台</h1>
-        </div>
-        <!--<% include comm/footer.html %>-->
+<body >
+
+<!--导航栏-->
+<% include comm/nav.html %>
+<div class="container-fluid" >
+    <div class="row-fluid">
+        <% include comm/sysleft.html %>
+        <!--<div class="span10">-->
+            <!--<h1>首页 展示一些关键信息 </h1>-->
+        <!--</div>-->
     </div>
 </div>
 
+<!--<% include comm/footer.html %>-->
+<script data-main="js/main" src="../js/require-min.js"></script>
 </body>
 </html>

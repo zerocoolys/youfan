@@ -1,32 +1,20 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('login.html', {});
+//
+router.get("/login", function (req, res, next) {
+    res.render("login.html", {});
 });
-//router.get("/user",function(req,res){
-//  res.send( 'Hello ,游客' );
-//});
 
-router.all("/login",function(req,res,next){
-  console.log("用户登录")
-  res.render("login.html", {});
-})
-router.all("/reg",function(req,res,next){
-  console.log("用户注册")
-  res.render("reg.html", {});
-})
-router.all("/user/:username",function(req,res,next){
-  console.log("检查用户名："+req.params.username)
-  next();
-})
-//一个路径绑定多个路由响应
-router.get("/user/:username",function(req,res,next){
-  //res.send( 'Hello ,'+req.params.username );
-  console.log("一个路径多个路由  Next响应")
-  next();
+router.get("/", function (req, res, next) {
+    res.render("main.html",{});
 });
-router.get("/user/:username",function(req,res){
-  res.send( req.params.username+" now is:"+new Date().toString() );
+router.get('/*.html', function (req, res, next) {
+    console.log("go html")
+    var url = req.url.substring(1);
+    if (!url)
+        url = "index";
+    res.render((url.indexOf(".html")) > -1 ? url : url + ".html", {});
 });
+
 module.exports = router;
