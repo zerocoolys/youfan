@@ -66,116 +66,38 @@
                 <li ng-class="slideIndex == 0 ? 'current':''"><a href="#" ng-click="activeSlide(0)">今日就餐</a></li>
                 <li ng-class="slideIndex == 1 ? 'current':''"><a href="#" ng-click="activeSlide(1)">明日预定</a></li>
             </ul>
-            <!-- / tabs -->
         </div>
         <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
             <ion-slide>
                 <ion-list class="card">
-                    <ion-item class="item-body">
-                        <img class="full-image" src="img/2.jpeg">
+                    <ion-item class="item-body" ng-repeat="menu in menuArr" ng-repeat-end="1">
+                        <img class="full-image" ng-src="{{menu.picUrl}}">
                         <ion-item class="item-icon-left item-icon-right">
                             <i class="icon ion-coffee"></i>
 
-                            <h2>自制养生茶饮（2支）</h2>
+                            <h2 ng-bind="menu.description"></h2>
 
-                            <p>5中任选:</p>
                             <i class="icon ion-ios-arrow-right"></i>
                         </ion-item>
                         <ion-item class="item-icon-left item-icon-right">
-                            <h2>$ 16.00</h2>
+                            <h2 ng-bind="'￥' + menu.price"></h2>
 
-                            <p>还有99份 | 12人品尝过</p>
-                            <i class="icon ion-plus"></i>
+                            <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
+                            <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
                         </ion-item>
                     </ion-item>
                 </ion-list>
                 <ion-list class="tip_menu">
-                    <ion-item class="item-thumbnail-left item-icon-right">
-                        <img src="img/2.jpeg">
+                    <ion-item class="item-thumbnail-left item-icon-right" ng-repeat="menu in menuArr"
+                              ng-repeat-start="2">
+                        <img ng-src="{{menu.picUrl}}"/>
 
-                        <h2>三君开花包（4只）</h2>
+                        <h2 ng-bind="menu.description"></h2>
 
-                        <p>还有99份 | 12人品尝过</p>
+                        <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
 
-                        <p>￥12.00</p>
-                        <i class="icon ion-plus"></i>
-                    </ion-item>
-                    <br>
-                    <ion-item class="item-thumbnail-left item-icon-right">
-                        <img src="img/2.jpeg">
-
-                        <h2>三君开花包（4只）</h2>
-
-                        <p>还有99份 | 12人品尝过</p>
-
-                        <p>￥12.00</p>
-                        <i class="icon ion-plus"></i>
-                    </ion-item>
-                    <br>
-                    <ion-item class="item-thumbnail-left item-icon-right">
-                        <img src="img/2.jpeg">
-
-                        <h2>三君开花包（4只）</h2>
-
-                        <p>还有99份 | 12人品尝过</p>
-
-                        <p>￥12.00</p>
-                        <i class="icon ion-plus"></i>
-                    </ion-item>
-                </ion-list>
-            </ion-slide>
-            <ion-slide>
-                <ion-list class="card">
-                    <ion-item class="item-body">
-                        <img class="full-image" src="img/2.jpeg">
-                        <ion-item class="item-icon-left item-icon-right">
-                            <i class="icon ion-coffee"></i>
-
-                            <h2>自制养生茶饮（2支）</h2>
-
-                            <p>5中任选:</p>
-                            <i class="icon ion-ios-arrow-right"></i>
-                        </ion-item>
-                        <ion-item class="item-icon-left item-icon-right">
-                            <h2>$ 16.00</h2>
-
-                            <p>还有99份 | 12人品尝过</p>
-                            <i class="icon ion-plus"></i>
-                        </ion-item>
-                    </ion-item>
-                </ion-list>
-                <ion-list class="tip_menu">
-                    <ion-item class="item-thumbnail-left item-icon-right">
-                        <img src="img/2.jpeg">
-
-                        <h2>三君开花包（4只）</h2>
-
-                        <p>还有99份 | 12人品尝过</p>
-
-                        <p>￥12.00</p>
-                        <i class="icon ion-plus"></i>
-                    </ion-item>
-                    <br>
-                    <ion-item class="item-thumbnail-left item-icon-right">
-                        <img src="img/2.jpeg">
-
-                        <h2>三君开花包（4只）</h2>
-
-                        <p>还有99份 | 12人品尝过</p>
-
-                        <p>￥12.00</p>
-                        <i class="icon ion-plus"></i>
-                    </ion-item>
-                    <br>
-                    <ion-item class="item-thumbnail-left item-icon-right">
-                        <img src="img/2.jpeg">
-
-                        <h2>三君开花包（4只）</h2>
-
-                        <p>还有99份 | 12人品尝过</p>
-
-                        <p>￥12.00</p>
-                        <i class="icon ion-plus"></i>
+                        <p ng-bind="'￥' + menu.price"></p>
+                        <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
                     </ion-item>
                 </ion-list>
             </ion-slide>
