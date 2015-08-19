@@ -1,5 +1,7 @@
 package com.youfan.main;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,10 +18,12 @@ import javax.annotation.Resource;
 @SpringBootApplication
 public class Main implements CommandLineRunner {
 
+    public static final Config CONFIG = ConfigFactory.defaultApplication();
+
     private static ApplicationContext context;
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         context = SpringApplication.run(Main.class, args);
     }
 
@@ -28,6 +32,5 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        sqlSession.commit();
     }
 }
