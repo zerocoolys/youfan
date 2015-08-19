@@ -46,7 +46,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/tab-dash.html',
-                        controller: 'DashCtrl'
+                        controller: 'LoginCtrl'
                     }
                 }
             })
@@ -128,13 +128,23 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-
+            //密码登陆
             .state('tab.login', {
                 url: '/login',
                 views: {
                     'tab-login': {
-                        templateUrl: 'templates/tab-login.html'
-//                        controller: 'ChatsCtrl'
+                        templateUrl: 'templates/tab-pwdlogin.html',
+                        controller: 'LoginCtrl'
+                    },
+                }
+            })
+            //短信验证码登陆
+            .state('tab.verifylogin', {
+                url: '/verifylogin',
+                views: {
+                    'tab-login': {
+                        templateUrl: 'templates/tab-verifylogin.html',
+                        controller: 'LoginCtrl'
                     }
                 }
             })
