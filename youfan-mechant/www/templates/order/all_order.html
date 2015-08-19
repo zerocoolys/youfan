@@ -1,7 +1,57 @@
-<ion-view title="AllOrder">
+<ion-view view-title="" hide-nav-bar="true">
 
 
-  <p>12321321321all_orderall_orderall_orderall_orderall_orderall_order</p>
+    <div class="bar bar-header item-input-inset light-bg">
 
 
- </ion-view>
+        <div class="bar bar-header bar-light dishes-p ">
+            <a class="button button-clear icon ion-ios-arrow-left  " style="padding: 0 18px 0 15px;"
+               href="#/overview"></a>
+
+            <div class="button-bar calm-border calm dishes-p ">
+                <a class="button calm-border calm " ng-class="scopeIndex == 0 ? 'current':''" ng-click="activeScope(0)">全部</a>
+                <a class="button calm-border calm" ng-class="scopeIndex == 1 ? 'current':''" ng-click="activeScope(1)">本月</a>
+                <a class="button calm-border calm" ng-class="scopeIndex == 2 ? 'current':''" ng-click="activeScope(2)">本周</a>
+            </div>
+
+            <a href="#/query_order" class=" button button-clear calm " style="padding: 0 3px 0 10px; line-height: 38px;" >
+                查询
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="bar bar-subheader">
+
+         <br/>
+        <div class="button-bar light-bg dishes">
+
+            <a class="button button-clear" ng-class="statusIndex == 0 ? 'current':''"
+               ng-click="activeStats(0)">未就餐 <i class="calm">10</i> </a>
+            <a class="button button-clear    " ng-class="statusIndex == 1 ? 'current':''"
+               ng-click="activeStats(1)">已完成
+                <i class="calm">15</i> </a>
+            <a class=" button button-clear " ng-class="statusIndex == 2 ? 'current':''"
+               ng-click="activeStats(2)" >退款中 <i class="calm">20</i> </a>
+            <a class=" button button-clear " ng-class="statusIndex == 3 ? 'current':''"
+               ng-click="activeStats(3)" >已退款 <i class="calm">30</i> </a>
+        </div>
+
+
+    </div>
+
+    <ion-content class='has-subheader'>
+        <br/>
+        <br/>
+        {{scopeIndex}}
+        <br/>
+        {{statusIndex}}
+
+
+    </ion-content>
+
+
+
+
+</ion-view>

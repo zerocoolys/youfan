@@ -51,7 +51,14 @@
                     templateUrl: 'templates/order/all_order.html',
                     controller: 'all_order'
 
+                })
+                .state('query_order', {
+                    url: '/query_order',
+                    templateUrl: 'templates/order/query_order.html',
+                    controller: 'query_order'
+
                 });
+
 
             //????
             $stateProvider
