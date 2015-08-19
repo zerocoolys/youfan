@@ -3,6 +3,7 @@
  */
 ControllerModule.controller('DashDetailCtrl', function ($scope, $http, $ionicSlideBoxDelegate, REST_URL) {
 
+//    $scope.dash = Dash.get($stateParams.dashId);
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
 
