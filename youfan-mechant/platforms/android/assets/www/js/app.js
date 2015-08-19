@@ -22,3 +22,7 @@ angular.module('yf_merchant', ['ionic', 'yf_merchant.settings_controllers'])
             }
         });
     });
+/*
+ 全局firebaseio
+ */
+//var firebaseio = new Firebase("https://youfan-mechant.firebaseio.com/");
