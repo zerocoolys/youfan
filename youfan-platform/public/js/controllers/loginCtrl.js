@@ -11,7 +11,7 @@ define(["./module"], function (ctrs) {
                 method: 'GET',
                 url: '/server/login'
             }).success(function (data, status) {
-                $window.location.href = "/#/sys"
+                $window.location.href = "/#/sys/profile"
             })
         }
     })

@@ -1,3 +1,73 @@
-<div>
-    <h1>商家审核</h1>
+<div class="middle_containers" ng-controller="merchantCheckCtrl">
+    <table class="table">
+        <thead>
+        <tr>
+            <th> 商家姓名</th>
+            <th> 住址</th>
+            <th> 联系方式</th>
+            <th> 状态</th>
+            <th> 操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="merchant in merchants" class="success">
+            <td> {{merchant.name}}</td>
+            <td> {{merchant.address}}</td>
+            <td> {{merchant.phone}}</td>
+            <td> {{merchant.status}}</td>
+            <td>
+                <div class="btn-group">
+                    <button class="btn" type="button">修改</i></button>
+                    <button class="btn" type="button">删除</i></button>
+                </div>
+            </td>
+        </tr>
+        <!--<tr class="success">-->
+            <!--<td> 1</td>-->
+            <!--<td> TB - Monthly</td>-->
+            <!--<td> 01/04/2012</td>-->
+            <!--<td>-->
+                <!--<div class="btn-group">-->
+                    <!--<button class="btn" type="button">修改</i></button>-->
+                    <!--<button class="btn" type="button">删除</i></button>-->
+                <!--</div>-->
+            <!--</td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+    <div class="middle_containers">
+        <div class="pagination" style="margin: 0 auto;">
+            <ul>
+                <li>
+                    <a href="#">上一页</a>
+                </li>
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+                <li>
+                    <a href="#">4</a>
+                </li>
+                <li>
+                    <a href="#">5</a>
+                </li>
+                <li>
+                    <a href="#">下一页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--<div class="web_list_up" >-->
+    <!--<div class="table_content">-->
+    <!--<div class="custom_table main_table">-->
+    <!--<div ui-grid="gridOptions"  class="grid clearfix secondary_table" ui-grid-selection ui-grid-pagination ui-grid-exporter ui-grid-auto-resize ui.grid.selection></div>-->
+
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </div>

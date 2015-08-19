@@ -4,7 +4,7 @@
 
 define(["./module"], function (ctrs) {
     ctrs.controller('leftMenuCtrl', function ($scope, $rootScope, $q, $state, $http, $location, $location, $state) {
-        $rootScope.curmenus ;
+
         $rootScope.initNavMenu = function (curnav) {
             //console.log("initNavMenu  ->"+curnav);
             switch (curnav) {
@@ -12,46 +12,55 @@ define(["./module"], function (ctrs) {
                     $rootScope.curmenus = [
                         {
                             title: '运营概况',
+                            name:"profile",
                             href: "#/sys/profile",
                         },
                         {
                             title: '消息推送',
+                            name:"message",
                             href: "#/sys/message",
                         },
                         {
                             title: '支付管理',
+                            name:"pay",
                             href: "#/sys/pay",
                         },
                         {
                             title: '活动管理',
+                            name:"activity",
                             href: "#/sys/activity",
                         },
                         {
                             title: '代金券管理',
+                            name:"voucher",
                             href: "#/sys/voucher",
                         }
                     ];
                     break;
                 case "client":
-                    $scope.curmenus = [
+                    $rootScope.curmenus = [
                         {
                             title: '客户信息',
+                            name:"clientinfo",
                             href: "#/client/clientinfo",
                         },
                         {
                             title: '客户审核',
+                            name:"clientcheck",
                             href: "#/client/clientcheck",
                         }
                     ];
                     break;
                 case "merchant":
-                    $scope.curmenus = [
+                    $rootScope.curmenus = [
                         {
                             title: '商家信息',
-                            href: "#/merchant/merchaninfo",
+                            name:"merchantinfo",
+                            href: "#/merchant/merchantinfo",
                         },
                         {
                             title: '商家审核',
+                            name:"merchantcheck",
                             href: "#/merchant/merchantcheck",
                         }
                     ];
@@ -59,13 +68,14 @@ define(["./module"], function (ctrs) {
                 default :
                     break;
             }
-            //
-            $state.go(curnav, {},{reload:true});
         }
 
         //调用一次默认的Nav改变
         if($rootScope.curmenus==undefined||$rootScope.curmenus.length==0){
             $rootScope.changeNav($rootScope.selectedNav);
+        }
+        $scope.changeMenu = function(index){
+            $rootScope.curmenunum = index;
         }
 
     })

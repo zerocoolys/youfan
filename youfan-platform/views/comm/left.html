@@ -3,7 +3,7 @@
         <div class="accordion-group">
             <div ng-repeat="menu in curmenus">
                 <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" href="{{menu.href}}">{{menu.title}}</a>
+                    <a class="accordion-toggle" data-toggle="collapse" href="{{menu.href}}" ng-click="changeMenu($index)">{{menu.title}}</a>
                 </div>
             </div>
         </div>

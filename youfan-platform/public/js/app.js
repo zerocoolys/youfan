@@ -24,7 +24,18 @@ define([
         "sys.controllers",
         "client.controllers",
         "merchant.controllers",
-        "ngRoute"
+        "ngRoute",
+        'ui.grid',
+        'ui.grid.autoResize',
+        'ui.grid.grouping',
+        'ui.grid.expandable',
+        'ui.grid.pagination',
+        'ui.grid.treeView',
+        'ui.bootstrap',
+        'ngDialog',
+        'ngSanitize',
+        'ui.select',
+        'ui.grid.selection'
     ]);
     return myApp;
 });
