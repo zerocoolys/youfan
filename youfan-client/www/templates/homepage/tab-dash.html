@@ -1,15 +1,13 @@
 <ion-view view-title="" hide-nav-bar="true">
     <ion-header-bar class="item-input-inset indexbar">
-        <button class="button button-clear">
-            高新区
-        </button>
+        <button class="button button-clear">高新区</button>
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="搜索"/>
         </label>
-        <button class="button button-clear" ng-click="verifyLogin.show()">
-            登录
-        </button>
+        <div ng-controller="LoginCtrl">
+            <button class="button button-clear" ng-click="verifyLogin.show()">登录</button>
+        </div>
     </ion-header-bar>
     <ion-content class="home_item">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
