@@ -83,7 +83,7 @@
                             <h2 ng-bind="'￥' + menu.price"></h2>
 
                             <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
-                            <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
+                            <i class="icon ion-plus" ng-click="addToCart(menu)"></i>
                         </ion-item>
                     </ion-item>
                 </ion-list>
@@ -97,7 +97,7 @@
                         <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
 
                         <p ng-bind="'￥' + menu.price"></p>
-                        <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
+                        <i class="icon ion-plus" ng-click="addToCart(menu)"></i>
                     </ion-item>
                 </ion-list>
             </ion-slide>
@@ -105,7 +105,8 @@
     </ion-content>
     <div class="bar bar-footer bar-calm">
         <div class="button-bar">
-            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">￥0.00</a>
+            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"
+               ng-bind="'￥' + subtotal"></a>
             <a class="button button-clear" href="#/tab/confirm-order/0">选好了</a>
         </div>
     </div>
