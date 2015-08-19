@@ -4,17 +4,14 @@
 //var authorityApp = angular.module('app.Authority', []);
 
 define(["./module"], function (ctrs) {
-    ctrs.controller('loginCtrl',function ($scope, $rootScope, $q,$state,$http) {
-        console.log("loginCtrl")
+    ctrs.controller('loginCtrl',function ($scope, $rootScope, $q,$state,$http,$location, $window) {
         $scope.login = function () {
+
             $http({
                 method: 'GET',
                 url: '/server/login'
             }).success(function (data, status) {
-                console.log(status)
-                if(status==200){
-                    $state.go("index")
-                }
+                $window.location.href = "/#/sys"
             })
         }
     })

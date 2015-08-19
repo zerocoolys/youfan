@@ -3,5 +3,6 @@
  */
 define(["./module"], function (ctrs) {
     ctrs.controller('activityCtrl',function ($scope, $rootScope, $q,$state,$http,$location) {
+        console.log("activityCtrl")
     })
 });

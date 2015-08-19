@@ -1,16 +1,7 @@
 define(["angular", "./app"], function (angular, myApp) {
     'use strict';
-    myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
+    myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,$routeProvider) {
         $stateProvider
-            .state('main', {
-                url: '/sys/profile',
-                templateUrl: 'sys/profile.html',
-                resolve: {
-                    load: loadDeps([
-                        'controllers/sys/profileCtrl'
-                    ])
-                }
-            })
             .state('sys', {
                 url: '/sys/profile',
                 templateUrl: 'sys/profile.html',
@@ -48,7 +39,7 @@ define(["angular", "./app"], function (angular, myApp) {
                 }
             })
             .state('activity', {
-                url: 'sys/activity',
+                url: '/sys/activity',
                 templateUrl: 'sys/activity.html',
                 resolve: {
                     load: loadDeps([
@@ -56,10 +47,20 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
+            .state('voucher', {
+                url: '/sys/voucher',
+                templateUrl: 'sys/voucher.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/sys/voucherCtrl'
+                    ])
+                }
+            })
 
-            //用户
+        //用户
+        $stateProvider
             .state('client', {
-                url: 'client/clientinfo',
+                url: '/client/clientinfo',
                 templateUrl: 'client/clientinfo.html',
                 resolve: {
                     load: loadDeps([
@@ -68,7 +69,7 @@ define(["angular", "./app"], function (angular, myApp) {
                 }
             })
             .state('clientinfo', {
-                url: 'client/clientinfo',
+                url: '/client/clientinfo',
                 templateUrl: 'client/clientinfo.html',
                 resolve: {
                     load: loadDeps([
@@ -77,7 +78,7 @@ define(["angular", "./app"], function (angular, myApp) {
                 }
             })
             .state('clientcheck', {
-                url: 'client/clientcheck',
+                url: '/client/clientcheck',
                 templateUrl: 'client/clientcheck.html',
                 resolve: {
                     load: loadDeps([
@@ -85,9 +86,10 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
-            //商家
+        //商家
+        $stateProvider
             .state('merchant', {
-                url: 'merchant/merchantinfo',
+                url: '/merchant/merchantinfo',
                 templateUrl: 'merchant/merchantinfo.html',
                 resolve: {
                     load: loadDeps([
@@ -96,7 +98,7 @@ define(["angular", "./app"], function (angular, myApp) {
                 }
             })
             .state('merchantinfo', {
-                url: 'merchant/merchantinfo',
+                url: '/merchant/merchantinfo',
                 templateUrl: 'merchant/merchantinfo.html',
                 resolve: {
                     load: loadDeps([
@@ -105,7 +107,7 @@ define(["angular", "./app"], function (angular, myApp) {
                 }
             })
             .state('merchantcheck', {
-                url: 'merchant/merchantcheck',
+                url: '/merchant/merchantcheck',
                 templateUrl: 'merchant/merchantcheck.html',
                 resolve: {
                     load: loadDeps([
