@@ -5,14 +5,42 @@
         .module('yf_merchant')
         .controller('my_bill', MyBill);
 
-    function MyBill($scope, $filter, $state, $ionicTabsDelegate,$ionicModal) {
+    function MyBill($scope, $filter, $state, $ionicTabsDelegate,$ionicPopup) {
 
+        $scope.queryType = "分类";
 
         $scope.selectTabWithIndex = function(index) {
 
 
             if(index ==2) {
-                $scope.openModal();
+
+                $ionicPopup.show({
+                    scope: $scope,
+                    buttons: [
+                        {
+                            text: '<b>订单</b>',
+                            type: 'button-positive',
+                            onTap: function(e) {
+                                $scope.queryType = "订单";
+                            }
+                        },
+                        {
+                            text: '<b>提现</b>',
+                            type: 'button-positive',
+                            onTap: function(e) {
+                                $scope.queryType = "提现";
+                            }
+                        }
+                        ,
+                        {
+                            text: '<b>奖励</b>',
+                            type: 'button-positive',
+                            onTap: function(e) {
+                                $scope.queryType = "奖励";
+                            }
+                        }
+                    ]
+                });
             }
 
             $ionicTabsDelegate.select(index);
@@ -20,32 +48,6 @@
 
 
 
-
-        $ionicModal.fromTemplateUrl('/templates/income/modal.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function(modal) {
-            $scope.modal = modal;
-        });
-        $scope.openModal = function() {
-
-            $scope.modal.show();
-        };
-        $scope.closeModal = function() {
-            $scope.modal.hide();
-        };
-        //当我们用到模型时，清除它！
-        $scope.$on('$destroy', function() {
-            $scope.modal.remove();
-        });
-        // 当隐藏的模型时执行动作
-        $scope.$on('modal.hide', function() {
-
-        });
-        // 当移动模型时执行动作
-        $scope.$on('modal.removed', function() {
-
-        });
 
 
     }
