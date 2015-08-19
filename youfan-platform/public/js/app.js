@@ -13,11 +13,18 @@ define([
     //业务模块控制器
     "./controllers/loginCtrl",
     "./controllers/leftMenuCtrl",
-    "./controllers/indexCtrl",
+    "./controllers/navCtrl",
+    "./controllers/sys/module",
+    "./controllers/client/module",
+    "./controllers/merchant/module",
 ], function (angular) {
     'use strict';
     var myApp = angular.module("myApp", [
         "app.controllers",
+        "sys.controllers",
+        "client.controllers",
+        "merchant.controllers",
+        "ngRoute"
     ]);
     return myApp;
 });

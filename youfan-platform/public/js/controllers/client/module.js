@@ -3,5 +3,5 @@
  */
 define(['angular','angular-cookies'], function (ng) {
     'use strict';
-    return ng.module('app.controllers', ['ngCookies']);
+    return ng.module('client.controllers', ['ngCookies']);
 });
