@@ -7,6 +7,12 @@
 
     function CustomerComment($scope, $filter, $state) {
 
-        alert("customerComment");
+
+        $scope.statusIndex = 0;
+
+        $scope.activeStats = function (index) {
+            $scope.statusIndex = index;
+            $ionicSlideBoxDelegate.slide(index);
+        };
     }
 })();
