@@ -18,15 +18,15 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
 
     .controller('SettingsHelpDetailCtrl', function ($scope, $stateParams, HelpService) {
 
-        $scope.obj = HelpService.get($stateParams.helpId);
+        $scope.obj = HelpService.get($stateParams["helpId"]);
 
-        console.log($scope.obj);
     })
     .controller('SettingsDisclaimerCtrl', function ($scope) {
-        $scope.disclaimerText = "";
+        $scope.disclaimerText = "10000001";
         $scope.doRefresh = function () {
             $scope.disclaimerText = "时间煮雨";
             $scope.$broadcast("scroll.refreshComplete");
+            $
         };
     })
 

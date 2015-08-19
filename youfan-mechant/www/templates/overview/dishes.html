@@ -2,41 +2,60 @@
 <ion-view view-title="" hide-nav-bar="true">
 
     <ion-header-bar class="item-input-inset light-bg indexbar">
-        <div class="bar bar-header bar-light">
-        <a class="button icon ion-ios-arrow-left" href="#/settings/index">返回</a>
-        <div class="button-bar calm-border calm"  >
-            <a class="button calm-border calm">配送</a>
-            <a class="button calm-border calm">上门</a>
-            <a class="button calm-border calm">要做的菜</a>
-        </div>
-        <a class=" button calm "  ng-click="doSomething()">
-            查询
-        </a>
+        <div class="bar bar-header bar-light dishes-p ">
+            <a class="button button-clear icon ion-ios-arrow-left  " style="padding: 0 18px 0 15px;"
+               href="#/overview"></a>
+
+            <div class="button-bar calm-border calm dishes-p ">
+                <a class="button calm-border calm " ng-class="dishesIndex == 0 ? 'current':''" ng-click="activedishes(0)">配送</a>
+                <a class="button calm-border calm" ng-class="dishesIndex == 1 ? 'current':''" ng-click="activedishes(1)">上门</a>
+                <a class="button calm-border calm" ng-class=" dishesIndex == 2 ? 'current':''" ng-click="activedishes(2)">要做的菜</a>
             </div>
+
+            <a class=" button button-clear calm " style="padding: 0 3px 0 10px; line-height: 38px; "
+               ng-click="doSomething()">
+                查询
+            </a>
+        </div>
+
     </ion-header-bar>
 
-    <ion-scroll  class="stable-bg" style="height:100%; " >
-            <div class="  button-bar light-bg dishes" >
-                <a class="button button-clear  " href="#" >配送 <i class="calm">10</i>  </a>
-                <a class="button button-clear "  href="#">已完成  <i class="calm">15</i>   </a>
-                <a class=" button button-clear " href="#">退款中  <i class="calm">20</i>   </a>
-                <a class=" button button-clear " href="#">已退款 <i class="calm">30</i>  </a>
+    <ion-scroll class="stable-bg" style="height:100%; ">
+        <ion-slide-box on-slide-changed="dishesChanged(index)" active-slide="dishesIndex"  show-pager="false">
+            <ion-slide ng-repeat="way in ways" >
+                <div class="  button-bar light-bg dishes">
+                    <a class="button button-clear   " ng-class="slideIndex == 0 ? 'current':''"
+                       ng-click="activeSlide(0)">{{dishesIndex}}配送<i
+                            class="calm">10</i> </a>
+                    <a class="button button-clear   " ng-class="slideIndex == 1 ? 'current':''"
+                       ng-click="activeSlide(1)">{{slideIndex}}已接单 <i
+                            class="calm">10</i> </a>
+                    <a class="button button-clear    " ng-class="slideIndex == 2 ? 'current':''"
+                       ng-click="activeSlide(2)">已完成
+                        <i class="calm">15</i> </a>
+                    <a class=" button button-clear " ng-class="slideIndex == 3 ? 'current':''" ng-click="activeSlide(3)"
+                            >退款中 <i class="calm">20</i> </a>
+                    <a class=" button button-clear " ng-class="slideIndex == 4 ? 'current':''" ng-click="activeSlide(4)"
+                            >已退款 <i class="calm">30</i> </a>
+                </div>
+
+                <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false">
+                    <ion-slide  ng-repeat="dorder in dorders">
+                        <ul class="list">
+                            <li class="item  item-icon-right" ng-repeat="order in orders" style="margin: 15px 0">
+                                <h3 style="float: right;font-size: 14px " class="energized">{{order.ways}}</h3>
+
+                                <h2 class="calm">{{$index+1}}.{{order.phone}}</h2>
+
+                                <p class="padding">就餐时间：{{order.time}}</p>
+                                <i class="icon  ion-ios-arrow-right"></i>
+                            </li>
+                        </ul>
+                    </ion-slide>
+                </ion-slide-box>
+            </ion-slide>
 
 
-
-               <!-- <a class="button button-clear" href="#">上门 <i class="calm">0</i> </a>
-                <a class="button button-clear" href="#">已完成 <i class="calm">8</i> </a>
-                <a class="button button-clear" href="#">退款中 <i class="calm">3</i> </a>
-                <a class="button button-clear" href="#">已退款 <i class="calm">1</i> </a>-->
-            </div>
-        <ul class="list">
-            <li class="item  item-icon-right" ng-repeat="order in orders" style="margin: 15px 0">
-                <h3 style="float: right;font-size: 14px " class="energized" >{{order.ways}}</h3>
-                <h2 class="calm" >{{$index+1}}.{{order.phone}}</h2>
-                <p class="padding">就餐时间：{{order.time}}</p>
-                <i class="icon  ion-ios-arrow-right"></i>
-            </li>
-
-        </ul>
+        </ion-slide-box>
     </ion-scroll>
 </ion-view>
