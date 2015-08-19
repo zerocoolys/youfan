@@ -1,0 +1,57 @@
+<ion-view hide-nav-bar="true">
+    <ion-header-bar class="bar bar-header">
+        <a class="button button-clear icon ion-ios-arrow-back" href="#/editkitchen"></a>
+        <div class="h1 title calm" align-text="center">编辑厨房信息</div>
+        <button class="button button-clear button-positi ve calm">
+            保存
+        </button>
+    </ion-header-bar>
+    <ion-content>
+        <div>
+            <ul class="list padding-top">
+                <li class="item item-input">
+                    <input type="text" ng-model="kitchenInfo.name" placeholder="请输入厨房名称" required="required">
+                </li>
+                <li class="item item-input">
+                    <input type="tel" ng-model="kitchenInfo.password" placeholder="可填写另一个手机号(非必填)">
+                </li>
+                <li class="item item-icon-left item-icon-right">
+                    <h2>厨房故事</h2>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </li>
+                <li class="item item-icon-left item-icon-right">
+                    <h2>厨房照片</h2>
+                    <i class="icon ion-ios-arrow-right"></i>
+                </li>
+                <li class="item item-input">
+                    <p>厨房特色<label style="color: #e6b400">(每个标签最多输入5个字)</label></p>
+                </li>
+                <li class="item item-input">
+                    <input type="text" ng-model="kitchenInfo.caixi1" placeholder="烹饪菜系">
+                    <input type="text" ng-model="kitchenInfo.caixi2" placeholder="烹饪菜系">
+                </li>
+                <li class="item item-input">
+                    <span class="input-label">厨房地址</span>
+                </li>
+                <li class="item item-input">
+                    <input type="text" list="kitchenInfo.address_province" name="link" placeholder="省"
+                           required="required"/>
+                    <datalist id="kitchenInfo.address_province">
+                        <option label="四川" value="四川"/>
+                        <option label="北京" value="北京"/>
+                    </datalist>
+                    <input type="text" list="kitchenInfo.address_city" name="link" placeholder="市" required="required"/>
+                    <datalist id="kitchenInfo.address_city">
+                        <option label="成都" value="成都"/>
+                        <option label="绵阳" value="绵阳"/>
+                        <option label="雅安" value="雅安"/>
+                    </datalist>
+                </li>
+                <li class="item item-input">
+                    <input type="text" ng-model="kitchenInfo.address_specificAddress" placeholder="填写街道、小区名称、栋楼及单元号"
+                           required="required">
+                </li>
+            </ul>
+        </div>
+    </ion-content>
+</ion-view>
