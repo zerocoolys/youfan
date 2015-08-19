@@ -1,0 +1,19 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-light">
+        <h1 class="title login">密码登陆</h1>
+        <button class="button button-clear button-primary login" ng-click="pwdLogin.hide()"><span class="ion-close-circled"></span></button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="输入手机号">
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="输入密码">
+            </label>
+            <button class="button button-block button-calm">登录</button>
+            <!--绝对居中偏下-->
+            <p class="existingAccount">没有账户？&nbsp;&nbsp;<span ng-click="verifyLogin.show();pwdLogin.hide()" style="color: #0c63ee">验证码登陆</span></p>
+        </div>
+    </ion-content>
+</ion-modal-view>
