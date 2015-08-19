@@ -59,9 +59,15 @@
                     templateUrl: 'templates/income/my_income.html',
                     controller: 'my_income'
 
+                })
+                .state('my_bill', {
+                    url: '/my_bill',
+                    templateUrl: 'templates/income/my_bill.html',
+                    controller: 'my_bill'
+
                 });
 
-            //????
+
             $stateProvider
                 .state('customer_comment', {
                     url: '/customer_comment',
