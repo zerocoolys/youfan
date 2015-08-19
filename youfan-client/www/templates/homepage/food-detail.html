@@ -1,48 +1,52 @@
-<ion-view view-title=""  hide-nav-bar="true" class="shop_detail"  hide-tab-bar>
+<ion-view view-title="" hide-nav-bar="true" class="shop_detail" hide-tabs>
     <ion-header-bar class="bar-header bar-light  ">
-        <a href="#/tab/dash"><i class="ion-ios-arrow-left"></i></a>
-       <div class="top_share " >
-           <i class="ion-ios-heart-outline"></i>
-           <i class="ion-ios-star-outline"></i>
-           <i class="ion-ios-redo-outline"></i>
-       </div>
+        <a href="#/tab/dash-detail"><i class="ion-ios-arrow-left"></i></a>
+
+        <div class="top_share ">
+            <i class="ion-ios-heart-outline"></i>
+            <i class="ion-ios-star-outline"></i>
+            <i class="ion-ios-redo-outline"></i>
+        </div>
     </ion-header-bar>
-    <ion-content style="background:#fff;" >
-        <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="2000">
+    <ion-content style="background:#fff;">
+        <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
+                       slide-interval="2000">
             <ion-slide>
-                <div class="box blue"><img src="img/2.jpeg" alt="" /></div>
+                <div class="box blue"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
             <ion-slide>
-                <div class="box yellow"><img src="img/2.jpeg" alt="" /></div>
+                <div class="box yellow"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
             <ion-slide>
-                <div class="box pink"><img src="img/2.jpeg" alt="" /></div>
+                <div class="box pink"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
         </ion-slide-box>
-        <ion-list >
+        <ion-list>
             <ion-item class="item-icon-left item-button-right item-toggle item-icon-right">
                 <i class="icon ion-ios-albums-outline"></i>
+
                 <h2 class="padding">暂无描述</h2>
             </ion-item>
             <ion-item class="item-button-right item-toggle item-icon-right">
                 <h2 class="padding">香辣鸡丁</h2>
-                <i class="icon ion-plus-circled"  style="right: 15px;"></i>
+                <i class="icon ion-plus-circled" style="right: 15px;"></i>
+
                 <p>还有15份|59人品尝过</p>
             </ion-item>
         </ion-list>
     </ion-content>
     <div class="bar bar-footer bar-balanced">
-        <button class="button button-clear"> <i class="icon ion-ios-list-outline"></i> ￥0.00</button>
+        <button class="button button-clear"><i class="icon ion-ios-list-outline"></i> ￥0.00</button>
         <div class="title">|</div>
         <button class="button button-clear">选好了</button>
     </div>
-<!--    <div class="bar bar-footer bar-balanced" >
-        <a class="tab-item">
-            <i class="icon ion-ios-list-outline"></i>
-        </a>
-        <a class="tab-item">
-            <i class="icon ion-star"></i>
-            Favorites
-        </a>
-    </div>-->
+    <!--    <div class="bar bar-footer bar-balanced" >
+            <a class="tab-item">
+                <i class="icon ion-ios-list-outline"></i>
+            </a>
+            <a class="tab-item">
+                <i class="icon ion-star"></i>
+                Favorites
+            </a>
+        </div>-->
 </ion-view>

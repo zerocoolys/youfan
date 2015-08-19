@@ -1,6 +1,3 @@
-/**
- * Created by ss on 2015/8/14.
- */
 ControllerModule.controller('LoginCtrl', function ($scope, $ionicModal) {
 
     /**
