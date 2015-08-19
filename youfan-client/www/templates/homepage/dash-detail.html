@@ -1,34 +1,38 @@
-<ion-view view-title="" hide-nav-bar="true" hide-tab-bar>
+<ion-view view-title="" hide-nav-bar="true" hide-tabs>
     <ion-content>
         <div class="share_icon">
             <a href="#"><i class="icon ion-android-favorite"></i><span>10</span></a>
             <a href="#"><i class="icon ion-android-bookmark"></i></a>
             <a href="#"><i class="icon ion-android-share-alt"></i></a>
         </div>
-        <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="2000">
+        <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
+                       slide-interval="2000">
             <ion-slide>
-                <div class="box blue"><img src="img/2.jpeg" alt="" /></div>
+                <div class="box blue"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
             <ion-slide>
-                <div class="box yellow"><img src="img/2.jpeg" alt="" /></div>
+                <div class="box yellow"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
             <ion-slide>
-                <div class="box pink"><img src="img/2.jpeg" alt="" /></div>
+                <div class="box pink"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
         </ion-slide-box>
         <div class="list_detail_person_img">
             <img src="img/avatar1.jpg">
         </div>
-        <div class="cook_info">
+        <div class="text-center">
             <div class="item segmented-control-item">
-                <h2>海南风情小味厨</h2>
+                <h2 style="margin-top: 40px">海南风情小味厨</h2>
                 <i class="icon ion-star"></i>
                 <i class="icon ion-star"></i>
                 <i class="icon ion-star"></i>
                 <i class="icon ion-star"></i>
                 <i class="icon ion-star"></i>
+
                 <p>李先生 海南人</p>
+
                 <p>10:00 - 22:00 开放厨房</p>
+
                 <div class="row">
                     <a class="col col-25 col-offset-25 button-small button button-calm button-outline">234条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a class="col col-25 button-calm button-small button button-outline">联系厨房</a>
@@ -38,11 +42,13 @@
         <ion-list>
             <ion-item class="item-icon-left item-icon-right" href="#/tab/seller-detail">
                 <i class="address_img icon ion-ios-location-outline"></i>
+
                 <h2>我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
                 <i class="address_img icon ion-ios-location-outline"></i>
+
                 <h2>北京市朝阳区百子湾32号院苹果社区南区</h2>
                 <i class="icon ion-ios-arrow-right"></i>
             </ion-item>
@@ -54,58 +60,48 @@
                     <label>可容纳 : <span>不提供堂食</span></label>
                 </div>
             </ion-item>
-            <!--<ion-item class="segmented-control-item" ion-affix data-affix-within-parent-with-class="list">-->
-                <div class="button-bar">
-                    <a class="button button-calm">今日就餐</a>
-                    <a class="button">明日预定</a>
-                </div>
-            <!--</ion-item>-->
         </ion-list>
-        <ion-list class="card">
-            <ion-item class="item-body">
-                <a href="#/tab/food-detail"> <img class="full-image" src="img/2.jpeg"></a>
-                <ion-item class="item-icon-left item-icon-right"  href="#/tab/food-detail">
-                    <i class="icon ion-coffee"></i>
-                    <h2>自制养生茶饮（2支）</h2>
-                    <p>5中任选:</p>
-                    <i class="icon ion-ios-arrow-right"></i>
-                </ion-item>
-                <ion-item class="item-icon-left item-icon-right">
-                    <h2>$ 16.00</h2>
-                    <p>还有99份 | 12人品尝过</p>
-                    <i class="icon ion-plus"></i>
-                </ion-item>
-            </ion-item>
-        </ion-list>
-        <ion-list class="tip_menu">
-            <ion-item class="item-thumbnail-left item-icon-right">
-                <img src="img/2.jpeg">
-                <h2>三君开花包（4只）</h2>
-                <p>还有99份 | 12人品尝过</p>
-                <p>￥12.00</p>
-                <i class="icon ion-plus"></i>
-            </ion-item>
-            <br>
-            <ion-item class="item-thumbnail-left item-icon-right">
-                <img src="img/2.jpeg">
-                <h2>三君开花包（4只）</h2>
-                <p>还有99份 | 12人品尝过</p>
-                <p>￥12.00</p>
-                <i class="icon ion-plus"></i>
-            </ion-item>
-            <br>
-            <ion-item class="item-thumbnail-left item-icon-right">
-                <img src="img/2.jpeg">
-                <h2>三君开花包（4只）</h2>
-                <p>还有99份 | 12人品尝过</p>
-                <p>￥12.00</p>
-                <i class="icon ion-plus"></i>
-            </ion-item>
-        </ion-list>
-        <br>
-        <br>
-        <br>
-        <br>
+        <div>
+            <ul class="slide-tab">
+                <li ng-class="slideIndex == 0 ? 'current':''"><a href="#" ng-click="activeSlide(0)">今日就餐</a></li>
+                <li ng-class="slideIndex == 1 ? 'current':''"><a href="#" ng-click="activeSlide(1)">明日预定</a></li>
+            </ul>
+        </div>
+        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
+            <ion-slide>
+                <ion-list class="card">
+                    <ion-item class="item-body" ng-repeat="menu in menuArr" ng-repeat-end="1">
+                        <img class="full-image" ng-src="{{menu.picUrl}}">
+                        <ion-item class="item-icon-left item-icon-right">
+                            <i class="icon ion-coffee"></i>
+
+                            <h2 ng-bind="menu.description"></h2>
+
+                            <i class="icon ion-ios-arrow-right"></i>
+                        </ion-item>
+                        <ion-item class="item-icon-left item-icon-right">
+                            <h2 ng-bind="'￥' + menu.price"></h2>
+
+                            <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
+                            <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
+                        </ion-item>
+                    </ion-item>
+                </ion-list>
+                <ion-list class="tip_menu">
+                    <ion-item class="item-thumbnail-left item-icon-right" ng-repeat="menu in menuArr"
+                              ng-repeat-start="2">
+                        <img ng-src="{{menu.picUrl}}"/>
+
+                        <h2 ng-bind="menu.description"></h2>
+
+                        <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
+
+                        <p ng-bind="'￥' + menu.price"></p>
+                        <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
+                    </ion-item>
+                </ion-list>
+            </ion-slide>
+        </ion-slide-box>
     </ion-content>
     <div class="bar bar-footer bar-calm">
         <div class="button-bar">

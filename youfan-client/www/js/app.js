@@ -50,12 +50,22 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+            //详情页
+            .state('tab.dash-detail', {
+                url: '/dash/:dashId',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/dash-detail.html',
+                        controller: 'DashDetailCtrl'
+                    }
+                }
+            })
             .state('tab.detail', {
                 url: "/detail",
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/shop-detail.html",
-                        controller: 'shopDetailCtrl'
+                        controller: 'ShopDetailCtrl'
                     }
                 }
             })
@@ -65,7 +75,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/food-detail.html",
-                        controller: 'foodDetailCtrl'
+                        controller: 'FoodDetailCtrl'
                     }
                 }
             })
@@ -75,17 +85,18 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/seller-detail.html",
-                        controller: 'sellerDetailCtrl'
+                        controller: 'SellerDetailCtrl'
                     }
                 }
             })
+
             //评论详情
             .state('tab.comment-detail', {
                 url: "/comment-detail",
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/commentlist.html",
-                        controller: 'commentDetailCtrl'
+                        controller: 'CommentDetailCtrl'
                     }
                 }
             })
@@ -112,9 +123,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             .state('tab.care', {
                 url: "/care",
                 views: {
-                    'tab-dash': {
+                    'tab-chats': {
                         templateUrl: "templates/personalcenter/care.html",
-                        controller: 'careCtrl'
+                        controller: 'CareCtrl'
                     }
                 }
             })
@@ -122,9 +133,38 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             .state('tab.message', {
                 url: "/message",
                 views: {
-                    'tab-dash': {
+                    'tab-chats': {
                         templateUrl: "templates/personalcenter/message.html",
-                        controller: 'messageCtrl'
+                        controller: 'MessageCtrl'
+                    }
+                }
+            })
+            //个人中心-送餐地址
+            .state('tab.address', {
+                url: "/address",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/address.html",
+                        controller: 'AddressCtrl'
+                    }
+                }
+            })
+            //个人中心-添加送餐地址
+            .state('tab.add-address', {
+                url: "/add-address",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/add-address.html",
+                        controller: 'AddressCtrl'
+                    }
+                }
+            })
+            //个人中心-设置
+            .state('tab.set', {
+                url: "/set",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/set.html"
                     }
                 }
             })
@@ -148,30 +188,33 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            .state('tab.dash-detail', {
-                url: '/dash/:dashId',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/homepage/dash-detail.html',
-                        controller: 'DashDetailCtr'
-                    }
-                }
-            })
+//            确认订单页
             .state('tab.confirm-order', {
                 url: '/confirm-order/:orderId',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/confirm-order.html'
-//                        controller: 'DashDetailCtr'
+                        templateUrl: 'templates/confirm-order.html',
+                        controller: 'ConfirmOrderCtrl'
                     }
                 }
             })
+//            支付页面
             .state('tab.pay-page', {
                 url: '/pay-page/:payId',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/pay-page.html'
 //                        controller: 'DashDetailCtr'
+                    }
+                }
+            })
+//            就餐方式页
+            .state('tab.dining-way', {
+                url: '/dining-way',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/dining-way.html',
+                        controller: 'DiningWayCtrl'
                     }
                 }
             })
@@ -189,26 +232,14 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         $urlRouterProvider.otherwise('/tab/dash');
 
     })
-    .directive('hideTabBar', function ($timeout) {
-        var style = angular.element('<style>').html(
-            '.has-tabs.no-tabs:not(.has-tabs-top) { bottom: 0; }\n' +
-            '.no-tabs.has-tabs-top { top: 44px; }');
-        document.body.appendChild(style[0]);
+    .directive('hideTabs', function ($rootScope) {
         return {
             restrict: 'A',
-            compile: function (element, attr) {
-                var tabBar = document.querySelector('.tab-nav');
-                return function ($scope, $element, $attr) {
-                    var scroll = $element[0].querySelector('.scroll-content');
-                    $scope.$on('$ionicView.beforeEnter', function () {
-                        tabBar.classList.add('slide-away');
-                        scroll.classList.add('no-tabs');
-                    })
-                    $scope.$on('$ionicView.beforeLeave', function () {
-                        tabBar.classList.remove('slide-away');
-                        scroll.classList.remove('no-tabs')
-                    });
-                }
+            link: function ($scope, $el) {
+                $rootScope.hideTabs = true;
+                $scope.$on('$destroy', function () {
+                    $rootScope.hideTabs = false;
+                });
             }
         };
     });

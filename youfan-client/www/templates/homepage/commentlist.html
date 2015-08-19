@@ -1,15 +1,18 @@
-<ion-view view-title="评论"  hide-tab-bar
-    <ion-content >
+<ion-view view-title="评论" hide-tabs>
+    <ion-content>
         <div class="list" ng-repeat="comment in comments " style="margin-bottom:10px;">
             <a class="item item-avatar" href="#">
                 <img ng-src="{{comment.img}}">
+
                 <div class="care_text">
                         <span>
                             {{comment.name}}
                         </span>
-                        <span class="alright" >
-                      <i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-outline"></i><i class="ion-ios-star-outline"></i><i class="ion-ios-star-half"></i>
+                        <span class="alright">
+                      <i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-outline"></i><i
+                                class="ion-ios-star-outline"></i><i class="ion-ios-star-half"></i>
                         </span>
+
                     <p>{{comment.content}}</p>
                     <span class="time">{{comment.time}}</span>
                 </div>

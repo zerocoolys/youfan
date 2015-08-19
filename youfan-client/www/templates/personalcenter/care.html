@@ -1,13 +1,16 @@
-<ion-view view-title="我的关注"  hide-tab-bar>
-    <ion-content >
+<ion-view view-title="我的关注" hide-tabs>
+    <ion-content>
         <div class="list">
             <a ng-repeat="item in items"
                href="#/{{item.id}}"
                class="item item-thumbnail-left">
                 <img ng-src="{{ item.image }}">
+
                 <h2>{{ item.album }}</h2>
-               <p><i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-half"><i class="ion-ios-star-outline"></i><i class="ion-ios-star-outline"></i></i></p>
-                <h4> <i class="ion-ios-location"></i>{{ item.artist }}</h4>
+
+                <p><i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-half"><i
+                        class="ion-ios-star-outline"></i><i class="ion-ios-star-outline"></i></i></p>
+                <h4><i class="ion-ios-location"></i>{{ item.artist }}</h4>
             </a>
         </div>
     </ion-content>

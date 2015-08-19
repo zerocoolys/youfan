@@ -14,6 +14,7 @@
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.min.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="lib/map/map.js"></script>
 
     <!-- socket.io client -->
     <script src="lib/socket.io/socket.io-1.3.6.js"></script>
@@ -26,18 +27,21 @@
     <script src="js/config.js"></script>
     <script src="js/controller/ControllerModule.js"></script>
     <script src="js/service/ServiceModule.js"></script>
-    <script src="js/controller/SplashScreenCtrl.js"></script>
+    <!--<script src="js/controller/SplashScreenCtrl.js"></script>-->
     <script src="js/controller/DashCtrl.js"></script>
     <script src="js/controller/ChatsCtrl.js"></script>
     <script src="js/controller/ChatDetailCtrl.js"></script>
-    <script src="js/controller/DashDetailCtr.js"></script>
+    <script src="js/controller/DashDetailCtrl.js"></script>
+    <script src="js/controller/ConfirmOrderCtr.js"></script>
+    <script src="js/controller/DiningWayCtrl.js"></script>
     <script src="js/controller/AccountCtrl.js"></script>
-    <script src="js/controller/shopDetailCtrl.js"></script>
-    <script src="js/controller/foodDetailCtrl.js"></script>
-    <script src="js/controller/sellerDetailCtrl.js"></script>
-    <script src="js/controller/commentDetailCtrl.js"></script>
-    <script src="js/controller/careCtrl.js"></script>
-    <script src="js/controller/messageCtrl.js"></script>
+    <script src="js/controller/ShopDetailCtrl.js"></script>
+    <script src="js/controller/FoodDetailCtrl.js"></script>
+    <script src="js/controller/SellerDetailCtrl.js"></script>
+    <script src="js/controller/CommentDetailCtrl.js"></script>
+    <script src="js/controller/CareCtrl.js"></script>
+    <script src="js/controller/MessageCtrl.js"></script>
+    <script src="js/controller/AddressCtrl.js"></script>
     <script src="js/controller/LoginCtrl.js"></script>
     <!--services-->
     <script src="js/service/ChatsService.js"></script>
@@ -47,7 +51,7 @@
 </head>
 <body ng-app="youfan.client">
 <!-- App loading page -->
-<ion-modal-view ng-style="{ 'display': 'none' }" ng-controller="SplashScreenCtrl">
+<!--<ion-modal-view ng-style="{ 'display': 'none' }" ng-controller="SplashScreenCtrl">
     <script id="image-modal.html" type="text/ng-template">
         <div class="modal image-modal transparent">
             <ion-slide-box on-slide-changed="slideChanged(index)"
@@ -60,7 +64,7 @@
             </ion-slide-box>
         </div>
     </script>
-</ion-modal-view>
+</ion-modal-view>-->
 
 <!--
   The nav bar that will be updated as we navigate between views.
