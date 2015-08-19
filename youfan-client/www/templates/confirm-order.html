@@ -13,7 +13,7 @@
                   <i class="icon ion-chevron-right"></i>
                 </span>
             </ion-item>
-            <ion-item class="item-icon-right" ng-click="CouponsModal.show()">
+            <ion-item class="item-icon-right" href="#/tab/coupons">
                 优惠券支付
                 <span class="item-note">
                   1元试吃券<i class="icon ion-chevron-right"></i>
@@ -93,30 +93,6 @@
                     <a class="col col-25 button-calm button-small button button-outline">菜量多点</a>
                 </div>
             </ion-list>
-        </ion-content>
-    </ion-modal-view>
-</script>
-<!--优惠券-->
-<script id="templates/Coupons.html" type="text/ng-template">
-    <ion-modal-view>
-        <ion-header-bar class="bar bar-header">
-            <button class="button button-clear" ng-click="CouponsModal.hide()">取消</button>
-            <h1 class="title">优惠券</h1>
-            <button class="button button-clear mainColor" ng-click="CouponsModal.hide()">完成</button>
-        </ion-header-bar>
-        <ion-content class="padding">
-            <ion-list>
-                <ion-item class="item-icon-right item-avatar">
-                    <img class="full-image" src="img/2.jpeg">
-                    优惠券折扣
-                <span class="item-note">
-                  -￥11
-                </span>
-                </ion-item>
-            </ion-list>
-            <button class="button button-full button-calm">
-                本次不适用优惠券
-            </button>
         </ion-content>
     </ion-modal-view>
 </script>

@@ -34,13 +34,13 @@
 
 <script id="templates/dining-address.html" type="text/ng-template">
     <ion-modal-view>
-        <ion-header-bar class="bar bar-header">
+        <ion-header-bar>
             <button class="button button-clear" ng-click="modal.hide()">取消</button>
             <h1 class="title">新增就餐地址</h1>
             <button class="button button-clear mainColor" ng-click="modal.hide()">保存</button>
         </ion-header-bar>
-        <ion-content class="padding">
-            <div class="list">
+        <ion-content>
+            <ion-list>
                 <ion-item>
                     联系人
                     <span class="item-note">
@@ -64,16 +64,18 @@
                         <input type="text" placeholder="楼号/门牌号等详细信息">
                     </span>
                 </ion-item>
+            </ion-list>
+            <div class="padding">
+                <p class="text-center mainColor">
+                    给地址加个标签，下次选地址更加方便哦~
+                </p>
+                <button class="button button-light">
+                    家里
+                </button>
+                <button class="button button-light">
+                    公司
+                </button>
             </div>
-            <p class="text-center mainColor">
-                给地址加个标签，下次选地址更加方便哦~
-            </p>
-            <button class="button button-light">
-                家里
-            </button>
-            <button class="button button-light">
-                公司
-            </button>
         </ion-content>
     </ion-modal-view>
 </script>
