@@ -24,13 +24,13 @@
                     controller: 'overview'
 
                 })
-               .state('dishes', {
+                .state('dishes', {
                     url: '/dishes',
                     templateUrl: 'templates/overview/dishes.html',
                     controller: 'dishes'
 
                 })
-               .state('today-order', {
+                .state('today-order', {
                     url: '/today-order',
                     templateUrl: 'templates/overview/today-order.html',
                     controller: ''
@@ -90,7 +90,7 @@
                 .state('personinfo',{
                     url:'/personinfo',
                     templateUrl: 'templates/editkitchen/editkitchen-personinfo.html',
-                    controller: 'kitcheninfo'
+                    controller: 'personinfo'
                 })
             ;
 
