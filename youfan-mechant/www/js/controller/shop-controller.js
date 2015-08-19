@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('yf_merchant',['ionic', 'ionic-datepicker']).controller('shop', shop);
+    angular.module('yf_merchant').controller('shop', shop);
 
     function shop($scope, $filter, $timeout,$ionicBackdrop) {
         console.log(1111);
