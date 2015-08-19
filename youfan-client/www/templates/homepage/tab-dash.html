@@ -1,98 +1,105 @@
 <ion-view view-title="" hide-nav-bar="true">
-  <ion-header-bar class="item-input-inset indexbar">
-    <button class="button button-clear">
-   高新区
-    </button>
-    <label class="item-input-wrapper">
-      <i class="icon ion-ios-search placeholder-icon"></i>
-      <input type="search" placeholder="搜索"/>
-    </label>
-    <button class="button button-clear" ng-click="modal.show()">
-      登录
-    </button>
-  </ion-header-bar>
-  <ion-content class="home_item">
-    <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true" slide-interval="2000">
-      <ion-slide>
-        <div class="box blue"><img src="img/2.jpeg" alt="" /></div>
-      </ion-slide>
-      <ion-slide>
-        <div class="box yellow"><img src="img/2.jpeg" alt="" /></div>
-      </ion-slide>
-      <ion-slide>
-        <div class="box pink"><img src="img/2.jpeg" alt="" /></div>
-      </ion-slide>
-    </ion-slide-box>
-    <ion-list>
-      <ion-item class="item" href="#/tab/dash/0">
-        <div class="list">
-          <div class="item item-body img_box">
-             <img class="full-image" src="img/2.jpeg"></a>
-            <div class="img_text">
-            2000人<span>品尝过</span>
-            </div>
-          </div>
-          <div class="item item-avatar item_box">
-            <img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">
-            <div class="row" href="#/tab/dash/0">
-              <div class="col-90">
-                <h2>恋家厨房</h2>
-                <p> <i class="ion-ios-location"></i>  成都市高新区英郡12栋2204</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ion-item>
-      <ion-item class="item">
-        <div class="list">
-          <div class="item item-body img_box">
-            <img class="full-image" src="img/2.jpeg">
-            <div class="img_text">
-              2000人<span>品尝过</span>
-            </div>
-          </div>
-          <div class="item item-avatar item_box">
-            <img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">
-            <!--<img src="posts/avatars/avatar1.jpg" ng-click="scanQRCode()">-->
-            <!--<h2>Marty McFly</h2>-->
+    <ion-header-bar class="item-input-inset indexbar">
+        <button class="button button-clear">
+            高新区
+        </button>
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="搜索"/>
+        </label>
+        <button class="button button-clear" ng-click="modal.show()">
+            登录
+        </button>
+    </ion-header-bar>
+    <ion-content class="home_item">
+        <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
+                       slide-interval="2000">
+            <ion-slide>
+                <div class="box blue"><img src="img/2.jpeg" alt=""/></div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box yellow"><img src="img/2.jpeg" alt=""/></div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box pink"><img src="img/2.jpeg" alt=""/></div>
+            </ion-slide>
+        </ion-slide-box>
+        <ion-list>
+            <ion-item class="item" href="#/tab/dash/0">
+                <div class="list">
+                    <div class="item item-body img_box">
+                        <img class="full-image" src="img/2.jpeg"></a>
+                        <div class="img_text">
+                            2000人<span>品尝过</span>
+                        </div>
+                    </div>
+                    <div class="item item-avatar item_box">
+                        <img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">
 
-            <!--<p>November 05, 1955</p>-->
-            <!--<a class="button button-icon icon ion-arrow-down-b" style="padding: 0px;"></a>-->
+                        <div class="row" href="#/tab/dash/0">
+                            <div class="col-90">
+                                <h2>恋家厨房</h2>
 
-            <div class="row">
-              <div class="col-90">
-                <h2>恋家厨房</h2>
-                <p> <i class="ion-ios-location"></i>  成都市高新区英郡12栋2204</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ion-item>
-      <ion-item class="item">
-        <div class="list">
-          <div class="item item-body img_box">
-            <img class="full-image" src="img/2.jpeg">
-            <div class="img_text">
-              2000人<span>品尝过</span>
-            </div>
-          </div>
-          <div class="item item-avatar item_box">
-            <img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">
-            <!--<img src="posts/avatars/avatar1.jpg" ng-click="scanQRCode()">-->
-            <!--<h2>Marty McFly</h2>-->
+                                <p><i class="ion-ios-location"></i> 成都市高新区英郡12栋2204</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item">
+                <div class="list">
+                    <div class="item item-body img_box">
+                        <img class="full-image" src="img/2.jpeg">
 
-            <!--<p>November 05, 1955</p>-->
-            <!--<a class="button button-icon icon ion-arrow-down-b" style="padding: 0px;"></a>-->
+                        <div class="img_text">
+                            2000人<span>品尝过</span>
+                        </div>
+                    </div>
+                    <div class="item item-avatar item_box">
+                        <img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">
+                        <!--<img src="posts/avatars/avatar1.jpg" ng-click="scanQRCode()">-->
+                        <!--<h2>Marty McFly</h2>-->
 
-            <div class="row">
-              <div class="col-90">
-                <h2>恋家厨房</h2>
-                <p> <i class="ion-ios-location"></i>  成都市高新区英郡12栋2204</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+                        <!--<p>November 05, 1955</p>-->
+                        <!--<a class="button button-icon icon ion-arrow-down-b" style="padding: 0px;"></a>-->
+
+                        <div class="row">
+                            <div class="col-90">
+                                <h2>恋家厨房</h2>
+
+                                <p><i class="ion-ios-location"></i> 成都市高新区英郡12栋2204</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+            <ion-item class="item">
+                <div class="list">
+                    <div class="item item-body img_box">
+                        <img class="full-image" src="img/2.jpeg">
+
+                        <div class="img_text">
+                            2000人<span>品尝过</span>
+                        </div>
+                    </div>
+                    <div class="item item-avatar item_box">
+                        <img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">
+                        <!--<img src="posts/avatars/avatar1.jpg" ng-click="scanQRCode()">-->
+                        <!--<h2>Marty McFly</h2>-->
+
+                        <!--<p>November 05, 1955</p>-->
+                        <!--<a class="button button-icon icon ion-arrow-down-b" style="padding: 0px;"></a>-->
+
+                        <div class="row">
+                            <div class="col-90">
+                                <h2>恋家厨房</h2>
+
+                                <p><i class="ion-ios-location"></i> 成都市高新区英郡12栋2204</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

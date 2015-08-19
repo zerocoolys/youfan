@@ -1,7 +1,7 @@
-ControllerModule.controller('DashCtrl', function ($scope,$ionicModal) {
+ControllerModule.controller('DashCtrl', function ($scope, $ionicModal) {
     $ionicModal.fromTemplateUrl('templates/tab-login.html', {
         scope: $scope
-    }).then(function(modal) {
+    }).then(function (modal) {
         $scope.modal = modal;
     });
 

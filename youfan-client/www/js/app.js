@@ -85,7 +85,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/seller-detail.html",
-                        controller: 'CellerDetailCtrl'
+                        controller: 'SellerDetailCtrl'
                     }
                 }
             })
@@ -174,16 +174,6 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-login': {
                         templateUrl: 'templates/tab-login.html'
 //                        controller: 'ChatsCtrl'
-                    }
-                }
-            })
-//            列表详情页
-            .state('tab.dash-detail', {
-                url: '/dash/:dashId',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/dash-detail.html',
-                        controller: 'DashDetailCtr'
                     }
                 }
             })
