@@ -1,12 +1,30 @@
 ControllerModule.controller('DashCtrl', function ($scope,$ionicModal) {
+
+    /**
+     * 验证码登陆
+     */
     $ionicModal.fromTemplateUrl('templates/tab-verifylogin.html', {
         scope: $scope
     }).then(function(modal) {
-        $scope.modal = modal;
+        $scope.verifyLogin = modal;
     });
 
-//    $scope.loginWay = {
-//        verificationCodeLogin:"验证码登录",
-//        passwordLogin:"密码登录"
-//    }
+    /**
+     * 密码登陆
+     */
+    $ionicModal.fromTemplateUrl('templates/tab-pwdlogin.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.pwdLogin = modal;
+    });
+
+    /**
+     * 用户协议
+     */
+    $ionicModal.fromTemplateUrl('templates/user-agreement.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.userAgreement = modal;
+    });
+
 });
