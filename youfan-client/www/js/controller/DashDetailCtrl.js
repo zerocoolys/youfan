@@ -3,6 +3,7 @@
  */
 ControllerModule.controller('DashDetailCtrl', function ($scope, $http, $ionicSlideBoxDelegate, REST_URL) {
 
+//    $scope.dash = Dash.get($stateParams.dashId);
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
 
@@ -14,22 +15,39 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $http, $ionicSli
         $ionicSlideBoxDelegate.slide(index);
     };
 
+    $scope.sellerId = 196830201;
+
     $scope.menuArr = [];
 
-    $http.get(REST_URL + '/menu/list/196830201').success(function (data) {
-        $scope.menuArr = JSON.parse(data.menus);
+    $http.get(REST_URL + '/menu/list/' + $scope.sellerId).success(function (data) {
+        var jsonArr = JSON.parse(data.menus);
+
+        for (var i = 0, l = jsonArr.length; i < l; i++) {
+            jsonArr[i].price = parseFloat(jsonArr[i].price).toFixed(2);
+        }
+
+        $scope.menuArr = jsonArr;
     });
 
     $scope.cart = new Map();
 
-    $scope.addToCart = function (menuId, restNum) {
-        if (restNum > 0) {
-            $scope.cart.put(menuId, menuId)
+    $scope.addToCart = function (menu) {
+        if (menu.restNum > 0) {
+            $scope.cart.put(menu.menuId, menu);
+
+            var total = 0;
+            $scope.cart.values().forEach(function (item, i) {
+                total += parseFloat(item.price);
+            });
+
+            $scope.subtotal = total.toFixed(2);
         }
     };
 
     $scope.removeFromCart = function (menuId) {
         $scope.cart.remove(menuId)
-    }
+    };
+
+    $scope.subtotal = 0;
 
 });

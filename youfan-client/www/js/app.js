@@ -139,6 +139,46 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+            //个人中心-我的钱包
+            .state('tab.wallet', {
+                url: "/wallet",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/wallet.html",
+                        controller: 'WalletCtrl'
+                    }
+                }
+            })
+//            钱包中的优惠券
+            .state('tab.coupons', {
+                url: "/coupons",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/coupons.html",
+                        controller: 'CouponsCtrl'
+                    }
+                }
+            })
+            //个人中心-我的订单
+            .state('tab.order', {
+                url: "/order",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/order.html",
+                        controller: 'MyOrderCtrl'
+                    }
+                }
+            })
+            //个人中心-个人信息
+            .state('tab.personal-info', {
+                url: "/personal-info",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/personal-info.html",
+                        controller: 'PersonalInfoCtrl'
+                    }
+                }
+            })
             //个人中心-送餐地址
             .state('tab.address', {
                 url: "/address",

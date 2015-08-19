@@ -1,10 +1,14 @@
-<ion-view view-title="" hide-nav-bar="true" hide-tabs>
-    <ion-content>
-        <div class="share_icon">
-            <a href="#"><i class="icon ion-android-favorite"></i><span>10</span></a>
+<ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail">
+    <ion-header-bar class="bar-header bar-light  ">
+        <a href="javascript:void(0)" onclick="history.back()"><i class="ion-ios-arrow-left"></i></a>
+
+        <div class="top_share ">
+            <a href="#"><i class="icon ion-android-favorite"></i></a>
             <a href="#"><i class="icon ion-android-bookmark"></i></a>
             <a href="#"><i class="icon ion-android-share-alt"></i></a>
         </div>
+    </ion-header-bar>
+    <ion-content>
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
                        slide-interval="2000">
             <ion-slide>
@@ -44,13 +48,13 @@
                 <i class="address_img icon ion-ios-location-outline"></i>
 
                 <h2>我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
-                <i class="icon ion-ios-arrow-right"></i>
+                <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
                 <i class="address_img icon ion-ios-location-outline"></i>
 
                 <h2>北京市朝阳区百子湾32号院苹果社区南区</h2>
-                <i class="icon ion-ios-arrow-right"></i>
+                <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
                 <div class="address_detail_info">
@@ -78,12 +82,14 @@
                             <h2 ng-bind="menu.description"></h2>
 
                             <i class="icon ion-ios-arrow-right"></i>
+
+                            <i class="icon ion-ios-arrow-right icon-accessory"></i>
                         </ion-item>
                         <ion-item class="item-icon-left item-icon-right">
                             <h2 ng-bind="'￥' + menu.price"></h2>
 
                             <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
-                            <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
+                            <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
                         </ion-item>
                     </ion-item>
                 </ion-list>
@@ -97,7 +103,7 @@
                         <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
 
                         <p ng-bind="'￥' + menu.price"></p>
-                        <i class="icon ion-plus" ng-click="addToCart(menu.menuId, menu.restNum)"></i>
+                        <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
                     </ion-item>
                 </ion-list>
             </ion-slide>
@@ -105,7 +111,8 @@
     </ion-content>
     <div class="bar bar-footer bar-calm">
         <div class="button-bar">
-            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">￥0.00</a>
+            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"
+               ng-bind="'￥' + subtotal"></a>
             <a class="button button-clear" href="#/tab/confirm-order/0">选好了</a>
         </div>
     </div>
