@@ -4,6 +4,7 @@ import com.youfan.commons.Constants;
 import com.youfan.system.mongo.MongoPool;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,20 +12,20 @@ import java.util.List;
  *
  * @author dolphineor
  */
-public interface MongoBaseDAO<T> extends Constants {
+public interface MongoBaseDAO<T, ID extends Serializable> extends Constants {
 
     MongoTemplate mongoTemplate = MongoPool.getMongoTemplate(MONGO_YOUFAN);
 
 
     List<T> findAll();
 
-    T findOne(Long id);
+    T findOne(ID id);
 
     void insert(T t);
 
-    void insert(List<T> ts);
+    void insert(List<T> list);
 
-    void delete(Long id);
+    void delete(ID id);
 
     void update(T t);
 

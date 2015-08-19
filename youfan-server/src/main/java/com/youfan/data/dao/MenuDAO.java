@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author dolphineor
  */
-public interface MenuDAO extends MongoBaseDAO<MenuEntity> {
+public interface MenuDAO extends MongoBaseDAO<MenuEntity, Long> {
 
     List<MenuEntity> list(Long sellerId);
 
