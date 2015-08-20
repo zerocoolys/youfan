@@ -24,13 +24,13 @@
                     controller: 'overview'
 
                 })
-               .state('dishes', {
+                .state('dishes', {
                     url: '/dishes',
                     templateUrl: 'templates/overview/dishes.html',
                     controller: 'dishes'
 
                 })
-               .state('today-order', {
+                .state('today-order', {
                     url: '/today-order',
                     templateUrl: 'templates/overview/today-order.html',
                     controller: ''
@@ -39,7 +39,8 @@
                 .state('shop-course', {
                     url: '/shop-course',
                     templateUrl: 'templates/overview/shop-course.html',
-                    controller: ''
+                    controller:'shop'
+
 
                 });
 
@@ -50,7 +51,14 @@
                     templateUrl: 'templates/order/all_order.html',
                     controller: 'all_order'
 
+                })
+                .state('query_order', {
+                    url: '/query_order',
+                    templateUrl: 'templates/order/query_order.html',
+                    controller: 'query_order'
+
                 });
+
 
             //????
             $stateProvider
@@ -59,9 +67,15 @@
                     templateUrl: 'templates/income/my_income.html',
                     controller: 'my_income'
 
+                })
+                .state('my_bill', {
+                    url: '/my_bill',
+                    templateUrl: 'templates/income/my_bill.html',
+                    controller: 'my_bill'
+
                 });
 
-            //????
+
             $stateProvider
                 .state('customer_comment', {
                     url: '/customer_comment',
@@ -83,7 +97,7 @@
                 .state('personinfo',{
                     url:'/personinfo',
                     templateUrl: 'templates/editkitchen/editkitchen-personinfo.html',
-                    controller: 'kitcheninfo'
+                    controller: 'personinfo'
                 })
             ;
 

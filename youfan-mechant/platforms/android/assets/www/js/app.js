@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('yf_merchant', ['ionic', 'yf_merchant.settings_controllers'])
+angular.module('yf_merchant', ['ionic','ionic-datepicker' ,'yf_merchant.settings_controllers'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -22,3 +22,7 @@ angular.module('yf_merchant', ['ionic', 'yf_merchant.settings_controllers'])
             }
         });
     });
+/*
+ 全局firebaseio
+ */
+//var firebaseio = new Firebase("https://youfan-mechant.firebaseio.com/");

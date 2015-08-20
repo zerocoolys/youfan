@@ -8,5 +8,8 @@
     function MyIncome($scope, $filter, $state) {
 
 
+        $scope.goMyBill = function () {
+            $state.go('my_bill');
+        };
     }
 })();

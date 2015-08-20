@@ -31,29 +31,26 @@
                 time:"20:00"
             }
         ];
+        $scope.dishesIndex=0;
+        $scope.activedishes = function (dishesIndex) {
+            $scope.dishesIndex = dishesIndex;
+            $ionicSlideBoxDelegate.enableSlide([false])
+
+        };
 
         $scope.slideIndex=0;
-        $scope.slideChanged = function (index) {
-            $scope.slideIndex = index;
-        };
-        $scope.activeSlide = function (index) {
-            $ionicSlideBoxDelegate.slide(index);
-            console.log(index);
+        $scope.activeSlide = function (slideIndex) {
+            $scope.slideIndex = slideIndex;
+            $ionicSlideBoxDelegate.enableSlide([false])
+
 
         };
 
-        $scope.dishesIndex=0;
-        $scope.dishesChanged = function (index) {
-            $scope.dishesIndex = index;
-        };
-        $scope.activedishes = function (index) {
-            $ionicSlideBoxDelegate.slide(index);
 
-        };
 
 
         $scope.dorders=[1,2,3,4,5];
-        $scope.ways=[1,2,3]
+        $scope.ways=[1,2]
 
     }
 })();
