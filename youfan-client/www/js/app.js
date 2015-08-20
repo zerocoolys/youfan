@@ -303,6 +303,14 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         controller: 'AccountCtrl'
                     }
                 }
+            }).state('tab.Map', {
+                url: '/mapCtrl',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/map.html',
+                        controller: 'MapContainer'
+                    }
+                }
             });
 
         // if none of the above states are matched, use this as the fallback

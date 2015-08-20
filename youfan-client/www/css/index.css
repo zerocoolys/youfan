@@ -306,8 +306,11 @@ ul.rating li i {
     margin-top:2px;
 }
 /*首页顶部导航*/
-.index_loction{
-    padding:0 20px;
-    width:100%;
+.index_loction {
+    padding: 0 20px;
+    width: 100%;
     background: #fff;
+}
+.map_content .scroll{
+    height:100%;
 }
