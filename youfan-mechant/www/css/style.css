@@ -2,7 +2,12 @@
 a{
     text-decoration: none;
 }
-
+.fr{
+    float: right;
+}
+.fl{
+    float: left;
+}
 .dishes a{
     font-size: 14px;
     text-decoration: none;
@@ -88,4 +93,19 @@ a{
     background-color: #1dbeaf;
     color: white;
     border-bottom: 2px solid #1dbeaf;
+}
+.order .item-complex .item-content{
+    padding-right: 16px;
+}
+.order_Details ul{
+    margin-top: -20px;
+}
+
+.order_Details ul li{
+    width: 100%;
+    margin-top: 18px;
+}
+.order_Details  b{
+    width: 100px;
+    text-align: right;
 }

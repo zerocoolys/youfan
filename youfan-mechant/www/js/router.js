@@ -33,7 +33,13 @@
                 .state('today-order', {
                     url: '/today-order',
                     templateUrl: 'templates/overview/today-order.html',
-                    controller: ''
+                    controller: 'today_order'
+
+                })
+                .state('tomorrow-order', {
+                    url: '/tomorrow-order',
+                    templateUrl: 'templates/overview/tomorrow-order.html',
+                    controller: 'tomorrow_order'
 
                 })
                 .state('shop-course', {
@@ -50,6 +56,12 @@
                     url: '/all_order',
                     templateUrl: 'templates/order/all_order.html',
                     controller: 'all_order'
+
+                })
+                .state('order_Details', {
+                    url: '/order_Details',
+                    templateUrl: 'templates/order/order_Details.html',
+                    controller: ''
 
                 })
                 .state('query_order', {
