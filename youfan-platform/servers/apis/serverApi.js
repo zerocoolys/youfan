@@ -51,12 +51,48 @@ api.get("/merchant/getPays", function (req, res) {
 });
 
 api.get("/merchant/pay", function (req, res) {
-    console.log("获取商家信息接口")
+    console.log("打款到商家帐号接口")
 
+    var options = {
+        hostname: '192.168.1.107',
+        port: 8080,
+        path: '/platform/pay',
+        method: 'GET'
+    };
+    httpUtil.httpGet(res, options, function (chunk) {
+        console.log('BODY: ' + chunk);
+        res.end(JSON.stringify(chunk), function (err) {
+            if (err) {
+                console.log(err)
+            }
+        });
+    }, function (e) {
+        console.log('problem with request: ' + e.message);
+    });
     send(res,tdata);
 });
 
+api.get("/pay", function (req, res) {
+    console.log("付款接口测试")
+    var options = {
+        hostname: '127.0.0.1',
+        port: 8080,
+        path: '/platform/pay?amount=100&order_no=93434252335&channel=alipay_wap&currency=cny&client_ip=127.0.0.1&subject=subject&body=body',
+        method: 'GET'
+    };
+    httpUtil.httpGet(res, options, function (chunk) {
+        console.log('BODY: ' + chunk);
+        res.end(JSON.stringify(chunk), function (err) {
+            if (err) {
+                console.log(err)
+            }
+        });
+        send(res,chunk);
+    }, function (e) {
+        console.log('problem with request: ' + e.message);
+    });
 
+});
 
 
 
