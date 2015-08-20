@@ -115,6 +115,15 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
+            .state('merchantpay', {
+                url: '/merchant/merchantpay',
+                templateUrl: 'merchant/merchantpay.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/merchant/merchantPayCtrl'
+                    ])
+                }
+            })
         function loadDeps(deps) {
             return [
                 '$q', function ($q) {

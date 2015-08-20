@@ -21,7 +21,8 @@ define(["./module"], function (ctrs) {
                 //初始化当前左侧Menu
                 $rootScope.initNavMenu( $rootScope.curnav);
                 $rootScope.curmenunum = 0;
-                $state.go($rootScope.curmenus[0].name, {},{reload:true});
+                console.log($rootScope.curnav)
+                $state.go($rootScope.curnav, {});
             }
         }
     })

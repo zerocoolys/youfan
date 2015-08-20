@@ -14,6 +14,7 @@ define([
     "./controllers/loginCtrl",
     "./controllers/leftMenuCtrl",
     "./controllers/navCtrl",
+    "./controllers/tableCtrl",
     "./controllers/sys/module",
     "./controllers/client/module",
     "./controllers/merchant/module",

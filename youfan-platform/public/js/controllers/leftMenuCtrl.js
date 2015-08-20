@@ -59,10 +59,15 @@ define(["./module"], function (ctrs) {
                             href: "#/merchant/merchantinfo",
                         },
                         {
-                            title: '商家审核',
+                            title: '商家信息审核',
                             name:"merchantcheck",
                             href: "#/merchant/merchantcheck",
-                        }
+                        },
+                        {
+                            title: '商家提款审核',
+                            name:"merchantpay",
+                            href: "#/merchant/merchantpay",
+                        },
                     ];
                     break;
                 default :

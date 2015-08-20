@@ -24,6 +24,47 @@ api.get("/login", function (req, res) {
     //}, function (e) {
     //    console.log('problem with request: ' + e.message);
     //});
-    res.render("main.html",{});
 });
+
+api.get("/merchant/getInfos", function (req, res) {
+    console.log("获取商家信息接口")
+        var tdata = [
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"}
+        ]
+    send(res,tdata);
+});
+
+api.get("/merchant/getPays", function (req, res) {
+    console.log("获取商家信息接口")
+    var tdata = [
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"},
+        {name: "小李", address: "四川", phone: "1234567890", status: "正常"}
+    ]
+    send(res,tdata);
+});
+
+api.get("/merchant/pay", function (req, res) {
+    console.log("获取商家信息接口")
+
+    send(res,tdata);
+});
+
+
+
+
+
+var send = function (res, obj) {
+    res.end(JSON.stringify(obj), function (err) {
+        if (err) {
+            console.log(err)
+        }
+    });
+}
 module.exports = api
