@@ -215,7 +215,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-login': {
                         templateUrl: 'templates/tab-pwdlogin.html',
                         controller: 'LoginCtrl'
-                    },
+                    }
                 }
             })
             //短信验证码登陆
@@ -264,6 +264,14 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-account': {
                         templateUrl: 'templates/tab-account.html',
                         controller: 'AccountCtrl'
+                    }
+                }
+            }).state('tab.Map', {
+                url: '/mapCtrl',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/map.html',
+                        controller: 'MapContainer'
                     }
                 }
             });
