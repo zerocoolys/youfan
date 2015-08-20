@@ -168,6 +168,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+//            推荐奖励
+            .state('tab.recommended-awards', {
+                url: "/recommended-awards",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/recommended-awards.html"
+                    }
+                }
+            })
             //个人中心-我的订单
             .state('tab.order', {
                 url: "/order",
@@ -175,6 +184,25 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-chats': {
                         templateUrl: "templates/personalcenter/order.html",
                         controller: 'MyOrderCtrl'
+                    }
+                }
+            })
+            //个人中心-我的订单-订单详情
+            .state('tab.order-detail', {
+                url: "/order-detail",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/order-detail.html",
+                        controller: 'OrderDetailCtrl'
+                    }
+                }
+            })
+            //个人中心-我的订单-订单详情-支付成功
+            .state('tab.pay-success', {
+                url: "/pay-success",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/pay-success.html"
                     }
                 }
             })
