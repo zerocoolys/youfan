@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $http, $ionicSlideBoxDelegate, REST_URL) {
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, REST_URL) {
 
 //    $scope.dash = Dash.get($stateParams.dashId);
     $scope.$root.tabsHidden = "tabs-hide";
@@ -29,19 +29,44 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $http, $ionicSli
         $scope.menuArr = jsonArr;
     });
 
-    $scope.cart = new Map();
+    $scope.cart = [];
 
     $scope.addToCart = function (menu) {
         if (menu.restNum > 0) {
-            $scope.cart.put(menu.menuId, menu);
+            $scope.cart.push(menu);
 
             var total = 0;
-            $scope.cart.values().forEach(function (item, i) {
+            $scope.cart.forEach(function (item, i) {
                 total += parseFloat(item.price);
             });
 
             $scope.subtotal = total.toFixed(2);
         }
+    };
+
+    $scope.orderCartMap = new Map();
+
+    $scope.confirmOrder = function () {
+
+        $scope.cart.forEach(function (item) {
+            if ($scope.orderCartMap.containsKey(item.menuId)) {
+                var o = $scope.orderCartMap.get(item.menuId);
+                o.totalPrice = (parseFloat(o.totalPrice) + parseFloat(item.price)).toFixed(2);
+                o.count = parseInt(o.count) + 1;
+            } else {
+                $scope.orderCartMap.put(item.menuId, {
+                    'menuId': item.menuId,
+                    'name': item.name,
+                    'totalPrice': item.price,
+                    'count': 1
+                })
+            }
+
+        });
+        Order.details.cart = $scope.orderCartMap.values();
+        $scope.orderCartMap.clear();
+
+        $state.go('tab.confirm-order');
     };
 
     $scope.removeFromCart = function (menuId) {

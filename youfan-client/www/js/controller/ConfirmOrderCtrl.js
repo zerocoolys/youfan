@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $ionicModal) {
+ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $ionicModal, Order, REST_URL) {
 
     $ionicModal.fromTemplateUrl('templates/remarks.html', {
         scope: $scope
@@ -17,6 +17,10 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $ionicModal) {
 
     $scope.pay = function () {
         console.log("Pay ...");
+    };
+
+    $scope.loadCart = function () {
+        console.log(JSON.stringify(Order.details.cart));
     }
 
 });
