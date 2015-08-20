@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="LOG_DIR" value="J:/log" />
+
+   <!-- 输出到控制台 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%5level] %logger{36}
+				[%file:%line] - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+    <!-- 输出到文件 -->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/youfan.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/xxx.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} -
+				%msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="platform"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/platform/platform.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/platform.%d{yyyy-MM-dd}.txt
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+
+	<logger name="com.youfan.log.WebbooksLog" level="INFO"
+		additivity="false">
+		<appender-ref ref="platform" />
+	</logger>
+
+
+	<!--<logger name="org.mongodb" level="ERROR" /> -->
+	<!--<logger name="org.springframework" level="ERROR" /> -->
+	<!--<logger name="org.apache.ibatis" level="ERROR" /> -->
+	<!--<logger name="org.mybatis.spring" level="ERROR" /> -->
+	<!--<logger name="org.apache.http" level="ERROR" /> -->
+	<!--&lt;!&ndash; sql语句打印 &ndash;&gt; -->
+	<!--<logger name="java.sql" level="ERROR" /> -->
+	
+	<logger name="org.springframework" level="INFO" />
+
+
+	<root level="info">
+		 <appender-ref ref="STDOUT" />
+		<!-- <appender-ref ref="file" /> -->
+	</root>
+
+</configuration>
