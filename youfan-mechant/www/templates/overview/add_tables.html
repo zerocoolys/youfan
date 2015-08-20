@@ -1,0 +1,38 @@
+<ion-view hide-nav-bar="true">
+    <ion-header-bar class="bar" align-title="center">
+        <a class="button button-clear icon ion-ios-arrow-back" href="#/overview"></a>
+
+        <h1 class="title calm">添加小饭桌</h1>
+
+        <a class=" button button-clear calm " style="padding: 0 3px 0 10px; line-height: 38px; "
+           href="#/query_order">
+            保存
+        </a>
+    </ion-header-bar>
+    <ion-content class="">
+        <div class="item item-divider "  style="padding-top: 20px;">
+            <span class="icon" style="color: #e6b400">*</span>
+            <span style="color: #a1a1a1">3人小饭桌图片</span>
+            <a ng-click="show()" class="tab-item calm-bg light" style=" height: 60px; width: 60px;margin-top: 10px;padding: 13px 5px 5px 5px; ">
+                <i class="icon ion-plus "></i>
+            </a>
+
+        </div>
+
+            <div class="item item-input padding ">
+
+                <i class="icon" style="color: #e6b400">*</i>
+                <input type="text"placeholder="请输入小饭桌的价格"/>
+                <p style="color:#1dbeaf; margin-right: 10px;">元/份</p>
+
+
+            </div>
+            <div class="item item-input padding">
+                <i class="icon" style="color: #e6b400">*</i>
+                <input type="text" placeholder="请输入小饭桌的库存"/>
+                <p style="color:#1dbeaf; margin-right: 10px;">份</p>
+            </div>
+        <div class="calm " style="margin: 3px 8px">注：小饭桌就餐人数有多少人，则免费送几份主食。续加则按1元/份收费</div>
+
+    </ion-content>
+</ion-view>
