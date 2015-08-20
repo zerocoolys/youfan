@@ -215,7 +215,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-login': {
                         templateUrl: 'templates/tab-pwdlogin.html',
                         controller: 'LoginCtrl'
-                    },
+                    }
                 }
             })
             //短信验证码登陆
