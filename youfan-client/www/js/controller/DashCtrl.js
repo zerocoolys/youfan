@@ -1,5 +1,11 @@
 ControllerModule.controller('DashCtrl', function ($scope, $ionicModal, $rootScope) {
     $rootScope.hideTabs = false;
+    //下拉刷新
+    $scope.doRefresh = function() {
+     /*   $scope.todos.unshift({name: 'Incoming todo ' + Date.now()})*/
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.$apply()
+    };
     /**
      * 验证码登陆
      */
