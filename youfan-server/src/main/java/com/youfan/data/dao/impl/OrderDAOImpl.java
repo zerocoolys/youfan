@@ -20,13 +20,14 @@ import java.util.List;
 @Repository("orderDAO")
 public class OrderDAOImpl implements OrderDAO {
 
-    private final String SEQ_ORDER = "ORDER";
+    private static final String SEQ_ORDER = "ORDER";
+
     @Resource
     private IdGenerator idGenerator;
 
-
     @Resource
     private SqlSession sqlSession;
+
 
     @Override
     public Order insert(Order order) {
@@ -71,11 +72,11 @@ public class OrderDAOImpl implements OrderDAO {
 
     private OrderEntity createEntity(Order order) {
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setId(order.getOrderId());
+        orderEntity.setId(order.getId());
         orderEntity.setBuyerId(order.getBuyerId());
         orderEntity.setSellerId(order.getSellerId());
 
-        orderEntity.setMemo(order.getMemo());
+        orderEntity.setComments(order.getComments());
         orderEntity.setOrderStatus(order.getOrderStatus());
 
         orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));
@@ -84,11 +85,11 @@ public class OrderDAOImpl implements OrderDAO {
 
     private Order createObject(OrderEntity orderEntity) {
         Order order = new Order();
-        orderEntity.setId(order.getOrderId());
+        orderEntity.setId(order.getId());
         orderEntity.setBuyerId(order.getBuyerId());
         orderEntity.setSellerId(order.getSellerId());
 
-        orderEntity.setMemo(order.getMemo());
+        orderEntity.setComments(order.getComments());
         orderEntity.setOrderStatus(order.getOrderStatus());
 
         orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));

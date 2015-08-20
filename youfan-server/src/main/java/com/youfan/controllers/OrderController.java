@@ -63,7 +63,7 @@ public class OrderController {
 
         order.setBuyerId(orderParams.getBuyerId());
         order.setSellerId(orderParams.getSellerId());
-        order.setMemo(orderParams.getMemo());
+        order.setComments(orderParams.getComments());
         order.setOrderStatus(orderParams.getOrderStatus());
 
         Order result = orderService.createOrder(order);
