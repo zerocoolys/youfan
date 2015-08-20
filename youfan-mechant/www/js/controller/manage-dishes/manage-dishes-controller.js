@@ -33,14 +33,18 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
 
     })
 
-    .controller('ManageDishesXfzCtrl', function ($scope) {
+    .controller('ManageDishesXfzCtrl', function ($scope, $state, $ionicLoading, $timeout) {
 
         console.log("ManageDishesXfzCtrl");
+
+        $scope.addXfz = function () {
+            $state.go("m_dishes_xfz_add");
+        };
 
 
     })
 
-    .controller('ManageDishesQtcCtrl', function ($scope, $state) {
+    .controller('ManageDishesQtcCtrl', function ($scope, $state, $ionicLoading, $timeout) {
 
         console.log("ManageDishesQtcCtrl");
 
@@ -49,6 +53,27 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
         $scope.addQtc = function () {
             $state.go("m_dishes_qtc_add");
         };
+
+        $scope.load = function () {
+            $ionicLoading.show({
+                template: "正在载入数据，请稍后..."
+            });
+            //延时2000ms来模拟载入的耗时行为
+            var idx = 0;
+            var max = Math.ceil(Math.random() * 7);
+            $timeout(function () {
+                for (var i = 0; i < max; i++, idx++) $scope.items.unshift({
+                    name: "青椒肉丝",
+                    price: Math.ceil(Math.random() * 100),
+                    url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
+                });
+                //隐藏载入指示器
+                $ionicLoading.hide();
+            }, 2000);
+            $scope.isActive = false;
+        };
+
+        $scope.load();
 
 
     })
@@ -127,9 +152,15 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
 
     })
 
-    .controller('ManageDishesQtcAddCtrl', function ($scope, $ionicActionSheet, $timeout, ManageDishesService) {
+    .controller('ManageDishesQtcAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
 
         console.log("ManageDishesQtcAddCtrl");
+
+        $scope.kwItems = KwService.all();
+
+        $scope.dishes = {staple: false};
+        $scope.imgs = [];
+        $scope.isActive = false;
 
         $scope.addQtcPic = function () {
             console.log("addNscPic");
@@ -140,7 +171,13 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
                     {text: "打开相册"}
                 ],
                 buttonClicked: function (index) {
-                    console.log(index);
+                    if (!navigator.camera) {
+                        alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                    }
+                    $scope.imgs.push({
+                        index: $scope.imgs.length,
+                        url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
+                    });
                     return true;
                 },
                 cancelText: "取消",
@@ -156,7 +193,42 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
 
         };
 
+        $scope.doCheckDishes = function () {
+            $scope.isActive = true;
+            if ($scope.imgs.length == 0) {
+                alert("请添加菜品图片");
+                $scope.isActive = false;
+            } else {
+                $scope.doSave();
+            }
+        };
 
+        $scope.doSave = function () {
+            $ionicLoading.show({
+                template: "保存菜品中，请稍后..."
+            });
+            $timeout(function () {
+                ManageDishesService.saveDishes($scope.dishes);
+            }, 1000);
+
+
+        };
+
+        $scope.$on("yf-merchant-save-dishes-success", function () {
+            $state.go("m_dishes.nsc");
+        });
+
+        $scope.$on("yf-merchant-save-dishes-error", function () {
+            alert("系统错误");
+            $ionicLoading.hide();
+            $scope.isActive = false;
+        });
+
+
+    })
+
+    .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
+        console.log("ManageDishesXfzAddCtrl");
     })
 
     .config(function ($stateProvider, $urlRouterProvider) {
@@ -204,6 +276,11 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
                 url: '/manage/dishes/qtc/add',
                 controller: 'ManageDishesQtcAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-qtc-add.html'
+            })
+            .state('m_dishes_xfz_add', {
+                url: '/manage/dishes/xfz/add',
+                controller: 'ManageDishesXfzAddCtrl',
+                templateUrl: 'templates/manage-dishes/manage-dishes-xfz-add.html'
             })
         ;
 

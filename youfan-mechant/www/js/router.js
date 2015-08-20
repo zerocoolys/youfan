@@ -48,14 +48,7 @@
                     controller:'shop'
 
 
-                })
-                 .state('add_tables', {
-                url: '/add_tables',
-                templateUrl: 'templates/overview/add_tables.html',
-                controller:'add_tables'
-
-
-            });
+                });
 
             //????
             $stateProvider

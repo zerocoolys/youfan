@@ -1,10 +1,12 @@
 <ion-view view-title="添加拿手菜" cache-view="false">
     <ion-nav-buttons side="left">
-        <button class="button button-clear button-positive" data-ng-click="goState('m_dishes.nsc')"><i
+        <button class="button button-clear button-positive" ui-sref="m_dishes.nsc"><i
                 class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-positive" data-ng-click="doCheckDishes()" data-ng-disabled="isActive">保存</button>
+        <button class="button button-clear button-positive" data-ng-click="doCheckDishes()" data-ng-disabled="isActive">
+            保存
+        </button>
     </ion-nav-buttons>
 
     <ion-content class="padding-top">
