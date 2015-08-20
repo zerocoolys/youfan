@@ -1,0 +1,57 @@
+<ion-view view-title="添加其他菜" cache-view="false">
+    <ion-nav-buttons side="left">
+        <button class="button button-clear button-positive" data-ng-click="goState('m_dishes.qtc')"><i
+                class="icon ion-ios-arrow-back"></i></button>
+    </ion-nav-buttons>
+
+    <ion-content class="padding-top">
+        <div class="list list-inset">
+            <div class="item item-divider">
+                <span style="color: red">*</span>添加菜品图片(最多四张)
+                <div>
+                    <button class="button button-balanced" data-ng-click="addNscPic()">+</button>
+                </div>
+            </div>
+            <div class="item item-divider">
+                <ion-toggle ng-model="item.selected"><span style="color: red">*</span>是否是主食：</ion-toggle>
+            </div>
+            <label class="item item-input">
+                <i class="icon ion-ios-person-outline"></i>
+                <input type="text" placeholder="添加菜品名称">
+            </label>
+            <label class="item item-input">
+                <i class="icon ion-ios-unlocked-outline"></i>
+                <input type="text" placeholder="输入价格">
+            </label>
+            <label class="item item-input">
+                <i class="icon ion-ios-unlocked-outline"></i>
+                <input type="text" placeholder="请输入菜品库存">
+                <span class="input-label">Password</span>
+            </label>
+            <label class="item item-input">
+                <textarea rows="5" placeholder="请输入菜品描述"></textarea>
+            </label>
+
+            <div class="item item-divider">特色（每条最多10个字）</div>
+
+            <label class="item item-input item-stacked-label">
+                <input type="text" placeholder="菜的特色">
+                <input type="text" placeholder="菜的特色">
+                <input type="text" placeholder="菜的特色">
+                <input type="text" placeholder="菜的特色">
+            </label>
+
+            <div class="item item-divider">口味</div>
+            <ion-radio ng-repeat="item in kwItems"
+                       ng-model="dishes.kw" ng-value="item.kw">
+                {{item.text}}
+            </ion-radio>
+
+            <a class="button button-calm button-block" style="margin-top: 15px;" href="#/overview">登录</a>
+        </div>
+
+
+
+    </ion-content>
+
+</ion-view>

@@ -38,24 +38,26 @@ elow and remove the CSS includes above
     <script src="js/controller/income/my_bill_controller.js"></script>
     <script src="js/controller/order/today_order_controller.js"></script>
     <script src="js/controller/order/tomorrow_order_controller.js"></script>
+    <script src="js/controller/manage-dishes/manage-dishes-controller.js"></script>
 
     <script src="lib/ionic-datepicker/ionic-datepicker.bundle.min.js"></script>
     <script src="js/service/settings-service.js"></script>
+    <script src="js/service/manage-dishes-service.js"></script>
 </head>
 <body ng-app="yf_merchant">
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
 <ion-nav-bar class="bar-stable">
-    <ion-nav-back-button>
+    <!--<ion-nav-back-button>-->
 
-    </ion-nav-back-button>
+    <!--</ion-nav-back-button>-->
 </ion-nav-bar>
 <!--
   The views will be rendered in the <ion-nav-view> directive below
   Templates are in the /templates folder (but you could also
   have templates inline in this html file if you'd like).
 -->
-<ion-nav-view animation="slide-left-right"></ion-nav-view>
+<ion-nav-view></ion-nav-view>
 </body>
 </html>
