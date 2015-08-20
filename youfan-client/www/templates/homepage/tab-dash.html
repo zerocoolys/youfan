@@ -1,5 +1,5 @@
-<ion-view view-title="" hide-nav-bar="true" cache-view="false" class="home_item">
-    <div class="bar bar-header item-input-inset">
+<ion-view view-title="" hide-nav-bar="true" cache-view="false">
+    <ion-header-bar class="item-input-inset indexbar">
         <button class="button button-clear">
             高新区
             <i class="ion-ios-arrow-down"></i>
@@ -11,18 +11,8 @@
         <button class="button button-clear" ng-click="verifyLogin.show()">
             登录
         </button>
-    </div>
-    <div class="bar bar-subheader bar-light" style="height:30px;">
-        <div class="index_loction" ui-sref="tab.change-address">
-            <i class="ion-ios-location"></i>&nbsp;成都市
-               <span class="item-note">
-                       <i class="icon ion-chevron-right icon-accessory"></i>
-               </span>
-        </div>
-    </div>
-    <ion-content style="top:75px;">
-        <ion-refresher pulling-text="正在帮你刷新" on-refresh="doRefresh()">
-        </ion-refresher>
+    </ion-header-bar>
+    <ion-content class="home_item">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
                        slide-interval="2000">
             <ion-slide>

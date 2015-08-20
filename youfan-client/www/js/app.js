@@ -60,15 +60,6 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            //首页定位
-            .state('tab.change-address', {
-                url: '/change-address',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/homepage/change-address.html'
-                    }
-                }
-            })
             .state('tab.detail', {
                 url: "/detail",
                 views: {
@@ -224,7 +215,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-login': {
                         templateUrl: 'templates/tab-pwdlogin.html',
                         controller: 'LoginCtrl'
-                    }
+                    },
                 }
             })
             //短信验证码登陆
