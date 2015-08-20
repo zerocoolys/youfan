@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\hydm\Documents\youfan\youfan-mechant\platforms\android\build\intermediates\exploded-aar\android\CordovaLib\unspecified\debug\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7e2a251c80e22e7a9a5c2969172cc78a921b5168">
+        <dex dex="C:\Users\hydm\Documents\youfan\youfan-mechant\platforms\android\build\intermediates\pre-dexed\debug\classes-cf834e4d6957d9bcdff5a08b65e5fc41145543e4.jar" />
+    </item>
+
+</items>

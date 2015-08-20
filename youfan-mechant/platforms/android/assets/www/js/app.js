@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('yf_merchant', ['ionic','ionic-datepicker' ,'yf_merchant.settings_controllers'])
+angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_merchant.settings_controllers'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {

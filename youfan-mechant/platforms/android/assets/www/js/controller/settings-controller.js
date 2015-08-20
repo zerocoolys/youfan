@@ -1,6 +1,6 @@
 angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_service'])
 
-    .controller('SettingsIndexCtrl', function ($scope) {
+    .controller('SettingsIndexCtrl', function ($scope, $ionicModal, $timeout, $cordovaImagePicker) {
         $scope.items = [{
             "title": "我的银行卡",
             "description": "我的银行卡",
@@ -9,6 +9,29 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
             "title": "帮助",
             "description": "帮助", "img": "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
         }, {"title": "免责声明", "description": "免责声明", "img": "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"}];
+
+        //image picker
+        $scope.pickImage = function () {
+
+            console.log("haha");
+
+            var options = {
+                maximumImagesCount: 1,
+                width: 800,
+                height: 800,
+                quality: 80
+            };
+            alert($cordovaImagePicker.getPictures);
+
+            $cordovaImagePicker.getPictures(options)
+                .then(function (results) {
+                    console.log(results);
+                    $scope.imgSrc = results[0];
+                }, function (error) {
+                    // error getting photos
+                });
+
+        }
 
     })
 

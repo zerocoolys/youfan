@@ -1,0 +1,91 @@
+/* Empty. Add your own CSS if you like */
+a{
+    text-decoration: none;
+}
+
+.dishes a{
+    font-size: 14px;
+    text-decoration: none;
+}
+.calm{
+    color: #1dbeaf;
+}
+.calm-bg{
+    background-color:#1dbeaf;
+}
+.calm-bg{
+    border: #1dbeaf;
+}
+
+.dishes  > .button{
+    padding: 0;
+}
+
+.shop-course-title{
+    text-align: center;
+    height:50px;
+    line-height:100px;
+    font-weight:100;
+    font-size: 14px;
+}
+.shop-course-tishi{
+    text-align: center;
+    height:40px;
+    line-height:70px;
+    font-weight:100;
+    font-size: 12px;
+}
+.shop-course li{
+    margin-top: 50px;
+}
+.shop-number{
+    float: left;
+    margin-right: 20px;
+    text-align: center;
+    padding: 2.5% 0;
+    width: 10%;
+}
+.item-radio .item-content{
+
+     padding-right: 20px;
+
+}
+.bar  {
+    height: 50px;
+}
+.title{
+    padding-top: 3px;
+}
+.dishes-p .button{
+    padding-top: 4px;
+    font-size: 16px;
+
+}
+.dishes-p .button-bar > .button:first-child {
+    border-radius: 10px 0px 0px 10px;
+}
+.dishes-p .button-bar > .button:last-child {
+    border-radius: 0px 10px 10px 0px;
+}
+.dishes-p .bar-light .button.active, .bar-light .button.activated  {
+    background-color: #1dbeaf;
+    color: white;
+}
+.dishes-p .bar-light.button:visited{
+    background-color: #1dbeaf;
+    color: white;
+}
+.button-bar .current{
+    color: #1dbeaf;
+    background: #f1f1f1;
+    border-bottom: 2px solid #1dbeaf;
+}
+.dishes-p .button:hover{
+    color: white;
+    background-color: #1dbeaf;
+}
+.dishes-p .current{
+    background-color: #1dbeaf;
+    color: white;
+    border-bottom: 2px solid #1dbeaf;
+}
