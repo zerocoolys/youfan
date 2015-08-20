@@ -1,4 +1,4 @@
-<ion-view view-title="确认订单" hide-tab-bar>
+<ion-view view-title="确认订单" hide-tab-bar hide-tabs>
     <ion-content>
         <ion-list>
             <ion-item class="item-icon-right" href="#/tab/dining-way">
@@ -50,18 +50,13 @@
                 </span>
             </ion-item>
         </ion-list>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <div class="bar bar-footer bar-calm">
-            <div class="button-bar">
-                <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">还需支付 ￥1</a>
-                <a class="button button-clear" href="#/tab/pay-page/0">去支付</a>
-            </div>
-        </div>
     </ion-content>
+    <div class="bar bar-footer bar-calm">
+        <div class="button-bar">
+            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">还需支付 ￥1</a>
+            <a class="button button-clear" href="#/tab/pay-page/0">去支付</a>
+        </div>
+    </div>
 </ion-view>
 <script id="templates/remarks.html" type="text/ng-template">
     <ion-modal-view>
