@@ -29,6 +29,12 @@ public class OrderDAOImpl implements OrderDAO {
     private SqlSession sqlSession;
 
 
+    @Resource
+    private IdGenerator idGenerator;
+
+    @Resource
+    private SqlSession sqlSession;
+
     @Override
     public Order insert(Order order) {
 
@@ -52,10 +58,12 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public Order getOrderByOrderNo(String orderNo) {
 
-        OrderEntity orderEntity = sqlSession.selectOne("getOrderByOrderNo", orderNo);
+        OrderEntity orderEntity = sqlSession.selectOne("getOrderByOrderNo",
+                orderNo);
 
         Order order = createObject(orderEntity);
-        List<OrderDishRelEntity> dishList = sqlSession.selectList("getOrderItemsByOrderNo", orderNo);
+        List<OrderDishRelEntity> dishList = sqlSession.selectList(
+                "getOrderItemsByOrderNo", orderNo);
 
         return null;
     }
@@ -122,4 +130,11 @@ public class OrderDAOImpl implements OrderDAO {
 
         return order;
     }
+
+    @Override
+    public List<Order> findOrders(Order order) {
+
+        return null;
+    }
+
 }

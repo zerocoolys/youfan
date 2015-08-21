@@ -20,13 +20,10 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderDAO orderDAO;
 
-
     @Override
     public List<Order> findAll(Pagination pagination) {
 
         List<Order> result = Collections.emptyList();
-
-        result.addAll(orderDAO.findAll(pagination));
 
         return result;
     }
@@ -70,4 +67,14 @@ public class OrderServiceImpl implements OrderService {
     public Order refundOrder(Order order) {
         return null;
     }
+
+    @Override
+    public List<Order> findOrdersByMerchant(Order order) {
+
+        orderDAO.findOrders(order);
+
+        return null;
+    }
+
+
 }

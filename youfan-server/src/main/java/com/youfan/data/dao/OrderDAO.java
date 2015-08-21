@@ -22,4 +22,7 @@ public interface OrderDAO {
     List<Order> getOrdersByBuyerId(Long buyerId, Pagination pagination);
 
     List<Order> getOrdersBySellerId(Long sellerId, Pagination pagination);
+
+    List<Order> findOrders(Order order);
+
 }
