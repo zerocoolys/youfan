@@ -1,6 +1,6 @@
 package com.youfan.rest.support;
 
-import com.youfan.data.models.UserEntity;
+import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.UsersService;
 import org.springframework.context.annotation.Scope;
@@ -20,13 +20,13 @@ public class UserController {
     private UsersService usersService;
 
     @RequestMapping(path = "/saveMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
-    public UserEntity add(@RequestBody UserEntity userEntity) {
+    public MerchantUser add(@RequestBody MerchantUser merchantUser) {
         try {
-            usersService.saveMerchantUserInfo(userEntity);
+            usersService.saveMerchantUserInfo(merchantUser);
         } catch (UserException ue) {
             System.out.println(ue.getMessage());
         }
-        return userEntity;
+        return merchantUser;
     }
 
 }
