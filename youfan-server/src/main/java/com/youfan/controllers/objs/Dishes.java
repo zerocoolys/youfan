@@ -13,7 +13,7 @@ public class Dishes {
 	private String dishesPrice; // 菜品价格
 	private String dishesStock; // 菜品库存
 	private String dishesKw; // 菜品口味
-	private String dishesTs; // 菜品特色
+	private List<String> dishesTs = new ArrayList<>(); // 菜品特色
 	private String description; // 菜品描述
 	private List<String> picUrls = new ArrayList<>();// 菜品图片
 
@@ -89,11 +89,11 @@ public class Dishes {
 		this.dishesKw = dishesKw;
 	}
 
-	public String getDishesTs() {
+	public List<String> getDishesTs() {
 		return dishesTs;
 	}
 
-	public void setDishesTs(String dishesTs) {
+	public void setDishesTs(List<String> dishesTs) {
 		this.dishesTs = dishesTs;
 	}
 

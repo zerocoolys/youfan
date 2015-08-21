@@ -23,7 +23,7 @@ public interface DishesDAO extends MongoBaseDAO<DishesEntity, Dishes, String>,
 		}
 
 		if (dishesType != null) {
-			criteria.and("dishesType").is(dishesType);
+			criteria.and("type").is(dishesType);
 		}
 
 		return Query.query(criteria);
