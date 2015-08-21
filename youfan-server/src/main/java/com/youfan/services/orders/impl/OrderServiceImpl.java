@@ -63,8 +63,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findByMerchantId(String merchantId) {
-
+	public List<Order> findOrdersByMerchant(Order order) {
+		
+		orderDAO.findOrders(order);
+		
 		return null;
 	}
+
+	
 }

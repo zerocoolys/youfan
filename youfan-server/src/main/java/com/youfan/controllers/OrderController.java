@@ -8,12 +8,15 @@ import com.youfan.controllers.support.Responses;
 import com.youfan.services.orders.OrderService;
 import com.youfan.utils.JsonUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -24,6 +27,8 @@ public class OrderController {
 
 	@Resource
 	private OrderService orderService;
+	Logger logger = LoggerFactory.getLogger(OrderController.class);
+
 
 	@RequestMapping(method = RequestMethod.GET, path = "/{orderNo}")
 	public Response getOrder(@PathVariable final String orderNo) {
@@ -45,12 +50,12 @@ public class OrderController {
 	@RequestMapping(method = RequestMethod.GET, path = "/merchants/{merchantInfo}")
     public Response listByMerchant(@PathVariable String merchantInfo) {
 		try {
-			JsonUtil.json2pojo(merchantInfo, Order.class);
-		
+			Order order = JsonUtil.json2pojo(merchantInfo, Order.class);
+			List<Order> orders = orderService.findOrdersByMerchant(order);
+			
 		
 		} catch (Exception e) {
-			
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
     	
         return Responses.SUCCESS();

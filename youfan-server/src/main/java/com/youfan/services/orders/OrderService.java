@@ -14,8 +14,6 @@ public interface OrderService {
 
 	public List<Order> findByUserId(String userId);
 
-	public List<Order> findByMerchantId(String merchantId);
-
 	public Order findByOrderNo(String orderNo);
 
 	public Order createOrder(Order order);
@@ -25,5 +23,7 @@ public interface OrderService {
 	public Order cancelOrder(Order order);
 
 	public Order refundOrder(Order order);
+
+	public List<Order> findOrdersByMerchant(Order order);
 
 }
