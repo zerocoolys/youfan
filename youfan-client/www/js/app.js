@@ -25,6 +25,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
 
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.tabs.style('standard');
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
@@ -295,15 +296,17 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+            // 发现
             .state('tab.account', {
                 url: '/account',
                 views: {
                     'tab-account': {
-                        templateUrl: 'templates/tab-account.html',
+                        templateUrl: 'templates/find/tab-account.html',
                         controller: 'AccountCtrl'
                     }
                 }
-            }).state('tab.Map', {
+            })
+            .state('tab.Map', {
                 url: '/mapCtrl',
                 views: {
                     'tab-dash': {
@@ -327,4 +330,24 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 });
             }
         };
-    });
+    })
+    //图标点击
+    .directive('iconSwitcher', function () {
+        return {
+            link: function (scope, elem, attrs) {
+                var currentState = true;
+                elem.on('click', function () {
+                    if (currentState === true) {
+                        angular.element(elem).removeClass(attrs.onIcon);
+                        angular.element(elem).addClass(attrs.offIcon);
+                    } else {
+                        angular.element(elem).removeClass(attrs.offIcon);
+                        angular.element(elem).addClass(attrs.onIcon);
+                    }
+
+                    currentState = !currentState
+
+                })
+            }
+        }
+    })

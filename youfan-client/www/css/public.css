@@ -18,3 +18,20 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 body{
     font-family: "微软雅黑", "黑体";
 }
+.button.button-balanced.button-outline{
+    border-color:#1dbeaf;
+    background: 0 0;
+    color:#1dbeaf;
+
+}
+.bar.bar-balanced.bar-footer{
+    border-color:#1dbeaf;
+    background:#1dbeaf;
+    color:#1dbeaf;
+ }
+
+.button.bar-balanced.button-outline{
+    border-color: #1dbeaf;
+    background: 0 0;
+    color: #1dbeaf;
+}
