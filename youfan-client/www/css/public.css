@@ -1,7 +1,8 @@
 /* Empty. Add your own CSS if you like */
 /**底部导航**/
 ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
-    color: #1dbeaf
+    color: #1dbeaf;
+    border: none;
 }
 
 .alleft {
@@ -11,7 +12,26 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 .alright {
     float: right;
 }
-
 .hide-tab-bar .tabs {
     display: none;
+}
+body{
+    font-family: "微软雅黑", "黑体";
+}
+.button.button-balanced.button-outline{
+    border-color:#1dbeaf;
+    background: 0 0;
+    color:#1dbeaf;
+
+}
+.bar.bar-balanced.bar-footer{
+    border-color:#1dbeaf;
+    background:#1dbeaf;
+    color:#1dbeaf;
+ }
+
+.button.bar-balanced.button-outline{
+    border-color: #1dbeaf;
+    background: 0 0;
+    color: #1dbeaf;
 }

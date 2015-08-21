@@ -1,11 +1,11 @@
-<ion-view view-title="个人中心" hide-nav-bar="true">
+<ion-view view-title="个人中心">
     <ion-header-bar class="item-input-inset ">
         <h1 class="title">个人中心</h1>
-        <a class="button button-clear icon-right ion-ios-gear-outline" href="#/tab/set"></a>
+        <a class="button button-clear icon-right ion-ios-gear-outline" ui-sref="tab.set"></a>
     </ion-header-bar>
     <ion-content>
         <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
-                  href="#/tab/personal-info" style="margin-bottom:20px;">
+                  ui-sref="tab.personal-info" style="margin-bottom:20px;">
             <img src="img/2.jpeg">
 
             <div class="care_text">
@@ -17,28 +17,28 @@
         </ion-item>
         <ion-list class="person">
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
-                      href="#/tab/order">
+                      ui-sref="tab.order">
                 <h2>我的订单</h2>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
-                      href="#/tab/wallet">
+                      ui-sref="tab.wallet">
                 <h2>我的钱包</h2>
                 <span class="item-note">
                     余额、优惠券<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
-            <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" href="#/tab/care">
+            <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"   ui-sref="tab.care">
                 <h2>我的关注</h2>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
-                      href="#/tab/message">
+                      ui-sref="tab.message">
                 <h2>我的消息</h2>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
-                      href="#/tab/address">
+                      ui-sref="tab.address">
                 <h2>送餐地址</h2>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>

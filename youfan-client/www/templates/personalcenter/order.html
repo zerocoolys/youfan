@@ -1,10 +1,10 @@
 <ion-view view-title="我的订单" hide-tab-bar class="order">
     <div class="bar bar-subheader bar-light">
         <div class="button-bar">
-            <a class="button" ng-class="slideIndex == 0 ? 'button-calm':''" ng-click="activeSlide(0)">未完成</a>
-            <a class="button" ng-class="slideIndex == 1 ? 'button-calm':''" ng-click="activeSlide(1)">已完成</a>
-            <a class="button" ng-class="slideIndex == 2 ? 'button-calm':''" ng-click="activeSlide(2)">退款</a>
-            <a class="button" ng-class="slideIndex == 3 ? 'button-calm':''" ng-click="activeSlide(3)">待评价</a>
+            <a class="button" ng-class="slideIndex == 0 ? 'button-balanced':''" ng-click="activeSlide(0)">未完成</a>
+            <a class="button" ng-class="slideIndex == 1 ? 'button-balanced':''" ng-click="activeSlide(1)">已完成</a>
+            <a class="button" ng-class="slideIndex == 2 ? 'button-balanced':''" ng-click="activeSlide(2)">退款</a>
+            <a class="button" ng-class="slideIndex == 3 ? 'button-balanced':''" ng-click="activeSlide(3)">待评价</a>
         </div>
     </div>
     <ion-content class="has-subheader">
@@ -15,11 +15,11 @@
                         <span>订单编号：135268549</span>
                         <p class="item-note mainColor">待付款</p>
                     </ion-item>
-                    <ion-item class="item-thumbnail-left">
+                    <ion-item class="item-thumbnail-left" href="#/tab/order-detail">
                         <img src="img/2.jpeg">
                         <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
-                        <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
-                        <h2>￥98.00<button class="fr button button-calm button-small">立即支付</button></h2>
+                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                        <h2 style="line-height: 32px">￥98.00<button class="fr button button-calm button-small">立即支付</button></h2>
                     </ion-item>
                 </ion-list>
             </ion-slide>
@@ -29,11 +29,11 @@
                         <span>订单编号：135268549</span>
                         <p class="item-note mainColor">已完成</p>
                     </ion-item>
-                    <ion-item class="item-thumbnail-left">
+                    <ion-item class="item-thumbnail-left" href="#/tab/order-detail">
                         <img src="img/2.jpeg">
                         <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
-                        <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
-                        <h2>￥98.00</h2>
+                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                        <h2 style="line-height: 32px">￥98.00</h2>
                     </ion-item>
                 </ion-list>
             </ion-slide>
@@ -43,11 +43,11 @@
                         <span>订单编号：135268549</span>
                         <p class="item-note mainColor">退款中</p>
                     </ion-item>
-                    <ion-item class="item-thumbnail-left">
+                    <ion-item class="item-thumbnail-left" href="#/tab/order-detail">
                         <img src="img/2.jpeg">
-                        <h2>河马堂药膳厨房 <i class="icon ion-chevron-right icon-accessory"></i></h2>
-                        <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
-                        <h2>￥98.00</h2>
+                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                        <h2 style="line-height: 32px">￥98.00</h2>
                     </ion-item>
                 </ion-list>
             </ion-slide>
@@ -57,11 +57,11 @@
                         <span>订单编号：135268549</span>
                         <p class="item-note mainColor">立即评价</p>
                     </ion-item>
-                    <ion-item class="item-thumbnail-left">
+                    <ion-item class="item-thumbnail-left" href="#">
                         <img src="img/2.jpeg">
-                        <h2>河马堂药膳厨房 <i class="icon ion-chevron-right icon-accessory"></i></h2>
-                        <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
-                        <h2>￥98.00</h2>
+                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                        <h2 style="line-height: 32px">￥98.00</h2>
                     </ion-item>
                 </ion-list>
             </ion-slide>

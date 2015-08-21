@@ -1,15 +1,28 @@
-<ion-view view-title="" hide-nav-bar="true">
-    <ion-header-bar class="item-input-inset indexbar">
-        <button class="button button-clear">高新区</button>
+<ion-view view-title="" hide-nav-bar="true" cache-view="false" class="home_item">
+    <div class="bar bar-header item-input-inset">
+        <button class="button button-clear">
+            高新区
+            <i class="ion-ios-arrow-down"></i>
+        </button>
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="搜索"/>
         </label>
-        <div ng-controller="LoginCtrl">
-            <button class="button button-clear" ng-click="verifyLogin.show()">登录</button>
+        <button class="button button-clear" ng-click="verifyLogin.show()">
+            登录
+        </button>
+    </div>
+    <div class="bar bar-subheader bar-light" style="height:30px;">
+        <div class="index_loction" ui-sref="tab.change-address">
+            <i class="ion-ios-location"></i>&nbsp;成都市
+               <span class="item-note">
+                       <i class="icon ion-chevron-right icon-accessory"></i>
+               </span>
         </div>
-    </ion-header-bar>
-    <ion-content class="home_item">
+    </div>
+    <ion-content style="top:75px;">
+        <ion-refresher pulling-text="正在帮你刷新" on-refresh="doRefresh()">
+        </ion-refresher>
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
                        slide-interval="2000">
             <ion-slide>
@@ -23,7 +36,7 @@
             </ion-slide>
         </ion-slide-box>
         <ion-list>
-            <ion-item class="item" href="#/tab/dash/0">
+            <ion-item class="item" ui-sref="tab.dash-detail">
                 <div class="list">
                     <div class="item item-body img_box">
                         <img class="full-image" src="img/2.jpeg"></a>
@@ -33,6 +46,7 @@
                     </div>
                     <div class="item item-avatar item_box">
                         <img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">
+
                         <div class="row" href="#/tab/dash/0">
                             <div class="col-90">
                                 <h2>恋家厨房</h2>

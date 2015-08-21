@@ -1,30 +1,32 @@
-<ion-view view-title="确认订单" hide-tab-bar>
+<ion-view view-title="确认订单" hide-tab-bar hide-tabs class="confirm_order">
     <ion-content>
-        <ion-list>
+        <div class="list">
             <ion-item class="item-icon-right" href="#/tab/dining-way">
                 就餐方式
                 <span class="item-note">
-                  请选择<i class="icon ion-chevron-right"></i>
+                  请选择<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right" ng-click="modal.show()">
                 给厨房捎句话
                  <span class="item-note">
-                  <i class="icon ion-chevron-right"></i>
+                  <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right" href="#/tab/coupons">
                 优惠券支付
                 <span class="item-note">
-                  1元试吃券<i class="icon ion-chevron-right"></i>
+                  1元试吃券<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right">
                 余额支付
                 <span class="item-note">
-                  0元可用<i class="icon ion-chevron-right"></i>
+                  0元可用<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
+        </div>
+        <div class="list order_list">
             <ion-item class="item-icon-right">
                 三君开花包（4只)x1
                 <span class="item-note">
@@ -37,6 +39,8 @@
                   ￥0
                 </span>
             </ion-item>
+        </div>
+        <div class="list order_list">
             <ion-item class="item-icon-right">
                 <span class="item-note">
                   总计：￥12
@@ -49,19 +53,14 @@
                   -￥11
                 </span>
             </ion-item>
-        </ion-list>
-        <br>
-        <br>
-        <br>
-        <br>
-
-        <div class="bar bar-footer bar-calm">
-            <div class="button-bar">
-                <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">还需支付 ￥1</a>
-                <a class="button button-clear" href="#/tab/pay-page/0">去支付</a>
-            </div>
         </div>
     </ion-content>
+    <div class="bar bar-footer bar-balanced">
+        <div class="button-bar">
+            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">还需支付 ￥1</a>
+            <a class="button button-clear" href="#/tab/pay-page/0">去支付</a>
+        </div>
+    </div>
 </ion-view>
 <script id="templates/remarks.html" type="text/ng-template">
     <ion-modal-view>

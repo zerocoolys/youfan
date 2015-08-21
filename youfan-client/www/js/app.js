@@ -25,6 +25,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
 
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.tabs.style('standard');
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
@@ -57,6 +58,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-dash': {
                         templateUrl: 'templates/homepage/dash-detail.html',
                         controller: 'DashDetailCtrl'
+                    }
+                }
+            })
+            //首页定位
+            .state('tab.change-address', {
+                url: '/change-address',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/change-address.html'
                     }
                 }
             })
@@ -159,6 +169,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+//            推荐奖励
+            .state('tab.recommended-awards', {
+                url: "/recommended-awards",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/recommended-awards.html"
+                    }
+                }
+            })
             //个人中心-我的订单
             .state('tab.order', {
                 url: "/order",
@@ -166,6 +185,25 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-chats': {
                         templateUrl: "templates/personalcenter/order.html",
                         controller: 'MyOrderCtrl'
+                    }
+                }
+            })
+            //个人中心-我的订单-订单详情
+            .state('tab.order-detail', {
+                url: "/order-detail",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/order-detail.html",
+                        controller: 'OrderDetailCtrl'
+                    }
+                }
+            })
+            //个人中心-我的订单-订单详情-支付成功
+            .state('tab.pay-success', {
+                url: "/pay-success",
+                views: {
+                    'tab-chats': {
+                        templateUrl: "templates/personalcenter/pay-success.html"
                     }
                 }
             })
@@ -215,7 +253,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-login': {
                         templateUrl: 'templates/tab-pwdlogin.html',
                         controller: 'LoginCtrl'
-                    },
+                    }
                 }
             })
             //短信验证码登陆
@@ -258,12 +296,22 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
+            // 发现
             .state('tab.account', {
                 url: '/account',
                 views: {
                     'tab-account': {
-                        templateUrl: 'templates/tab-account.html',
+                        templateUrl: 'templates/find/tab-account.html',
                         controller: 'AccountCtrl'
+                    }
+                }
+            })
+            .state('tab.Map', {
+                url: '/mapCtrl',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/map.html',
+                        controller: 'MapContainer'
                     }
                 }
             });
@@ -282,4 +330,24 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 });
             }
         };
-    });
+    })
+    //图标点击
+    .directive('iconSwitcher', function () {
+        return {
+            link: function (scope, elem, attrs) {
+                var currentState = true;
+                elem.on('click', function () {
+                    if (currentState === true) {
+                        angular.element(elem).removeClass(attrs.onIcon);
+                        angular.element(elem).addClass(attrs.offIcon);
+                    } else {
+                        angular.element(elem).removeClass(attrs.offIcon);
+                        angular.element(elem).addClass(attrs.onIcon);
+                    }
+
+                    currentState = !currentState
+
+                })
+            }
+        }
+    })

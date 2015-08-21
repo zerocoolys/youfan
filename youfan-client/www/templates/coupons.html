@@ -1,14 +1,15 @@
-<ion-view  view-title=""  hide-nav-bar="true" hide-tabs>
+<ion-view  view-title=""  hide-nav-bar="true" hide-tabs cache-view="false">
     <ion-header-bar class="bar bar-header">
         <button class="button icon ion-ios-arrow-left button-clear" onclick="history.back()"></button>
         <h2 class="title">优惠券</h2>
-        <button class="button button-clear mainColor">推荐奖励</button>
+        <a class="button button-clear mainColor" href="#/tab/recommended-awards">推荐奖励</a>
     </ion-header-bar>
     <div class="bar item-input-inset bar-subheader bar-light">
         <label class="item-input-wrapper item-button-right">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="请输入优惠吗">
         </label>
+        <button class="button button-clear mainColor">确定</button>
     </div>
     <ion-content class="padding has-subheader">
         <ion-list>
@@ -21,7 +22,7 @@
             </ion-item>
         </ion-list>
     </ion-content>
-    <div class="bar bar-footer bar-calm">
+    <div class="bar bar-footer bar-balanced">
         <h2 class="title">
             本次不适用优惠券
         </h2>
