@@ -77,7 +77,7 @@ api.get("/pay", function (req, res) {
     var options = {
         hostname: '127.0.0.1',
         port: 8080,
-        path: '/platform/pay?amount=100&order_no=93434252335&channel=alipay_wap&currency=cny&client_ip=127.0.0.1&subject=subject&body=body',
+        path: '/platform/pay?amount=100&order_no=934ud2d363323&channel=alipay_wap&currency=cny&client_ip=127.0.0.1&subject=subject&body=body',
         method: 'GET'
     };
     httpUtil.httpGet(res, options, function (chunk) {
