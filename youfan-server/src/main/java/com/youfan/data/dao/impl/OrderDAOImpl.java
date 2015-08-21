@@ -29,12 +29,6 @@ public class OrderDAOImpl implements OrderDAO {
     private SqlSession sqlSession;
 
 
-    @Resource
-    private IdGenerator idGenerator;
-
-    @Resource
-    private SqlSession sqlSession;
-
     @Override
     public Order insert(Order order) {
 
