@@ -1,11 +1,13 @@
 <ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail">
     <ion-header-bar class="bar-header bar-light  ">
-        <a href="javascript:void(0)" onclick="history.back()"><i class="ion-ios-arrow-left"></i></a>
+        <a ui-sref="tab.dash"><i class="ion-ios-arrow-left"></i></a>
 
         <div class="top_share ">
-            <a href="#"><i class="icon ion-android-favorite"></i></a>
-            <a href="#"><i class="icon ion-android-bookmark"></i></a>
-            <a href="#"><i class="icon ion-android-share-alt"></i></a>
+            <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
+               ng-click="ZanPopup()"></i>
+            <i class="ion-ios-star-outline" on-icon="ion-ios-star-outline" off-icon="ion-ios-star" icon-switcher
+               ng-click="CPopup()"></i>
+            <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher></i>
         </div>
     </ion-header-bar>
     <ion-content>
@@ -38,22 +40,23 @@
                 <p>10:00 - 22:00 开放厨房</p>
 
                 <div class="row">
-                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">234条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-25 button-calm button-small button button-outline">联系厨房</a>
+                    <a class="col col-25 col-offset-25 button-small button bar-balanced button-outline"
+                       ui-sref="tab.comment-detail">234条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="col col-25 bar-balanced button-small button button-outline">联系厨房</a>
                 </div>
             </div>
         </div>
         <ion-list>
-            <ion-item class="item-icon-left item-icon-right" href="#/tab/seller-detail">
-                <i class="address_img icon ion-ios-location-outline"></i>
+            <ion-item class="item-icon-left item-icon-right">
+                <i class="address_img icon ion-ios-paper-outline"></i>
 
-                <h2>我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
+                <h2 ui-sref="tab.seller-detail">我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
                 <i class="address_img icon ion-ios-location-outline"></i>
 
-                <h2>北京市朝阳区百子湾32号院苹果社区南区</h2>
+                <h2 ui-sref="tab.Map">北京市朝阳区百子湾32号院苹果社区南区</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
@@ -109,11 +112,30 @@
             </ion-slide>
         </ion-slide-box>
     </ion-content>
-    <div class="bar bar-footer bar-calm">
+    <div class="bar bar-footer bar-balanced">
         <div class="button-bar">
             <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"
-               ng-bind="'￥' + subtotal"></a>
-            <a class="button button-clear" href="#/tab/confirm-order/0">选好了</a>
+               ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>
+            <a class="button button-clear" ng-click="confirmOrder()">选好了</a>
         </div>
     </div>
+    <div ng-show='menuState.show'>
+        <div class="cart_box" ng-click="ShopClose()"></div>
+        <ion-scroll zooming="true" direction="y" class="shop_cart" ng-mouseleave="ShopCart()">
+            <div class="list">
+                <ul>
+                    <li ng-repeat="food in foods" class="row"><span class="col col-50">{{food.name}} </span><span
+                            class="col ">{{food.price}}</span><span class="col"><i class="ion-minus-round"
+                                                                                   ng-hide="count_show"
+                                                                                   ng-click="count = count - 1"
+                                                                                   ng-
+                                                                                   ng-init="count=0"></i>  <span
+                            class="food_price">{{count}} </span><i
+                            class="ion-plus-round" ng-click="count = count + 1" ng-init="count=0"></i> </span></li>
+                </ul>
+            </div>
+
+        </ion-scroll>
+    </div>
+
 </ion-view>

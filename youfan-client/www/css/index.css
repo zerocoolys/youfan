@@ -291,17 +291,105 @@ ul.rating li i {
 .person .item-avatar .item-content {
     padding-left: 20px;
 }
-.iten_left{
+
+.item_left {
     position: absolute;
     top: 16px;
     left: 16px;
     max-width: 40px;
     max-height: 40px;
 }
-.little-button{
-    min-height:20px;
-    line-height:20px;
-    min-width:10px;
-    padding:0 2px;
-    margin-top:2px;
+
+.little-button {
+    min-height: 20px;
+    line-height: 20px;
+    min-width: 10px;
+    padding: 0 2px;
+    margin-top: 2px;
 }
+
+/*首页顶部导航*/
+.index_loction {
+    padding: 0 20px;
+    width: 100%;
+    background: #fff;
+}
+
+.map_content .scroll {
+    height: 100%;
+}
+
+/*购物车*/
+.shop_cart {
+    position: absolute;
+    bottom: 45px;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    max-height: 80%;
+Alpha(opacity = 100);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}
+
+.cart_box {
+    position: absolute;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.shop_cart i {
+    font-size: 20px;
+    color: #1dbeaf;
+    float: left;
+}
+
+.shop_cart ul li {
+    border-bottom: 1px solid #c0c0c0;
+    height: 40px;
+    line-height: 40px;
+}
+
+.shop_cart .popup {
+    position: absolute;
+    bottom: 45px;
+    width: 100%;
+    left: 0px;
+}
+
+.food_price {
+    min-width: 40px;
+    float: left;
+    text-align: center;
+}
+
+.shop_cart .list {
+    padding: 0 10px;
+}
+
+.shop_cart .col {
+    padding: 0px;
+}
+
+.zan_popup .popup-head {
+    padding: 0px;
+
+}
+
+.zan_popup .popup-body {
+    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    color: #fff;
+}
+
+.backdrop.visible {
+    display: none !important;
+    visibility: hidden;
+
+}
+
