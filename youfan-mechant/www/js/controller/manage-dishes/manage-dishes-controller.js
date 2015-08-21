@@ -1,6 +1,6 @@
 angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dishes_service'])
 
-    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout) {
+    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService) {
 
         console.log("ManageDishesNscCtrl");
 
@@ -14,22 +14,18 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
             $ionicLoading.show({
                 template: "正在载入数据，请稍后..."
             });
-            //延时2000ms来模拟载入的耗时行为
-            var idx = 0;
-            var max = Math.ceil(Math.random() * 7);
-            $timeout(function () {
-                for (var i = 0; i < max; i++, idx++) $scope.items.unshift({
-                    name: "鱼香肉丝",
-                    price: Math.ceil(Math.random() * 100),
-                    url: "http://0912100.com/upload/images/day_140523/201405230346142295.jpg"
-                });
-                //隐藏载入指示器
-                $ionicLoading.hide();
-            }, 2000);
-            $scope.isActive = false;
+
+            ManageDishesService.allDishes("隔壁老王", "nsc");
+
         };
 
         $scope.load();
+
+        $scope.$on("yf-merchant-load-dishes-success", function (e, data) {
+            $scope.items = data;
+            //隐藏载入指示器
+            $ionicLoading.hide();
+        });
 
     })
 
@@ -152,7 +148,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
 
     })
 
-    .controller('ManageDishesQtcAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
+    .controller('ManageDishesQtcAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, $cordovaImagePicker, KwService, ManageDishesService) {
 
         console.log("ManageDishesQtcAddCtrl");
 
@@ -163,7 +159,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
         $scope.isActive = false;
 
         $scope.addQtcPic = function () {
-            console.log("addNscPic");
+            console.log("addQtcPic");
             // Show the action sheet
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
@@ -171,13 +167,23 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
                     {text: "<p class='text-center'>打开相册</p>"}
                 ],
                 buttonClicked: function (index) {
-                    if (!navigator.camera) {
-                        alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
-                    }
-                    $scope.imgs.push({
-                        index: $scope.imgs.length,
-                        url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
-                    });
+                    var options = {
+                        maximumImagesCount: 1,
+                        width: 800,
+                        height: 800,
+                        quality: 80
+                    };
+
+                    $cordovaImagePicker.getPictures(options)
+                        .then(function (results) {
+                            $scope.imgs.push({
+                                index: $scope.imgs.length,
+                                url: results[0]
+                            });
+                        }, function (error) {
+                            // error getting photos
+                        });
+
                     return true;
                 },
                 cancelText: "取消",
