@@ -7,6 +7,7 @@ import com.youfan.services.orders.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private OrderDAO orderDAO;
 
+
     @Override
     public List<Order> findAll(Pagination pagination) {
 
@@ -30,8 +32,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findByUserId(String userId) {
+    public List<Order> findByUserId(String userId, Pagination pagination) {
         return null;
+    }
+
+    @Override
+    public List<Order> findBySellerId(Long sellerId, Pagination pagination) {
+        List<Order> result = new ArrayList<>();
+
+        result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
+
+        return result;
     }
 
     @Override

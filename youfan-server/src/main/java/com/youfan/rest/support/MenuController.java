@@ -1,8 +1,8 @@
 package com.youfan.rest.support;
 
-import com.alibaba.fastjson.JSON;
-import com.youfan.data.models.MenuEntity;
+import com.youfan.controllers.objs.Menu;
 import com.youfan.services.menus.MenuService;
+import com.youfan.utils.JSONUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,9 +29,9 @@ public class MenuController {
 
     @RequestMapping(path = "/list/{sellerId}", method = RequestMethod.GET, produces = "application/json")
     public ModelAndView list(@PathVariable Long sellerId) {
-        List<MenuEntity> menuList = menuService.list(sellerId);
+        List<Menu> menuList = menuService.findBySellerId(sellerId);
         Map<String, Object> menuMap = new HashMap<>();
-        menuMap.put("menus", JSON.toJSONString(menuList));
+        menuMap.put("menus", JSONUtils.getJsonString(menuList));
 
         AbstractView jsonView = new MappingJackson2JsonView();
         jsonView.setAttributesMap(menuMap);
@@ -40,7 +40,7 @@ public class MenuController {
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST, produces = "application/json")
-    public void add(@RequestBody List<MenuEntity> menuEntities) {
-        menuService.insert(menuEntities);
+    public void add(@RequestBody List<Menu> menus) {
+        menuService.insert(menus);
     }
 }

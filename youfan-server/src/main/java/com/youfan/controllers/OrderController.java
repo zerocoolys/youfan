@@ -7,6 +7,7 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.orders.OrderService;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -49,7 +50,8 @@ public class OrderController {
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(path = "/create", method = RequestMethod.POST, consumes = {MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @Transactional
     public Response create(@RequestBody String orderParamStr) {
 
         ObjectMapper mapper = new ObjectMapper();
