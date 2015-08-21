@@ -48,7 +48,21 @@
                     controller:'shop'
 
 
-                });
+                })
+                .state('news', {
+                    url: '/news',
+                    templateUrl: 'templates/overview/news.html',
+                    controller:'news'
+
+
+                })
+            .state('money', {
+                url: '/money',
+                templateUrl: 'templates/overview/money.html',
+                controller:'money'
+
+
+            });
 
             //????
             $stateProvider
