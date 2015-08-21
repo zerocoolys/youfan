@@ -6,9 +6,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -43,9 +43,25 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
         try {
             E entity = clazz.newInstance();
 
-            Field[] fields = t.getClass().getDeclaredFields();
+            Map<String, Field> entityFieldMap = Arrays.stream(getEntityClass().getDeclaredFields())
+                    .map(field -> {
+                        field.setAccessible(true);
+                        return field;
+                    })
+                    .collect(Collectors.toMap(Field::getName, field -> field));
+
+            Field[] fields = getVOClass().getDeclaredFields();
             for (Field field : fields) {
-                clazz.getDeclaredField(field.getName()).set(entity, field.get(t));
+                field.setAccessible(true);
+                if (Objects.equals(BigDecimal.class, entityFieldMap.get(field.getName()).getType())) {
+                    entityFieldMap.get(field.getName())
+                            .set(entity, BigDecimal.valueOf((Double) field.get(t)));
+                } else if (Objects.equals(Date.class, field.getType())) {
+                    entityFieldMap.get(field.getName()).set(entity, Timestamp.from(((Date) field.get(t)).toInstant()));
+                } else {
+                    entityFieldMap.get(field.getName()).set(entity, field.get(t));
+                }
+
             }
 
             return entity;
@@ -61,13 +77,24 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
         try {
             T t = clazz.newInstance();
 
-            Map<String, String> voFieldMap = Arrays.stream(getVOClass().getDeclaredFields())
-                    .collect(Collectors.toMap(Field::getName, Field::getName));
+            Map<String, Field> voFieldMap = Arrays.stream(getVOClass().getDeclaredFields())
+                    .map(field -> {
+                        field.setAccessible(true);
+                        return field;
+                    })
+                    .collect(Collectors.toMap(Field::getName, field -> field));
 
-            Field[] fields = entity.getClass().getDeclaredFields();
+            Field[] fields = getEntityClass().getDeclaredFields();
             for (Field field : fields) {
                 if (voFieldMap.containsKey(field.getName())) {
-                    clazz.getDeclaredField(field.getName()).set(t, field.get(entity));
+                    field.setAccessible(true);
+                    if (Objects.equals(BigDecimal.class, field.getType())) {
+                        voFieldMap.get(field.getName())
+                                .set(t, ((BigDecimal) field.get(entity)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                    } else {
+                        voFieldMap.get(field.getName()).set(t, field.get(entity));
+                    }
+
                 }
             }
 
