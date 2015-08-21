@@ -1,5 +1,6 @@
 package com.youfan.data.dao.impl;
 
+import com.youfan.controllers.objs.Menu;
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.models.MenuEntity;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,39 +19,39 @@ import java.util.List;
 public class MenuDAOImpl implements MenuDAO {
 
     @Override
-    public List<MenuEntity> list(Long sellerId) {
-        return mongoTemplate.find(
+    public List<Menu> findBySellerId(Long sellerId) {
+        return convertToVOList(mongoTemplate.find(
                 buildQuery(sellerId, null, true),
                 getEntityClass(),
-                COLLECTION_MENU);
+                COLLECTION_MENU));
     }
 
     @Override
-    public List<MenuEntity> findAll() {
+    public List<Menu> findAll() {
         return Collections.emptyList();
     }
 
     @Override
-    public MenuEntity findOne(Long menuId) {
-        return mongoTemplate.findOne(
+    public Menu findOne(Long menuId) {
+        return convertToVO(mongoTemplate.findOne(
                 buildQuery(null, menuId, true),
                 getEntityClass(),
-                COLLECTION_MENU);
+                COLLECTION_MENU));
     }
 
     @Override
-    public void insert(MenuEntity menu) {
-        mongoTemplate.insert(menu);
+    public void insert(Menu menu) {
+        mongoTemplate.insert(convertToEntity(menu));
     }
 
     @Override
-    public void insert(List<MenuEntity> menuEntities) {
-        mongoTemplate.insert(menuEntities, COLLECTION_MENU);
+    public void insert(List<Menu> menus) {
+        mongoTemplate.insert(convertToEntityList(menus), COLLECTION_MENU);
     }
 
     @Override
-    public void update(MenuEntity menu) {
-
+    public void update(Menu menu) {
+        MenuEntity entity = convertToEntity(menu);
     }
 
     @Override
@@ -60,17 +61,12 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
-    public Class<MenuEntity> getEntityClass() {
-        return MenuEntity.class;
-    }
-
-    @Override
     public int minusRestNum(Long menuId) {
-        MenuEntity menuEntity = findOne(menuId);
-        if (menuEntity == null || menuEntity.getRestNum() == 0)
+        Menu menu = findOne(menuId);
+        if (menu == null || menu.getRestNum() == 0)
             return -1;
 
-        int restNum = menuEntity.getRestNum() - 1;
+        int restNum = menu.getRestNum() - 1;
         mongoTemplate.updateFirst(
                 buildQuery(null, menuId, true),
                 Update.update(REST_NUM, restNum),
@@ -81,11 +77,11 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public int plusTasteNum(Long menuId) {
-        MenuEntity menuEntity = findOne(menuId);
-        if (menuEntity == null)
+        Menu menu = findOne(menuId);
+        if (menu == null)
             return -1;
 
-        int tasteNum = menuEntity.getTasteNum() + 1;
+        int tasteNum = menu.getTasteNum() + 1;
         mongoTemplate.updateFirst(
                 buildQuery(null, menuId, true),
                 Update.update(TASTE_NUM, tasteNum),

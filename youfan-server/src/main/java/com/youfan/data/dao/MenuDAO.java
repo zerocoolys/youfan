@@ -1,5 +1,6 @@
 package com.youfan.data.dao;
 
+import com.youfan.controllers.objs.Menu;
 import com.youfan.data.models.MenuEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -11,9 +12,9 @@ import java.util.List;
  *
  * @author dolphineor
  */
-public interface MenuDAO extends MongoBaseDAO<MenuEntity, Long> {
+public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
 
-    List<MenuEntity> list(Long sellerId);
+    List<Menu> findBySellerId(Long sellerId);
 
     int minusRestNum(Long menuId);
 
@@ -23,6 +24,16 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, Long> {
 
     void resetRestNumByMenuId(Long menuId, int restNum);
 
+
+    @Override
+    default Class<MenuEntity> getEntityClass() {
+        return MenuEntity.class;
+    }
+
+    @Override
+    default Class<Menu> getVOClass() {
+        return Menu.class;
+    }
 
     default Query buildQuery(Long sellerId, Long menuId, boolean isValid) {
         Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);

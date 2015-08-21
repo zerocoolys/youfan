@@ -9,6 +9,10 @@ import java.util.List;
  * Created by yousheng on 15/8/13.
  */
 public interface OrderDAO {
+
+    String SEQ_ORDER = "ORDER";
+
+
     Order insert(Order orderEntity);
 
     Order getOrderByOrderNo(String orderNo);
@@ -16,5 +20,4 @@ public interface OrderDAO {
     List<Order> findAll(Pagination pagination);
     
     List<Order> findOrdersByMerchantId(String merchantId);
-    
 }

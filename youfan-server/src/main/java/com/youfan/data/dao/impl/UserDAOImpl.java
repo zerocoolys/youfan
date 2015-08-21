@@ -1,5 +1,6 @@
 package com.youfan.data.dao.impl;
 
+import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.dao.UserDAO;
 import com.youfan.data.models.UserEntity;
 import org.springframework.stereotype.Repository;
@@ -11,24 +12,29 @@ import java.util.List;
  * Created by perfection on 15-8-19.
  */
 @Repository("userDAO")
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
     @Override
-    public List<UserEntity> findAll() {
+    public List<MerchantUser> findAll() {
         return Collections.emptyList();
     }
 
     @Override
-    public UserEntity findOne(Long id) {
+    public MerchantUser findOne(Long id) {
         return null;
     }
 
     @Override
-    public void insert(UserEntity userEntity) {
+    public void insert(MerchantUser userEntity) {
         mongoTemplate.insert(userEntity);
     }
 
     @Override
-    public void insert(List<UserEntity> list) {
+    public Class<MerchantUser> getVOClass() {
+        return null;
+    }
+
+    @Override
+    public void insert(List<MerchantUser> list) {
 
     }
 
@@ -38,7 +44,7 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Override
-    public void update(UserEntity userEntity) {
+    public void update(MerchantUser userEntity) {
 
     }
 
