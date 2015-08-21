@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -19,8 +21,6 @@ import java.util.List;
  */
 @Repository("orderDAO")
 public class OrderDAOImpl implements OrderDAO {
-
-    private static final String SEQ_ORDER = "ORDER";
 
     @Resource
     private IdGenerator idGenerator;
@@ -62,37 +62,64 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public List<Order> findAll(Pagination pagination) {
-
         List<Order> list = sqlSession.selectList("findAllByPagination", pagination);
 
-
         return list;
+    }
+
+    @Override
+    public List<Order> getOrdersByBuyerId(Long buyerId, Pagination pagination) {
+        List<Order> orders = sqlSession.selectList("getOrdersByBuyerId", pagination);
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> getOrdersBySellerId(Long sellerId, Pagination pagination) {
+        List<Order> orders = sqlSession.selectList("getOrdersBySellerId", pagination);
+
+        return orders;
     }
 
 
     private OrderEntity createEntity(Order order) {
         OrderEntity orderEntity = new OrderEntity();
+
         orderEntity.setId(order.getId());
         orderEntity.setBuyerId(order.getBuyerId());
         orderEntity.setSellerId(order.getSellerId());
-
-        orderEntity.setComments(order.getComments());
+        orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));
         orderEntity.setOrderStatus(order.getOrderStatus());
 
-        orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));
+        orderEntity.setOrderTime(Timestamp.from(Instant.now()));
+        orderEntity.setRepastTime(Timestamp.from(order.getRepastTime().toInstant()));
+        orderEntity.setRepastMode(order.getRepastMode());
+        orderEntity.setRepastAddress(order.getRepastAddress());
+        orderEntity.setCoupons(BigDecimal.valueOf(order.getCoupons()));
+        orderEntity.setComments(order.getComments());
+
         return orderEntity;
     }
 
     private Order createObject(OrderEntity orderEntity) {
         Order order = new Order();
-        orderEntity.setId(order.getId());
-        orderEntity.setBuyerId(order.getBuyerId());
-        orderEntity.setSellerId(order.getSellerId());
 
-        orderEntity.setComments(order.getComments());
-        orderEntity.setOrderStatus(order.getOrderStatus());
+        order.setId(orderEntity.getId());
+        order.setOrderNo(orderEntity.getOrderNo());
+        order.setBuyerId(orderEntity.getBuyerId());
+        order.setSellerId(orderEntity.getSellerId());
 
-        orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));
+        order.setComments(orderEntity.getComments());
+        order.setOrderStatus(orderEntity.getOrderStatus());
+
+        order.setPrice(orderEntity.getPrice().setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        order.setCoupons(orderEntity.getCoupons().setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+
+        order.setOrderTime(orderEntity.getOrderTime());
+        order.setRepastTime(orderEntity.getRepastTime());
+        order.setRepastMode(orderEntity.getRepastMode());
+        order.setRepastAddress(orderEntity.getRepastAddress());
+
         return order;
     }
 }

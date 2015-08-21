@@ -3,11 +3,11 @@ package com.youfan.data.models;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
 /**
  * Created by yousheng on 15/8/13.
+ * <p>订单类实体.
  */
 public class OrderEntity {
 
@@ -33,10 +33,10 @@ public class OrderEntity {
     private Long buyerId;
 
     // 下单时间
-    private Date orderTime;
+    private Timestamp orderTime;
 
     // 就餐时间
-    private Date repastTime;
+    private Timestamp repastTime;
 
     // 就餐方式
     private String repastMode;
@@ -46,9 +46,6 @@ public class OrderEntity {
 
     // 优惠券
     private BigDecimal coupons;
-
-    // 菜品条目的id集合
-    private List<Long> cart;
 
     // 备注
     private String comments;
@@ -110,19 +107,19 @@ public class OrderEntity {
         this.buyerId = buyerId;
     }
 
-    public Date getOrderTime() {
+    public Timestamp getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Date orderTime) {
+    public void setOrderTime(Timestamp orderTime) {
         this.orderTime = orderTime;
     }
 
-    public Date getRepastTime() {
+    public Timestamp getRepastTime() {
         return repastTime;
     }
 
-    public void setRepastTime(Date repastTime) {
+    public void setRepastTime(Timestamp repastTime) {
         this.repastTime = repastTime;
     }
 
@@ -148,14 +145,6 @@ public class OrderEntity {
 
     public void setCoupons(BigDecimal coupons) {
         this.coupons = coupons;
-    }
-
-    public List<Long> getCart() {
-        return cart;
-    }
-
-    public void setCart(List<Long> cart) {
-        this.cart = cart;
     }
 
     public String getComments() {

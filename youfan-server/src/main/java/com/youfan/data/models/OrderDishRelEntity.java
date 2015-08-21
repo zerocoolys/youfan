@@ -6,8 +6,16 @@ import org.springframework.data.annotation.Id;
  * Created by yousheng on 15/8/14.
  */
 public class OrderDishRelEntity {
+
     @Id
     private Long id;
+
+    private Long orderNo;
+
+    private Long itemId;
+
+    private int count;
+
 
     public Long getId() {
         return id;
@@ -15,6 +23,14 @@ public class OrderDishRelEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public Long getOrderNo() {
@@ -25,25 +41,11 @@ public class OrderDishRelEntity {
         this.orderNo = orderNo;
     }
 
-    public String getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public void setItemId(Long itemId) {
         this.itemId = itemId;
-    }
-
-    private int count;
-
-    private Long orderNo;
-
-    private String itemId;
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 }

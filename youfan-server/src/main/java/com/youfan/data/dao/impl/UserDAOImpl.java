@@ -11,7 +11,7 @@ import java.util.List;
  * Created by perfection on 15-8-19.
  */
 @Repository("userDAO")
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
     @Override
     public List<UserEntity> findAll() {
         return Collections.emptyList();

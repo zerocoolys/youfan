@@ -10,21 +10,20 @@ import java.util.List;
  */
 public interface OrderService {
 
+    List<Order> findAll(Pagination pagination);
 
-    public List<Order> findAll(Pagination pagination);
+    List<Order> findByUserId(String userId, Pagination pagination);
 
-    public List<Order> findByUserId(String userId);
+    List<Order> findBySellerId(Long sellerId, Pagination pagination);
 
+    Order findByOrderNo(String orderNo);
 
-    public Order findByOrderNo(String orderNo);
+    Order createOrder(Order order);
 
-    public Order createOrder(Order order);
+    Order updateOrder(Order order);
 
-    public Order updateOrder(Order order);
+    Order cancelOrder(Order order);
 
-    public Order cancelOrder(Order order);
-
-    public Order refundOrder(Order order);
-
+    Order refundOrder(Order order);
 
 }
