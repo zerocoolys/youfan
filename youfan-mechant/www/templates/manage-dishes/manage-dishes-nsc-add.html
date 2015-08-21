@@ -27,16 +27,16 @@
             </div>
             <label class="item item-input">
                 <i class="icon ion-social-snapchat"></i>
-                <input type="text" data-ng-model="dishes.name" placeholder="添加菜品名称">
+                <input type="text" data-ng-model="dishes.dishesName" placeholder="添加菜品名称">
             </label>
             <label class="item item-input">
                 <i class="icon ion-social-snapchat"></i>
-                <input type="text" data-ng-model="dishes.price" placeholder="输入价格">
+                <input type="text" data-ng-model="dishes.dishesPrice" placeholder="输入价格">
                 <p style="color:#1dbeaf; margin-right: 10px;">元/份</p>
             </label>
             <label class="item item-input">
                 <i class="icon ion-social-snapchat"></i>
-                <input type="text" data-ng-model="dishes.stock" placeholder="请输入菜品库存">
+                <input type="text" data-ng-model="dishes.dishesStock" placeholder="请输入菜品库存">
                 <p style="color:#1dbeaf; margin-right: 10px;">份</p>
             </label>
             <label class="item item-input">
@@ -45,15 +45,15 @@
 
             <div class="item item-divider">特色（每条最多10个字）</div>
             <label class="item item-input item-stacked-label">
-                <input type="text" data-ng-model="dishes.ts[0]" placeholder="菜的特色">
-                <input type="text" data-ng-model="dishes.ts[1]" placeholder="菜的特色">
-                <input type="text" data-ng-model="dishes.ts[2]" placeholder="菜的特色">
-                <input type="text" data-ng-model="dishes.ts[3]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishesTs[0]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishesTs[1]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishesTs[2]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishesTs[3]" placeholder="菜的特色">
             </label>
 
             <div class="item item-divider">口味</div>
             <ion-radio ng-repeat="item in kwItems"
-                       ng-model="dishes.kw" ng-value="item.kw">
+                       ng-model="dishes.dishesKw" ng-value="item.kw">
                 {{item.text}}
             </ion-radio>
 
