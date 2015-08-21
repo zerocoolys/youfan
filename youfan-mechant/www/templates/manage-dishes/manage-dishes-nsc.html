@@ -6,8 +6,8 @@
 
     <ion-content class="no-header">
         <div style="padding: 10px; text-align: center;">
-
-            <button class="button button-balanced" data-ng-click="addNsc()">亲 赶快添加你的拿手菜吧</button>
+            
+            <button class="button button-balanced" data-ng-click="addNsc()">亲 赶快添加你的拿手菜吧{{$scope.items}}</button>
 
         </div>
         <div class="item item-divider">
@@ -21,8 +21,6 @@
 
                 </ion-item>
             </ion-list>
-            <button data-ng-if="imgs.length < 4" class="button button-balanced" data-ng-click="addNscPic()"><i
-                    class="icon ion-android-add-circle"></i></button>
         </div>
     </ion-content>
 
