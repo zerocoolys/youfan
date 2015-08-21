@@ -21,7 +21,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
                 for (var i = 0; i < max; i++, idx++) $scope.items.unshift({
                     name: "鱼香肉丝",
                     price: Math.ceil(Math.random() * 100),
-                    url: "http://0912100.com/upload/images/day_140523/201405230346142295.jpg"
+                    url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
                 });
                 //隐藏载入指示器
                 $ionicLoading.hide();
@@ -167,8 +167,8 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
             // Show the action sheet
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                    {text: "<p class='text-center'>打开相机</p>"},
-                    {text: "<p class='text-center'>打开相册</p>"}
+                    {text: "打开相机"},
+                    {text: "打开相册"}
                 ],
                 buttonClicked: function (index) {
                     if (!navigator.camera) {

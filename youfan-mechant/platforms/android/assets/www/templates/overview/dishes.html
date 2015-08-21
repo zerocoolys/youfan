@@ -1,5 +1,5 @@
 <!-- 帮助 -->
-<ion-view view-title="" hide-nav-bar="true">
+<ion-view view-title="" hide-nav-bar="true" cache-view="false"   >
 
     <ion-header-bar class="item-input-inset light-bg indexbar">
         <div class="bar bar-header bar-light dishes-p ">
@@ -7,22 +7,25 @@
                href="#/overview"></a>
 
             <div class="button-bar calm-border calm dishes-p ">
-                <a class="button calm-border calm " ng-class="dishesIndex == 0 ? 'current':''" ng-click="activedishes(0)">配送</a>
-                <a class="button calm-border calm" ng-class="dishesIndex == 1 ? 'current':''" ng-click="activedishes(1)">上门</a>
-                <a class="button calm-border calm" ng-class=" dishesIndex == 2 ? 'current':''" ng-click="activedishes(2)">要做的菜</a>
+                <a class="button calm-border calm " ng-class="dishesIndex == 0 ? 'current':''"
+                   ng-click="activedishes(0)">配送</a>
+                <a class="button calm-border calm" ng-class="dishesIndex == 1 ? 'current':''"
+                   ng-click="activedishes(1)">上门</a>
+                <a class="button calm-border calm" ng-class=" dishesIndex == 2 ? 'current':''"
+                   ng-click="activedishes(2)">要做的菜</a>
             </div>
 
             <a class=" button button-clear calm " style="padding: 0 3px 0 10px; line-height: 38px; "
-               ng-click="doSomething()">
+               href="#/query_order">
                 查询
             </a>
         </div>
 
     </ion-header-bar>
 
-    <ion-scroll class="stable-bg" style="height:100%; ">
-        <ion-slide-box on-slide-changed="dishesChanged(index)" active-slide="dishesIndex"  show-pager="false">
-            <ion-slide ng-repeat="way in ways" >
+    <ion-scroll class="stable-bg" style="height:100%; " cache-view="false" >
+        <ion-slide-box on-slide-changed="dishesChanged(index)" active-slide="dishesIndex" show-pager="false">
+            <ion-slide ng-repeat="way in ways">
                 <div class="  button-bar light-bg dishes">
                     <a class="button button-clear   " ng-class="slideIndex == 0 ? 'current':''"
                        ng-click="activeSlide(0)">配送<i
@@ -40,17 +43,45 @@
                 </div>
 
                 <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false">
-                    <ion-slide  ng-repeat="dorder in dorders">
-                        <ul class="list">
-                            <li class="item  item-icon-right" ng-repeat="order in orders" style="margin: 15px 0">
-                                <h3 style="float: right;font-size: 14px " class="energized">{{order.ways}}</h3>
+                    <ion-slide ng-repeat="dorder in dorders" class="order">
+                        <ion-list  >
+                            <ion-item >
+                                <span>订单编号：135268549</span>
 
-                                <h2 class="calm">{{$index+1}}.{{order.phone}}</h2>
+                                <p class="item-note mainColor">待付款</p>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left item-avatar" style="margin-bottom: 10px;" href="#/order_Details">
+                                <img src="../img/ifzk.jpg">
 
-                                <p class="padding">就餐时间：{{order.time}}</p>
-                                <i class="icon  ion-ios-arrow-right"></i>
-                            </li>
-                        </ul>
+                                <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+
+                                <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
+
+                                <h2>￥98.00
+                                    <button class="fr button button-calm button-small">查看</button>
+                                </h2>
+                            </ion-item>
+
+                        </ion-list>
+                        <ion-list >
+                            <ion-item>
+                                <span>订单编号：135268549</span>
+
+                                <p class="item-note mainColor">待付款</p>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left item-avatar" href="#/order_Details">
+                                <img src="../img/ifzk.jpg">
+
+                                <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+
+                                <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
+
+                                <h2>￥98.00
+                                    <button class="fr button button-calm button-small">查看</button>
+                                </h2>
+                            </ion-item>
+
+                        </ion-list>
                     </ion-slide>
                 </ion-slide-box>
             </ion-slide>

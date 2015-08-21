@@ -49,7 +49,6 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
         $scope.doRefresh = function () {
             $scope.disclaimerText = "时间煮雨";
             $scope.$broadcast("scroll.refreshComplete");
-            $
         };
     })
 

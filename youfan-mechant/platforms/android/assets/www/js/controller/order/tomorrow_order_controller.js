@@ -3,29 +3,29 @@
 
     angular
         .module('yf_merchant')
-        .controller('all_order', AllOrder);
+        .controller('tomorrow_order', tomorrow_order);
 
-    function AllOrder($scope, $filter, $state,$ionicSlideBoxDelegate) {
+    function tomorrow_order($scope, $filter, $state,$ionicSlideBoxDelegate) {
 
         $scope.orders=[
             {
                 phone:"138-114-8670",
-                ways:"鑷彇",
+                ways:"自取",
                 time:"15:00"
             },
             {
                 phone:"131-124-8620",
-                ways:"鍫傞",
+                ways:"堂食",
                 time:"13:00"
             },
             {
                 phone:"185-114-2570",
-                ways:"鍫傞",
+                ways:"堂食",
                 time:"18:00"
             },
             {
                 phone:"151-154-8650",
-                ways:"鑷彇",
+                ways:"自取",
                 time:"20:00"
             }
         ];
@@ -47,7 +47,9 @@
 
 
 
-        $scope.dorders=[1,2,3,4,5];
+        $scope.dorders=[1,2,3,4,5,6];
         $scope.ways=[1,2,3]
     }
-})();
+})();/**
+ * Created by Fzk lwek on 2015/8/20.
+ */

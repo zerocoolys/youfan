@@ -3,9 +3,9 @@
 
     angular
         .module('yf_merchant')
-        .controller('all_order', AllOrder);
+        .controller('today_order', today_order);
 
-    function AllOrder($scope, $filter, $state,$ionicSlideBoxDelegate) {
+    function today_order($scope, $filter, $state,$ionicSlideBoxDelegate) {
 
         $scope.orders=[
             {
@@ -47,7 +47,9 @@
 
 
 
-        $scope.dorders=[1,2,3,4,5];
+        $scope.dorders=[1,2,3,4,5,6];
         $scope.ways=[1,2,3]
     }
-})();
+})();/**
+ * Created by Fzk lwek on 2015/8/20.
+ */

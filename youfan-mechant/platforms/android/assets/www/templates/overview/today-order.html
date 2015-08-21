@@ -1,19 +1,19 @@
 <!-- 帮助 -->
-<ion-view view-title="" hide-nav-bar="true">
+<ion-view view-title="" hide-nav-bar="true" cache-view="false">
 
     <ion-header-bar class="item-input-inset light-bg indexbar">
         <div class="bar bar-header bar-light dishes-p ">
-            <a class="button button-clear icon ion-ios-arrow-left  " style="padding: 0 18px 0 15px;"
+            <a class="button button-clear icon ion-ios-arrow-left  " style="padding: 0 15px 0 12px;"
                href="#/overview"></a>
 
             <div class="button-bar calm-border calm dishes-p ">
-                <a class="button calm-border calm " ng-class="dishesIndex == 0 ? 'current':''" ng-click="activedishes(0)">配送</a>
-                <a class="button calm-border calm" ng-class="dishesIndex == 1 ? 'current':''" ng-click="activedishes(1)">上门</a>
-                <a class="button calm-border calm" ng-class=" dishesIndex == 2 ? 'current':''" ng-click="activedishes(2)">要做的菜</a>
+                <a class="button calm-border calm " ng-class="dishesIndex == 0 ? 'current':''" ng-click="activedishes(0)">全部</a>
+                <a class="button calm-border calm" ng-class="dishesIndex == 1 ? 'current':''" ng-click="activedishes(1)">本月</a>
+                <a class="button calm-border calm" ng-class=" dishesIndex == 2 ? 'current':''" ng-click="activedishes(2)">本周</a>
             </div>
 
             <a class=" button button-clear calm " style="padding: 0 3px 0 10px; line-height: 38px; "
-               ng-click="doSomething()">
+               href="#/query_order">
                 查询
             </a>
         </div>
@@ -25,18 +25,19 @@
             <ion-slide ng-repeat="way in ways" >
                 <div class="  button-bar light-bg dishes">
                     <a class="button button-clear   " ng-class="slideIndex == 0 ? 'current':''"
-                       ng-click="activeSlide(0)">{{dishesIndex}}配送<i
+                       ng-click="activeSlide(0)">新订单<i
                             class="calm">10</i> </a>
-                    <a class="button button-clear   " ng-class="slideIndex == 1 ? 'current':''"
-                       ng-click="activeSlide(1)">{{slideIndex}}已接单 <i
+
+                    <a class="button button-clear   " ng-class="slideIndex ==2 ? 'current':''"
+                       ng-click="activeSlide(2)">已接单 <i
                             class="calm">10</i> </a>
-                    <a class="button button-clear    " ng-class="slideIndex == 2 ? 'current':''"
-                       ng-click="activeSlide(2)">已完成
+                    <a class="button button-clear   " ng-class="slideIndex == 3? 'current':''"
+                       ng-click="activeSlide(3)">已完成 <i
+                            class="calm">10</i> </a>
+                    <a class="button button-clear    " ng-class="slideIndex == 4 ? 'current':''"
+                       ng-click="activeSlide(4)">退款中
                         <i class="calm">15</i> </a>
-                    <a class=" button button-clear " ng-class="slideIndex == 3 ? 'current':''" ng-click="activeSlide(3)"
-                            >退款中 <i class="calm">20</i> </a>
-                    <a class=" button button-clear " ng-class="slideIndex == 4 ? 'current':''" ng-click="activeSlide(4)"
-                            >已退款 <i class="calm">30</i> </a>
+                    <a class=" button button-clear " ng-class="slideIndex == 5 ? 'current':''" ng-click="activeSlide(5)" >已退款 <i class="calm">30</i> </a>
                 </div>
 
                 <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false">
@@ -54,8 +55,7 @@
                     </ion-slide>
                 </ion-slide-box>
             </ion-slide>
-
-
+            <ion-slide></ion-slide>
         </ion-slide-box>
     </ion-scroll>
 </ion-view>

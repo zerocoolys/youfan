@@ -28,8 +28,8 @@ a{
 
 .shop-course-title{
     text-align: center;
-    height:50px;
-    line-height:100px;
+    line-height:10px ;
+    height : 0px;
     font-weight:100;
     font-size: 14px;
 }

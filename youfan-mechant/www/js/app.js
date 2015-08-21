@@ -6,7 +6,6 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_merchant.settings_controllers', 'yf_merchant.manage_dishes_controllers'])
-
     .run(function ($rootScope, $ionicPlatform, $state) {
         $rootScope.goState = function (state) {
             $state.go(state);

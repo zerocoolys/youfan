@@ -4,7 +4,7 @@
                 class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-clear button-calm" data-ng-click="doCheckDishes()" data-ng-disabled="isActive">
+        <button class="button button-clear button-positive" data-ng-click="doCheckDishes()" data-ng-disabled="isActive">
             保存
         </button>
     </ion-nav-buttons>
@@ -19,11 +19,11 @@
                         {{item.index}}
                     </ion-item>
                 </ion-list>
-                <button data-ng-if="imgs.length < 4" class="button button-calm" data-ng-click="addNscPic()"><i
+                <button data-ng-if="imgs.length < 4" class="button button-balanced" data-ng-click="addNscPic()"><i
                         class="icon ion-android-add-circle"></i></button>
             </div>
             <div class="item item-divider">
-                <ion-toggle toggle-class="toggle-calm" ng-model="dishes.staple"><span style="color: red">*</span>是否是主食：</ion-toggle>
+                <ion-toggle ng-model="dishes.staple"><span style="color: red">*</span>是否是主食：</ion-toggle>
             </div>
             <label class="item item-input">
                 <i class="icon ion-social-snapchat"></i>
