@@ -7,7 +7,7 @@
     angular
         .module('yf_merchant')
         .controller('kitcheninfo', kitchenInfo)
-        .factory("test", function ($http) {
+        .factory("kitchenInfoFn", function ($http) {
             return {
                 getTest: function () {
                     return $http.get("http://127.0.0.1:8080/editkitchen/test").then(function (response) {
@@ -21,9 +21,9 @@
         });
 
 
-    function kitchenInfo($scope, $filter, $state, test) {
-        $scope.name = test.getTest();
-        //console.log($scope.name);
-        console.log("测试结束")
+    function kitchenInfo($scope, $filter, $state, kitchenInfoFn) {
+        //$scope.name = kitchenInfoFn.getTest();
+        ////console.log($scope.name);
+        //console.log("测试结束")
     }
 })();
