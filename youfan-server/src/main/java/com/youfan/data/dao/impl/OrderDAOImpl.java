@@ -7,10 +7,12 @@ import com.youfan.data.dao.OrderDAO;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -63,7 +65,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public List<Order> findAll(Pagination pagination) {
 
-        List<Order> list = sqlSession.selectList("findAllByPagination", pagination);
+		List<Order> list = sqlSession.selectList("findAllByPagination", pagination);
 
 
         return list;
@@ -95,4 +97,10 @@ public class OrderDAOImpl implements OrderDAO {
         orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));
         return order;
     }
+
+	@Override
+	public List<Order> findOrdersByMerchantId(String merchantId) {
+
+		return null;
+	}
 }
