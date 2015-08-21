@@ -2,7 +2,7 @@ package com.youfan.services.dishes;
 
 import java.util.List;
 
-import com.youfan.data.models.DishesEntity;
+import com.youfan.controllers.objs.Dishes;
 
 /**
  * Created on 2015-08-21.
@@ -11,7 +11,7 @@ import com.youfan.data.models.DishesEntity;
  *
  */
 public interface DishesService {
-	int insert(DishesEntity menu);
+	void insert(Dishes dishes);
 
-	List<DishesEntity> list(String merchantId, String dishesType);
+	List<Dishes> list(String merchantId, String dishesType);
 }

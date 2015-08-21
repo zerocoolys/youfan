@@ -6,12 +6,13 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.youfan.commons.MerchantConstants;
+import com.youfan.controllers.objs.Dishes;
 import com.youfan.data.models.DishesEntity;
 
-public interface DishesDAO extends MongoBaseDAO<DishesEntity, String>,
+public interface DishesDAO extends MongoBaseDAO<DishesEntity, Dishes, String>,
 		MerchantConstants {
 
-	List<DishesEntity> list(String merchantId, String dishesType);
+	List<Dishes> list(String merchantId, String dishesType);
 
 	default Query buildQuery(String merchantId, String dishesType,
 			boolean isValid) {

@@ -1,7 +1,6 @@
 package com.youfan.rest.support;
 
-import com.alibaba.fastjson.JSON;
-import com.youfan.data.models.DishesEntity;
+import com.youfan.controllers.objs.Dishes;
 import com.youfan.services.dishes.DishesService;
 
 import org.springframework.context.annotation.Scope;
@@ -32,7 +31,7 @@ public class DishesController {
 	@RequestMapping(path = "/list/{dishesType}/{merchantId}", method = RequestMethod.GET, produces = "application/json")
 	public ModelAndView list(@PathVariable String dishesType,
 			@PathVariable String merchantId) {
-		List<DishesEntity> dishesList = dishesService.list(merchantId,
+		List<Dishes> dishesList = dishesService.list(merchantId,
 				dishesType);
 		Map<String, Object> menuMap = new HashMap<>();
 		menuMap.put("dishes", dishesList);
@@ -43,8 +42,8 @@ public class DishesController {
 		return new ModelAndView(jsonView);
 	}
 
-	@RequestMapping(path = "/add", method = RequestMethod.POST, produces = "application/json")
-	public void add(@RequestBody DishesEntity dishesEntity) {
-		dishesService.insert(dishesEntity);
+	@RequestMapping(path = "", method = RequestMethod.POST, produces = "application/json")
+	public void add(@RequestBody Dishes dishes) {
+		dishesService.insert(dishes);
 	}
 }

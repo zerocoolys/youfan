@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.youfan.controllers.objs.Dishes;
 import com.youfan.data.dao.DishesDAO;
-import com.youfan.data.models.DishesEntity;
 import com.youfan.services.dishes.DishesService;
 
 @Service("dishesService")
@@ -20,14 +20,13 @@ public class DishesServiceImpl implements DishesService {
 	private DishesDAO dishesDao;
 
 	@Override
-	public int insert(DishesEntity menu) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void insert(Dishes dishes) {
+		dishesDao.insert(dishes);
 	}
 
 	@Override
-	public List<DishesEntity> list(String merchantId, String dishesType) {
-		List<DishesEntity> list = dishesDao.list(merchantId, dishesType);
+	public List<Dishes> list(String merchantId, String dishesType) {
+		List<Dishes> list = dishesDao.list(merchantId, dishesType);
 		if (list == null || list.isEmpty()) {
 			return Collections.emptyList();
 		}
