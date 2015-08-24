@@ -42,6 +42,12 @@
                     controller: 'tomorrow_order'
 
                 })
+                .state('all_order', {
+                    url: '/all_order',
+                    templateUrl: 'templates/overview/dishes.html',
+                    controller: 'all_order'
+
+                })
                 .state('shop-course', {
                     url: '/shop-course',
                     templateUrl: 'templates/overview/shop-course.html',
@@ -66,12 +72,7 @@
 
             //????
             $stateProvider
-                .state('all_order', {
-                    url: '/all_order',
-                    templateUrl: 'templates/order/all_order.html',
-                    controller: 'all_order'
 
-                })
                 .state('order_Details', {
                     url: '/order_Details',
                     templateUrl: 'templates/order/order_Details.html',

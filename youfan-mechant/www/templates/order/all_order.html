@@ -27,13 +27,13 @@
                 </div>
                 <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="wayt.slideIndex" show-pager="false">
                     <ion-slide ng-repeat="dorder in wayt.dorders" class="order">
-                        <ion-list ng-repeat="order in wayt.orders" style="margin-bottom: 20px">
+                        <ion-list ng-repeat="order in dorder.orders" style="margin-bottom: 20px">
                             <ion-item>
                                 <span>订单编号：{{order.id}}</span>
                                 <p class="item-note mainColor">{{order.state}}</p>
                             </ion-item>
                             <ion-item class="item-thumbnail-left item-avatar" href="#/order_Details">
-                                <img src="../img/ifzk.jpeg">
+                                <img src="{{order.img}}">
 
                                 <h2>{{order.place}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
 
