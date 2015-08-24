@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <% include comm/header.html %>
+    <script data-main="js/main" src="/js/socket.io.js"></script>
+    <title>IO测试</title>
+</head>
+<body >
+<div class="container-fluid" ng-controller="chatCtrl">
+    <div class="row-fluid">
+        <div class="span12">
+            <form>
+                <fieldset>
+                    <div>
+                        <button type="submit" class="btn" ng-click="connServer()">连接</button>
+                        <label >当前状态：</label><label > {{connStatus}}</label>
+                    </div>
+                    <div>
+                        <label >当前帐号：</label><input type="text"  ng-model="count"/>
+                        <label >当前端：</label><input type="text"  ng-model="fromPort"/>
+                        <button type="submit" class="btn" ng-click="login()">登录</button>
+                        <label >帐号登录状态：</label> <label > {{loginStatus}}</label>
+                    </div>
+                    <div>
+                        <label>To端</label>
+                        <input type="text"  ng-model="toPort"/>
+                        <label>To userName</label>
+                        <input type="text"  ng-model="toClient"/>
+                    </div>
+                    <div>
+                        <label>发送内容</label>
+                        <input type="text"  ng-model="sMsg"/>
+                        <button type="submit" class="btn" ng-click="sendMsg()">发送</button>
+                    </div>
+                    <div>
+                        <label>服务端返回内容</label></div>
+                    <div>
+                        <textarea style="width: 300px;height: 200px;float: left" class="form-control"
+                                  ng-model="rMsg"></textarea>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<!--<% include comm/footer.html %>-->
+<script data-main="js/main" src="/js/require-min.js"></script>
+
+</body>
+</html>

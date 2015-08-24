@@ -1,6 +1,17 @@
 define(["angular", "./app"], function (angular, myApp) {
     'use strict';
     myApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,$routeProvider) {
+
+        $stateProvider
+            .state('chat', {
+                url: '/chat',
+                templateUrl: 'sys/chat.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/chatCtrl'
+                    ])
+                }
+            })
         $stateProvider
             .state('sys', {
                 url: '/sys/profile',

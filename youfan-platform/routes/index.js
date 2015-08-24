@@ -9,6 +9,10 @@ router.get("/", function (req, res, next) {
 router.get("/login", function (req, res, next) {
     res.render("login.html", {});
 });
+router.get("/chat", function (req, res, next) {
+    res.render("chat.html", {});
+});
+
 
 router.get("/pay", function (req, res, next) {
     res.render("pay/pinus_webview.html", {});

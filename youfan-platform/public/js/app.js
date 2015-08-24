@@ -12,6 +12,7 @@ define([
 
     //业务模块控制器
     "./controllers/loginCtrl",
+    "./controllers/chatCtrl",
     "./controllers/leftMenuCtrl",
     "./controllers/navCtrl",
     "./controllers/tableCtrl",
