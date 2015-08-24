@@ -1,4 +1,4 @@
-<ion-view view-title="管理菜品" class="calm" cache-view="false">
+<ion-view view-title=" 菜品库存" class="calm" cache-view="false">
 
     <ion-nav-buttons side="left">
         <button class="button button-clear button-calm" data-ng-click="goState('overview')"><i
@@ -7,7 +7,7 @@
     <ion-nav-buttons side="right">
         <a class=" button button-clear button-calm " style="padding: 0 3px 0 10px; line-height: 38px; "
            href="#/manage-dishes-Stock">
-            菜品库存
+            保存
         </a>
     </ion-nav-buttons>
 
@@ -21,26 +21,52 @@
 
     <!--</ion-header-bar>-->
 
-
-    <ion-content class="no-header" style="padding-top: 43px;">
-        <div style="padding: 10px; text-align: center;">
-            <button class="button button-calm" data-ng-click="addNsc()">亲 赶快添加你的拿手菜吧</button>
+    x`
+    <ion-scroll class="stable-bg" style="height:100%; padding-top: 30px;" cache-view="false">
+        <div class="button-bar light-bg dishes">
+            <a class="button button-clear"
+               ng-class="slideIndex == 0 ? 'current':''"
+               ng-click="activeSlide(0)">今日余量 </a>
+            <a class="button button-clear"
+               ng-class="slideIndex == 1 ? 'current':''"
+               ng-click="activeSlide(1)">每日固定库存 </a>
         </div>
-        <div class="item item-divider">
-            <ion-list>
-                <ion-item ng-repeat="item in items">
-                    <img ng-src="{{item.picUrls[0]}}" style="width: 100%; height: 50%">
-
-                    <p>{{item.dishesName}}</p>
-
-                    <p><i class="icon ion-social-yen"></i>{{item.dishesPrice}}</p>
-
-                </ion-item>
-            </ion-list>
-            <button data-ng-if="imgs.length < 4" class="button button-calm" data-ng-click="addNscPic()"><i
-                    class="icon ion-android-add-circle"></i></button>
-        </div>
-    </ion-content>
+        <ion-slide-box on-slide-changed="slideChanged(day.id)" active-slide="slideIndex" show-pager="false">
+            <ion-slide ng-repeat="way in ways" class="order">
+                <ion-list style="margin-bottom: 20px">
+                    <ion-item class="item-divider"> 拿手菜</ion-item>
+                    <ion-item ng-repeat="dish in way.dishes" > &nbsp;&nbsp;{{dish.name}}
+                               <span style=" border-radius: 5px;" class="item-note  item-input-wrapper">
+                                   <i class="icon ion-minus placeholder-icon calm" ng-click="value=value-1"></i>
+                                   <input type="text"
+                                          style="width: 20px; height: 25px;padding: 0 0 0 5px; background:#eee;"
+                                          value="{{value}}"/>
+                                   <i class="icon ion-plus placeholder-icon calm" ng-click="value=value+1"></i>
+                               </span>
+                    </ion-item>
+                    <ion-item class="item-divider">小饭桌</ion-item>
+                    <ion-item ng-repeat="table in way.tables" class="light-bg">&nbsp;&nbsp;{{table.name}}
+                          <span style=" border-radius: 5px;" class="item-note  item-input-wrapper">
+                                   <i class="icon ion-minus placeholder-icon calm" ng-click="value=value-1"></i>
+                                   <input type="text"
+                                          style="width: 20px; height: 25px;padding: 0 0 0 5px; background:#eee;"
+                                          value="{{value}}"/>
+                                   <i class="icon ion-plus placeholder-icon calm" ng-click="value=value+1"></i>
+                               </span>
+                    </ion-item>
+                    <ion-item class="item-divider">其他菜</ion-item>
+                    <ion-item ng-repeat="other in way.others" class="light-bg">&nbsp;&nbsp;{{other.name}}
+                      <span style=" border-radius: 5px;" class="item-note  item-input-wrapper">
+                                   <i class="icon ion-minus placeholder-icon calm" ng-click="value=value-1"></i>
+                                   <input type="text"
+                                          style="width: 20px; height: 25px;padding: 0 0 0 5px; background:#eee;"
+                                          value="{{value}}"/>
+                                   <i class="icon ion-plus placeholder-icon calm" ng-click="value=value+1"></i>
+                               </span></ion-item>
+                </ion-list>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-scroll>
 
 </ion-view>
 

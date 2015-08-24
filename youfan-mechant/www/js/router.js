@@ -151,7 +151,7 @@
                 .state('manage-dishes-Stock', {
                     url: '/manage-dishes-Stock',
                     templateUrl: 'templates/manage-dishes/manage-dishes-Stock.html',
-                    controller: ''
+                    controller: 'manage_dishes_Stock'
 
                 });
 
