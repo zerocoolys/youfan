@@ -15,6 +15,10 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $ionicModal, O
         $scope.CouponsModal = modal;
     });
 
+    // 订单
+    $scope.order = {};
+
+    // 支付
     $scope.pay = function () {
         console.log("Pay ...");
     };

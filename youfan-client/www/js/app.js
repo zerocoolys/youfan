@@ -350,4 +350,4 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 })
             }
         }
-    })
+    });
