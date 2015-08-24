@@ -32,13 +32,13 @@
                 })
                 .state('today-order', {
                     url: '/today-order',
-                    templateUrl: 'templates/overview/today-order.html',
+                    templateUrl: 'templates/overview/dishes.html',
                     controller: 'today_order'
 
                 })
                 .state('tomorrow-order', {
                     url: '/tomorrow-order',
-                    templateUrl: 'templates/overview/tomorrow-order.html',
+                    templateUrl: 'templates/overview/dishes.html',
                     controller: 'tomorrow_order'
 
                 })

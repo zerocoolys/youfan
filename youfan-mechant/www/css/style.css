@@ -99,3 +99,6 @@ a{
     width: 100px;
     text-align: right;
 }
+.display_none{
+    display: none;
+}
