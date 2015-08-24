@@ -124,14 +124,16 @@
         <ion-scroll zooming="true" direction="y" class="shop_cart" ng-mouseleave="ShopCart()">
             <div class="list">
                 <ul>
-                    <li ng-repeat="food in foods" class="row"><span class="col col-50">{{food.name}} </span><span
-                            class="col ">{{food.price}}</span><span class="col"><i class="ion-minus-round"
-                                                                                   ng-hide="count_show"
-                                                                                   ng-click="count = count - 1"
-                                                                                   ng-
-                                                                                   ng-init="count=0"></i>  <span
-                            class="food_price">{{count}} </span><i
-                            class="ion-plus-round" ng-click="count = count + 1" ng-init="count=0"></i> </span></li>
+                    <li ng-repeat="item in items.data" class="row">
+                        <span class="col col-50">{{item.name}}</span>
+                        <span class="col ">{{item.totalPrice}}</span>
+                        <span class="col">
+                            <i class="ion-minus-round" ng-hide="count_show"
+                               ng-click="minusItem(item.menuId)" ng-init="count = item.count"></i>
+                            <span class="food_price" ng-bind="item.count">{{count}}</span>
+                        <i class="ion-plus-round" ng-click="plusItem(item.menuId)" ng-init="count = item.count"></i>
+                        </span>
+                    </li>
                 </ul>
             </div>
 
