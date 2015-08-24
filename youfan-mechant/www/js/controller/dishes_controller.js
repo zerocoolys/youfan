@@ -9,27 +9,29 @@
         .controller('dishes', dishes);
 
     function dishes($scope, $filter, $state,$ionicSlideBoxDelegate) {
+        $scope.ways=[ { name:"配送", id:0}, { name:"上门",id:1 }, {name:"要做的菜",id:2 }];
+        $scope.states=[{ name:"配送", id:0, number:10 },
+                       { name:"已接单",   id:1,  number:20  },
+                       { name:"已完成", id:2, number:30},
+                       {name:"退款中", id:3,number:40 },
+                       { name:"已退款",  id:4, number:10 }
+        ];
         $scope.orders=[
-            {
-                phone:"138-114-8670",
-                ways:"堂食",
-                time:"15:00"
+            {   id:135268549,
+                img:"../img/ifzk.jpeg",
+                state:"待付款",
+                place:"河马堂药膳厨房",
+                rmb:"￥98.00",
+                time:"2014.11.08 下午13:00"
             },
-            {
-                phone:"131-124-8620",
-                ways:"自取",
-                time:"13:00"
-            },
-            {
-                phone:"185-114-2570",
-                ways:"堂食",
-                time:"18:00"
-            },
-            {
-                phone:"151-154-8650",
-                ways:"自取",
-                time:"20:00"
+            {   id:135268549,
+                img:"../img/ifzk.jpeg",
+                state:"待付款",
+                place:"河马堂药膳厨房",
+                rmb:"￥198.00",
+                time:"2014.11.08 下午13:00"
             }
+
         ];
         $scope.dishesIndex=0;
         $scope.activedishes = function (dishesIndex) {
@@ -50,7 +52,7 @@
 
 
         $scope.dorders=[1,2,3,4,5];
-        $scope.ways=[1,2]
+       $scope.nimas=[1,2]
 
     }
 })();
