@@ -14,7 +14,7 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
         $scope.geolocation = new AMap.Geolocation({
             enableHighAccuracy: true,//是否使用高精度定位，默认:true
             timeout: 10000,          //超过10秒后停止定位，默认：无穷大
-            maximumAge: 300000,           //定位结果缓存0毫秒，默认：0
+            maximumAge: 300000,      //定位结果缓存0毫秒，默认：0
             convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
             showButton: true,        //显示定位按钮，默认：true
             buttonDom:"<img src='http://image.chinawriter.com.cn/cr/2013/0425/3873279506.jpg' width='30' height='30'/>",
@@ -29,7 +29,6 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
         //返回定位成功处理
         AMap.event.addListener($scope.geolocation, 'complete', function (data){
             var lnglatXY = new AMap.LngLat(data.position.getLng(),data.position.getLat());
-            alert(1);
             $scope.geocoder(lnglatXY);
             dataXY = [
                 {x:104.073588,y:30.537481},
@@ -56,7 +55,9 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
             //逆地理编码
             MGeocoder.getAddress(lnglatXY, function (status, result) {
                 if (status === 'complete' && result.info === 'OK') {
-                    alert(result.regeocode.formattedAddress);
+                    console.log(result.regeocode.addressComponent.city)
+                    alert(result.regeocode.addressComponent.city)
+                    //alert(result.regeocode.formattedAddress);
                 }else{
                     alert("获取失败");
                 }

@@ -67,7 +67,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: '/change-address',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/homepage/change-address.html'
+                        templateUrl: 'templates/homepage/change-address.html',
+                        controller: 'ChangeAddressCtrl'
                     }
                 }
             })
