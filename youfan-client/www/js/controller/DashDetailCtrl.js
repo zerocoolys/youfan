@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, REST_URL, $ionicPopup, $timeout, $ionicModal) {
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, REST_URL, $ionicPopup, $timeout, $ionicModal, $ionicBackdrop) {
 //    $scope.dash = Dash.get($stateParams.dashId);
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
@@ -130,26 +130,4 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         {name: "鱼香茄子", price: "14元"},
         {name: "鱼香茄子", price: "13元"}
     ];
-    $scope.ZanPopup = function () {
-        $scope.data = {}
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '点赞成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
-    };
-    $scope.CPopup = function () {
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '收藏成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
-    }
-
 });

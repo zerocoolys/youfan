@@ -1,7 +1,8 @@
 <ion-modal-view>
     <ion-header-bar class="bar bar-header bar-light">
         <h1 class="title login">验证码登录</h1>
-        <button class="button button-clear button-primary login" ng-click="verifyLogin.hide()"><span class="ion-close-circled"></span></button>
+        <button class="button button-clear button-primary login" ng-click="verifyLogin.hide()"><span
+                class="ion-close-circled"></span></button>
     </ion-header-bar>
     <ion-content class="padding">
         <div class="list">
@@ -9,12 +10,16 @@
                 <input type="text" id="tel" name="tel" ng-model="user.tel" placeholder="输入手机号" required>
             </div>
             <div class="item item-input">
-                <input type="text" id="verificationCode" name="verificationCode" ng-model="user.verificationCode" placeholder="输入验证码" required>
-                <button class="button button-calm" style="margin-right: 20px"
+                <input type="text" id="verificationCode" name="verificationCode" ng-model="user.verificationCode"
+                       placeholder="输入验证码" required>
+                <button class="button bar-balanced" style="margin-right: 20px"
                         ng-class="{true: 'active', false: 'inactive'}[isActive]"
-                        ng-click="sendMessage()">获取验证码</button>
+                        ng-click="sendMessage()">获取验证码
+                </button>
             </div>
-            <div><button class="button button-block button-calm" ng-click="messageLogin()">登录</button></div>
+            <div>
+                <button class="button button-block bar-balanced" ng-click="messageLogin()">登录</button>
+            </div>
 
             <p style="text-align: center">点击登录，即表示你同意&nbsp;&nbsp;
                 <span ng-click="userAgreement.show()" style="color: coral">用户协议</span>

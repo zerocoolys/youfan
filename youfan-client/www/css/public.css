@@ -12,26 +12,45 @@ ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
 .alright {
     float: right;
 }
+
 .hide-tab-bar .tabs {
     display: none;
 }
-body{
+
+body {
     font-family: "微软雅黑", "黑体";
 }
-.button.button-balanced.button-outline{
-    border-color:#1dbeaf;
-    background: 0 0;
-    color:#1dbeaf;
 
+.button {
+    font-family: "微软雅黑", "黑体";
 }
-.bar.bar-balanced.bar-footer{
-    border-color:#1dbeaf;
-    background:#1dbeaf;
-    color:#1dbeaf;
- }
 
-.button.bar-balanced.button-outline{
+.button.button-balanced.button-outline {
     border-color: #1dbeaf;
     background: 0 0;
+    color: #1dbeaf;
+
+}
+
+.bar.bar-balanced.bar-footer {
+    border-color: #1dbeaf;
+    background: #1dbeaf;
+    color: #1dbeaf;
+}
+
+.button.bar-balanced.button-outline {
+    border-color: #1dbeaf;
+    background: 0 0;
+    color: #1dbeaf;
+}
+
+.button.bar-balanced {
+    border-color: #1dbeaf;
+    background: #1dbeaf;
+    color: #fff;
+
+}
+
+.button.button-balanced.button-clear {
     color: #1dbeaf;
 }

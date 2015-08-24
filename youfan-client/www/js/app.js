@@ -26,6 +26,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.tabs.position('bottom');
         $ionicConfigProvider.tabs.style('standard');
+        $ionicConfigProvider.navBar.alignTitle('center');
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
@@ -242,7 +243,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: "/set",
                 views: {
                     'tab-chats': {
-                        templateUrl: "templates/personalcenter/set.html"
+                        templateUrl: "templates/personalcenter/set.html",
+                        controller: 'SetCtrl'
                     }
                 }
             })
@@ -332,7 +334,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         };
     })
     //图标点击
-    .directive('iconSwitcher', function () {
+    .directive('iconSwitcher', function ($ionicBackdrop, $ionicPopup, $timeout) {
         return {
             link: function (scope, elem, attrs) {
                 var currentState = true;
@@ -340,9 +342,33 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     if (currentState === true) {
                         angular.element(elem).removeClass(attrs.onIcon);
                         angular.element(elem).addClass(attrs.offIcon);
+                        scope.$apply(function () {
+                            var myPopup = $ionicPopup.show({
+                                cssClass: 'zan_popup',
+                                template: attrs.popupsure,
+                                scope: scope
+                            });
+                            $ionicBackdrop.release();
+                            $timeout(function () {
+                                myPopup.close();
+                            }, 1000);
+                        });
+
                     } else {
                         angular.element(elem).removeClass(attrs.offIcon);
                         angular.element(elem).addClass(attrs.onIcon);
+                        scope.$apply(function () {
+                            var myPopup = $ionicPopup.show({
+                                cssClass: 'zan_popup',
+                                template: attrs.popupcancel,
+                                scope: scope
+                            });
+                            $ionicBackdrop.release();
+                            $timeout(function () {
+                                myPopup.close();
+                            }, 1000);
+                        });
+
                     }
 
                     currentState = !currentState
