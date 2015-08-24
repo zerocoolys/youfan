@@ -1,79 +1,91 @@
-
-<ion-view view-title="" hide-nav-bar="true">
+<ion-view view-title="" hide-nav-bar="true" cache-view="false">
 
     <ion-header-bar align-title="center" class="stable-bg">
 
-        <a class="title calm"  href="#/shop-course" style="text-decoration: none;" >开店教程</a>
-        <div class="buttons">
-            <a class=" button calm">消息</a>
-        </div>
+        <a class="title calm" href="#/shop-course" style="text-decoration: none;">开店教程</a>
+        <i class="buttons content button-clear" style="width: 80px; margin-top: 5px; ">
+            <a class="tab-item has-badge">
+                <div class="badge badge-assertive" style="margin:0 0 10px 10px">12</div>
+                <i class="icon ion-ios-chatbubble-outline calm"></i></a>
+        </i>
     </ion-header-bar>
 
 
     <!--<div class="bar bar-header">-->
-        <!--<button class="button icon ion-navicon"></button>-->
-        <!--<h1 class="title">Header Buttons</h1>-->
-        <!--<button class="button">Edit</button>-->
+    <!--<button class="button icon ion-navicon"></button>-->
+    <!--<h1 class="title">Header Buttons</h1>-->
+    <!--<button class="button">Edit</button>-->
     <!--</div>-->
 
     <ion-scroll style="height: 100%; padding-top: 43px;">
         <!--<div class="button-bar">-->
-            <!--<a class="button">First</a>-->
-            <!--<a class="button">Second</a>-->
-            <!--<a class="button">Third</a>-->
+        <!--<a class="button">First</a>-->
+        <!--<a class="button">Second</a>-->
+        <!--<a class="button">Third</a>-->
         <!--</div>-->
 
-        <div class="row  light"  style="text-align: center; height: 120px; text-decoration: none;"  >
-            <a class="col calm-bg light-border   light padding" href="#/dishes" >
-                <p  class="padding">要做的菜</p>
-                <p  style="font-size: 40px; ">0</p>
+        <div class="row  light" style="text-align: center; height: 120px; text-decoration: none;">
+            <a class="col calm-bg light-border light   padding" href="#/dishes">
+                <p class="padding">要做的菜</p>
+
+                <p style="font-size: 40px; ">0</p>
             </a>
 
-            <a class=" col  calm-bg light-border light padding "  href="#/today-order">
+            <a class=" col  calm-bg light-border light padding " href="#/today-order">
                 <p class="padding">今日订单</p>
+
                 <p class="" style="font-size: 40px">0</p>
             </a>
-            <a class="col  calm-bg light padding" >
+            <a class="col  calm-bg light padding" href="#/tomorrow-order">
                 <p class="padding">明日订单</p>
+
                 <p class="" style="font-size: 40px">0</p>
             </a>
 
         </div>
         <div class="row  ">
-            <div class="col calm padding" >
+            <div class="col calm padding">
                 <p class="padding">今日营业额</p>
+
                 <p class="" style="font-size: 30px">￥1000</p></div>
         </div>
 
-        <div class="row  bar-stable stable-bg "  style="text-align: center;" >
-            <a  href="#/all_order" class="col  bar-stable item  stable-bg item-icon padding" >
+        <div class="row  bar-stable stable-bg " style="text-align: center;">
+            <a href="#/all_order" class="col  bar-stable item  stable-bg item-icon padding">
                 <i class=" button button-clear button-calm  icon ion-android-apps"></i>
+
                 <p>全部订单</p>
             </a>
             <a href="#/my_income" class="col  row-center  bar-stable stable-bg item  item-icon padding">
                 <i class=" button button-clear  button-calm icon ion-social-usd"></i>
+
                 <p>我的收入</p></a>
             <a href="#/customer_comment" class="col  item bar-stable stable-bg  item-icon padding">
                 <i class=" button button-clear button-calm  icon ion-chatbox-working"></i>
+
                 <p>饭友评价</p></a>
         </div>
-        <div class="row  bar-stable "  style="text-align: center;" >
+        <div class="row  bar-stable " style="text-align: center;">
             <div class="col  item bar-stable stable-bg  item-icon padding">
                 <a class=" button button-clear button-calm  icon ion-ios-compose" href="#/editkitchen"></a>
+
                 <p>编辑厨房</p></div>
-            <div class="col   item  bar-stable stable-bg item-icon padding">
+            <a class="col   item  bar-stable stable-bg item-icon padding" ui-sref="m_dishes.nsc">
                 <i class=" button button-clear button-calm  bar-stable stable-bg icon ion-cube"></i>
-                <p>管理菜品</p></div>
-            <div class="col  item bar-stable stable-bg  item-icon padding">
+
+                <p>管理菜品</p></a>
+            <a class="col  item bar-stable stable-bg  item-icon padding" ui-sref="settings.index">
+
                 <i class=" button button-clear  button-calm icon ion-gear-a"></i>
-                <a href="#settings/index">设置</a></div>
+
+                <p>设置</p></a>
         </div>
 
 
     </ion-scroll>
-    </ion-view>
-    <!--</ion-nav-view>-->
-        <div class="bar bar-footer bar-light light-border">
-    <div class="title">客服电话：400-087-7000</div>
+</ion-view>
+<!--</ion-nav-view>-->
+<div class="bar bar-footer bar-light light-border">
+    <a class="title">客服电话：400-087-7000</a>
 </div>
 

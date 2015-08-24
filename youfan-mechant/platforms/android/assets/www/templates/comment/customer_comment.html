@@ -1,7 +1,75 @@
-<ion-view title="CustomerComment">
+<ion-header-bar align-title="center" class="stable-bg">
 
 
-    <p>12321321321all_orderall_orderall_orderall_orderall_orderall_order</p>
+    <div class="buttons">
+
+            <a class="button button-clear icon ion-ios-arrow-left  " style="padding: 0 18px 0 15px;"
+               href="#/overview"></a>
+
+    </div>
+    <h1 class="title">饭友评价</h1>
+
+</ion-header-bar>
+
+<div class="bar bar-subheader">
+
+    <br/>
+    <div class="button-bar light-bg ">
+
+        <a class="button button-clear" ng-class="statusIndex == 0 ? 'current':''"
+           ng-click="activeStats(0)">待回复 <i class="calm">10</i> </a>
+        <a class="button button-clear    " ng-class="statusIndex == 1 ? 'current':''"
+           ng-click="activeStats(1)">好评
+            <i class="calm">15</i> </a>
+        <a class=" button button-clear " ng-class="statusIndex == 2 ? 'current':''"
+           ng-click="activeStats(2)" >中评 <i class="calm">20</i> </a>
+        <a class=" button button-clear " ng-class="statusIndex == 3 ? 'current':''"
+           ng-click="activeStats(3)" >差评 <i class="calm">30</i> </a>
+    </div>
 
 
-</ion-view>
+</div>
+
+
+<ion-content class='has-subheader'>
+
+    <br/>
+    <div class="list" ng-repeat="comment in comments " style="margin-bottom:10px;" >
+        <a class="item item-avatar" href="#">
+
+            <img ng-src="{{comment.img}}">
+
+            <div class="care_text">
+                        <span>
+                            {{comment.userName}}
+                        </span>
+                        <span class="alright">
+                      <i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-outline"></i><i
+                                class="ion-ios-star-outline"></i><i class="ion-ios-star-half"></i>
+                        </span>
+
+            <p>{{comment.content}}</p>
+            <span class="time">{{comment.ctime}}</span>
+        </div>
+
+
+        <div class="care_text" ng-if="comment.replyComments!=''" >
+            <hr>
+                        <span>
+                            [家厨回复] :
+                        </span>
+            <span>{{comment.replyComments}}</span>
+            <p class="time">{{comment.mtime}}</p>
+        </div>
+
+            <div class="care_text" ng-if="comment.replyComments==''" >
+                <br>
+                      <button ng-click="replyComments()">添加回复</button>
+            </div>
+
+
+        </a>
+
+    </div>
+</ion-content>
+

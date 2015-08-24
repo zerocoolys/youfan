@@ -1,55 +1,41 @@
-<ion-view  hide-nav-bar="true">
-
-
-    <ion-header-bar align-title="center" class="stable-bg">
-
-
-        <div class="buttons">
-            <a href="#/overview" class="button icon-left ion-chevron-left button-clear button-balanced">返回</a>
-
-        </div>
-        <h1 class="title">我的收入</h1>
-        <div class="buttons">
-            <button class=" button calm button-balanced" ng-click="goMyBill()">帐单</button>
-        </div>
-
-
+<ion-view hide-nav-bar="true">
+    <ion-header-bar class="bar" align-title="center">
+        <a class="button button-clear icon ion-ios-arrow-back" href="#/overview"></a>
+        <h1 class="title ">我的收入</h1>
+        <button class="button button-clear button-calm">
+            账单
+        </button>
     </ion-header-bar>
-    <ion-content>
-        <div class="row ">
-            <div class="col col-75">待确认的金额</div>
-            <div class="col ">￥0</div>
-        </div>
-        <div class="row ">
-            <div class="col col-75">待退款的金额</div>
-            <div class="col ">￥0</div>
-        </div>
-        <div class="row ">
-            <div class="col col-75">奖励金额</div>
-            <div class="col ">￥0</div>
-        </div>
-        <div class="row ">
-            <div class="col col-75">账户余额</div>
-            <div class="col ">￥0</div>
-        </div>
+    <ion-content class="">
 
-        <div class="button-bar bar-assertive">
-            <a class="button ">提现</a>
+        <ion-list class="stable-bg">
+            <div class="item item-text-wrap" style="margin-top: 20px;">
+                <span>待确认金额</span>
+                <p class="item-note mainColor" >￥20</p>
+            </div>
+            <div class="item item-text-wrap">
+                <span>待退款金额</span>
+                <p class="item-note mainColor" >￥20</p>
+            </div>
+            <div class="item item-text-wrap">
+                <span>奖励金额</span>
+                <p class="item-note mainColor" >￥20</p>
+            </div>
+            <div class="item item-text-wrap">
+                <span>账户余额</span>
+                <p class="item-note mainColor" >￥20</p>
+            </div>
+
+        </ion-list>
+        <a class="button button-calm button-block" style="margin-top: 15px;" href="#/overview">提现</a>
+
+        <div class=" " style="margin: 3px 8px">
+            <ul>
+                <li>提示：</li>
+                <li>1.待确认的金额，是用户还未确认支付的金额不能立即提现，大约需要在用户用餐两天后可以发起提现</li>
+                <li>2.发起提现后，大约需要1-5个工作日到账</li>
+            </ul>
         </div>
-
-
-
-
     </ion-content>
-
-
-    <ion-footer-bar align-title="center" >
-
-        <a class="title energized" >客户电话：0000-000-000</a>
-
-    </ion-footer-bar>
-
-
-
 
 </ion-view>

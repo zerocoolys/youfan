@@ -33,7 +33,13 @@
                 .state('today-order', {
                     url: '/today-order',
                     templateUrl: 'templates/overview/today-order.html',
-                    controller: ''
+                    controller: 'today_order'
+
+                })
+                .state('tomorrow-order', {
+                    url: '/tomorrow-order',
+                    templateUrl: 'templates/overview/tomorrow-order.html',
+                    controller: 'tomorrow_order'
 
                 })
                 .state('shop-course', {
@@ -42,7 +48,21 @@
                     controller:'shop'
 
 
-                });
+                })
+                .state('news', {
+                    url: '/news',
+                    templateUrl: 'templates/overview/news.html',
+                    controller:'news'
+
+
+                })
+            .state('money', {
+                url: '/money',
+                templateUrl: 'templates/overview/money.html',
+                controller:'money'
+
+
+            });
 
             //????
             $stateProvider
@@ -51,7 +71,20 @@
                     templateUrl: 'templates/order/all_order.html',
                     controller: 'all_order'
 
+                })
+                .state('order_Details', {
+                    url: '/order_Details',
+                    templateUrl: 'templates/order/order_Details.html',
+                    controller: ''
+
+                })
+                .state('query_order', {
+                    url: '/query_order',
+                    templateUrl: 'templates/order/query_order.html',
+                    controller: 'query_order'
+
                 });
+
 
             //????
             $stateProvider

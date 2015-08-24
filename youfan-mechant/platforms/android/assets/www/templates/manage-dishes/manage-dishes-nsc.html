@@ -1,0 +1,40 @@
+<ion-view view-title="管理菜品" class="calm" cache-view="false">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-clear button-calm" data-ng-click="goState('overview')"><i
+                class="icon ion-ios-arrow-back"></i></button>
+    </ion-nav-buttons>
+
+    <!--<ion-view view-title="" hide-nav-bar="true" cache-view="false" cache-view="false">-->
+
+    <!--<ion-header-bar align-title="center" class="bg-stable ">-->
+    <!--<div class="buttons">-->
+    <!--<a class="button button-clear icon ion-ios-arrow-left  " style="padding-left: 10px;" href="#/overview"></a>-->
+    <!--</div>-->
+    <!--<h1 class="title " style="">管理菜品</h1>-->
+
+    <!--</ion-header-bar>-->
+
+
+    <ion-content class="no-header">
+        <div style="padding: 10px; text-align: center;">
+            <button class="button button-calm" data-ng-click="addNsc()">亲 赶快添加你的拿手菜吧</button>
+        </div>
+        <div class="item item-divider">
+            <ion-list>
+                <ion-item ng-repeat="item in items">
+                    <img ng-src="{{item.url}}" style="width: 100%; height: 128px">
+
+                    <p>{{item.name}}</p>
+
+                    <p><i class="icon ion-social-yen"></i>{{item.price}}</p>
+
+                </ion-item>
+            </ion-list>
+            <button data-ng-if="imgs.length < 4" class="button button-calm" data-ng-click="addNscPic()"><i
+                    class="icon ion-android-add-circle"></i></button>
+        </div>
+    </ion-content>
+
+</ion-view>
+
