@@ -19,16 +19,15 @@
     </ion-header-bar>
     <ion-scroll class="stable-bg" style="height:100%; " cache-view="false">
         <ion-slide-box on-slide-changed="dishesChanged(index)" active-slide="dishesIndex" show-pager="false">
-            <ion-slide>
-                <div class="  button-bar light-bg dishes">
-                    <a class="button button-clear   " ng-repeat="state in states"
-                       ng-class="slideIndex == state.id ? 'current':''"
-                       ng-click="activeSlide(state.id)">{{state.name}}<i class="calm">{{state.number}}</i> </a>
-
+            <ion-slide ng-repeat="wayt in wayts">
+                <div class="button-bar light-bg dishes">
+                    <a class="button button-clear" ng-repeat="state in wayt.states"
+                       ng-class="wayt.slideIndex == state.id ? 'current':''"
+                       ng-click="activeSlide(wayt, state.id)">{{state.name}}<i class="calm">{{state.number}}</i> </a>
                 </div>
-                <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false">
-                    <ion-slide ng-repeat="dorder in dorders" class="order">
-                        <ion-list ng-repeat="order in orders" style="margin-bottom: 20px">
+                <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="wayt.slideIndex" show-pager="false">
+                    <ion-slide ng-repeat="dorder in wayt.dorders" class="order">
+                        <ion-list ng-repeat="order in wayt.orders" style="margin-bottom: 20px">
                             <ion-item>
                                 <span>订单编号：{{order.id}}</span>
                                 <p class="item-note mainColor">{{order.state}}</p>
@@ -49,6 +48,7 @@
                     </ion-slide>
                 </ion-slide-box>
             </ion-slide>
+
             <ion-slide></ion-slide>
         </ion-slide-box>
     </ion-scroll>
