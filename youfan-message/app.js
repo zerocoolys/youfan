@@ -8,103 +8,103 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//var uuid = require("node-uuid")
+//var redis = require('redis');
+//var url = require('url');
+var sysServer = require('./servers/apis/sysServer');
+//Redis服务启动
+//var redisclient = redis.createClient(6379, "182.92.227.23", {
+//    "auth_pass": "3edcvfr4"
+//});
+//消息结构
+/**
+ * 消息体
+ {
+     fromPort:消息来源端 取值为  1，服务器端，2，客户端，3商家端
+     fromId:消息来源帐号, 若值为1代表 服务器直接回复消息
+     toPort:消息来源端 取值为  1，服务器端，2，客户端，3商家端
+     toId:消息接收帐号,
+     code:消息类型,
+     msgId:消息编号,
+     data:消息内容
+ }
+ */
+//客户端连接池
+var clientConns = {};
+//商家端连接池
+var merchantConns = {};
 
+
+//设置消息编号用于处理需要回执的消息
+var sysMsgId = 0;
 //设置日志级别
-var conns = {}
 io.set('log level', 1);
 //WebSocket连接监听
 io.on('connection', function (socket) {
-    var sc=socket.emit('open');//通知客户端已连接
-    // 打印握手信息
-    // console.log(socket.handshake);
-    // 构造客户端对象
-    var client = {
-        socket: socket,
-        name: false,
-        color: getColor()
-    }
+    //通知客户端已连接
+    socket.emit('open', {
+        code: 0,
+        msgId: sysMsgId++,
+        fromPort: null,
+        fromId: 1,
+        toPort: null,
+        data: "Connect Success",
+    });
+    var userName = "";
+    var port ;
     // 对message事件的监听
     socket.on('message', function (msg) {
-        console.log("MSG: "+msg)
-        var obj = {time: getTime(), color: client.color};
-        // 判断是不是第一次连接，以第一条消息作为用户名
-        if (!client.name) {
-            conns[msg] = sc;
-            client.name = msg;
-            obj['text'] = client.name;
-            obj['author'] = 'System';
-            obj['type'] = 'welcome';
-            console.log(client.name + ' login');
-            //返回欢迎语
-            socket.emit('system', obj);
-            //广播新用户已登陆
-            socket.broadcast.emit('system', obj);
-        } else {
-            //如果不是第一次的连接，正常的聊天消息
-            obj['text'] = msg;
-            obj['author'] = client.name;
-            obj['type'] = 'message';
-            console.log(client.name + ' say: ' + msg);
-            // 返回消息（可以省略）
-            socket.emit('message', obj);
-
-            //if(conns[msg]!=undefined){
-            //    console.log("send msg")
-                var rmsg = {time: getTime(), color: client.color};
-                rmsg['text'] = client.name;
-                rmsg['author'] = 'System';
-                rmsg['type'] = client.name+" call you";
-            socket.client.name(rmsg)
-            //    conns[msg].send('message')
-            //}
-            // 广播向其他用户发消息
-            socket.broadcast.emit('message', obj);
+        console.log(msg)
+        switch (msg.code) {
+            case 0://未登录，非认证请求消息 丢弃
+                return;
+            case 1://登录认证请求消息
+                //msg中包含登录名称
+                if (msg.data.userName == undefined || msg.data.userName == "")
+                    return;
+                //console.log(msg.fromPort + " 端" + msg.data.userName + "登录")
+                var sendMsg = {
+                    msgId: sysMsgId++,
+                    code: 1,
+                    data: {info: "welcome "},
+                }
+                port = msg.fromPort
+                switch (msg.fromPort) {
+                    case 2:
+                        clientConns["CLIENT" + msg.data.userName] = socket;
+                        userName= "CLIENT" + msg.data.userName;
+                        sendMsg.data.info = sendMsg.data.info + "用户 " + msg.data.userName + " 登录"
+                        break;
+                    case 3:
+                        merchantConns["MERCHANT" + msg.data.userName] = socket;
+                        userName =  "MERCHANT" + msg.data.userName;
+                        sendMsg.data.info = sendMsg.data.info + "商家 " + msg.data.userName + " 登录"
+                        break;
+                    default :
+                        return;
+                }
+                socket.emit("message", sendMsg);
+                break;
         }
     });
-    //监听出退事件
+    /**
+     *  监听出退事件
+     *  从连接池中删除对应连接
+     */
     socket.on('disconnect', function () {
-        var obj = {
-            time: getTime(),
-            color: client.color,
-            author: 'System',
-            text: client.name,
-            type: 'disconnect'
-        };
         // 广播用户已退出
-        socket.broadcast.emit('system', obj);
-        console.log(client.name + 'Disconnect');
+        if(port ==2){
+            delete clientConns[userName]
+        }else if(port==3){
+            delete merchantConns[userName]
+        }
+        //console.log(socket.conn.id + 'Disconnect');
     });
+})
+sysServer.clientConns = clientConns;
+sysServer.merchantConns = merchantConns;
 
+app.use('/message', sysServer);
+server.listen(8000, function () {
+    console.log("Express server listening on port 8000" );
 });
-
-//express基本配置
-app.set('views', path.join(__dirname, 'views'));
-app.set('port', 8000);
-app.set('view engine', 'ejs');
-app.engine("html", require('ejs').renderFile);
-
-// uncomment after placing your favicon in /public
-app.use(favicon(__dirname + '/public/img/favicon.ico'))
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// 指定webscoket的客户端的html文件
-app.get('/', function (req, res) {
-    res.sendfile('views/chat.html');
-});
-server.listen(app.get('port'), function () {
-    console.log("Express server listening on port " + app.get('port'));
-});
-var getTime = function () {
-    var date = new Date();
-    return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-}
-
-var getColor = function () {
-    var colors = ['aliceblue', 'antiquewhite', 'aqua', 'aquamarine', 'pink', 'red', 'green',
-        'orange', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue'];
-    return colors[Math.round(Math.random() * 10000 % colors.length)];
-}
