@@ -18,6 +18,11 @@ public interface OrderDAO {
     Order getOrderByOrderNo(String orderNo);
 
     List<Order> findAll(Pagination pagination);
-    
-    List<Order> findOrdersByMerchantId(String merchantId);
+
+    List<Order> getOrdersByBuyerId(Long buyerId, Pagination pagination);
+
+    List<Order> getOrdersBySellerId(Long sellerId, Pagination pagination);
+
+    List<Order> findOrders(Order order);
+
 }
