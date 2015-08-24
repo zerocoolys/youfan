@@ -125,6 +125,26 @@
                     templateUrl: 'templates/editkitchen/editkitchen-personinfo.html',
                     controller: 'personinfo'
                 })
+                .state('kitcheninfo-story',{
+                    url:'/kitcheninfo-story',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story.html',
+                    controller: 'kitcheninfo-story'
+                })
+                .state('kitcheninfo_story_myhobby',{
+                    url:'/kitcheninfo_story_myhobby',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story-myhobby.html',
+                    controller: 'kitcheninfo_story_myhobby'
+                })
+                .state('kitcheninfo_story_mykitchenstory',{
+                    url:'/kitcheninfo_story_mykitchenstory',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story-mykitchenstory.html',
+                    controller: 'kitcheninfo_story_mykitchenstory'
+                })
+                .state('kitcheninfo_pic',{
+                    url:'/kitcheninfo_pic',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-pic.html',
+                    controller: 'kitcheninfo_pic'
+                })
             ;
 
             $urlRouterProvider.otherwise('/login');
