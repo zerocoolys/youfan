@@ -205,6 +205,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-chats': {
                         templateUrl: "templates/personalcenter/pay-success.html"
+//                        controller: 'PaySuccessCtr'
                     }
                 }
             })
@@ -280,7 +281,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
 //            支付页面
             .state('tab.pay-page', {
-                url: '/pay-page/:payId',
+                url: '/pay-page',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/pay-page.html'
