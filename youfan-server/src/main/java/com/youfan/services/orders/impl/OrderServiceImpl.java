@@ -17,64 +17,61 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Resource
-    private OrderDAO orderDAO;
+	@Resource
+	private OrderDAO orderDAO;
 
-    @Override
-    public List<Order> findAll(Pagination pagination) {
+	@Override
+	public List<Order> findAll(Pagination pagination) {
 
-        List<Order> result = Collections.emptyList();
+		List<Order> result = Collections.emptyList();
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public List<Order> findByUserId(String userId, Pagination pagination) {
-        return null;
-    }
+	@Override
+	public List<Order> findByUserId(String userId, Pagination pagination) {
+		return null;
+	}
 
-    @Override
-    public List<Order> findBySellerId(Long sellerId, Pagination pagination) {
-        List<Order> result = new ArrayList<>();
+	@Override
+	public List<Order> findBySellerId(Long sellerId, Pagination pagination) {
+		List<Order> result = new ArrayList<>();
 
-        result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
+		result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
 
-        return result;
-    }
+		return result;
+	}
 
-    @Override
-    public Order findByOrderNo(String orderNo) {
-        return null;
-    }
+	@Override
+	public Order findByOrderNo(String orderNo) {
+		return null;
+	}
 
-    @Override
-    public Order createOrder(Order order) {
-        orderDAO.insert(order);
-        return null;
-    }
+	@Override
+	public Order createOrder(Order order) {
+		orderDAO.insert(order);
+		return null;
+	}
 
-    @Override
-    public Order updateOrder(Order order) {
-        return null;
-    }
+	@Override
+	public Order updateOrder(Order order) {
+		return null;
+	}
 
-    @Override
-    public Order cancelOrder(Order order) {
-        return null;
-    }
+	@Override
+	public Order cancelOrder(Order order) {
+		return null;
+	}
 
-    @Override
-    public Order refundOrder(Order order) {
-        return null;
-    }
+	@Override
+	public Order refundOrder(Order order) {
+		return null;
+	}
 
-    @Override
-    public List<Order> findOrdersByMerchant(Order order) {
+	@Override
+	public List<Order> findOrdersByMerchant(Order order) {
 
-        orderDAO.findOrders(order);
-
-        return null;
-    }
-
+		return orderDAO.findOrders(order);
+	}
 
 }
