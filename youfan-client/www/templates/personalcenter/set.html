@@ -1,6 +1,6 @@
 <ion-view view-title="设置" hide-tabs>
     <ion-content>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ui-sref="">
             <h2>登录密码</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
@@ -8,11 +8,11 @@
             <h2>免责声明</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ng-click="Cache()">
             <h2>清除缓存</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ng-click="modal.show()">
             <h2>意见反馈</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
@@ -25,3 +25,20 @@
         <div class="title"> 注销登录</div>
     </div>
 </ion-view>
+<script id="templates/opinion.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-header">
+            <button class="button button-clear" ng-click="modal.hide()">取消</button>
+            <h1 class="title">捎句话</h1>
+            <button class="button button-clear mainColor" ng-click="modal.hide()">完成</button>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <ion-list>
+                <ion-item class="item-input">
+                    <textarea placeholder="请留下您的宝贵意见和建议，我们将尽快改进，把最好的体验带给您！！~" style="height: 300px"></textarea>
+                </ion-item>
+                <button class="button-clear fr">500字以内</button>
+            </ion-list>
+        </ion-content>
+    </ion-modal-view>
+</script>

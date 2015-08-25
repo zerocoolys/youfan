@@ -1,20 +1,34 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, REST_URL, $ionicPopup, $timeout, $ionicModal) {
-//    $scope.dash = Dash.get($stateParams.dashId);
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, REST_URL, $ionicPopup, $timeout, $ionicModal, $ionicBackdrop) {
+
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
+
     //购物车显示隐藏
     $scope.menuState = {
         show: false
-    }
+    };
     $scope.toggleMenu = function () {
-        $scope.menuState.show = !$scope.menuState.show;
-    }
+
+        if (!$scope.orderCartMap.isEmpty()) {
+            if (parseInt($scope.rice.count) == 0) {
+                $scope.rice.count = 1;
+            }
+
+            if (!$scope.orderCartMap.containsKey($scope.rice.menuId)) {
+                $scope.orderCartMap.put($scope.rice.menuId, $scope.rice);
+            }
+
+            $scope.items.data = Order.details.cart = $scope.orderCartMap.values();
+            $scope.menuState.show = !$scope.menuState.show;
+        }
+
+    };
     $scope.ShopClose = function () {
         $scope.menuState.show = false;
-    }
+    };
     $scope.slideChanged = function (index) {
         $scope.slideIndex = index;
     };
@@ -22,10 +36,126 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         $ionicSlideBoxDelegate.slide(index);
     };
 
+    $scope.items = {
+        data: []
+    };
+
+    // 米饭
+    $scope.rice = {
+        'menuId': 21354687,
+        'name': "米饭",
+        'unitPrice': 1,
+        'totalPrice': 0,
+        'count': 1
+    };
+
+    // 减少份数
+    $scope.minusItem = function (menuId) {
+        if ($scope.orderCartMap.containsKey(menuId)) {
+            var item = $scope.orderCartMap.get(menuId);
+
+            if (item.count > 0) {
+                item.count -= 1;
+
+                if (item.count == 0) {
+                    if (item.name == "米饭") {
+                        if ($scope.orderCartMap.size() == 1) {
+                            $scope.removeRowFromCart(menuId);
+                            $scope.orderCartMap.remove(menuId);
+                        }
+                    } else {
+                        $scope.removeRowFromCart(menuId);
+                        $scope.orderCartMap.remove(menuId);
+
+                        if ($scope.orderCartMap.size() == 1 && $scope.orderCartMap.containsKey($scope.rice.menuId)) {
+                            $scope.rice.count = 1;
+                            $scope.rice.totalPrice = 0;
+                            $scope.removeRowFromCart($scope.rice.menuId);
+                            $scope.orderCartMap.remove($scope.rice.menuId);
+                        }
+                    }
+                } else {
+                    item.totalPrice = (parseFloat(item.totalPrice) - parseFloat(item.unitPrice)).toFixed(2);
+                    $scope.orderCartMap.put(menuId, item);
+                }
+
+            }
+
+            if ($scope.items.data.length == 0) {
+                $scope.orderCartMap.clear();
+            }
+
+            $scope.cartPostAction();
+        }
+
+    };
+
+    // 添加份数
+    $scope.plusItem = function (menuId) {
+        if ($scope.orderCartMap.containsKey(menuId)) {
+            var item = $scope.orderCartMap.get(menuId);
+            if (item.name == "米饭" && item.count == 0) {
+                item.count += 1;
+                item.totalPrice = 0;
+                $scope.orderCartMap.put(menuId, item);
+            } else {
+                if (item.count > 0) {
+                    item.count += 1;
+                    item.totalPrice = (parseFloat(item.totalPrice) + parseFloat(item.unitPrice)).toFixed(2);
+                    $scope.orderCartMap.put(menuId, item);
+                }
+            }
+
+            $scope.cartPostAction();
+        }
+
+    };
+
+    $scope.cartPostAction = function () {
+        $scope.refreshCart();
+        $scope.calculateTotalPrice();
+        Order.details.cart = $scope.items.data = $scope.orderCartMap.values();
+    };
+
+    // 刷新购物车
+    $scope.refreshCart = function () {
+        $scope.items.data.forEach(function (item) {
+            if ($scope.orderCartMap.containsKey(item.menuId)) {
+                $scope.orderCartMap.put(item.menuId, item);
+            } else {
+                $scope.orderCartMap.remove(item.menuId);
+            }
+        });
+
+    };
+
+    /**
+     * 当购物车中的某一项商品数量减至0, 就移出该行
+     *
+     * @param menuId
+     */
+    $scope.removeRowFromCart = function (menuId) {
+        var index = -1;
+        var itemArr = eval($scope.items.data);
+        for (var i = 0, l = itemArr.length; i < l; i++) {
+            if (itemArr[i].menuId === menuId) {
+                index = i;
+                break;
+            }
+        }
+        if (index === -1) {
+            console.log("Something wrong happened");
+        }
+        $scope.items.data.splice(index, 1);
+    };
+
+    // 商家id
     $scope.sellerId = 196830201;
 
+    // 菜品列表数组
     $scope.menuArr = [];
 
+    // 请求菜品列表信息
     $http.get(REST_URL + '/menu/list/' + $scope.sellerId).success(function (data) {
         var jsonArr = JSON.parse(data.menus);
 
@@ -36,102 +166,72 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         $scope.menuArr = jsonArr;
     });
 
-    $scope.cart = [];
-
+    // 添加菜品到购物车
     $scope.addToCart = function (menu) {
         if (menu.restNum > 0) {
-            $scope.cart.push(menu);
-
-            var total = 0;
-            $scope.cart.forEach(function (item, i) {
-                total += parseFloat(item.price);
-            });
-
-            $scope.subtotal = total.toFixed(2);
-            $scope.subtotal = count
-        }
-    };
-
-    $scope.orderCartMap = new Map();
-
-    $scope.confirmOrder = function () {
-        $scope.menuState.show = false;
-        $scope.cart.forEach(function (item) {
-            if ($scope.orderCartMap.containsKey(item.menuId)) {
-                var o = $scope.orderCartMap.get(item.menuId);
-                o.totalPrice = (parseFloat(o.totalPrice) + parseFloat(item.price)).toFixed(2);
-                o.count = parseInt(o.count) + 1;
+            if ($scope.orderCartMap.containsKey(menu.menuId)) {
+                var item = $scope.orderCartMap.get(menu.menuId);
+                item.totalPrice = (parseFloat(item.totalPrice) + parseFloat(menu.price)).toFixed(2);
+                item.count = parseInt(item.count) + 1;
             } else {
-                $scope.orderCartMap.put(item.menuId, {
-                    'menuId': item.menuId,
-                    'name': item.name,
-                    'totalPrice': item.price,
+                $scope.orderCartMap.put(menu.menuId, {
+                    'menuId': menu.menuId,
+                    'name': menu.name,
+                    'unitPrice': menu.price,
+                    'totalPrice': menu.price,
                     'count': 1
                 })
             }
 
-        });
-        Order.details.cart = $scope.orderCartMap.values();
-        $scope.orderCartMap.clear();
+            $scope.cartPostAction();
+        }
 
+    };
+
+    // 计算订单总计
+    $scope.calculateTotalPrice = function () {
+        var total = 0;
+        $scope.orderCartMap.values().forEach(function (item) {
+            total += parseFloat(item.totalPrice);
+        });
+
+        $scope.subtotal = total.toFixed(2);
+    };
+
+    // 订单信息Map
+    $scope.orderCartMap = new Map();
+
+    /**
+     * 调至订单确认页面
+     */
+    $scope.confirmOrder = function () {
+        if ($scope.orderCartMap.isEmpty()) {
+            $scope.showAlert();
+            return;
+        }
+        $scope.menuState.show = false;
         $state.go('tab.confirm-order');
     };
 
-    $scope.removeFromCart = function (menuId) {
-        $scope.cart.remove(menuId)
-    };
-
+    // 总计
     $scope.subtotal = 0;
-    $scope.showActionsheet = function () {
 
-        $ionicActionSheet.show({
-            cssClass: 'shop_cart',
-            templateUrl: 'shop-cart.html',
-            buttons: [
-                {text: '<span class="alleft"></span> <span class="alleft">1元</span> <i class="ion-plus-round"></i>3333<i class="ion-minus-round" ng-click="count = count + 1" ng-init="count=0"></i>'},
-                {text: '<i class="icon ion-arrow-move"></i> Move'},
-            ],
-            /*    destructiveText: 'Delete',*/
-            cancel: function () {
-                console.log('CANCELLED');
-            },
-            /*        buttonClicked: function(index) {
-             console.log('BUTTON CLICKED', index);
-             return true;
-             },*/
-            destructiveButtonClicked: function () {
-                console.log('DESTRUCT');
-                return true;
-            }
-        });
-    };
-    $ionicModal.fromTemplateUrl('templates/modal.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
 
-    $scope.showPopup = function () {
-        $scope.data = {}
-
-        // An elaborate, custom popup
-        var myPopup = $ionicPopup.show({
-            template: '<ul>' +
-            '<li ng-repeat="food in foods""><span class="alleft">{{food.name}} </span><span class="alleft">{{food.price}}</span><i class="ion-minus-round" ng-hide="count_show" ng-click="count = count - 1" ng-init="count=0"></i> {{count}}<i class="ion-plus-round" ng-click="count = count + 1" ng-init="count=0"></i> </li>' +
-            '</ul>',
+    $scope.showAlert = function () {
+        var alertPopup = $ionicPopup.alert({
+            cssClass: 'zan_popup',
+            template: '您还没有选择菜品',
             scope: $scope,
-            cssClass: 'shop_cart'
+            buttons: []
         });
+
+        $timeout(function () {
+            alertPopup.close();
+        }, 1000);
     };
-    $scope.foods = [
-        {name: "鱼香茄子", price: "13元"},
-        {name: "鱼香茄子", price: "14元"},
-        {name: "鱼香茄子", price: "13元"},
-        {name: "鱼香茄子", price: "14元"},
-        {name: "鱼香茄子", price: "13元"}
-    ];
+
     $scope.ZanPopup = function () {
-        $scope.data = {}
+        $scope.data = {};
         var myPopup = $ionicPopup.show({
             cssClass: 'zan_popup',
             template: '点赞成功',
@@ -141,6 +241,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             myPopup.close(); //close the popup after 3 seconds for some reason
         }, 1000);
     };
+
     $scope.CPopup = function () {
         var myPopup = $ionicPopup.show({
             cssClass: 'zan_popup',

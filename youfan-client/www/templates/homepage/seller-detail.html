@@ -1,11 +1,13 @@
 <ion-view view-title="" hide-nav-bar="true" class="shop_detail" hide-tabs>
-    <ion-header-bar class="bar-header bar-light  ">
+    <ion-header-bar class="bar-header bar-light dash_detail ">
         <a ui-sref="tab.dash-detail"><i class="ion-ios-arrow-left"></i></a>
 
         <div class="top_share ">
-            <i class="ion-ios-heart-outline"></i>
-            <i class="ion-ios-star-outline"></i>
-            <i class="ion-ios-redo-outline"></i>
+            <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
+               popupsure="点赞成功" popupcancel="取消点赞"></i>
+            <i class="ion-ios-star-outline" on-icon="ion-ios-star-outline" off-icon="ion-ios-star" icon-switcher
+               popupsure="关注成功" popupcancel="取消关注"></i>
+            <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher></i>
         </div>
     </ion-header-bar>
     <ion-content class="seller_content">
@@ -43,7 +45,7 @@
                             它之所以如此成功，是因为它的菜式都非常符合人们的胃口，创新也恰到好处。茉莉餐厅的精品菜肴，不仅继承保留了中国美食推崇的色香味，更是在此基础上大胆创新，融合了各个菜系的优点，发展出独特的新派菜风格。接下来我们就来详细了解一下它吧。</p>
                     </div>
                 </div>
-                <a class="button button-outline button-balanced seller_button">查看菜单</a>
+                <a class="button button-outline button-balanced seller_button" ui-sref="tab.dash-detail">查看菜单</a>
             </ion-item>
         </ion-list>
         <ion-list>

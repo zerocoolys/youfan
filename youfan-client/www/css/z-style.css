@@ -96,3 +96,51 @@
 .confirm_order .order_list{
     margin-top: 10px;
 }
+
+/*进度条样式*/
+.process_bar{
+    padding: 0 20px;
+}
+.step_bar{
+    height: 10px;
+    background-color: #ccc;
+    margin-top: 50px;
+}
+.step_bar li{
+    display: inline-block;
+    width: 50%;
+    height: 34px;
+    float: left;
+    margin-top: -12px;
+    background: url(//img.alicdn.com/tps/i2/T1WImjXfVDXXXUDz2G-34-214.png) 0 0 no-repeat;
+    background-position: 0 -105px;
+}
+.step_bar li .step_no{
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+}
+.step_bar .step_end{
+    width: 34px;
+    height: 34px;
+    float: right;
+    margin-top: -34px;
+}
+.step_bar .step_status{
+    display: block;
+    height: 4px;
+    margin-top: -19px;
+    background-color: #b90100;
+    margin-left: 5px;
+}
+.step_bar .step_name{
+    position: relative;
+    float: left;
+    top: -30px;
+    margin-top: -30px;
+    margin-left: -25px;
+    white-space: nowrap;
+}

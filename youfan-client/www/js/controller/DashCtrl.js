@@ -33,4 +33,16 @@ ControllerModule.controller('DashCtrl', function ($scope, $ionicModal, $rootScop
         $scope.userAgreement = modal;
     });
 
+
+    //地图信息初始化
+    $scope.mapObj = new AMap.Map('mapContainer', {
+        resizeEnable: true
+    });
+
+    /**
+     * 获取当前城市名称
+     * 返回参数存放在 $rootScope.mapCity
+     */
+    mapTools.cityLocation($scope,$rootScope,$scope.mapObj);
+
 });

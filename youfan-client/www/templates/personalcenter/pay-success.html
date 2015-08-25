@@ -1,12 +1,54 @@
 <ion-view hide-nav-bar="true" hide-tabs>
-    <ion-content>
+    <ion-content class="padding">
+
+        <div class="process_bar">
+            <ol class="step_bar">
+                <li class="step_start">
+                    <dl>
+                        <dt>
+                            <strong>
+                                <span class="step_no">1</span>
+                                <em class="step_name">买家付款</em>
+                            </strong>
+                        </dt>
+                        <dd class="step_status"></dd>
+                    </dl>
+                </li>
+                <li class="step_middle">
+                    <dl>
+                        <dt>
+                            <strong>
+                                <span class="step_no">2</span>
+                                <em class="step_name">已付款</em>
+                            </strong>
+                        </dt>
+                        <dd class="step_status"></dd>
+                    </dl>
+                </li>
+                <li class="step_end">
+                    <dl>
+                        <dt>
+                            <strong>
+                                <span class="step_no">3</span>
+                                <em class="step_name">付款成功</em>
+                            </strong>
+                        </dt>
+                    </dl>
+                </li>
+            </ol>
+        </div>
+
+
         <div class="text-center" style="margin-top: 40px">
             <h2 class="mainColor">支付成功</h2>
+
             <p class="mainColor">支付金额:38.00</p>
+
             <p>等待家厨做饭</p>
         </div>
-        <div class="row"  style="margin-top: 40px">
-            <a class="col col-25 col-offset-25 button-small button button-calm button-outline" href="#/tab/order-detail">查看订单</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="row" style="margin-top: 40px">
+            <a class="col col-25 col-offset-25 button-small button button-calm button-outline"
+               href="#/tab/order-detail">查看订单</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a class="col col-25 button-calm button-small button button-outline" href="#/tab/dash">返回首页</a>
         </div>
     </ion-content>
