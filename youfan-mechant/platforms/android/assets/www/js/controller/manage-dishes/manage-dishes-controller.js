@@ -21,7 +21,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
                 for (var i = 0; i < max; i++, idx++) $scope.items.unshift({
                     name: "鱼香肉丝",
                     price: Math.ceil(Math.random() * 100),
-                    url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
+                    url: "http://0912100.com/upload/images/day_140523/201405230346142295.jpg"
                 });
                 //隐藏载入指示器
                 $ionicLoading.hide();
@@ -30,6 +30,18 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
         };
 
         $scope.load();
+
+        $scope.$on("yf-merchant-load-dishes-success", function (e, data) {
+            $scope.items = data;
+            //隐藏载入指示器
+            $ionicLoading.hide();
+        });
+
+        $scope.$on("yf-merchant-load-dishes-error", function (e, data) {
+            alert("系统错误");
+            //隐藏载入指示器
+            $ionicLoading.hide();
+        });
 
     })
 
@@ -84,8 +96,27 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
 
         $scope.kwItems = KwService.all();
 
-        $scope.dishes = {staple: false};
-        $scope.imgs = [];
+        $scope.dishes = {
+            staple: false,
+            picUrls: [],
+            type: "nsc",
+            dishesName: "红烧北极熊",
+            dishesPrice: "888",
+            dishesStock: "8",
+            description: "好吃，不上火",
+            dishesKw: 3,
+            staple: true,
+            dishesTs: "",
+            merchantId: "隔壁老王"
+        };
+        $scope.imgs = [{
+            index: 0,
+            url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
+        }, {
+            index: 1,
+            url: "https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png"
+        }];
+        $scope.dishesTs = ["保护动物", "开心果", "刘德华", "自行车"];
         $scope.isActive = false;
 
         $scope.addNscPic = function () {
@@ -93,8 +124,8 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
             // Show the action sheet
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                    {text: "打开相机"},
-                    {text: "打开相册"}
+                    {text: "<p class='text-center calm'>打开相机</p>"},
+                    {text: "<p class='text-center calm'>打开相册</p>"}
                 ],
                 buttonClicked: function (index) {
                     if (!navigator.camera) {
@@ -106,7 +137,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
                     });
                     return true;
                 },
-                cancelText: "取消",
+                cancelText: "<p class='calm'>取消</p>",
                 cancel: function () {
                     // add cancel code..
                 }
@@ -133,10 +164,15 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
             $ionicLoading.show({
                 template: "保存菜品中，请稍后..."
             });
+            $scope.dishes.picUrls = [];// 清空
+            angular.forEach($scope.imgs, function (e) {
+                $scope.dishes.picUrls.push(e.url);
+            });
+            $scope.dishes.dishesTs = $scope.dishesTs.toString();
+            console.log($scope.dishes);
             $timeout(function () {
                 ManageDishesService.saveDishes($scope.dishes);
             }, 1000);
-
 
         };
 
@@ -167,8 +203,8 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
             // Show the action sheet
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                    {text: "打开相机"},
-                    {text: "打开相册"}
+                    {text: "<p class='text-center calm'>打开相机</p>"},
+                    {text: "<p class='text-center calm'>打开相册</p>"}
                 ],
                 buttonClicked: function (index) {
                     if (!navigator.camera) {
@@ -180,7 +216,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
                     });
                     return true;
                 },
-                cancelText: "取消",
+                cancelText: "<p class='calm'>取消</p>",
                 cancel: function () {
                     // add cancel code..
                 }
@@ -230,7 +266,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.manage-dis
     .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
         console.log("ManageDishesXfzAddCtrl");
 
-        $scope.show= function() {
+        $scope.show = function () {
             $ionicActionSheet.show({
                 buttons: [
                     {text: '<p class="calm text-center"  >拍照</p>'},

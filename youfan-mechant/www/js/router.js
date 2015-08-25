@@ -12,8 +12,13 @@
             $stateProvider
                 .state('login', {
                     url: '/login',
-                    templateUrl: 'templates/login/login.html'
-
+                    templateUrl: 'templates/login/login.html',
+                    controller:"merchant_login"
+                })
+                .state('register', {
+                    url: '/register',
+                    templateUrl: 'templates/register/register.html',
+                    controller:"register"
                 });
 
             //??

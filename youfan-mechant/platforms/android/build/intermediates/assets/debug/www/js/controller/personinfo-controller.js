@@ -6,9 +6,29 @@
 
     angular
         .module('yf_merchant')
-        .controller('personinfo', personInfo);
+        .controller('personinfo', personInfo)
+        .factory("personInfoFn", function ($http) {
+            return {
+                saveUserInfo: function (person) {
+                    return $http.post(
+                        "http://127.0.0.1:8080/user/saveMerchantUserInfo", JSON.stringify(person),{"Content-Type": "application/json;charset=utf-8"}).then(function (response) {
+                        //console.log(response.$state.value);
+                        return response;
+                    }, function (error) {
+                        console.log(error)
+                    });
+                }
+            }
+        });
 
-    function personInfo($scope, $filter, $state) {
+    function personInfo($scope, $filter, $state, personInfoFn) {
+        $scope.saveUserInfo = function (person) {
+            //person.id="0";
+            //console.log(JSON.stringify(person));
+            console.log(personInfoFn.saveUserInfo(person));
+
+        };
+
         //$ionicHistory.clearHistory();
         //$scope.images = [];
         //console.log(firebaseio);

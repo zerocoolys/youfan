@@ -35,11 +35,11 @@
     <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     <name>youfan-mechant</name>
-    <description>
-        An Ionic Framework and Cordova project.
+    <description>
+        An Ionic Framework and Cordova project.
     </description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+    <author email="hi@ionicframework" href="http://ionicframework.com/">
+      Ionic Framework Team
     </author>
     <content src="index.html" />
     <access origin="*" />

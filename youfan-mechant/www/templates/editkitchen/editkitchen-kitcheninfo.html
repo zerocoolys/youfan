@@ -1,19 +1,16 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar bar-header">
         <a class="button button-clear icon ion-ios-arrow-back" href="#/editkitchen"></a>
-        <div class="h1 title calm" align-text="center">编辑厨房信息</div>
-        <button class="button button-clear button-calm ">
-            保存
-        </button>
+        <div class=" title" align-text="center">编辑厨房信息</div>
     </ion-header-bar>
     <ion-content>
         <div>
             <ul class="list padding-top">
                 <li class="item item-input">
-                    <input type="text" ng-model="kitchenInfo.name" placeholder="请输入厨房名称" required="required">
+                    <input type="text" ng-model="kitchenInfo.crName" placeholder="请输入厨房名称">
                 </li>
                 <li class="item item-input">
-                    <input type="tel" ng-model="kitchenInfo.password" placeholder="可填写另一个手机号(非必填)">
+                    <input type="tel" ng-model="kitchenInfo.phoneNumber" placeholder="可填写另一个手机号(非必填)">
                 </li>
                 <li class="item item-icon-left item-icon-right">
                     <h2>厨房故事</h2>
@@ -35,8 +32,8 @@
                     <p>厨房特色<label style="color: #e6b400">(每个标签最多输入5个字)</label></p>
                 </li>
                 <li class="item item-input">
-                    <input type="text" ng-model="kitchenInfo.caixi1" placeholder="烹饪菜系">
-                    <input type="text" ng-model="kitchenInfo.caixi2" placeholder="烹饪菜系">
+                    <input type="text" ng-model="kitchenInfo.cuisine[0]" placeholder="烹饪菜系">
+                    <input type="text" ng-model="kitchenInfo.cuisine[1]" placeholder="烹饪菜系">
                 </li>
                 <li class="item item-input">
                     <span class="input-label">厨房地址</span>
@@ -60,6 +57,9 @@
                            required="required">
                 </li>
             </ul>
+        </div>
+        <div>
+            <input class="button button-block button-positive" ng-click="saveKitchenInfo(kitchenInfo)" value="保存"/>
         </div>
     </ion-content>
 </ion-view>

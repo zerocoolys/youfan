@@ -1,37 +1,50 @@
-<ion-view view-title="" hide-nav-bar="true">
+<ion-view view-title="" hide-nav-bar="true" cache-view="false">
 
 
     <div class="bar bar-header center item-input-inset light-bg">
-
-
         <div class="bar bar-header bar-light dishes-p ">
             <a class="button button-clear icon ion-ios-arrow-left  " style="padding: 0 18px 0 15px;"
                href="#/all_order"></a>
 
             <h1 class="title">订单查询</h1>
+            <i class="buttons content button-clear">
+                <ionic-datepicker input-obj="datepickerObject">
+                    <a class=" button button-clear button-calm"> 按日期查询</a>
+                </ionic-datepicker>
+            </i>
+        </div>
+    </div>
+    <ion-scroll class=''>
+        <!--<div class=" list list-inset">-->
+            <!--<div class=" item ">-->
 
-            <a class=" button button-clear calm " style="padding: 0 3px 0 10px; line-height: 38px; "
-                    >
-                按日期查询
-            </a>
+
+            <!--</div>-->
+            <!--<div class="item item-button-right item-input" >-->
+                <!--<i class="icon ion-search "></i>-->
+                <!--<input type="text" placeholder="">-->
+                <!--<button class=" button button-calm button-block" style="margin-top: 15px;" href="#/overview">搜索</button>-->
+            <!--</div>-->
+
+
+        <!--</div>-->
+        <div class="list">
+
+            <div class="item item-button-right">
+                <div class="item  item-input" >
+                <i class="icon ion-search "></i>
+                <input type="text" placeholder="输入手机号后4位">
+                </div>
+                <button class="button button-calm " style="padding:6px 10px 7px 10px;  margin: 7px 0  0 15px">
+                    搜索
+                </button>
+            </div>
+
+
+
         </div>
 
-    </div>
-
-
-    <div class="bar bar-subheader">
-
-        <br/>
-
-
-    </div>
-
-    <ion-content class='has-subheader'>
-
-
-    </ion-content>
-
-
+    </ion-scroll>
 
 
 </ion-view>

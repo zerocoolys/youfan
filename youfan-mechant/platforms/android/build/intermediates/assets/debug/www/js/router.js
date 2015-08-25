@@ -33,7 +33,13 @@
                 .state('today-order', {
                     url: '/today-order',
                     templateUrl: 'templates/overview/today-order.html',
-                    controller: ''
+                    controller: 'today_order'
+
+                })
+                .state('tomorrow-order', {
+                    url: '/tomorrow-order',
+                    templateUrl: 'templates/overview/tomorrow-order.html',
+                    controller: 'tomorrow_order'
 
                 })
                 .state('shop-course', {
@@ -42,7 +48,21 @@
                     controller:'shop'
 
 
-                });
+                })
+                .state('news', {
+                    url: '/news',
+                    templateUrl: 'templates/overview/news.html',
+                    controller:'news'
+
+
+                })
+            .state('money', {
+                url: '/money',
+                templateUrl: 'templates/overview/money.html',
+                controller:'money'
+
+
+            });
 
             //????
             $stateProvider
@@ -50,6 +70,12 @@
                     url: '/all_order',
                     templateUrl: 'templates/order/all_order.html',
                     controller: 'all_order'
+
+                })
+                .state('order_Details', {
+                    url: '/order_Details',
+                    templateUrl: 'templates/order/order_Details.html',
+                    controller: ''
 
                 })
                 .state('query_order', {
@@ -98,6 +124,26 @@
                     url:'/personinfo',
                     templateUrl: 'templates/editkitchen/editkitchen-personinfo.html',
                     controller: 'personinfo'
+                })
+                .state('kitcheninfo-story',{
+                    url:'/kitcheninfo-story',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story.html',
+                    controller: 'kitcheninfo-story'
+                })
+                .state('kitcheninfo_story_myhobby',{
+                    url:'/kitcheninfo_story_myhobby',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story-myhobby.html',
+                    controller: 'kitcheninfo_story_myhobby'
+                })
+                .state('kitcheninfo_story_mykitchenstory',{
+                    url:'/kitcheninfo_story_mykitchenstory',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story-mykitchenstory.html',
+                    controller: 'kitcheninfo_story_mykitchenstory'
+                })
+                .state('kitcheninfo_pic',{
+                    url:'/kitcheninfo_pic',
+                    templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-pic.html',
+                    controller: 'kitcheninfo_pic'
                 })
             ;
 

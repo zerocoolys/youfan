@@ -7,7 +7,7 @@
     angular
         .module('yf_merchant')
         .controller('personinfo', personInfo)
-        .factory("personInfoFn", function ($resource,$http) {
+        .factory("personInfoFn", function ($http) {
             return {
                 saveUserInfo: function (person) {
                     return $http.post(

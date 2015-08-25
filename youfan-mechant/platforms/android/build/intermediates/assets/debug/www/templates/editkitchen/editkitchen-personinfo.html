@@ -2,18 +2,20 @@
     <ion-header-bar class="bar bar-header">
         <a class="button button-clear icon ion-ios-arrow-back" href="#/editkitchen"></a>
         <div class="h1 title calm" align-text="center">编辑个人信息</div>
-        <button class="button button-clear button-positi ve calm">
-            保存
-        </button>
+
     </ion-header-bar>
     <ion-content>
+
         <ul>
             <li class="item">
                 <div align="center"><a class="button button-clear ion-camera calm"></a><br><label>点击上传图片</label></div>
             </li>
             <li class="item item-input">
-                <span class="input-label"><i class="icon" style="color: #e6b400">*</i>姓氏</span><input type="text"
-                                                                                                      placeholder="请填写姓氏"/>
+                <span class="input-label">
+                    <i class="icon" style="color: #e6b400">*</i>
+                    姓氏
+                </span>
+                <input type="text" ng-model="person.realName" placeholder="请填写姓氏"/>
             </li>
             <li class="item">
                 <div class="item-content">
@@ -21,15 +23,18 @@
                         <i class="icon" style="color: #e6b400">*</i>
                         性别
                     </span>
-                    <input type="radio" name="sex" checked="checked"/>男
-                    <input name="sex" type="radio"/>女
+                    <input ng-model="person.sex" type="radio" name="sex" checked="checked" value="男"/>男
+                    <input ng-model="person.sex" name="sex" type="radio" value="女"/>女
                 </div>
             </li>
             <li class="item item-input">
-                <span class="input-label"><i class="icon" style="color: #e6b400">*</i>年龄段</span>
-                <input class="button button-clear" list="order_list" name="order" placeholder="请选择"
+                <span class="input-label">
+                    <i class="icon" style="color: #e6b400">*</i>
+                    年龄段
+                </span>
+                <input class="button button-clear" ng-model="person.ageRange" list="ageRange_list" name="ageRange" placeholder="请选择"
                        required="required"/>
-                <datalist id="order_list">
+                <datalist id="ageRange_list">
                     <option label="0-10" value="0-10"/>
                     <option label="11-20" value="11-20"/>
                     <option label="21-30" value="21-30"/>
@@ -38,8 +43,11 @@
                 </datalist>
             </li>
             <li class="item item-input">
-                <span class="input-label"><i class="icon" style="color: #e6b400">*</i>家乡</span>
-                <input class="button button-clear" list="homeless_list" name="order" placeholder="请选择"
+                <span class="input-label">
+                    <i class="icon" style="color: #e6b400">*</i>
+                    家乡
+                </span>
+                <input class="button button-clear" ng-model="person.address" list="homeless_list" name="order" placeholder="请选择"
                        required="required"/>
                 <datalist id="homeless_list">
                     <option label="四川" value="四川"/>
@@ -64,7 +72,16 @@
                         <i class="ion ion-android-add"></i>
                     </div>
                 </div>
+
             </li>
         </ul>
+        <div>
+            <div>
+                <input type="text" ng-model="person.healthCertificatePicUrl" value="healthCertificatePicUrl" placeholder="healthCertificatePicUrl"/>1
+                <input type="text" ng-model="person.idCardPicUrl" value="idCardPicUrl"/>3
+                <input type="text" ng-model="person.headPortraitPicUrl" value="headPortraitPicUrl"/>2
+            </div>
+            <input class="button button-block button-positive" ng-click="saveUserInfo(person)" value="保存"/>
+        </div>
     </ion-content>
 </ion-view>

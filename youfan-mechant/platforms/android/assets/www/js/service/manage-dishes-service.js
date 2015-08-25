@@ -18,8 +18,7 @@ angular.module('yf_merchant.manage-dishes_service', [])
     .factory('ManageDishesService', function ($http, $rootScope, $ionicLoading) {
         function saveDishes(dishes) {
             console.log(dishes);
-            $http.post("http://192.168.1.110:8080/user/saveMerchantUserInfo", dishes).success(function (data, status, headers, config) {
-                console.log(status);
+            $http.post("http://localhost:8080/dishes/add", dishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-save-dishes-success");
             }).error(function (data, status, headers, config) {
                 alert("error");
@@ -27,8 +26,18 @@ angular.module('yf_merchant.manage-dishes_service', [])
             })
         }
 
+        function allDishes(merchantId, dishesType) {
+            $http.get("http://localhost:8080/dishes/list/" + dishesType + "/" + merchantId).success(function (data, status, headers, config) {
+                console.log(data);
+                $rootScope.$broadcast("yf-merchant-load-dishes-success", data.dishes);
+            }).error(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-dishes-error");
+            })
+        }
+
         return {
-            saveDishes: saveDishes
+            saveDishes: saveDishes,
+            allDishes: allDishes
         };
 
     })
