@@ -1,7 +1,7 @@
 /**
  * Created by icepros on 15-8-19.
  */
-ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location){
+ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http){
     /**
      * 验证码登陆
      */
@@ -43,7 +43,6 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
      * 密码验证登陆
      */
     $scope.checkPwd = function(){
-
         var tel = $scope.user.tel;
         var password = $scope.user.password;
 
@@ -53,6 +52,7 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
      * 发送验证码
      */
     $scope.sendMessage = function(){
+
         var tel = $scope.user.tel;
         var re= /(^1[3|5|8][0-9]{9}$)/;
         if(tel != ""){
@@ -73,12 +73,16 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
                 }
                 // 向后台发送处理数据
                 $scope.codeUrl = "http://07zhywjh.6655.la:19982/platform/sendSMS/1/" + code + "/" + tel;
-                $location.path($scope.codeUrl);
+                $http.get($scope.codeUrl).success(function(data) {
+                    //console.log(data);
+                    /*if(data.statusCode == "000000"){
+                        return data;
+                     }else{
+                        return "";
+                     }*/
+                }).then(function(response){
 
-                function Ctr($scope) {
-                    $scope.isActive = true;
-                }
-
+                });
             }
         } else {
             var popupNull = $ionicPopup.show({
