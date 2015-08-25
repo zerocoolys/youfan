@@ -7,8 +7,10 @@ import com.youfan.exceptions.KitchenInfoException;
 /**
  * Created by perfection on 15-8-25.
  */
-public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEntity,MerchantKitchenInfo,Long>{
+public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEntity, MerchantKitchenInfo, Long> {
     MerchantKitchenInfo saveMerchantKitchenInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
+
     MerchantKitchenInfo saveMerchantKitchenPicInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
+
     MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
 }
