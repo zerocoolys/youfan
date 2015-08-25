@@ -7,8 +7,8 @@
                style="padding: 0 15px 0 12px;"></a>
 
             <div class="button-bar  calm">
-                <a class="button calm-border " ng-repeat="way in ways" ng-class="dishesIndex ==way.id? 'button-calm':''"
-                   ng-click="activedishes(way.id)">{{way.name}}</a>
+                <a class="button calm-border " ng-repeat="way in ways" ng-class="headerIndex ==way.id? 'button-calm':''"
+                   ng-click="selectedHeader(way.id)">{{way.name}}</a>
             </div>
             <a class=" button button-clear button-calm " style="padding: 0 3px 0 10px; line-height: 38px; "
                href="#/query_order">
@@ -21,7 +21,7 @@
 
         <div class="button-bar light-bg dishes" ng-if="dishesIndex != 2">
             <a class="button button-clear" ng-repeat="status in status_list"
-               ng-class="slideIndex == status.id ? 'current':''"
+               ng-class="statusIndex == status.id ? 'current':''"
                ng-click="activeSlide(status.id)">{{status.name}}<i class="calm">{{status.number}}</i> </a>
         </div>
 
