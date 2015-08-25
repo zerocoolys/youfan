@@ -1,7 +1,7 @@
 package com.youfan.services.users.impl;
 
 import com.youfan.controllers.objs.MerchantUser;
-import com.youfan.data.dao.MerchantUserDao;
+import com.youfan.data.dao.MerchantUserDAO;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.MerchantUsersServer;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class MerchantUsersServerImpl implements MerchantUsersServer{
 
 
     @Resource
-    private MerchantUserDao merchantUserDao;
+    private MerchantUserDAO merchantUserDao;
 
     public MerchantUser login(String userName,String passWord) throws UserException{
         return merchantUserDao.login(userName,passWord);
@@ -24,4 +24,9 @@ public class MerchantUsersServerImpl implements MerchantUsersServer{
     public MerchantUser register(String userName,String passWord) throws UserException{
         return merchantUserDao.register(userName,passWord);
     }
+	@Override
+	public void saveMerchantUserInfo(MerchantUser merchantUser) throws UserException {
+		// TODO Auto-generated method stub
+		
+	}
 }
