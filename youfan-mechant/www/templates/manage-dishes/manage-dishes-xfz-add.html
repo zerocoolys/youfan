@@ -11,26 +11,30 @@
     <ion-content class="">
         <div class="item item-divider " style="padding-top: 20px;">
             <span class="icon" style="color: #e6b400">*</span>
-            <span style="color: #a1a1a1">3人小饭桌图片</span>
-            <a ng-click="show()" class="tab-item calm-bg light"
+            <span style="color: #a1a1a1">{{xfzNum}}人餐小饭桌图片</span>
+            <ion-list>
+                <ion-item ng-repeat="item in imgs">
+                    <img ng-src="{{item.url}}" style="width: 64px; height: 64px">
+                    {{item.index}}
+                </ion-item>
+            </ion-list>
+            <a ng-click="addXfzPic()" class="tab-item calm-bg light"
                style=" height: 60px; width: 60px;margin-top: 10px;padding: 13px 5px 5px 5px; ">
                 <i class="icon ion-plus "></i>
             </a>
-
         </div>
 
         <div class="item item-input padding ">
 
             <i class="icon" style="color: #e6b400">*</i>
-            <input type="text" placeholder="请输入小饭桌的价格"/>
+            <input type="text" data-ng-model="dishes.price" placeholder="请输入小饭桌的价格"/>
 
             <p style="color:#1dbeaf; margin-right: 10px;">元/份</p>
-
 
         </div>
         <div class="item item-input padding">
             <i class="icon" style="color: #e6b400">*</i>
-            <input type="text" placeholder="请输入小饭桌的库存"/>
+            <input type="text" data-ng-model="dishes.stock" placeholder="请输入小饭桌的库存"/>
 
             <p style="color:#1dbeaf; margin-right: 10px;">份</p>
         </div>

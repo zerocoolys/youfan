@@ -19,11 +19,12 @@
                         {{item.index}}
                     </ion-item>
                 </ion-list>
-                <button data-ng-if="imgs.length < 4" class="button button-calm" data-ng-click="addNscPic()"><i
+                <button data-ng-if="imgs.length < 4" class="button button-calm" data-ng-click="addQtcPic()"><i
                         class="icon ion-android-add-circle"></i></button>
             </div>
             <div class="item item-divider">
-                <ion-toggle toggle-class="toggle-calm" ng-model="dishes.staple"><span style="color: red">*</span>是否是主食：</ion-toggle>
+                <ion-toggle toggle-class="toggle-calm" ng-model="dishes.staple"><span style="color: red">*</span>是否是主食：
+                </ion-toggle>
             </div>
             <label class="item item-input">
                 <i class="icon ion-social-snapchat"></i>
@@ -32,11 +33,13 @@
             <label class="item item-input">
                 <i class="icon ion-social-snapchat"></i>
                 <input type="text" data-ng-model="dishes.price" placeholder="输入价格">
+
                 <p style="color:#1dbeaf; margin-right: 10px;">元/份</p>
             </label>
             <label class="item item-input">
                 <i class="icon ion-social-snapchat"></i>
                 <input type="text" data-ng-model="dishes.stock" placeholder="请输入菜品库存">
+
                 <p style="color:#1dbeaf; margin-right: 10px;">份</p>
             </label>
             <label class="item item-input">
@@ -45,20 +48,19 @@
 
             <div class="item item-divider">特色（每条最多10个字）</div>
             <label class="item item-input item-stacked-label">
-                <input type="text" data-ng-model="dishes.ts[0]" placeholder="菜的特色">
-                <input type="text" data-ng-model="dishes.ts[1]" placeholder="菜的特色">
-                <input type="text" data-ng-model="dishes.ts[2]" placeholder="菜的特色">
-                <input type="text" data-ng-model="dishes.ts[3]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishes.features[0]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishes.features[1]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishes.features[2]" placeholder="菜的特色">
+                <input type="text" data-ng-model="dishes.features[3]" placeholder="菜的特色">
             </label>
 
             <div class="item item-divider">口味</div>
             <ion-radio ng-repeat="item in kwItems"
-                       ng-model="dishes.kw" ng-value="item.kw">
+                       ng-model="dishes.taste" ng-value="item.kw">
                 {{item.text}}
             </ion-radio>
 
         </div>
-
     </ion-content>
 
 </ion-view>
