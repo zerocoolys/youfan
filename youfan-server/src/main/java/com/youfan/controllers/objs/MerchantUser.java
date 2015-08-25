@@ -3,17 +3,15 @@ package com.youfan.controllers.objs;
 /**
  * Created by perfection on 15-8-21.
  */
-public class MerchantUser extends User {
-    private String id;
-    private String userName;
-    private String passWord;
+public class MerchantUser {
+    private String id;  //商家个人信息id
+    private String userName;    //商家用户名
+    private String passWord;    //商家密码
 
-    @Override
     public String getId() {
         return id;
     }
 
-    @Override
     public void setId(String id) {
         this.id = id;
     }
@@ -34,7 +32,7 @@ public class MerchantUser extends User {
         this.passWord = passWord;
     }
 
-    private String headPortraitUrl; //商家个人头像
+    private String headPortraitPicUrl; //商家个人头像
     private String realName;    //商家实名
     private String sex; //性别
     private String ageRange;    //年龄范围
@@ -42,12 +40,12 @@ public class MerchantUser extends User {
     private String idCardPicUrl;    //身份证照片
     private String healthCertificatePicUrl; //健康证照片
 
-    public String getHeadPortraitUrl() {
-        return headPortraitUrl;
+    public String getHeadPortraitPicUrl() {
+        return headPortraitPicUrl;
     }
 
-    public void setHeadPortraitUrl(String headPortraitUrl) {
-        this.headPortraitUrl = headPortraitUrl;
+    public void setHeadPortraitPicUrl(String headPortraitPicUrl) {
+        this.headPortraitPicUrl = headPortraitPicUrl;
     }
 
     public String getRealName() {
@@ -74,20 +72,20 @@ public class MerchantUser extends User {
         this.ageRange = ageRange;
     }
 
-    public String getIdCardPicUrl() {
-        return idCardPicUrl;
-    }
-
-    public void setIdCardPicUrl(String idCardPicUrl) {
-        this.idCardPicUrl = idCardPicUrl;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getIdCardPicUrl() {
+        return idCardPicUrl;
+    }
+
+    public void setIdCardPicUrl(String idCardPicUrl) {
+        this.idCardPicUrl = idCardPicUrl;
     }
 
     public String getHealthCertificatePicUrl() {

@@ -22,11 +22,11 @@ public class UserController {
 
     @RequestMapping(path = "/saveMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
     public MerchantUser add(@RequestBody MerchantUser merchantUser) {
-//        try {
-//            usersService.saveMerchantUserInfo(merchantUser);
-//        } catch (UserException ue) {
-//            System.out.println(ue.getMessage());
-//        }
+        try {
+            merchantUsersServer.saveMerchantUserInfo(merchantUser);
+        } catch (UserException ue) {
+            System.out.println(ue.getMessage());
+        }
         return merchantUser;
     }
     @RequestMapping(path = "/login", method = RequestMethod.POST, produces = "application/json")

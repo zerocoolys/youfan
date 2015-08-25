@@ -1,12 +1,9 @@
 package com.youfan.data.dao.impl;
 
-import com.mongodb.DBObject;
 import com.youfan.controllers.objs.MerchantUser;
-import com.youfan.data.dao.MerchantUserDao;
+import com.youfan.data.dao.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.CriteriaDefinition;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
@@ -16,17 +13,32 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 /**
- * Created by perfection on 15-8-24.
+ * Created by perfection on 15-8-19.
  */
 @Repository("merchantUserDao")
-public class MerchantUserDaoImpl implements MerchantUserDao{
+public class MerchantUserDAOImpl implements MerchantUserDAO {
     @Override
     public List<MerchantUser> findAll() {
         return Collections.emptyList();
     }
 
     @Override
-    public MerchantUser findOne(Long aLong) {
+    public MerchantUser saveMerchantUserInfo(MerchantUser merchantUser) {
+        Update update = new Update();
+
+        update.set("address", merchantUser.getAddress());
+        update.set("ageRange", merchantUser.getAgeRange());
+        update.set("headPortraitPicUrl", merchantUser.getHeadPortraitPicUrl());
+        update.set("healthCertificatePicUrl", merchantUser.getHealthCertificatePicUrl());
+        update.set("idCardPicUrl", merchantUser.getIdCardPicUrl());
+        update.set("realName", merchantUser.getRealName());
+        update.set("sex", merchantUser.getSex());
+
+        return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantUser.getId())), update, MerchantUserEntity.class));
+    }
+
+    @Override
+    public MerchantUser findOne(Long id) {
         return null;
     }
 
@@ -68,27 +80,27 @@ public class MerchantUserDaoImpl implements MerchantUserDao{
     }
 
     @Override
+    public Class<MerchantUser> getVOClass() {
+        return MerchantUser.class;
+    }
+
+    @Override
     public void insert(List<MerchantUser> list) {
 
     }
 
     @Override
-    public void delete(Long aLong) {
+    public void delete(Long id) {
 
     }
 
     @Override
-    public void update(MerchantUser merchantUser) {
+    public void update(MerchantUser userEntity) {
 
     }
 
     @Override
     public Class<MerchantUserEntity> getEntityClass() {
-        return null;
-    }
-
-    @Override
-    public Class<MerchantUser> getVOClass() {
-        return null;
+        return MerchantUserEntity.class;
     }
 }
