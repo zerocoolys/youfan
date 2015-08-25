@@ -49,7 +49,8 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
                         return field;
                     })
                     .collect(Collectors.toMap(Field::getName, field -> field));
-
+            System.out.println();
+            System.out.println(getVOClass());
             Field[] fields = getVOClass().getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);

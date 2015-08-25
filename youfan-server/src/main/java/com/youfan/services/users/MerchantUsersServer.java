@@ -11,4 +11,5 @@ import org.springframework.stereotype.Component;
 public interface MerchantUsersServer {
     public MerchantUser login(String userName,String passWord) throws UserException;
     public MerchantUser register(String userName,String passWord) throws UserException;
+    public void saveMerchantUserInfo(MerchantUser merchantUser) throws UserException;
 }

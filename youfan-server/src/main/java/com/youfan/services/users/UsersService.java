@@ -24,5 +24,4 @@ public interface UsersService {
      * @return User 匹配则返回该用户数据
      */
     public User validate(String username, String pass) throws UserException;
-    public void saveMerchantUserInfo(MerchantUser merchantUser) throws UserException;
 }
