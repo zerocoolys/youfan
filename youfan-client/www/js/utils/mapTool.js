@@ -1,5 +1,7 @@
 /**
  * Created by subdong on 15-8-21.
+ *
+ * 服务类型
  */
 var mapTools = {
     /**
@@ -81,5 +83,45 @@ var mapTools = {
             });
         });
         $scope.geolocation.getCurrentPosition();
+    },
+    /**
+     * 计算两个经纬度之间的 步行地理距离
+     * @param start 参数类型 AMap.LngLat
+     * @param end   参数类型 AMap.LngLat
+     * @param cb    回调函数 返回数据单位 米
+     */
+    getDistance:function(start,end,cb){
+        AMap.service(["AMap.Walking"], function () {
+            var walking = new AMap.Walking();
+            walking.search(start, end, function (status, result) {
+                if (status === 'complete' && result.info === 'ok') {
+                    cb(result.count > 0 ? result.routes[0].distance : "计算错误请重试");
+                }else{
+                    cb("计算错误")
+                }
+            })
+        });
+    },
+    /**
+     * 获取传入坐标的详细地址
+     * @param lnglatXY  参数类型 AMap.LngLat
+     * @param cb        回调函数
+     */
+    geocoder:function(lnglatXY,cb){
+        var MGeocoder;
+        AMap.service(["AMap.Geocoder"], function () {
+            MGeocoder = new AMap.Geocoder({
+                radius: 1000,
+                extensions: "all"
+            });
+            //逆地理编码
+            MGeocoder.getAddress(lnglatXY, function (status, result) {
+                if (status === 'complete' && result.info === 'OK') {
+                    cb(result.regeocode.formattedAddress);
+                } else {
+                    cb("获取失败");
+                }
+            });
+        });
     }
 };

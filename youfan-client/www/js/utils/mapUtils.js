@@ -1,10 +1,11 @@
 /**
  * Created by subdong on 15-8-20.
+ *
+ * 插件类型
  */
 var mapApiUtils = {
     //地图点标记
     setMarker: function (dataXY,mapObj) {
-        console.log(dataXY)
         if(dataXY.length != 0){
             dataXY.forEach(function(item, i){
                 var marker = new AMap.Marker({
