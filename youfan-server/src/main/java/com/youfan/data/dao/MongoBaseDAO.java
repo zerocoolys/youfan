@@ -38,6 +38,13 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
     Class<T> getVOClass();
 
 
+    /**
+     * <p>该方法用于将VO转换为Entity, 大部分情况下通用,
+     * 若出现无法转换的情况, 请在DAO的实现层覆盖并自行实现相应的转换方法.
+     *
+     * @param t
+     * @return
+     */
     default E convertToEntity(T t) {
         Class<E> clazz = getEntityClass();
         try {
@@ -49,8 +56,7 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
                         return field;
                     })
                     .collect(Collectors.toMap(Field::getName, field -> field));
-            System.out.println();
-            System.out.println(getVOClass());
+
             Field[] fields = getVOClass().getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
@@ -73,6 +79,12 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
         return null;
     }
 
+    /**
+     * <p>该方法用于将Entity转换为VO, 注意事项同{@link MongoBaseDAO#convertToEntity(Object)}
+     *
+     * @param entity
+     * @return
+     */
     default T convertToVO(E entity) {
         Class<T> clazz = getVOClass();
         try {
