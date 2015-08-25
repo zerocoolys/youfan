@@ -15,19 +15,17 @@
                 查询
             </a>
         </div>
-
     </ion-header-bar>
+
     <ion-scroll class="stable-bg" style="height:100%; " cache-view="false">
-        <ion-slide-box on-slide-changed="dishesChanged(index)" active-slide="dishesIndex" show-pager="false">
-            <ion-slide ng-repeat="wayt in wayts">
-                <div class="button-bar light-bg dishes">
-                    <a class="button button-clear" ng-repeat="state in wayt.states"
-                       ng-class="wayt.slideIndex == state.id ? 'current':''"
-                       ng-click="activeSlide(wayt, state.id)">{{state.name}}<i class="calm">{{state.number}}</i> </a>
-                </div>
-                <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="wayt.slideIndex" show-pager="false">
-                    <ion-slide ng-repeat="dorder in wayt.dorders" class="order">
-                        <ion-list ng-repeat="order in dorder.orders" style="margin-bottom: 20px">
+
+        <div class="button-bar light-bg dishes" ng-if="dishesIndex != 2">
+            <a class="button button-clear" ng-repeat="status in status_list"
+               ng-class="slideIndex == status.id ? 'current':''"
+               ng-click="activeSlide(status.id)">{{status.name}}<i class="calm">{{status.number}}</i> </a>
+        </div>
+
+                        <ion-list ng-repeat="order in orders" style="margin-bottom: 20px">
                             <ion-item>
                                 <span>订单编号：{{order.id}}</span>
 
@@ -68,11 +66,6 @@
                                 </h2>
                             </ion-item>
                         </ion-list>
-                    </ion-slide>
-                </ion-slide-box>
-            </ion-slide>
-
-            <ion-slide></ion-slide>
-        </ion-slide-box>
     </ion-scroll>
+
 </ion-view>

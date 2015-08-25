@@ -31,6 +31,7 @@
                 })
                 .state('dishes', {
                     url: '/dishes',
+                    params: {'path': null},
                     templateUrl: 'templates/overview/dishes.html',
                     controller: 'dishes'
 

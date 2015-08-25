@@ -5,11 +5,17 @@
         .module('yf_merchant')
         .controller('overview', Overview);
 
-    function Overview($scope, $filter, $ionicPopup) {
-        console.log(1111);
+    function Overview($scope, $filter,$state, $ionicPopup) {
+
         $scope.callPhone=function(){
             $window.location.href="http://my.oschina.net/u/1416844/blog/tel:10085";
         };
+
+
+
+        $scope.goToDishes = function (path) {
+            $state.go('dishes',{ 'path':path});
+        }
 
         $scope.showPopup = function() {
             // An elaborate, custom popup
