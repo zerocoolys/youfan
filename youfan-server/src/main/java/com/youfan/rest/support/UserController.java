@@ -1,9 +1,10 @@
 package com.youfan.rest.support;
 
+import com.youfan.controllers.objs.MerchantKitchenInfo;
 import com.youfan.controllers.objs.MerchantUser;
+import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.MerchantUsersServer;
-import com.youfan.services.users.UsersService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +50,34 @@ public class UserController {
         }
         return merchantUserRes;
     }
-
+    @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
+    public MerchantKitchenInfo saveMerchantKitchenInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo){
+        MerchantKitchenInfo merchantKitchenInfoRes = null;
+        try {
+            merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenInfo(merchantKitchenInfo);
+        } catch (KitchenInfoException ke) {
+            System.out.println(ke.getMessage());
+        }
+        return merchantKitchenInfoRes;
+    }
+    @RequestMapping(path = "/saveMerchantKitchenPicInfo", method = RequestMethod.POST, produces = "application/json")
+    public MerchantKitchenInfo saveMerchantKitchenPicInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo){
+        MerchantKitchenInfo merchantKitchenInfoRes = null;
+        try {
+            merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenPicInfo(merchantKitchenInfo);
+        } catch (KitchenInfoException ke) {
+            System.out.println(ke.getMessage());
+        }
+        return merchantKitchenInfoRes;
+    }
+    @RequestMapping(path = "/saveMerchantKitchenStoryInfo", method = RequestMethod.POST, produces = "application/json")
+    public MerchantKitchenInfo saveMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo){
+        MerchantKitchenInfo merchantKitchenInfoRes = null;
+        try {
+            merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
+        } catch (KitchenInfoException ke) {
+            System.out.println(ke.getMessage());
+        }
+        return merchantKitchenInfoRes;
+    }
 }
