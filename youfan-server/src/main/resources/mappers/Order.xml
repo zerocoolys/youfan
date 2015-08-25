@@ -8,7 +8,7 @@
         <result column="ORDER_NO" property="orderNo"/>
         <result column="SELLER_ID" property="sellerId"/>
         <result column="BUYER_ID" property="buyerId"/>
-        <result column="MEMO" property="memo"/>
+        <result column="COMMENTS" property="comments"/>
         <result column="ORDER_STATUS" property="orderStatus"/>
     </resultMap>
 
@@ -17,7 +17,6 @@
             resultMap="OrderEntityMap">
         SELECT * FROM TBL_ORDERS WHERE ORDER_ID=#{id} AND DATA_STATUS = 1
     </select>
-
 
     <update id="deleteOrder" parameterType="java.lang.Integer">
         UPDATE TBL_ORDERS SET DATA_STATUS = 0 WHERE ORDER_ID = #{id}
@@ -37,5 +36,13 @@
 
     <select id="findAllByPagination" parameterType="com.youfan.commons.Pagination">
         SELECT *  FROM TBL_ORDERS LIMIT #{start}, #{end} ORDER BY #{orderBy} #{asc}
+    </select>
+
+    <select id="getOrdersByBuyerId">
+        SELECT *  FROM TBL_ORDERS WHERE BUYER_ID = #{0} AND DATA_STATUS = 1 LIMIT #{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
+    </select>
+
+    <select id="getOrdersBySellerId">
+        SELECT *  FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND DATA_STATUS = 1 LIMIT #{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
     </select>
 </mapper>

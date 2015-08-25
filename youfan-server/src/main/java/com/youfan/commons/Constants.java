@@ -16,6 +16,7 @@ public interface Constants {
 
     String SELLER_ID = "sellerId";
     String MENU_ID = "menuId";
+    String TYPE= "type";
 
 
     String DESCRIPTION = "descr";

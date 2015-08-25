@@ -1,11 +1,13 @@
 package com.youfan.services.menus.impl;
 
+import com.youfan.controllers.objs.Menu;
 import com.youfan.data.dao.MenuDAO;
-import com.youfan.data.models.MenuEntity;
 import com.youfan.services.menus.MenuService;
+
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
@@ -25,7 +27,7 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public void insert(MenuEntity menu) {
+    public void insert(Menu menu) {
         if (menu == null)
             return;
 
@@ -33,11 +35,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void insert(List<MenuEntity> menuEntities) {
-        if (menuEntities == null || menuEntities.isEmpty())
+    public void insert(List<Menu> menus) {
+        if (menus == null || menus.isEmpty())
             return;
 
-        menuDAO.insert(menuEntities);
+        menuDAO.insert(menus);
     }
 
     @Override
@@ -46,16 +48,25 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuEntity> list(long sellerId) {
-        List<MenuEntity> list = menuDAO.list(sellerId);
+    public List<Menu> findBySellerId(long sellerId) {
+        List<Menu> list = menuDAO.findBySellerId(sellerId);
         if (list == null || list.isEmpty())
             return Collections.emptyList();
 
         return list;
     }
 
+	@Override
+	public List<Menu> findBySellerIdAndType(Long sellerId, String type) {
+        List<Menu> list = menuDAO.findBySellerIdAndType(sellerId, type);
+        if (list == null || list.isEmpty())
+            return Collections.emptyList();
+
+        return list;
+	}
+    
     @Override
-    public MenuEntity findOne(long menuId) {
+    public Menu findByMenuId(long menuId) {
         return menuDAO.findOne(menuId);
     }
 
@@ -96,4 +107,5 @@ public class MenuServiceImpl implements MenuService {
     public void resetRestNumByMenuId(long menuId, int restNum) {
         menuDAO.resetRestNumByMenuId(menuId, restNum);
     }
+
 }

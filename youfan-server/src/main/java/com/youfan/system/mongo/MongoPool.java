@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import static com.youfan.main.Main.CONFIG;
 
 /**
- * Created date: 2015-08-17.
+ * Created on 2015-08-17.
  * <p>MongoTemplate connection instance
  *
  * @author dolphineor

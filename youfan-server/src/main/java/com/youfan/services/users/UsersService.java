@@ -1,5 +1,6 @@
 package com.youfan.services.users;
 
+import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.controllers.objs.User;
 import com.youfan.exceptions.UserException;
 
@@ -23,4 +24,5 @@ public interface UsersService {
      * @return User 匹配则返回该用户数据
      */
     public User validate(String username, String pass) throws UserException;
+    public void saveMerchantUserInfo(MerchantUser merchantUser) throws UserException;
 }

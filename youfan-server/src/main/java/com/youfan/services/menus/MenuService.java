@@ -1,6 +1,6 @@
 package com.youfan.services.menus;
 
-import com.youfan.data.models.MenuEntity;
+import com.youfan.controllers.objs.Menu;
 
 import java.util.List;
 
@@ -11,22 +11,24 @@ import java.util.List;
  */
 public interface MenuService {
 
-    void insert(MenuEntity menu);
+	void insert(Menu menu);
 
-    void insert(List<MenuEntity> menuEntities);
+	void insert(List<Menu> menus);
 
-    void delete(long menuId);
+	void delete(long menuId);
 
-    List<MenuEntity> list(long sellerId);
+	List<Menu> findBySellerId(long sellerId);
 
-    MenuEntity findOne(long menuId);
+	Menu findByMenuId(long menuId);
 
-    int minusRestNum(long menuId);
+	int minusRestNum(long menuId);
 
-    int plusTasteNum(long menuId);
+	int plusTasteNum(long menuId);
 
-    void resetRestNumBySellerId(long sellerId, int restNum);
+	void resetRestNumBySellerId(long sellerId, int restNum);
 
-    void resetRestNumByMenuId(long menuId, int restNum);
+	void resetRestNumByMenuId(long menuId, int restNum);
+
+	List<Menu> findBySellerIdAndType(Long sellerId, String type);
 
 }

@@ -8,31 +8,31 @@ import java.util.Map;
  */
 public class OrderParams {
 
-    String buyerId;
+    Long buyerId;
 
-    String sellerId;
+    Long sellerId;
 
     Map<String, Integer> itemMap = new HashMap<>();
 
-    String memo;
+    String comments;
 
     double price;
 
     int orderStatus;
 
-    public String getBuyerId() {
+    public Long getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(String buyerId) {
+    public void setBuyerId(Long buyerId) {
         this.buyerId = buyerId;
     }
 
-    public String getSellerId() {
+    public Long getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(String sellerId) {
+    public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
     }
 
@@ -44,12 +44,12 @@ public class OrderParams {
         this.itemMap = itemMap;
     }
 
-    public String getMemo() {
-        return memo;
+    public String getComments() {
+        return comments;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public double getPrice() {

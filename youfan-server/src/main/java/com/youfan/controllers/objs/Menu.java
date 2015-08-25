@@ -1,41 +1,30 @@
-package com.youfan.data.models;
+package com.youfan.controllers.objs;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.youfan.commons.Constants.COLLECTION_MENU;
-import static com.youfan.commons.Constants.DESCRIPTION;
-
 /**
- * Created on 2015-08-18.
+ * Created on 2015-08-21.
+ * <p>
+ * 菜单VO.
  *
  * @author dolphineor
  */
-@Document(collection = COLLECTION_MENU)
-public class MenuEntity {
+public class Menu {
 
-	@Id
 	private String id;
 
 	private Long sellerId; // 商家id
 
-	@Indexed(unique = true)
 	private Long menuId; // 菜品id
 
 	private String name; // 菜品名称
 
 	private List<String> picUrls = new ArrayList<>();// 菜品图片
 
-	@Field(DESCRIPTION)
 	private String description; // 描述
 
-	private BigDecimal price; // 价格
+	private double price; // 价格
 
 	private Integer dataStatus = 1;
 
@@ -105,11 +94,11 @@ public class MenuEntity {
 		this.description = description;
 	}
 
-	public BigDecimal getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -192,5 +181,4 @@ public class MenuEntity {
 	public void setFeatures(List<String> features) {
 		this.features = features;
 	}
-
 }

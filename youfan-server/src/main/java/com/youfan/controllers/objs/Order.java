@@ -1,5 +1,6 @@
 package com.youfan.controllers.objs;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -8,46 +9,50 @@ import java.util.List;
 public class Order {
 
     private Long id;
-    private Long orderId;
-    private String buyerId;
-    private String sellerId;
-    private String memo;
+    private String orderNo;
+    private Long sellerId;
+    private Long buyerId;
     private int orderStatus;
     private double price;
-    private String orderNo;
+    private Date orderTime;
+    private Date repastTime;
+    private String repastMode;
+    private String repastAddress;
+    private double coupons;
+    private List<Long> cart;
+    private String comments;
 
-    private List<String> itemList;
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getBuyerId() {
-        return buyerId;
+    public String getOrderNo() {
+        return orderNo;
     }
 
-    public void setBuyerId(String buyerId) {
-        this.buyerId = buyerId;
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
     }
 
-    public String getSellerId() {
+    public Long getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(String sellerId) {
+    public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
     }
 
-    public String getMemo() {
-        return memo;
+    public Long getBuyerId() {
+        return buyerId;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
     }
 
     public int getOrderStatus() {
@@ -66,34 +71,60 @@ public class Order {
         this.price = price;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Date getOrderTime() {
+        return orderTime;
     }
 
-    public Long getId() {
-        return id;
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
     }
 
-
-    public static void main(String[] args) {
-        Order order = new Order();
-
-
+    public Date getRepastTime() {
+        return repastTime;
     }
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public void setRepastTime(Date repastTime) {
+        this.repastTime = repastTime;
     }
 
-    public String getOrderNo() {
-        return orderNo;
+    public String getRepastMode() {
+        return repastMode;
     }
 
-    public List<String> getItemList() {
-        return itemList;
+    public void setRepastMode(String repastMode) {
+        this.repastMode = repastMode;
     }
 
-    public void setItemList(List<String> itemList) {
-        this.itemList = itemList;
+    public String getRepastAddress() {
+        return repastAddress;
     }
+
+    public void setRepastAddress(String repastAddress) {
+        this.repastAddress = repastAddress;
+    }
+
+    public double getCoupons() {
+        return coupons;
+    }
+
+    public void setCoupons(double coupons) {
+        this.coupons = coupons;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public List<Long> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<Long> cart) {
+        this.cart = cart;
+    }
+
 }
