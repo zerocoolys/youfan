@@ -63,19 +63,25 @@
     </select>
     
     <select id="findOrders" parameterType="com.youfan.data.models.OrderEntity" resultMap="OrderMap" >
-        SELECT *  FROM 
+         SELECT *,group_concat(dishes.DISH_ID) AS dishes  FROM 
         
-        TBL_ORDERS orders WHERE 1 = 1 
+         TBL_ORDERS orders left join TBL_REL_ODR_DISH dishes
+        
+         on orders.order_id = dishes.order_id 
+        
+         WHERE 1 = 1;
         
         <if test="sellerId != null and sellerId != ''">
                 and orders.seller_Id = #{sellerId}  
         </if>
         
-         <if test="orderStatus != null and orderStatus != ''">
+         <if test="orderStatus != null">
                 and orders.order_Status = #{orderStatus}  
         </if>
         
-
+          <if test="repastMode != null and repastMode != ''">
+                and orders.repast_Mode = #{repastMode}  
+        </if>
         
     </select>
     

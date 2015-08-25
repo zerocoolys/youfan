@@ -69,9 +69,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findOrdersByMerchant(Order order) {
+	public List<Order> findOrdersByMerchant(Order parameter) {
 
-		return orderDAO.findOrders(order);
+		List<Order> orders = null;
+		orders = orderDAO.findOrders(parameter);
+
+		if (orders != null && orders.size() > 0) {
+			for (Order order : orders) {
+				order.setImg("http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg");
+			}
+		}
+
+		return orders;
 	}
-
 }

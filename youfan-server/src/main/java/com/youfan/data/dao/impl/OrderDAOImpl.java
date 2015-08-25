@@ -134,6 +134,8 @@ public class OrderDAOImpl implements OrderDAO {
 		OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setOrderStatus(order.getOrderStatus());
 		orderEntity.setSellerId(order.getSellerId());
+		orderEntity.setRepastMode(order.getRepastMode());
+		
 		List<Order> orders = sqlSession.selectList("findOrders", orderEntity);
 
 		return orders;

@@ -51,14 +51,9 @@ public class OrderController {
 		try {
 			Order order = JsonUtil.json2pojo(merchantInfo, Order.class);
 			List<Order> orders = orderService.findOrdersByMerchant(order);
-
-			if (orders == null) {
-				response = Responses.FAILED();
-			} else {
-				response = Responses.SUCCESS().setPayload(orders);
-			}
-
+			response = Responses.SUCCESS().setPayload(orders);
 		} catch (Exception e) {
+			response = Responses.FAILED();
 			logger.error(e.getMessage());
 		}
 

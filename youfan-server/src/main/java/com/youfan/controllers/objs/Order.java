@@ -17,11 +17,13 @@ public class Order {
     private Date orderTime;
     private Date repastTime;
     private String repastMode;
-    private String repastAddress;
+	private String repastAddress;
     private double coupons;
     private List<Long> cart;
     private String comments;
-
+    
+    /**购买者头像*/
+    private String img;
 
     public Long getId() {
         return id;
@@ -126,5 +128,13 @@ public class Order {
     public void setCart(List<Long> cart) {
         this.cart = cart;
     }
+    
+    public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 }
