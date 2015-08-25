@@ -33,7 +33,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         update.set("idCardPicUrl", merchantUser.getIdCardPicUrl());
         update.set("realName", merchantUser.getRealName());
         update.set("sex", merchantUser.getSex());
-
         return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantUser.getId())), update, MerchantUserEntity.class));
     }
 
@@ -48,21 +47,21 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public MerchantUser login(String userName,String passWord) {
+    public MerchantUser login(String userName, String passWord) {
         MerchantUser merchantUser = new MerchantUser();
         merchantUser.setUserName(userName);
         merchantUser.setPassWord(passWord);
         MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where("userName").is(userName).andOperator(where("passWord").is(passWord))), MerchantUserEntity.class);
-        if(merchantUserEntity==null){
+        if (merchantUserEntity == null) {
             return null;
-        }else {
+        } else {
             merchantUser.setId(merchantUserEntity.getId());
             return merchantUser;
         }
     }
 
     @Override
-    public MerchantUser register(String userName,String passWord) {
+    public MerchantUser register(String userName, String passWord) {
         MerchantUser merchantUser = new MerchantUser();
         merchantUser.setUserName(userName);
         merchantUser.setPassWord(passWord);
@@ -71,9 +70,9 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         merchantUserEntity.setPassWord(passWord);
         mongoTemplate.insert(merchantUserEntity);
         MerchantUserEntity merchantUserEntityRes = mongoTemplate.findOne(query(where("userName").is(userName).andOperator(where("passWord").is(passWord))), MerchantUserEntity.class);
-        if(merchantUserEntityRes==null){
+        if (merchantUserEntityRes == null) {
             return null;
-        }else {
+        } else {
             merchantUser.setId(merchantUserEntityRes.getId());
             return merchantUser;
         }

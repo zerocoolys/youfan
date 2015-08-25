@@ -17,7 +17,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
  * Created by perfection on 15-8-25.
  */
 @Repository("merchantKitchenDAO")
-public class MerchantKitchenDAOImpl implements MerchantKitchenDAO{
+public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     @Override
     public List<MerchantKitchenInfo> findAll() {
         return null;
