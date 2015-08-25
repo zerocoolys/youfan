@@ -16,10 +16,11 @@ public interface Constants {
 
     String SELLER_ID = "sellerId";
     String MENU_ID = "menuId";
-    String TYPE= "type";
+    String TYPE = "type";
 
 
     String DESCRIPTION = "descr";
+    String IS_SALE = "sale";
     String REST_NUM = "restNum";
     String TASTE_NUM = "tasteNum";
     String DATA_STATUS = "dataStatus";

@@ -3,11 +3,9 @@ package com.youfan.services.menus.impl;
 import com.youfan.controllers.objs.Menu;
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.services.menus.MenuService;
-
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
@@ -56,15 +54,15 @@ public class MenuServiceImpl implements MenuService {
         return list;
     }
 
-	@Override
-	public List<Menu> findBySellerIdAndType(Long sellerId, String type) {
+    @Override
+    public List<Menu> findBySellerIdAndType(Long sellerId, String type) {
         List<Menu> list = menuDAO.findBySellerIdAndType(sellerId, type);
         if (list == null || list.isEmpty())
             return Collections.emptyList();
 
         return list;
-	}
-    
+    }
+
     @Override
     public Menu findByMenuId(long menuId) {
         return menuDAO.findOne(menuId);
