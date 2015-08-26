@@ -7,7 +7,7 @@
         <div>
             <ul class="list padding-top">
                 <li class="item item-input">
-                    <input type="text" ng-model="kitchenInfo.crName" placeholder="请输入厨房名称">
+                    <input type="text" ng-model="kitchenInfo.kitchenName" placeholder="请输入厨房名称">
                 </li>
                 <li class="item item-input">
                     <input type="tel" ng-model="kitchenInfo.phoneNumber" placeholder="可填写另一个手机号(非必填)">
@@ -32,34 +32,34 @@
                     <p>厨房特色<label style="color: #e6b400">(每个标签最多输入5个字)</label></p>
                 </li>
                 <li class="item item-input">
-                    <input type="text" ng-model="kitchenInfo.cuisine[0]" placeholder="烹饪菜系">
-                    <input type="text" ng-model="kitchenInfo.cuisine[1]" placeholder="烹饪菜系">
+                    <input type="text" ng-model="characteristic[0]" placeholder="烹饪菜系">
+                    <input type="text" ng-model="characteristic[1]" placeholder="烹饪菜系">
                 </li>
                 <li class="item item-input">
                     <span class="input-label">厨房地址</span>
                 </li>
                 <li class="item item-input">
-                    <input type="text" list="kitchenInfo.address_province" name="link" placeholder="省"
+                    <input type="text" ng-model="address.province" list="address_province" name="link" placeholder="省"
                            required="required"/>
-                    <datalist id="kitchenInfo.address_province">
+                    <datalist id="address_province">
                         <option label="四川" value="四川"/>
                         <option label="北京" value="北京"/>
                     </datalist>
-                    <input type="text" list="kitchenInfo.address_city" name="link" placeholder="市" required="required"/>
-                    <datalist id="kitchenInfo.address_city">
+                    <input type="text" ng-model="address.city" list="address_city" name="link" placeholder="市" required="required"/>
+                    <datalist id="address_city">
                         <option label="成都" value="成都"/>
                         <option label="绵阳" value="绵阳"/>
                         <option label="雅安" value="雅安"/>
                     </datalist>
                 </li>
                 <li class="item item-input">
-                    <input type="text" ng-model="kitchenInfo.address_specificAddress" placeholder="填写街道、小区名称、栋楼及单元号"
+                    <input type="text" ng-model="address.specificAddress" placeholder="填写街道、小区名称、栋楼及单元号"
                            required="required">
                 </li>
             </ul>
         </div>
         <div>
-            <input class="button button-block button-positive" ng-click="saveKitchenInfo(kitchenInfo)" value="保存"/>
+            <input class="button button-block button-positive" ng-click="saveKitchenInfo(kitchenInfo,address,characteristic)" value="保存"/>
         </div>
     </ion-content>
 </ion-view>

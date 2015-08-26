@@ -21,11 +21,15 @@
             }
         });
 
-    function personInfo($scope, $filter, $state, personInfoFn) {
+    function personInfo($scope, $filter, $state, personInfoFn,$rootScope) {
         $scope.saveUserInfo = function (person) {
-            //person.id="0";
-            //console.log(JSON.stringify(person));
-            console.log(personInfoFn.saveUserInfo(person));
+            console.log();
+            if($rootScope.user=="undefined"||$rootScope.user==""){
+            }else{
+                person.id = $rootScope.user.id;
+                console.log(personInfoFn.saveUserInfo(person));
+            }
+
 
         };
 

@@ -5,45 +5,10 @@
     'use strict';
 
     angular.module('yf_merchant')
-        .controller('register', register)
-        .factory("registerFn",function($http){
-            return {
-                register:function(user){
-                    return $http.post(
-                        "http://127.0.0.1:8080/user/register", JSON.stringify(user),{"Content-Type": "application/json;charset=utf-8"}).then(function (response) {
-                            if(response.status==200){
-                                return response.data;
-                            }else{
-                                return "";
-                            }
+        .controller('register', register);
 
-                        }, function (error) {
-                            console.log(error)
-                        });
-                },
-                login:function(user){
-                    return $http.post(
-                        "http://127.0.0.1:8080/user/login", JSON.stringify(user),{"Content-Type": "application/json;charset=utf-8"}).then(function (response) {
-                            if(response.status==200){
-                                return response.data;
-                            }else{
-                                return "";
-                            }
-
-                        }, function (error) {
-                            console.log(error)
-                        });
-                }
-            }
-        });
-
-    function register($scope,registerFn,$state) {
+    function register($scope,$state) {
         $scope.register = function(user){
-            if(registerFn.register(user)!=null){
-                if(registerFn.login(user)!=null){
-                     $state.go("#/overview")
-                }
-            }
         };
         //$scope.messageLogin = function (user) {
         //
