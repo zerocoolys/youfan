@@ -60,6 +60,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public MerchantKitchenInfo saveMerchantKitchenInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
+//        if(){}if
         Update update = new Update();
 
         update.set("addressGeoCoding", merchantKitchenInfo.getAddressGeoCoding());
@@ -77,8 +78,11 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("isCanteen", merchantKitchenInfo.isCanteen());
         update.set("isDistribution", merchantKitchenInfo.isDistribution());
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
-
-        return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, MerchantKitchenInfoEntity.class));
+//        MerchantKitchenInfoEntity merchantKitchenInfoEntity = convertToEntity(merchantKitchenInfo);
+//        System.out.println(merchantKitchenInfoEntity.getCuisine().size());
+        mongoTemplate.insert(convertToEntity(merchantKitchenInfo));
+//        System.out.println(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, MerchantKitchenInfoEntity.class));
+        return null;
     }
 
     @Override

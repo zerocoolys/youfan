@@ -1,7 +1,10 @@
 package com.youfan.controllers.objs;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by perfection on 15-8-25.
@@ -11,20 +14,20 @@ public class MerchantKitchenInfo {
     private String id;  //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
-    private String[] cuisine;   //厨房特色，菜系
+    private List<String> cuisine = new ArrayList<>();   //厨房特色，菜系
     private String kitchenAddress;  //厨房地址
     private String addressGeoCoding;    //地理编码经纬度
     private boolean isTakeSelf; //是否支持自取
     private boolean isCanteen;  //是否支持食堂
     private Integer galleryFul; //如果支持厨房，该字段不为空，容纳人数
     private boolean isDistribution; //是否支持配送
-    private BigDecimal disPrice;    //配送费用
+    private Double disPrice;    //配送费用
     private Double disRange;    //配送范围
     private String distribution;    //如果配送，配送说明
-    private Date startTime; //开店时间
-    private Date endTime;   //关店时间
+    private String startTime; //开店时间
+    private String endTime;   //关店时间
     private String desc;    //厨房备注
-    private String[] kitchenPicUrl; //厨房照片路径
+    private List<String> kitchenPicUrl = new ArrayList<>(); //厨房照片路径
     private String kitchenStoryName;    //厨房故事标题
     private String kitchenStoryContent; //厨房故事内容
 
@@ -36,13 +39,6 @@ public class MerchantKitchenInfo {
         this.status = status;
     }
 
-    public String[] getKitchenPicUrl() {
-        return kitchenPicUrl;
-    }
-
-    public void setKitchenPicUrl(String[] kitchenPicUrl) {
-        this.kitchenPicUrl = kitchenPicUrl;
-    }
 
     public String getKitchenStoryName() {
         return kitchenStoryName;
@@ -84,12 +80,20 @@ public class MerchantKitchenInfo {
         this.phoneNumber = phoneNumber;
     }
 
-    public String[] getCuisine() {
+    public List<String> getCuisine() {
         return cuisine;
     }
 
-    public void setCuisine(String[] cuisine) {
+    public void setCuisine(List<String> cuisine) {
         this.cuisine = cuisine;
+    }
+
+    public List<String> getKitchenPicUrl() {
+        return kitchenPicUrl;
+    }
+
+    public void setKitchenPicUrl(List<String> kitchenPicUrl) {
+        this.kitchenPicUrl = kitchenPicUrl;
     }
 
     public String getKitchenAddress() {
@@ -140,11 +144,11 @@ public class MerchantKitchenInfo {
         this.isDistribution = isDistribution;
     }
 
-    public BigDecimal getDisPrice() {
+    public Double getDisPrice() {
         return disPrice;
     }
 
-    public void setDisPrice(BigDecimal disPrice) {
+    public void setDisPrice(Double disPrice) {
         this.disPrice = disPrice;
     }
 
@@ -164,19 +168,19 @@ public class MerchantKitchenInfo {
         this.distribution = distribution;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
