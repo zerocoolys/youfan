@@ -171,4 +171,15 @@ public class MenuDAOImpl implements MenuDAO {
 		}
 	}
 
+	@Override
+	public List<Menu> findByMenuIds(List<Long> menuIds) {
+		
+		List<MenuEntity> lits = mongoTemplate.find(
+				buildQuery(menuIds,true), getEntityClass(),
+				COLLECTION_MENU);
+		
+		
+		return convertToVOList(lits);
+	}
+
 }
