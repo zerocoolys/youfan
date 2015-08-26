@@ -4,7 +4,13 @@
             <ion-item class="item-icon-right" href="#/tab/dining-way">
                 就餐方式
                 <span class="item-note">
-                  请选择<i class="icon ion-chevron-right icon-accessory"></i>
+                    <span ng-if="userDiningWay.address.name == null">请选择</span>
+                    <span ng-if="userDiningWay.address.name != null">
+                        <h2>{{userDiningWay.address.name}}</h2>
+                        <h2>{{userDiningWay.address.telNo}}</h2>
+                        <h2>{{userDiningWay.address.address}}</h2>
+                    </span>
+                    <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right" ng-click="modal.show()">
