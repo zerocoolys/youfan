@@ -15,7 +15,9 @@ import java.util.List;
 public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
 
     List<Menu> findBySellerId(Long sellerId);
-
+    
+    List<Menu> findByMenuIds(List<Long> menuIds);
+    
     int minusRestNum(Long menuId);
 
     int plusTasteNum(Long menuId);
@@ -46,6 +48,15 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
             criteria.and(SELLER_ID).is(sellerId);
         else if (menuId != null)
             criteria.and(MENU_ID).is(menuId);
+
+        return Query.query(criteria);
+    }
+    
+    default Query buildQuery(List<Long> menuIds, boolean isValid) {
+        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
+     
+       if (menuIds != null && menuIds.size() > 0)
+            criteria.and(MENU_ID).in(menuIds);
 
         return Query.query(criteria);
     }
