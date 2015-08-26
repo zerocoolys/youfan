@@ -64,7 +64,11 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
                     entityFieldMap.get(field.getName())
                             .set(entity, BigDecimal.valueOf((Double) field.get(t)));
                 } else if (Objects.equals(Date.class, field.getType())) {
-                    entityFieldMap.get(field.getName()).set(entity, Timestamp.from(((Date) field.get(t)).toInstant()));
+                    if (Objects.equals(Timestamp.class, entityFieldMap.get(field.getName()).getType())) {
+                        entityFieldMap.get(field.getName()).set(entity, Timestamp.from(((Date) field.get(t)).toInstant()));
+                    } else {
+                        entityFieldMap.get(field.getName()).set(entity, field.get(t));
+                    }
                 } else {
                     entityFieldMap.get(field.getName()).set(entity, field.get(t));
                 }
