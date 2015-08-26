@@ -450,25 +450,21 @@ Alpha(opacity = 100);
 
 }
 
-.tabs-top .tab-content {
+.message.tabs-top .tab-content {
     padding: 110px 10px 0 10px;
 
 }
 
-.tabs-top .tabs {
-    background-color: #f1f1f1;
+.message.tabs-top .tabs {
+    background-color: #fff;
 }
 
-.tabs-top .tab-item {
+.message.tabs-top .tab-item {
     max-width: 100%;
 }
 
-ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
+.message .ion-tabs.tabs-color-active-positive .tab-item.tab-item-active {
     background-color: #fff;
     border-bottom: 2px solid #1dbeaf;
     margin-top: 1px;
-}
-
-.tabs-top > .tabs {
-
 }
