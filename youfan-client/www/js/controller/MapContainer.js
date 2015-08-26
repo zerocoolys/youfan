@@ -4,12 +4,16 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
 
     //加载地图，调用浏览器定位服务
     $scope.mapObj = new AMap.Map('mapContainer', {
-        resizeEnable: true
+        resizeEnable: true,
+        view: new AMap.View2D({
+            center: new AMap.LngLat(104.065735, 30.657425),//地图中心点
+            zoom: 16 //地图显示的缩放级别
+        })
     });
-
+    dataXY = [{x: 104.065735, y: 30.657425}];
+    mapApiUtils.setMarker(dataXY, $scope.mapObj);
     //比例工具尺定位
     mapApiUtils.toolBar($scope.mapObj);
-
     $scope.mapObj.plugin('AMap.Geolocation', function () {
         $scope.geolocation = new AMap.Geolocation({
             enableHighAccuracy: true,//是否使用高精度定位，默认:true
@@ -17,26 +21,35 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
             maximumAge: 300000,      //定位结果缓存0毫秒，默认：0
             convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
             showButton: true,        //显示定位按钮，默认：true
-            buttonDom:"<img src='http://image.chinawriter.com.cn/cr/2013/0425/3873279506.jpg' width='30' height='30'/>",
+            buttonDom: "<img src='http://image.chinawriter.com.cn/cr/2013/0425/3873279506.jpg' width='30' height='30'/>",
             buttonPosition: 'RT',    //定位按钮停靠位置，默认：'LB'，左下角
             buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-            showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
-            showCircle: 3000,        //定位成功后用圆圈表示定位精度范围，默认：true
-            panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
-            zoomToAccuracy: true      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            showMarker: false,        //定位成功后在定位到的位置显示点标记，默认：true
+            showCircle: false,        //定位成功后用圆圈表示定位精度范围，默认：true
+            panToLocation: false,     //定位成功后将定位到的位置作为地图中心点，默认：true
+            zoomToAccuracy: false      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
         });
-        $scope.mapObj.addControl($scope.geolocation);
+        //$scope.mapObj.addControl($scope.geolocation);
+        $scope.geocoder = "正在加载商家详细地址...";
         //返回定位成功处理
-        AMap.event.addListener($scope.geolocation, 'complete', function (data){
-            var lnglatXY = new AMap.LngLat(data.position.getLng(),data.position.getLat());
-            $scope.geocoder(lnglatXY);
-            dataXY = [
-                {x:104.073588,y:30.537481},
-                {x:104.075101,y:30.540535},
-                {x:104.071142,y:30.538885},
-                {x:104.074007,y:30.540488}
-            ];
-            mapApiUtils.setMarker(dataXY,$scope.mapObj)
+        AMap.event.addListener($scope.geolocation, 'complete', function (data) {
+            var lnglatXY = new AMap.LngLat(data.position.getLng(), data.position.getLat());
+            var a = new AMap.LngLat(104.065735,30.657425);
+            //获取详细地址
+            mapTools.geocoder(a, function (data) {
+                $scope.$apply(function () {
+                        $scope.geocoder = data;
+                })
+            });
+            //通过经纬度计算地理距离
+            mapTools.getDistance(lnglatXY, a, function (data) {
+                data = data / 1000 >= 1 ? data / 1000 + "公里" : data + "米";
+                $scope.$apply(function () {
+                    $scope.distance = data
+                })
+            })
+
+
         });
         //返回定位出错信息处理
         AMap.event.addListener($scope.geolocation, 'error', function () {
@@ -44,27 +57,24 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
         });
     });
 
-    //获取该坐标的详细地址
-    $scope.geocoder=function (lnglatXY) {
-        var MGeocoder,address;
-        AMap.service(["AMap.Geocoder"], function () {
-            MGeocoder = new AMap.Geocoder({
-                radius: 1000,
-                extensions: "all"
-            });
-            //逆地理编码
-            MGeocoder.getAddress(lnglatXY, function (status, result) {
-                if (status === 'complete' && result.info === 'OK') {
-                    console.log(result.regeocode.addressComponent.city)
-                    alert(result.regeocode.addressComponent.city)
-                    //alert(result.regeocode.formattedAddress);
-                }else{
-                    alert("获取失败");
-                }
-            });
+    $scope.mapObj.plugin('AMap.Geolocation', function () {
+        $scope.locateIsGo = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            maximumAge: 300000,      //定位结果缓存0毫秒，默认：0
+            convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+            showButton: true,        //显示定位按钮，默认：true
+            buttonDom: "<img src='http://image.chinawriter.com.cn/cr/2013/0425/3873279506.jpg' width='30' height='30'/>",
+            buttonPosition: 'RT',    //定位按钮停靠位置，默认：'LB'，左下角
+            buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
+            showCircle: false,        //定位成功后用圆圈表示定位精度范围，默认：true
+            panToLocation: true,     //定位成功后将定位到的位置作为地图中心点，默认：true
+            zoomToAccuracy: false      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
         });
-    }
-
+        $scope.mapObj.addControl($scope.locateIsGo);
+    });
     $scope.geolocation.getCurrentPosition();
+
 
 });

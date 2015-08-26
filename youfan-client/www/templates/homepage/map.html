@@ -1,16 +1,19 @@
- <ion-view view-title="" hide-nav-bar="true" hide-tabs >
-        <ion-header-bar class="bar-header bar-light">
-            <a ui-sref="tab.dash-detail"><i class="icon ion-ios-arrow-left"></i></a>
-            <h2 class="title">厨房地图</h2>
-        </ion-header-bar>
+<ion-view view-title="" hide-nav-bar="true" hide-tabs>
+    <ion-header-bar class="bar-header bar-light">
+        <a ui-sref="tab.dash-detail"><i class="icon ion-ios-arrow-left"></i></a>
+
+        <h2 class="title">厨房地图</h2>
+    </ion-header-bar>
     <ion-content class="map_content">
-            <div id="mapContainer" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;"></div>
+        <div id="mapContainer" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;"></div>
     </ion-content>
     <div class="bar bar-footer bar-balanced">
-            <div class="item item-icon-left">
-                <i class="icon  ion-ios-location"></i>
-                <p>恋家厨房</p>
-                <p>成都市高新区天府大道美年广场</p>
-                </div>
+        <div class="item item-icon-left">
+            <i class="icon  ion-ios-location"></i>
+
+            <p>恋家厨房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;距离当前位置{{distance}}</p>
+
+            <p ng-bind="geocoder"></p>
+        </div>
     </div>
 </ion-view>

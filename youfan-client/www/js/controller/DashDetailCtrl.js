@@ -150,7 +150,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     };
 
     // 商家id
-    $scope.sellerId = 196830201;
+    $scope.sellerId = 888888888;
 
     // 菜品列表数组
     $scope.menuArr = [];
