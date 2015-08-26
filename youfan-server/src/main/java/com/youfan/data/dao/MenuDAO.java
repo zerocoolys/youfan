@@ -25,6 +25,8 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
     void resetRestNumByMenuId(Long menuId, int restNum);
 
     List<Menu> findBySellerIdAndType(Long sellerId, String type);
+    
+    Menu findOne(Query query);
 
 
     @Override
@@ -61,5 +63,11 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
 
         return Query.query(criteria);
     }
+
+	int conversion(Long menuId, boolean sale);
+
+	void conversionStock(List<Menu> menus);
+
+	void conversionRestNum(List<Menu> menus);
 
 }

@@ -11,24 +11,30 @@ import java.util.List;
  */
 public interface MenuService {
 
-    void insert(Menu menu);
+	void insert(Menu menu);
 
-    void insert(List<Menu> menus);
+	void insert(List<Menu> menus);
 
-    void delete(long menuId);
+	void delete(long menuId);
 
-    List<Menu> findBySellerId(long sellerId);
+	List<Menu> findBySellerId(long sellerId);
 
-    Menu findByMenuId(long menuId);
+	Menu findByMenuId(long menuId);
 
-    int minusRestNum(long menuId);
+	int minusRestNum(long menuId);
 
-    int plusTasteNum(long menuId);
+	int plusTasteNum(long menuId);
 
-    void resetRestNumBySellerId(long sellerId, int restNum);
+	void resetRestNumBySellerId(long sellerId, int restNum);
 
-    void resetRestNumByMenuId(long menuId, int restNum);
+	void resetRestNumByMenuId(long menuId, int restNum);
 
-    List<Menu> findBySellerIdAndType(Long sellerId, String type);
+	List<Menu> findBySellerIdAndType(Long sellerId, String type);
+
+	int conversion(Menu menu);
+
+	void conversionStock(List<Menu> menus);
+
+	void conversionRestNum(List<Menu> menus);
 
 }
