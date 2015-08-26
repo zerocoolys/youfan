@@ -24,5 +24,7 @@ public interface Constants {
 	String TASTE_NUM = "tasteNum";
 	String DATA_STATUS = "dataStatus";
 	String SALE = "sale";
+	
+	 String COLLECTION_MESSAGE= "messages";
 
 }
