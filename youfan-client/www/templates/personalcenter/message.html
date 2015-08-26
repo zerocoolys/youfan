@@ -1,14 +1,7 @@
 <ion-view view-title="我的消息" hide-tabs>
-    <ion-content>
-        <div>
-            <ul class="slide-tab">
-                <li ng-class="slideIndex == 0 ? 'current':''"><a href="#" ng-click="activeSlide(0)">通知</a></li>
-                <li ng-class="slideIndex == 1 ? 'current':''"><a href="#" ng-click="activeSlide(1)">评论</a></li>
-            </ul>
-            <!-- / tabs -->
-        </div>
-        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
-            <ion-slide>
+    <ion-tabs class="tabs-top">
+        <ion-tab title="通知">
+            <ion-content>
                 <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
                     <img src="img/2.jpeg">
 
@@ -27,36 +20,61 @@
                         <p>订购了鱼香茄子</p>
                     </div>
                 </ion-item>
-            </ion-slide>
-            <ion-slide>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="评论">
+            <ion-content>
                 <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
                     <img src="img/2.jpeg">
 
                     <div class="care_text">
-                        <span> y有饭1020回复了您 </span>
+                        <span> y有饭1020 </span>
 
-                        <p>“鱼香茄子真好吃”</p>
+                        <p>订购了鱼香茄子</p>
                     </div>
                 </ion-item>
                 <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
                     <img src="img/2.jpeg">
 
                     <div class="care_text">
-                        <span> y有饭1020回复了您 </span>
+                        <span> y有饭1020 </span>
 
-                        <p>“鱼香茄子真好吃”</p>
+                        <p>订购了鱼香茄子</p>
                     </div>
                 </ion-item>
-                <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
-                    <img src="img/2.jpeg">
+                </ion-slide>
+                <ion-slide>
+                    <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
+                        <img src="img/2.jpeg">
 
-                    <div class="care_text">
-                        <span> y有饭1020回复了您 </span>
+                        <div class="care_text">
+                            <span> y有饭1020回复了您 </span>
 
-                        <p>“鱼香茄子真好吃”</p>
-                    </div>
-                </ion-item>
-            </ion-slide>
-        </ion-slide-box>
-    </ion-content>
+                            <p>“鱼香茄子真好吃”</p>
+                        </div>
+                    </ion-item>
+                    <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
+                        <img src="img/2.jpeg">
+
+                        <div class="care_text">
+                            <span> y有饭1020回复了您 </span>
+
+                            <p>“鱼香茄子真好吃”</p>
+                        </div>
+                    </ion-item>
+                    <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
+                        <img src="img/2.jpeg">
+
+                        <div class="care_text">
+                            <span> y有饭1020回复了您 </span>
+
+                            <p>“鱼香茄子真好吃”</p>
+                        </div>
+                    </ion-item>
+
+            </ion-content>
+        </ion-tab>
+
+    </ion-tabs>
 </ion-view>
