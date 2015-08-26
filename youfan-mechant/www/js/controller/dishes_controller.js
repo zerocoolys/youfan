@@ -10,25 +10,8 @@
 
     function dishes($scope, $filter, $state, $ionicSlideBoxDelegate,$stateParams,$http,$rootScope) {
 
-        $scope.ways = [{name: "配送", id: 'PS'}, {name: "上门", id: 'SM'}, {name: "要做的菜", id: 'YZDC'}];
-
-
-        $scope.headerIndex = 'PS';
-        if($stateParams.path == 'dishes') {
-            $scope.headerIndex = 'YZDC';
-        }
-
-        $scope.selectedHeader = function (headerIndex) {
-            $scope.headerIndex = headerIndex;
-            $ionicSlideBoxDelegate.enableSlide([false])
-        };
-
-        $scope.statusIndex = 1;
-        $scope.activeSlide = function (statusIndex) {
-            $scope.statusIndex = statusIndex;
-            $ionicSlideBoxDelegate.enableSlide([false]);
-        };
-
+        $scope.orders = [];
+        $scope.ways = [{name: "配送", code: 'PS'}, {name: "上门", code: 'SM'}, {name: "要做的菜", code: 'YZDC'}];
 
         $scope.status_list = [{name: "新订单", id: 1, number: 0},
             {name: "已接单", id: 3, number: 0},
@@ -37,76 +20,71 @@
             {name: "已退款", id: 39, number: 0}];
 
 
+        $scope.headerIndex = 'PS';
+        if($stateParams.path == 'dishes') {
+            $scope.headerIndex = 'YZDC';
+        }
+        /**切换标题*/
+        $scope.selectedHeader = function (headerIndex) {
+            $scope.headerIndex = headerIndex;
+            $ionicSlideBoxDelegate.enableSlide([false]);
+            $scope.loadOrderOrDishData();
+        };
+        /**切换订单状态*/
+        $scope.statusIndex = 1;
+        $scope.selectedStatus = function (statusIndex) {
+            $scope.statusIndex = statusIndex;
+            $ionicSlideBoxDelegate.enableSlide([false]);
+        };
+
+
+        /**处理加载后的数据*/
         $scope.disposeOrderOrDishData = function (datas) {
             if(datas == null) {
                 return;
             }
+            $scope.orders = datas;
 
-
-
-
+            console.log($scope.orders);
         }
 
-
-
+        /**加载订单数据或菜品数据*/
         $scope.loadOrderOrDishData = function () {
             var url = "";
             var merchant = {};
-            //订单或菜品
-            if($scope.dishesIndex == 2) {
-                url = "";
-            } else {
-                url = "http://127.0.0.1:8080/orders/merchants/";
-                //订单（配送或上门）
-                if($scope.dishesIndex == 0) {
-                    merchant.repastMode = "PS";
-                } else if($scope.dishesIndex == 1){
-                    merchant.repastMode = "SM";
-                }
+
+            url = "http://127.0.0.1:8080/orders/merchants/";
+            //订单（配送或上门）
+            if($scope.headerIndex == 'PS') {
+                merchant.repastMode = "PS";
+            } else if($scope.headerIndex == 'SM'){
+                merchant.repastMode = "SM";
+            } else if($scope.headerIndex == 'YZDC') {
+                merchant.repastMode = "";
             }
-            merchant.sellerId = "2";
-            merchant.orderStatus = $scope.statusIndex;
+
+            merchant.sellerId = "2"; //获取商家用户ID
+            merchant.orderStatus = $scope.statusIndex; //获取状态选择
 
             url = url+ JSON.stringify(merchant);
 
+            console.log(url);
+
             $http.get(url).success
             (function (res) {
+                    $scope.orders = [];
                     if(res == null) {
-                        alert("后台正在更新，请稍等。");
+                        alert("网络链接异常，请检查!");
                         return;
                     }
-                    if(res.code == 1) {
-                        alert(res.msg);
-                        return;
+                if(res.code == 1) {
+                    alert("数据异常，请稍等!");
+                    return;
                     }
-
                 $scope.disposeOrderOrDishData(res.payload);
             });
         }
 
-
-
-        $scope.loadOrderData();
-
-        $scope.orders = [
-            {
-                id: 135268549,
-                img: "http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg",
-                state: "待付款",
-                place: "天府软件园",
-                name: "",
-                rmb: "￥98.00",
-                time: "2014.11.08 下午13:00"
-            },
-            {
-                id: 135268549,
-                img: "../img/ifzk.jpeg",
-                state: "待付款",
-                place: "天府软件园",
-                rmb: "￥198.00",
-                time: "2014.11.08 下午13:00"
-            }
-        ]
-
+        $scope.loadOrderOrDishData();
     }
 })();
