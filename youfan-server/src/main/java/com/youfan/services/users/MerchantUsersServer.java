@@ -6,13 +6,15 @@ import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * Created by perfection on 15-8-24.
  */
 public interface MerchantUsersServer {
     public MerchantUser login(String userName, String passWord) throws UserException;
 
-    public MerchantUser register(String userName, String passWord) throws UserException;
+    public Map register(String userName, String passWord) throws UserException;
 
     public void saveMerchantUserInfo(MerchantUser merchantUser) throws UserException;
 
