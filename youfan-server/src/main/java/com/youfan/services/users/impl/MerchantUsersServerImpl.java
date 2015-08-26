@@ -61,4 +61,9 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
         return  merchantUserDao.getMerchantByStatus(status);
 
 	}
+
+	@Override
+	public void checkMerchant(String id, Integer status) {
+		merchantUserDao.updateStatus(id, status);
+	}
 }

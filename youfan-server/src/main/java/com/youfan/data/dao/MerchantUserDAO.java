@@ -15,6 +15,8 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
     Map<String,String> register(String userName, String passWord);
 
     MerchantUser saveMerchantUserInfo(MerchantUser merchantUser);
-
+    
 	List<MerchantUserEntity> getMerchantByStatus(Integer status);
+	
+	void updateStatus(String id,Integer status);
 }

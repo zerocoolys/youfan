@@ -125,7 +125,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
     @Override
     public void update(MerchantUser userEntity) {
-
     }
 
     @Override
@@ -136,5 +135,10 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 	@Override
 	public List<MerchantUserEntity> getMerchantByStatus(Integer status) {
         return mongoTemplate.find(query(where("status").is(status)), MerchantUserEntity.class);
+	}
+
+	@Override
+	public void updateStatus(String id, Integer status) {
+		mongoTemplate.updateFirst(query(where("id").is(id)), new Update().set("status", status), MerchantUserEntity.class);
 	}
 }

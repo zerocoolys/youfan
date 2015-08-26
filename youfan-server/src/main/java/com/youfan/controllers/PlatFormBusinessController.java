@@ -24,30 +24,50 @@ import com.youfan.services.users.MerchantUsersServer;
 @RequestMapping(path = "/pBusiness")
 public class PlatFormBusinessController {
 
-    Logger logger = LoggerFactory.getLogger(PlatFormBusinessController.class);
-    @Resource
-    MerchantUsersServer merchantUsersServer;
-    ///////////////////////////////// 系统//////////////////////////////////////////
-    ///////////////////////////////// 客户//////////////////////////////////////////
-    ///////////////////////////////// 商家//////////////////////////////////////////
-    /**
-     * 获取置顶状态的商家信息
-     * @param status
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/merchant/getByStatus")
-    public List<MerchantUserEntity> getByStatus(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            Integer status=0;
-            if(request.getParameter("status")==null){
-                status = Integer.valueOf(request.getParameter("status"));
-            }
-            return merchantUsersServer.getMerchantByStatus(status);
-        } catch (UserException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return new ArrayList<MerchantUserEntity>();
-    }
+	Logger logger = LoggerFactory.getLogger(PlatFormBusinessController.class);
+	@Resource
+	MerchantUsersServer merchantUsersServer;
+
+	///////////////////////////////// 系统//////////////////////////////////////////
+	///////////////////////////////// 客户//////////////////////////////////////////
+	///////////////////////////////// 商家//////////////////////////////////////////
+	/**
+	 * 获取置顶状态的商家信息
+	 * 
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getByStatus")
+	public List<MerchantUserEntity> getByStatus(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			Integer status = 0;
+			if (request.getParameter("status") == null) {
+				status = Integer.valueOf(request.getParameter("status"));
+			}
+			return merchantUsersServer.getMerchantByStatus(status);
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new ArrayList<MerchantUserEntity>();
+	}
+
+	/**
+	 * 商家 审核接口
+	 * @param request
+	 * @param response
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年8月26日 下午5:50:28
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/checkMerchant")
+	public void checkMerchant(HttpServletRequest request, HttpServletResponse response) {
+		Integer status = 0;
+		if (request.getParameter("id") != null && request.getParameter("status") != null) {
+			status = Integer.valueOf(request.getParameter("status"));
+			merchantUsersServer.checkMerchant(request.getParameter("id"), status);
+		}
+	}
 
 }
