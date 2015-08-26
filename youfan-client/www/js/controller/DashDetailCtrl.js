@@ -1,8 +1,9 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, REST_URL, $ionicPopup, $timeout, $ionicModal, $ionicBackdrop) {
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout) {
 
+    // ========================= guochunyan =========================
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
 
@@ -36,6 +37,31 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         $ionicSlideBoxDelegate.slide(index);
     };
 
+    $scope.ZanPopup = function () {
+        $scope.data = {};
+        var myPopup = $ionicPopup.show({
+            cssClass: 'zan_popup',
+            template: '点赞成功',
+            scope: $scope
+        });
+        $timeout(function () {
+            myPopup.close(); //close the popup after 3 seconds for some reason
+        }, 1000);
+    };
+
+    $scope.CPopup = function () {
+        var myPopup = $ionicPopup.show({
+            cssClass: 'zan_popup',
+            template: '收藏成功',
+            scope: $scope
+        });
+        $timeout(function () {
+            myPopup.close(); //close the popup after 3 seconds for some reason
+        }, 1000);
+    };
+
+
+    // ========================= dolphineor =========================
     $scope.items = {
         data: []
     };
@@ -149,15 +175,12 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         $scope.items.data.splice(index, 1);
     };
 
-    // 商家id
-    $scope.sellerId = 888888888;
-
     // 菜品列表数组
     $scope.menuArr = [];
 
     // 请求菜品列表信息
-    $http.get(REST_URL + '/menu/list/' + $scope.sellerId).success(function (data) {
-        var jsonArr = JSON.parse(data.menus);
+    $http.get(REST_URL + '/menu/list/' + Merchant.sellerId).success(function (data) {
+        var jsonArr = data.menus;
 
         for (var i = 0, l = jsonArr.length; i < l; i++) {
             jsonArr[i].price = parseFloat(jsonArr[i].price).toFixed(2);
@@ -229,28 +252,5 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             alertPopup.close();
         }, 1000);
     };
-
-    $scope.ZanPopup = function () {
-        $scope.data = {};
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '点赞成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
-    };
-
-    $scope.CPopup = function () {
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '收藏成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
-    }
 
 });

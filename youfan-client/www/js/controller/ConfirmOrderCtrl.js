@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $ionicModal, Order, REST_URL) {
+ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $ionicModal, Order, User, REST_URL) {
 
     $ionicModal.fromTemplateUrl('templates/remarks.html', {
         scope: $scope
@@ -24,6 +24,12 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $ionicModal, O
         coupons: 0,  // 优惠券
         comments: ''    // 备注
     };
+
+    // 口味
+    $scope.taste = [{name: "不吃辣"}, {name: "微辣"}, {name: "不吃辣"}, {name: "不吃辣"},
+        {name: "不吃辣"}, {name: "不吃辣"}, {name: "不吃辣"}, {name: "不吃辣"}];
+
+    $rootScope.userDiningWay = {};
 
     // 购物车
     $scope.cart = {};
