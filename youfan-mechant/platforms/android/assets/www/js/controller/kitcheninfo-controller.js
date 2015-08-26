@@ -21,9 +21,26 @@
         });
 
 
-    function kitchenInfo($scope, $filter, $state) {
-        //$scope.name = kitchenInfoFn.getTest();
-        ////console.log($scope.name);
-        //console.log("测试结束")
+    function kitchenInfo($scope, $filter, $state, $rootScope,$http) {
+        //console.log($rootScope.user.id);
+        $scope.saveKitchenInfo = function (kitchenInfo) {
+            //console.log(kitchenInfo)
+            //{
+            //    "status":"OK",
+            //    "result":{
+            //    "location":{
+            //        "lng":121.34514,
+            //            "lat":31.202595
+            //    },
+            //    "precise":0,
+            //        "confidence":50,
+            //        "level":""
+            //}
+            //}
+            $http.jsonp("http://api.map.baidu.com/geocoder?address=上海虹桥机场&output=json").success(function (data) {
+                console.log(data.location.lng);
+                console.log(data.location.lat)
+            });
+        }
     }
 })();

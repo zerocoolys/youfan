@@ -203,7 +203,7 @@
                                 img: "http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg",
                                 state: "待付款",
                                 place: "天府软件园",
-                                name: "",
+                                dishnames: "番茄炒鸡蛋",
                                 rmb: "￥98.00",
                                 time: "2014.11.08 下午13:00"
                             },
@@ -212,6 +212,7 @@
                                 img: "../img/ifzk.jpeg",
                                 state: "待付款",
                                 place: "天府软件园",
+                                dishnames: "小鸡炖蘑菇",
                                 rmb: "￥198.00",
                                 time: "2014.11.08 下午13:00"
                             }

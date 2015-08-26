@@ -4,13 +4,14 @@
         <div class="list list-inset">
             <label class="item item-input">
                 <i class="icon ion-ios-person-outline "></i>
-                <input type="text" placeholder="First Name">
+                <input type="text" ng-model="user.userName" placeholder="用户名">
             </label>
             <label class="item item-input">
                 <i class="icon ion-ios-unlocked-outline "></i>
-                <input type="text" placeholder="Last Name">
+                <input type="password" ng-model="user.passWord" placeholder="密码">
             </label>
-            <a class="button button-calm button-block" style="margin-top: 15px;" href="#/overview">登录</a>
+            <!--<a class="button button-calm button-block" style="margin-top: 15px;" ng-click="signIn(user)">登录</a> -->
+            <a class="button button-calm button-block" style="margin-top: 15px;" href="#/overview" >登录</a>
         </div>
     </ion-scroll>
 </ion-view>

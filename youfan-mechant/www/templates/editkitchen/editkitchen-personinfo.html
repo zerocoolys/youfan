@@ -1,87 +1,85 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar bar-header">
-        <a class="button button-clear icon ion-ios-arrow-back" href="#/editkitchen"></a>
-        <div class="h1 title calm" align-text="center">编辑个人信息</div>
-
+        <a class="button button-clear icon ion-ios-arrow-back button-calm" href="#/editkitchen"></a>
+        <div class="h1 title " align-text="center">编辑个人信息</div>
+        <button class="button button-clear button-calm ">
+            保存
+        </button>
     </ion-header-bar>
     <ion-content>
-
-        <ul>
-            <li class="item">
-                <div align="center"><a class="button button-clear ion-camera calm"></a><br><label>点击上传图片</label></div>
-            </li>
-            <li class="item item-input">
-                <span class="input-label">
-                    <i class="icon" style="color: #e6b400">*</i>
-                    姓氏
-                </span>
-                <input type="text" ng-model="person.realName" placeholder="请填写姓氏"/>
-            </li>
-            <li class="item">
+        <ion-list class="light-bg">
+            <ion-item class="item stable-bg">
+                <div align="center"><a ng-click="show()" class="button icon  calm-border light-bg ion-camera calm"
+                                       style="border-radius:100px;width: 60px;height: 60px; font-size: 100px;padding-top: 8px;"></a><br><label>点击上传图片</label>
+                </div>
+            </ion-item>
+            <ion-item class="item ">
+                <i class="icon" style="color: #e6b400">*</i>
+                姓氏
+                <div class="item-note">
+                    <input type="text" style="padding-right: 0; height:auto; width: 70px;" ng-model="person.realName"
+                           placeholder="请填写姓氏"/>
+                </div>
+            </ion-item>
+            <ion-item>
                 <div class="item-content">
-                    <span class="input-label">
-                        <i class="icon" style="color: #e6b400">*</i>
-                        性别
-                    </span>
-                    <input ng-model="person.sex" type="radio" name="sex" checked="checked" value="男"/>男
-                    <input ng-model="person.sex" name="sex" type="radio" value="女"/>女
-                </div>
-            </li>
-            <li class="item item-input">
-                <span class="input-label">
                     <i class="icon" style="color: #e6b400">*</i>
-                    年龄段
-                </span>
-                <input class="button button-clear" ng-model="person.ageRange" list="ageRange_list" name="ageRange" placeholder="请选择"
-                       required="required"/>
-                <datalist id="ageRange_list">
-                    <option label="0-10" value="0-10"/>
-                    <option label="11-20" value="11-20"/>
-                    <option label="21-30" value="21-30"/>
-                    <option label="31-40" value="31-40"/>
-                    <option label="50以上" value="50以上"/>
-                </datalist>
-            </li>
-            <li class="item item-input">
-                <span class="input-label">
-                    <i class="icon" style="color: #e6b400">*</i>
-                    家乡
-                </span>
-                <input class="button button-clear" ng-model="person.address" list="homeless_list" name="order" placeholder="请选择"
-                       required="required"/>
-                <datalist id="homeless_list">
-                    <option label="四川" value="四川"/>
-                    <option label="北京" value="北京"/>
-                    <option label="上海" value="上海"/>
-                    <option label="重庆" value="重庆"/>
-                    <option label="河北" value="河北"/>
-                </datalist>
-            </li>
-            <li class="row">
-                <div class="col-50" align="center">
-                    <label>身份照(正面照)</label>
-
-                    <div>
-                        <i class="ion ion-android-add"></i>
-                    </div>
-                </div>
-                <div class="col-50" align="center">
-                    <label>健康证(正面照)</label>
-
-                    <div>
-                        <i class="ion ion-android-add"></i>
+                    性别
+                    <div class="item-note per_input">
+                        <input ng-model="person.sex" type="radio" name="sex" checked="checked" value="男"/>男
+                        <input ng-model="person.sex" name="sex" type="radio" value="女"/>女
                     </div>
                 </div>
 
-            </li>
-        </ul>
-        <div>
-            <div>
-                <input type="text" ng-model="person.healthCertificatePicUrl" value="healthCertificatePicUrl" placeholder="healthCertificatePicUrl"/>1
-                <input type="text" ng-model="person.idCardPicUrl" value="idCardPicUrl"/>3
-                <input type="text" ng-model="person.headPortraitPicUrl" value="headPortraitPicUrl"/>2
+
+            </ion-item>
+            <ion-item >
+                <i style="color: #e6b400">*</i>
+                年龄段
+                <a href=""  ng-click="showPopup()"  class="item-note" >
+                    <i style="padding: 0 5px">{{ages}}</i>
+                    <i class=" icon  icon-accessory ion-ios-arrow-right"></i>
+                </a>
+            </ion-item>
+            <ion-item >
+                <i style="color: #e6b400">*</i>
+                家乡
+                <a href="#/home" class="item-note" >
+                    <i style="padding: 0 5px">{{Province}} {{city}}</i>
+                    <i class=" icon  icon-accessory ion-ios-arrow-right"></i>
+                </a>
+            </ion-item>
+
+            <div class="row " style=" height: 80px; padding-top: 15px;">
+                <a class="col  dark  " >
+                    <p class=" " style="font-size: 20px">身份证 <span style="font-size: 12px;">（正面照）</span></p>
+                    <button ng-click="show()" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
+                            style="width: 50px;height: 50px;  "></button>
+                </a>
+
+
+                <a class="col  dark  " >
+                    <p class=" " style="font-size: 20px">健康证 <span style="font-size: 12px;">（正面照）</span></p>
+                    <button  ng-click="show()" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
+                            style="width: 50px;height: 50px;  "></button>
+                </a>
             </div>
-            <input class="button button-block button-positive" ng-click="saveUserInfo(person)" value="保存"/>
-        </div>
+        </ion-list>
+
+
+        <!--<input type="text" ng-model="person.healthCertificatePicUrl" value="healthCertificatePicUrl"-->
+        <!--placeholder="healthCertificatePicUrl"/>1-->
+        <!--<input type="text" ng-model="person.idCardPicUrl" value="idCardPicUrl"/>3-->
+        <!--<input type="text" ng-model="person.headPortraitPicUrl" value="headPortraitPicUrl"/>2-->
+        <!--<div>-->
+            <!--<div>-->
+                <!--<input type="text" ng-model="person.healthCertificatePicUrl" value="healthCertificatePicUrl"-->
+                       <!--placeholder="healthCertificatePicUrl"/>1-->
+                <!--<input type="text" ng-model="person.idCardPicUrl" value="idCardPicUrl"/>3-->
+                <!--<input type="text" ng-model="person.headPortraitPicUrl" value="headPortraitPicUrl"/>2-->
+            <!--</div>-->
+
+        <!--</div>-->
+
     </ion-content>
 </ion-view>

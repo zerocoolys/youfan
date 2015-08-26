@@ -102,3 +102,15 @@ a{
 .display_none{
     display: none;
 }
+.per_input input{
+    margin:0 5px 0 10px;
+}
+.height{
+    height: 50px;
+
+}
+.popup-head{
+    padding: 0px 10px;
+    margin-top: 10px;
+
+}
