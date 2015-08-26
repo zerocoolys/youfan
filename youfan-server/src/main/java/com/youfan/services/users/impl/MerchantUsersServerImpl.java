@@ -10,6 +10,7 @@ import com.youfan.services.users.MerchantUsersServer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * Created by perfection on 15-8-19.
@@ -33,7 +34,7 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
         merchantUserDao.saveMerchantUserInfo(merchantUser);
     }
 
-    public MerchantUser register(String userName, String passWord) throws UserException {
+    public Map<String,String> register(String userName, String passWord) throws UserException {
         return merchantUserDao.register(userName, passWord);
     }
 

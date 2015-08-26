@@ -60,7 +60,9 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public MerchantKitchenInfo saveMerchantKitchenInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
-//        if(){}if
+        //判断是否存在该表
+        createCollection();
+
         Update update = new Update();
 
         update.set("addressGeoCoding", merchantKitchenInfo.getAddressGeoCoding());
@@ -78,15 +80,13 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("isCanteen", merchantKitchenInfo.isCanteen());
         update.set("isDistribution", merchantKitchenInfo.isDistribution());
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
-//        MerchantKitchenInfoEntity merchantKitchenInfoEntity = convertToEntity(merchantKitchenInfo);
-//        System.out.println(merchantKitchenInfoEntity.getCuisine().size());
-        mongoTemplate.insert(convertToEntity(merchantKitchenInfo));
-//        System.out.println(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, MerchantKitchenInfoEntity.class));
-        return null;
+        return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, MerchantKitchenInfoEntity.class));
     }
 
     @Override
     public MerchantKitchenInfo saveMerchantKitchenPicInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
+        createCollection();
+
         Update update = new Update();
 
         update.set("kitchenPicUrl", merchantKitchenInfo.getKitchenPicUrl());
@@ -96,11 +96,19 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
+        createCollection();
+
         Update update = new Update();
 
         update.set("address", merchantKitchenInfo.getKitchenStoryName());
         update.set("ageRange", merchantKitchenInfo.getKitchenStoryContent());
 
         return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, MerchantKitchenInfoEntity.class));
+    }
+
+    private void createCollection() {
+        if (!mongoTemplate.collectionExists(MerchantUserEntity.class)) {
+            mongoTemplate.createCollection(MerchantUserEntity.class);
+        }
     }
 }
