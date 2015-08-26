@@ -15,74 +15,82 @@
         <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
             <ion-slide>
                 <ion-list>
-                    <ion-item>
-                        <span>订单编号：135268549</span>
+                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
+                        <ion-item>
+                            <span>订单编号：{{orderUnfinish.number}}</span>
 
-                        <p class="item-note mainColor">待付款</p>
-                    </ion-item>
-                    <ion-item class="item-thumbnail-left" href="#/tab/order-detail">
-                        <img src="img/2.jpeg">
+                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                        </ion-item>
+                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                            <img src="img/2.jpeg">
 
-                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
 
-                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
 
-                        <h2 style="line-height: 32px">￥98.00<a class="fr button button-calm button-small" href="#/tab/pay-page">立即支付</a></h2>
-                    </ion-item>
+                            <h2 style="line-height: 32px">{{orderUnfinish.price}}<a class="fr button button-calm button-small" href="#/tab/pay-page" ng-show="orderUnfinish.payWorld">{{orderUnfinish.payWorld}}</a></h2>
+                        </ion-item>
+                    </div>
                 </ion-list>
             </ion-slide>
             <ion-slide>
                 <ion-list>
-                    <ion-item>
-                        <span>订单编号：135268549</span>
+                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
+                        <ion-item>
+                            <span>订单编号：{{orderUnfinish.number}}</span>
 
-                        <p class="item-note mainColor">已完成</p>
-                    </ion-item>
-                    <ion-item class="item-thumbnail-left" href="#/tab/order-detail">
-                        <img src="img/2.jpeg">
+                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                        </ion-item>
+                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                            <img src="img/2.jpeg">
 
-                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
 
-                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
 
-                        <h2 style="line-height: 32px">￥98.00</h2>
-                    </ion-item>
+                            <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
+                        </ion-item>
+                    </div>
                 </ion-list>
             </ion-slide>
             <ion-slide>
                 <ion-list>
-                    <ion-item>
-                        <span>订单编号：135268549</span>
+                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
+                        <ion-item>
+                            <span>订单编号：{{orderUnfinish.number}}</span>
 
-                        <p class="item-note mainColor">退款中</p>
-                    </ion-item>
-                    <ion-item class="item-thumbnail-left" href="#/tab/order-detail">
-                        <img src="img/2.jpeg">
+                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                        </ion-item>
+                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                            <img src="img/2.jpeg">
 
-                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
 
-                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
 
-                        <h2 style="line-height: 32px">￥98.00</h2>
-                    </ion-item>
+                            <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
+                        </ion-item>
+                    </div>
                 </ion-list>
             </ion-slide>
             <ion-slide>
                 <ion-list>
-                    <ion-item>
-                        <span>订单编号：135268549</span>
+                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
+                        <ion-item>
+                            <span>订单编号：{{orderUnfinish.number}}</span>
 
-                        <p class="item-note mainColor">立即评价</p>
-                    </ion-item>
-                    <ion-item class="item-thumbnail-left" href="#/tab/order-detail">
-                        <img src="img/2.jpeg">
+                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                        </ion-item>
+                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                            <img src="img/2.jpeg">
 
-                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
 
-                        <p style="margin: 10px 0 0 0">2014.11.08 下午13:00</p>
+                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
 
-                        <h2 style="line-height: 32px">￥98.00</h2>
-                    </ion-item>
+                            <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
+                        </ion-item>
+                    </div>
                 </ion-list>
             </ion-slide>
         </ion-slide-box>

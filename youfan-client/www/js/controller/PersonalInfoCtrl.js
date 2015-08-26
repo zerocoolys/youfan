@@ -1,19 +1,19 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('PersonalInfoCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate,$ionicActionSheet) {
+ControllerModule.controller('PersonalInfoCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading,$timeout) {
     $scope.showActionSexSheet = function (id) {
-        if(id == 1){
+        if (id == 1) {
             $ionicActionSheet.show({
                 buttons: [
                     {
-                        text: '男',
+                        text: '<p class="text-center">男</p>',
                         onclick: function () {
                             console.log('男' + id);
                         }
                     },
                     {
-                        text: '女',
+                        text: '<p class="text-center">女</p>',
                         onclick: function () {
                             console.log('女' + id);
                         }
@@ -25,29 +25,29 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $stateParams, 
                     return true;
                 }
             })
-        }else if(id == 2){
+        } else if (id == 2) {
             $ionicActionSheet.show({
                 buttons: [
                     {
-                        text: '60后',
+                        text: '<p class="text-center">60后</p>',
                         onclick: function () {
                             console.log('60后' + id);
                         }
                     },
                     {
-                        text: '70后',
+                        text: '<p class="text-center">70后</p>',
                         onclick: function () {
                             console.log('70后' + id);
                         }
                     },
                     {
-                        text: '80后',
+                        text: '<p class="text-center">80后</p>',
                         onclick: function () {
                             console.log('80后' + id);
                         }
                     },
                     {
-                        text: '90后',
+                        text: '<p class="text-center">90后</p>',
                         onclick: function () {
                             console.log('90后' + id);
                         }
@@ -62,4 +62,13 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $stateParams, 
         }
 
     }
+
+    $scope.show = function () {
+        $ionicLoading.show({
+            template: '<div><ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner>保存中...</div>'
+        });
+        $timeout(function () {
+            $ionicLoading.hide();
+        }, 1000);
+    };
 });
