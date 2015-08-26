@@ -17,8 +17,7 @@ angular.module('yf_merchant.manage-dishes_service', [])
 
     .factory('ManageDishesService', function ($http, $rootScope, $ionicLoading) {
         function saveDishes(dishes) {
-            console.log(dishes);
-            $http.post("http://localhost:8080/dishes/add", dishes).success(function (data, status, headers, config) {
+            $http.post("http://localhost:8080/menu", dishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-save-dishes-success");
             }).error(function (data, status, headers, config) {
                 alert("error");
@@ -27,17 +26,55 @@ angular.module('yf_merchant.manage-dishes_service', [])
         }
 
         function allDishes(merchantId, dishesType) {
-            $http.get("http://localhost:8080/dishes/list/" + dishesType + "/" + merchantId).success(function (data, status, headers, config) {
-                console.log(data);
-                $rootScope.$broadcast("yf-merchant-load-dishes-success", data.dishes);
+            $http.get("http://localhost:8080/menu/list/" + merchantId + "/" + dishesType).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-dishes-success", data.menus);
             }).error(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-load-dishes-error");
             })
         }
 
+        function allSaleDishes(merchantId) {
+            $http.get("http://localhost:8080/menu/list/" + merchantId).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-dishes-success", data.menus);
+            }).error(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-dishes-error");
+            })
+        }
+
+        function conversionSale(dishes) {
+            $http.post("http://localhost:8080/menu/conversion/sale", dishes).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-dishes-reload");
+            }).error(function (data, status, headers, config) {
+                alert("系统错误");
+                $ionicLoading.hide();
+            })
+        }
+
+        function changeDishesStock(changeDishes) {
+            $http.post("http://localhost:8080/menu/conversion/stock", changeDishes).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-dishes-reload");
+            }).error(function (data, status, headers, config) {
+                alert("系统错误");
+                $ionicLoading.hide();
+            })
+        }
+
+        function changeDishesRestNum(changeDishes) {
+            $http.post("http://localhost:8080/menu/conversion/restNum", changeDishes).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-dishes-reload");
+            }).error(function (data, status, headers, config) {
+                alert("系统错误");
+                $ionicLoading.hide();
+            })
+        }
+
         return {
             saveDishes: saveDishes,
-            allDishes: allDishes
+            allDishes: allDishes,
+            allSaleDishes: allSaleDishes,
+            conversionSale: conversionSale,
+            changeDishesStock: changeDishesStock,
+            changeDishesRestNum: changeDishesRestNum
         };
 
     })

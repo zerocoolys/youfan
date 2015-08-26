@@ -153,13 +153,6 @@
                     controller: 'kitcheninfo_pic'
                 })
             ;
-            $stateProvider
-                .state('manage-dishes-Stock', {
-                    url: '/manage-dishes-Stock',
-                    templateUrl: 'templates/manage-dishes/manage-dishes-Stock.html',
-                    controller: 'manage_dishes_Stock'
-
-                });
 
             $urlRouterProvider.otherwise('/login');
 
