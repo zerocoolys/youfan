@@ -304,7 +304,13 @@ public class PlatFormController {
 		}
 		return result;
 	}
-	
+	/**
+	 * 
+	 * @param messageId
+	 * @description 获取用户消息
+	 * @author ZhangHuaRong
+	 * @update 2015年8月26日 下午4:47:26
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/getMessageById/{messageId}",produces = "application/json; charset=UTF-8")
 	public MessageEntity getMessageById(@PathVariable String messageId) {
 	    MessageEntity msa = null;
@@ -315,9 +321,15 @@ public class PlatFormController {
 		}
 		return msa;
 	}
-	
+	/**
+	 * 
+	 * @param messageId
+	 * @param status
+	 * @description  更新用户消息
+	 * @author ZhangHuaRong
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/updateMssageStatus/{messageId}/{status}",produces = "application/json; charset=UTF-8")
-	public MessageEntity getMessageById(@PathVariable String messageId,@PathVariable Integer status) {
+	public MessageEntity updateMssageStatus(@PathVariable String messageId,@PathVariable Integer status) {
 	    MessageEntity msa = null;
 		try {
 			msa = messageService.findById(messageId);
@@ -328,13 +340,25 @@ public class PlatFormController {
 		}
 		return msa;
 	}
-	@RequestMapping(method = RequestMethod.GET, path = "/pushNice/{userId}/{userPort}/{date}",produces = "application/json; charset=UTF-8")
-	public int pushNice(@PathVariable Long userId,@PathVariable Integer userPort,@PathVariable String date){
+	/**
+	 * 
+	 * @param userId  用户id
+	 * @param userPort  2用户端， 3商家端 
+	 * @param date  内容
+	 * @param title 标题
+	 * @param des   摘要
+	 * @param code  消息类型
+	 * @description 发送消息
+	 * @author ZhangHuaRong
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/pushNice/{userId}/{userPort}/{date}/{title}/{des}/{code}",produces = "application/json; charset=UTF-8")
+	public int pushNice(@PathVariable Long userId,@PathVariable Integer userPort,@PathVariable String date,@PathVariable String title,@PathVariable String des,@PathVariable Integer code){
 		int result = 0;
 		try {
-			MessageEntity ms = new MessageEntity(0,userId,userPort,date,2);
-			result = ms.sendMsg();
-			messageService.insert(ms);
+				MessageEntity ms = new MessageEntity(0,userId,userPort,date,code,title,des);
+				messageService.insert(ms);
+			   result = ms.sendMsg();
+			
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}

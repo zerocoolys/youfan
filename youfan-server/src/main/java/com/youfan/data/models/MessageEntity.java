@@ -32,20 +32,30 @@ public class MessageEntity {
 	
 	private Integer code;
 	
+	private String title;
+	
+	private String des;
+	
+	
+	
 	public MessageEntity() {
 		super();
 	}
 	
-	public MessageEntity(Integer status, Long receiverId, Integer receiverPort, String data,Integer code) {
+	
+
+	public MessageEntity(Integer status, Long receiverId, Integer receiverPort, String data, Integer code,String title, String des) {
 		super();
 		this.status = status;
 		this.receiverId = receiverId;
 		this.receiverPort = receiverPort;
 		this.data = data;
-		//this.id = CipherUtil.getUUID();
-		this.date = new Date().getTime();
 		this.code = code;
+		this.title = title;
+		this.des = des;
 	}
+
+
 
 	public String getId() {
 		return id;
@@ -91,6 +101,28 @@ public class MessageEntity {
 
 	public void setCode(Integer code) {
 		this.code = code;
+	}
+	
+	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDes() {
+		return des;
+	}
+
+	public void setDes(String des) {
+		this.des = des;
+	}
+
+	public void setDate(Long date) {
+		this.date = date;
 	}
 
 	public int sendMsg() {
