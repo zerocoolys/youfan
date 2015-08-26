@@ -1,21 +1,27 @@
 <ion-view view-title="" hide-tabs hide-nav-bar="true" cache-view="false">
     <ion-header-bar class="bar bar-header">
-        <button class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.dash">返回</button>
+        <button class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.dash"></button>
         <h2 class="title">切换地址</h2>
+
+        <div class="buttons">
+            <button class="button ion-android-compass button-clear" ui-sref="tab.detail-address">
+            </button>
+        </div>
         <i class="ion-android-pin-right"></i>
     </ion-header-bar>
     <ion-content>
         <div class="list item-input-inset">
             <label class="item-input-wrapper  ">
                 <i class="icon ion-ios-search placeholder-icon"></i>
-                <input type="search" ng-model="inputText.value" ng-change="keydown()" placeholder="输入地址搜索周边厨房"/>
+                <input type="search" ng-model="inputText.value" ng-change="keydown()" placeholder="小区/大厦/学校/街道"/>
             </label>
         </div>
 
         <div data-ng-repeat="item in items" id='divid{{$index + 1}}' data-ng-click='selectResult($index)'
              style="font-size: 13px;cursor:pointer;padding:5px 5px 5px 5px;">{{item.name}}<span style='color:#C1C1C1;'>{{item.value}}</span>
         </div>
-        <div data-ng-if="mapPrompt == 1">
+        <div data-ng-if="mapPrompt == 1" >
+            <i class="icon ion-sad-outline "></i>
             "亲,优饭找不到结果!<br/>要不试试：<br/>1.确保所有字词拼写正确<br/>2.尝试不同的关键字<br/>3.尝试更宽泛的关键字"
         </div>
         <div ng-hide="showhi">

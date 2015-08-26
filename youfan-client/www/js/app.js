@@ -318,8 +318,16 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         controller: 'MapContainer'
                     }
                 }
+            })
+            .state('tab.detail-address', {
+                url: '/detail-address',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/detail-address.html',
+                        controller:'MapContainer'
+                    }
+                }
             });
-
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tab/dash');
 
