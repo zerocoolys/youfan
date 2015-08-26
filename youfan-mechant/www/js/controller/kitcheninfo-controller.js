@@ -1,6 +1,10 @@
 /**
  * Created by perfection on 15-8-17.
  */
+
+function getLocation(data) {
+    saveData(data.result.location);
+}
 (function () {
     'use strict';
 
@@ -10,59 +14,59 @@
 
 
     function kitchenInfo($scope, $filter, $state, $rootScope, $http) {
-        //console.log($rootScope.user.id);
+
+        var saveData = function (location) {
+            var characteristic;
+            characteristic = {
+                cuisine: [
+                    $scope.characteristicData[0]
+                    ,
+
+                    $scope.characteristicData[1]
+
+                ],
+                id: $rootScope.user.id,
+                address: $scope.addressData,
+                lat: location.lat,
+                lng: location.lng,
+                phoneNumber: $scope.kitchenInfoData.phoneNumber,
+                kitchenName: $scope.kitchenInfoData.kitchenName
+
+            };
+            $http.post(
+                "http://127.0.0.1:8080/user/saveMerchantKitchenInfo", JSON.stringify(characteristic), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    $scope.user = data;
+                }, function (error) {
+                    console.log(error)
+                });
+        };
         $scope.saveKitchenInfo = function (kitchenInfo, address, characteristic) {
 
             if ($rootScope.user == "undefined" || $rootScope.user == "") {
 
             } else {
-
-                //kitchenInfo.address = address.province+"省"+address.city+"市"+address.specificAddress;
-                var characteristic;
-                var cuisine;
-                //kitchenInfo.push({""}) =characteristic[0];
-                //kitchenInfo.characteristic.cuisine[1] =characteristic[1];
-                characteristic = {
-                    cuisine: [
-                        characteristic[0]
-                        ,
-
-                        characteristic[1]
-
-                    ],
-                    id: $rootScope.user.id,
-                    address:address.province+"省"+address.city+"市"+address.specificAddress,
-                    phoneNumber:kitchenInfo.phoneNumber,
-                    kitchenName:kitchenInfo.kitchenName
-
-                };
-                console.log(characteristic)
-                $http.post(
-                    "http://127.0.0.1:8080/user/saveMerchantKitchenInfo", JSON.stringify(characteristic), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                        //$state.go("overview");
-                        $scope.user = data;
-                    }, function (error) {
-                        console.log(error)
+                $scope.kitchenInfoData = kitchenInfo;
+                $scope.addressData = address.province + "省" + address.city + "市" + address.specificAddress;
+                $scope.characteristicData = characteristic;
+                //http://webapi.amap.com/maps?v=1.3&key=60e4bf90ba538f5c224eeeae93c250c0
+                //$http.jsonp("http://api.map.baidu.com/geocoder/v2/?address=" + $scope.addressData + "&output=json&ak=bd1mMndujGcxGjUqPnyIdPfY&callback=getLocation");
+                var MGeocoder;
+                //加载地理编码插件
+                AMap.service(["AMap.Geocoder"], function() {
+                    MGeocoder = new AMap.Geocoder({
+                        //city:"010", //城市，默认：“全国”
+                        radius:500 //范围，默认：500
                     });
-            }
+                    //逆地理编码
+                    MGeocoder.getLocation($scope.addressData , function(status, result){
+                        if(status === 'complete' && result.info === 'OK'){
+                            //console.log(result.geocodes[0].location)
+                            saveData(result.geocodes[0].location);
+                        }
+                    });
+                });
 
-            //console.log(kitchenInfo)
-            //{
-            //    "status":"OK",
-            //    "result":{
-            //    "location":{
-            //        "lng":121.34514,
-            //            "lat":31.202595
-            //    },
-            //    "precise":0,
-            //        "confidence":50,
-            //        "level":""
-            //}
-            //}
-            //$http.jsonp("http://api.map.baidu.com/geocoder?address=上海虹桥机场&output=json").success(function (data) {
-            //    console.log(data.location.lng);
-            //    console.log(data.location.lat)
-            //});
+            }
         }
     }
 })();
