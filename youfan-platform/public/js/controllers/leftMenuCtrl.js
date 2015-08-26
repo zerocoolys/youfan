@@ -68,6 +68,11 @@ define(["./module"], function (ctrs) {
                             name:"merchantpay",
                             href: "#/merchant/merchantpay",
                         },
+                        {
+                            title: '菜品审核',
+                            name:"dishescheck",
+                            href: "#/merchant/dishescheck",
+                        },
                     ];
                     break;
                 default :

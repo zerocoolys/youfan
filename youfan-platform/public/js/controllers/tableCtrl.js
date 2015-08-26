@@ -13,6 +13,14 @@ define(["./module"], function (ctrs) {
         $rootScope.gridOptions = {
             enableSorting: false,
             enableCellEditOnFocus: false,
+            paginationPageSize: 20,
+            paginationPageSizes: [20, 50, 100],
+            expandableRowHeight: 360,
+            enableColumnMenus: false,
+            enablePaginationControls: false,
+            enableSorting: true,
+            enableGridMenu: false,
+            enableHorizontalScrollbar: 0,
             columnDefs:$rootScope.gridTitleArray
         };
         $rootScope.gridOptions.data = [

@@ -11,10 +11,8 @@ var uuid = require('node-uuid');
 //自定义模块引用
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var token = require('./routes/token');
 var config = require("./config.json");
-var serverApi = require('./servers/apis/serverApi');
-var security = require('./servers/services/security')
+var merchantApi = require('./servers/apis/merchantApi');
 var app = express();
 
 // view engine setup
@@ -60,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //
 app.use('/', routes);
 app.use('/users', users);
-app.use('/server', serverApi);
+app.use('/merchant', merchantApi);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -69,9 +67,6 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-// error handlers
-
-// development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function (err, req, res, next) {
@@ -92,7 +87,6 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 app.get('/', routes);
 app.listen(3000);
 module.exports = app;
