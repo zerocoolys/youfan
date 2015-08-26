@@ -2,10 +2,12 @@ package com.youfan.services.users;
 
 import com.youfan.controllers.objs.MerchantKitchenInfo;
 import com.youfan.controllers.objs.MerchantUser;
+import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +25,6 @@ public interface MerchantUsersServer {
     MerchantKitchenInfo saveMerchantKitchenPicInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
 
     MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
+
+	public List<MerchantUserEntity> getMerchantByStatus(Integer status)throws UserException;;
 }

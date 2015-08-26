@@ -132,4 +132,9 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     public Class<MerchantUserEntity> getEntityClass() {
         return MerchantUserEntity.class;
     }
+
+	@Override
+	public List<MerchantUserEntity> getMerchantByStatus(Integer status) {
+        return mongoTemplate.find(query(where("status").is(status)), MerchantUserEntity.class);
+	}
 }

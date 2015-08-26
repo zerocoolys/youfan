@@ -3,6 +3,7 @@ package com.youfan.data.dao;
 import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.models.MerchantUserEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,4 +15,6 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
     Map<String,String> register(String userName, String passWord);
 
     MerchantUser saveMerchantUserInfo(MerchantUser merchantUser);
+
+	List<MerchantUserEntity> getMerchantByStatus(Integer status);
 }
