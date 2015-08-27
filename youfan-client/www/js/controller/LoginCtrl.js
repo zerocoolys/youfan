@@ -1,7 +1,7 @@
 /**
  * Created by icepros on 15-8-19.
  */
-ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http){
+ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state){
     /**
      * 验证码登陆
      */
@@ -34,18 +34,85 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
      * @type {{tel: string, password: string, verificationCode: string}}
      */
     $scope.user = {
+        verificationCode: "",
+    };
+
+    $scope.userClient = {
         tel: "",
-        password: "",
-        verificationCode: ""
+        loginPwd: "",
+        name: "",
+        sex: "",
+        age: "",
+        jobs: ""
     };
 
     /**
      * 密码验证登陆
      */
-    $scope.checkPwd = function(){
-        var tel = $scope.user.tel;
-        var password = $scope.user.password;
+    $scope.signPwd = function(){
+        var tel = $scope.userClient.tel;
+        var password = $scope.userClient.loginPwd;
+        if(tel == ""){
+            var popupNull = $ionicPopup.show({
+                title: '请输入手机号',
+                scope: $scope
+            });
+            $timeout(function() {
+                popupNull.close(); //由于某种原因2秒后关闭弹出
+            }, 2000);
+        }else{
+            if(password == ""){
+                var popupCodeNull = $ionicPopup.show({
+                    title: '请输入密码',
+                    scope: $scope
+                });
+                $timeout(function() {
+                    popupCodeNull.close(); //由于某种原因2秒后关闭弹出
+                }, 2000);
+            } else {
+                $http.post("http://localhost:8080/client/login/" + $scope.userClient.tel + "/"+$scope.userClient.loginPwd)
+                    .success(function (data) {
 
+                        console.log(data)
+
+                        if(data.result.tel != null){
+                            $scope.pwdLogin.hide()
+                            $state.go('tab.chats');
+                        } else {
+                            var dataNull = $ionicPopup.show({
+                                title: '手机号和密码不对',
+                                scope: $scope
+                            });
+                            $timeout(function() {
+                                dataNull.close(); //由于某种原因2秒后关闭弹出
+                            }, 2000);
+                        }
+
+                    }).error(function(data){
+                        if(data.tel == null){
+                            var telNull = $ionicPopup.show({
+                                title: '手机号和密码不对',
+                                scope: $scope
+                            });
+                            $timeout(function() {
+                                telNull.close(); //由于某种原因2秒后关闭弹出
+                            }, 2000);
+                        }
+                        if(data.password == null){
+                            var pwdNull = $ionicPopup.show({
+                                title: '手机号和密码不对',
+                                scope: $scope
+                            });
+                            $timeout(function() {
+                                pwdNull.close(); //由于某种原因2秒后关闭弹出
+                            }, 2000);
+                        }
+
+                    });
+
+            }
+
+        }
     };
 
     /**
@@ -53,10 +120,10 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
      */
     $scope.sendMessage = function(){
 
-        var tel = $scope.user.tel;
+        var tel = $scope.userClient.tel;
         var re= /(^1[3|5|8][0-9]{9}$)/;
         if(tel != ""){
-            var code = "";      //验证码
+            $scope.code = "";      //验证码
             var codeLength = 6; //验证码长度
             if(!re.test(tel)){
                 var myPopup = $ionicPopup.show({
@@ -69,11 +136,11 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
             } else {
                 //生成 6 位随机数验证码
                 for ( var i = 0; i < codeLength; i++) {
-                    code += parseInt(Math.random() * 9).toString();
+                    $scope.code += parseInt(Math.random() * 9).toString();
                 }
                 // 向后台发送处理数据
-                $scope.codeUrl = "http://07zhywjh.6655.la:19982/platform/sendSMS/1/" + code + "/" + tel;
-                $http.get($scope.codeUrl).success(function(data) {
+                $scope.url = "http://07zhywjh.6655.la:19982/platform/sendSMS/1/" + $scope.code + "/" + tel;
+                $http.get($scope.url).success(function(data) {
                     //console.log(data);
                     /*if(data.statusCode == "000000"){
                         return data;
@@ -100,7 +167,7 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
      */
     $scope.messageLogin = function(){
 
-        var tel = $scope.user.tel;
+        var tel = $scope.userClient.tel;
         var verificationCode = $scope.user.verificationCode;
         if(tel == ""){
             var popupNull = $ionicPopup.show({
@@ -119,19 +186,53 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
                 $timeout(function() {
                     popupCodeNull.close(); //由于某种原因2秒后关闭弹出
                 }, 2000);
-            }else{
-                var code = $scope.codeUrl.split("/")[6];
-                if(verificationCode != code){
-                    var popupCodeError = $ionicPopup.show({
-                        title: '验证码错误',
-                        scope: $scope
-                    });
-                    $timeout(function() {
-                        popupCodeError.close(); //由于某种原因2秒后关闭弹出
-                    }, 2000);
+            } else {
+
+                /*$http.post("http://localhost:8080/client/register", JSON.stringify($scope.userClient))
+                    .success(function (data) {
+                        if(data != null){
+                            $scope.verifyLogin.hide()
+                            $state.go('tab.chats');
+                        }
+
+
+                    }).error(function(data){
+                        console.log(data);
+                    });*/
+
+                if($scope.verificationCode != ""){
+                    if($scope.code != undefined){
+                        var code = $scope.url.split("/")[6];
+                        if(verificationCode != code){
+                            var popupCodeError = $ionicPopup.show({
+                                title: '验证码错误',
+                                scope: $scope
+                            });
+                            $timeout(function() {
+                                popupCodeError.close(); //由于某种原因2秒后关闭弹出
+                            }, 2000);
+                        } else {
+                            $http.post("http://localhost:8080/client/register", JSON.stringify($scope.userClient))
+                                .success(function (data) {
+                                    //console.log(data.result);
+                                    $scope.verifyLogin.hide()
+                                    $state.go('tab.chats');
+
+                                }).error(function(data){
+                                    console.log(data);
+                                });
+                        }
+                    } else {
+                        var noPopupCode = $ionicPopup.show({
+                            title: '请获取验证码',
+                            scope: $scope
+                        });
+                        $timeout(function () {
+                            noPopupCode.close(); //由于某种原因2秒后关闭弹出
+                        }, 2000);
+                    }
                 }
             }
         }
-
     };
 });
