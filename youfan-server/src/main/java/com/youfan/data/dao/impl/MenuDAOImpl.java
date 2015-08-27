@@ -1,16 +1,20 @@
 package com.youfan.data.dao.impl;
 
+import com.youfan.commons.MenuNoGenerator;
 import com.youfan.controllers.objs.Menu;
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.MenuEntity;
 
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -52,27 +56,51 @@ public class MenuDAOImpl implements MenuDAO {
 	}
 
 	@Override
+	public Menu findByMenuId(long menuId) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+				.is(menuId);
+		return findOne(Query.query(criteria));
+	}
+
+	@Override
 	public void insert(Menu menu) {
 		long no = idGenerator.next(COLLECTION_MENU);
-		menu.setMenuId(no);
+		menu.setMenuId(MenuNoGenerator.menuNo(no));
 		mongoTemplate.insert(convertToEntity(menu));
 	}
 
 	@Override
 	public void insert(List<Menu> menus) {
-		mongoTemplate.insert(convertToEntityList(menus), COLLECTION_MENU);
+		List<MenuEntity> entities = menus.stream().map(menu -> {
+			long no = idGenerator.next(COLLECTION_MENU);
+			menu.setMenuId(MenuNoGenerator.menuNo(no));
+			return convertToEntity(menu);
+		}).collect(Collectors.toList());
+		mongoTemplate.insert(entities, COLLECTION_MENU);
 	}
 
 	@Override
-	public void update(Menu menu) {
-		MenuEntity entity = convertToEntity(menu);
+	public void update(Menu t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(Menu menu, Map<String, Object> map) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+				.is(menu.getMenuId());
+
+		mongoTemplate.updateFirst(Query.query(criteria), buildUpdate(map),
+				getEntityClass());
+
 	}
 
 	@Override
 	public void delete(Long menuId) {
-		Query query = buildQuery(null, menuId, true);
-		mongoTemplate.updateFirst(query, Update.update(DATA_STATUS, 0),
-				getEntityClass());
+		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+				.is(menuId);
+		mongoTemplate.updateFirst(Query.query(criteria),
+				Update.update(DATA_STATUS, 0), getEntityClass());
 	}
 
 	@Override
@@ -102,6 +130,18 @@ public class MenuDAOImpl implements MenuDAO {
 	}
 
 	@Override
+	public int conversion(Long menuId, boolean sale) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+				.is(menuId);
+		Menu menu = findOne(Query.query(criteria));
+		if (menu == null)
+			return -1;
+
+		return mongoTemplate.updateFirst(Query.query(criteria),
+				Update.update(SALE, sale), getEntityClass()).getN();
+	}
+
+	@Override
 	public void resetRestNumBySellerId(Long sellerId, int restNum) {
 		mongoTemplate.updateMulti(buildQuery(sellerId, null, true),
 				Update.update(REST_NUM, restNum), getEntityClass());
@@ -112,4 +152,50 @@ public class MenuDAOImpl implements MenuDAO {
 		mongoTemplate.updateFirst(buildQuery(null, menuId, true),
 				Update.update(REST_NUM, restNum), getEntityClass());
 	}
+
+	@Override
+	public Menu findOne(Query query) {
+		return convertToVO(mongoTemplate.findOne(query, getEntityClass(),
+				COLLECTION_MENU));
+	}
+
+	@Override
+	public void conversionStock(List<Menu> menus) {
+		for (int i = 0; i < menus.size(); i++) {
+			Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+					.is(menus.get(i).getMenuId());
+			Menu menu = findOne(Query.query(criteria));
+			if (menu != null) {
+				mongoTemplate.updateFirst(Query.query(criteria),
+						Update.update(STOCK, menus.get(i).getStock()),
+						getEntityClass());
+			}
+
+		}
+	}
+
+	@Override
+	public void conversionRestNum(List<Menu> menus) {
+		for (int i = 0; i < menus.size(); i++) {
+			Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+					.is(menus.get(i).getMenuId());
+			Menu menu = findOne(Query.query(criteria));
+			if (menu != null) {
+				mongoTemplate.updateFirst(Query.query(criteria),
+						Update.update(REST_NUM, menus.get(i).getRestNum()),
+						getEntityClass());
+			}
+
+		}
+	}
+
+	@Override
+	public List<Menu> findByMenuIds(List<Long> menuIds) {
+
+		List<MenuEntity> lits = mongoTemplate.find(buildQuery(menuIds, true),
+				getEntityClass(), COLLECTION_MENU);
+
+		return convertToVOList(lits);
+	}
+
 }

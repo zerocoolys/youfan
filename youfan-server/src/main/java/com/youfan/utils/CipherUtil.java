@@ -1,6 +1,7 @@
 package com.youfan.utils;
 
 import java.security.MessageDigest;
+import java.util.UUID;
 
 /**
  * 
@@ -90,6 +91,10 @@ public class CipherUtil {
 		return hexDigits[d1] + hexDigits[d2];
 	}
 	
+	public static String getUUID() {  
+		return UUID.randomUUID().toString().replace("-", "").toUpperCase();
+	}
+	
 	public static void main(String[] args) {
 		String pwd1 = "test";
 		String pwd2 = "";
@@ -105,5 +110,6 @@ public class CipherUtil {
 		} else {
 			System.out.println("错误");
 		}
+		System.out.println(getUUID() );
 	}
 }
