@@ -144,3 +144,7 @@ crashlytics-build.properties
 youfan-client/platforms
 youfan-client/plugins/android.json
 youfan-client/resources
+
+youfan-mechant/platforms
+youfan-mechant/plugins/android.json
+youfan-mechant/resources

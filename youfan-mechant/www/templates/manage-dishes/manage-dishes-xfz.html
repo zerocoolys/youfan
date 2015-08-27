@@ -20,9 +20,11 @@
 
                     <table width="100%">
                         <tr>
-                            <td>{{item.xfzNum}}人小饭桌</td>
+                            <td>{{item.name}}</td>
                             <td style="text-align: right" rowspan="2">
-                                <button class="button button-assertive">编辑</button>
+                                <button class="button button-assertive"
+                                        ui-sref="m_dishes_xfz_edit({menuId: item.menuId})">编辑
+                                </button>
                                 <button data-ng-if="!item.sale" class="button button-energized"
                                         data-ng-click="upSale(item)">上架
                                 </button>
