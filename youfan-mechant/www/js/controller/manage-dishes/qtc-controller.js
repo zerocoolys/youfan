@@ -140,7 +140,7 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
 
     })
 
-    .controller('ManageDishesQtcEditCtrl', function ($scope, $state, $stateParams, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
+    .controller('ManageDishesQtcEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
 
         console.log("ManageDishesQtcEditCtrl");
         // 初始化参数
@@ -212,9 +212,60 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
                 $scope.dishes.picUrls.push(e.url);
             });
             $timeout(function () {
-                ManageDishesService.saveDishes($scope.dishes);
+                ManageDishesService.updateDishes($scope.dishes);
             }, 1000);
 
+        };
+
+        $scope.confirmRemoveDishes = function () {
+            $ionicPopup.confirm({
+                title: "<b>提示</b>",
+                template: "确定删除这个菜吗？",
+                cancelText: '取消', // String (default: 'OK'). The text of the OK button.
+                cancelType: 'button button-stable', // St
+                okText: '删除', // String (default: 'OK'). The text of the OK button.
+                okType: 'button button-assertive' // St
+            }).then(function (res) {
+                if (res) {
+                    $scope.doRemoveDishes();
+                }
+            });
+        };
+
+        $scope.doRemoveDishes = function () {
+
+            $ionicLoading.show({
+                template: "<ion-spinner icon='android'></ion-spinner>"
+            });
+
+            $timeout(function () {
+                ManageDishesService.removeDishes($scope.menuId);
+            }, 1000);
+        };
+
+        $scope.confirmChangeDishes = function () {
+            $ionicPopup.confirm({
+                title: "<b>提示</b>",
+                template: "是否要设置为拿手菜",
+                cancelText: '否', // String (default: 'OK'). The text of the OK button.
+                cancelType: 'button button-stable', // St
+                okText: '是', // String (default: 'OK'). The text of the OK button.
+                okType: 'button button-assertive' // St
+            }).then(function (res) {
+                if (res) {
+                    $scope.doChangeDishes();
+                }
+            });
+        };
+
+        $scope.doChangeDishes = function () {
+            $ionicLoading.show({
+                template: "<ion-spinner icon='android'></ion-spinner>"
+            });
+
+            $timeout(function () {
+                ManageDishesService.conversionDishesType($scope.dishes);
+            }, 1000);
         };
 
         $scope.$on("yf-merchant-load-dishes-success", function (e, msg) {
@@ -231,7 +282,11 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             $ionicLoading.hide();
         });
 
-        $scope.$on("yf-merchant-save-dishes-success", function () {
+        $scope.$on("yf-merchant-renewal-dishes-success", function () {
+            $state.go("m_dishes.qtc");
+        });
+
+        $scope.$on("yf-merchant-delete-dishes-success", function () {
             $state.go("m_dishes.qtc");
         });
 

@@ -315,6 +315,11 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 controller: 'ManageDishesNscAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-nsc-add.html'
             })
+            .state('m_dishes_nsc_edit', {
+                url: '/manage/dishes/nsc/edit/:menuId',
+                controller: 'ManageDishesNscEditCtrl',
+                templateUrl: 'templates/manage-dishes/manage-dishes-nsc-edit.html'
+            })
             .state('m_dishes_qtc_add', {
                 url: '/manage/dishes/qtc/add',
                 controller: 'ManageDishesQtcAddCtrl',

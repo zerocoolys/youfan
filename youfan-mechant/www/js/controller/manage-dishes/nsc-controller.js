@@ -15,7 +15,9 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
                 template: "正在载入数据，请稍后..."
             });
 
-            ManageDishesService.allDishes("888888888", "nsc");
+            $timeout(function () {
+                ManageDishesService.allDishes("888888888", "nsc");
+            }, 1000);
 
         };
 
@@ -135,6 +137,165 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $ionicLoading.hide();
             $scope.isActive = false;
         });
+
+    })
+
+    .controller('ManageDishesNscEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
+
+        console.log("ManageDishesNscEditCtrl");
+        // 初始化参数
+        $scope.menuId = $stateParams.menuId;
+        $scope.kwItems = KwService.all();
+        $scope.dishes = {sale: true};
+        $scope.imgs = [];
+        $scope.isActive = false;
+
+        $scope.load = function () {
+
+            $ionicLoading.show({
+                template: "<ion-spinner icon='android'></ion-spinner>"
+            });
+
+            $timeout(function () {
+                ManageDishesService.findOneDishes($scope.menuId);
+            }, 1000);
+
+        };
+
+        $scope.addQtcPic = function () {
+            console.log("addQtcPic");
+            // Show the action sheet
+            var hideSheet = $ionicActionSheet.show({
+                buttons: [
+                    {text: "<p class='text-center calm'>打开相机</p>"},
+                    {text: "<p class='text-center calm'>打开相册</p>"}
+                ],
+                buttonClicked: function (index) {
+                    if (!navigator.camera) {
+                        alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                    }
+                    $scope.imgs.push({
+                        index: $scope.imgs.length,
+                        url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
+                    });
+                    return true;
+                },
+                cancelText: "<p class='calm'>取消</p>",
+                cancel: function () {
+                    // add cancel code..
+                }
+            });
+
+            // For example's sake, hide the sheet after two seconds
+            $timeout(function () {
+                //	hideSheet();
+            }, 2000);
+
+        };
+
+        $scope.doCheckDishes = function () {
+            $scope.isActive = true;
+            if ($scope.imgs.length == 0) {
+                alert("请添加菜品图片");
+                $scope.isActive = false;
+            } else {
+                $scope.doSave();
+            }
+        };
+
+        $scope.doSave = function () {
+            $ionicLoading.show({
+                template: "保存菜品中，请稍后..."
+            });
+            $scope.dishes.picUrls = [];// 清空
+            angular.forEach($scope.imgs, function (e) {
+                $scope.dishes.picUrls.push(e.url);
+            });
+            $timeout(function () {
+                ManageDishesService.updateDishes($scope.dishes);
+            }, 1000);
+
+        };
+
+        $scope.confirmRemoveDishes = function () {
+            $ionicPopup.confirm({
+                title: "<b>提示</b>",
+                template: "确定删除这个菜吗？",
+                cancelText: '取消', // String (default: 'OK'). The text of the OK button.
+                cancelType: 'button button-stable', // St
+                okText: '删除', // String (default: 'OK'). The text of the OK button.
+                okType: 'button button-assertive' // St
+            }).then(function (res) {
+                if (res) {
+                    $scope.doRemoveDishes();
+                }
+            });
+        };
+
+        $scope.doRemoveDishes = function () {
+
+            $ionicLoading.show({
+                template: "<ion-spinner icon='android'></ion-spinner>"
+            });
+
+            $timeout(function () {
+                ManageDishesService.removeDishes($scope.menuId);
+            }, 1000);
+        };
+
+        $scope.confirmChangeDishes = function () {
+            $ionicPopup.confirm({
+                title: "<b>提示</b>",
+                template: "是否要设置为其他菜",
+                cancelText: '否', // String (default: 'OK'). The text of the OK button.
+                cancelType: 'button button-stable', // St
+                okText: '是', // String (default: 'OK'). The text of the OK button.
+                okType: 'button button-assertive' // St
+            }).then(function (res) {
+                if (res) {
+                    $scope.doChangeDishes();
+                }
+            });
+        };
+
+        $scope.doChangeDishes = function () {
+            $ionicLoading.show({
+                template: "<ion-spinner icon='android'></ion-spinner>"
+            });
+
+            $timeout(function () {
+                ManageDishesService.conversionDishesType($scope.dishes);
+            }, 1000);
+        };
+
+        $scope.$on("yf-merchant-load-dishes-success", function (e, msg) {
+            $scope.dishes = msg;
+            $scope.imgs = [];
+
+            for (var i = 0; i < $scope.dishes.picUrls.length; i++) {
+                $scope.imgs.push({
+                    index: i,
+                    url: $scope.dishes.picUrls[i]
+                });
+            }
+
+            $ionicLoading.hide();
+        });
+
+        $scope.$on("yf-merchant-renewal-dishes-success", function () {
+            $state.go("m_dishes.nsc");
+        });
+
+        $scope.$on("yf-merchant-delete-dishes-success", function () {
+            $state.go("m_dishes.nsc");
+        });
+
+        $scope.$on("yf-merchant-save-dishes-error", function () {
+            alert("系统错误");
+            $ionicLoading.hide();
+            $scope.isActive = false;
+        });
+
 
     })
 

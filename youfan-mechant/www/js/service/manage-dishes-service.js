@@ -80,7 +80,6 @@ angular.module('yf_merchant.manage_dishes_service', [])
 
         function updateDishes(dishes) {
             $http.post("http://localhost:8080/menu/renewal/" + dishes.menuId, dishes).success(function (data, status, headers, config) {
-                console.log(data);
                 $rootScope.$broadcast("yf-merchant-renewal-dishes-success");
             }).error(function (data, status, headers, config) {
                 alert("error");
@@ -97,6 +96,15 @@ angular.module('yf_merchant.manage_dishes_service', [])
             })
         }
 
+        function conversionDishesType(dishes) {
+            $http.post("http://localhost:8080/menu/conversion/type/" + dishes.menuId, dishes).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-renewal-dishes-success");
+            }).error(function (data, status, headers, config) {
+                alert("error");
+                $rootScope.$broadcast("yf-merchant-save-dishes-error");
+            })
+        }
+
         return {
             findOneDishes: findOneDishes,
             saveDishes: saveDishes,
@@ -106,7 +114,8 @@ angular.module('yf_merchant.manage_dishes_service', [])
             allSaleDishes: allSaleDishes,
             conversionSale: conversionSale,
             changeDishesStock: changeDishesStock,
-            changeDishesRestNum: changeDishesRestNum
+            changeDishesRestNum: changeDishesRestNum,
+            conversionDishesType: conversionDishesType
         };
 
     })
