@@ -23,6 +23,9 @@
 
 
     function personInfo($scope, $filter, $state, personInfoFn, $stateParams, $ionicActionSheet, $ionicPopup, $rootScope, $timeout) {
+        $scope.ages = "";
+        $rootScope.Province = "";
+        $rootScope.city = "";
         $scope.saveUserInfo = function (person) {
             if ($rootScope.user == "undefined" || $rootScope.user == "") {
             } else {
@@ -76,17 +79,6 @@
                             return true;
                         }
                     });
-
-
-                    ////
-                    //$scope.ages=[
-                    //    {name:"50后"} ,
-                    //    {  name:"60后"}, {  name:"70后"}, {  name:"80后"}, {  name:"90后"}];
-                    //$timeout(function() {
-                    //    myPopup.close(); //由于某种原因3秒后关闭弹出
-                    //}, 1500);
-
-
                 };
                 $scope.citys = [
                     '北京市', '上海市', '重庆市'
@@ -120,54 +112,6 @@
                     $rootScope.Province = '';
                     $rootScope.city = city;
                 };
-
-
-                // $scope.saveUserInfo = function (person) {
-                //    //person.id="0";
-                //    //console.log(JSON.stringify(person));
-                //    console.log(personInfoFn.saveUserInfo(person));
-                //
-                //};
-
-
-                // $scope.saveUserInfo = function (person) {
-                //    //person.id="0";
-                //    //console.log(JSON.stringify(person));
-                //    console.log(personInfoFn.saveUserInfo(person));
-                //
-                //};
-
-                //$ionicHistory.clearHistory();
-                //$scope.images = [];
-                //console.log(firebaseio);
-                //var fbAuth = firebaseio.getAuth();
-                //if (fbAuth) {
-                //    var userReference = firebaseio.child("users/" + fbAuth.uid);
-                //    var syncArray = $firebaseArray(userReference.child("images"));
-                //    $scope.images = syncArray;
-                //} else {
-                //    $state.go("firebase");
-                //}
-                //$scope.upload = function () {
-                //    var options = {
-                //        quality: 95,
-                //        destinationType: Camera.DestinationType.DATA_URL,
-                //        sourceType: Camera.PictureSourceType.CAMERA,
-                //        allowEdit: true,
-                //        encodingType: Camera.EncodingType.JPEG,
-                //        popoverOptions: CameraPopoverOptions,
-                //        targetWidth: 500,
-                //        targetHeight: 500,
-                //        saveToPhotoAlbum: false
-                //    };
-                //    $cordovaCamera.getPicture(options).then(function (imageData) {
-                //        syncArray.$add({image: imageData}).then(function () {
-                //            alert("图片已上传!");
-                //        });
-                //    }, function (error) {
-                //        console.error(error);
-                //    });
-                //}
             }
         }
     )
