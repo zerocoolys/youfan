@@ -93,7 +93,7 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
 
         $timeout(function () {
             alertPopup.close();
-        }, 2000);
+        }, 1000);
     };
     /**-------------------------------------------------------------------------**/
 });

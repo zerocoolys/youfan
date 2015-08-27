@@ -16,4 +16,9 @@ ServiceModule
         return {
             token: null
         }
+    })
+    .factory('MapAddr', function(){
+        return {
+            mapKey:{}
+        }
     });
