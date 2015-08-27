@@ -9,7 +9,7 @@
         .controller('merchant_login', merchant_login);
     function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup) {
         $scope.user={
-            phoneNumber:"",
+            phoneNumber:"18328725827",
             verificationCode:""
         };
         $scope.getVerificationCode = function(user){
