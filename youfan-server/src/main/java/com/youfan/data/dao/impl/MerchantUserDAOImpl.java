@@ -61,6 +61,10 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         if (!mongoTemplate.collectionExists(MerchantUserEntity.class)) {
             mongoTemplate.createCollection(MerchantUserEntity.class);
             mongoTemplate.insert(merchantUser);
+        }else{
+            if(mongoTemplate.findOne(query(where("userName").is(userName)), MerchantUserEntity.class)==null){
+                mongoTemplate.insert(merchantUser);
+            }
         }
         MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where("userName").is(userName)), MerchantUserEntity.class);
         if (merchantUserEntity == null) {
