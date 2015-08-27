@@ -285,8 +285,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: '/pay-page',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/pay-page.html'
-//                        controller: 'DashDetailCtr'
+                        templateUrl: 'templates/pay-page.html',
+                        controller: 'OrderPayCtrl'
                     }
                 }
             })
@@ -324,7 +324,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/detail-address.html',
-                        controller:'MapContainer'
+                        controller: 'MapContainer'
                     }
                 }
             });

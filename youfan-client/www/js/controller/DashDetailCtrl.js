@@ -22,7 +22,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                 $scope.orderCartMap.put($scope.rice.menuId, $scope.rice);
             }
 
-            $scope.items.data = Order.details.cart = $scope.orderCartMap.values();
+            $scope.items.data = Order.cart = $scope.orderCartMap.values();
             $scope.menuState.show = !$scope.menuState.show;
         }
 
@@ -140,7 +140,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     $scope.cartPostAction = function () {
         $scope.refreshCart();
         $scope.calculateTotalPrice();
-        Order.details.cart = $scope.items.data = $scope.orderCartMap.values();
+        Order.cart = $scope.items.data = $scope.orderCartMap.values();
     };
 
     // 刷新购物车
