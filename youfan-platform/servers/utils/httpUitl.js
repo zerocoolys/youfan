@@ -22,8 +22,8 @@ var httpUtil = {
         });
         req.on('error', function (e) {
             console.log('problem with request: ' + e.message);
-            locres.end([], function (err) {
-            });
+            //locres.end([], function (err) {
+            //});
         });
         req.end();
     }

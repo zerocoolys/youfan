@@ -14,21 +14,21 @@ define(["./module"], function (ctrs) {
             {
                 name: "头像",
                 displayName: "头像",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showPics(row.entity,\"headPortraitPicUrl\")' >查看头像</a></div>",
+                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showSinglePic(row.entity.headPortraitPicUrl)' >查看头像</a></div>",
                 maxWidth: 80,
                 enableSorting: false
             },
             {
                 name: "身份证",
                 displayName: "身份证",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showPics(row.entity,\"idCardPicUrl\")' >查看身份证</a></div>",
+                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showSinglePic(row.entity.idCardPicUrl)' >查看身份证</a></div>",
                 maxWidth: 80,
                 enableSorting: false
             },
             {
                 name: "健康证",
                 displayName: "健康证",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showPics(row.entity,\"healthCertificatePicUrl\")' >查看健康证</a></div>",
+                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showSinglePic(row.entity.healthCertificatePicUrl)' >查看健康证</a></div>",
                 maxWidth: 80,
                 enableSorting: false
             },
@@ -37,30 +37,39 @@ define(["./module"], function (ctrs) {
             {
                 name: "操作",
                 displayName: "操作",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showPics(row.entity)' >审核</a></div>",
+                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.ckeckMerchant(row.entity)' >审核</a></div>",
                 maxWidth: 80,
                 enableSorting: false
             },
         ];
-
-        $scope.prevPic = function () {
-            console.log("前一张图片")
-        }
-        $scope.showPics = function (entity, field) {
-            var showPicUrl = entity[field];
-            if(showPicUrl==undefined||showPicUrl==""){
-                //未找到图片 使用一张提示图片代替
-            }
-            var html = "<div class='container-fluid'><div class='row-fluid'><div class='span12'>"
-                + "<img alt='140x140' src='" + showPicUrl + "'class='img-rounded'/>"
-                + "</div></div> </div>"
-            ngDialog.open({
-                template: html,
+        $scope.ckeckMerchant = function (entity) {
+            //$scope.statusRadio = [false,false,false]
+            //$scope.statusRadio[entity.status] = true;
+            $scope.choosedStatus = entity.status;
+            var dialog = ngDialog.open({
+                template: './merchant/dialog/checkmerchantdialog.html',
                 className: 'ngdialog-theme-default admin_ngdialog',
-                plain: true,
                 scope: $scope
             });
+            $scope.radioChoosed = function(status){
+                console.log(status)
+                $scope.choosedStatus =status;
+            }
+            $scope.submitCheck = function(){
+                console.log("submitCheck")
+                console.log(entity.id)
+                console.log('merchant/checkStatus?id='+entity.id+'&status='+$scope.choosedStatus)
+                $http({
+                    method: 'GET',
+                    url: 'merchant/checkStatus?id='+entity.id+'&status='+$scope.choosedStatus
+                }).success(function (data, status) {
+                    //$rootScope.gridOptions.data = data;
+                    console.log("修改成功")
+                })
+                dialog.close();
+            }
         }
+
         $scope.refresh = function () {
             $http({
                 method: 'GET',

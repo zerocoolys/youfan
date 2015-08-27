@@ -26,15 +26,31 @@ define(["./module"], function (ctrs) {
                             href: "#/sys/pay",
                         },
                         {
+                            title: '订单管理',
+                            name:"order",
+                            href: "#/sys/order",
+                        },
+                        {
+                            title: '评论管理',
+                            name:"comment",
+                            href: "#/sys/comment",
+                        },
+
+                        {
                             title: '活动管理',
                             name:"activity",
                             href: "#/sys/activity",
                         },
                         {
-                            title: '代金券管理',
+                            title: '优惠券类型',
                             name:"voucher",
                             href: "#/sys/voucher",
-                        }
+                        },
+                        {
+                            title: '敏感词管理',
+                            name:"sensitiveword",
+                            href: "#/sys/sensitiveword",
+                        },
                     ];
                     break;
                 case "client":
@@ -54,24 +70,24 @@ define(["./module"], function (ctrs) {
                 case "merchant":
                     $rootScope.curmenus = [
                         {
-                            title: '商家信息',
+                            title: '商家信息管理',
                             name:"merchantinfo",
                             href: "#/merchant/merchantinfo",
                         },
                         {
-                            title: '商家信息审核',
-                            name:"merchantcheck",
-                            href: "#/merchant/merchantcheck",
-                        },
-                        {
-                            title: '商家提款审核',
-                            name:"merchantpay",
-                            href: "#/merchant/merchantpay",
+                            title: '厨房信息',
+                            name:"kitcheninfo",
+                            href: "#/merchant/kitcheninfo",
                         },
                         {
                             title: '菜品审核',
                             name:"dishescheck",
                             href: "#/merchant/dishescheck",
+                        },
+                        {
+                            title: '商家提款审核',
+                            name:"merchantpay",
+                            href: "#/merchant/merchantpay",
                         },
                     ];
                     break;

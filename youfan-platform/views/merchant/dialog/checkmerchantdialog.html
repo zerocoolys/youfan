@@ -1,0 +1,16 @@
+<form role="form" name="adminmainctrForm" class="form-horizontal" novalidate>
+    <div class="ngdialog-buttons">
+        <div class="ngdialog-tilte">商家审核</div>
+        <div style="align:center;">
+            <label class="radio"><input name="status" type="radio"  checked = "true" ng-click="radioChoosed(0)"/>待审核</label>
+            <label class="radio"><input name="status" type="radio"   ng-click="radioChoosed(1)"/>审核通过</label>
+            <label class="radio"><input name="status" type="radio"   ng-click="radioChoosed(2)"/>冻结</label>
+        </div>
+        <div class="ng-button-div">
+            <button type="button" class="btn disabled" ng-click="closeThisDialog(0)">返回
+            </button>
+            <button type="button" class="btn btn-success" ng-click="submitCheck()">确定
+            </button>
+        </div>
+    </div>
+</form>

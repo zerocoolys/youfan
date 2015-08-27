@@ -126,6 +126,15 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
+            .state('kitcheninfo', {
+                url: '/merchant/kitcheninfo',
+                templateUrl: 'merchant/kitcheninfo.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/merchant/kitchenInfoCtrl'
+                    ])
+                }
+            })
             .state('merchantpay', {
                 url: '/merchant/merchantpay',
                 templateUrl: 'merchant/merchantpay.html',

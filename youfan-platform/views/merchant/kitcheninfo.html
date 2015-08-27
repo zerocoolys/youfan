@@ -1,4 +1,4 @@
-<div class="middle_containers" ng-controller="merchantInfoCtrl">
+<div class="middle_containers" ng-controller="kitchenInfoCtrl">
     <div class="row-fluid">
         <div class="span12">
             <form class="form-search">
@@ -10,14 +10,15 @@
                 <input class="input-medium search-query" type="text" ng-model="status"/>
                 <!-- Single button -->
                 <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
                         Action <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a >Action</a></li>
+                        <li><a>Action</a></li>
                         <li><a>Another action</a></li>
-                        <li><a >Something else here</a></li>
-                        <li><a >Separated link</a></li>
+                        <li><a>Something else here</a></li>
+                        <li><a>Separated link</a></li>
                     </ul>
                 </div>
                 <button type="submit" class="btn btn-success" ng-click="searchData()">筛选</button>
@@ -26,20 +27,21 @@
     </div>
     <div class="row-fluid">
         <div ng-controller="tableCtrl">
-            <div ui-grid="gridOptions" ui-grid-cellnav ui-grid-selection ui-grid-pagination ui-grid-exporter ui-grid-auto-resize ui.grid.selection></div>
+            <div ui-grid="gridOptions" ui-grid-cellnav ui-grid-selection ui-grid-pagination ui-grid-exporter
+                 ui-grid-auto-resize ui.grid.selection></div>
         </div>
     </div>
     <div class="row-fluid">
         <div class="span12">
             <div class="pagination pagination-centered pagination-large">
-                <ul >
+                <ul>
                     <li class="header" id="head">
                         <a href="#">首页</a>
                     </li>
                     <li class="prev disabled" id="prev">
-                        <a href="#" >上一页</a>
+                        <a href="#">上一页</a>
                     </li>
-                    <li data-ng-repeat="page in pages" >
+                    <li data-ng-repeat="page in pages">
                         <a href="#">1</a>
                     </li>
                     <li class="next" id="next">
