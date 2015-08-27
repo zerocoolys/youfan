@@ -7,6 +7,8 @@ import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.utils.JsonUtil;
+
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
@@ -134,4 +136,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
             mongoTemplate.createCollection(MerchantUserEntity.class);
         }
     }
+
+	@Override
+	public long count(Query query) {
+		return mongoTemplate.count(query, MerchantKitchenInfoEntity.class);
+	}
+
+	@Override
+	public List<MerchantKitchenInfoEntity> find(Query query) {
+		return mongoTemplate.find(query, MerchantKitchenInfoEntity.class);
+	}
 }

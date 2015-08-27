@@ -6,8 +6,11 @@ import java.util.Map;
 import com.youfan.controllers.objs.MerchantKitchenInfo;
 import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.data.models.MessageEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
+
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,4 +39,8 @@ public interface MerchantUsersServer {
 	public void checkMerchant(String parameter, Integer status);;
 
     List<MerchantKitchenInfo> getAllMerchantKitchenInfo();
+
+	public long count(Query query);
+
+	public List<MerchantUserEntity> find(Query query);
 }

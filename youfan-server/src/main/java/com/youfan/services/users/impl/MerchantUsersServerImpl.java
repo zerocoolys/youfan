@@ -5,9 +5,12 @@ import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.dao.MerchantKitchenDAO;
 import com.youfan.data.dao.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.data.models.MessageEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.MerchantUsersServer;
+
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -74,5 +77,15 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
 	@Override
 	public void checkMerchant(String id, Integer status) {
 		merchantUserDao.updateStatus(id, status);
+	}
+
+	@Override
+	public long count(Query query) {
+		return merchantUserDao.count(query);
+	}
+
+	@Override
+	public List<MerchantUserEntity> find(Query query) {
+		return merchantUserDao.find(query);
 	}
 }

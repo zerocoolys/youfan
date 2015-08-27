@@ -6,6 +6,8 @@ import com.youfan.data.models.MerchantUserEntity;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.mongodb.core.query.Query;
+
 /**
  * Created by perfection on 15-8-19.
  */
@@ -19,4 +21,8 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 	List<MerchantUserEntity> getMerchantByStatus(Integer status);
 	
 	void updateStatus(String id,Integer status);
+
+	List<MerchantUserEntity> find(Query query);
+
+	long count(Query query);
 }

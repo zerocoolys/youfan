@@ -3,6 +3,9 @@ package com.youfan.data.dao.impl;
 import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.dao.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.data.models.MessageEntity;
+
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
@@ -143,5 +146,17 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 	@Override
 	public void updateStatus(String id, Integer status) {
 		mongoTemplate.updateFirst(query(where("id").is(id)), new Update().set("status", status), MerchantUserEntity.class);
+	}
+
+	@Override
+	public List<MerchantUserEntity> find(Query query) {
+		// TODO Auto-generated method stub
+		return mongoTemplate.find(query, MerchantUserEntity.class);
+	}
+
+	@Override
+	public long count(Query query) {
+		// TODO Auto-generated method stub
+		return mongoTemplate.count(query, MerchantUserEntity.class);
 	}
 }
