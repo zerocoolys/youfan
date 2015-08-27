@@ -25,4 +25,7 @@ public interface Constants {
 	String DATA_STATUS = "dataStatus";
 	String SALE = "sale";
 
+	String COLLECTION_KITCHENINFO = "merchantKichenInfo";
+	String COLLECTION_USER = "merchantUser";
+
 }

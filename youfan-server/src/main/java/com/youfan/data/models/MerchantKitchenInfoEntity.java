@@ -1,15 +1,20 @@
 package com.youfan.data.models;
 
-import java.math.BigDecimal;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import static com.youfan.commons.Constants.COLLECTION_KITCHENINFO;
 
 /**
  * Created by perfection on 15-8-25.
  */
+@Document(collection = COLLECTION_KITCHENINFO)
 public class MerchantKitchenInfoEntity {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    @Id
     private String id;  //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
@@ -30,6 +35,24 @@ public class MerchantKitchenInfoEntity {
     private String startTime; //开店时间
     private String endTime;   //关店时间
     private String desc;    //厨房备注
+    private String lat; //经度
+    private String lng; //纬度
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
 
     public Integer getStatus() {
         return status;
