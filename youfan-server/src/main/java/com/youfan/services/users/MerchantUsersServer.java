@@ -34,4 +34,6 @@ public interface MerchantUsersServer {
 	public List<MerchantUserEntity> getMerchantByStatus(Integer status)throws UserException;
 
 	public void checkMerchant(String parameter, Integer status);;
+
+    List<MerchantKitchenInfo> getAllMerchantKitchenInfo();
 }

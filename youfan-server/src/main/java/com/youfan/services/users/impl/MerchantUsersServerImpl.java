@@ -32,6 +32,11 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
     }
 
     @Override
+    public List<MerchantKitchenInfo> getAllMerchantKitchenInfo() {
+        return merchantKitchenDAO.findAll();
+    }
+
+    @Override
     public void saveMerchantUserInfo(MerchantUser merchantUser) throws UserException {
         merchantUserDao.saveMerchantUserInfo(merchantUser);
     }
