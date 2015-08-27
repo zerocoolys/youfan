@@ -91,7 +91,7 @@
                         <img class="full-image" ng-src="{{menu.picUrl}}" src="img/2.jpeg">
                         <ion-item class="item-icon-right item-icon-left">
                             <span class="icon">
-                                <i class="icon_bg ion-coffee"></i>
+                                <i class="icon_bg ion-coffee icon-accessory"></i>
                             </span>
 
                             <h2 ng-bind="menu.name"></h2>
@@ -157,8 +157,12 @@
     </ion-content>
     <div class="bar bar-footer bar-balanced">
         <div class="button-bar">
-            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"
-               ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>
+            <!--<a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"-->
+            <!--ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>-->
+            <a class="button button-clear" style="border-right: 1px solid #fff;"ng-click="toggleMenu()">
+                <span class="cart_bg mainColor"><i class="icon ion-android-cart icon-accessory"></i>&nbsp;&nbsp;0</span>
+                <span>￥{{subtotal}}</span>
+           </a>
             <a class="button button-clear" ng-click="confirmOrder()">选好了</a>
         </div>
     </div>

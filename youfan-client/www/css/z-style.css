@@ -44,6 +44,15 @@
     background-color: #e4e400;
     color: #fff;
 }
+/*购物车背景*/
+.cart_bg{
+    background-color: #fff;
+    border-radius: 9px;
+    padding: 2px 6px;
+}
+.cart_bg i{
+    font-size: 9px;
+}
 /*dash-detail中分享的icon*/
 .dash_detail .bar.bar-light {
     background: none;

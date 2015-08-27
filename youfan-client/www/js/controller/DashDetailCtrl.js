@@ -201,10 +201,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         }
     }
     $scope.addToCart = function (menu) {
-        menu.changWidth = true;
-        menu.shopAccount = true;
-        menu.account++;
         if (menu.restNum > 0) {
+            menu.changWidth = true;
+            menu.shopAccount = true;
+            menu.account++;
             if ($scope.orderCartMap.containsKey(menu.menuId)) {
                 var item = $scope.orderCartMap.get(menu.menuId);
                 item.totalPrice = (parseFloat(item.totalPrice) + parseFloat(menu.price)).toFixed(2);
@@ -220,6 +220,17 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             }
 
             $scope.cartPostAction();
+        }else{
+            var alertPopup = $ionicPopup.alert({
+                cssClass: 'zan_popup',
+                template: '此产品已售完',
+                scope: $scope,
+                buttons: []
+            });
+
+            $timeout(function () {
+                alertPopup.close();
+            }, 1000);
         }
 
     };
