@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * Created by perfection on 15-8-19.
@@ -43,14 +44,14 @@ public class UserController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST, produces = "application/json")
-    public MerchantUser register(@RequestBody MerchantUser merchantUser) {
-        MerchantUser merchantUserRes = null;
+    public Map<String,String> register(@RequestBody MerchantUser merchantUser) {
+        Map<String,String> mapRes = null;
         try {
-            merchantUserRes = merchantUsersServer.register(merchantUser.getUserName(), merchantUser.getPassWord());
+            mapRes = merchantUsersServer.register(merchantUser.getUserName(), merchantUser.getPassWord());
         } catch (UserException ue) {
             System.out.println(ue.getMessage());
         }
-        return merchantUserRes;
+        return mapRes;
     }
 
     @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")

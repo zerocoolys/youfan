@@ -4,12 +4,16 @@ import com.youfan.controllers.objs.MerchantKitchenInfo;
 import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.dao.MerchantKitchenDAO;
 import com.youfan.data.dao.MerchantUserDAO;
+import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.MerchantUsersServer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by perfection on 15-8-19.
@@ -33,7 +37,7 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
         merchantUserDao.saveMerchantUserInfo(merchantUser);
     }
 
-    public MerchantUser register(String userName, String passWord) throws UserException {
+    public Map<String,String> register(String userName, String passWord) throws UserException {
         return merchantUserDao.register(userName, passWord);
     }
 
@@ -51,4 +55,15 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
     public MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
         return merchantKitchenDAO.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
     }
+
+	@Override
+	public List<MerchantUserEntity> getMerchantByStatus(Integer status) throws UserException {
+        return  merchantUserDao.getMerchantByStatus(status);
+
+	}
+
+	@Override
+	public void checkMerchant(String id, Integer status) {
+		merchantUserDao.updateStatus(id, status);
+	}
 }
