@@ -55,15 +55,14 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public MerchantUser login(String userName, String passWord) {
-        if (!mongoTemplate.collectionExists(MerchantUserEntity.class)) {
-            mongoTemplate.createCollection(MerchantUserEntity.class);
-            return null;
-        }
+    public MerchantUser login(String userName) {
         MerchantUser merchantUser = new MerchantUser();
         merchantUser.setUserName(userName);
-        merchantUser.setPassWord(passWord);
-        MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where("userName").is(userName).andOperator(where("passWord").is(passWord))), MerchantUserEntity.class);
+        if (!mongoTemplate.collectionExists(MerchantUserEntity.class)) {
+            mongoTemplate.createCollection(MerchantUserEntity.class);
+            mongoTemplate.insert(merchantUser);
+        }
+        MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where("userName").is(userName)), MerchantUserEntity.class);
         if (merchantUserEntity == null) {
             return null;
         } else {

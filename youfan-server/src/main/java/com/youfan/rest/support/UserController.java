@@ -36,7 +36,7 @@ public class UserController {
     public MerchantUser login(@RequestBody MerchantUser merchantUser) {
         MerchantUser merchantUserRes = null;
         try {
-            merchantUserRes = merchantUsersServer.login(merchantUser.getUserName(), merchantUser.getPassWord());
+            merchantUserRes = merchantUsersServer.login(merchantUser.getUserName());
         } catch (UserException ue) {
             System.out.println(ue.getMessage());
         }
