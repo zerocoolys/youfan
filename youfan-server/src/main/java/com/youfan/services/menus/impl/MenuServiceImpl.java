@@ -4,7 +4,6 @@ import com.youfan.controllers.objs.Menu;
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.services.menus.MenuService;
 
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -67,7 +66,7 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public Menu findByMenuId(long menuId) {
-		return menuDAO.findOne(menuId);
+		return menuDAO.findByMenuId(menuId);
 	}
 
 	@Override
@@ -126,7 +125,7 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void conversionStock(List<Menu> menus) {
 		lock.lock();
-		
+
 		try {
 			menuDAO.conversionStock(menus);
 		} finally {
@@ -138,13 +137,26 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public void conversionRestNum(List<Menu> menus) {
 		lock.lock();
-		
+
 		try {
 			menuDAO.conversionRestNum(menus);
 		} finally {
 			lock.unlock();
 		}
-		
+
+	}
+
+	@Override
+	public void updateMenu(Long menuId, Menu menu) {
+
+		lock.lock();
+
+		try {
+			menuDAO.update(menu);
+		} finally {
+			lock.unlock();
+		}
+
 	}
 
 }

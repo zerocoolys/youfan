@@ -19,6 +19,8 @@ public interface Constants {
 
 	String DESCRIPTION = "descr";
 	String IS_SALE = "sale";
+	String PIC_URLS = "picUrls";
+	String PRICE = "price";
 	String STOCK = "stock";
 	String REST_NUM = "restNum";
 	String TASTE_NUM = "tasteNum";

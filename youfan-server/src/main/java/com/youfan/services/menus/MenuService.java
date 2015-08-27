@@ -37,4 +37,6 @@ public interface MenuService {
 
 	void conversionRestNum(List<Menu> menus);
 
+	void updateMenu(Long menuId, Menu menu);
+
 }

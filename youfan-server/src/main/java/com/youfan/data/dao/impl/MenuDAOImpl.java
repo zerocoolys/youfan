@@ -6,14 +6,15 @@ import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.MenuEntity;
 
-import org.aspectj.apache.bcel.generic.ReturnaddressType;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -56,6 +57,13 @@ public class MenuDAOImpl implements MenuDAO {
 	}
 
 	@Override
+	public Menu findByMenuId(long menuId) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+				.is(menuId);
+		return findOne(Query.query(criteria));
+	}
+
+	@Override
 	public void insert(Menu menu) {
 		long no = idGenerator.next(COLLECTION_MENU);
 		menu.setMenuId(MenuNoGenerator.menuNo(no));
@@ -74,15 +82,23 @@ public class MenuDAOImpl implements MenuDAO {
 
 	@Override
 	public void update(Menu menu) {
-		MenuEntity entity = convertToEntity(menu);
-		System.out.println(entity);
+		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+				.is(menu.getMenuId());
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(PIC_URLS, menu.getPicUrls());
+		map.put(PRICE, menu.getPrice());
+		map.put(STOCK, menu.getStock());
+		mongoTemplate.updateFirst(Query.query(criteria), buildUpdate(map),
+				getEntityClass());
+
 	}
 
 	@Override
 	public void delete(Long menuId) {
-		Query query = buildQuery(null, menuId, true);
-		mongoTemplate.updateFirst(query, Update.update(DATA_STATUS, 0),
-				getEntityClass());
+		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+				.is(menuId);
+		mongoTemplate.updateFirst(Query.query(criteria),
+				Update.update(DATA_STATUS, 0), getEntityClass());
 	}
 
 	@Override
