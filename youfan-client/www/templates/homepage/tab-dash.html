@@ -17,7 +17,7 @@
     </div>
     <div class="bar bar-subheader bar-light" style="height:30px;">
         <div class="index_loction" ui-sref="tab.change-address">
-            <i class="ion-ios-location"></i>&nbsp;{{mapCity}}
+            <i class="ion-ios-location"></i>&nbsp;<span ng-bind="mapCity"></span>
                <span class="item-note">
                        <i class="icon ion-chevron-right icon-accessory"></i>
                </span>
@@ -122,4 +122,5 @@
             </ion-item>
         </ion-list>
     </ion-content>
+
 </ion-view>

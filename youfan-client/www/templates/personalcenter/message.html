@@ -1,24 +1,18 @@
-<ion-view view-title="我的消息" hide-tabs >
+<ion-view view-title="我的消息" hide-tabs>
     <ion-tabs class=" message tabs-top ">
         <ion-tab title="通知">
             <ion-content>
-                <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
+                <ion-item data-ng-repeat="item in data" data-ng-click='checkDetail(item.index)'
+                          class="item-remove-animate item-avatar" type="item-text-wrap">
                     <img src="img/2.jpeg">
 
                     <div class="care_text">
-                        <span> y有饭1020 </span>
+                        <span>{{item.title}}</span>
 
-                        <p>订购了鱼香茄子</p>
+                        <p>{{item.des}}</p>
+                        <span ng-if="item.status == '未读'" class="badge badge-assertive">{{item.status}}</span>
                     </div>
-                </ion-item>
-                <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
-                    <img src="img/2.jpeg">
 
-                    <div class="care_text">
-                        <span> y有饭1020 </span>
-
-                        <p>订购了鱼香茄子</p>
-                    </div>
                 </ion-item>
             </ion-content>
         </ion-tab>
