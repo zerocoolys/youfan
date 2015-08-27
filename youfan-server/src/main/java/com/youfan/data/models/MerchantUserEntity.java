@@ -1,11 +1,18 @@
 package com.youfan.data.models;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import static com.youfan.commons.Constants.COLLECTION_USER;
+
 /**
  * Created by perfection on 15-8-24.
  */
+@Document(collection = COLLECTION_USER)
 public class MerchantUserEntity {
 
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    @Id
     private String id;  //商家个人信息id
     private String userName;    //商家用户名
     private String passWord;    //商家密码

@@ -30,6 +30,24 @@ public class MerchantKitchenInfo {
     private List<String> kitchenPicUrl = new ArrayList<>(); //厨房照片路径
     private String kitchenStoryName;    //厨房故事标题
     private String kitchenStoryContent; //厨房故事内容
+    private String lat; //经度
+    private String lng; //纬度
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
 
     public Integer getStatus() {
         return status;

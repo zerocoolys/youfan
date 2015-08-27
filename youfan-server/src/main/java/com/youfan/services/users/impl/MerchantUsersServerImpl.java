@@ -10,6 +10,7 @@ import com.youfan.services.users.MerchantUsersServer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +42,11 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
     @Override
     public MerchantKitchenInfo saveMerchantKitchenInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
         return merchantKitchenDAO.saveMerchantKitchenInfo(merchantKitchenInfo);
+    }
+
+    @Override
+    public List<MerchantKitchenInfo> pageList(Integer page, Integer pageSize) throws KitchenInfoException {
+        return merchantKitchenDAO.pageList(page,pageSize);
     }
 
     @Override

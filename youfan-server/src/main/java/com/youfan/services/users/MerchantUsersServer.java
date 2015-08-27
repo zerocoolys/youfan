@@ -6,6 +6,7 @@ import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +24,6 @@ public interface MerchantUsersServer {
     MerchantKitchenInfo saveMerchantKitchenPicInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
 
     MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
+
+    List<MerchantKitchenInfo> pageList(Integer page, Integer pageSize) throws KitchenInfoException;
 }
