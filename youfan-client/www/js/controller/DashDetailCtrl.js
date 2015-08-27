@@ -1,8 +1,9 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, REST_URL, $ionicPopup, $timeout, $ionicModal, $ionicBackdrop) {
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $stateParams, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout) {
 
+    // ========================= guochunyan =========================
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
 
@@ -21,7 +22,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                 $scope.orderCartMap.put($scope.rice.menuId, $scope.rice);
             }
 
-            $scope.items.data = Order.details.cart = $scope.orderCartMap.values();
+            $scope.items.data = Order.cart = $scope.orderCartMap.values();
             $scope.menuState.show = !$scope.menuState.show;
         }
 
@@ -36,6 +37,31 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         $ionicSlideBoxDelegate.slide(index);
     };
 
+    $scope.ZanPopup = function () {
+        $scope.data = {};
+        var myPopup = $ionicPopup.show({
+            cssClass: 'zan_popup',
+            template: '点赞成功',
+            scope: $scope
+        });
+        $timeout(function () {
+            myPopup.close(); //close the popup after 3 seconds for some reason
+        }, 1000);
+    };
+
+    $scope.CPopup = function () {
+        var myPopup = $ionicPopup.show({
+            cssClass: 'zan_popup',
+            template: '收藏成功',
+            scope: $scope
+        });
+        $timeout(function () {
+            myPopup.close(); //close the popup after 3 seconds for some reason
+        }, 1000);
+    };
+
+
+    // ========================= dolphineor =========================
     $scope.items = {
         data: []
     };
@@ -114,7 +140,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     $scope.cartPostAction = function () {
         $scope.refreshCart();
         $scope.calculateTotalPrice();
-        Order.details.cart = $scope.items.data = $scope.orderCartMap.values();
+        Order.cart = $scope.items.data = $scope.orderCartMap.values();
     };
 
     // 刷新购物车
@@ -149,17 +175,17 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         $scope.items.data.splice(index, 1);
     };
 
-    // 商家id
-    $scope.sellerId = 888888888;
-
     // 菜品列表数组
     $scope.menuArr = [];
 
     // 请求菜品列表信息
-    $http.get(REST_URL + '/menu/list/' + $scope.sellerId).success(function (data) {
-        var jsonArr = JSON.parse(data.menus);
+    $http.get(REST_URL + '/menu/list/' + Merchant.sellerId).success(function (data) {
+        var jsonArr = data.menus;
 
         for (var i = 0, l = jsonArr.length; i < l; i++) {
+            jsonArr[i].account = 0;
+            jsonArr[i].changWidth = false;
+            jsonArr[i].shopAccount = false;
             jsonArr[i].price = parseFloat(jsonArr[i].price).toFixed(2);
         }
 
@@ -167,8 +193,18 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     });
 
     // 添加菜品到购物车
+    $scope.minusAccount = function(menu) {
+        menu.account--;
+        if(menu.account <= 0){
+            menu.changWidth = false;
+            menu.shopAccount = false;
+        }
+    }
     $scope.addToCart = function (menu) {
         if (menu.restNum > 0) {
+            menu.changWidth = true;
+            menu.shopAccount = true;
+            menu.account++;
             if ($scope.orderCartMap.containsKey(menu.menuId)) {
                 var item = $scope.orderCartMap.get(menu.menuId);
                 item.totalPrice = (parseFloat(item.totalPrice) + parseFloat(menu.price)).toFixed(2);
@@ -184,6 +220,17 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             }
 
             $scope.cartPostAction();
+        }else{
+            var alertPopup = $ionicPopup.alert({
+                cssClass: 'zan_popup',
+                template: '此产品已售完',
+                scope: $scope,
+                buttons: []
+            });
+
+            $timeout(function () {
+                alertPopup.close();
+            }, 1000);
         }
 
     };
@@ -230,27 +277,36 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         }, 1000);
     };
 
-    $scope.ZanPopup = function () {
-        $scope.data = {};
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '点赞成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
-    };
 
-    $scope.CPopup = function () {
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '收藏成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
+    /*====================XiaoWei==================*/
+    $scope.merchantObj = {}
+    $scope.getMerchant = function () {
+        var merchantId = $stateParams.merchantId;
+        if (merchantId) {
+            $http.get(REST_URL + "/mr/getMrOne/" + merchantId).success(function (result) {
+                if (result.data != null) {
+                    var _tmpData=result.data;
+                    if(!_tmpData.distribution){
+                        _tmpData["distribution"]="暂无说明";
+                    }
+                    if(!_tmpData.disRange){
+                        _tmpData["disRange"]="暂无距离";
+                    }
+                    if(!_tmpData["kitchenStoryName"]){
+                        _tmpData["kitchenStoryName"]="暂无故事标题";
+                    }
+                    if(!_tmpData["kitchenAddress"]){
+                        _tmpData["kitchenAddress"]="亲，厨房还没地址哦！";
+                    }
+                    if(_tmpData.canteen){
+                        _tmpData["canteen"]="支持|可容纳人数："+_tmpData.galleryFul;
+                    }else{
+                        _tmpData["canteen"]="不支持";
+                    }
+                    $scope.merchantObj = _tmpData;
+                }
+            });
+        }
     }
-
+    $scope.getMerchant();
 });

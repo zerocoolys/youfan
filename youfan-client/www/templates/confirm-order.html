@@ -4,12 +4,18 @@
             <ion-item class="item-icon-right" href="#/tab/dining-way">
                 就餐方式
                 <span class="item-note">
-                  请选择<i class="icon ion-chevron-right icon-accessory"></i>
+                    <span ng-if="userDiningWay.address.name == null">请选择</span>
+                    <span ng-if="userDiningWay.address.name != null">
+                        <h2>{{userDiningWay.address.name}}</h2>
+                        <h2>{{userDiningWay.address.telNo}}</h2>
+                        <h2>{{userDiningWay.address.address}}</h2>
+                    </span>
+                    <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right" ng-click="modal.show()">
                 给厨房捎句话
-                 <span class="item-note">
+                 <span class="item-note">{{comments}}
                   <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
@@ -52,7 +58,8 @@
             <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">
                 还需支付 ￥{{remainPayedPrice}}
             </a>
-            <a class="button button-clear" href="#/tab/pay-page">去支付</a>
+            <!--<a class="button button-clear" href="#/tab/pay-page">去支付</a>-->
+            <a class="button button-clear" ng-click="toPay()">去支付</a>
         </div>
     </div>
 </ion-view>
@@ -66,24 +73,12 @@
         <ion-content class="padding">
             <ion-list>
                 <ion-item class="item-input">
-                    <textarea placeholder="给厨房捎句话~" style="height: 120px"></textarea>
+                    <textarea placeholder="给厨房捎句话~" style="height: 120px" ng-bind="comments"></textarea>
                 </ion-item>
                 <button class="button-clear fr">140字</button>
-                <div class="row">
-                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">不吃辣</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-25 button-calm button-small button button-outline">微辣</a>
-                </div>
-                <div class="row" style="margin-top: 10px">
-                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">多放辣椒</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-25 button-calm button-small button button-outline">不放蒜</a>
-                </div>
-                <div class="row" style="margin-top: 10px">
-                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">不放香菜</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-25 button-calm button-small button button-outline">少放盐</a>
-                </div>
-                <div class="row" style="margin-top: 10px">
-                    <a class="col col-25 col-offset-25 button-small button button-calm button-outline">米饭多点</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-25 button-calm button-small button button-outline">菜量多点</a>
+                <div ng-repeat="t in tastes" class="row" style="margin-top: 10px">
+                    <button class="col col-25 col-offset-25 button-small button button-calm button-outline"
+                            ng-bind="t.name" ng-click="addTasteComment(t)"></button>
                 </div>
             </ion-list>
         </ion-content>

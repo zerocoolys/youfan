@@ -1,25 +1,24 @@
 <ion-view hide-nav-bar="true" hide-tabs>
     <ion-header-bar class="bar" align-title="center">
         <a class="button button-clear icon ion-ios-arrow-back" onclick="history.back()"></a>
+
         <h1 class="title">支付收银台</h1>
     </ion-header-bar>
     <ion-content>
         <ion-list>
-            <ion-item>
-                需要支付：￥1
-            </ion-item>
+            <ion-item ng-bind="'需要支付: ￥' + totalPrice"></ion-item>
             <ion-item class="item-icon-right item-avatar">
                 <img class="full-image" src="img/2.jpeg">
                 支付宝支付
                 <span class="item-note">
-                  <i class="icon ion-chevron-right icon-accessory"></i>
+                  <i class="icon ion-chevron-right icon-accessory" ng-click="aliPay()"></i>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right item-avatar">
                 <img class="full-image" src="img/2.jpeg">
                 微信支付
                 <span class="item-note">
-                  <i class="icon ion-chevron-right icon-accessory"></i>
+                  <i class="icon ion-chevron-right icon-accessory" ng-click="weChatPay()"></i>
                 </span>
             </ion-item>
         </ion-list>

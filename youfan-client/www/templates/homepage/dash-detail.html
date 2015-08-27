@@ -1,6 +1,6 @@
 <ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail">
     <ion-header-bar class="bar-header bar-light">
-        <a ui-sref="tab.dash"><i class="ion-ios-arrow-left"></i></a>
+        <a ui-sref="tab.dash" ><i class="ion-ios-arrow-left"></i></a>
 
         <div class="top_share ">
             <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
@@ -10,7 +10,7 @@
             <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher></i>
         </div>
     </ion-header-bar>
-    <ion-content>
+    <ion-content style="background-color: #fff">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
                        slide-interval="2000">
             <ion-slide>
@@ -26,45 +26,54 @@
         <div class="list_detail_person_img">
             <img src="img/avatar1.jpg">
         </div>
-        <div class="text-center">
-            <div class="item segmented-control-item">
-                <h2 style="margin-top: 40px">海南风情小味厨</h2>
-                <i class="icon ion-star"></i>
-                <i class="icon ion-star"></i>
-                <i class="icon ion-star"></i>
-                <i class="icon ion-star"></i>
-                <i class="icon ion-star"></i>
+        <div class="how_delivery text-right">
+            <span class="active">送</span>
+            <span>堂</span>
+            <span>取</span>
+        </div>
+        <div class="item text-center" style="border-width: 0;">
+            <div class="segmented-control-item">
+                <h2 style="margin-top: 40px" ng-bind="merchantObj.kitchenName"></h2>
+                <i class="icon ion-star" style="color: #e4e400"></i>
+                <i class="icon ion-star" style="color: #e4e400"></i>
+                <i class="icon ion-star" style="color: #e4e400"></i>
+                <i class="icon ion-star" style="color: #e4e400"></i>
+                <i class="icon ion-star" style="color: #e4e400"></i>
 
-                <p>李先生 海南人</p>
+                <p style="margin-top: 5px">李先生 海南人</p>
 
-                <p>10:00 - 22:00 开放厨房</p>
+                <p style="margin-top: 35px">10:00 - 22:00 开放厨房</p>
 
-                <div class="row">
-                    <a class="col col-35 col-offset-15 button-small button bar-balanced button-outline"
+                <div class="row padding">
+                    <a class="col col-30 col-offset-15 button-small button bar-balanced button-outline"
                        ui-sref="tab.comment-detail">234条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-35 bar-balanced button-small button button-outline">联系厨房</a>
+                    <a class="col col-30 bar-balanced button-small button button-outline">联系厨房</a>
                 </div>
             </div>
         </div>
         <ion-list>
             <ion-item class="item-icon-left item-icon-right">
-                <i class="address_img icon ion-ios-paper-outline"></i>
+                <span class="icon">
+                    <i class="icon_bg ion-ios-paper-outline icon-accessory"></i>
+                </span>
 
-                <h2 ui-sref="tab.seller-detail">我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
+                <h2 ui-sref="tab.seller-detail" ng-bind="merchantObj.kitchenStoryName">我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
-                <i class="address_img icon ion-ios-location-outline"></i>
+                <span class="icon">
+                    <i class="icon_bg ion-location icon-accessory"></i>
+                </span>
 
-                <h2 ui-sref="tab.Map">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
+                <h2 ui-sref="tab.Map" ng-bind="merchantObj.kitchenAddress">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
                 <div class="address_detail_info">
-                    <label>配送说明 : <span>尚无说明</span></label>
-                    <label>配送范围 : <span>2千米内配送 | 外送费 : 2元</span></label>
+                    <label>配送说明 : <span ng-bind="merchantObj.distribution">尚无说明</span></label>
+                    <label>配送范围 : <span ng-bind="merchantObj.disRange">2千米内配送 | 外送费 : 2元</span></label>
                     <label>距离 : <span>427米</span></label>
-                    <label>可容纳 : <span>不提供堂食</span></label>
+                    <label>可容纳 : <span ng-bind="merchantObj.canteen">不提供堂食</span></label>
                 </div>
             </ion-item>
         </ion-list>
@@ -74,25 +83,59 @@
                 <li ng-class="slideIndex == 1 ? 'current':''"><a href="#" ng-click="activeSlide(1)">明日预定</a></li>
             </ul>
         </div>
-        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
+        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="main_menu">
             <ion-slide>
-                <ion-list class="card">
-                    <ion-item class="item-body" ng-repeat="menu in menuArr" ng-repeat-end="1">
-                        <img class="full-image" ng-src="{{menu.picUrl}}">
-                        <ion-item class="item-icon-left item-icon-right">
-                            <i class="icon ion-coffee"></i>
+                <ion-list>
+                    <ion-item class="item-body list-borderless item-borderless" ng-repeat="menu in menuArr"
+                              ng-repeat-end="1">
+                        <img class="full-image" ng-src="{{menu.picUrl}}" src="img/2.jpeg">
+                        <ion-item class="item-icon-right item-icon-left">
+                            <span class="icon">
+                                <i class="icon_bg ion-coffee icon-accessory"></i>
+                            </span>
 
-                            <h2 ng-bind="menu.description"></h2>
+                            <h2 ng-bind="menu.name"></h2>
 
-                            <i class="icon ion-ios-arrow-right"></i>
+                            <p ng-bind="menu.description"></p>
 
                             <i class="icon ion-ios-arrow-right icon-accessory"></i>
                         </ion-item>
-                        <ion-item class="item-icon-left item-icon-right">
-                            <h2 ng-bind="'￥' + menu.price"></h2>
+                        <ion-item class="menu_line">
+                            <p ng-bind="'￥' + menu.price"></p>
 
-                            <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
-                            <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
+                            <span ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"
+                                  class="mainColor"></span>
+                            <!--<i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>-->
+                            <span class="item-note">
+                                <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
+                                    <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
+                                       ng-click="minusAccount(menu)"></i>
+                                    <span ng-show="menu.shopAccount">&nbsp;{{menu.account}}&nbsp;</span>
+                                    <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
+                                </span>
+                            </span>
+                        </ion-item>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item class="item-body list-borderless item-borderless tip_menu_list">
+                        <ion-item class="item-thumbnail-left" style="  margin-bottom: 12px;">
+                            <img src="img/2.jpeg">
+
+                            <h2 class="tip_menu_list_name">西红柿炒鸡蛋</h2>
+                            <span class="mainColor">还有11份 | 105人品尝过</span>
+
+                            <div class="price">
+                                <span>￥15.00</span>
+                                <span class="item-note">
+                                    <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
+                                        <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
+                                           ng-click="minusAccount(menu)"></i>
+                                        <span ng-show="menu.shopAccount">&nbsp;{{menu.account}}&nbsp;</span>
+                                        <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
+                                    </span>
+                                </span>
+                            </div>
                         </ion-item>
                     </ion-item>
                 </ion-list>
@@ -114,8 +157,12 @@
     </ion-content>
     <div class="bar bar-footer bar-balanced">
         <div class="button-bar">
-            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"
-               ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>
+            <!--<a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"-->
+            <!--ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>-->
+            <a class="button button-clear" style="border-right: 1px solid #fff;"ng-click="toggleMenu()">
+                <span class="cart_bg mainColor"><i class="icon ion-android-cart icon-accessory"></i>&nbsp;&nbsp;0</span>
+                <span>￥{{subtotal}}</span>
+           </a>
             <a class="button button-clear" ng-click="confirmOrder()">选好了</a>
         </div>
     </div>

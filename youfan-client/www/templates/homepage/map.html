@@ -1,7 +1,6 @@
-<ion-view view-title="" hide-nav-bar="true" hide-tabs>
+<ion-view view-title="" hide-nav-bar="true"  hide-tabs>
     <ion-header-bar class="bar-header bar-light">
-        <a ui-sref="tab.dash-detail"><i class="icon ion-ios-arrow-left"></i></a>
-
+        <a ui-sref="tab.dash-detail" class="button icon ion-ios-arrow-left button-clear"></a>
         <h2 class="title">厨房地图</h2>
     </ion-header-bar>
     <ion-content class="map_content">
@@ -14,6 +13,8 @@
             <p>恋家厨房&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;距离当前位置{{distance}}</p>
 
             <p ng-bind="geocoder"></p>
+
         </div>
     </div>
+
 </ion-view>
