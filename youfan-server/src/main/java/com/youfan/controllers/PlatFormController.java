@@ -5,14 +5,18 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +33,10 @@ import com.pingplusplus.model.ChargeCollection;
 import com.pingplusplus.model.Event;
 import com.pingplusplus.model.Refund;
 import com.pingplusplus.model.Webhooks;
+import com.youfan.commons.CollectionTO;
+import com.youfan.data.models.MessageEntity;
 import com.youfan.log.WebbooksLog;
+import com.youfan.services.menus.MessageService;
 import com.youfan.utils.CipherUtil;
 import com.youfan.utils.ConfigUtil;
 
@@ -39,6 +46,11 @@ import com.youfan.utils.ConfigUtil;
 @RestController
 @RequestMapping(path = "/platform")
 public class PlatFormController {
+	
+	 @Resource
+	 private MessageService messageService;
+
+	
 	public static Map<String, String> usermap = new HashMap<String, String>();// 测试用
 	Logger logger = LoggerFactory.getLogger(PlatFormController.class);
 
@@ -60,7 +72,6 @@ public class PlatFormController {
 		WebbooksLog.recordWebbooks(name + "支付成功");
 		CipherUtil cipher = new CipherUtil();
 		boolean flag = cipher.validatePassword(usermap.get(name), password);
-
 		return flag;
 	}
 
@@ -120,10 +131,15 @@ public class PlatFormController {
 			String client_ip = request.getParameter("client_ip");
 
 			Map<String, String> app = new HashMap<String, String>();
-			app.put("id", ConfigUtil.getString("pingAppid"));
+			/*app.put("id", ConfigUtil.getString("pingAppid"));*/
 			Map<String, Object> chargeParams = new HashMap<String, Object>();
 			chargeParams.put("app", app);
-
+           //pingAppid=app_jbPKiHirbDiDOKyb
+			app.put("id", "app_n5WTyHyTiPGOTuXz");
+			Map<String, String> extramap = new HashMap<String, String>();
+	                //extra的参数根据文档: https://pingxx.com/document/api#api-c-new
+	                extramap.put("success_url", "http://07zhywjh.6655.la:19982/platform/success");
+	                chargeParams.put("extra", extramap);
 			chargeParams.put("order_no", order_no);
 			chargeParams.put("amount", Integer.parseInt(amount));
 			chargeParams.put("channel", channel);
@@ -207,7 +223,7 @@ public class PlatFormController {
 			refundMap.put("description", description);
 			re = ch.getRefunds().create(refundMap);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return re;
 	}
@@ -223,7 +239,7 @@ public class PlatFormController {
 		try {
 			ch = Charge.retrieve(id);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return ch;
 	}
@@ -254,4 +270,97 @@ public class PlatFormController {
 		return collection;
 	}
 
+	
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/success")
+	public String seccuss(HttpServletRequest request, HttpServletResponse response) {
+		
+		return "200";
+	}
+	/**
+	 * 
+	 * @param userId
+	 * @param pageNo
+	 * @param pageSize
+	 * @param status
+	 * @return
+	 * @description 获取消息
+	 * @author ZhangHuaRong
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/getMessage/{userId}/{pageNo}/{pageSize}/{status}",produces = "application/json; charset=UTF-8")
+	public CollectionTO<MessageEntity> getMessage(@PathVariable Long userId, @PathVariable Integer pageNo,@PathVariable Integer pageSize,@PathVariable Integer status) {
+		CollectionTO<MessageEntity> result = null;
+		try {
+			Query query = new Query();  
+			query.addCriteria(Criteria.where("receiverId").is(userId));
+			query.addCriteria(Criteria.where("status").is(status));
+			long count = messageService.count(query);
+			query.skip((pageNo-1)*pageSize);  
+			query.limit(pageSize); 
+			List<MessageEntity> msa = messageService.find(query);
+			result = new CollectionTO<MessageEntity>(msa,(int)count,pageSize);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return result;
+	}
+	/**
+	 * 
+	 * @param messageId
+	 * @description 获取用户消息
+	 * @author ZhangHuaRong
+	 * @update 2015年8月26日 下午4:47:26
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/getMessageById/{messageId}",produces = "application/json; charset=UTF-8")
+	public MessageEntity getMessageById(@PathVariable String messageId) {
+	    MessageEntity msa = null;
+		try {
+			msa = messageService.findById(messageId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return msa;
+	}
+	/**
+	 * 
+	 * @param messageId
+	 * @param status
+	 * @description  更新用户消息
+	 * @author ZhangHuaRong
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/updateMssageStatus/{messageId}/{status}",produces = "application/json; charset=UTF-8")
+	public MessageEntity updateMssageStatus(@PathVariable String messageId,@PathVariable Integer status) {
+	    MessageEntity msa = null;
+		try {
+			msa = messageService.findById(messageId);
+			messageService.updateMsg(msa.getId(),status);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return msa;
+	}
+	/**
+	 * 
+	 * @param userId  用户id
+	 * @param userPort  2用户端， 3商家端 
+	 * @param date  内容
+	 * @param title 标题
+	 * @param des   摘要
+	 * @param code  消息类型
+	 * @description 发送消息
+	 * @author ZhangHuaRong
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/pushNice/{userId}/{userPort}/{date}/{title}/{des}/{code}",produces = "application/json; charset=UTF-8")
+	public int pushNice(@PathVariable Long userId,@PathVariable Integer userPort,@PathVariable String date,@PathVariable String title,@PathVariable String des,@PathVariable Integer code){
+		int result = 0;
+		try {
+				MessageEntity ms = new MessageEntity(0,userId,userPort,date,code,title,des);
+				messageService.insert(ms);
+			   result = ms.sendMsg();
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return result;
+	}
 }

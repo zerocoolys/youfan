@@ -38,6 +38,13 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
     Class<T> getVOClass();
 
 
+    /**
+     * <p>该方法用于将VO转换为Entity, 大部分情况下通用,
+     * 若出现无法转换的情况, 请在DAO的实现层覆盖并自行实现相应的转换方法.
+     *
+     * @param t
+     * @return
+     */
     default E convertToEntity(T t) {
         Class<E> clazz = getEntityClass();
         try {
@@ -57,7 +64,11 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
                     entityFieldMap.get(field.getName())
                             .set(entity, BigDecimal.valueOf((Double) field.get(t)));
                 } else if (Objects.equals(Date.class, field.getType())) {
-                    entityFieldMap.get(field.getName()).set(entity, Timestamp.from(((Date) field.get(t)).toInstant()));
+                    if (Objects.equals(Timestamp.class, entityFieldMap.get(field.getName()).getType())) {
+                        entityFieldMap.get(field.getName()).set(entity, Timestamp.from(((Date) field.get(t)).toInstant()));
+                    } else {
+                        entityFieldMap.get(field.getName()).set(entity, field.get(t));
+                    }
                 } else {
                     entityFieldMap.get(field.getName()).set(entity, field.get(t));
                 }
@@ -72,6 +83,12 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
         return null;
     }
 
+    /**
+     * <p>该方法用于将Entity转换为VO, 注意事项同{@link MongoBaseDAO#convertToEntity(Object)}
+     *
+     * @param entity
+     * @return
+     */
     default T convertToVO(E entity) {
         Class<T> clazz = getVOClass();
         try {
@@ -97,7 +114,7 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
                 }
             }
-
+            
             return t;
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
