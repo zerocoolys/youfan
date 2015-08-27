@@ -7,7 +7,7 @@ import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.utils.JsonUtil;
-
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -46,7 +46,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public void delete(Long aLong) {
-        mongoTemplate.updateFirst(query(where("id").is(aLong)), Update.update("status",-1),MerchantKitchenInfoEntity.class);
+        mongoTemplate.updateFirst(query(where("id").is(aLong)), Update.update("status", -1), MerchantKitchenInfoEntity.class);
     }
 
     @Override
@@ -67,18 +67,25 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public List<MerchantKitchenInfo> pageList(Integer page, Integer pageSize) throws KitchenInfoException {
-        DBCursor limit = mongoTemplate.getCollection(COLLECTION_KITCHENINFO).find().skip((page-1)*pageSize).limit(pageSize);
+        DBCursor limit = mongoTemplate.getCollection(COLLECTION_KITCHENINFO).find().skip((page - 1) * pageSize).limit(pageSize);
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = null;
         List<MerchantKitchenInfo> list = new ArrayList<>();
         while (limit.hasNext()) {
             Map map = limit.next().toMap();
             String id = map.get("_id").toString();
             map.remove("_id");
-            map.put("id",id);
-            merchantKitchenInfoEntity = JsonUtil.map2pojo(map,MerchantKitchenInfoEntity.class);
+            map.put("id", id);
+            merchantKitchenInfoEntity = JsonUtil.map2pojo(map, MerchantKitchenInfoEntity.class);
             list.add(convertToVO(merchantKitchenInfoEntity));
         }
         return list;
+    }
+
+    @Override
+    public MerchantKitchenInfo findById(String id) {
+        Query q = new Query().addCriteria(Criteria.where("id").is(id));
+        MerchantKitchenInfoEntity mre = mongoTemplate.findOne(q, getEntityClass());
+        return convertToVO(mre);
     }
 
     @Override

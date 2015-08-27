@@ -1,10 +1,12 @@
 package com.youfan.data.dao.impl;
 
+import com.youfan.controllers.objs.MerchantKitchenInfo;
 import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.dao.MerchantUserDAO;
+import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.data.models.MessageEntity;
-
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;

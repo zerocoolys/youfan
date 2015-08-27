@@ -37,6 +37,7 @@ public interface Constants {
 
 	String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
 	String COLLECTION_USER = "merchantUser";
+    String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
 
 

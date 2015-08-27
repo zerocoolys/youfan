@@ -43,4 +43,6 @@ public interface MerchantUsersServer {
 	public long count(Query query);
 
 	public List<MerchantUserEntity> find(Query query);
+
+    MerchantKitchenInfo findById(String id);
 }

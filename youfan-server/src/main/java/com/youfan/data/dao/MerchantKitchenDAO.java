@@ -23,4 +23,5 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
 	long count(Query query);
 
 	List<MerchantKitchenInfoEntity> find(Query query);
+    MerchantKitchenInfo findById(String id);
 }
