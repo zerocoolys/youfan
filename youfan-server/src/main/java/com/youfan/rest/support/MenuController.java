@@ -88,6 +88,20 @@ public class MenuController {
 
 	}
 
+	@RequestMapping(path = "/renewal/xfz/{menuId}", method = RequestMethod.POST, produces = "application/json")
+	public void updateXfz(@PathVariable Long menuId, @RequestBody Menu menu) {
+
+		menuService.updateXfzMenu(menuId, menu);
+
+	}
+
+	@RequestMapping(path = "/conversion/type/{menuId}", method = RequestMethod.POST, produces = "application/json")
+	public void conversionType(@PathVariable Long menuId, @RequestBody Menu menu) {
+		
+		menuService.conversionType(menuId, menu);
+
+	}
+
 	// 改变今日余量
 	@RequestMapping(path = "/conversion/restNum", method = RequestMethod.POST, produces = "application/json")
 	public void conversionRestNum(@RequestBody List<Menu> menus) {

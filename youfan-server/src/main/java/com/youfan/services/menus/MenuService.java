@@ -1,5 +1,6 @@
 package com.youfan.services.menus;
 
+import com.youfan.commons.Constants;
 import com.youfan.controllers.objs.Menu;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author dolphineor
  */
-public interface MenuService {
+public interface MenuService extends Constants {
 
 	void insert(Menu menu);
 
@@ -38,5 +39,9 @@ public interface MenuService {
 	void conversionRestNum(List<Menu> menus);
 
 	void updateMenu(Long menuId, Menu menu);
+
+	void updateXfzMenu(Long menuId, Menu menu);
+
+	void conversionType(Long menuId, Menu menu);
 
 }

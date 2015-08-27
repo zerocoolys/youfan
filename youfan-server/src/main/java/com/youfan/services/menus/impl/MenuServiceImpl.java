@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -152,11 +154,52 @@ public class MenuServiceImpl implements MenuService {
 		lock.lock();
 
 		try {
-			menuDAO.update(menu);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put(NAME, menu.getName());
+			map.put(PRICE, menu.getPrice());
+			map.put(STOCK, menu.getStock());
+			map.put(PIC_URLS, menu.getPicUrls());
+			map.put(DESCRIPTION, menu.getDescription());
+			map.put(TASTE, menu.getTaste());
+			map.put(STAPLE, menu.isStaple());
+			map.put(FEATURES, menu.getFeatures());
+			menuDAO.update(menu, map);
 		} finally {
 			lock.unlock();
 		}
 
+	}
+
+	@Override
+	public void updateXfzMenu(Long menuId, Menu menu) {
+		lock.lock();
+
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+
+			map.put(PRICE, menu.getPrice());
+			map.put(STOCK, menu.getStock());
+			map.put(PIC_URLS, menu.getPicUrls());
+
+			menuDAO.update(menu, map);
+		} finally {
+			lock.unlock();
+		}
+	}
+
+	@Override
+	public void conversionType(Long menuId, Menu menu) {
+		lock.lock();
+
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			String type = menu.getType().equals("nsc") ? "qtc" : "nsc";
+			map.put(TYPE, type);
+
+			menuDAO.update(menu, map);
+		} finally {
+			lock.unlock();
+		}
 	}
 
 }

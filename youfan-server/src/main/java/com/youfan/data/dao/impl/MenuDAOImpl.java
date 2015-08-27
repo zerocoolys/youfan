@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -81,13 +80,16 @@ public class MenuDAOImpl implements MenuDAO {
 	}
 
 	@Override
-	public void update(Menu menu) {
+	public void update(Menu t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(Menu menu, Map<String, Object> map) {
 		Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
 				.is(menu.getMenuId());
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put(PIC_URLS, menu.getPicUrls());
-		map.put(PRICE, menu.getPrice());
-		map.put(STOCK, menu.getStock());
+
 		mongoTemplate.updateFirst(Query.query(criteria), buildUpdate(map),
 				getEntityClass());
 
@@ -189,12 +191,10 @@ public class MenuDAOImpl implements MenuDAO {
 
 	@Override
 	public List<Menu> findByMenuIds(List<Long> menuIds) {
-		
-		List<MenuEntity> lits = mongoTemplate.find(
-				buildQuery(menuIds,true), getEntityClass(),
-				COLLECTION_MENU);
-		
-		
+
+		List<MenuEntity> lits = mongoTemplate.find(buildQuery(menuIds, true),
+				getEntityClass(), COLLECTION_MENU);
+
 		return convertToVOList(lits);
 	}
 

@@ -34,6 +34,8 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
 
 	Menu findOne(Query query);
 
+	void update(Menu menu, Map<String, Object> map);
+
 	@Override
 	default Class<MenuEntity> getEntityClass() {
 		return MenuEntity.class;
@@ -81,10 +83,8 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
 
 	default Update buildUpdate(Map<String, Object> map) {
 		Update update = Update.update("u_date", new Date());
-		System.out.println(update.getUpdateObject());
 		for (String key : map.keySet()) {
 			update.set(key, map.get(key));
-			System.out.println(update.getUpdateObject());
 		}
 		return update;
 	}
