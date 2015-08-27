@@ -58,7 +58,7 @@
                     userName:user.phoneNumber
                 };
                 $http.post(
-                    "http://192.168.1.110:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    "http://127.0.0.1:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
 
                         if (data == "" || data == null) {
                             var options = {
