@@ -1,6 +1,7 @@
 ServiceModule
     .factory('Order', function () {
         return {
+            cart: [],
             details: {}
         }
     })
