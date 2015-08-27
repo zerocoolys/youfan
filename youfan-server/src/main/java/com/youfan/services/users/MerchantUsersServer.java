@@ -1,7 +1,11 @@
 package com.youfan.services.users;
 
+import java.util.List;
+import java.util.Map;
+
 import com.youfan.controllers.objs.MerchantKitchenInfo;
 import com.youfan.controllers.objs.MerchantUser;
+import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import org.springframework.stereotype.Component;
@@ -26,4 +30,8 @@ public interface MerchantUsersServer {
     MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException;
 
     List<MerchantKitchenInfo> pageList(Integer page, Integer pageSize) throws KitchenInfoException;
+
+	public List<MerchantUserEntity> getMerchantByStatus(Integer status)throws UserException;
+
+	public void checkMerchant(String parameter, Integer status);;
 }

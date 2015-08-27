@@ -4,6 +4,7 @@ import com.youfan.controllers.objs.MerchantKitchenInfo;
 import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.data.dao.MerchantKitchenDAO;
 import com.youfan.data.dao.MerchantUserDAO;
+import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.MerchantUsersServer;
@@ -58,4 +59,15 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
     public MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
         return merchantKitchenDAO.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
     }
+
+	@Override
+	public List<MerchantUserEntity> getMerchantByStatus(Integer status) throws UserException {
+        return  merchantUserDao.getMerchantByStatus(status);
+
+	}
+
+	@Override
+	public void checkMerchant(String id, Integer status) {
+		merchantUserDao.updateStatus(id, status);
+	}
 }

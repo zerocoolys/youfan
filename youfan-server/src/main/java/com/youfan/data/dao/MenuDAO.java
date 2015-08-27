@@ -2,10 +2,14 @@ package com.youfan.data.dao;
 
 import com.youfan.controllers.objs.Menu;
 import com.youfan.data.models.MenuEntity;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 2015-08-18.
@@ -14,60 +18,83 @@ import java.util.List;
  */
 public interface MenuDAO extends MongoBaseDAO<MenuEntity, Menu, Long> {
 
-    List<Menu> findBySellerId(Long sellerId);
+	List<Menu> findBySellerId(Long sellerId);
 
-    int minusRestNum(Long menuId);
+	List<Menu> findByMenuIds(List<Long> menuIds);
 
-    int plusTasteNum(Long menuId);
+	int minusRestNum(Long menuId);
 
-    void resetRestNumBySellerId(Long sellerId, int restNum);
+	int plusTasteNum(Long menuId);
 
-    void resetRestNumByMenuId(Long menuId, int restNum);
+	void resetRestNumBySellerId(Long sellerId, int restNum);
 
-    List<Menu> findBySellerIdAndType(Long sellerId, String type);
-    
-    Menu findOne(Query query);
+	void resetRestNumByMenuId(Long menuId, int restNum);
 
+	List<Menu> findBySellerIdAndType(Long sellerId, String type);
 
-    @Override
-    default Class<MenuEntity> getEntityClass() {
-        return MenuEntity.class;
-    }
+	Menu findOne(Query query);
 
-    @Override
-    default Class<Menu> getVOClass() {
-        return Menu.class;
-    }
+	@Override
+	default Class<MenuEntity> getEntityClass() {
+		return MenuEntity.class;
+	}
 
-    default Query buildQuery(Long sellerId, Long menuId, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0).and(IS_SALE).is(true);
+	@Override
+	default Class<Menu> getVOClass() {
+		return Menu.class;
+	}
 
-        if (sellerId != null)
-            criteria.and(SELLER_ID).is(sellerId);
-        else if (menuId != null)
-            criteria.and(MENU_ID).is(menuId);
+	default Query buildQuery(Long sellerId, Long menuId, boolean isValid) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0)
+				.and(IS_SALE).is(true);
 
-        return Query.query(criteria);
-    }
+		if (sellerId != null)
+			criteria.and(SELLER_ID).is(sellerId);
+		else if (menuId != null)
+			criteria.and(MENU_ID).is(menuId);
 
-    default Query buildMerchantQuery(Long sellerId, String type, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
+		return Query.query(criteria);
+	}
 
-        if (sellerId != null) {
-            criteria.and(SELLER_ID).is(sellerId);
-        }
+	default Query buildQuery(List<Long> menuIds, boolean isValid) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
-        if (type != null) {
-            criteria.and(TYPE).is(type);
-        }
+		if (menuIds != null && menuIds.size() > 0)
+			criteria.and(MENU_ID).in(menuIds);
 
-        return Query.query(criteria);
-    }
+		return Query.query(criteria);
+	}
+
+	default Query buildMerchantQuery(Long sellerId, String type, boolean isValid) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
+
+		if (sellerId != null) {
+			criteria.and(SELLER_ID).is(sellerId);
+		}
+
+		if (type != null) {
+			criteria.and(TYPE).is(type);
+		}
+
+		return Query.query(criteria);
+	}
+
+	default Update buildUpdate(Map<String, Object> map) {
+		Update update = Update.update("u_date", new Date());
+		System.out.println(update.getUpdateObject());
+		for (String key : map.keySet()) {
+			update.set(key, map.get(key));
+			System.out.println(update.getUpdateObject());
+		}
+		return update;
+	}
 
 	int conversion(Long menuId, boolean sale);
 
 	void conversionStock(List<Menu> menus);
 
 	void conversionRestNum(List<Menu> menus);
+
+	Menu findByMenuId(long menuId);
 
 }

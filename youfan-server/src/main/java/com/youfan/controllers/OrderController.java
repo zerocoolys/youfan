@@ -1,12 +1,14 @@
 package com.youfan.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youfan.controllers.objs.MerchantOrderHeader;
 import com.youfan.controllers.objs.Order;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.orders.OrderService;
 import com.youfan.utils.JsonUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -50,7 +53,7 @@ public class OrderController {
 		Response response = null;
 		try {
 			Order order = JsonUtil.json2pojo(merchantInfo, Order.class);
-			List<Order> orders = orderService.findOrdersByMerchant(order);
+			List<MerchantOrderHeader> orders = orderService.findOrdersByMerchant(order);
 			response = Responses.SUCCESS().setPayload(orders);
 		} catch (Exception e) {
 			response = Responses.FAILED();

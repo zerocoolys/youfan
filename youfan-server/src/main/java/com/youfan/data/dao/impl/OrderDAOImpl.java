@@ -2,15 +2,18 @@ package com.youfan.data.dao.impl;
 
 import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
+import com.youfan.controllers.objs.MerchantOrderHeader;
 import com.youfan.controllers.objs.Order;
 import com.youfan.data.dao.OrderDAO;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -130,13 +133,13 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public List<Order> findOrders(Order order) {
+	public List<MerchantOrderHeader> findMerchantOrders(Order order) {
 		OrderEntity orderEntity = new OrderEntity();
 		orderEntity.setOrderStatus(order.getOrderStatus());
 		orderEntity.setSellerId(order.getSellerId());
 		orderEntity.setRepastMode(order.getRepastMode());
 		
-		List<Order> orders = sqlSession.selectList("findOrders", orderEntity);
+		List<MerchantOrderHeader> orders = sqlSession.selectList("findOrders", orderEntity);
 
 		return orders;
 	}

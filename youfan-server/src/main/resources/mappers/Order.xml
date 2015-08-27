@@ -10,22 +10,18 @@
         <result column="BUYER_ID" property="buyerId"/>
         <result column="COMMENTS" property="comments"/>
         <result column="ORDER_STATUS" property="orderStatus"/>
+
     </resultMap>
     
     
-    <resultMap id="OrderMap" type="com.youfan.controllers.objs.Order">
-        <id column="ORDER_ID" property="id"/>
+    <resultMap id="MerchantOrderHeader" type="com.youfan.controllers.objs.MerchantOrderHeader">
+       
         <result column="ORDER_NO" property="orderNo"/>
-        <result column="SELLER_ID" property="sellerId"/>
         <result column="BUYER_ID" property="buyerId"/>
-        <result column="COMMENTS" property="comments"/>
         <result column="ORDER_STATUS" property="orderStatus"/>
-        <result column="order_Time" property="orderTime"/>
         <result column="repast_Time" property="repastTime"/>
-        <result column="repast_Mode" property="repastMode"/>
         <result column="repast_Address" property="repastAddress"/>
-        <result column="coupons" property="coupons"/>
-        <result column="comments" property="comments"/>
+        <result column="dishes_Id" property="dishesId"/>
     </resultMap>
 
 
@@ -62,14 +58,27 @@
         SELECT *  FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND DATA_STATUS = 1 LIMIT #{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
     </select>
     
-    <select id="findOrders" parameterType="com.youfan.data.models.OrderEntity" resultMap="OrderMap" >
-         SELECT *,group_concat(dishes.DISH_ID) AS dishes  FROM 
-        
-         TBL_ORDERS orders left join TBL_REL_ODR_DISH dishes
+    <select id="findOrders" parameterType="com.youfan.data.models.OrderEntity" resultMap="MerchantOrderHeader" >
+         
+         
+
+
+
+    SELECT 
+          
+         orders.ORDER_NO,orders.repast_Address,orders.repast_Time,
+         
+         orders.BUYER_ID,orders.price,orders.order_status,dishes.dishes_Id
+         
+         FROM TBL_ORDERS orders  join 
+
+                                (select orders.order_id , group_concat(dishes.DISH_ID) AS dishes_Id from TBL_ORDERS orders join TBL_REL_ODR_DISH dishes
+
+                                 on orders.order_id = dishes.order_id  group by orders.order_id) dishes
         
          on orders.order_id = dishes.order_id 
-        
-         WHERE 1 = 1;
+
+      where 1 = 1
         
         <if test="sellerId != null and sellerId != ''">
                 and orders.seller_Id = #{sellerId}  
@@ -77,11 +86,11 @@
         
          <if test="orderStatus != null">
                 and orders.order_Status = #{orderStatus}  
-        </if>
+         </if>
         
-          <if test="repastMode != null and repastMode != ''">
+         <if test="repastMode != null and repastMode != ''">
                 and orders.repast_Mode = #{repastMode}  
-        </if>
+         </if>
         
     </select>
     

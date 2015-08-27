@@ -1,6 +1,7 @@
 package com.youfan.services.orders;
 
 import com.youfan.commons.Pagination;
+import com.youfan.controllers.objs.MerchantOrderHeader;
 import com.youfan.controllers.objs.Order;
 
 import java.util.List;
@@ -26,6 +27,6 @@ public interface OrderService {
 
     Order refundOrder(Order order);
 
-    List<Order> findOrdersByMerchant(Order order);
+    List<MerchantOrderHeader> findOrdersByMerchant(Order order);
 
 }
