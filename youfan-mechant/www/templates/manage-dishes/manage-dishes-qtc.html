@@ -10,6 +10,8 @@
     </ion-nav-buttons>
 
     <ion-content class="no-header">
+        <ion-refresher pulling-text="下拉可以刷新" on-refresh="load()"></ion-refresher>
+
         <div style="padding: 10px; text-align: center;">
             <button class="button button-calm" data-ng-click="addQtc()">亲 赶快添加你的其他菜吧</button>
         </div>
@@ -23,7 +25,7 @@
                             <td>{{item.name}}</td>
                             <td style="text-align: right" rowspan="2">
                                 <button class="button button-assertive"
-                                        ui-sref="m_dishes_qtc_edit({menuId: item.menuId})">编辑
+                                        ui-sref="m_dishes_edit.qtc({menuId: item.menuId})">编辑
                                 </button>
                                 <button data-ng-if="!item.sale" class="button button-energized"
                                         data-ng-click="upSale(item)">上架

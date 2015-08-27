@@ -12,12 +12,13 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         $scope.load = function () {
             $ionicLoading.show({
-                template: "正在载入数据，请稍后..."
+                templateUrl : "templates/comment/loading_comment.html"
             });
 
             $timeout(function () {
+                $scope.$broadcast("scroll.refreshComplete");
                 ManageDishesService.allDishes("888888888", "nsc");
-            }, 1000);
+            }, 500);
 
         };
 
@@ -144,23 +145,11 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         console.log("ManageDishesNscEditCtrl");
         // 初始化参数
-        $scope.menuId = $stateParams.menuId;
-        $scope.kwItems = KwService.all();
+        $scope.paramObj.backType = "nsc";
+        $scope.paramObj.menuId = $stateParams.menuId;
         $scope.dishes = {sale: true};
         $scope.imgs = [];
         $scope.isActive = false;
-
-        $scope.load = function () {
-
-            $ionicLoading.show({
-                template: "<ion-spinner icon='android'></ion-spinner>"
-            });
-
-            $timeout(function () {
-                ManageDishesService.findOneDishes($scope.menuId);
-            }, 1000);
-
-        };
 
         $scope.addQtcPic = function () {
             console.log("addQtcPic");
@@ -217,32 +206,6 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         };
 
-        $scope.confirmRemoveDishes = function () {
-            $ionicPopup.confirm({
-                title: "<b>提示</b>",
-                template: "确定删除这个菜吗？",
-                cancelText: '取消', // String (default: 'OK'). The text of the OK button.
-                cancelType: 'button button-stable', // St
-                okText: '删除', // String (default: 'OK'). The text of the OK button.
-                okType: 'button button-assertive' // St
-            }).then(function (res) {
-                if (res) {
-                    $scope.doRemoveDishes();
-                }
-            });
-        };
-
-        $scope.doRemoveDishes = function () {
-
-            $ionicLoading.show({
-                template: "<ion-spinner icon='android'></ion-spinner>"
-            });
-
-            $timeout(function () {
-                ManageDishesService.removeDishes($scope.menuId);
-            }, 1000);
-        };
-
         $scope.confirmChangeDishes = function () {
             $ionicPopup.confirm({
                 title: "<b>提示</b>",
@@ -260,7 +223,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         $scope.doChangeDishes = function () {
             $ionicLoading.show({
-                template: "<ion-spinner icon='android'></ion-spinner>"
+                templateUrl : "templates/comment/loading_comment.html"
             });
 
             $timeout(function () {
@@ -280,14 +243,6 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             }
 
             $ionicLoading.hide();
-        });
-
-        $scope.$on("yf-merchant-renewal-dishes-success", function () {
-            $state.go("m_dishes.nsc");
-        });
-
-        $scope.$on("yf-merchant-delete-dishes-success", function () {
-            $state.go("m_dishes.nsc");
         });
 
         $scope.$on("yf-merchant-save-dishes-error", function () {

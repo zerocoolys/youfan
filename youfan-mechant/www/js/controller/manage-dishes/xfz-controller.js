@@ -28,6 +28,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             });
 
             $timeout(function () {
+                $scope.$broadcast("scroll.refreshComplete");
                 ManageDishesService.allDishes("888888888", "xfz");
             }, 500);
 
@@ -122,7 +123,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
                 $scope.dishes.name = "五人小饭桌";
             }
             $timeout(function () {
-                ManageDishesService.updateDishes($scope.dishes);
+                ManageDishesService.saveDishes($scope.dishes);
             }, 1000);
 
         };
@@ -141,21 +142,10 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
     .controller("ManageDishesXfzEditCtrl", function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicActionSheet, $timeout, ManageDishesService) {
         console.log("ManageDishesXfzEditCtrl");
 
-        $scope.menuId = $stateParams.menuId;
+        $scope.paramObj.backType = "xfz";
+        $scope.paramObj.menuId = $stateParams.menuId;
         $scope.isActive = false;
         $scope.dishes = {sale: true};
-
-        $scope.load = function () {
-
-            $ionicLoading.show({
-                template: "<ion-spinner icon='android'></ion-spinner>"
-            });
-
-            $timeout(function () {
-                ManageDishesService.findOneDishes($scope.menuId);
-            }, 1000);
-
-        };
 
         $scope.addXfzPic = function () {
             $ionicActionSheet.show({
@@ -202,36 +192,6 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
         };
 
-        $scope.confirmRemoveDishes = function () {
-            $ionicPopup.confirm({
-                title: "<b>提示</b>",
-                template: "确定删除这个菜吗？",
-                cancelText: '取消', // String (default: 'OK'). The text of the OK button.
-                cancelType: 'button button-stable', // St
-                okText: '删除', // String (default: 'OK'). The text of the OK button.
-                okType: 'button button-assertive' // St
-            }).then(function (res) {
-                if (res) {
-                    $scope.doRemoveDishes();
-                }
-            });
-        };
-
-        $scope.doRemoveDishes = function () {
-
-            $ionicLoading.show({
-                template: "<ion-spinner icon='android'></ion-spinner>"
-            });
-
-            $timeout(function () {
-                ManageDishesService.removeDishes($scope.menuId);
-            }, 1000);
-        };
-
-        $scope.$on("yf-merchant-renewal-dishes-success", function (e, msg) {
-            $state.go("m_dishes.xfz");
-        });
-
         $scope.$on("yf-merchant-load-dishes-success", function (e, msg) {
             $scope.dishes = msg;
             $scope.imgs = [];
@@ -244,10 +204,6 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             }
 
             $ionicLoading.hide();
-        });
-
-        $scope.$on("yf-merchant-delete-dishes-success", function () {
-            $state.go("m_dishes.xfz");
         });
 
         $scope.$on("yf-merchant-error", function () {

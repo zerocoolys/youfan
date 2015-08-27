@@ -16,6 +16,7 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             });
 
             $timeout(function () {
+                $scope.$broadcast("scroll.refreshComplete");
                 ManageDishesService.allDishes("888888888", "qtc");
             }, 500);
 
@@ -144,23 +145,11 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
 
         console.log("ManageDishesQtcEditCtrl");
         // 初始化参数
-        $scope.menuId = $stateParams.menuId;
-        $scope.kwItems = KwService.all();
+        $scope.paramObj.backType = "qtc";
+        $scope.paramObj.menuId = $stateParams.menuId;
         $scope.dishes = {sale: true};
         $scope.imgs = [];
         $scope.isActive = false;
-
-        $scope.load = function () {
-
-            $ionicLoading.show({
-                template: "<ion-spinner icon='android'></ion-spinner>"
-            });
-
-            $timeout(function () {
-                ManageDishesService.findOneDishes($scope.menuId);
-            }, 1000);
-
-        };
 
         $scope.addQtcPic = function () {
             console.log("addQtcPic");
@@ -217,32 +206,6 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
 
         };
 
-        $scope.confirmRemoveDishes = function () {
-            $ionicPopup.confirm({
-                title: "<b>提示</b>",
-                template: "确定删除这个菜吗？",
-                cancelText: '取消', // String (default: 'OK'). The text of the OK button.
-                cancelType: 'button button-stable', // St
-                okText: '删除', // String (default: 'OK'). The text of the OK button.
-                okType: 'button button-assertive' // St
-            }).then(function (res) {
-                if (res) {
-                    $scope.doRemoveDishes();
-                }
-            });
-        };
-
-        $scope.doRemoveDishes = function () {
-
-            $ionicLoading.show({
-                template: "<ion-spinner icon='android'></ion-spinner>"
-            });
-
-            $timeout(function () {
-                ManageDishesService.removeDishes($scope.menuId);
-            }, 1000);
-        };
-
         $scope.confirmChangeDishes = function () {
             $ionicPopup.confirm({
                 title: "<b>提示</b>",
@@ -282,20 +245,11 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             $ionicLoading.hide();
         });
 
-        $scope.$on("yf-merchant-renewal-dishes-success", function () {
-            $state.go("m_dishes.qtc");
-        });
-
-        $scope.$on("yf-merchant-delete-dishes-success", function () {
-            $state.go("m_dishes.qtc");
-        });
-
         $scope.$on("yf-merchant-save-dishes-error", function () {
             alert("系统错误");
             $ionicLoading.hide();
             $scope.isActive = false;
         });
-
 
     })
 ;

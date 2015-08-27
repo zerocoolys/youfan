@@ -28,9 +28,59 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             });
         };
 
-        $scope.goDishesStock = function (backState) {
-            $state.go("m_dishes_stock", {backType: backType});
+    })
+
+    .controller('ManageDishesEditCtrl', function ($scope, $state, $ionicLoading, $ionicPopup, $timeout, KwService, ManageDishesService) {
+        console.log("ManageDishesEditCtrl");
+
+        $scope.paramObj = {};
+        $scope.kwItems = KwService.all();
+
+        $scope.load = function () {
+
+            $ionicLoading.show({
+                template: "<ion-spinner icon='android'></ion-spinner>"
+            });
+
+            $timeout(function () {
+                ManageDishesService.findOneDishes($scope.paramObj.menuId);
+            }, 1000);
+
         };
+
+        $scope.confirmRemoveDishes = function () {
+            $ionicPopup.confirm({
+                title: "<b>提示</b>",
+                template: "确定删除这个菜吗？",
+                cancelText: '取消', // String (default: 'OK'). The text of the OK button.
+                cancelType: 'button button-stable', // St
+                okText: '删除', // String (default: 'OK'). The text of the OK button.
+                okType: 'button button-assertive' // St
+            }).then(function (res) {
+                if (res) {
+                    $scope.doRemoveDishes();
+                }
+            });
+        };
+
+        $scope.doRemoveDishes = function () {
+
+            $ionicLoading.show({
+                template: "<ion-spinner icon='android'></ion-spinner>"
+            });
+
+            $timeout(function () {
+                ManageDishesService.removeDishes($scope.paramObj.menuId);
+            }, 1000);
+        };
+
+        $scope.$on("yf-merchant-renewal-dishes-success", function () {
+            $state.go("m_dishes." + $scope.paramObj.backType);
+        });
+
+        $scope.$on("yf-merchant-delete-dishes-success", function () {
+            $state.go("m_dishes." + $scope.paramObj.backType);
+        });
 
     })
 
@@ -310,13 +360,19 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                     }
                 }
             })
+            .state("m_dishes_edit", {
+                url: '/manage/dishes',
+                abstract: true,
+                controller: 'ManageDishesEditCtrl',
+                templateUrl: 'templates/manage-dishes/manage-dishes-edit-entrance.html'
+            })
             .state('m_dishes_nsc_add', {
                 url: '/manage/dishes/nsc/add',
                 controller: 'ManageDishesNscAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-nsc-add.html'
             })
-            .state('m_dishes_nsc_edit', {
-                url: '/manage/dishes/nsc/edit/:menuId',
+            .state('m_dishes_edit.nsc', {
+                url: '/nsc/edit/:menuId',
                 controller: 'ManageDishesNscEditCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-nsc-edit.html'
             })
@@ -325,8 +381,8 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 controller: 'ManageDishesQtcAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-qtc-add.html'
             })
-            .state('m_dishes_qtc_edit', {
-                url: '/manage/dishes/qtc/edit/:menuId',
+            .state('m_dishes_edit.qtc', {
+                url: '/qtc/edit/:menuId',
                 controller: 'ManageDishesQtcEditCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-qtc-edit.html'
             })
@@ -335,8 +391,8 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 controller: 'ManageDishesXfzAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-xfz-add.html'
             })
-            .state('m_dishes_xfz_edit', {
-                url: '/manage/dishes/xfz/edit/:menuId',
+            .state('m_dishes_edit.xfz', {
+                url: '/xfz/edit/:menuId',
                 controller: 'ManageDishesXfzEditCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-xfz-edit.html'
             })
