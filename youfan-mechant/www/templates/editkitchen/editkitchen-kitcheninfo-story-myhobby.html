@@ -1,25 +1,23 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar" align-title="center">
-        <a class="button button-clear icon ion-ios-arrow-back" href="{{href}}"  ng-click="isSaveText()"></a>
+        <a class="button button-clear button-calm icon ion-ios-arrow-back" href="#/kitcheninfo-story"></a>
 
-        <h1 class="title calm">编辑我的兴趣爱好</h1>
-
-
+        <h1 class="title ">编辑我的兴趣爱好</h1>
+        <button ng-click="isSaveText()" class="button button-clear button-calm ">
+            保存
+        </button>
     </ion-header-bar>
     <ion-content>
         <div class="item-input list list-inset">
-            <textarea style="overflow-y: hidden" ng-model="text" rows="15" autofocus="true" ng-change="checkText(text)" placeholder="编辑我的兴趣爱好"></textarea>
+            <textarea style="overflow-y: hidden" ng-model="text" rows="15" autofocus="true" ng-change="checkText(text)"
+                      placeholder="编辑我的兴趣爱好"></textarea>
         </div>
         <div>
             <label>
                 (说明:输入字数300以内)
             </label>
         </div>
-        <div>
-            <a class="button button-block button-positive" ng-click="">
-                保存
-            </a>
-        </div>
+
 
     </ion-content>
 </ion-view>

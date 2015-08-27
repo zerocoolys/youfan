@@ -10,19 +10,19 @@
     function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup) {
         $scope.signIn = function (user) {
             $http.post(
-                "http://127.0.0.1:8080/user/login", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                "http://192.168.1.110:8080/user/login", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
 
                     if (data == "" || data == null) {
                         var options = {
-                            "title": "密码或账号错误！",
+                            "title": "瀵嗙爜鎴栬处鍙烽敊璇紒",
                             "buttons": [{
-                                text: "关闭",
+                                text: "鍏抽棴",
                                 type: "button-positive clam"
                             }]
                         };
                         $ionicPopup.alert(options)
                             .then(function () {
-                                //这个函数在弹出框关闭时被调用
+                                //杩欎釜鍑芥暟鍦ㄥ脊鍑烘鍏抽棴鏃惰璋冪敤
                             });
                     } else {
                         $scope.user = data;
@@ -32,9 +32,9 @@
 
                 }, function (error) {
                     options = {
-                        "title": "系统繁忙！",
+                        "title": "绯荤粺绻佸繖锛�",
                         "buttons": [{
-                            text: "关闭",
+                            text: "鍏抽棴",
                             type: "button-positive clam"
                         }]
                     };
@@ -46,16 +46,16 @@
         };
         $scope.register = function (user) {
             $http.post(
-                "http://127.0.0.1:8080/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                "http://192.168.1.110:8080/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
 
                     var options;
                     switch (data.registerStatus){
 
                         case "1":
                             options = {
-                                "title": "注册成功！",
+                                "title": "娉ㄥ唽鎴愬姛锛�",
                                 "buttons": [{
-                                    text: "确定",
+                                    text: "纭畾",
                                     type: "button-positive clam"
                                 }]
                             };
@@ -68,9 +68,9 @@
                             break;
                         case "0":
                             options = {
-                                "title": "注册失败！",
+                                "title": "娉ㄥ唽澶辫触锛�",
                                 "buttons": [{
-                                    text: "关闭",
+                                    text: "鍏抽棴",
                                     type: "button-positive clam"
                                 }]
                             };
@@ -80,9 +80,9 @@
                             break;
                         case "-1":
                             options = {
-                                "title": "系统繁忙！",
+                                "title": "绯荤粺绻佸繖锛�",
                                 "buttons": [{
-                                    text: "关闭",
+                                    text: "鍏抽棴",
                                     type: "button-positive clam"
                                 }]
                             };
@@ -93,9 +93,9 @@
                     }
                 }, function (error) {
                     options = {
-                        "title": "系统繁忙！",
+                        "title": "绯荤粺绻佸繖锛�",
                         "buttons": [{
-                            text: "关闭",
+                            text: "鍏抽棴",
                             type: "button-positive clam"
                         }]
                     };

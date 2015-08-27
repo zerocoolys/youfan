@@ -1,17 +1,49 @@
-<ion-view view-title="登录" >
+<ion-view  hide-nav-bar="true" >
+    <ion-header-bar class="bar bar-header bar-light">
+        <h1 class="title login">登录</h1>
 
-    <ion-scroll style="padding-top: 43px; height: 100%; ">
-        <div class="list list-inset">
-            <label class="item item-input">
-                <i class="icon ion-ios-person-outline "></i>
-                <input type="text" ng-model="user.userName" placeholder="用户名">
-            </label>
-            <label class="item item-input">
-                <i class="icon ion-ios-unlocked-outline "></i>
-                <input type="password" ng-model="user.passWord" placeholder="密码">
-            </label>
-            <a class="button button-calm button-block" style="margin-top: 15px;" ng-click="signIn(user)">登录</a>
-            <!--<a class="button button-calm button-block" style="margin-top: 15px;" href="#/overview" >登录</a>-->
+    </ion-header-bar>
+    <ion-content >
+        <div class="list">
+            <div class="item item-input" style="margin: 10px 0">
+                <i class=" icon ion-ios-person-outline  " style="font-size: 30px"></i>
+                <input style="padding-left: 10px;" ng-model="user.userName" type="text" id="tel" name="tel" ng-model="user.tel" placeholder="输入手机号" required>
+                <button class="button bar-balanced calm-bg light item-note" style="margin-right: 20px" ng-click="sendMessage()">获取验证码</button>
+            </div>
+
+            <div class="item item-input" style="margin: 10px 0; height: 60px">
+                <i class="icon ion-ios-unlocked-outline " style="font-size: 30px"></i>
+                <input type="text" style="padding-left: 10px;"  ng-model="user.passWord" id="verificationCode" name="verificationCode" ng-model="user.verificationCode"
+                       placeholder="输入验证码" required>
+
+            </div>
+            <div style="margin-top: 40px;">
+                <button ng-click="signIn(user)" class="button button-block bar-balanced calm-bg light" style="" ng-click="messageLogin()">登录</button>
+            </div>
+
+            <p style="text-align: center">点击登录，即表示你同意&nbsp;&nbsp;
+                <span ng-click="userAgreement.show()" style="color: coral">用户协议</span>
+            </p>
+            <!--绝对居中偏下-->
+            <!--<p class="existingAccount">已有账户？<a href="./tab-pwdlogin.html">密码登录</a></p>-->
+
         </div>
-    </ion-scroll>
+    </ion-content>
+
+
+
+    <!--<ion-scroll style="padding-top: 43px; height: 100%; ">-->
+        <!--<div class="list list-inset">-->
+            <!--<label class="item item-input">-->
+                <!--<i class="icon ion-ios-person-outline "></i>-->
+                <!--<input type="text" ng-model="user.userName" placeholder="用户名">-->
+            <!--</label>-->
+            <!--<label class="item item-input">-->
+                <!--<i class="icon ion-ios-unlocked-outline "></i>-->
+                <!--<input type="password" ng-model="user.passWord" placeholder="密码">-->
+            <!--</label>-->
+            <!--&lt;!&ndash;<a class="button button-calm button-block" style="margin-top: 15px;" ng-click="signIn(user)">登录</a>&ndash;&gt;-->
+            <!--<a class="button button-calm button-block" style="margin-top: 15px;" href="#/overview" >登录</a>-->
+        <!--</div>-->
+    <!--</ion-scroll>-->
 </ion-view>

@@ -4,20 +4,12 @@
         <h1 class="title calm">厨房照片</h1>
     </ion-header-bar>
     <ion-content>
-        <div class="padding-top">
-            <label>
-                添加图片(最多4张)
-            </label>
-        </div>
-        <div class="padding-top">
-            <label>
-                添加按钮
-            </label>
-        </div>
-        <div>
-            <a class="button button-block button-positive" ng-click="">
-                保存
+        <ion-item class="padding" >
+            <span  style="margin: 10px 0">添加图片（最多四张）</span>
+            <a ng-click="addXfzPic()" class="tab-item calm-bg light"
+               style=" height: 60px; width: 60px;padding: 13px 5px 5px 5px; ">
+                <i class="icon ion-plus "></i>
             </a>
-        </div>
+        </ion-item>
     </ion-content>
 </ion-view>
