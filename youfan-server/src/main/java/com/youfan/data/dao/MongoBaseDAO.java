@@ -1,6 +1,7 @@
 package com.youfan.data.dao;
 
 import com.youfan.commons.Constants;
+import com.youfan.data.id.IdGenerator;
 import com.youfan.system.mongo.MongoPool;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
@@ -8,6 +9,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -129,6 +131,16 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
     default List<T> convertToVOList(List<E> eList) {
         return eList.stream().map(this::convertToVO).filter(t -> t != null).collect(Collectors.toList());
+    }
+
+    /**
+     * <p>Generate entity id.
+     *
+     * @param no Please use {@link IdGenerator} to get no
+     * @return entityId
+     */
+    default long generateId(long no) {
+        return Instant.now().getEpochSecond() + no;
     }
 
 }

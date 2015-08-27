@@ -1,22 +1,19 @@
 package com.youfan.data.dao.impl;
 
-import com.youfan.commons.MenuNoGenerator;
 import com.youfan.controllers.objs.Menu;
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.MenuEntity;
-
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import javax.annotation.Resource;
 
 /**
  * Created on 2015-08-18.
@@ -65,7 +62,7 @@ public class MenuDAOImpl implements MenuDAO {
 	@Override
 	public void insert(Menu menu) {
 		long no = idGenerator.next(COLLECTION_MENU);
-		menu.setMenuId(MenuNoGenerator.menuNo(no));
+		menu.setMenuId(generateId(no));
 		mongoTemplate.insert(convertToEntity(menu));
 	}
 
@@ -73,16 +70,15 @@ public class MenuDAOImpl implements MenuDAO {
 	public void insert(List<Menu> menus) {
 		List<MenuEntity> entities = menus.stream().map(menu -> {
 			long no = idGenerator.next(COLLECTION_MENU);
-			menu.setMenuId(MenuNoGenerator.menuNo(no));
+			menu.setMenuId(generateId(no));
 			return convertToEntity(menu);
 		}).collect(Collectors.toList());
 		mongoTemplate.insert(entities, COLLECTION_MENU);
 	}
 
 	@Override
-	public void update(Menu t) {
+	public void update(Menu menu) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -192,10 +188,10 @@ public class MenuDAOImpl implements MenuDAO {
 	@Override
 	public List<Menu> findByMenuIds(List<Long> menuIds) {
 
-		List<MenuEntity> lits = mongoTemplate.find(buildQuery(menuIds, true),
+		List<MenuEntity> list = mongoTemplate.find(buildQuery(menuIds, true),
 				getEntityClass(), COLLECTION_MENU);
 
-		return convertToVOList(lits);
+		return convertToVOList(list);
 	}
 
 }
