@@ -1,4 +1,5 @@
 /**
+ <<<<<<< Updated upstream
  * Created by subdong on 15-8-21.
  */
 ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, $rootScope, $ionicPopup, $timeout) {
@@ -93,7 +94,7 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
 
         $timeout(function () {
             alertPopup.close();
-        }, 2000);
+        }, 1000);
     };
     /**-------------------------------------------------------------------------**/
 });

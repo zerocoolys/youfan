@@ -45,6 +45,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
 
             .state('tab.dash', {
                 url: '/dash',
+                cache:false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/tab-dash.html',
@@ -54,7 +55,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             //详情页
             .state('tab.dash-detail', {
-                url: '/dash/:dashId',
+                url: '/dash/:merchantId',
+                cache:false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/dash-detail.html',
@@ -68,7 +70,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/change-address.html',
-                        controller: 'ChangeAddressCtrl'
+                        controller:'ChangeAddressCtrl'
                     }
                 }
             })
@@ -285,8 +287,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: '/pay-page',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/pay-page.html'
-//                        controller: 'DashDetailCtr'
+                        templateUrl: 'templates/pay-page.html',
+                        controller: 'OrderPayCtrl'
                     }
                 }
             })
@@ -318,20 +320,33 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         controller: 'MapContainer'
                     }
                 }
+            })
+            .state('tab.detail-address', {
+                url: '/detail-address',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/detail-address.html',
+                        controller: 'MapContainer'
+                    }
+                }
             });
-
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tab/dash');
 
     })
-    .directive('hideTabs', function ($rootScope) {
+    .directive('hideTabs', function ($rootScope, $location, $state) {
         return {
             restrict: 'A',
             link: function ($scope, $el) {
-                $rootScope.hideTabs = true;
-                $scope.$on('$destroy', function () {
-                    $rootScope.hideTabs = false;
+                $scope.$on('$stateChangeSuccess', function () {
+                    if ($state.current.name == "tab.dash" || $state.current.name == "tab.chats" || $state.current.name == "tab.account") {
+                        $rootScope.hideTabs = false;
+                    }
+                    else {
+                        $rootScope.hideTabs = true;
+                    }
                 });
+
             }
         };
     })

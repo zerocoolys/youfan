@@ -3,12 +3,13 @@
         <button class="button icon ion-ios-arrow-left button-clear" onclick="history.back()">返回</button>
         <h2 class="title">评论</h2>
     </ion-header-bar>
-    <ion-content>
-        <div class="list" ng-repeat="comment in comments " style="margin-bottom:10px;">
-            <a class="item item-avatar" href="#">
+    <ion-content class="comment">
+        <div class="list" ng-repeat="comment in comments " style="margin-bottom:0px;">
+            <div class="item item-avatar">
                 <img ng-src="{{comment.img}}">
 
                 <div class="care_text">
+
                         <span>
                             {{comment.name}}
                         </span>
@@ -20,7 +21,15 @@
                     <p>{{comment.content}}</p>
                     <span class="time">{{comment.time}}</span>
                 </div>
-            </a>
+                <div class="care_text2">
+                    <p> 【家厨回复】
+                        <span>
+                            {{comment.reply}}
+                        </span></p>
+
+                    <p class="time">{{comment.time}}</p>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>

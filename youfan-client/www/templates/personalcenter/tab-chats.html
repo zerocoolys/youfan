@@ -18,33 +18,34 @@
         <ion-list class="person">
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       ui-sref="tab.order">
-                <h2>我的订单</h2>
+                <span>我的订单</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       ui-sref="tab.wallet">
-                <h2>我的钱包</h2>
-                <span class="item-note">
+                <span class="alleft">我的钱包</span>
+                <span class="item-note allright">
                     余额、优惠券<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ui-sref="tab.care">
-                <h2>我的关注</h2>
+                <span>我的关注</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       ui-sref="tab.message">
-                <h2>我的消息</h2>
+                <span>我的消息</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
+                <span class="badge badge-assertive">{{msgNumber == 0?"":msgNumber}}</span>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       ui-sref="tab.address">
-                <h2>送餐地址</h2>
+                <span>送餐地址</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       href="#/tab/chats/{{chat.id}}">
-                <h2>我要做饭</h2>
+                <span>我要做饭</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>

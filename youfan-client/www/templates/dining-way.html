@@ -9,14 +9,14 @@
     </ion-header-bar>
     <ion-content>
         <ion-list>
-            <ion-item>
+            <ion-item ng-click="pickUp()">
                 <div class="fl">自取</div>
                 <div class="fl delivery_address">
-                    <p>河马堂药膳厨房</p>
+                    <p ng-bind="merchantInfo.name"></p>
 
-                    <p>13552080549</p>
+                    <p ng-bind="merchantInfo.telNo"></p>
 
-                    <p>北京市朝阳区百子湾32号院苹果社区</p>
+                    <p ng-bind="merchantInfo.address"></p>
                 </div>
             </ion-item>
             <ion-item ng-click="modal.show()">
@@ -25,7 +25,7 @@
                     新配送地址
                 </div>
                 <span class="fr mainColor">
-                  <i class="icon ion-plus"></i>
+                  <i class="icon ion-plus" ng-click="addAddress()"></i>
                 </span>
             </ion-item>
         </ion-list>
@@ -36,7 +36,7 @@
     <ion-modal-view>
         <ion-header-bar>
             <button class="button button-clear" ng-click="modal.hide()">取消</button>
-            <h1 class="title">新增就餐地址</h1>
+            <h1 class="title" ng-click="addAddress()">>新增就餐地址</h1>
             <button class="button button-clear mainColor" ng-click="modal.hide()">保存</button>
         </ion-header-bar>
         <ion-content>

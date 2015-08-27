@@ -24,7 +24,36 @@
     position: absolute;
     z-index: 10000;
 }
-/*分享的icon*/
+.how_delivery{
+    background-color: #fff;
+    margin: 8px 12px 0 0;
+}
+.how_delivery span{
+    text-align: center;
+    line-height: 20px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: #ddd;
+    background-color: #fff;
+    font-size: 9px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+.how_delivery span.active{
+    background-color: #e4e400;
+    color: #fff;
+}
+/*购物车背景*/
+.cart_bg{
+    background-color: #fff;
+    border-radius: 9px;
+    padding: 2px 6px;
+}
+.cart_bg i{
+    font-size: 9px;
+}
+/*dash-detail中分享的icon*/
 .dash_detail .bar.bar-light {
     background: none;
     background-image: none;
@@ -55,6 +84,82 @@
     right: 15px;
     min-width:100px;
 
+}
+/*添加商品数量*/
+.add_shop_account{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: #1dbeaf;
+    color: #fff;
+    border-radius: 25px;
+    line-height: 25px;
+    text-align: center;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.dash_detail .chang_width{
+    width: 60px;
+    padding: 0 8px;
+}
+.dash_detail .chang_width .ion-plus{
+    float: right;
+}
+.dash_detail .main_menu .slider-pager {
+    display: none;
+
+}
+
+.dash_detail .main_menu.slider {
+    height: auto;
+}
+.dash_detail .main_menu .item-body{
+    background-color: #eee;
+}
+.dash_detail .main_menu .item-body .menu_line{
+    border-top-width: 1px;
+}
+.dash_detail .main_menu .item-body .menu_line img{
+
+}
+/*附菜单的处理*/
+.tip_menu_list .item-thumbnail-left .item-content .item-image,
+.tip_menu_list .item-thumbnail-left .item-content>img:first-child,.tip_menu_list .item-thumbnail-left .item-image,.tip_menu_list .item-thumbnail-left>img:first-child {
+    top: 0;
+    left: 0;
+    max-width: 100px;
+    max-height: 100px;
+}
+.tip_menu_list .tip_menu_list_name{
+    border-bottom: 1px solid #f4f4f4;
+    padding: 5px 0 10px 0;
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+.tip_menu_list .mainColor{
+    font-size: 12px;
+}
+.tip_menu_list .price{
+    margin-top: 8px;
+    font-size: 14px;
+}
+.tip_menu_list .item-thumbnail-left,.tip_menu_list .item-thumbnail-left .item-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 100px;
+}
+/*icon的背景颜色*/
+.icon_bg{
+    width: 25px;
+    height: 25px !important;
+    background-color: #1dbeaf;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 25px;
+    color: #fff !important;
 }
 /**/
 .tip_menu{
