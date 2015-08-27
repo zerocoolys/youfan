@@ -455,9 +455,9 @@ Alpha(opacity = 100);
 
 }
 
-.message.tabs-top .tabs {
+/*.message.tabs-top .tabs {
     background-color: #fff;
-}
+}*/
 
 .message.tabs-top .tab-item {
     max-width: 100%;
@@ -468,3 +468,4 @@ Alpha(opacity = 100);
     border-bottom: 2px solid #1dbeaf;
     margin-top: 1px;
 }
+

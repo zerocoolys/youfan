@@ -324,7 +324,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/detail-address.html',
-                        controller:'MapContainer'
+                        controller: 'MapContainer'
                     }
                 }
             });
@@ -332,14 +332,19 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         $urlRouterProvider.otherwise('/tab/dash');
 
     })
-    .directive('hideTabs', function ($rootScope) {
+    .directive('hideTabs', function ($rootScope, $location, $state) {
         return {
             restrict: 'A',
             link: function ($scope, $el) {
-                $rootScope.hideTabs = true;
-                $scope.$on('$destroy', function () {
-                    $rootScope.hideTabs = false;
+                $scope.$on('$stateChangeSuccess', function () {
+                    if ($state.current.name == "tab.dash" || $state.current.name == "tab.chats" || $state.current.name == "tab.account") {
+                        $rootScope.hideTabs = false;
+                    }
+                    else {
+                        $rootScope.hideTabs = true;
+                    }
                 });
+
             }
         };
     })
