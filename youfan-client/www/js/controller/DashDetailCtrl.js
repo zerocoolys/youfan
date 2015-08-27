@@ -183,6 +183,9 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         var jsonArr = data.menus;
 
         for (var i = 0, l = jsonArr.length; i < l; i++) {
+            jsonArr[i].account = 0;
+            jsonArr[i].changWidth = false;
+            jsonArr[i].shopAccount = false;
             jsonArr[i].price = parseFloat(jsonArr[i].price).toFixed(2);
         }
 
@@ -190,7 +193,17 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     });
 
     // 添加菜品到购物车
+    $scope.minusAccount = function(menu) {
+        menu.account--;
+        if(menu.account <= 0){
+            menu.changWidth = false;
+            menu.shopAccount = false;
+        }
+    }
     $scope.addToCart = function (menu) {
+        menu.changWidth = true;
+        menu.shopAccount = true;
+        menu.account++;
         if (menu.restNum > 0) {
             if ($scope.orderCartMap.containsKey(menu.menuId)) {
                 var item = $scope.orderCartMap.get(menu.menuId);
