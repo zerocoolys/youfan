@@ -37,7 +37,7 @@ public interface Constants {
     public static final String WEB_DATA = "data";
     public static final String WEB_STATUS = "status";
 
-	String COLLECTION_KITCHENINFO = "merchantKichenInfo";
+	String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
 	String COLLECTION_USER = "merchantUser";
 
 }

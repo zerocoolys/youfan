@@ -67,7 +67,6 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = null;
         List<MerchantKitchenInfo> list = new ArrayList<>();
         while (limit.hasNext()) {
-            merchantKitchenInfoEntity = new MerchantKitchenInfoEntity();
             merchantKitchenInfoEntity = (MerchantKitchenInfoEntity)limit.next();
             list.add(convertToVO(merchantKitchenInfoEntity));
         }
