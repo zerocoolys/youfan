@@ -1,6 +1,6 @@
 <ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail">
     <ion-header-bar class="bar-header bar-light">
-        <a ui-sref="tab.dash"><i class="ion-ios-arrow-left"></i></a>
+        <a ui-sref="tab.dash" ><i class="ion-ios-arrow-left"></i></a>
 
         <div class="top_share ">
             <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
@@ -33,7 +33,7 @@
         </div>
         <div class="item text-center" style="border-width: 0;">
             <div class="segmented-control-item">
-                <h2 style="margin-top: 40px" class="mainColor">海南风情小味厨</h2>
+                <h2 style="margin-top: 40px" ng-bind="merchantObj.kitchenName"></h2>
                 <i class="icon ion-star" style="color: #e4e400"></i>
                 <i class="icon ion-star" style="color: #e4e400"></i>
                 <i class="icon ion-star" style="color: #e4e400"></i>
@@ -57,7 +57,7 @@
                     <i class="icon_bg ion-ios-paper-outline icon-accessory"></i>
                 </span>
 
-                <h2 ui-sref="tab.seller-detail">我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
+                <h2 ui-sref="tab.seller-detail" ng-bind="merchantObj.kitchenStoryName">我是一名85后退伍军人，在部队锻炼出一身严谨的工作态度</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
@@ -65,15 +65,15 @@
                     <i class="icon_bg ion-location icon-accessory"></i>
                 </span>
 
-                <h2 ui-sref="tab.Map">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
+                <h2 ui-sref="tab.Map" ng-bind="merchantObj.kitchenAddress">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
                 <div class="address_detail_info">
-                    <label>配送说明 : <span>尚无说明</span></label>
-                    <label>配送范围 : <span>2千米内配送 | 外送费 : 2元</span></label>
+                    <label>配送说明 : <span ng-bind="merchantObj.distribution">尚无说明</span></label>
+                    <label>配送范围 : <span ng-bind="merchantObj.disRange">2千米内配送 | 外送费 : 2元</span></label>
                     <label>距离 : <span>427米</span></label>
-                    <label>可容纳 : <span>不提供堂食</span></label>
+                    <label>可容纳 : <span ng-bind="merchantObj.canteen">不提供堂食</span></label>
                 </div>
             </ion-item>
         </ion-list>

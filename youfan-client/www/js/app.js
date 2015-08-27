@@ -45,6 +45,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
 
             .state('tab.dash', {
                 url: '/dash',
+                cache:false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/tab-dash.html',
@@ -54,7 +55,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             //详情页
             .state('tab.dash-detail', {
-                url: '/dash/:dashId',
+                url: '/dash/:merchantId',
+                cache:false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/dash-detail.html',
@@ -68,7 +70,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/change-address.html',
-                        controller: 'ChangeAddressCtrl'
+                        controller:'ChangeAddressCtrl'
                     }
                 }
             })

@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout) {
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $stateParams, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout) {
 
     // ========================= guochunyan =========================
     $scope.$root.tabsHidden = "tabs-hide";
@@ -277,4 +277,36 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         }, 1000);
     };
 
+
+    /*====================XiaoWei==================*/
+    $scope.merchantObj = {}
+    $scope.getMerchant = function () {
+        var merchantId = $stateParams.merchantId;
+        if (merchantId) {
+            $http.get(REST_URL + "/mr/getMrOne/" + merchantId).success(function (result) {
+                if (result.data != null) {
+                    var _tmpData=result.data;
+                    if(!_tmpData.distribution){
+                        _tmpData["distribution"]="暂无说明";
+                    }
+                    if(!_tmpData.disRange){
+                        _tmpData["disRange"]="暂无距离";
+                    }
+                    if(!_tmpData["kitchenStoryName"]){
+                        _tmpData["kitchenStoryName"]="暂无故事标题";
+                    }
+                    if(!_tmpData["kitchenAddress"]){
+                        _tmpData["kitchenAddress"]="亲，厨房还没地址哦！";
+                    }
+                    if(_tmpData.canteen){
+                        _tmpData["canteen"]="支持|可容纳人数："+_tmpData.galleryFul;
+                    }else{
+                        _tmpData["canteen"]="不支持";
+                    }
+                    $scope.merchantObj = _tmpData;
+                }
+            });
+        }
+    }
+    $scope.getMerchant();
 });

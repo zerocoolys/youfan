@@ -16,6 +16,15 @@
                 <input type="search" ng-model="inputText.value" ng-change="keydown()" placeholder="小区/大厦/学校/街道"/>
             </label>
         </div>
+        <div class="list padding-left padding-right ">
+            <a href="#" class="item" ng-click="test()">
+                <i class="ion-android-compass"></i>
+                定位到当前地址
+            </a>
+        </div>
+        <label class="item-input item-stacked-label padding-right">
+            <span class="input-label">我的地址</span>
+        </label>
 
         <div data-ng-repeat="item in items" id='divid{{$index + 1}}' data-ng-click='selectResult($index)'
              style="font-size: 13px;cursor:pointer;padding:5px 5px 5px 5px;">{{item.name}}<span style='color:#C1C1C1;'>{{item.value}}</span>
