@@ -53,7 +53,7 @@
 
         };
         $scope.signIn = function (user) {
-            if(user.verificationCode==$scope.verificationCode){
+            //if(user.verificationCode==$scope.verificationCode){
                 var merchantUser = {
                     userName:user.phoneNumber
                 };
@@ -91,19 +91,19 @@
                             });
                     });
 
-            }else{
-                var options = {
-                    "title": "验证码输入不正确！",
-                    "buttons": [{
-                        text: "关闭",
-                        type: "button-positive clam"
-                    }]
-                };
-                $ionicPopup.alert(options)
-                    .then(function () {
-                        //这个函数在弹出框关闭时被调用
-                    });
-            }
+            //}else{
+            //    var options = {
+            //        "title": "验证码输入不正确！",
+            //        "buttons": [{
+            //            text: "关闭",
+            //            type: "button-positive clam"
+            //        }]
+            //    };
+            //    $ionicPopup.alert(options)
+            //        .then(function () {
+            //            //这个函数在弹出框关闭时被调用
+            //        });
+            //}
 
         };
         $scope.register = function (user) {
