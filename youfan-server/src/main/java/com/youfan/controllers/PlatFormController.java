@@ -333,8 +333,7 @@ public class PlatFormController {
 	    MessageEntity msa = null;
 		try {
 			msa = messageService.findById(messageId);
-			msa.setStatus(status);
-			messageService.update(msa);
+			messageService.updateMsg(msa.getId(),status);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
