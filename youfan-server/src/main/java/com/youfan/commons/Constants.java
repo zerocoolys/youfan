@@ -7,26 +7,32 @@ package com.youfan.commons;
  */
 public interface Constants {
 
-	// 优饭Mongo数据库名称
-	String MONGO_YOUFAN = "youfan";
+    // 优饭Mongo数据库名称
+    String MONGO_YOUFAN = "youfan";
 
-	// 存储菜品信息的集合名称
-	String COLLECTION_MENU = "menu";
+    // 存储菜品信息的集合名称
+    String COLLECTION_MENU = "menu";
 
-	String SELLER_ID = "sellerId";
-	String MENU_ID = "menuId";
-	String TYPE = "type";
+    String SELLER_ID = "sellerId";
+    String MENU_ID = "menuId";
+    String TYPE = "type";
 
-	String DESCRIPTION = "descr";
-	String IS_SALE = "sale";
-	String PIC_URLS = "picUrls";
-	String PRICE = "price";
-	String STOCK = "stock";
-	String REST_NUM = "restNum";
-	String TASTE_NUM = "tasteNum";
-	String DATA_STATUS = "dataStatus";
-	String SALE = "sale";
-	
-	 String COLLECTION_MESSAGE= "messages";
+    String DESCRIPTION = "descr";
+    String IS_SALE = "sale";
+    String PIC_URLS = "picUrls";
+    String PRICE = "price";
+    String STOCK = "stock";
+    String REST_NUM = "restNum";
+    String TASTE_NUM = "tasteNum";
+    String DATA_STATUS = "dataStatus";
+    String SALE = "sale";
 
+    String COLLECTION_MESSAGE = "messages";
+
+    // messages 查询字段
+    String MESSAGE_RECEIVERID = "receiverId";
+    String MESSAGE_RECEIVERPORT = "receiverPort";
+    String MESSAGE_DATE = "date";
+    String MESSAGE_STATUS = "status";
+    String MESSAGE_ID = "id";
 }
