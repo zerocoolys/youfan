@@ -17,7 +17,7 @@ import java.util.Map;
  * Created by perfection on 15-8-24.
  */
 public interface MerchantUsersServer {
-    public MerchantUser login(String userName, String passWord) throws UserException;
+    public MerchantUser login(String userName) throws UserException;
 
     public Map register(String userName, String passWord) throws UserException;
 

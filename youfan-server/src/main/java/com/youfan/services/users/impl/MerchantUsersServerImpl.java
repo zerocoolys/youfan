@@ -27,8 +27,8 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
     @Resource
     private MerchantKitchenDAO merchantKitchenDAO;
 
-    public MerchantUser login(String userName, String passWord) throws UserException {
-        return merchantUserDao.login(userName, passWord);
+    public MerchantUser login(String userName) throws UserException {
+        return merchantUserDao.login(userName);
     }
 
     @Override

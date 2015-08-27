@@ -6,11 +6,13 @@ import com.youfan.data.dao.MerchantKitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
+import com.youfan.utils.JsonUtil;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -67,7 +69,11 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = null;
         List<MerchantKitchenInfo> list = new ArrayList<>();
         while (limit.hasNext()) {
-            merchantKitchenInfoEntity = (MerchantKitchenInfoEntity)limit.next();
+            Map map = limit.next().toMap();
+            String id = map.get("_id").toString();
+            map.remove("_id");
+            map.put("id",id);
+            merchantKitchenInfoEntity = JsonUtil.map2pojo(map,MerchantKitchenInfoEntity.class);
             list.add(convertToVO(merchantKitchenInfoEntity));
         }
         return list;
