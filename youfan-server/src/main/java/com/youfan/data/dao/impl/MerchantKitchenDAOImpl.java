@@ -85,24 +85,35 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         createCollection();
 
         Update update = new Update();
+        String [] test = new String[2];
+        test[0] = "川菜";
+        test[1] = "鲁菜";
 
-        update.set("addressGeoCoding", merchantKitchenInfo.getAddressGeoCoding());
-        update.set("cuisine", merchantKitchenInfo.getCuisine());
-        update.set("desc", merchantKitchenInfo.getDesc());
-        update.set("disPrice", merchantKitchenInfo.getDisPrice());
-        update.set("disRange", merchantKitchenInfo.getDisRange());
-        update.set("distribution", merchantKitchenInfo.getDistribution());
-        update.set("endTime", merchantKitchenInfo.getEndTime());
-        update.set("kitchenAddress", merchantKitchenInfo.getKitchenAddress());
-        update.set("kitchenName", merchantKitchenInfo.getKitchenName());
-        update.set("phoneNumber", merchantKitchenInfo.getPhoneNumber());
-        update.set("startTime", merchantKitchenInfo.getStartTime());
-        update.set("galleryFul", merchantKitchenInfo.getGalleryFul());
-        update.set("isCanteen", merchantKitchenInfo.isCanteen());
+        update.set("cuisine", test);
+//        update.set("desc", merchantKitchenInfo.getDesc());
+        update.set("desc", "查你家的大水表");
+//        update.set("disPrice", merchantKitchenInfo.getDisPrice());
+        update.set("disPrice", 10);
+//        update.set("disRange", merchantKitchenInfo.getDisRange());
+        update.set("disRange", "2");
+//        update.set("distribution", merchantKitchenInfo.getDistribution());
+        update.set("distribution", "配送你一个大水表");
+//        update.set("endTime", merchantKitchenInfo.getEndTime());
+        update.set("endTime", "20:00");
+//        update.set("kitchenAddress", merchantKitchenInfo.getKitchenAddress());
+        update.set("kitchenAddress", "华阳金南园");
+        update.set("kitchenName", "叶哥厨房");
+        update.set("phoneNumber", "18328725827");
+//        update.set("startTime", merchantKitchenInfo.getStartTime());
+        update.set("startTime", "10:00");
+//        update.set("galleryFul", merchantKitchenInfo.getGalleryFul());
+//        update.set("isCanteen", merchantKitchenInfo.isCanteen());
+        update.set("galleryFul", 10);
         update.set("isDistribution", merchantKitchenInfo.isDistribution());
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
-        update.set("lat", merchantKitchenInfo.getLat());
-        update.set("lng", merchantKitchenInfo.getLng());
+        update.set("lat", "30.507874");
+        update.set("lng", "104.068527");
+        merchantKitchenInfo.setId(new Long("55dad8b374d29345d56d8136"));
         return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, MerchantKitchenInfoEntity.class));
     }
 

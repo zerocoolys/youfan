@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class MerchantKitchenInfo {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
-    private String id;  //厨房id与商家用户id匹配
+    private Long id;  //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
     private List<String> cuisine = new ArrayList<>();   //厨房特色，菜系
@@ -74,11 +74,11 @@ public class MerchantKitchenInfo {
         this.kitchenStoryContent = kitchenStoryContent;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

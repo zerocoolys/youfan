@@ -1,30 +1,18 @@
-package com.youfan.data.models;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package com.youfan.controllers.objs;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.youfan.commons.Constants.COLLECTION_KITCHENINFO;
-
 /**
- * Created by perfection on 15-8-25.
+ * Created by perfection on 15-8-28.
  */
-@Document(collection = COLLECTION_KITCHENINFO)
-public class MerchantKitchenInfoEntity {
+public class MerchantKitchenBaseInfo {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
-    @Id
     private Long id;  //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
     private List<String> cuisine = new ArrayList<>();   //厨房特色，菜系
     private String kitchenAddress;  //厨房地址
-    private String addressGeoCoding;    //地理编码经纬度
-    private String hobby;   //厨房用户兴趣爱好
-    private String kitchenStoryName;    //厨房故事标题
-    private String kitchenStoryContent; //厨房故事内容
-    private List<String> kitchenPicUrl = new ArrayList<>(); //厨房照片路径
     private boolean isTakeSelf; //是否支持自取
     private boolean isCanteen;  //是否支持食堂
     private Integer galleryFul; //如果支持厨房，该字段不为空，容纳人数
@@ -35,23 +23,13 @@ public class MerchantKitchenInfoEntity {
     private String startTime; //开店时间
     private String endTime;   //关店时间
     private String desc;    //厨房备注
-    private String lat; //经度
-    private String lng; //纬度
 
-    public String getLat() {
-        return lat;
+    public String getKitchenName() {
+        return kitchenName;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLng() {
-        return lng;
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng;
+    public void setKitchenName(String kitchenName) {
+        this.kitchenName = kitchenName;
     }
 
     public Integer getStatus() {
@@ -70,60 +48,12 @@ public class MerchantKitchenInfoEntity {
         this.id = id;
     }
 
-    public String getKitchenName() {
-        return kitchenName;
-    }
-
-    public void setKitchenName(String kitchenName) {
-        this.kitchenName = kitchenName;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getKitchenAddress() {
-        return kitchenAddress;
-    }
-
-    public void setKitchenAddress(String kitchenAddress) {
-        this.kitchenAddress = kitchenAddress;
-    }
-
-    public String getAddressGeoCoding() {
-        return addressGeoCoding;
-    }
-
-    public void setAddressGeoCoding(String addressGeoCoding) {
-        this.addressGeoCoding = addressGeoCoding;
-    }
-
-    public String getHobby() {
-        return hobby;
-    }
-
-    public void setHobby(String hobby) {
-        this.hobby = hobby;
-    }
-
-    public String getKitchenStoryName() {
-        return kitchenStoryName;
-    }
-
-    public void setKitchenStoryName(String kitchenStoryName) {
-        this.kitchenStoryName = kitchenStoryName;
-    }
-
-    public String getKitchenStoryContent() {
-        return kitchenStoryContent;
-    }
-
-    public void setKitchenStoryContent(String kitchenStoryContent) {
-        this.kitchenStoryContent = kitchenStoryContent;
     }
 
     public List<String> getCuisine() {
@@ -134,12 +64,12 @@ public class MerchantKitchenInfoEntity {
         this.cuisine = cuisine;
     }
 
-    public List<String> getKitchenPicUrl() {
-        return kitchenPicUrl;
+    public String getKitchenAddress() {
+        return kitchenAddress;
     }
 
-    public void setKitchenPicUrl(List<String> kitchenPicUrl) {
-        this.kitchenPicUrl = kitchenPicUrl;
+    public void setKitchenAddress(String kitchenAddress) {
+        this.kitchenAddress = kitchenAddress;
     }
 
     public boolean isTakeSelf() {
@@ -150,20 +80,20 @@ public class MerchantKitchenInfoEntity {
         this.isTakeSelf = isTakeSelf;
     }
 
-    public Integer getGalleryFul() {
-        return galleryFul;
-    }
-
-    public void setGalleryFul(Integer galleryFul) {
-        this.galleryFul = galleryFul;
-    }
-
     public boolean isCanteen() {
         return isCanteen;
     }
 
     public void setIsCanteen(boolean isCanteen) {
         this.isCanteen = isCanteen;
+    }
+
+    public Integer getGalleryFul() {
+        return galleryFul;
+    }
+
+    public void setGalleryFul(Integer galleryFul) {
+        this.galleryFul = galleryFul;
     }
 
     public boolean isDistribution() {
@@ -198,20 +128,20 @@ public class MerchantKitchenInfoEntity {
         this.distribution = distribution;
     }
 
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
     public String getStartTime() {
         return startTime;
     }
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getDesc() {
