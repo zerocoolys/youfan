@@ -66,10 +66,10 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
         };
         $scope.imgs = [{
             index: 0,
-            url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
+            url: "http://a3.att.hudong.com/84/07/01300001369290132072076178920.jpg"
         }, {
             index: 1,
-            url: "https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png"
+            url: "http://preview.quanjing.com/chineseview069/tpgrf-bgs20110532.jpg"
         }];
         $scope.isActive = false;
 
@@ -131,7 +131,6 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
                 height: 800,
                 quality: 80
             };
-            alert($cordovaImagePicker.getPictures);
 
             $cordovaImagePicker.getPictures(options)
                 .then(function (results) {
