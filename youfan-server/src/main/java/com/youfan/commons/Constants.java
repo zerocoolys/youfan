@@ -20,27 +20,27 @@ public interface Constants {
     String SELLER_ID = "sellerId";
     String MENU_ID = "menuId";
     String TYPE = "type";
-	String NAME = "name";
-	String DESCRIPTION = "descr";
-	String IS_SALE = "sale";
-	String PIC_URLS = "picUrls";
-	String PRICE = "price";
-	String STOCK = "stock";
-	String REST_NUM = "restNum";
-	String TASTE_NUM = "tasteNum";
-	String DATA_STATUS = "dataStatus";
-	String SALE = "sale";
-	String TASTE = "taste";
-	String STAPLE = "staple";
-	String FEATURES = "features";
+    String NAME = "name";
+    String DESCRIPTION = "descr";
+    String IS_SALE = "sale";
+    String PIC_URLS = "picUrls";
+    String PRICE = "price";
+    String STOCK = "stock";
+    String REST_NUM = "restNum";
+    String TASTE_NUM = "tasteNum";
+    String DATA_STATUS = "dataStatus";
+    String SALE = "sale";
+    String TASTE = "taste";
+    String STAPLE = "staple";
+    String FEATURES = "features";
 
 
-	/* web response status by XiaoWei */
+    /* web response status by XiaoWei */
     String WEB_DATA = "data";
     String WEB_STATUS = "status";
 
-	String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
-	String COLLECTION_USER = "merchantUser";
+    String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
+    String COLLECTION_USER = "merchantUser";
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
 

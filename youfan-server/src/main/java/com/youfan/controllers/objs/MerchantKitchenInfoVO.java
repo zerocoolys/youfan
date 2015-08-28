@@ -1,15 +1,12 @@
 package com.youfan.controllers.objs;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by perfection on 15-8-25.
  */
-public class MerchantKitchenInfo {
+public class MerchantKitchenInfoVO {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
     private Long id;  //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称

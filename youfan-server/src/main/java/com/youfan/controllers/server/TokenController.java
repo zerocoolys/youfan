@@ -1,4 +1,4 @@
-package com.youfan.controllers;
+package com.youfan.controllers.server;
 
 import com.youfan.controllers.objs.User;
 import com.youfan.controllers.support.Response;

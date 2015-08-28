@@ -1,11 +1,14 @@
-package com.youfan.controllers.client.userCenter;
+package com.youfan.controllers.client;
 
 import com.youfan.controllers.objs.UserClientVO;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.client.ClientUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -28,6 +31,7 @@ public class LoginController {
 
     /**
      * 用户注册
+     *
      * @param uc
      * @return
      */
@@ -48,12 +52,12 @@ public class LoginController {
      * 用户登陆
      */
     @RequestMapping(method = RequestMethod.POST, path = "/login", produces = "application/json")
-    public ModelAndView login(@RequestBody UserClientVO ucVO){
+    public ModelAndView login(@RequestBody UserClientVO ucVO) {
 
         UserClientVO userClientVO = new UserClientVO();
         try {
             userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getLoginPwd());
-        }catch (UserException e){
+        } catch (UserException e) {
             System.out.println(e.getMessage());
         }
 

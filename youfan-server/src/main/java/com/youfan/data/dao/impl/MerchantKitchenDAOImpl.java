@@ -1,7 +1,7 @@
 package com.youfan.data.dao.impl;
 
 import com.mongodb.DBCursor;
-import com.youfan.controllers.objs.MerchantKitchenInfo;
+import com.youfan.controllers.objs.MerchantKitchenInfoVO;
 import com.youfan.data.dao.MerchantKitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
@@ -25,22 +25,22 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 @Repository("merchantKitchenDAO")
 public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     @Override
-    public List<MerchantKitchenInfo> findAll() {
+    public List<MerchantKitchenInfoVO> findAll() {
         return convertToVOList(mongoTemplate.findAll(MerchantKitchenInfoEntity.class));
     }
 
     @Override
-    public MerchantKitchenInfo findOne(Long aLong) {
+    public MerchantKitchenInfoVO findOne(Long aLong) {
         return convertToVO(mongoTemplate.findOne(query(where("id").is(aLong)), MerchantKitchenInfoEntity.class));
     }
 
     @Override
-    public void insert(MerchantKitchenInfo merchantKitchenInfo) {
+    public void insert(MerchantKitchenInfoVO merchantKitchenInfo) {
         mongoTemplate.insert(convertToEntity(merchantKitchenInfo));
     }
 
     @Override
-    public void insert(List<MerchantKitchenInfo> list) {
+    public void insert(List<MerchantKitchenInfoVO> list) {
         mongoTemplate.insertAll(convertToEntityList(list));
     }
 
@@ -50,7 +50,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public void update(MerchantKitchenInfo merchantKitchenInfo) {
+    public void update(MerchantKitchenInfoVO merchantKitchenInfo) {
 //        Update
 //        mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())),);
     }
@@ -61,15 +61,15 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public Class<MerchantKitchenInfo> getVOClass() {
-        return MerchantKitchenInfo.class;
+    public Class<MerchantKitchenInfoVO> getVOClass() {
+        return MerchantKitchenInfoVO.class;
     }
 
     @Override
-    public List<MerchantKitchenInfo> pageList(Integer page, Integer pageSize) throws KitchenInfoException {
+    public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) throws KitchenInfoException {
         DBCursor limit = mongoTemplate.getCollection(COLLECTION_KITCHENINFO).find().skip((page - 1) * pageSize).limit(pageSize);
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = null;
-        List<MerchantKitchenInfo> list = new ArrayList<>();
+        List<MerchantKitchenInfoVO> list = new ArrayList<>();
         while (limit.hasNext()) {
             Map map = limit.next().toMap();
             String id = map.get("_id").toString();
@@ -82,14 +82,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfo findById(String id) {
+    public MerchantKitchenInfoVO findById(String id) {
         Query q = new Query().addCriteria(Criteria.where("id").is(id));
         MerchantKitchenInfoEntity mre = mongoTemplate.findOne(q, getEntityClass());
         return convertToVO(mre);
     }
 
     @Override
-    public MerchantKitchenInfo saveMerchantKitchenInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
         //判断是否存在该表
         createCollection();
 
@@ -127,7 +127,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfo saveMerchantKitchenPicInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
         createCollection();
 
         Update update = new Update();
@@ -138,7 +138,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfo saveMerchantKitchenStoryInfo(MerchantKitchenInfo merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
         createCollection();
 
         Update update = new Update();
@@ -155,13 +155,13 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         }
     }
 
-	@Override
-	public long count(Query query) {
-		return mongoTemplate.count(query, MerchantKitchenInfoEntity.class);
-	}
+    @Override
+    public long count(Query query) {
+        return mongoTemplate.count(query, MerchantKitchenInfoEntity.class);
+    }
 
-	@Override
-	public List<MerchantKitchenInfoEntity> find(Query query) {
-		return mongoTemplate.find(query, MerchantKitchenInfoEntity.class);
-	}
+    @Override
+    public List<MerchantKitchenInfoEntity> find(Query query) {
+        return mongoTemplate.find(query, MerchantKitchenInfoEntity.class);
+    }
 }

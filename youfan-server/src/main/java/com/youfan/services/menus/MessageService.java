@@ -1,11 +1,10 @@
 package com.youfan.services.menus;
 
-import java.util.List;
-
-import com.youfan.controllers.objs.Message;
+import com.youfan.controllers.objs.MessageVO;
+import com.youfan.data.models.MessageEntity;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.youfan.data.models.MessageEntity;
+import java.util.List;
 
 public interface MessageService {
 
@@ -35,7 +34,7 @@ public interface MessageService {
      * @param receiver 接收端标识符  2,用户端  3,商家断
      * @return
      */
-    List<Message> findMsgList(Long userId, Integer receiver);
+    List<MessageVO> findMsgList(Long userId, Integer receiver);
 
     /**
      * 通过用户ID 统计用户未读消息条数

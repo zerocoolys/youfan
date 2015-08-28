@@ -1,17 +1,15 @@
 package com.youfan.services.menus.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import com.mongodb.WriteResult;
-import com.youfan.controllers.objs.Message;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Service;
-
+import com.youfan.controllers.objs.MessageVO;
 import com.youfan.data.dao.MessageDAO;
 import com.youfan.data.models.MessageEntity;
 import com.youfan.services.menus.MessageService;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service("messageService")
 public class MessageServiceImpl implements MessageService {
@@ -36,7 +34,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public boolean updateMsg(String id, int status) {
 
-        Message message = new Message();
+        MessageVO message = new MessageVO();
         message.setId(id);
         message.setStatus(status);
         WriteResult result = messageDAO.updateMsg(message);
@@ -60,7 +58,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> findMsgList(Long userId, Integer receiver) {
+    public List<MessageVO> findMsgList(Long userId, Integer receiver) {
         return messageDAO.getMsgList(userId, receiver);
     }
 

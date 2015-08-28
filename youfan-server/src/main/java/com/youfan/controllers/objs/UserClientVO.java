@@ -1,8 +1,5 @@
 package com.youfan.controllers.objs;
 
-import com.youfan.data.models.*;
-import org.springframework.data.annotation.Id;
-
 /**
  * Created by icepros on 15-8-25.
  */

@@ -10,12 +10,14 @@ public interface ClientUserService {
 
     /**
      * 用户端用户信息保存
+     *
      * @return
      */
     void insert(UserClientVO uc);
 
     /**
      * 用户端用户信息更改
+     *
      * @return
      */
     void update(UserClientVO uc);
@@ -27,6 +29,7 @@ public interface ClientUserService {
 
     /**
      * 根据用户电话号码查询用户信息
+     *
      * @param tel
      * @return
      * @throws UserException
@@ -35,6 +38,7 @@ public interface ClientUserService {
 
     /**
      * 根据用户电话号码和密码 进行登陆
+     *
      * @param tel
      * @param pwd
      * @return

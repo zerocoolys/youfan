@@ -1,7 +1,7 @@
-package com.youfan.data.dao.clientdao.impl;
+package com.youfan.data.dao.impl;
 
 import com.youfan.controllers.objs.UserClientVO;
-import com.youfan.data.dao.clientdao.ClientUserDao;
+import com.youfan.data.dao.ClientUserDao;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.UserClientEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -71,7 +71,7 @@ public class ClientUserDaoImpl implements ClientUserDao {
         UserClientVO userClientVO = new UserClientVO();
         try {
             userClientVO = convertToVO(mongoTemplate.findOne(clientQuery(tel, pwd), UserClientEntity.class, COLLECTION_CLIENT_USER));
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }

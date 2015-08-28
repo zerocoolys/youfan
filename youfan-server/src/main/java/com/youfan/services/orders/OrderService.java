@@ -1,8 +1,8 @@
 package com.youfan.services.orders;
 
 import com.youfan.commons.Pagination;
-import com.youfan.controllers.objs.MerchantOrderHeader;
-import com.youfan.controllers.objs.Order;
+import com.youfan.controllers.objs.MerchantOrderHeaderVO;
+import com.youfan.controllers.objs.OrderVO;
 
 import java.util.List;
 
@@ -11,22 +11,22 @@ import java.util.List;
  */
 public interface OrderService {
 
-    List<Order> findAll(Pagination pagination);
+    List<OrderVO> findAll(Pagination pagination);
 
-    List<Order> findByUserId(String userId, Pagination pagination);
+    List<OrderVO> findByUserId(String userId, Pagination pagination);
 
-    List<Order> findBySellerId(Long sellerId, Pagination pagination);
+    List<OrderVO> findBySellerId(Long sellerId, Pagination pagination);
 
-    Order findByOrderNo(String orderNo);
+    OrderVO findByOrderNo(String orderNo);
 
-    Order createOrder(Order order);
+    OrderVO createOrder(OrderVO order);
 
-    Order updateOrder(Order order);
+    OrderVO updateOrder(OrderVO order);
 
-    Order cancelOrder(Order order);
+    OrderVO cancelOrder(OrderVO order);
 
-    Order refundOrder(Order order);
+    OrderVO refundOrder(OrderVO order);
 
-    List<MerchantOrderHeader> findOrdersByMerchant(Order order);
+    List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderVO order);
 
 }
