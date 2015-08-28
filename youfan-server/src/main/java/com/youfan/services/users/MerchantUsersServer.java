@@ -122,4 +122,8 @@ public interface MerchantUsersServer {
      * @throws KitchenInfoException
      */
     public MerchantKitchenInfo getMerchantKitchenInfo(Long id) throws KitchenInfoException;
+
+    MerchantKitchenInfo mrFindById(String id);
+
+    MerchantUser muFindById(String id);
 }

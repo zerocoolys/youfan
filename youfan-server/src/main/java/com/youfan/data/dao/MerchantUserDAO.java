@@ -25,4 +25,6 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 	List<MerchantUserEntity> find(Query query);
 
 	long count(Query query);
+
+	MerchantUser findById(String id);
 }

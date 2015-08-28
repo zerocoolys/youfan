@@ -1,7 +1,8 @@
-package com.youfan.rest.support;
+package com.youfan.controllers.client.merchant;
 
 import com.youfan.commons.Constants;
 import com.youfan.controllers.objs.MerchantKitchenInfo;
+import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.controllers.support.WebResponse;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.services.users.MerchantUsersServer;
@@ -38,7 +39,7 @@ public class MerchantRoomController {
 
     @RequestMapping(value = "/getMrOne/{id}")
     public ModelAndView getMerchantOne(@PathVariable("id") String id) {
-        MerchantKitchenInfo mkFind = merchantUsersServer.findById(id);
+        MerchantKitchenInfo mkFind = merchantUsersServer.mrFindById(id);
         if (mkFind != null) {
             return webResponse.write(Constants.WEB_DATA, mkFind);
         } else {
@@ -49,34 +50,12 @@ public class MerchantRoomController {
     @RequestMapping(value = "/getMrData")
     public ModelAndView getMerchantRoomData() throws KitchenInfoException {
         List<MerchantKitchenInfo> pager = merchantUsersServer.pageList(1, 10);
-        List<MerchantKitchenInfo> list = new ArrayList<>();
-        for (int i = 1; i < 3; i++) {
-            MerchantKitchenInfo mr = new MerchantKitchenInfo();
-            mr.setId(i + "");
-            mr.setAddressGeoCoding("x:1234,y:4321");
-            mr.setCuisine(new ArrayList<String>() {{
-                add("川菜");
-                add("粤菜");
-            }});
-            mr.setDesc("暂无说明" + i);
-            mr.setDisPrice(27.0);
-            mr.setDisRange(2.0);
-            mr.setDistribution("只送小区" + i);
-            mr.setStartTime("8:00");
-            mr.setEndTime("20:00");
-            mr.setGalleryFul(0);
-            mr.setIsCanteen(false);
-            mr.setIsTakeSelf(true);
-            mr.setKitchenAddress("成都市成华区新华公园" + i);
-            mr.setKitchenPicUrl(new ArrayList<String>() {{
-                add("img/1.jpg");
-            }});
-            mr.setKitchenName("我的厨房" + i);
-            mr.setPhoneNumber("15208364407");
-            mr.setStatus(0);
-            list.add(mr);
-        }
-
         return webResponse.write(Constants.WEB_DATA, pager);
+    }
+
+    @RequestMapping(value = "/getMuOne/{id}")
+    public ModelAndView getMerchantUserById(@PathVariable("id") String merchantId) {
+        MerchantUser merchantUser=merchantUsersServer.muFindById(merchantId);
+        return webResponse.write(Constants.WEB_DATA,merchantUser);
     }
 }

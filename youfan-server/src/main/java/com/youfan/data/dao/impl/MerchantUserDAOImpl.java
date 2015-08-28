@@ -66,8 +66,8 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         if (!mongoTemplate.collectionExists(MerchantUserEntity.class)) {
             mongoTemplate.createCollection(MerchantUserEntity.class);
             mongoTemplate.insert(merchantUser);
-        }else{
-            if(mongoTemplate.findOne(query(where("userName").is(userName)), MerchantUserEntity.class)==null){
+        } else {
+            if (mongoTemplate.findOne(query(where("userName").is(userName)), MerchantUserEntity.class) == null) {
                 mongoTemplate.insert(merchantUser);
             }
         }
@@ -140,25 +140,34 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         return MerchantUserEntity.class;
     }
 
-	@Override
-	public List<MerchantUserEntity> getMerchantByStatus(Integer status) {
+    @Override
+    public List<MerchantUserEntity> getMerchantByStatus(Integer status) {
         return mongoTemplate.find(query(where("status").is(status)), MerchantUserEntity.class);
-	}
+    }
 
-	@Override
-	public void updateStatus(String id, Integer status) {
-		mongoTemplate.updateFirst(query(where("id").is(id)), new Update().set("status", status), MerchantUserEntity.class);
-	}
+    @Override
+    public void updateStatus(String id, Integer status) {
+        mongoTemplate.updateFirst(query(where("id").is(id)), new Update().set("status", status), MerchantUserEntity.class);
+    }
 
-	@Override
-	public List<MerchantUserEntity> find(Query query) {
-		// TODO Auto-generated method stub
-		return mongoTemplate.find(query, MerchantUserEntity.class);
-	}
+    @Override
+    public List<MerchantUserEntity> find(Query query) {
+        // TODO Auto-generated method stub
+        return mongoTemplate.find(query, MerchantUserEntity.class);
+    }
 
-	@Override
-	public long count(Query query) {
-		// TODO Auto-generated method stub
-		return mongoTemplate.count(query, MerchantUserEntity.class);
-	}
+    @Override
+    public long count(Query query) {
+        // TODO Auto-generated method stub
+        return mongoTemplate.count(query, MerchantUserEntity.class);
+    }
+
+    @Override
+    public MerchantUser findById(String id) {
+        Query q = new Query();
+        Criteria c = Criteria.where("id").is(id).and("status").is(1);
+        q.addCriteria(c);
+        MerchantUserEntity mue = mongoTemplate.findOne(q, getEntityClass());
+        return convertToVO(mue);
+    }
 }

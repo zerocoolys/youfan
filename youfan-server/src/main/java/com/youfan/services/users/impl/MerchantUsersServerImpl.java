@@ -9,6 +9,7 @@ import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.MerchantUsersServer;
 
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +40,13 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
     }
 
     @Override
-    public MerchantKitchenInfo findById(String id) {
+    public MerchantKitchenInfo mrFindById(String id) {
         return merchantKitchenDAO.findById(id);
+    }
+
+    @Override
+    public MerchantUser muFindById(String id) {
+        return merchantUserDao.findById(id);
     }
 
     @Override
@@ -108,7 +114,12 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
 		return merchantUserDao.count(query);
 	}
 
-	@Override
+    @Override
+    public MerchantKitchenInfo findById(String id) {
+        return null;
+    }
+
+    @Override
 	public List<MerchantUserEntity> find(Query query) {
 		return merchantUserDao.find(query);
 	}
