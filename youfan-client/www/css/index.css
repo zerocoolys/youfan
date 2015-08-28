@@ -44,7 +44,7 @@
 }
 
 /**首页焦点图**/
-.slider {
+.home_item .slider {
     top: 0 !important;
     bottom: 0 !important;
     left: 0 !important;
@@ -467,5 +467,13 @@ Alpha(opacity = 100);
     background-color: #fff;
     border-bottom: 2px solid #1dbeaf;
     margin-top: 1px;
+}
+
+.set .item-avatar .item-content ,.set .item-avatar{
+    padding-left:5px;
+}
+
+.home_item .badge.badge-assertive{
+    background:#e4c615;
 }
 
