@@ -1,4 +1,4 @@
-package com.youfan.services.users;
+package com.youfan.services.client;
 
 import com.youfan.controllers.objs.UserClientVO;
 import com.youfan.exceptions.UserException;
@@ -6,7 +6,7 @@ import com.youfan.exceptions.UserException;
 /**
  * Created by icepros on 15-8-25.
  */
-public interface UserClientService {
+public interface ClientUserService {
 
     /**
      * 用户端用户信息保存

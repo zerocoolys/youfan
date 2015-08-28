@@ -1,18 +1,12 @@
-package com.youfan.data.dao.impl;
+package com.youfan.data.dao.clientdao.impl;
 
-import com.mongodb.BasicDBObject;
-import com.youfan.controllers.objs.User;
 import com.youfan.controllers.objs.UserClientVO;
-import com.youfan.data.dao.UserClientDao;
+import com.youfan.data.dao.clientdao.ClientUserDao;
 import com.youfan.data.id.IdGenerator;
 import com.youfan.data.models.UserClientEntity;
-import com.youfan.exceptions.UserException;
-import com.youfan.system.mongo.MongoPool;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.Instant;
@@ -22,7 +16,7 @@ import java.util.List;
  * Created by icepros on 15-8-25.
  */
 @Repository("ucDAO")
-public class UserClientDaoImpl implements UserClientDao {
+public class ClientUserDaoImpl implements ClientUserDao {
 
     @Resource
     private IdGenerator idGenerator;
@@ -44,7 +38,7 @@ public class UserClientDaoImpl implements UserClientDao {
         long userId = Instant.now().getEpochSecond() + idGenerator.next(SEQ_LOGIN);
         ucEntity.setUserId(userId);
 
-        mongoTemplate.insert(ucEntity, COLLECTION_USER_CLIENT);
+        mongoTemplate.insert(ucEntity, COLLECTION_CLIENT_USER);
     }
 
     @Override
@@ -76,7 +70,7 @@ public class UserClientDaoImpl implements UserClientDao {
     public UserClientVO getUserByTelAndPwd(String tel, String pwd) {
         UserClientVO userClientVO = new UserClientVO();
         try {
-            userClientVO = convertToVO(mongoTemplate.findOne(clientQuery(tel, pwd), UserClientEntity.class, COLLECTION_USER_CLIENT));
+            userClientVO = convertToVO(mongoTemplate.findOne(clientQuery(tel, pwd), UserClientEntity.class, COLLECTION_CLIENT_USER));
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

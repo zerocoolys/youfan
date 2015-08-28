@@ -1,9 +1,8 @@
-package com.youfan.controllers;
+package com.youfan.controllers.client.userCenter;
 
 import com.youfan.controllers.objs.UserClientVO;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.UserClientService;
-import com.youfan.utils.JSONUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
