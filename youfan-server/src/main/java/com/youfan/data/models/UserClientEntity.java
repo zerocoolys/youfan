@@ -4,13 +4,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import static com.youfan.commons.Constants.COLLECTION_USER_CLIENT;
+import static com.youfan.commons.Constants.COLLECTION_CLIENT_USER;
 
 /**
  * Created by icepros on 15-8-25.
  * <p>用户端用户实体类
  */
-@Document(collection = COLLECTION_USER_CLIENT)
+@Document(collection = COLLECTION_CLIENT_USER)
 public class UserClientEntity {
 
     @Id

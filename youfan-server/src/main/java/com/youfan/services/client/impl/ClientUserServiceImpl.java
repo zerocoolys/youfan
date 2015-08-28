@@ -1,11 +1,9 @@
-package com.youfan.services.users.impl;
+package com.youfan.services.client.impl;
 
 import com.youfan.controllers.objs.UserClientVO;
-import com.youfan.data.dao.UserClientDao;
-import com.youfan.data.models.UserClientEntity;
+import com.youfan.data.dao.clientdao.ClientUserDao;
 import com.youfan.exceptions.UserException;
-import com.youfan.services.users.UserClientService;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import com.youfan.services.client.ClientUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,10 +12,10 @@ import javax.annotation.Resource;
  * Created by icepros on 15-8-25.
  */
 @Service("ucService")
-public class UserClientServiceImpl implements UserClientService {
+public class ClientUserServiceImpl implements ClientUserService {
 
     @Resource
-    private UserClientDao ucDAO;
+    private ClientUserDao ucDAO;
 
     @Override
     public void insert(UserClientVO uc) {

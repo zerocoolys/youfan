@@ -1,9 +1,8 @@
-package com.youfan.controllers;
+package com.youfan.controllers.client.userCenter;
 
 import com.youfan.controllers.objs.UserClientVO;
 import com.youfan.exceptions.UserException;
-import com.youfan.services.users.UserClientService;
-import com.youfan.utils.JSONUtils;
+import com.youfan.services.client.ClientUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ import java.util.Map;
 public class LoginController {
 
     @Resource
-    private UserClientService ucService;
+    private ClientUserService ucService;
     Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     /**
@@ -48,18 +47,12 @@ public class LoginController {
     /**
      * 用户登陆
      */
-    @RequestMapping(method = RequestMethod.POST, path = "/login/{tel}/{loginPwd}", produces = "application/json")
-    public ModelAndView login(@PathVariable String tel, @PathVariable String loginPwd){
-
-        System.out.println("login-----------------------------------------");
-
-        System.out.println("tel----------------------------------" + tel);
-        System.out.println("loginPwd----------------------------------" + loginPwd);
-
+    @RequestMapping(method = RequestMethod.POST, path = "/login", produces = "application/json")
+    public ModelAndView login(@RequestBody UserClientVO ucVO){
 
         UserClientVO userClientVO = new UserClientVO();
         try {
-            userClientVO = ucService.findUserByTelAndPwd(tel, loginPwd);
+            userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getLoginPwd());
         }catch (UserException e){
             System.out.println(e.getMessage());
         }

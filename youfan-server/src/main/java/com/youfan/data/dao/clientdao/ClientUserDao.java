@@ -1,12 +1,13 @@
-package com.youfan.data.dao;
+package com.youfan.data.dao.clientdao;
 
 import com.youfan.controllers.objs.UserClientVO;
+import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.UserClientEntity;
 
 /**
  * Created by icepros on 15-8-25.
  */
-public interface UserClientDao extends MongoBaseDAO<UserClientEntity, UserClientVO, Long> {
+public interface ClientUserDao extends MongoBaseDAO<UserClientEntity, UserClientVO, Long> {
 
     String SEQ_LOGIN = "LOGIN";
 
