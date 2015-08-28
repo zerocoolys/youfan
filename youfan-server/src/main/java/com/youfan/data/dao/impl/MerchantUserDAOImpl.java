@@ -108,7 +108,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
                 //注册成功
                 merchantUser.setId(merchantUserEntityRes.getId());
                 map.put("registerStatus", "1");
-                map.put("id", merchantUser.getId());
+                map.put("id", merchantUser.getId().toString());
                 map.put("userName", merchantUser.getUserName());
                 map.put("passWord", merchantUser.getPassWord());
                 return map;

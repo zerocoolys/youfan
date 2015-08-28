@@ -54,8 +54,8 @@ public class UserController {
         return mapRes;
     }
 
-    @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantKitchenInfo saveMerchantKitchenInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo) {
+    @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.GET, produces = "application/json")
+    public MerchantKitchenInfo saveMerchantKitchenInfo( MerchantKitchenInfo merchantKitchenInfo) {
         MerchantKitchenInfo merchantKitchenInfoRes = null;
         try {
             merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenInfo(merchantKitchenInfo);
@@ -78,6 +78,16 @@ public class UserController {
 
     @RequestMapping(path = "/saveMerchantKitchenStoryInfo", method = RequestMethod.POST, produces = "application/json")
     public MerchantKitchenInfo saveMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo) {
+        MerchantKitchenInfo merchantKitchenInfoRes = null;
+        try {
+            merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
+        } catch (KitchenInfoException ke) {
+            System.out.println(ke.getMessage());
+        }
+        return merchantKitchenInfoRes;
+    }
+    @RequestMapping(path = "/getMerchantKitchenStoryInfo", method = RequestMethod.GET, produces = "application/json")
+    public MerchantKitchenInfo getMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo) {
         MerchantKitchenInfo merchantKitchenInfoRes = null;
         try {
             merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenStoryInfo(merchantKitchenInfo);

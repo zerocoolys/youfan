@@ -1,7 +1,6 @@
 package com.youfan.services.users.impl;
 
-import com.youfan.controllers.objs.MerchantKitchenInfo;
-import com.youfan.controllers.objs.MerchantUser;
+import com.youfan.controllers.objs.*;
 import com.youfan.data.dao.MerchantKitchenDAO;
 import com.youfan.data.dao.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
@@ -51,6 +50,26 @@ public class MerchantUsersServerImpl implements MerchantUsersServer {
 
     public Map<String,String> register(String userName, String passWord) throws UserException {
         return merchantUserDao.register(userName, passWord);
+    }
+
+    @Override
+    public MerchantKitchenBaseInfo getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException {
+        return null;
+    }
+
+    @Override
+    public MerchantKitchenPicInfo getMerchantKitchenPicInfo(Long id) throws KitchenInfoException {
+        return null;
+    }
+
+    @Override
+    public MerchantKitchenStoryInfo getMerchantKitchenStoryInfo(Long id) throws KitchenInfoException {
+        return null;
+    }
+
+    @Override
+    public MerchantKitchenInfo getMerchantKitchenInfo(Long id) throws KitchenInfoException {
+        return null;
     }
 
     @Override
