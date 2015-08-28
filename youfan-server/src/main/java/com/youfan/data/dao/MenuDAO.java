@@ -2,7 +2,6 @@ package com.youfan.data.dao;
 
 import com.youfan.controllers.objs.Menu;
 import com.youfan.data.models.MenuEntity;
-
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
