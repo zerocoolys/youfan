@@ -1,8 +1,8 @@
-package com.youfan.controllers.client.merchant;
+package com.youfan.controllers.merchant;
 
 import com.youfan.commons.Constants;
-import com.youfan.controllers.objs.MerchantKitchenInfo;
-import com.youfan.controllers.objs.MerchantUser;
+import com.youfan.controllers.objs.MerchantKitchenInfoVO;
+import com.youfan.controllers.objs.MerchantUserVO;
 import com.youfan.controllers.support.WebResponse;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.services.users.MerchantUsersServer;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,15 +30,15 @@ public class MerchantRoomController {
 
 
     @RequestMapping(value = "/saveMr")
-    public ModelAndView saveMerchantRoom(@RequestBody MerchantKitchenInfo mr) {
-        MerchantKitchenInfo merchantKitchenInfo = new MerchantKitchenInfo();
+    public ModelAndView saveMerchantRoom(@RequestBody MerchantKitchenInfoVO mr) {
+        MerchantKitchenInfoVO merchantKitchenInfo = new MerchantKitchenInfoVO();
         return webResponse.write(Constants.WEB_DATA, merchantKitchenInfo);
     }
 
 
     @RequestMapping(value = "/getMrOne/{id}")
     public ModelAndView getMerchantOne(@PathVariable("id") String id) {
-        MerchantKitchenInfo mkFind = merchantUsersServer.mrFindById(id);
+        MerchantKitchenInfoVO mkFind = merchantUsersServer.mrFindById(id);
         if (mkFind != null) {
             return webResponse.write(Constants.WEB_DATA, mkFind);
         } else {
@@ -49,13 +48,13 @@ public class MerchantRoomController {
 
     @RequestMapping(value = "/getMrData")
     public ModelAndView getMerchantRoomData() throws KitchenInfoException {
-        List<MerchantKitchenInfo> pager = merchantUsersServer.pageList(1, 10);
+        List<MerchantKitchenInfoVO> pager = merchantUsersServer.pageList(1, 10);
         return webResponse.write(Constants.WEB_DATA, pager);
     }
 
     @RequestMapping(value = "/getMuOne/{id}")
     public ModelAndView getMerchantUserById(@PathVariable("id") String merchantId) {
-        MerchantUser merchantUser=merchantUsersServer.muFindById(merchantId);
-        return webResponse.write(Constants.WEB_DATA,merchantUser);
+        MerchantUserVO merchantUser = merchantUsersServer.muFindById(merchantId);
+        return webResponse.write(Constants.WEB_DATA, merchantUser);
     }
 }

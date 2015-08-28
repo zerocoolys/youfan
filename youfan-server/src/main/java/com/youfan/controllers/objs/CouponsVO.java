@@ -6,6 +6,6 @@ package com.youfan.controllers.objs;
  *
  * @author dolphineor
  */
-public class Coupons {
+public class CouponsVO {
     // TODO
 }

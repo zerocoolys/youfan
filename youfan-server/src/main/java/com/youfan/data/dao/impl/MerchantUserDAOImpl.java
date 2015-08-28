@@ -1,11 +1,8 @@
 package com.youfan.data.dao.impl;
 
-import com.youfan.controllers.objs.MerchantKitchenInfo;
-import com.youfan.controllers.objs.MerchantUser;
+import com.youfan.controllers.objs.MerchantUserVO;
 import com.youfan.data.dao.MerchantUserDAO;
-import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
-import com.youfan.data.models.MessageEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -25,12 +22,12 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 @Repository("merchantUserDao")
 public class MerchantUserDAOImpl implements MerchantUserDAO {
     @Override
-    public List<MerchantUser> findAll() {
+    public List<MerchantUserVO> findAll() {
         return Collections.emptyList();
     }
 
     @Override
-    public MerchantUser saveMerchantUserInfo(MerchantUser merchantUser) {
+    public MerchantUserVO saveMerchantUserInfo(MerchantUserVO merchantUser) {
         if (mongoTemplate.collectionExists(MerchantUserEntity.class)) {
             Update update = new Update();
 
@@ -50,18 +47,18 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public MerchantUser findOne(Long id) {
+    public MerchantUserVO findOne(Long id) {
         return null;
     }
 
     @Override
-    public void insert(MerchantUser merchantUser) {
+    public void insert(MerchantUserVO merchantUser) {
         mongoTemplate.insert(convertToEntity(merchantUser));
     }
 
     @Override
-    public MerchantUser login(String userName) {
-        MerchantUser merchantUser = new MerchantUser();
+    public MerchantUserVO login(String userName) {
+        MerchantUserVO merchantUser = new MerchantUserVO();
         merchantUser.setUserName(userName);
         if (!mongoTemplate.collectionExists(MerchantUserEntity.class)) {
             mongoTemplate.createCollection(MerchantUserEntity.class);
@@ -82,7 +79,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
     @Override
     public Map<String, String> register(String userName, String passWord) {
-        MerchantUser merchantUser = new MerchantUser();
+        MerchantUserVO merchantUser = new MerchantUserVO();
         Map<String, String> map = null;
         if (!mongoTemplate.collectionExists(MerchantUserEntity.class)) {
             mongoTemplate.createCollection(MerchantUserEntity.class);
@@ -117,12 +114,12 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public Class<MerchantUser> getVOClass() {
-        return MerchantUser.class;
+    public Class<MerchantUserVO> getVOClass() {
+        return MerchantUserVO.class;
     }
 
     @Override
-    public void insert(List<MerchantUser> list) {
+    public void insert(List<MerchantUserVO> list) {
 
     }
 
@@ -132,7 +129,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public void update(MerchantUser userEntity) {
+    public void update(MerchantUserVO userEntity) {
     }
 
     @Override
@@ -163,7 +160,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public MerchantUser findById(String id) {
+    public MerchantUserVO findById(String id) {
         Query q = new Query();
         Criteria c = Criteria.where("id").is(id).and("status").is(1);
         q.addCriteria(c);

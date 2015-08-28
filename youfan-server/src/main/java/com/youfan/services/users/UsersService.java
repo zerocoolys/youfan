@@ -1,6 +1,5 @@
 package com.youfan.services.users;
 
-import com.youfan.controllers.objs.MerchantUser;
 import com.youfan.controllers.objs.User;
 import com.youfan.exceptions.UserException;
 

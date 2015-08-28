@@ -1,7 +1,7 @@
 package com.youfan.services.client.impl;
 
 import com.youfan.controllers.objs.UserClientVO;
-import com.youfan.data.dao.clientdao.ClientUserDao;
+import com.youfan.data.dao.ClientUserDao;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.client.ClientUserService;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     @Override
     public void insert(UserClientVO uc) {
-        if(uc == null){
+        if (uc == null) {
             return;
         } else {
             ucDAO.insert(uc);
@@ -45,6 +45,6 @@ public class ClientUserServiceImpl implements ClientUserService {
     public UserClientVO findUserByTelAndPwd(String tel, String pwd) throws UserException {
 
         UserClientVO result = ucDAO.getUserByTelAndPwd(tel, pwd);
-        return  result;
+        return result;
     }
 }

@@ -1,10 +1,8 @@
-package com.youfan.controllers.client.userCenter;
+package com.youfan.controllers.client;
 
-import com.youfan.controllers.objs.Message;
-import com.youfan.data.models.MessageEntity;
+import com.youfan.controllers.objs.MessageVO;
 import com.youfan.services.menus.MessageService;
 import com.youfan.utils.JSONUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,9 +30,9 @@ public class NoticeController {
 
     @RequestMapping(value = "/getNotice", method = RequestMethod.GET)
     public ModelAndView getNotice(HttpServletResponse response, HttpServletRequest request,
-                                       @RequestParam(value = "userId", required = false) Long userId) {
+                                  @RequestParam(value = "userId", required = false) Long userId) {
         AbstractView jsonView = new MappingJackson2JsonView();
-        List<Message> entities = messageService.findMsgList(userId, 2);
+        List<MessageVO> entities = messageService.findMsgList(userId, 2);
         Map<String, Object> attributes = JSONUtils.getJsonMapData(entities);
         jsonView.setAttributesMap(attributes);
         return new ModelAndView(jsonView);
@@ -42,7 +40,7 @@ public class NoticeController {
 
     @RequestMapping(value = "/getCount", method = RequestMethod.GET)
     public ModelAndView getCount(HttpServletResponse response, HttpServletRequest request,
-                                       @RequestParam(value = "userId", required = false) Long userId) {
+                                 @RequestParam(value = "userId", required = false) Long userId) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Long entities = messageService.countUnreadMsg(userId, 2);
         Map<String, Object> attributes = JSONUtils.getJsonMapData(entities);
@@ -52,9 +50,9 @@ public class NoticeController {
 
     @RequestMapping(value = "/modifyMsg", method = RequestMethod.GET)
     public ModelAndView modifyMsg(HttpServletResponse response, HttpServletRequest request,
-                                 @RequestParam(value = "id", required = false) String id) {
+                                  @RequestParam(value = "id", required = false) String id) {
         AbstractView jsonView = new MappingJackson2JsonView();
-        boolean entities = messageService.updateMsg(id,1);
+        boolean entities = messageService.updateMsg(id, 1);
         Map<String, Object> attributes = JSONUtils.getJsonMapData(entities);
         jsonView.setAttributesMap(attributes);
         return new ModelAndView(jsonView);

@@ -1,8 +1,8 @@
 package com.youfan.data.dao;
 
 import com.youfan.commons.Pagination;
-import com.youfan.controllers.objs.MerchantOrderHeader;
-import com.youfan.controllers.objs.Order;
+import com.youfan.controllers.objs.MerchantOrderHeaderVO;
+import com.youfan.controllers.objs.OrderVO;
 
 import java.util.List;
 
@@ -14,16 +14,16 @@ public interface OrderDAO {
     String SEQ_ORDER = "ORDER";
 
 
-    Order insert(Order orderEntity);
+    OrderVO insert(OrderVO orderEntity);
 
-    Order getOrderByOrderNo(String orderNo);
+    OrderVO getOrderByOrderNo(String orderNo);
 
-    List<Order> findAll(Pagination pagination);
+    List<OrderVO> findAll(Pagination pagination);
 
-    List<Order> getOrdersByBuyerId(Long buyerId, Pagination pagination);
+    List<OrderVO> getOrdersByBuyerId(Long buyerId, Pagination pagination);
 
-    List<Order> getOrdersBySellerId(Long sellerId, Pagination pagination);
+    List<OrderVO> getOrdersBySellerId(Long sellerId, Pagination pagination);
 
-    List<MerchantOrderHeader> findMerchantOrders(Order order);
+    List<MerchantOrderHeaderVO> findMerchantOrders(OrderVO order);
 
 }

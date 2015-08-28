@@ -1,11 +1,9 @@
 package com.youfan.controllers.objs;
 
-import org.springframework.data.annotation.Id;
-
 /**
  * Created by subdong on 15-8-27.
  */
-public class Message {
+public class MessageVO {
 
     private String id;
 
@@ -107,7 +105,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "MessageVO{" +
                 "id='" + id + '\'' +
                 ", status=" + status +
                 ", receiverId=" + receiverId +

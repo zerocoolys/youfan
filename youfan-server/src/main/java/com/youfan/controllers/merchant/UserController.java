@@ -1,12 +1,15 @@
-package com.youfan.rest.support;
+package com.youfan.controllers.merchant;
 
-import com.youfan.controllers.objs.MerchantKitchenInfo;
-import com.youfan.controllers.objs.MerchantUser;
+import com.youfan.controllers.objs.MerchantKitchenInfoVO;
+import com.youfan.controllers.objs.MerchantUserVO;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.users.MerchantUsersServer;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -23,7 +26,7 @@ public class UserController {
     private MerchantUsersServer merchantUsersServer;
 
     @RequestMapping(path = "/saveMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantUser add(@RequestBody MerchantUser merchantUser) {
+    public MerchantUserVO add(@RequestBody MerchantUserVO merchantUser) {
         try {
             merchantUsersServer.saveMerchantUserInfo(merchantUser);
         } catch (UserException ue) {
@@ -33,8 +36,8 @@ public class UserController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST, produces = "application/json")
-    public MerchantUser login(@RequestBody MerchantUser merchantUser) {
-        MerchantUser merchantUserRes = null;
+    public MerchantUserVO login(@RequestBody MerchantUserVO merchantUser) {
+        MerchantUserVO merchantUserRes = null;
         try {
             merchantUserRes = merchantUsersServer.login(merchantUser.getUserName());
         } catch (UserException ue) {
@@ -44,8 +47,8 @@ public class UserController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST, produces = "application/json")
-    public Map<String,String> register(@RequestBody MerchantUser merchantUser) {
-        Map<String,String> mapRes = null;
+    public Map<String, String> register(@RequestBody MerchantUserVO merchantUser) {
+        Map<String, String> mapRes = null;
         try {
             mapRes = merchantUsersServer.register(merchantUser.getUserName(), merchantUser.getPassWord());
         } catch (UserException ue) {
@@ -55,8 +58,8 @@ public class UserController {
     }
 
     @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantKitchenInfo saveMerchantKitchenInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo) {
-        MerchantKitchenInfo merchantKitchenInfoRes = null;
+    public MerchantKitchenInfoVO saveMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
+        MerchantKitchenInfoVO merchantKitchenInfoRes = null;
         try {
             merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenInfo(merchantKitchenInfo);
         } catch (KitchenInfoException ke) {
@@ -66,8 +69,8 @@ public class UserController {
     }
 
     @RequestMapping(path = "/saveMerchantKitchenPicInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantKitchenInfo saveMerchantKitchenPicInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo) {
-        MerchantKitchenInfo merchantKitchenInfoRes = null;
+    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
+        MerchantKitchenInfoVO merchantKitchenInfoRes = null;
         try {
             merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenPicInfo(merchantKitchenInfo);
         } catch (KitchenInfoException ke) {
@@ -77,8 +80,8 @@ public class UserController {
     }
 
     @RequestMapping(path = "/saveMerchantKitchenStoryInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantKitchenInfo saveMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfo merchantKitchenInfo) {
-        MerchantKitchenInfo merchantKitchenInfoRes = null;
+    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
+        MerchantKitchenInfoVO merchantKitchenInfoRes = null;
         try {
             merchantKitchenInfoRes = merchantUsersServer.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
         } catch (KitchenInfoException ke) {

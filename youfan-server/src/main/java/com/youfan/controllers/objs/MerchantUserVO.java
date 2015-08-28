@@ -3,7 +3,7 @@ package com.youfan.controllers.objs;
 /**
  * Created by perfection on 15-8-21.
  */
-public class MerchantUser {
+public class MerchantUserVO {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
     private String id;  //商家个人信息id
     private String userName;    //商家用户名

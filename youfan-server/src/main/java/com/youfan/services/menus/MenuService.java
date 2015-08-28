@@ -1,7 +1,7 @@
 package com.youfan.services.menus;
 
 import com.youfan.commons.Constants;
-import com.youfan.controllers.objs.Menu;
+import com.youfan.controllers.objs.MenuVO;
 
 import java.util.List;
 
@@ -12,36 +12,36 @@ import java.util.List;
  */
 public interface MenuService extends Constants {
 
-	void insert(Menu menu);
+    void insert(MenuVO menu);
 
-	void insert(List<Menu> menus);
+    void insert(List<MenuVO> menus);
 
-	void delete(long menuId);
+    void delete(long menuId);
 
-	List<Menu> findBySellerId(long sellerId);
+    List<MenuVO> findBySellerId(long sellerId);
 
-	Menu findByMenuId(long menuId);
+    MenuVO findByMenuId(long menuId);
 
-	int minusRestNum(long menuId);
+    int minusRestNum(long menuId);
 
-	int plusTasteNum(long menuId);
+    int plusTasteNum(long menuId);
 
-	void resetRestNumBySellerId(long sellerId, int restNum);
+    void resetRestNumBySellerId(long sellerId, int restNum);
 
-	void resetRestNumByMenuId(long menuId, int restNum);
+    void resetRestNumByMenuId(long menuId, int restNum);
 
-	List<Menu> findBySellerIdAndType(Long sellerId, String type);
+    List<MenuVO> findBySellerIdAndType(Long sellerId, String type);
 
-	int conversion(Menu menu);
+    int conversion(MenuVO menu);
 
-	void conversionStock(List<Menu> menus);
+    void conversionStock(List<MenuVO> menus);
 
-	void conversionRestNum(List<Menu> menus);
+    void conversionRestNum(List<MenuVO> menus);
 
-	void updateMenu(Long menuId, Menu menu);
+    void updateMenu(Long menuId, MenuVO menu);
 
-	void updateXfzMenu(Long menuId, Menu menu);
+    void updateXfzMenu(Long menuId, MenuVO menu);
 
-	void conversionType(Long menuId, Menu menu);
+    void conversionType(Long menuId, MenuVO menu);
 
 }

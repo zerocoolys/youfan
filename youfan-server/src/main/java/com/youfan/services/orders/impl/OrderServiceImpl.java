@@ -1,18 +1,16 @@
 package com.youfan.services.orders.impl;
 
 import com.youfan.commons.Pagination;
-import com.youfan.controllers.objs.Menu;
-import com.youfan.controllers.objs.MerchantOrderHeader;
-import com.youfan.controllers.objs.Order;
+import com.youfan.controllers.objs.MenuVO;
+import com.youfan.controllers.objs.MerchantOrderHeaderVO;
+import com.youfan.controllers.objs.OrderVO;
 import com.youfan.data.dao.MenuDAO;
 import com.youfan.data.dao.OrderDAO;
 import com.youfan.services.orders.OrderService;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,99 +22,99 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-	@Resource
-	private OrderDAO orderDAO;
-	
-	@Resource
-	private MenuDAO menuDao;
-	
+    @Resource
+    private OrderDAO orderDAO;
 
-	@Override
-	public List<Order> findAll(Pagination pagination) {
+    @Resource
+    private MenuDAO menuDao;
 
-		List<Order> result = Collections.emptyList();
 
-		return result;
-	}
+    @Override
+    public List<OrderVO> findAll(Pagination pagination) {
 
-	@Override
-	public List<Order> findByUserId(String userId, Pagination pagination) {
-		return null;
-	}
+        List<OrderVO> result = Collections.emptyList();
 
-	@Override
-	public List<Order> findBySellerId(Long sellerId, Pagination pagination) {
-		List<Order> result = new ArrayList<>();
+        return result;
+    }
 
-		result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
+    @Override
+    public List<OrderVO> findByUserId(String userId, Pagination pagination) {
+        return null;
+    }
 
-		return result;
-	}
+    @Override
+    public List<OrderVO> findBySellerId(Long sellerId, Pagination pagination) {
+        List<OrderVO> result = new ArrayList<>();
 
-	@Override
-	public Order findByOrderNo(String orderNo) {
-		return null;
-	}
+        result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
 
-	@Override
-	public Order createOrder(Order order) {
-		orderDAO.insert(order);
-		return null;
-	}
+        return result;
+    }
 
-	@Override
-	public Order updateOrder(Order order) {
-		return null;
-	}
+    @Override
+    public OrderVO findByOrderNo(String orderNo) {
+        return null;
+    }
 
-	@Override
-	public Order cancelOrder(Order order) {
-		return null;
-	}
+    @Override
+    public OrderVO createOrder(OrderVO order) {
+        orderDAO.insert(order);
+        return null;
+    }
 
-	@Override
-	public Order refundOrder(Order order) {
-		return null;
-	}
+    @Override
+    public OrderVO updateOrder(OrderVO order) {
+        return null;
+    }
 
-	@Override
-	public List<MerchantOrderHeader> findOrdersByMerchant(Order parameter) {
+    @Override
+    public OrderVO cancelOrder(OrderVO order) {
+        return null;
+    }
 
-		List<MerchantOrderHeader> orders = null;
-		orders = orderDAO.findMerchantOrders(parameter);
+    @Override
+    public OrderVO refundOrder(OrderVO order) {
+        return null;
+    }
 
-		if (orders != null && orders.size() > 0) {
+    @Override
+    public List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderVO parameter) {
 
-			for (int i = 0; i < orders.size(); i++) {
+        List<MerchantOrderHeaderVO> orders = null;
+        orders = orderDAO.findMerchantOrders(parameter);
 
-				
-				MerchantOrderHeader order = orders.get(i);
-				if (order != null) {
-					//加载头像
-					order.setImg("http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg");
-					//加载菜品列表
-					if(StringUtils.isBlank(parameter.getRepastMode())) {
-						List<Menu> menus = menuDao.findByMenuIds(order.longDishesId());
-		
-					
-						  List<String> r = menus.stream()
-					                .map(menu -> menu.getName())        
-					                .collect(Collectors.toList());
-						
-					
-					      System.out.println(r.toString());
-					
-						
-					}
-				
-				} else {
-					return orders = null;
-				}
-				
-			}
+        if (orders != null && orders.size() > 0) {
 
-		}
+            for (int i = 0; i < orders.size(); i++) {
 
-		return orders;
-	}
+
+                MerchantOrderHeaderVO order = orders.get(i);
+                if (order != null) {
+                    //加载头像
+                    order.setImg("http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg");
+                    //加载菜品列表
+                    if (StringUtils.isBlank(parameter.getRepastMode())) {
+                        List<MenuVO> menus = menuDao.findByMenuIds(order.longDishesId());
+
+
+                        List<String> r = menus.stream()
+                                .map(menu -> menu.getName())
+                                .collect(Collectors.toList());
+
+
+                        System.out.println(r.toString());
+
+
+                    }
+
+                } else {
+                    return orders = null;
+                }
+
+            }
+
+        }
+
+        return orders;
+    }
 }

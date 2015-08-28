@@ -1,19 +1,17 @@
 package com.youfan.data.dao.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mongodb.WriteResult;
-import com.youfan.controllers.objs.Message;
+import com.youfan.controllers.objs.MessageVO;
+import com.youfan.data.dao.MessageDAO;
+import com.youfan.data.models.MessageEntity;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import com.youfan.data.dao.MessageDAO;
-import com.youfan.data.models.MessageEntity;
-import com.youfan.commons.Constants;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository("messageDAO")
 public class MessageDAOImpl implements MessageDAO {
@@ -31,7 +29,7 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
-    public WriteResult updateMsg(Message message) {
+    public WriteResult updateMsg(MessageVO message) {
         Criteria criteria = Criteria.where(MESSAGE_ID).is(message.getId());
         Query query = new Query(criteria);
         Update update = Update.update(MESSAGE_STATUS, message.getStatus());
@@ -55,10 +53,10 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
-    public List<Message> getMsgList(Long userId, Integer receiver) {
+    public List<MessageVO> getMsgList(Long userId, Integer receiver) {
         Query query = Query.query(Criteria.where(MESSAGE_RECEIVERID).is(userId).and(MESSAGE_RECEIVERPORT).is(receiver)).with(new Sort(Sort.Direction.DESC, MESSAGE_DATE));
         List<MessageEntity> entities = new ArrayList<>(mongoTemplate.find(query, MessageEntity.class));
-        List<Message> messages = convertToVOList(entities);
+        List<MessageVO> messages = convertToVOList(entities);
         return messages;
     }
 
@@ -72,21 +70,21 @@ public class MessageDAOImpl implements MessageDAO {
 
     //====/
     @Override
-    public List<Message> findAll() {
+    public List<MessageVO> findAll() {
         return null;
     }
 
     @Override
-    public Message findOne(String s) {
+    public MessageVO findOne(String s) {
         return null;
     }
 
     @Override
-    public void insert(Message message) {
+    public void insert(MessageVO message) {
     }
 
     @Override
-    public void insert(List<Message> list) {
+    public void insert(List<MessageVO> list) {
     }
 
     @Override
@@ -94,7 +92,7 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
-    public void update(Message message) {
+    public void update(MessageVO message) {
     }
 
     @Override
@@ -103,7 +101,7 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
-    public Class<Message> getVOClass() {
-        return Message.class;
+    public Class<MessageVO> getVOClass() {
+        return MessageVO.class;
     }
 }

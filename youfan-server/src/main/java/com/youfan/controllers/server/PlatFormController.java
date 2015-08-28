@@ -1,4 +1,4 @@
-package com.youfan.controllers;
+package com.youfan.controllers.server;
 
 import com.cloopen.rest.sdk.CCPRestSmsSDK;
 import com.pingplusplus.Pingpp;

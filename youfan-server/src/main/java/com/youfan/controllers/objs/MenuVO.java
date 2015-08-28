@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author dolphineor
  */
-public class Menu {
+public class MenuVO {
 
     private String id;
 
