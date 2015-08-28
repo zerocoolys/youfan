@@ -7,11 +7,11 @@ import com.pingplusplus.exception.APIException;
 import com.pingplusplus.exception.AuthenticationException;
 import com.pingplusplus.exception.InvalidRequestException;
 import com.pingplusplus.model.*;
-import com.youfan.commons.CollectionTO;
+import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.MessageVO;
 import com.youfan.controllers.params.ChargeParams;
-import com.youfan.data.models.MessageEntity;
 import com.youfan.log.WebbooksLog;
-import com.youfan.services.menus.MessageService;
+import com.youfan.services.client.MessageService;
 import com.youfan.utils.CipherUtil;
 import com.youfan.utils.ConfigUtil;
 import org.slf4j.Logger;
@@ -262,8 +262,8 @@ public class PlatFormController {
      * @author ZhangHuaRong
      */
     @RequestMapping(method = RequestMethod.GET, path = "/getMessage/{userId}/{pageNo}/{pageSize}/{status}", produces = "application/json; charset=UTF-8")
-    public CollectionTO<MessageEntity> getMessage(@PathVariable Long userId, @PathVariable Integer pageNo, @PathVariable Integer pageSize, @PathVariable Integer status) {
-        CollectionTO<MessageEntity> result = null;
+    public CollectionVO<MessageVO> getMessage(@PathVariable Long userId, @PathVariable Integer pageNo, @PathVariable Integer pageSize, @PathVariable Integer status) {
+        CollectionVO<MessageVO> result = null;
         try {
             Query query = new Query();
             query.addCriteria(Criteria.where("receiverId").is(userId));
@@ -271,8 +271,8 @@ public class PlatFormController {
             long count = messageService.count(query);
             query.skip((pageNo - 1) * pageSize);
             query.limit(pageSize);
-            List<MessageEntity> msa = messageService.find(query);
-            result = new CollectionTO<MessageEntity>(msa, (int) count, pageSize);
+            List<MessageVO> msa = messageService.find(query);
+            result = new CollectionVO<MessageVO>(msa, (int) count, pageSize);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -286,8 +286,8 @@ public class PlatFormController {
      * @update 2015年8月26日 下午4:47:26
      */
     @RequestMapping(method = RequestMethod.GET, path = "/getMessageById/{messageId}", produces = "application/json; charset=UTF-8")
-    public MessageEntity getMessageById(@PathVariable String messageId) {
-        MessageEntity msa = null;
+    public MessageVO getMessageById(@PathVariable String messageId) {
+        MessageVO msa = null;
         try {
             msa = messageService.findById(messageId);
         } catch (Exception e) {
@@ -303,8 +303,8 @@ public class PlatFormController {
      * @author ZhangHuaRong
      */
     @RequestMapping(method = RequestMethod.GET, path = "/updateMssageStatus/{messageId}/{status}", produces = "application/json; charset=UTF-8")
-    public MessageEntity updateMssageStatus(@PathVariable String messageId, @PathVariable Integer status) {
-        MessageEntity msa = null;
+    public MessageVO updateMssageStatus(@PathVariable String messageId, @PathVariable Integer status) {
+        MessageVO msa = null;
         try {
             msa = messageService.findById(messageId);
             messageService.updateMsg(msa.getId(), status);
@@ -328,7 +328,7 @@ public class PlatFormController {
     public int pushNice(@PathVariable Long userId, @PathVariable Integer userPort, @PathVariable String date, @PathVariable String title, @PathVariable String des, @PathVariable Integer code) {
         int result = 0;
         try {
-            MessageEntity ms = new MessageEntity(0, userId, userPort, date, code, title, des);
+            MessageVO ms = new MessageVO(0, userId, userPort, date, code, title, des);
             messageService.insert(ms);
             result = ms.sendMsg();
 

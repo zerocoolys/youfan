@@ -39,9 +39,9 @@ public class MenuEntity {
 
     private Integer dataStatus = 1;
 
-    private Integer restNum; // 今日余量
+    private Integer restNum = 20; // 今日余量
 
-    private Integer tasteNum; // 品尝人数
+    private Integer tasteNum = 0; // 品尝人数
 
     private String type; // 菜品类型
 

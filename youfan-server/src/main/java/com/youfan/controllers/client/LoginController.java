@@ -1,6 +1,6 @@
 package com.youfan.controllers.client;
 
-import com.youfan.controllers.objs.UserClientVO;
+import com.youfan.commons.vo.UserClientVO;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.client.ClientUserService;
 import org.slf4j.Logger;

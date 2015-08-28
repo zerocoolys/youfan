@@ -14,7 +14,7 @@
     </resultMap>
 
 
-    <resultMap id="MerchantOrderHeader" type="com.youfan.controllers.objs.MerchantOrderHeaderVO">
+    <resultMap id="MerchantOrderHeader" type="com.youfan.commons.vo.MerchantOrderHeaderVO">
 
         <result column="ORDER_NO" property="orderNo"/>
         <result column="BUYER_ID" property="buyerId"/>

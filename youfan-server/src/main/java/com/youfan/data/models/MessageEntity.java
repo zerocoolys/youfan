@@ -1,6 +1,5 @@
 package com.youfan.data.models;
 
-
 import com.youfan.utils.ConfigUtil;
 import com.youfan.utils.HttpClientUtil;
 import org.springframework.data.annotation.Id;
@@ -132,7 +131,7 @@ public class MessageEntity {
         this.date = date;
     }
 
-    public int sendMsg() {
+    /*public int sendMsg() {
         HttpClientUtil h = new HttpClientUtil();
         int result = 0;
         try {
@@ -153,7 +152,7 @@ public class MessageEntity {
         }
 
         return result;
-    }
+    }*/
 
 
 }

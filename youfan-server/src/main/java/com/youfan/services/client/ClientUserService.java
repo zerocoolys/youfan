@@ -1,6 +1,6 @@
 package com.youfan.services.client;
 
-import com.youfan.controllers.objs.UserClientVO;
+import com.youfan.commons.vo.UserClientVO;
 import com.youfan.exceptions.UserException;
 
 /**

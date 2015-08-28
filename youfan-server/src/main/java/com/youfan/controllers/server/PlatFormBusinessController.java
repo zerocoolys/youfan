@@ -1,11 +1,11 @@
 package com.youfan.controllers.server;
 
-import com.youfan.commons.CollectionTO;
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.UserException;
-import com.youfan.services.users.MerchantKitchenServer;
-import com.youfan.services.users.MerchantUsersServer;
+import com.youfan.services.merchant.MerchantKitchenService;
+import com.youfan.services.merchant.MerchantUsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -30,9 +30,9 @@ public class PlatFormBusinessController {
 
     Logger logger = LoggerFactory.getLogger(PlatFormBusinessController.class);
     @Resource
-    MerchantUsersServer merchantUsersServer;
+    MerchantUsersService merchantUsersService;
     @Resource
-    MerchantKitchenServer merchantKitchenServer;
+    MerchantKitchenService merchantKitchenService;
 
     ///////////////////////////////// 系统//////////////////////////////////////////
     ///////////////////////////////// 客户//////////////////////////////////////////
@@ -51,7 +51,7 @@ public class PlatFormBusinessController {
             if (request.getParameter("status") != null) {
                 status = Integer.valueOf(request.getParameter("status"));
             }
-            return merchantUsersServer.getMerchantByStatus(status);
+            return merchantUsersService.getMerchantByStatus(status);
         } catch (UserException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -66,9 +66,9 @@ public class PlatFormBusinessController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, path = "/merchant/getMerchant/{pageNo}/{pageSize}")
-    public CollectionTO<MerchantUserEntity> getMerchant(@PathVariable Integer pageNo, @PathVariable Integer pageSize,
+    public CollectionVO<MerchantUserEntity> getMerchant(@PathVariable Integer pageNo, @PathVariable Integer pageSize,
                                                         HttpServletRequest request, HttpServletResponse response) {
-        CollectionTO<MerchantUserEntity> result = null;
+        CollectionVO<MerchantUserEntity> result = null;
         try {
             Query query = new Query();
             if (request.getParameter("status") != null) {
@@ -82,11 +82,11 @@ public class PlatFormBusinessController {
                 query.addCriteria(Criteria.where("realName").is(request.getParameter("realName")));
             }
 
-            long count = merchantUsersServer.count(query);
+            long count = merchantUsersService.count(query);
             query.skip((pageNo - 1) * pageSize);
             query.limit(pageSize);
-            List<MerchantUserEntity> msa = merchantUsersServer.find(query);
-            result = new CollectionTO<MerchantUserEntity>(msa, (int) count, pageSize);
+            List<MerchantUserEntity> msa = merchantUsersService.find(query);
+            result = new CollectionVO<MerchantUserEntity>(msa, (int) count, pageSize);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -100,9 +100,9 @@ public class PlatFormBusinessController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET, path = "/merchant/getKitchen/{pageNo}/{pageSize}")
-    public CollectionTO<MerchantKitchenInfoEntity> getKitchen(@PathVariable Integer pageNo, @PathVariable Integer pageSize,
+    public CollectionVO<MerchantKitchenInfoEntity> getKitchen(@PathVariable Integer pageNo, @PathVariable Integer pageSize,
                                                               HttpServletRequest request, HttpServletResponse response) {
-        CollectionTO<MerchantKitchenInfoEntity> result = null;
+        CollectionVO<MerchantKitchenInfoEntity> result = null;
         try {
             Query query = new Query();
             if (request.getParameter("status") != null) {
@@ -116,11 +116,11 @@ public class PlatFormBusinessController {
                 query.addCriteria(Criteria.where("realName").is(request.getParameter("realName")));
             }
 
-            long count = merchantUsersServer.count(query);
+            long count = merchantUsersService.count(query);
             query.skip((pageNo - 1) * pageSize);
             query.limit(pageSize);
-            List<MerchantKitchenInfoEntity> msa = merchantKitchenServer.find(query);
-            result = new CollectionTO<MerchantKitchenInfoEntity>(msa, (int) count, pageSize);
+            List<MerchantKitchenInfoEntity> msa = merchantKitchenService.find(query);
+            result = new CollectionVO<MerchantKitchenInfoEntity>(msa, (int) count, pageSize);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -142,7 +142,7 @@ public class PlatFormBusinessController {
         Integer status = 0;
         if (request.getParameter("id") != null && request.getParameter("status") != null) {
             status = Integer.valueOf(request.getParameter("status"));
-            merchantUsersServer.checkMerchant(request.getParameter("id"), status);
+            merchantUsersService.checkMerchant(request.getParameter("id"), status);
         }
     }
 

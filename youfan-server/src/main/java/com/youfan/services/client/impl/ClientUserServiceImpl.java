@@ -1,7 +1,7 @@
 package com.youfan.services.client.impl;
 
-import com.youfan.controllers.objs.UserClientVO;
-import com.youfan.data.dao.ClientUserDao;
+import com.youfan.commons.vo.UserClientVO;
+import com.youfan.data.dao.client.ClientUserDao;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.client.ClientUserService;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,7 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     @Override
     public void insert(UserClientVO uc) {
-        if (uc == null) {
-            return;
-        } else {
+        if (uc != null) {
             ucDAO.insert(uc);
         }
     }

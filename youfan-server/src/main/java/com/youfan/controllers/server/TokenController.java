@@ -1,10 +1,10 @@
 package com.youfan.controllers.server;
 
-import com.youfan.controllers.objs.User;
+import com.youfan.commons.vo.User;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.exceptions.UserException;
-import com.youfan.services.users.UsersService;
+import com.youfan.services.server.UsersService;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

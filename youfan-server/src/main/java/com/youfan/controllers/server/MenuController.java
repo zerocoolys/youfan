@@ -1,7 +1,7 @@
 package com.youfan.controllers.server;
 
-import com.youfan.controllers.objs.MenuVO;
-import com.youfan.services.menus.MenuService;
+import com.youfan.commons.vo.MenuVO;
+import com.youfan.services.client.MenuService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,14 +64,9 @@ public class MenuController {
         return new ModelAndView(jsonView);
     }
 
-    @RequestMapping(path = "", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(path = "/add", method = RequestMethod.POST, produces = "application/json")
     public void addMenu(@RequestBody MenuVO menu) {
         menuService.insert(menu);
-    }
-
-    @RequestMapping(path = "/add", method = RequestMethod.POST, produces = "application/json")
-    public void add(@RequestBody List<MenuVO> menus) {
-        menuService.insert(menus);
     }
 
     @RequestMapping(path = "/conversion/sale", method = RequestMethod.POST, produces = "application/json")

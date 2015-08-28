@@ -267,8 +267,8 @@ public class HttpClientUtil {
         HttpClientUtil h = new HttpClientUtil();
         try {
             h.open("http://192.168.1.102:8000/message/send?toPort=2&toId=2&data=testy&status=0&date=" + new Date().getTime(), "get");
-			/* h.addParameter("toId", receiverId.toString());
-			 h.addParameter("toPort", receiverPort.toString());
+            /* h.addParameter("toId", receiverId.toString());
+             h.addParameter("toPort", receiverPort.toString());
 			 h.addParameter("status", status.toString());
 			 h.addParameter("data", data);
 			 h.addParameter("date",DateUtils.formatDateTime(new Date()));*/
