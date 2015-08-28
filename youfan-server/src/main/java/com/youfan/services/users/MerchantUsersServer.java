@@ -44,5 +44,7 @@ public interface MerchantUsersServer {
 
 	public List<MerchantUserEntity> find(Query query);
 
-    MerchantKitchenInfo findById(String id);
+    MerchantKitchenInfo mrFindById(String id);
+
+    MerchantUser muFindById(String id);
 }
