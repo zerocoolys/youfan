@@ -14,8 +14,8 @@
             <span style="color: #a1a1a1">{{xfzNum}}人餐小饭桌图片</span>
             <ion-list>
                 <ion-item ng-repeat="item in imgs">
-                    <img ng-src="{{item.url}}" style="width: 64px; height: 64px">
-                    {{item.index}}
+                    <img ng-src="{{item.url}}" style="width: 128px; height: 64px">
+                    <i class="icon ion-android-remove-circle" data-ng-click="removePic($index)"></i>
                 </ion-item>
             </ion-list>
             <a ng-click="addXfzPic()" class="tab-item calm-bg light"

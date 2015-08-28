@@ -45,7 +45,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
     })
 
 
-    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
 
         console.log("ManageDishesNscAddCtrl");
 
@@ -64,14 +64,12 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             features: ["保护动物", "开心果", "刘德华", "自行车"],
             sellerId: "888888888"
         };
-        $scope.imgs = [{
-            index: 0,
-            url: "http://a3.att.hudong.com/84/07/01300001369290132072076178920.jpg"
-        }, {
-            index: 1,
-            url: "http://preview.quanjing.com/chineseview069/tpgrf-bgs20110532.jpg"
-        }];
+        $scope.imgs = [];
         $scope.isActive = false;
+
+        $scope.removePic = function (_index) {
+            $scope.imgs.splice(_index, 1);
+        };
 
         $scope.addNscPic = function () {
             console.log("addNscPic");
@@ -85,6 +83,10 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
                     if (!navigator.camera) {
                         alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                        $scope.imgs.push({
+                            index: $scope.imgs.length,
+                            url: PhotoService.randomPhoto()
+                        });
                     } else {
                         if (index == 0) {
                             $scope.cameraImage();
@@ -180,7 +182,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
     })
 
-    .controller('ManageDishesNscEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
+    .controller('ManageDishesNscEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
 
         console.log("ManageDishesNscEditCtrl");
         // 初始化参数
@@ -189,6 +191,10 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
         $scope.dishes = {sale: true};
         $scope.imgs = [];
         $scope.isActive = false;
+
+        $scope.removePic = function (_index) {
+            $scope.imgs.splice(_index, 1);
+        };
 
         $scope.addQtcPic = function () {
             console.log("addQtcPic");
@@ -201,11 +207,18 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
                 buttonClicked: function (index) {
                     if (!navigator.camera) {
                         alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                        $scope.imgs.push({
+                            index: $scope.imgs.length,
+                            url: PhotoService.randomPhoto()
+                        });
+                    } else {
+                        if (index == 0) {
+                            $scope.cameraImage();
+                        }
+                        if (index == 1) {
+                            $scope.photoImage();
+                        }
                     }
-                    $scope.imgs.push({
-                        index: $scope.imgs.length,
-                        url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
-                    });
                     return true;
                 },
                 cancelText: "<p class='calm'>取消</p>",
@@ -219,6 +232,41 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
                 //	hideSheet();
             }, 2000);
 
+        };
+
+        $scope.cameraImage = function () {
+            var options = {
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageURI) {
+                $scope.imgs.push({
+                    index: $scope.imgs.length,
+                    url: imageURI
+                });
+            }, function (err) {
+                // error
+            });
+        };
+
+        $scope.photoImage = function () {
+            var options = {
+                maximumImagesCount: 1,
+                width: 800,
+                height: 800,
+                quality: 80
+            };
+
+            $cordovaImagePicker.getPictures(options)
+                .then(function (results) {
+                    $scope.imgs.push({
+                        index: $scope.imgs.length,
+                        url: results[0]
+                    });
+                }, function (error) {
+                    // error
+                });
         };
 
         $scope.doCheckDishes = function () {

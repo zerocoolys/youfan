@@ -56,7 +56,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
     })
 
-    .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $stateParams, $ionicLoading, $timeout, KwService, ManageDishesService) {
+    .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $stateParams, $ionicLoading, $timeout, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
         console.log("ManageDishesXfzAddCtrl");
 
         $scope.xfzNum = $stateParams.xfzNum;
@@ -67,34 +67,84 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             xfzNum: $scope.xfzNum,
             sellerId: "888888888"
         };
-        $scope.imgs = [{
-            index: 0,
-            url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
-        }, {
-            index: 1,
-            url: "https://pbs.twimg.com/profile_images/578237281384841216/R3ae1n61.png"
-        }];
+        $scope.imgs = [];
         $scope.isActive = false;
 
+        $scope.removePic = function (_index) {
+            $scope.imgs.splice(_index, 1);
+        };
+
         $scope.addXfzPic = function () {
-            $ionicActionSheet.show({
+            console.log("addXfzPic");
+            // Show the action sheet
+            var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                    {text: '<p class="calm text-center">拍照</p>'},
-                    {text: '<p class="calm text-center">从相册中选取</p>'}
+                    {text: "<p class='text-center calm'>打开相机</p>"},
+                    {text: "<p class='text-center calm'>打开相册</p>"}
                 ],
-                cancelText: '<p class="calm">取消</p>',
-                buttonClicked: function () {
+                buttonClicked: function (index) {
                     if (!navigator.camera) {
                         alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                        $scope.imgs.push({
+                            index: $scope.imgs.length,
+                            url: PhotoService.randomPhoto()
+                        });
+                    } else {
+                        if (index == 0) {
+                            $scope.cameraImage();
+                        }
+                        if (index == 1) {
+                            $scope.photoImage();
+                        }
                     }
-                    $scope.imgs.push({
-                        index: $scope.imgs.length,
-                        url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
-                    });
                     return true;
+                },
+                cancelText: "<p class='calm'>取消</p>",
+                cancel: function () {
+                    // add cancel code..
                 }
             });
 
+            // For example's sake, hide the sheet after two seconds
+            $timeout(function () {
+                //	hideSheet();
+            }, 2000);
+
+        };
+
+        $scope.cameraImage = function () {
+            var options = {
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageURI) {
+                $scope.imgs.push({
+                    index: $scope.imgs.length,
+                    url: imageURI
+                });
+            }, function (err) {
+                // error
+            });
+        };
+
+        $scope.photoImage = function () {
+            var options = {
+                maximumImagesCount: 1,
+                width: 800,
+                height: 800,
+                quality: 80
+            };
+
+            $cordovaImagePicker.getPictures(options)
+                .then(function (results) {
+                    $scope.imgs.push({
+                        index: $scope.imgs.length,
+                        url: results[0]
+                    });
+                }, function (error) {
+                    // error
+                });
         };
 
         $scope.doCheckDishes = function () {
@@ -139,7 +189,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
         });
     })
 
-    .controller("ManageDishesXfzEditCtrl", function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicActionSheet, $timeout, ManageDishesService) {
+    .controller("ManageDishesXfzEditCtrl", function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicActionSheet, $timeout, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
         console.log("ManageDishesXfzEditCtrl");
 
         $scope.paramObj.backType = "xfz";
@@ -147,25 +197,81 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
         $scope.isActive = false;
         $scope.dishes = {sale: true};
 
+        $scope.removePic = function (_index) {
+            $scope.imgs.splice(_index, 1);
+        };
+
         $scope.addXfzPic = function () {
-            $ionicActionSheet.show({
+            console.log("addXfzPic");
+            // Show the action sheet
+            var hideSheet = $ionicActionSheet.show({
                 buttons: [
-                    {text: '<p class="calm text-center">拍照</p>'},
-                    {text: '<p class="calm text-center">从相册中选取</p>'}
+                    {text: "<p class='text-center calm'>打开相机</p>"},
+                    {text: "<p class='text-center calm'>打开相册</p>"}
                 ],
-                cancelText: '<p class="calm">取消</p>',
-                buttonClicked: function () {
+                buttonClicked: function (index) {
                     if (!navigator.camera) {
                         alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                        $scope.imgs.push({
+                            index: $scope.imgs.length,
+                            url: PhotoService.randomPhoto()
+                        });
+                    } else {
+                        if (index == 0) {
+                            $scope.cameraImage();
+                        }
+                        if (index == 1) {
+                            $scope.photoImage();
+                        }
                     }
-                    $scope.imgs.push({
-                        index: $scope.imgs.length,
-                        url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
-                    });
                     return true;
+                },
+                cancelText: "<p class='calm'>取消</p>",
+                cancel: function () {
+                    // add cancel code..
                 }
             });
 
+            // For example's sake, hide the sheet after two seconds
+            $timeout(function () {
+                //	hideSheet();
+            }, 2000);
+
+        };
+
+        $scope.cameraImage = function () {
+            var options = {
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageURI) {
+                $scope.imgs.push({
+                    index: $scope.imgs.length,
+                    url: imageURI
+                });
+            }, function (err) {
+                // error
+            });
+        };
+
+        $scope.photoImage = function () {
+            var options = {
+                maximumImagesCount: 1,
+                width: 800,
+                height: 800,
+                quality: 80
+            };
+
+            $cordovaImagePicker.getPictures(options)
+                .then(function (results) {
+                    $scope.imgs.push({
+                        index: $scope.imgs.length,
+                        url: results[0]
+                    });
+                }, function (error) {
+                    // error
+                });
         };
 
         $scope.doCheckDishes = function () {

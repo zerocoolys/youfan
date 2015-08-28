@@ -120,4 +120,27 @@ angular.module('yf_merchant.manage_dishes_service', [])
 
     })
 
+    .factory('PhotoService', function () {
+        // Some fake testing data
+        var photos = [
+            "http://corner.youth.cn/wht/sh/201203/W020120323572924016543.jpg",
+            "http://pic.5tu.cn/uploads/allimg/090313/2258340.jpg",
+            "http://img1.sc115.com/uploads/sc/jpg/146/6171.jpg",
+            "http://www.721marry.com/UploadFiles_s/2012030712421171288.jpg",
+            "http://www.721marry.com/UploadFiles_s/2012030712425875499.jpg",
+            "http://a3.att.hudong.com/84/07/01300001369290132072076178920.jpg",
+            "http://preview.quanjing.com/chineseview069/tpgrf-bgs20110532.jpg"
+        ];
+
+        function randomPhoto() {
+            var i = parseInt(Math.random() * 7)
+            return photos[i];
+        }
+
+        return {
+            randomPhoto: randomPhoto
+        };
+
+    })
+
 ;

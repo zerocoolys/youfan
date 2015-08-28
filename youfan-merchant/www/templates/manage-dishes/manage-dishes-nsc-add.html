@@ -15,8 +15,8 @@
                 <span style="color: red">*</span>添加菜品图片(最多四张)
                 <ion-list>
                     <ion-item ng-repeat="item in imgs">
-                        <img ng-src="{{item.url}}" style="width: 64px; height: 64px">
-                        {{item.index}}
+                        <img ng-src="{{item.url}}" style="width: 128px; height: 64px">
+                        <i class="icon ion-android-remove-circle" data-ng-click="removePic($index)"></i>
                     </ion-item>
                 </ion-list>
                 <button data-ng-if="imgs.length < 4" class="button button-calm" data-ng-click="addNscPic()"><i
