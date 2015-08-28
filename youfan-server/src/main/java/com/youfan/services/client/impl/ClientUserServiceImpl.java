@@ -1,7 +1,7 @@
 package com.youfan.services.client.impl;
 
 import com.youfan.controllers.objs.UserClientVO;
-import com.youfan.data.dao.ClientUserDao;
+import com.youfan.data.dao.clientdao.ClientUserDao;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.client.ClientUserService;
 import org.springframework.stereotype.Service;

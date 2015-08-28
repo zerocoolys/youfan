@@ -13,7 +13,7 @@ public interface Constants {
     // 存储菜品信息的集合名称
     String COLLECTION_MENU = "menu";
     // 存储客户端用户信息的集合名称
-    String COLLECTION_USER_CLIENT = "client_user";
+    String COLLECTION_CLIENT_USER = "client_user";
 
 
     // 菜单

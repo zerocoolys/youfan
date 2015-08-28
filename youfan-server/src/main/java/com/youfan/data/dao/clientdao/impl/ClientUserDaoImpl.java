@@ -73,6 +73,7 @@ public class ClientUserDaoImpl implements ClientUserDao {
             userClientVO = convertToVO(mongoTemplate.findOne(clientQuery(tel, pwd), UserClientEntity.class, COLLECTION_CLIENT_USER));
         } catch (Exception e){
             System.out.println(e.getMessage());
+            return null;
         }
 
         return userClientVO;
