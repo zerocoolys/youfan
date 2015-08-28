@@ -1,0 +1,47 @@
+<ion-view view-title="编辑小饭桌" cache-view="false" data-ng-init="load()">
+    <ion-nav-buttons side="left">
+        <button class="button button-clear button-calm" ui-sref="m_dishes.xfz"><i
+                class="icon ion-ios-arrow-back"></i></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-calm" data-ng-click="doCheckDishes()" data-ng-disabled="isActive">
+            保存
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="padding">
+        <div class="item item-divider " style="padding-top: 20px;">
+            <span class="icon" style="color: #e6b400">*</span>
+            <span style="color: #a1a1a1">{{dishes.xfzNum}}人餐小饭桌图片</span>
+            <ion-list>
+                <ion-item ng-repeat="item in imgs">
+                    <img ng-src="{{item.url}}" style="width: 64px; height: 64px">
+                    {{item.index}}
+                </ion-item>
+            </ion-list>
+            <a ng-click="addXfzPic()" class="tab-item calm-bg light"
+               style=" height: 60px; width: 60px;margin-top: 10px;padding: 13px 5px 5px 5px; ">
+                <i class="icon ion-plus "></i>
+            </a>
+        </div>
+
+        <div class="item item-input padding ">
+
+            <i class="icon" style="color: #e6b400">*</i>
+            <input type="text" data-ng-model="dishes.price" placeholder="请输入小饭桌的价格"/>
+
+            <p style="color:#1dbeaf; margin-right: 10px;">元/份</p>
+
+        </div>
+        <div class="item item-input padding">
+            <i class="icon" style="color: #e6b400">*</i>
+            <input type="text" data-ng-model="dishes.stock" placeholder="请输入小饭桌的库存"/>
+
+            <p style="color:#1dbeaf; margin-right: 10px;">份</p>
+        </div>
+        <div class="calm " style="margin: 3px 8px">注：小饭桌就餐人数有多少人，则免费送几份主食。续加则按1元/份收费</div>
+
+        <button data-ng-if="!dishes.sale" class="button button-full button-assertive"
+                data-ng-click="confirmRemoveDishes()">删除
+        </button>
+    </ion-content>
+</ion-view>

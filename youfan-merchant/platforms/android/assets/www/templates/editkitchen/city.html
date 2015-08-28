@@ -1,0 +1,11 @@
+<ion-view hide-nav-bar="true">
+    <ion-header-bar class="bar bar-header stable-bg">
+        <a class="button button-clear icon ion-ios-arrow-back button-calm" href="#/personinfo"></a>
+        <div class="h1 title " align-text="center">家乡</div>
+    </ion-header-bar>
+    <ion-content >
+
+        <ion-item ng-click="scity_$index(city)" href="#/personinfo" ng-repeat="city in citys">{{city}}</ion-item>
+
+    </ion-content>
+</ion-view>

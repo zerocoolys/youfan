@@ -1,0 +1,53 @@
+<!-- 帮助 -->
+<ion-view view-title="" hide-nav-bar="true" cache-view="false">
+
+    <ion-header-bar class="item-input-inset light-bg indexbar">
+        <div class="bar bar-header bar-light dishes-p ">
+            <a class="button button-clear button-calm icon ion-ios-arrow-back" href="#/overview"
+               style="padding: 0 15px 0 12px;"></a>
+
+            <div class="button-bar  calm">
+                <a class="button calm-border " ng-repeat="way in ways" ng-class="dishesIndex ==way.id? 'button-calm':''"
+                   ng-click="activedishes(way.id)">{{way.name}}</a>
+            </div>
+            <a class=" button button-clear button-calm " style="padding: 0 3px 0 10px; line-height: 38px; "
+               href="#/query_order">
+                查询
+            </a>
+        </div>
+
+    </ion-header-bar>
+    <ion-scroll class="stable-bg" style="height:100%; " cache-view="false">
+        <ion-slide-box on-slide-changed="dishesChanged(index)" active-slide="dishesIndex" show-pager="false">
+            <ion-slide ng-repeat="wayt in wayts">
+                <div class="button-bar light-bg dishes">
+                    <a class="button button-clear" ng-repeat="state in wayt.states"
+                       ng-class="wayt.slideIndex == state.id ? 'current':''"
+                       ng-click="activeSlide(wayt, state.id)">{{state.name}}<i class="calm">{{state.number}}</i> </a>
+                </div>
+                <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="wayt.slideIndex" show-pager="false">
+                    <ion-slide ng-repeat="dorder in wayt.dorders" class="order">
+                        <ion-list ng-repeat="order in dorder.orders" style="margin-bottom: 20px">
+                            <ion-item>
+                                <span>订单编号：{{order.id}}</span>
+                                <p class="item-note mainColor">{{order.state}}</p>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left item-avatar" href="#/order_Details">
+                                <img src="{{order.img}}">
+
+                                <h2>{{order.place}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+
+                                <p style="margin: 10px 0 10px 0">{{order.time}}</p>
+
+                                <h2>{{order.rmb}}
+                                    <button class="fr button button-calm button-small" style="padding: 0 20px;">查看
+                                    </button>
+                                </h2>
+                            </ion-item>
+                        </ion-list>
+                    </ion-slide>
+                </ion-slide-box>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-scroll>
+</ion-view>
