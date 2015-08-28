@@ -70,12 +70,15 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
                     popupCodeNull.close(); //由于某种原因2秒后关闭弹出
                 }, 2000);
             } else {
-                $http.post("http://localhost:8080/client/login/" + $scope.userClient.tel + "/"+$scope.userClient.loginPwd)
+
+                var postData = {
+                    tel: tel,
+                    loginPwd: password
+                };
+
+                $http.post("http://localhost:8080/client/login/", JSON.stringify(postData))
                     .success(function (data) {
-
-                        console.log(data)
-
-                        if(data.result.tel != null){
+                        if(data.result != null){
                             $scope.pwdLogin.hide()
                             $state.go('tab.chats');
                         } else {
