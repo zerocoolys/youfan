@@ -15,14 +15,12 @@ api.get("/getByStatus", function (req, res) {
 
 api.get("/getMerchant/:pageNo/:pageSize", function (req, res) {
     var query = url.parse(req.url, true).query;
-    var status = query['status'];
     var path = "/pBusiness/merchant"+req.url+"";
     console.log(path)
     httpUtil.httpGet(res, path, 'GET');
 });
 api.get("/getKitchen/:pageNo/:pageSize", function (req, res) {
     var query = url.parse(req.url, true).query;
-    var status = query['status'];
     var path = "/pBusiness/merchant"+req.url+"";
     console.log(path)
     httpUtil.httpGet(res, path, 'GET');

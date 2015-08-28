@@ -1,9 +1,9 @@
 /**
- * Created by Administrator on 2015/8/18.
+ * Created by Administrator on 2015/8/28.
  */
 define(["./module"], function (ctrs) {
-    ctrs.controller('merchantInfoCtrl', function ($scope, $rootScope, $q, $state, $http, $location, ngDialog) {
-        console.log("merchantInfoCtrl")
+    ctrs.controller('orderInfoCtrl',function ($scope, $rootScope, $q,$state,$http,$location,ngDialog) {
+        console.log("orderInfoCtrl")
 
         //分页信息
         $rootScope.pageNo = 1;
@@ -18,42 +18,16 @@ define(["./module"], function (ctrs) {
         $scope.status = null;
 
 
-        $scope.statusDesc = {
-            "-1":"删除",
-            "0":"待审核",
-            "1":"正常",
-            "2":"冻结",
-        }
         $rootScope.gridTitleArray = [
-            {name: '账户名称', field: "userName"},
-            {name: '姓名', field: "realName"},
-            {name: '性别', field: "sex"},
-            {name: '住址', field: "address"},
-            {name: '年龄', field: "ageRange"},
-            {name: '联系方式', field: "phone"},
-            {
-                name: "头像",
-                displayName: "头像",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showSinglePic(row.entity.headPortraitPicUrl)' >查看头像</a></div>",
-                maxWidth: 80,
-                enableSorting: false
-            },
-            {
-                name: "身份证",
-                displayName: "身份证",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showSinglePic(row.entity.idCardPicUrl)' >查看身份证</a></div>",
-                maxWidth: 80,
-                enableSorting: false
-            },
-            {
-                name: "健康证",
-                displayName: "健康证",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showSinglePic(row.entity.healthCertificatePicUrl)' >查看健康证</a></div>",
-                maxWidth: 80,
-                enableSorting: false
-            },
-
-            {name: '状态', field: "status"},
+            {name: '订单编号', field: "orderNo"},
+            {name: '卖方', field: "sellerId"},
+            {name: '买方', field: "buyerId"},
+            {name: '价格', field: "price"},
+            {name: '订单生成时间', field: "orderTime"},
+            {name: '就餐时间', field: "repastTime"},
+            {name: '就餐方式', field: "repastMode"},
+            {name: '就餐地址', field: "repastAddress"},
+            {name: '状态', field: "orderStatus"},
             {
                 name: "操作",
                 displayName: "操作",
@@ -99,7 +73,7 @@ define(["./module"], function (ctrs) {
                 condition += "&status=" + $scope.status
             $http({
                 method: 'GET',
-                url: 'merchant/getMerchant/' + $scope.pageNo + '/' + $scope.pageSize + "?" + condition
+                url: 'sys/getOrder/' + $scope.pageNo + '/' + $scope.pageSize + "?" + condition
             }).success(function (result, status) {
                 $rootScope.gridOptions.data = result.list;
                 $rootScope.pageCount = result.pageCnt;

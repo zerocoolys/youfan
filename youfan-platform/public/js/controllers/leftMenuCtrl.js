@@ -27,8 +27,8 @@ define(["./module"], function (ctrs) {
                         },
                         {
                             title: '订单管理',
-                            name:"order",
-                            href: "#/sys/order",
+                            name:"orderinfo",
+                            href: "#/sys/orderinfo",
                         },
                         {
                             title: '评论管理',

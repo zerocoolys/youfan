@@ -22,12 +22,12 @@ define(["./module"], function (ctrs) {
         $rootScope.gridOptions.data = [
         ]
 
-        $rootScope.statusDesc = {
-            "-1":"删除",
-            "0":"待审核",
-            "1":"正常",
-            "2":"冻结",
-        }
+        //$rootScope.statusDesc = {
+        //    "-1":"删除",
+        //    "0":"待审核",
+        //    "1":"正常",
+        //    "2":"冻结",
+        //}
 
         /**
          * 表格中 单张图片展示

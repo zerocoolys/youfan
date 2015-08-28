@@ -49,6 +49,15 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
+            .state('orderinfo', {
+                url: '/sys/orderinfo',
+                templateUrl: 'sys/orderinfo.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/sys/orderInfoCtrl'
+                    ])
+                }
+            })
             .state('activity', {
                 url: '/sys/activity',
                 templateUrl: 'sys/activity.html',
