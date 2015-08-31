@@ -2,6 +2,7 @@ package com.youfan.data.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import static com.youfan.commons.Constants.COLLECTION_USER;
 
@@ -13,15 +14,18 @@ public class MerchantUserEntity {
 
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
     @Id
-    private Long id;  //商家个人信息id
+    private String id;  //商家个人信息id
     private String userName;    //商家用户名
     private String passWord;    //商家密码
+    @Field("hpu")
     private String headPortraitPicUrl; //商家个人头像
     private String realName;    //商家实名
     private String sex; //性别
     private String ageRange;    //年龄范围
     private String address; //地址
+    @Field("iu")
     private String idCardPicUrl;    //身份证照片
+    @Field("hcu")
     private String healthCertificatePicUrl; //健康证照片
 
     public Integer getStatus() {
@@ -32,11 +36,11 @@ public class MerchantUserEntity {
         this.status = status;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

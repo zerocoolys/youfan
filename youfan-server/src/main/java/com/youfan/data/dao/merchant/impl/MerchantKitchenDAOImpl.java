@@ -5,7 +5,8 @@ import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;
-import com.youfan.utils.JsonUtil;
+import com.youfan.utils.JSONUtils;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -55,7 +56,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
             String id = map.get("_id").toString();
             map.remove("_id");
             map.put("id", id);
-            merchantKitchenInfoEntity = JsonUtil.map2pojo(map, getEntityClass());
+            merchantKitchenInfoEntity = JSONUtils.map2pojo(map, getEntityClass());
             list.add(convertToVO(merchantKitchenInfoEntity));
         }
         return list;
@@ -102,7 +103,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
         update.set("lat", "30.507874");
         update.set("lng", "104.068527");
-        merchantKitchenInfo.setId(new Long("55dad8b374d29345d56d8136"));
+        merchantKitchenInfo.setId("55dad8b374d29345d56d8136");
         return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass()));
     }
 
@@ -129,9 +130,6 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass()));
     }
 
-    /**
-     * // TODO MongoDB 不需要预先创建collection, collection会在第一次插入文档的时候自动创建.
-     */
     private void createCollection() {
         if (!mongoTemplate.collectionExists(getEntityClass())) {
             mongoTemplate.createCollection(getEntityClass());
