@@ -15,6 +15,10 @@ public interface Constants {
     // 存储客户端用户信息的集合名称
     String COLLECTION_CLIENT_USER = "client_user";
 
+    /*通用*/
+    String DATA_STATUS = "dataStatus";
+    String DATA_ID="id";
+
 
     // 菜单
     String SELLER_ID = "sellerId";
@@ -28,16 +32,15 @@ public interface Constants {
     String STOCK = "stock";
     String REST_NUM = "restNum";
     String TASTE_NUM = "tasteNum";
-    String DATA_STATUS = "dataStatus";
     String SALE = "sale";
     String TASTE = "taste";
     String STAPLE = "staple";
     String FEATURES = "features";
 
+    /*评论*/
+    String COMMENT_TIME = "ct";
+    String COMMENT_USER = "cu";
 
-    /* web response status by XiaoWei */
-    String WEB_DATA = "data";
-    String WEB_STATUS = "status";
 
     String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
     String COLLECTION_USER = "merchantUser";
