@@ -27,6 +27,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     private final String TOKEN_PREFIX = "access_token:";
 
     private int DAY_SECONDS = 24 * 60 * 60;
+
     @Resource
     private Jedis jedis;
 

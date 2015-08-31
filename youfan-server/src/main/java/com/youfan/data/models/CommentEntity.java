@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Document(collection = Constants.COLLECTION_COMMENT)
 public class CommentEntity {
-    
+
     @Id
     String id;
 
@@ -24,7 +24,6 @@ public class CommentEntity {
 
     @Field("ct")
     Date commentTime;
-
 
 
     Integer dataStatus = 0;

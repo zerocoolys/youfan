@@ -1,18 +1,13 @@
 package com.youfan.data.models;
 
-
-import static com.youfan.commons.Constants.COLLECTION_MESSAGE;
-
-import java.net.URLEncoder;
-import java.util.Date;
-
-import org.apache.commons.codec.net.URLCodec;
+import com.youfan.utils.ConfigUtil;
+import com.youfan.utils.HttpClientUtil;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.youfan.utils.CipherUtil;
-import com.youfan.utils.ConfigUtil;
-import com.youfan.utils.HttpClientUtil;
+import java.net.URLEncoder;
+
+import static com.youfan.commons.Constants.COLLECTION_MESSAGE;
 
 @Document(collection = COLLECTION_MESSAGE)
 public class MessageEntity {
@@ -136,7 +131,7 @@ public class MessageEntity {
         this.date = date;
     }
 
-    public int sendMsg() {
+    /*public int sendMsg() {
         HttpClientUtil h = new HttpClientUtil();
         int result = 0;
         try {
@@ -157,7 +152,7 @@ public class MessageEntity {
         }
 
         return result;
-    }
+    }*/
 
 
 }
