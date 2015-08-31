@@ -159,7 +159,6 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public List<OrderVO> getOrdersByParams(OrderParams op) {
-		System.out.println(op.getOrderStatus());
 		return sqlSession.selectList("getOrdersByParams",op);
 	}
 

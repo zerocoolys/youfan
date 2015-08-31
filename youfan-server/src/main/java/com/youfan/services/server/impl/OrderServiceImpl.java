@@ -138,7 +138,6 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		CollectionVO<OrderVO> vo= new CollectionVO<OrderVO>();
 		List<OrderVO> list = orderDAO.getOrdersByParams(op);
-		System.out.println("实际获取记录条数："+list.size());
 		vo.addAll(list);
 		return vo;
 	}

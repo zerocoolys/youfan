@@ -1,20 +1,12 @@
 package com.youfan.controllers.server;
 
-import com.google.gson.JsonArray;
-import com.mongodb.util.JSON;
-import com.youfan.commons.Pagination;
-import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.OrderVO;
-import com.youfan.controllers.params.OrderParams;
-import com.youfan.controllers.support.Response;
-import com.youfan.controllers.support.Responses;
-import com.youfan.data.models.MerchantKitchenInfoEntity;
-import com.youfan.data.models.MerchantUserEntity;
-import com.youfan.exceptions.UserException;
-import com.youfan.services.merchant.MerchantKitchenService;
-import com.youfan.services.merchant.MerchantUsersService;
-import com.youfan.services.server.OrderService;
-import com.youfan.utils.JSONUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,11 +17,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.controllers.params.OrderParams;
+import com.youfan.controllers.support.Response;
+import com.youfan.controllers.support.Responses;
+import com.youfan.data.models.CouponsContentEntity;
+import com.youfan.data.models.MerchantKitchenInfoEntity;
+import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.exceptions.UserException;
+import com.youfan.services.merchant.MerchantKitchenService;
+import com.youfan.services.merchant.MerchantUsersService;
+import com.youfan.services.server.CouponsTypeService;
+import com.youfan.services.server.OrderService;
+import com.youfan.utils.JSONUtils;
 
 /**
  * Created by MrDeng on 15/8/17.
@@ -45,9 +48,13 @@ public class PlatFormBusinessController {
 	MerchantKitchenService merchantKitchenService;
 	@Resource
 	OrderService orderService;
+
+	@Resource
+	CouponsTypeService couponsTypeService;
 	///////////////////////////////// 系统//////////////////////////////////////////
 	/**
 	 * 分页获取订单信息
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
@@ -76,27 +83,52 @@ public class PlatFormBusinessController {
 				op.setOrderStatus(Integer.valueOf(request.getParameter("orderStatus")));
 			}
 
-			if (request.getParameter("pageNo") != null&&request.getParameter("pageSize") != null&&request.getParameter("orderBy") != null) {
+			if (request.getParameter("pageNo") != null && request.getParameter("pageSize") != null
+					&& request.getParameter("orderBy") != null) {
 				op.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
 				op.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
 				op.setOrderBy(request.getParameter("orderBy"));
 				ifPager = true;
 			}
 			int lenAll = orderService.count(op);
-			System.out.println("记录总条数："+lenAll);
-			if(ifPager){
+			if (ifPager) {
 				CollectionVO<OrderVO> payload = new CollectionVO<>(new ArrayList<OrderVO>(), lenAll, op.getPageSize());
-				System.out.println("分页："+payload.getPageCnt()+"  "+payload.getPageSize()+" "+payload.getRecordCnt());
 				payload = orderService.getOrdersByParams(op);
-				res =Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
-			}else{
-//				orderService.ge(op, p)
+				res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
+			} else {
+				// orderService.ge(op, p)
 			}
-			
+
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			res =Responses.FAILED().setMsg("数据获取异常");
+			res = Responses.FAILED().setMsg("数据获取异常");
 		}
+		return res;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveCoupons")
+	public Response saveCoupons(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+			if (request.getParameter("port") != null && request.getParameter("timeLine") != null
+					&& request.getParameter("kitchenId") != null ) {
+
+				CouponsTypeVO coupons = new CouponsTypeVO();
+				coupons.setPort(Integer.valueOf(request.getParameter("port")));
+				coupons.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
+				coupons.setKitchenId(request.getParameter("kitchenId"));
+				coupons.setDesc(request.getParameter("desc"));
+				coupons.setContent( JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
+				
+				couponsTypeService.save(coupons);
+				res = Responses.SUCCESS().setMsg("数据保存成功");
+			} else {
+				res = Responses.FAILED().setMsg("数据保存异常:参数错误");
+			}
+		} catch (Exception e) {
+			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
+		}
+		
 		return res;
 	}
 	///////////////////////////////// 客户//////////////////////////////////////////

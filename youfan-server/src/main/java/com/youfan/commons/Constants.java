@@ -1,5 +1,6 @@
 package com.youfan.commons;
 
+
 /**
  * Created on 2015-08-18.
  *
@@ -14,6 +15,8 @@ public interface Constants {
     String COLLECTION_MENU = "menu";
     // 存储客户端用户信息的集合名称
     String COLLECTION_CLIENT_USER = "client_user";
+    //
+    String COLLECTION_SERVER_COUPONS_TYPE = "coupons_type";
 
     /*通用*/
     String DATA_STATUS = "dataStatus";
