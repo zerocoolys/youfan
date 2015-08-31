@@ -9,7 +9,13 @@
         </a>
     </ion-nav-buttons>
 
-    <ion-content class="no-header">
+    <ion-content class="">
+        <div class="button-bar light-bg dishes">
+            <a class="button button-clear" ui-sref="m_dishes.nsc">拿手菜</a>
+            <a class="button button-clear" ui-sref="m_dishes.xfz">小饭桌</a>
+            <a class="button button-clear current">其他菜</a>
+        </div>
+
         <ion-refresher pulling-text="下拉可以刷新" on-refresh="load()"></ion-refresher>
 
         <div style="padding: 10px; text-align: center;">
