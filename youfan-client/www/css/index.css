@@ -485,3 +485,41 @@ Alpha(opacity = 100);
 .care p i {
     margin-right: 2px;
 }
+
+/*评论详情*/
+.comment_detail .list .item-thumbnail-left p i {
+    font-size: 18px;
+    color: #e4c615;
+}
+
+.comment_input.item {
+    background: #fff;
+    height: auto;
+    padding: 0 0 10px 0;
+    border: none;
+}
+
+.comment_input.item .item-input {
+    padding: 16px;
+    margin-bottom: 5px;
+    border-bottom: none;
+}
+
+.comment_input.item button {
+    margin-left: 10px;
+}
+
+.comment_detail .checkbox input {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+.comment_detail .checkbox input:after, .checkbox-icon:after {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    display: table;
+    width: 10px;
+    height: 6px;
+}

@@ -110,7 +110,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/commentlist.html",
-                        controller: 'CommentDetailCtrl'
+                        controller: 'CommentListCtrl'
                     }
                 }
             })
@@ -328,6 +328,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-dash': {
                         templateUrl: 'templates/homepage/map.html',
                         controller: 'MapContainer'
+                    }
+                }
+            })
+            .state('tab.comment-details', {
+                url: '/comment-details',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/comment-detail.html',
+                        controller: 'CommentDetailCtrl'
                     }
                 }
             })

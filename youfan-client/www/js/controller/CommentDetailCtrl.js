@@ -1,10 +1,14 @@
-ControllerModule.controller('CommentDetailCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate) {
-    $scope.$root.tabsHidden = "tabs-hide";
-    $scope.comments = [
-        {img: "img/2.jpeg", name: 'Record album', content: '味道很好呀，下次还要来吃', time: "2015年2月3日 14:59:03",reply:'谢谢您的评价'},
-        {img: "img/2.jpeg", name: 'Record album', content: '味道很好呀，下次还要来吃', time: "2015年2月3日 14:59:03",reply:'谢谢您的评价'},
-        {img: "img/2.jpeg", name: 'Record album', content: '味道很好呀，下次还要来吃', time: "2015年2月3日 14:59:03",reply:'谢谢您的评价'},
-        {img: "img/2.jpeg", name: 'Record album', content: '味道很好呀，下次还要来吃', time: "2015年2月3日 14:59:03" ,reply:'谢谢您的评价'},
-        {img: "img/2.jpeg", name: 'Record album', content: '味道很好呀，下次还要来吃', time: "2015年2月3日 14:59:03",reply:'感谢下次光临'}
-    ]
+ControllerModule.controller('CommentDetailCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop,$ionicModal) {
+    $scope.comment = function () {
+        var myPopup = $ionicPopup.show({
+            cssClass: 'zan_popup',
+            template: '评论成功',
+            scope: $scope
+        });
+        $ionicBackdrop.release();
+        $timeout(function () {
+            myPopup.close(); //close the popup after 3 seconds for some reason
+        }, 1000);
+        $location.path('/order')
+    };
 });

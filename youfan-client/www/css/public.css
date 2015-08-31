@@ -54,3 +54,10 @@ body {
 .button.button-balanced.button-clear {
     color: #1dbeaf;
 }
+.margin{
+    margin-top:10px;
+}
+.checkbox input:checked+.checkbox-icon:before, .checkbox input:checked:before{
+    background: #1dbeaf;
+    border-color: #1dbeaf;
+}
