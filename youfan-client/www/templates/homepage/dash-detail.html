@@ -1,6 +1,6 @@
 <ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail">
     <ion-header-bar class="bar-header bar-light">
-        <a ui-sref="tab.dash" ><i class="ion-ios-arrow-left"></i></a>
+        <a ui-sref="tab.dash"><i class="ion-ios-arrow-left"></i></a>
 
         <div class="top_share ">
             <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
@@ -86,9 +86,9 @@
         <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="main_menu">
             <ion-slide>
                 <ion-list>
-                    <ion-item class="item-body list-borderless item-borderless" ng-repeat="menu in menuArr"
+                    <ion-item class="item-body list-borderless item-borderless" ng-repeat="menu in menuItemArr"
                               ng-repeat-end="1">
-                        <img class="full-image" ng-src="{{menu.picUrl}}" src="img/2.jpeg">
+                        <img class="full-image" ng-src="{{menu.picUrl}}">
                         <ion-item class="item-icon-right item-icon-left">
                             <span class="icon">
                                 <i class="icon_bg ion-coffee icon-accessory"></i>
@@ -109,9 +109,9 @@
                             <span class="item-note">
                                 <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
                                     <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
-                                       ng-click="minusAccount(menu)"></i>
-                                    <span ng-show="menu.shopAccount">&nbsp;{{menu.account}}&nbsp;</span>
-                                    <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
+                                       ng-click="minusItem(menu.menuId)"></i>
+                                    <span ng-show="menu.shopAccount">&nbsp;{{menu.count}}&nbsp;</span>
+                                    <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.menuId)"></i>
                                 </span>
                             </span>
                         </ion-item>
@@ -130,9 +130,9 @@
                                 <span class="item-note">
                                     <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
                                         <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
-                                           ng-click="minusAccount(menu)"></i>
+                                           ng-click="minusItem(menu.menuId)"></i>
                                         <span ng-show="menu.shopAccount">&nbsp;{{menu.account}}&nbsp;</span>
-                                        <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
+                                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.menuId)"></i>
                                     </span>
                                 </span>
                             </div>
@@ -140,7 +140,7 @@
                     </ion-item>
                 </ion-list>
                 <ion-list class="tip_menu">
-                    <ion-item class="item-thumbnail-left item-icon-right" ng-repeat="menu in menuArr"
+                    <ion-item class="item-thumbnail-left item-icon-right" ng-repeat="menu in menuItemArr"
                               ng-repeat-start="2">
                         <img ng-src="{{menu.picUrl}}"/>
 
@@ -149,7 +149,7 @@
                         <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
 
                         <p ng-bind="'￥' + menu.price"></p>
-                        <i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>
+                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.menuId)"></i>
                     </ion-item>
                 </ion-list>
             </ion-slide>
@@ -159,10 +159,10 @@
         <div class="button-bar">
             <!--<a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"-->
             <!--ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>-->
-            <a class="button button-clear" style="border-right: 1px solid #fff;"ng-click="toggleMenu()">
-                <span class="cart_bg mainColor"><i class="ion-android-cart icon-accessory"></i>&nbsp;&nbsp;0</span>
+            <a class="button button-clear" style="border-right: 1px solid #fff;" ng-click="toggleMenu()">
+                <span class="cart_bg mainColor"><i class="icon ion-android-cart icon-accessory"></i>&nbsp;&nbsp;{{count}}</span>
                 <span>￥{{subtotal}}</span>
-           </a>
+            </a>
             <a class="button button-clear" ng-click="confirmOrder()">选好了</a>
         </div>
     </div>
@@ -175,7 +175,7 @@
                         <span class="col col-50">{{item.name}}</span>
                         <span class="col ">{{item.totalPrice}}</span>
                         <span class="col">
-                            <i class="ion-minus-round" ng-hide="count_show"
+                            <i class="ion-minus-round"
                                ng-click="minusItem(item.menuId)" ng-init="count = item.count"></i>
                             <span class="food_price" ng-bind="item.count">{{count}}</span>
                         <i class="ion-plus-round" ng-click="plusItem(item.menuId)" ng-init="count = item.count"></i>
