@@ -1,29 +1,45 @@
-<ion-view view-title="送餐地址" hide-tabs>
+<ion-modal-view>
+    <ion-header-bar>
+        <button class="button button-clear" ng-click="modal.hide()">取消</button>
+        <h1 class="title" ng-click="addAddress()">新增就餐地址</h1>
+        <button class="button button-clear mainColor" ng-click="modal.hide()">保存</button>
+    </ion-header-bar>
     <ion-content>
-        <div class="list">
-            <label class="item item-input">
-                <input type="text" placeholder="联系人" ng-model="task.title">
-            </label>
-            <label class="item item-input">
-                <input type="text" placeholder="手机号码" ng-model="task.title">
-            </label>
-            <ion-list>
-                <ion-item class="item item-icon-right">
-                    <span>所在地区</span>
-                    <i class="icon ion-ios-arrow-right"></i>
-                </ion-item>
-            </ion-list>
-            <label class="item item-input">
-                <input type="text" placeholder="详细地址" ng-model="task.title">
-                <i class="icon ion-ios7-arrow-right"></i>
-            </label>
-
-        </div>
+        <ion-list>
+            <ion-item>
+                联系人
+                    <span class="item-note">
+                        <input type="text" placeholder="收餐人姓名">
+                    </span>
+            </ion-item>
+            <ion-item>
+                手机号码
+                    <span class="item-note">
+                        <input type="text" placeholder="收餐人电话">
+                    </span>
+            </ion-item>
+            <ion-item class="item-icon-right">
+                地址
+                    <span class="item-note" >
+                      小区/大厦/学校/街道<i class="icon ion-chevron-right icon-accessory"></i>
+                    </span>
+            </ion-item>
+            <ion-item class="item-icon-right">
+                    <span class="item-note">
+                        <input type="text" placeholder="楼号/门牌号等详细信息">
+                    </span>
+            </ion-item>
+        </ion-list>
         <div class="padding">
-            <p>给地址价格标签下次选址更方便哦！！</p>
-            <button class="button button-outline button-balanced little-button">家</button>
-            <button class="button button-outline button-balanced little-button">公司</button>
-
+            <p class="text-center mainColor">
+                给地址加个标签，下次选地址更加方便哦~
+            </p>
+            <button class="button button-light">
+                家里
+            </button>
+            <button class="button button-light">
+                公司
+            </button>
         </div>
     </ion-content>
-</ion-view>
+</ion-modal-view>

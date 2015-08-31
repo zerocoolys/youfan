@@ -50,14 +50,14 @@
                     </div>
                     <div class="item item-avatar item_box">
                         <img src="{{mc.hsrc}}" ng-click="person('{{mc.id}}')" class="person_img">
-
+                        <span class="badge badge-assertive ng-binding">内蒙古人</span>
                         <div class="row" href="#/tab/dash/{{mc.id}}">
                             <div class="col-90">
                                 <h2>{{mc.kitchenName}}</h2>
 
-                                <p><i class="ion-ios-location"></i>{{mc.kitchenAddress||'暂无'}}</p>
+                                <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}</p>
 
-                                <p><i class="ion-ios-checkmark"></i> 实名认证</p>
+                                <p><i class="ion-ribbon-b"></i> 实名认证</p>
                             </div>
                         </div>
                     </div>
