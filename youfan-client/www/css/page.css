@@ -48,10 +48,7 @@
 .cart_bg{
     background-color: #fff;
     border-radius: 9px;
-    padding: 2px 6px;
-}
-.cart_bg i{
-    font-size: 9px;
+    padding: 0 6px;
 }
 /*dash-detail中分享的icon*/
 .dash_detail .bar.bar-light {
@@ -102,7 +99,7 @@
     transition: all 0.5s;
 }
 .dash_detail .chang_width{
-    width: 60px;
+    width: 65px;
     padding: 0 8px;
 }
 .dash_detail .chang_width .ion-plus{
