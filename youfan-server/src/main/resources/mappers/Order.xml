@@ -23,6 +23,18 @@
         <result column="repast_Address" property="repastAddress"/>
         <result column="dishes_Id" property="dishesId"/>
     </resultMap>
+    
+    
+       <resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
+
+        <result column="ORDER_NO" property="orderNo"/>
+        <result column="BUYER_ID" property="buyerId"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="repast_Time" property="repastTime"/>
+        <result column="order_time" property="orderTime"/>
+        <result column="repast_Address" property="repastAddress"/>
+        <result column="dishes_Id" property="dishesId"/>
+    </resultMap>
 
 
     <select id="getOrder" parameterType="int"
@@ -61,22 +73,28 @@
     <select id="findOrders" parameterType="com.youfan.data.models.OrderEntity" resultMap="MerchantOrderHeader">
 
 
-        SELECT
-
-        orders.ORDER_NO,orders.repast_Address,orders.repast_Time,
-
-        orders.BUYER_ID,orders.price,orders.order_status,dishes.dishes_Id
-
-        FROM TBL_ORDERS orders join
-
-        (select orders.order_id , group_concat(dishes.DISH_ID) AS dishes_Id from TBL_ORDERS orders join TBL_REL_ODR_DISH
-        dishes
-
-        on orders.order_id = dishes.order_id group by orders.order_id) dishes
-
-        on orders.order_id = dishes.order_id
-
-        where 1 = 1
+       SELECT
+	orders.ORDER_NO,
+	orders.repast_Address,
+	orders.repast_Time,
+	orders.BUYER_ID,
+	orders.price,
+	orders.order_status,
+	dishes.dishes_Id
+FROM
+	TBL_ORDERS orders
+JOIN (
+	SELECT
+		orders.order_id,
+		group_concat(dishes.DISH_ID) AS dishes_Id
+	FROM
+		TBL_ORDERS orders
+	JOIN TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
+	GROUP BY
+		orders.order_id
+) dishes ON orders.order_id = dishes.order_id
+WHERE
+	1 = 1
 
         <if test="sellerId != null and sellerId != ''">
             and orders.seller_Id = #{sellerId}
@@ -89,6 +107,41 @@
         <if test="repastMode != null and repastMode != ''">
             and orders.repast_Mode = #{repastMode}
         </if>
+
+    </select>
+    
+    
+     <select id="findOrderDetail" parameterType="com.youfan.data.models.OrderEntity" resultMap="MerchantOrderDetail">
+
+
+       SELECT
+	orders.ORDER_NO,
+	orders.repast_Address,
+	orders.repast_Time,
+	orders.order_time,
+	orders.BUYER_ID,
+	orders.price,
+	dishes.dishes_Id
+FROM
+	TBL_ORDERS orders
+JOIN (
+	SELECT
+		orders.order_id,
+		group_concat(dishes.DISH_ID) AS dishes_Id
+	FROM
+		TBL_ORDERS orders
+	JOIN TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
+	GROUP BY
+		orders.order_id
+) dishes ON orders.order_id = dishes.order_id
+WHERE
+	1 = 1
+
+        <if test="orderNo != null and orderNo != ''">
+            and orders.ORDER_NO = #{orderNo}
+        </if>
+
+      
 
     </select>
 

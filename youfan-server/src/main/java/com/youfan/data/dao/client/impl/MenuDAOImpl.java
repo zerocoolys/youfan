@@ -1,15 +1,18 @@
 package com.youfan.data.dao.client.impl;
 
+import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.models.MenuEntity;
 import com.youfan.data.support.IdGenerator;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 import java.util.Map;
 
@@ -169,12 +172,12 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
-    public List<MenuVO> findByMenuIds(List<Long> menuIds) {
+    public List<MechantMenuVO> findByMenuIds(List<Long> menuIds) {
 
-        List<MenuEntity> list = mongoTemplate.find(buildQuery(menuIds, true),
-                getEntityClass(), COLLECTION_MENU);
+        List<MechantMenuVO> list = mongoTemplate.find(buildQuery(menuIds, true),
+        		MechantMenuVO.class, COLLECTION_MENU);
 
-        return convertToVOList(list);
+        return list;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.youfan.data.dao.server;
 
 import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.controllers.params.OrderParams;
@@ -26,5 +27,7 @@ public interface OrderDAO {
     List<OrderVO> getOrdersBySellerId(Long sellerId, Pagination pagination);
 
     List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order);
+    
+    MerchantOrderDetailVO findOrderDetail(String orderNo);
 
 }

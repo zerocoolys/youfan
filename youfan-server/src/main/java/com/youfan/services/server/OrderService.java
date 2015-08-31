@@ -1,6 +1,7 @@
 package com.youfan.services.server;
 
 import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.controllers.params.OrderParams;
@@ -29,5 +30,8 @@ public interface OrderService {
     OrderVO refundOrder(OrderVO order);
 
     List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderParams order);
+    
+    MerchantOrderDetailVO findOrderDetailByOrderNo(String orderNo);
+    
 
 }

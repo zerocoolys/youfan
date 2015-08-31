@@ -23,8 +23,14 @@ public class MerchantOrderHeaderVO {
      * 菜单ID集合逗号分隔
      */
     private String dishesId;
+    /**
+     * 点菜名称
+     */
+    private List<String> dishNames;
 
-    public String getOrderNo() {
+
+
+	public String getOrderNo() {
         return orderNo;
     }
 
@@ -100,4 +106,12 @@ public class MerchantOrderHeaderVO {
 
         return menuIds;
     }
+    
+    public List<String> getDishNames() {
+		return dishNames;
+	}
+
+	public void setDishNames(List<String> dishNames) {
+		this.dishNames = dishNames;
+	}
 }

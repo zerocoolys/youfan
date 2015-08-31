@@ -1,8 +1,10 @@
 package com.youfan.data.dao.client;
 
+import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MenuVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MenuEntity;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -20,7 +22,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
 
     List<MenuVO> findBySellerId(Long sellerId);
 
-    List<MenuVO> findByMenuIds(List<Long> menuIds);
+    List<MechantMenuVO> findByMenuIds(List<Long> menuIds);
 
     int minusRestNum(Long menuId);
 

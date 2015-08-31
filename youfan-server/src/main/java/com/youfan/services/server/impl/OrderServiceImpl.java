@@ -1,7 +1,9 @@
 package com.youfan.services.server.impl;
 
 import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MenuVO;
+import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.controllers.params.OrderParams;
@@ -90,28 +92,23 @@ public class OrderServiceImpl implements OrderService {
 
             for (int i = 0; i < orders.size(); i++) {
 
-
                 MerchantOrderHeaderVO order = orders.get(i);
                 if (order != null) {
                     //加载头像
                     order.setImg("http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg");
                     //加载菜品列表
                     if (StringUtils.isBlank(parameter.getRepastMode())) {
-                        List<MenuVO> menus = menuDao.findByMenuIds(order.longDishesId());
+                        List<MechantMenuVO> dishes = menuDao.findByMenuIds(order.longDishesId());
 
-
-                        List<String> r = menus.stream()
+                        List<String> dishNames = dishes.stream()
                                 .map(menu -> menu.getName())
                                 .collect(Collectors.toList());
-
-
-                        System.out.println(r.toString());
-
+                        order.setDishNames(dishNames);
 
                     }
 
                 } else {
-                    return orders = null;
+                    return orders;
                 }
 
             }
@@ -120,4 +117,21 @@ public class OrderServiceImpl implements OrderService {
 
         return orders;
     }
+
+	@Override
+	public MerchantOrderDetailVO findOrderDetailByOrderNo(String orderNo) {
+		
+		MerchantOrderDetailVO order  = orderDAO.findOrderDetail(orderNo);
+		
+		
+		 if (order != null) {
+                List<MechantMenuVO> dishes = menuDao.findByMenuIds(order.longDishesId());
+
+          
+         } else {
+             return null;
+         }
+		
+		return order;
+	}
 }
