@@ -134,10 +134,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public CollectionVO<OrderVO> getOrdersByParams(OrderParams op, Pagination p) {
+	public CollectionVO<OrderVO> getOrdersByParams(OrderParams op) {
 		// TODO Auto-generated method stub
 		CollectionVO<OrderVO> vo= new CollectionVO<OrderVO>();
-		vo.addAll(orderDAO.getOrdersByParams(op, p));
+		List<OrderVO> list = orderDAO.getOrdersByParams(op);
+		System.out.println("实际获取记录条数："+list.size());
+		vo.addAll(list);
 		return vo;
 	}
 }

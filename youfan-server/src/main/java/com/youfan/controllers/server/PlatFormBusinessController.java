@@ -59,13 +59,12 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/getOrder")
 	public Response getOrders(HttpServletRequest request, HttpServletResponse response) {
 		OrderParams op = new OrderParams();
-		Pagination p = new Pagination();
 		boolean ifPager = false;
 		Response res = null;
 		try {
 
-			if (request.getParameter("status") != null) {
-				op.setOrderStatus(Integer.valueOf(request.getParameter("status")));
+			if (request.getParameter("orderNo") != null) {
+				op.setOrderNo(request.getParameter("orderNo"));
 			}
 			if (request.getParameter("buyerId") != null) {
 				op.setBuyerId(Long.valueOf(request.getParameter("buyerId")));
@@ -73,19 +72,23 @@ public class PlatFormBusinessController {
 			if (request.getParameter("sellerId") != null) {
 				op.setSellerId(Long.valueOf(request.getParameter("sellerId")));
 			}
+			if (request.getParameter("orderStatus") != null) {
+				op.setOrderStatus(Integer.valueOf(request.getParameter("orderStatus")));
+			}
 
 			if (request.getParameter("pageNo") != null&&request.getParameter("pageSize") != null&&request.getParameter("orderBy") != null) {
-				p.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
-				p.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
-				p.setOrderBy(request.getParameter("orderBy"));
+				op.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
+				op.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
+				op.setOrderBy(request.getParameter("orderBy"));
 				ifPager = true;
 			}
 			int lenAll = orderService.count(op);
+			System.out.println("记录总条数："+lenAll);
 			if(ifPager){
-				CollectionVO<OrderVO> payload = new CollectionVO<>(new ArrayList<OrderVO>(), lenAll, p.getPageSize());
-				payload = orderService.getOrdersByParams(op, p);
+				CollectionVO<OrderVO> payload = new CollectionVO<>(new ArrayList<OrderVO>(), lenAll, op.getPageSize());
+				System.out.println("分页："+payload.getPageCnt()+"  "+payload.getPageSize()+" "+payload.getRecordCnt());
+				payload = orderService.getOrdersByParams(op);
 				res =Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
-				System.out.println(res.toString());
 			}else{
 //				orderService.ge(op, p)
 			}

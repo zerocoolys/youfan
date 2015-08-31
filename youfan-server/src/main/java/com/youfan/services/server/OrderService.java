@@ -35,5 +35,5 @@ public interface OrderService {
 
 	int countAll();
 	
-	CollectionVO<OrderVO> getOrdersByParams (OrderParams op,Pagination p);
+	CollectionVO<OrderVO> getOrdersByParams (OrderParams op);
 }

@@ -31,6 +31,6 @@ public interface OrderDAO {
     int countAll();
 	int count(OrderParams op);
 	
-	List<OrderVO> getOrdersByParams (OrderParams op,Pagination p);
+	List<OrderVO> getOrdersByParams (OrderParams op);
 
 }

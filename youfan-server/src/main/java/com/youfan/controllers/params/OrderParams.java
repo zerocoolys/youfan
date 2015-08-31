@@ -8,7 +8,7 @@ import com.youfan.commons.Pagination;
 /**
  * Created by yousheng on 15/8/14.
  */
-public class OrderParams{
+public class OrderParams extends Pagination{
 
 	String orderNo;
 	
@@ -22,7 +22,7 @@ public class OrderParams{
 
 	double price;
 
-	int orderStatus;
+	Integer orderStatus;
 
 	String repastMode;
     
@@ -74,11 +74,11 @@ public class OrderParams{
 		this.price = price;
 	}
 
-	public int getOrderStatus() {
+	public Integer getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(int orderStatus) {
+	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 

@@ -13,7 +13,24 @@
 
 	</resultMap>
 
-    <resultMap id="MerchantOrderHeader" type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
+	<resultMap id="OrderFullEntityMap" type="com.youfan.data.models.OrderEntity">
+		<id column="ORDER_ID" property="id" />
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="DATA_STATUS" property="dataStatus" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="PRICE" property="price" />
+		<result column="SELLER_ID" property="sellerId" />
+		<result column="BUYER_ID" property="buyerId" />
+		<result column="order_Time" property="orderTime" />
+		<result column="repast_Time" property="repastTime" />
+		<result column="repast_Mode" property="repastMode" />
+		<result column="repast_Address" property="repastAddress" />
+		<result column="coupons" property="coupons" />
+		<result column="comments" property="comments" />
+	</resultMap>
+
+	<resultMap id="MerchantOrderHeader"
+		type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
 		<result column="ORDER_NO" property="orderNo" />
 		<result column="BUYER_ID" property="buyerId" />
 		<result column="ORDER_STATUS" property="orderStatus" />
@@ -24,20 +41,24 @@
 
 
 	<select id="getOrder" parameterType="int" resultMap="OrderEntityMap">
-		SELECT * FROM TBL_ORDERS WHERE ORDER_ID=#{id} AND DATA_STATUS = 1
+		SELECT *
+		FROM TBL_ORDERS WHERE ORDER_ID=#{id} AND DATA_STATUS = 1
 	</select>
 
 	<update id="deleteOrder" parameterType="java.lang.Integer">
-		UPDATE TBL_ORDERS SET DATA_STATUS = 0 WHERE ORDER_ID = #{id}
+		UPDATE TBL_ORDERS SET
+		DATA_STATUS = 0 WHERE ORDER_ID = #{id}
 	</update>
 
 	<insert id="createOrder" parameterType="com.youfan.data.models.OrderEntity">
-		INSERT INTO TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORDER_PRICE,ORDER_STATUS)
+		INSERT INTO
+		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORDER_PRICE,ORDER_STATUS)
 		VALUES(#{orderNo},#{sellerId},#{buyerId},#{price},#{orderStatus})
 	</insert>
 
 	<insert id="createOrderDishRel" parameterType="com.youfan.data.models.OrderDishRelEntity">
-		INSERT INTO TBL_REL_ODR_DISH(ODR_ID,DISH_ID) VALUES(#{orderNo},#{itemId})
+		INSERT INTO
+		TBL_REL_ODR_DISH(ODR_ID,DISH_ID) VALUES(#{orderNo},#{itemId})
 	</insert>
 
 	<select id="findAll">
@@ -46,16 +67,19 @@
 
 	<select id="findAllByPagination" parameterType="com.youfan.commons.Pagination"
 		resultMap="OrderEntityMap">
-		SELECT * FROM TBL_ORDERS ORDER BY #{orderBy} #{asc} LIMIT #{start}, #{end}
+		SELECT * FROM TBL_ORDERS ORDER BY #{orderBy} #{asc} LIMIT
+		#{start}, #{end}
 	</select>
 
 	<select id="getOrdersByBuyerId">
-		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{0} AND DATA_STATUS = 1 LIMIT
+		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{0} AND
+		DATA_STATUS = 1 LIMIT
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
 	</select>
 
 	<select id="getOrdersBySellerId">
-		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND DATA_STATUS = 1 LIMIT
+		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND
+		DATA_STATUS = 1 LIMIT
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
 	</select>
 
@@ -67,12 +91,16 @@
 
 		orders.BUYER_ID,orders.price,orders.order_status,dishes.dishes_Id
 
-		FROM TBL_ORDERS orders join
+		FROM
+		TBL_ORDERS orders join
 
-		(select orders.order_id , group_concat(dishes.DISH_ID) AS dishes_Id from
-		TBL_ORDERS orders join TBL_REL_ODR_DISH dishes
+		(select orders.order_id ,
+		group_concat(dishes.DISH_ID) AS dishes_Id from
+		TBL_ORDERS orders join
+		TBL_REL_ODR_DISH dishes
 
-		on orders.order_id = dishes.order_id group by orders.order_id) dishes
+		on orders.order_id = dishes.order_id group by
+		orders.order_id) dishes
 
 		on orders.order_id = dishes.order_id
 
@@ -117,50 +145,51 @@
 		#{map.pager.start}, #{map.pager.end}
 	</select>
 
-	<select id="countAll"  resultType = "int">
+	<select id="countAll" resultType="int">
 		SELECT count(*) FROM TBL_ORDERS
 	</select>
-	
-	<select id="count" resultType = "int">
+
+	<select id="count" parameterType="com.youfan.controllers.params.OrderParams"
+		resultType="int">
 		SELECT count(*) FROM TBL_ORDERS
 		WHERE 1=1
-		<if test="#{0}.orderNo != null and #{0}.orderNo != ''">
-			and ORDER_NO = #{#{0}.orderNo}
+		<if test="orderNo != null and orderNo != ''">
+			and ORDER_NO = #{orderNo}
 		</if>
-		<if test="#{0}.sellerId != null and #{0}.sellerId != ''">
-			and seller_Id = #{#{0}.sellerId}
+		<if test="sellerId != null">
+			and SELLER_ID = #{sellerId}
 		</if>
-		<if test="#{0}.buyerId != null and #{0}.buyerId != ''">
-			and seller_Id = #{#{0}.buyerId}
+		<if test="buyerId != null">
+			and BUYER_ID = #{buyerId}
 		</if>
-		<if test="#{0}.orderStatus != null">
-			and order_Status = #{#{0}.orderStatus}
+		<if test="orderStatus != null">
+			and ORDER_STATUS = #{orderStatus}
 		</if>
 	</select>
-	<select id="getOrdersByParams" parameterType="com.youfan.commons.Pagination" resultMap = "OrderEntityMap">
+	<select id="getOrdersByParams" parameterType="com.youfan.controllers.params.OrderParams"
+		resultMap="OrderFullEntityMap">
 		SELECT * FROM TBL_ORDERS
 		WHERE 1=1
-		<if test="#{0}.orderNo != null and #{0}.orderNo != ''">
-			and ORDER_NO = #{#{0}.orderNo}
+		<if test="orderNo != null and orderNo != ''">
+			and ORDER_NO = #{orderNo}
 		</if>
-		<if test="#{0}.sellerId != null and #{0}.sellerId != ''">
-			and seller_Id = #{#{0}.sellerId}
+		<if test="sellerId != null">
+			and SELLER_ID = #{sellerId}
 		</if>
-		<if test="#{0}.buyerId != null and #{0}.buyerId != ''">
-			and seller_Id = #{#{0}.buyerId}
+		<if test="buyerId != null">
+			and BUYER_ID = #{buyerId}
 		</if>
-		<if test="#{0}.orderStatus != null">
-			and order_Status = #{#{0}.orderStatus}
+		<if test="orderStatus != null">
+			and ORDER_STATUS = #{orderStatus}
 		</if>
-		
+
 		<!-- 排序分页 -->
-		<if test="#{1}!=null">
-		ORDER BY #{orderBy} #{asc} 
+		<if test="orderBy!=null"> ORDER BY #{orderBy} #{asc} </if>
+		<if test="start!=null and end!=null">
+			LIMIT #{start}, #{end}
 		</if>
-		<if test="start!=null and end !=null">
-		LIMIT #{start}, #{end}
-		</if>
-		
+
+
 	</select>
 
 </mapper>
