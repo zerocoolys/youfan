@@ -1,23 +1,24 @@
 package com.youfan.services.server.impl;
 
-import com.youfan.commons.Pagination;
-import com.youfan.commons.vo.client.MenuVO;
-import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
-import com.youfan.commons.vo.OrderVO;
-import com.youfan.controllers.params.OrderParams;
-import com.youfan.data.dao.client.MenuDAO;
-import com.youfan.data.dao.server.OrderDAO;
-import com.youfan.services.server.OrderService;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
+
+import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.client.MenuVO;
+import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.controllers.params.OrderParams;
+import com.youfan.data.dao.client.MenuDAO;
+import com.youfan.data.dao.server.OrderDAO;
+import com.youfan.services.server.OrderService;
 
 /**
  * Created by yousheng on 15/8/18.
@@ -120,4 +121,23 @@ public class OrderServiceImpl implements OrderService {
 
         return orders;
     }
+
+	@Override
+	public int count(OrderParams op) {
+		return orderDAO.count(op);		
+	}
+
+	@Override
+	public int countAll() {
+		// TODO Auto-generated method stub
+		return orderDAO.countAll();
+	}
+
+	@Override
+	public CollectionVO<OrderVO> getOrdersByParams(OrderParams op, Pagination p) {
+		// TODO Auto-generated method stub
+		CollectionVO<OrderVO> vo= new CollectionVO<OrderVO>();
+		vo.addAll(orderDAO.getOrdersByParams(op, p));
+		return vo;
+	}
 }

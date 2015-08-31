@@ -3,12 +3,16 @@ package com.youfan.controllers.params;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.youfan.commons.Pagination;
+
 /**
  * Created by yousheng on 15/8/14.
  */
-public class OrderParams {
+public class OrderParams{
 
-	Long buyerId;
+	String orderNo;
+	
+    Long buyerId;
 
 	Long sellerId;
 
@@ -21,6 +25,14 @@ public class OrderParams {
 	int orderStatus;
 
 	String repastMode;
+    
+    public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
 
 	public Long getBuyerId() {
 		return buyerId;
