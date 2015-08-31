@@ -1,7 +1,7 @@
 package com.youfan.data.dao.server.impl;
 
 import com.mongodb.WriteResult;
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.data.dao.server.MessageDAO;
 import com.youfan.data.models.MessageEntity;
 import org.springframework.data.domain.Sort;

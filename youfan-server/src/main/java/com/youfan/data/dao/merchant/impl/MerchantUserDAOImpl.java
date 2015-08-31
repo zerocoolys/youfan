@@ -1,6 +1,6 @@
 package com.youfan.data.dao.merchant.impl;
 
-import com.youfan.commons.vo.MerchantUserVO;
+import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
 import org.springframework.data.mongodb.core.query.Criteria;

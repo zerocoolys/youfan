@@ -1,6 +1,6 @@
 package com.youfan.data.dao.client;
 
-import com.youfan.commons.vo.MenuVO;
+import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MenuEntity;
 import org.springframework.data.mongodb.core.query.Criteria;

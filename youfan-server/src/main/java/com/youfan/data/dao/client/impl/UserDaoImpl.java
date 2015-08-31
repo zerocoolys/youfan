@@ -1,8 +1,8 @@
 package com.youfan.data.dao.client.impl;
 
-import com.youfan.commons.vo.UserClientVO;
+import com.youfan.commons.vo.client.UserVO;
 import com.youfan.data.dao.client.UserDao;
-import com.youfan.data.models.UserClientEntity;
+import com.youfan.data.models.ClientUserEntity;
 import com.youfan.data.support.IdGenerator;
 import org.springframework.stereotype.Repository;
 
@@ -19,13 +19,13 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public UserClientVO findOne(Long id) {
+    public UserVO findOne(Long id) {
         return null;
     }
 
     @Override
-    public void insert(UserClientVO userClientVO) {
-        UserClientEntity ucEntity = convertToEntity(userClientVO);
+    public void insert(UserVO userClientVO) {
+        ClientUserEntity ucEntity = convertToEntity(userClientVO);
         long userId = generateId(idGenerator.next(COLLECTION_CLIENT_USER));
         ucEntity.setUserId(userId);
 
@@ -38,12 +38,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(UserClientVO userClientVO) {
+    public void update(UserVO userClientVO) {
 
     }
 
     @Override
-    public UserClientVO getUserByTelAndPwd(String tel, String pwd) {
+    public UserVO getUserByTelAndPwd(String tel, String pwd) {
 
         return convertToVO(mongoTemplate.findOne(
                 buildQuery(tel, pwd),
@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserClientVO updateUserPwd(String pwd) {
+    public UserVO updateUserPwd(String pwd) {
         return null;
     }
 }

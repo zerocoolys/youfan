@@ -1,6 +1,6 @@
 package com.youfan.controllers.server;
 
-import com.youfan.commons.vo.MenuVO;
+import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.services.client.MenuService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;

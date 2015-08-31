@@ -8,7 +8,7 @@ import com.pingplusplus.exception.AuthenticationException;
 import com.pingplusplus.exception.InvalidRequestException;
 import com.pingplusplus.model.*;
 import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.controllers.params.ChargeParams;
 import com.youfan.log.WebbooksLog;
 import com.youfan.services.client.MessageService;

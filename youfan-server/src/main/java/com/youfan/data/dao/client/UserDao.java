@@ -1,31 +1,31 @@
 package com.youfan.data.dao.client;
 
-import com.youfan.commons.vo.UserClientVO;
+import com.youfan.commons.vo.client.UserVO;
 import com.youfan.data.dao.MongoBaseDAO;
-import com.youfan.data.models.UserClientEntity;
+import com.youfan.data.models.ClientUserEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 /**
  * Created by icepros on 15-8-25.
  */
-public interface UserDao extends MongoBaseDAO<UserClientEntity, UserClientVO, Long> {
+public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, Long> {
 
     //通过电话号码和密码获取用户信息
-    UserClientVO getUserByTelAndPwd(String tel, String pwd);
+    UserVO getUserByTelAndPwd(String tel, String pwd);
 
     //更新密码
-    UserClientVO updateUserPwd(String pwd);
+    UserVO updateUserPwd(String pwd);
 
 
     @Override
-    default Class<UserClientEntity> getEntityClass() {
-        return UserClientEntity.class;
+    default Class<ClientUserEntity> getEntityClass() {
+        return ClientUserEntity.class;
     }
 
     @Override
-    default Class<UserClientVO> getVOClass() {
-        return UserClientVO.class;
+    default Class<UserVO> getVOClass() {
+        return UserVO.class;
     }
 
 

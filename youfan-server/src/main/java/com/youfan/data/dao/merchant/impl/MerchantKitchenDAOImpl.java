@@ -1,7 +1,7 @@
 package com.youfan.data.dao.merchant.impl;
 
 import com.mongodb.DBCursor;
-import com.youfan.commons.vo.MerchantKitchenInfoVO;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;

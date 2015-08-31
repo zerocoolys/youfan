@@ -1,6 +1,6 @@
 package com.youfan.services.client;
 
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;

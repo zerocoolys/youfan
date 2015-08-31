@@ -1,7 +1,7 @@
 package com.youfan.data.dao.server;
 
 import com.youfan.commons.Pagination;
-import com.youfan.commons.vo.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
 
 import java.util.List;

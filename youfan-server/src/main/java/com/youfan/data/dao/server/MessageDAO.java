@@ -1,7 +1,7 @@
 package com.youfan.data.dao.server;
 
 import com.mongodb.WriteResult;
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MessageEntity;
 import org.springframework.data.mongodb.core.query.Query;

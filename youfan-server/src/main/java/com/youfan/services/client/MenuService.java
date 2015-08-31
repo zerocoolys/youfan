@@ -1,7 +1,7 @@
 package com.youfan.services.client;
 
 import com.youfan.commons.Constants;
-import com.youfan.commons.vo.MenuVO;
+import com.youfan.commons.vo.client.MenuVO;
 
 import java.util.List;
 
