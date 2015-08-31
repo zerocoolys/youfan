@@ -1,7 +1,7 @@
 <ion-view view-title="添加小饭桌" cache-view="false">
     <ion-nav-buttons side="left">
         <button class="button button-clear button-calm" ui-sref="m_dishes.xfz"><i
-                class="icon ion-ios-arrow-back"></i></button>
+            class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-clear button-calm" data-ng-click="doCheckDishes()" data-ng-disabled="isActive">
@@ -27,14 +27,14 @@
         <div class="item item-input padding ">
 
             <i class="icon" style="color: #e6b400">*</i>
-            <input type="text" data-ng-model="dishes.price" placeholder="请输入小饭桌的价格"/>
+            <input type="text" data-ng-model="dishes.price" you-fan-number you-fan-size="4" placeholder="请输入小饭桌的价格"/>
 
             <p style="color:#1dbeaf; margin-right: 10px;">元/份</p>
 
         </div>
         <div class="item item-input padding">
             <i class="icon" style="color: #e6b400">*</i>
-            <input type="text" data-ng-model="dishes.stock" placeholder="请输入小饭桌的库存"/>
+            <input type="text" data-ng-model="dishes.stock" you-fan-number you-fan-size="4" placeholder="请输入小饭桌的库存"/>
 
             <p style="color:#1dbeaf; margin-right: 10px;">份</p>
         </div>

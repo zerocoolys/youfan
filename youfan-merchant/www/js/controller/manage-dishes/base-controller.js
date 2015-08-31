@@ -409,4 +409,36 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
         ;
 
     })
+
+    .directive('youFanNumber', function () {
+        return {
+            restrict: 'EA',
+            require: '?ngModel',
+            link: function (scope, element, attrs, ngModel) {
+
+                element.on("keyup", function (e) {
+
+                    element[0].value = element[0].value.replace(/\D/g, '');
+                    ngModel.$setViewValue(element[0].value);
+
+                });
+
+                element.on("paste", function (e) {
+                    element[0].value = element[0].value.replace(/\D/g, '');
+                    ngModel.$setViewValue(element[0].value);
+                });
+            }
+        };
+    })
+
+    .directive('youFanSize', function () {
+        return {
+            restrict: 'EA',
+            require: '?ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                element.attr({"maxLength": attrs["youFanSize"], "ngMaxLength": attrs["youFanSize"]});
+            }
+        };
+    })
+
 ;
