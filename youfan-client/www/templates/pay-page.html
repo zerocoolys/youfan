@@ -8,17 +8,17 @@
         <ion-list>
             <ion-item ng-bind="'需要支付: ￥' + totalPrice"></ion-item>
             <ion-item class="item-icon-right item-avatar">
-                <img class="full-image" src="img/2.jpeg">
+                <img class="full-image" src="img/alipay.png">
                 支付宝支付
                 <span class="item-note">
-                  <i class="icon ion-chevron-right icon-accessory" ng-click="aliPay()"></i>
+                  <i class="icon ion-chevron-right icon-accessory" ng-click="pay('alipay')"></i>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right item-avatar">
-                <img class="full-image" src="img/2.jpeg">
+                <img class="full-image" src="img/wechat.png">
                 微信支付
                 <span class="item-note">
-                  <i class="icon ion-chevron-right icon-accessory" ng-click="weChatPay()"></i>
+                  <i class="icon ion-chevron-right icon-accessory" ng-click="pay('wx')"></i>
                 </span>
             </ion-item>
         </ion-list>
