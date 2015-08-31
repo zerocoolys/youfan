@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 /**
  * Created by icepros on 15-8-25.
  */
-public interface ClientUserDao extends MongoBaseDAO<UserClientEntity, UserClientVO, Long> {
+public interface UserDao extends MongoBaseDAO<UserClientEntity, UserClientVO, Long> {
 
     //通过电话号码和密码获取用户信息
     UserClientVO getUserByTelAndPwd(String tel, String pwd);

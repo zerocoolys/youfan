@@ -1,7 +1,7 @@
 package com.youfan.data.dao.client.impl;
 
 import com.youfan.commons.vo.UserClientVO;
-import com.youfan.data.dao.client.ClientUserDao;
+import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.UserClientEntity;
 import com.youfan.data.support.IdGenerator;
 import org.springframework.stereotype.Repository;
@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * Created by icepros on 15-8-25.
  */
 @Repository("ucDAO")
-public class ClientUserDaoImpl implements ClientUserDao {
+public class UserDaoImpl implements UserDao {
 
     @Resource
     private IdGenerator idGenerator;

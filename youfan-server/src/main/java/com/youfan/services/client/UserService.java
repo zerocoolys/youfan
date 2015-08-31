@@ -6,7 +6,7 @@ import com.youfan.exceptions.UserException;
 /**
  * Created by icepros on 15-8-25.
  */
-public interface ClientUserService {
+public interface UserService {
 
     /**
      * 用户端用户信息保存

@@ -1,9 +1,9 @@
 package com.youfan.services.client.impl;
 
 import com.youfan.commons.vo.UserClientVO;
-import com.youfan.data.dao.client.ClientUserDao;
+import com.youfan.data.dao.client.UserDao;
 import com.youfan.exceptions.UserException;
-import com.youfan.services.client.ClientUserService;
+import com.youfan.services.client.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,10 +12,10 @@ import javax.annotation.Resource;
  * Created by icepros on 15-8-25.
  */
 @Service("ucService")
-public class ClientUserServiceImpl implements ClientUserService {
+public class UserServiceImpl implements UserService {
 
     @Resource
-    private ClientUserDao ucDAO;
+    private UserDao ucDAO;
 
     @Override
     public void insert(UserClientVO uc) {
