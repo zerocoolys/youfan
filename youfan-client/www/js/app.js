@@ -253,22 +253,32 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 }
             })
             //密码登陆
-            .state('tab.login', {
-                url: '/login',
+            .state('tab.pwd-login', {
+                url: '/pwd-login',
                 views: {
-                    'tab-login': {
-                        templateUrl: 'templates/tab-pwdlogin.html',
-                        controller: 'LoginCtrl'
+                    'tab-dash': {
+                        templateUrl: 'templates/login/pwd-login.html',
+                        controller: 'PwdLoginCtrl'
                     }
                 }
             })
             //短信验证码登陆
-            .state('tab.verifylogin', {
-                url: '/verifylogin',
+            .state('tab.user-register', {
+                url: '/user-register',
                 views: {
-                    'tab-login': {
-                        templateUrl: 'templates/tab-verifylogin.html',
-                        controller: 'LoginCtrl'
+                    'tab-dash': {
+                        templateUrl: 'templates/login/user-register.html',
+                        controller: 'UserRegisterCtrl'
+                    }
+                }
+            })
+            //重置密码
+            .state('tab.reset-pwd', {
+                url: '/reset-pwd',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/login/reset-pwd.html',
+                        controller: 'ResetPwdCtrl'
                     }
                 }
             })

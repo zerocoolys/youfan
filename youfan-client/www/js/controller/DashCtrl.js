@@ -42,20 +42,20 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     /**
      * 验证码登陆
      */
-    $ionicModal.fromTemplateUrl('templates/tab-verifylogin.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.verifyLogin = modal;
-    });
+//    $ionicModal.fromTemplateUrl('templates/user-register.html', {
+//        scope: $scope
+//    }).then(function (modal) {
+//        $scope.verifyLogin = modal;
+//    });
 
     /**
      * 密码登陆
      */
-    $ionicModal.fromTemplateUrl('templates/tab-pwdlogin.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.pwdLogin = modal;
-    });
+//    $ionicModal.fromTemplateUrl('templates/pwd-login.html', {
+//        scope: $scope
+//    }).then(function (modal) {
+//        $scope.pwdLogin = modal;
+//    });
 
     /**
      * 用户协议
