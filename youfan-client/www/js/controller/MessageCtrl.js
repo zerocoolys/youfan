@@ -1,4 +1,4 @@
-ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $http, REST_URL) {
+ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $http, HTTP_HEAD) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
     // Called each time the slide changes
@@ -12,7 +12,7 @@ ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ioni
 
     $http({
         method: 'GET',
-        url: REST_URL + "127.0.0.1:8080/notice/getNotice?userId=2",
+        url: HTTP_HEAD + "127.0.0.1:8080/notice/getNotice?userId=2",
         dataType: "json"
     }).success(function (dataConfig) {
         $scope.data = [];
@@ -36,7 +36,7 @@ ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ioni
         if($scope.data[index].status == "未读"){
             $http({
                 method: 'GET',
-                url: REST_URL + "127.0.0.1:8080/notice/modifyMsg?id=" + $scope.data[index].id,
+                url: HTTP_HEAD + "127.0.0.1:8080/notice/modifyMsg?id=" + $scope.data[index].id,
                 dataType: "json"
             }).success(function (dataConfig) {
                 if(dataConfig.rows){
