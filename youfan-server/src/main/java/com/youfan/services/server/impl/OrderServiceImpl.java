@@ -4,13 +4,16 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MenuVO;
 import com.youfan.commons.vo.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
+import com.youfan.controllers.params.OrderParams;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.services.server.OrderService;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -78,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderVO parameter) {
+    public List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderParams parameter) {
 
         List<MerchantOrderHeaderVO> orders = null;
         orders = orderDAO.findMerchantOrders(parameter);

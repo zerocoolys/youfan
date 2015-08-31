@@ -8,63 +8,73 @@ import java.util.Map;
  */
 public class OrderParams {
 
-    Long buyerId;
+	Long buyerId;
 
-    Long sellerId;
+	Long sellerId;
 
-    Map<String, Integer> itemMap = new HashMap<>();
+	Map<String, Integer> itemMap = new HashMap<>();
 
-    String comments;
+	String comments;
 
-    double price;
+	double price;
 
-    int orderStatus;
+	int orderStatus;
 
-    public Long getBuyerId() {
-        return buyerId;
-    }
+	String repastMode;
 
-    public void setBuyerId(Long buyerId) {
-        this.buyerId = buyerId;
-    }
+	public Long getBuyerId() {
+		return buyerId;
+	}
 
-    public Long getSellerId() {
-        return sellerId;
-    }
+	public void setBuyerId(Long buyerId) {
+		this.buyerId = buyerId;
+	}
 
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
-    }
+	public Long getSellerId() {
+		return sellerId;
+	}
 
-    public Map<String, Integer> getItemMap() {
-        return itemMap;
-    }
+	public void setSellerId(Long sellerId) {
+		this.sellerId = sellerId;
+	}
 
-    public void setItemMap(Map<String, Integer> itemMap) {
-        this.itemMap = itemMap;
-    }
+	public Map<String, Integer> getItemMap() {
+		return itemMap;
+	}
 
-    public String getComments() {
-        return comments;
-    }
+	public void setItemMap(Map<String, Integer> itemMap) {
+		this.itemMap = itemMap;
+	}
 
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+	public String getComments() {
+		return comments;
+	}
 
-    public double getPrice() {
-        return price;
-    }
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+	public double getPrice() {
+		return price;
+	}
 
-    public int getOrderStatus() {
-        return orderStatus;
-    }
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
-    public void setOrderStatus(int orderStatus) {
-        this.orderStatus = orderStatus;
-    }
+	public int getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(int orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
+	public String getRepastMode() {
+		return repastMode;
+	}
+
+	public void setRepastMode(String repastMode) {
+		this.repastMode = repastMode;
+	}
 }

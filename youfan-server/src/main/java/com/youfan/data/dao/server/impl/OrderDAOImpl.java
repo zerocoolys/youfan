@@ -4,14 +4,17 @@ import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
+import com.youfan.controllers.params.OrderParams;
 import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
 import com.youfan.data.support.IdGenerator;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -131,7 +134,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<MerchantOrderHeaderVO> findMerchantOrders(OrderVO order) {
+    public List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order) {
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setOrderStatus(order.getOrderStatus());
         orderEntity.setSellerId(order.getSellerId());
