@@ -1,0 +1,78 @@
+<ion-view view-title="" hide-tabs hide-nav-bar="true">
+    <ion-header-bar class="bar bar-header">
+        <button class="button icon ion-ios-arrow-left button-clear" onclick="history.back()"></button>
+        <h2 class="title">评价晒单</h2>
+    </ion-header-bar>
+    <ion-content class="comment_detail">
+        <div class="list">
+            <div class="item item-thumbnail-left">
+                <img ng-src="img/2.jpeg">
+
+                <h2 class="margin">恋家小厨</h2>
+
+                <div class="icon-rating centered">
+                    <!--           <ul class="rating">
+                                 <li ng-repeat="i in star.full track by $index"><i class="icon ion-ios7-star"></i></li>
+                                 <li ng-show="showHalf"><i class="icon icon-rating ion-ios7-star-half"></i></li>
+                                 <li ng-repeat="i in star.outline track by $index"><i class="icon ion-ios7-star-outline"></i></li>
+                               </ul> -->
+                    <ul ng-show="rating_full.value == '1' " class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '2'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '3'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '4'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '5'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                    </ul>
+                </div>
+                <div class="range-container">
+                    <input ng-model="rating_full.value" type="range" name="volume" min="1" max="5" value="4" step="1">
+                </div>
+            </div>
+            <ion-list class="comment_input item">
+                <ion-item class="item-input">
+                    <textarea placeholder="长度在500字之内，写下评价可以为其他小伙伴带来帮助哦~" style="height: 200px"
+                              maxlength="500"></textarea>
+                </ion-item>
+                <button class="button-clear fr">500字以内</button>
+                <button class="button icon-left button-small ion-star bar-balanced button-outline ">添加晒单图片!</button>
+            </ion-list>
+        </div>
+        <label class="checkbox">
+            <input type="checkbox" class="alleft" ng-model="todo.done"><span class="alleft">匿名评价</span>
+        </label>
+
+    </ion-content>
+    <div class="bar bar-footer bar-balanced">
+        <div class="button-bar">
+            <a class="button button-clear" ng-click="comment()" onclick="history.back()">提交</a>
+        </div>
+    </div>
+</ion-view>

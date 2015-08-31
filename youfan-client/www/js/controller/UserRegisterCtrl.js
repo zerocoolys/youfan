@@ -1,24 +1,24 @@
 /**
  * Created by icepros on 15-8-19.
  */
-ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state){
+ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state){
     /**
      * 验证码登陆
      */
-    $ionicModal.fromTemplateUrl('templates/tab-verifylogin.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $scope.verifyLogin = modal;
-    });
+//    $ionicModal.fromTemplateUrl('templates/user-register.html', {
+//        scope: $scope
+//    }).then(function(modal) {
+//        $scope.verifyLogin = modal;
+//    });
 
     /**
      * 密码登陆
      */
-    $ionicModal.fromTemplateUrl('templates/tab-pwdlogin.html', {
-        scope: $scope
-    }).then(function(modal) {
-        $scope.pwdLogin = modal;
-    });
+//    $ionicModal.fromTemplateUrl('templates/pwd-login.html', {
+//        scope: $scope
+//    }).then(function(modal) {
+//        $scope.pwdLogin = modal;
+//    });
 
     /**
      * 用户协议
@@ -34,7 +34,7 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
      * @type {{tel: string, password: string, verificationCode: string}}
      */
     $scope.user = {
-        verificationCode: "",
+        verificationCode: ""
     };
 
     $scope.userClient = {
@@ -49,7 +49,7 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
     /**
      * 密码验证登陆
      */
-    $scope.signPwd = function(){
+    /*$scope.signPwd = function(){
         var tel = $scope.userClient.tel;
         var password = $scope.userClient.loginPwd;
         if(tel == ""){
@@ -116,7 +116,7 @@ ControllerModule.controller('LoginCtrl', function($scope, $ionicModal, $ionicPop
             }
 
         }
-    };
+    };*/
 
     /**
      * 发送验证码
