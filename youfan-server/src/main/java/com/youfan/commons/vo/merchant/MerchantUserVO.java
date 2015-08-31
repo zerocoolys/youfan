@@ -1,4 +1,4 @@
-package com.youfan.commons.vo;
+package com.youfan.commons.vo.merchant;
 
 /**
  * Created by perfection on 15-8-21.

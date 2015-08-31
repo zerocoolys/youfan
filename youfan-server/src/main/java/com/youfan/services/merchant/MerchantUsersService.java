@@ -1,6 +1,6 @@
 package com.youfan.services.merchant;
 
-import com.youfan.commons.vo.*;
+import com.youfan.commons.vo.merchant.*;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;

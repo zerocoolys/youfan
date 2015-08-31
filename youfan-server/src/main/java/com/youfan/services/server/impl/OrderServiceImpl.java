@@ -1,8 +1,8 @@
 package com.youfan.services.server.impl;
 
 import com.youfan.commons.Pagination;
-import com.youfan.commons.vo.MenuVO;
-import com.youfan.commons.vo.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.client.MenuVO;
+import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.dao.server.OrderDAO;

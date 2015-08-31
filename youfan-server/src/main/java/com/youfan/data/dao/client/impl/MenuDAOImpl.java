@@ -1,6 +1,6 @@
 package com.youfan.data.dao.client.impl;
 
-import com.youfan.commons.vo.MenuVO;
+import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.models.MenuEntity;
 import com.youfan.data.support.IdGenerator;

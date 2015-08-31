@@ -2,7 +2,7 @@ package com.youfan.data.dao.server.impl;
 
 import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
-import com.youfan.commons.vo.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.data.models.OrderDishRelEntity;

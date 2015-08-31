@@ -1,6 +1,6 @@
 package com.youfan.data.dao.merchant;
 
-import com.youfan.commons.vo.MerchantKitchenInfoVO;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;

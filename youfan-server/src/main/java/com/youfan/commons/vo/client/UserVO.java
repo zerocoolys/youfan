@@ -1,9 +1,9 @@
-package com.youfan.commons.vo;
+package com.youfan.commons.vo.client;
 
 /**
  * Created by icepros on 15-8-25.
  */
-public class UserClientVO {
+public class UserVO {
 
     private String id;
     //用户id
@@ -22,7 +22,7 @@ public class UserClientVO {
     private String jobs;
 
 
-    public UserClientVO() {
+    public UserVO() {
     }
 
     public String getId() {

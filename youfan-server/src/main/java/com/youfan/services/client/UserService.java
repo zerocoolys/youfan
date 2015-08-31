@@ -1,26 +1,26 @@
 package com.youfan.services.client;
 
-import com.youfan.commons.vo.UserClientVO;
+import com.youfan.commons.vo.client.UserVO;
 import com.youfan.exceptions.UserException;
 
 /**
  * Created by icepros on 15-8-25.
  */
-public interface ClientUserService {
+public interface UserService {
 
     /**
      * 用户端用户信息保存
      *
      * @return
      */
-    void insert(UserClientVO uc);
+    void insert(UserVO uc);
 
     /**
      * 用户端用户信息更改
      *
      * @return
      */
-    void update(UserClientVO uc);
+    void update(UserVO uc);
 
     /**
      * 查询所有用户端用户信息
@@ -34,7 +34,7 @@ public interface ClientUserService {
      * @return
      * @throws UserException
      */
-    UserClientVO getUserByTel(String tel) throws UserException;
+    UserVO getUserByTel(String tel) throws UserException;
 
     /**
      * 根据用户电话号码和密码 进行登陆
@@ -44,5 +44,5 @@ public interface ClientUserService {
      * @return
      * @throws UserException
      */
-    UserClientVO findUserByTelAndPwd(String tel, String pwd) throws UserException;
+    UserVO findUserByTelAndPwd(String tel, String pwd) throws UserException;
 }
