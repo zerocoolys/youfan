@@ -10,17 +10,56 @@
 
                 <h2 class="margin">恋家小厨</h2>
 
-                <p class="margin"><i class="ion-ios-star" on-icon="ion-ios-star" off-icon="ion-ios-star-outline"
-                                     icon-switcher></i>
-                    <i class="ion-ios-star" on-icon="ion-ios-star" off-icon="ion-ios-star-outline" icon-switcher></i>
-                    <i class="ion-ios-star" on-icon="ion-ios-star" off-icon="ion-ios-star-outline" icon-switcher></i>
-                    <i class="ion-ios-star" on-icon="ion-ios-star" off-icon="ion-ios-star-outline" icon-switcher></i>
-                    <i class="ion-ios-star" on-icon="ion-ios-star" off-icon="ion-ios-star-outline" icon-switcher></i>
-                </p>
+                <div class="icon-rating centered">
+                    <!--           <ul class="rating">
+                                 <li ng-repeat="i in star.full track by $index"><i class="icon ion-ios7-star"></i></li>
+                                 <li ng-show="showHalf"><i class="icon icon-rating ion-ios7-star-half"></i></li>
+                                 <li ng-repeat="i in star.outline track by $index"><i class="icon ion-ios7-star-outline"></i></li>
+                               </ul> -->
+                    <ul ng-show="rating_full.value == '1' " class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '2'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '3'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '4'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star-outline"></i></li>
+                    </ul>
+                    <ul ng-show="rating_full.value == '5'" class="rating">
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                        <li><i class="icon ion-ios-star"></i></li>
+                    </ul>
+                </div>
+                <div class="range-container">
+                    <input ng-model="rating_full.value" type="range" name="volume" min="1" max="5" value="4" step="1">
+                </div>
             </div>
             <ion-list class="comment_input item">
                 <ion-item class="item-input">
-                    <textarea placeholder="长度在500字之内，写下评价可以为其他小伙伴带来帮助哦~" style="height: 200px" maxlength="500"></textarea>
+                    <textarea placeholder="长度在500字之内，写下评价可以为其他小伙伴带来帮助哦~" style="height: 200px"
+                              maxlength="500"></textarea>
                 </ion-item>
                 <button class="button-clear fr">500字以内</button>
                 <button class="button icon-left button-small ion-star bar-balanced button-outline ">添加晒单图片!</button>

@@ -523,3 +523,64 @@ Alpha(opacity = 100);
     width: 10px;
     height: 6px;
 }
+
+.range-container input[type="range"] {
+    display: inline-block;
+    overflow: visible;
+    margin: -45px auto 5px auto;
+    width: 145px;
+    height: 60px;
+    outline: none;
+    background: transparent;
+    background-position: center;
+    background-size: 99% 4px;
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+}
+
+.range-container input[type="range"]::-webkit-slider-thumb {
+    position: relative;
+    width: 30px;
+    height: 20px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #CB0001;
+    background-color: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.range-container input[type="range"]::-webkit-slider-thumb:before {
+    position: absolute;
+    top: 8px;
+    left: -2001px;
+    width: 2000px;
+    height: 0px;
+    background: #FFF;
+    content: ' ';
+}
+
+.range-container input[type="range"]::-webkit-slider-thumb:after {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    padding: 30px;
+    content: ' ';
+}
+
+.range-container {
+    width: 160px;
+}
+
+ul.rating li {
+    display: inline;
+    border: 0px;
+    background: none;
+    padding: 0px;
+    color: #e4c615;
+}
+
+ul.rating li i {
+    font-size: 20px;
+}
