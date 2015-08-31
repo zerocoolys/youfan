@@ -6,7 +6,6 @@ import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.utils.JSONUtils;
-import com.youfan.utils.JsonUtil;
 
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
