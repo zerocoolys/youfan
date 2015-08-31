@@ -8,19 +8,18 @@ import java.util.List;
  */
 public class MerchantKitchenInfoVO {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
-    private Long id;  //厨房id与商家用户id匹配
+    private String id;  //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
     private List<String> cuisine = new ArrayList<>();   //厨房特色，菜系
     private String kitchenAddress;  //厨房地址
-    private String addressGeoCoding;    //地理编码经纬度
     private boolean isTakeSelf; //是否支持自取
     private boolean isCanteen;  //是否支持食堂
     private Integer galleryFul; //如果支持厨房，该字段不为空，容纳人数
     private boolean isDistribution; //是否支持配送
     private Double disPrice;    //配送费用
     private Double disRange;    //配送范围
-    private String distribution;    //如果配送，配送说明
+    private String distributionExplain;    //如果配送，配送说明
     private String startTime; //开店时间
     private String endTime;   //关店时间
     private String desc;    //厨房备注
@@ -29,6 +28,14 @@ public class MerchantKitchenInfoVO {
     private String kitchenStoryContent; //厨房故事内容
     private String lat; //经度
     private String lng; //纬度
+
+    public String getDistributionExplain() {
+        return distributionExplain;
+    }
+
+    public void setDistributionExplain(String distributionExplain) {
+        this.distributionExplain = distributionExplain;
+    }
 
     public String getLat() {
         return lat;
@@ -71,11 +78,11 @@ public class MerchantKitchenInfoVO {
         this.kitchenStoryContent = kitchenStoryContent;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -117,14 +124,6 @@ public class MerchantKitchenInfoVO {
 
     public void setKitchenAddress(String kitchenAddress) {
         this.kitchenAddress = kitchenAddress;
-    }
-
-    public String getAddressGeoCoding() {
-        return addressGeoCoding;
-    }
-
-    public void setAddressGeoCoding(String addressGeoCoding) {
-        this.addressGeoCoding = addressGeoCoding;
     }
 
     public boolean isTakeSelf() {
@@ -173,14 +172,6 @@ public class MerchantKitchenInfoVO {
 
     public void setDisRange(Double disRange) {
         this.disRange = disRange;
-    }
-
-    public String getDistribution() {
-        return distribution;
-    }
-
-    public void setDistribution(String distribution) {
-        this.distribution = distribution;
     }
 
     public String getStartTime() {

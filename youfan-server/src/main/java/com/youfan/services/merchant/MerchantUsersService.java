@@ -100,28 +100,28 @@ public interface MerchantUsersService {
      * 获取商家厨房信息，不包括厨房照片和厨房故事
      *
      * @param id 商家用户id或厨房信息id
-     * @return MerchantKitchenBaseInfo对象
+     * @return MerchantKitchenInfoVO对象
      * @throws KitchenInfoException
      */
-    public MerchantKitchenBaseInfo getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException;
+    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException;
 
     /**
      * 获取厨房照片信息
      *
      * @param id 商家用户id或厨房信息id
-     * @return MerchantKitchenPicInfo对象
+     * @return MerchantKitchenInfoVO对象
      * @throws KitchenInfoException
      */
-    public MerchantKitchenPicInfo getMerchantKitchenPicInfo(Long id) throws KitchenInfoException;
+    public MerchantKitchenInfoVO getMerchantKitchenPicInfo(Long id) throws KitchenInfoException;
 
     /**
      * 获取厨房故事信息
      *
      * @param id 商家用户id或厨房信息id
-     * @return MerchantKitchenStoryInfo对象
+     * @return MerchantKitchenInfoVO对象
      * @throws KitchenInfoException
      */
-    public MerchantKitchenStoryInfo getMerchantKitchenStoryInfo(Long id) throws KitchenInfoException;
+    public MerchantKitchenInfoVO getMerchantKitchenStoryInfo(Long id) throws KitchenInfoException;
 
     /**
      * 获取商家厨房所有信息
