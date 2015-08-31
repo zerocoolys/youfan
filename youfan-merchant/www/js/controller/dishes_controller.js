@@ -10,6 +10,7 @@
 
     function dishes($scope, $filter, $state, $ionicSlideBoxDelegate,$stateParams,$http,$rootScope) {
 
+
         $scope.orders = [];
         $scope.ways = [{name: "配送", code: 'PS'}, {name: "上门", code: 'SM'}, {name: "要做的菜", code: 'YZDC'}];
 
@@ -35,6 +36,7 @@
         $scope.selectedStatus = function (statusIndex) {
             $scope.statusIndex = statusIndex;
             $ionicSlideBoxDelegate.enableSlide([false]);
+            $scope.loadOrderOrDishData();
         };
 
 
@@ -44,8 +46,6 @@
                 return;
             }
             $scope.orders = datas;
-
-            console.log($scope.orders);
         }
 
         /**加载订单数据或菜品数据*/
@@ -53,7 +53,7 @@
             var url = "";
             var merchant = {};
 
-            url = "http://127.0.0.1:8080/orders/merchants/";
+            url = "http://127.0.0.1:8080/orders/merchant?";
             //订单（配送或上门）
             if($scope.headerIndex == 'PS') {
                 merchant.repastMode = "PS";
@@ -66,12 +66,14 @@
             merchant.sellerId = "2"; //获取商家用户ID
             merchant.orderStatus = $scope.statusIndex; //获取状态选择
 
-            url = url+ JSON.stringify(merchant);
 
+            url = url+"orderStatus="+merchant.orderStatus+"&sellerId="+merchant.sellerId+"&repastMode="+merchant.repastMode;
             console.log(url);
+
 
             $http.get(url).success
             (function (res) {
+
                     $scope.orders = [];
                     if(res == null) {
                         alert("网络链接异常，请检查!");
@@ -86,5 +88,6 @@
         }
 
         $scope.loadOrderOrDishData();
+
     }
 })();

@@ -28,25 +28,32 @@
                         <ion-list ng-repeat="order in orders" style="margin-bottom: 20px">
                             <ion-item>
                                 <span>订单编号：{{order.orderNo}}</span>
-
-                                <p class="item-note mainColor">待付款</p>
+                                <!--
+                                <p ng-class=" headerIndex=='YZDC' ? 'display_none':''" class="item-note mainColor">待付款</p>
+                                -->
                             </ion-item>
-                            <ion-item class="item-thumbnail-left item-avatar"
-                                      ng-class=" headerIndex==2 ? 'display_none':''" href="#/order_Details">
+                            <ion-item class="item-thumbnail-left item-avatar" href="#/order_Details">
 
                                 <img src="{{order.img}}">
 
-                                <h2>配送地点：{{order.repastAddress}}<span class="calm" ng-class=" headerIndex!=2 ? 'display_none':''">({{order.dishnames}})</span>
-                                    <i ng-class=" headerIndex==2 ? 'display_none':''"
+                                <h2>配送地点：{{order.repastAddress}}
+
+                                    <span class="calm" ng-class=" headerIndex!='YZDC' ? 'display_none':''">
+                                        (<span ng-repeat=" dishName in  order.dishNames">
+                                            {{dishName}}
+                                        </span>)
+                                    </span>
+                                    <i ng-class=" headerIndex=='YZDC' ? 'display_none':''"
                                        class="fr icon ion-chevron-right icon-accessory"></i></h2>
 
                                 <h2>送达时间：{{order.repastTime| date:'yyyy-MM-dd HH:mm:ss'}}</h2>
 
                                 <h2>订单金额：{{order.price}}
                                     <button class="fr button button-calm button-small" style="padding: 0 20px;"
-                                            ng-class=" dishesIndex==2 ? 'display_none':''">查看
+                                            ng-class=" headerIndex=='YZDC' ? 'display_none':''">查看
                                     </button>
                                 </h2>
+
                             </ion-item>
                         </ion-list>
     </ion-scroll>

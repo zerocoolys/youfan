@@ -81,8 +81,9 @@
 
                 .state('order_Details', {
                     url: '/order_Details',
+                    params: {'orderNo': null},
                     templateUrl: 'templates/order/order_Details.html',
-                    controller: ''
+                    controller: 'orderDetails'
 
                 })
                 .state('query_order', {
