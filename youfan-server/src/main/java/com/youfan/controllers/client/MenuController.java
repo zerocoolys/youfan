@@ -1,6 +1,8 @@
-package com.youfan.controllers.server;
+package com.youfan.controllers.client;
 
 import com.youfan.commons.vo.MenuVO;
+import com.youfan.controllers.support.Response;
+import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.MenuService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
@@ -27,15 +29,15 @@ public class MenuController {
     private MenuService menuService;
 
     @RequestMapping(path = "/list/{sellerId}", method = RequestMethod.GET, produces = "application/json")
-    public ModelAndView list(@PathVariable Long sellerId) {
+    public Response list(@PathVariable Long sellerId) {
         List<MenuVO> menuList = menuService.findBySellerId(sellerId);
-        Map<String, Object> menuMap = new HashMap<>();
-        menuMap.put("menus", menuList);
+//        Map<String, Object> menuMap = new HashMap<>();
+//        menuMap.put("menus", menuList);
+//
+//        AbstractView jsonView = new MappingJackson2JsonView();
+//        jsonView.setAttributesMap(menuMap);
 
-        AbstractView jsonView = new MappingJackson2JsonView();
-        jsonView.setAttributesMap(menuMap);
-
-        return new ModelAndView(jsonView);
+        return Responses.SUCCESS().setCode(1).setPayload(menuList);
     }
 
     @RequestMapping(path = "/list/{sellerId}/{type}", method = RequestMethod.GET, produces = "application/json")
