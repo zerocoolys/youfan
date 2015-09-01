@@ -108,6 +108,25 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                 }, 2000);
             } else {
 
+                /*$http.post("http://localhost:8080/client/register", JSON.stringify($scope.user))
+                    .success(function (data) {
+                        console.log(data);
+                        if(data.code == 0){
+                            $state.go('tab.chats');
+                        }
+                        if(data.code == 1){
+                            var telReg = $ionicPopup.show({
+                                title: '该手机号已注册',
+                                scope: $scope
+                            });
+                            $timeout(function() {
+                                telReg.close(); //由于某种原因2秒后关闭弹出
+                            }, 2000);
+                        }
+
+                    }).error(function(data){
+                        console.log(data);
+                    });*/
                 if(captcha != ""){
                     if($scope.code != undefined){
                         var code = $scope.url.split("/")[6];
@@ -130,11 +149,24 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                                         $http.post("http://localhost:8080/register/verify",JSON.stringify(model))
                                             .success(function(data){
                                                 //console.log(data);
-                                                if(data.payload == true){
+                                                if(data.payload == false){
+
                                                     $http.post("http://localhost:8080/client/register", JSON.stringify($scope.user))
                                                         .success(function (data) {
-                                                            //console.log(data.result);
-                                                            $state.go('tab.chats');
+
+                                                            if(data.code == 0){
+                                                                $state.go('tab.chats');
+                                                            }
+                                                            if(data.code == 1){
+                                                                var telReg = $ionicPopup.show({
+                                                                    title: '该手机号已注册',
+                                                                    scope: $scope
+                                                                });
+                                                                $timeout(function() {
+                                                                    telReg.close(); //由于某种原因2秒后关闭弹出
+                                                                }, 2000);
+                                                            }
+
                                                         }).error(function(data){
                                                             console.log(data);
                                                         });
