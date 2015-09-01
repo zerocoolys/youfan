@@ -28,10 +28,10 @@ public class OrderEntity {
     private BigDecimal price;
 
     // 商家id
-    private Long sellerId;
+    private String sellerId;
 
     // 用户id
-    private Long buyerId;
+    private String buyerId;
 
     // 下单时间
     private Timestamp orderTime;
@@ -92,19 +92,19 @@ public class OrderEntity {
         this.price = price;
     }
 
-    public Long getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(Long sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
     }
 
-    public Long getBuyerId() {
+    public String getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(Long buyerId) {
+    public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }
 

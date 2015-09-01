@@ -54,7 +54,7 @@ public class PlatFormBusinessController {
 	///////////////////////////////// 系统//////////////////////////////////////////
 	/**
 	 * 分页获取订单信息
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @return
@@ -74,10 +74,10 @@ public class PlatFormBusinessController {
 				op.setOrderNo(request.getParameter("orderNo"));
 			}
 			if (request.getParameter("buyerId") != null) {
-				op.setBuyerId(Long.valueOf(request.getParameter("buyerId")));
+				op.setBuyerId(request.getParameter("buyerId"));
 			}
 			if (request.getParameter("sellerId") != null) {
-				op.setSellerId(Long.valueOf(request.getParameter("sellerId")));
+				op.setSellerId(request.getParameter("sellerId"));
 			}
 			if (request.getParameter("orderStatus") != null) {
 				op.setOrderStatus(Integer.valueOf(request.getParameter("orderStatus")));
@@ -119,7 +119,7 @@ public class PlatFormBusinessController {
 				coupons.setKitchenId(request.getParameter("kitchenId"));
 				coupons.setDesc(request.getParameter("desc"));
 				coupons.setContent( JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
-				
+
 				couponsTypeService.save(coupons);
 				res = Responses.SUCCESS().setMsg("数据保存成功");
 			} else {
@@ -128,7 +128,7 @@ public class PlatFormBusinessController {
 		} catch (Exception e) {
 			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
 		}
-		
+
 		return res;
 	}
 	///////////////////////////////// 客户//////////////////////////////////////////
@@ -137,7 +137,7 @@ public class PlatFormBusinessController {
 	/**
 	 * 获取置顶状态的商家信息
 	 *
-	 * @param status
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getByStatus")
@@ -159,7 +159,7 @@ public class PlatFormBusinessController {
 	/**
 	 * 获取分页 商家信息
 	 *
-	 * @param status
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getMerchant/{pageNo}/{pageSize}")
@@ -193,7 +193,7 @@ public class PlatFormBusinessController {
 	/**
 	 * 获取分页 商家厨房信息
 	 *
-	 * @param status
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getKitchen/{pageNo}/{pageSize}")
