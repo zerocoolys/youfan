@@ -1,12 +1,12 @@
-<ion-view view-title="我的消息" hide-tabs  hide-nav-bar="true">
+<ion-view view-title="我的消息" hide-tabs  hide-nav-bar="true" cache-view="false" class="message">
     <ion-header-bar class="bar bar-header">
         <button class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.chats"></button>
         <h2 class="title">我的消息</h2>
     </ion-header-bar>
-    <ion-tabs class=" message tabs-top ">
+    <ion-tabs class=" tabs-striped tabs-top">
         <ion-tab title="通知">
             <ion-content>
-                <ion-item data-ng-repeat="item in data" data-ng-click='checkDetail(item.index)'
+                <ion-item data-ng-repeat="item in data" data-ng-click='checkDetail(item.index)'"
                           class="item-remove-animate item-avatar" type="item-text-wrap">
                     <img src="img/2.jpeg">
 
@@ -75,4 +75,5 @@
         </ion-tab>
 
     </ion-tabs>
+
 </ion-view>

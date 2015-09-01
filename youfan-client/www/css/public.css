@@ -61,3 +61,6 @@ body {
     background: #1dbeaf;
     border-color: #1dbeaf;
 }
+.bar-header.has-tabs-top{
+    background:#f8f8f8;
+}
