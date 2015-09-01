@@ -45,8 +45,17 @@ public interface Constants {
     String COMMENT_USER = "cu";
 
 
+    /*
+        商家段字段与collection值
+     */
     String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
     String COLLECTION_USER = "merchantUser";
+    String COLLECTION_MERCHANTKITCHENINFOID = "mki";
+    String COLLECTION_HEADPORTRAITPICURL = "hpu";
+    String COLLECTION_IDCARDPICURL = "icpu";
+    String COLLECTION_HEALTHCERTIFICATEPICURL = "hcpu";
+    String COLLECTION_MERCHANTUSERID = "mui";
+
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
 
