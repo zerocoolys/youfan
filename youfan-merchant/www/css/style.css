@@ -114,3 +114,43 @@ a{
     margin-top: 10px;
 
 }
+.home_class .scroll{
+    height: 100%; position:absolute; width:100%;
+}
+.overview_dish{
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 70px;
+    left: 50%;
+    margin-left: -30px;
+    margin-top: -35px;
+}
+.overview_dish{
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 70px;
+    left: 50%;
+    margin-left: -30px;
+    margin-top: -35px;
+}
+.overview_dish_a{
+    position: absolute;
+    top: 20%;
+    width: 100px;
+    height: 60px;
+    left: 40%;
+    margin-left: -30px;
+   /* margin-top: -35px;*/
+}
+.overview_dish_b{
+    position: absolute;
+    top: 5%;
+    left: 2%;
+    width: 100%;
+    height: 100%;
+
+
+}
+
