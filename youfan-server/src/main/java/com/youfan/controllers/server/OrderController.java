@@ -2,7 +2,7 @@ package com.youfan.controllers.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.support.Response;

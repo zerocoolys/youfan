@@ -1,37 +1,24 @@
-package com.youfan.data.models;
-
-import com.youfan.commons.Constants;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+package com.youfan.commons.vo;
 
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by xiaowei on 15-8-27.
+ * Created by xiaowei on 15-8-31.
  */
-@Document(collection = Constants.COLLECTION_COMMENT)
-public class CommentEntity {
-
-    @Id
+public class CommentVO {
     String id;
 
-    @Indexed(unique = true)
     Long coId;
 
-    @Field(Constants.COMMENT_USER)
     String commentUser;
 
     String pid;//父评论
 
     String content;
 
-    @Field(Constants.COMMENT_TIME)
     Date commentTime;
 
-    @Field(Constants.DATA_STATUS)
     Integer dataStatus = 0;
 
     List<String> imgUrl;

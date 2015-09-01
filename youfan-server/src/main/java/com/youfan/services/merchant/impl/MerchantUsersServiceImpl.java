@@ -1,6 +1,6 @@
 package com.youfan.services.merchant.impl;
 
-import com.youfan.commons.vo.*;
+import com.youfan.commons.vo.merchant.*;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
@@ -57,17 +57,17 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantKitchenBaseInfo getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException {
+    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException {
         return null;
     }
 
     @Override
-    public MerchantKitchenPicInfo getMerchantKitchenPicInfo(Long id) throws KitchenInfoException {
+    public MerchantKitchenInfoVO getMerchantKitchenPicInfo(Long id) throws KitchenInfoException {
         return null;
     }
 
     @Override
-    public MerchantKitchenStoryInfo getMerchantKitchenStoryInfo(Long id) throws KitchenInfoException {
+    public MerchantKitchenInfoVO getMerchantKitchenStoryInfo(Long id) throws KitchenInfoException {
         return null;
     }
 

@@ -1,12 +1,14 @@
 package com.youfan.data.dao.merchant;
 
-import com.youfan.commons.vo.MerchantKitchenInfoVO;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
+import com.youfan.commons.Pagination;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by perfection on 15-8-25.

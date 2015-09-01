@@ -1,6 +1,7 @@
 package com.youfan.data.dao.merchant.impl;
 
-import com.youfan.commons.vo.MerchantUserVO;
+import com.youfan.commons.vo.merchant.MerchantUserVO;
+import com.youfan.commons.Constants;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -142,7 +143,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     @Override
     public MerchantUserVO findById(String id) {
         Query q = new Query();
-        Criteria c = Criteria.where("id").is(id).and("status").is(1);
+        Criteria c = Criteria.where(Constants.DATA_ID).is(id).and("status").is(0);
         q.addCriteria(c);
         MerchantUserEntity mue = mongoTemplate.findOne(q, getEntityClass());
         if (mue != null)

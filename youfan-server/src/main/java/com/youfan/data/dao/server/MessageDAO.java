@@ -1,7 +1,7 @@
 package com.youfan.data.dao.server;
 
 import com.mongodb.WriteResult;
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MessageEntity;
 import org.springframework.data.mongodb.core.query.Query;
@@ -14,7 +14,6 @@ import java.util.List;
  */
 public interface MessageDAO extends MongoBaseDAO<MessageEntity, MessageVO, String> {
 
-    MessageVO findOne(Query query);
 
     /**
      * 根据数据ID修改消息查看状态
@@ -23,11 +22,9 @@ public interface MessageDAO extends MongoBaseDAO<MessageEntity, MessageVO, Strin
      */
     WriteResult updateMsg(MessageVO message);
 
-    List<MessageVO> find(Query query);
 
     MessageVO findById(String id);
 
-    long count(Query query);
 
     /**
      * 通过用户id查询所有消息

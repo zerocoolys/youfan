@@ -1,8 +1,8 @@
 package com.youfan.controllers.client;
 
-import com.youfan.commons.vo.UserClientVO;
+import com.youfan.commons.vo.client.UserVO;
 import com.youfan.exceptions.UserException;
-import com.youfan.services.client.ClientUserService;
+import com.youfan.services.client.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class LoginController {
 
     @Resource
-    private ClientUserService ucService;
+    private UserService ucService;
     Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     /**
@@ -36,7 +36,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register", produces = "application/json")
-    public void register(@RequestBody UserClientVO uc) {
+    public void register(@RequestBody UserVO uc) {
 
         String tel = uc.getTel();
 
@@ -52,9 +52,9 @@ public class LoginController {
      * 用户登陆
      */
     @RequestMapping(method = RequestMethod.POST, path = "/login", produces = "application/json")
-    public ModelAndView login(@RequestBody UserClientVO ucVO) {
+    public ModelAndView login(@RequestBody UserVO ucVO) {
 
-        UserClientVO userClientVO = new UserClientVO();
+        UserVO userClientVO = new UserVO();
         try {
             userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getLoginPwd());
         } catch (UserException e) {

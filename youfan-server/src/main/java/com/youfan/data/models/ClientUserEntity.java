@@ -11,7 +11,7 @@ import static com.youfan.commons.Constants.COLLECTION_CLIENT_USER;
  * <p>用户端用户实体类
  */
 @Document(collection = COLLECTION_CLIENT_USER)
-public class UserClientEntity {
+public class ClientUserEntity {
 
     @Id
     private String id;
@@ -32,7 +32,7 @@ public class UserClientEntity {
     //职业
     private String jobs;
 
-    public UserClientEntity() {
+    public ClientUserEntity() {
     }
 
 

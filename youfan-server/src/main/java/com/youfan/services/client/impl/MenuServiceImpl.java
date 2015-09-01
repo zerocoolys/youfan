@@ -1,6 +1,6 @@
 package com.youfan.services.client.impl;
 
-import com.youfan.commons.vo.MenuVO;
+import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.services.client.MenuService;
 import org.springframework.stereotype.Service;

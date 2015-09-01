@@ -1,4 +1,4 @@
-package com.youfan.commons.vo;
+package com.youfan.commons.vo.client;
 
 import com.youfan.utils.ConfigUtil;
 import com.youfan.utils.HttpClientUtil;

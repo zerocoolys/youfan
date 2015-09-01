@@ -1,7 +1,7 @@
 package com.youfan.controllers.merchant;
 
-import com.youfan.commons.vo.MerchantKitchenInfoVO;
-import com.youfan.commons.vo.MerchantUserVO;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
+import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.merchant.MerchantUsersService;

@@ -1,4 +1,4 @@
-package com.youfan.commons.vo;
+package com.youfan.commons.vo.merchant;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.youfan.data.dao.server.impl;
 
 import com.mongodb.WriteResult;
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.data.dao.server.MessageDAO;
 import com.youfan.data.models.MessageEntity;
 import org.springframework.data.domain.Sort;
@@ -22,14 +22,6 @@ public class MessageDAOImpl implements MessageDAO {
         mongoTemplate.insert(convertToEntity(message));
     }
 
-    @Override
-    public MessageVO findOne(Query query) {
-        MessageEntity entity = mongoTemplate.findOne(query, getEntityClass());
-        if (entity == null)
-            return null;
-
-        return convertToVO(entity);
-    }
 
     @Override
     public WriteResult updateMsg(MessageVO message) {
@@ -39,14 +31,6 @@ public class MessageDAOImpl implements MessageDAO {
         return result;
     }
 
-    @Override
-    public List<MessageVO> find(Query query) {
-        List<MessageEntity> entities = mongoTemplate.find(query, getEntityClass());
-        if (entities == null || entities.isEmpty())
-            return Collections.emptyList();
-
-        return convertToVOList(entities);
-    }
 
     @Override
     public MessageVO findById(String id) {
@@ -57,10 +41,6 @@ public class MessageDAOImpl implements MessageDAO {
         return convertToVO(entity);
     }
 
-    @Override
-    public long count(Query query) {
-        return mongoTemplate.count(query, getEntityClass());
-    }
 
     @Override
     public List<MessageVO> getMsgList(Long userId, Integer receiver) {

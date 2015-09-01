@@ -8,7 +8,7 @@ import com.pingplusplus.exception.AuthenticationException;
 import com.pingplusplus.exception.InvalidRequestException;
 import com.pingplusplus.model.*;
 import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.controllers.params.ChargeParams;
 import com.youfan.log.WebbooksLog;
 import com.youfan.services.client.MessageService;
@@ -252,67 +252,6 @@ public class PlatFormController {
         return "200";
     }
 
-    /**
-     * @param userId
-     * @param pageNo
-     * @param pageSize
-     * @param status
-     * @return
-     * @description 获取消息
-     * @author ZhangHuaRong
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/getMessage/{userId}/{pageNo}/{pageSize}/{status}", produces = "application/json; charset=UTF-8")
-    public CollectionVO<MessageVO> getMessage(@PathVariable Long userId, @PathVariable Integer pageNo, @PathVariable Integer pageSize, @PathVariable Integer status) {
-        CollectionVO<MessageVO> result = null;
-        try {
-            Query query = new Query();
-            query.addCriteria(Criteria.where("receiverId").is(userId));
-            query.addCriteria(Criteria.where("status").is(status));
-            long count = messageService.count(query);
-            query.skip((pageNo - 1) * pageSize);
-            query.limit(pageSize);
-            List<MessageVO> msa = messageService.find(query);
-            result = new CollectionVO<MessageVO>(msa, (int) count, pageSize);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
-        return result;
-    }
-
-    /**
-     * @param messageId
-     * @description 获取用户消息
-     * @author ZhangHuaRong
-     * @update 2015年8月26日 下午4:47:26
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/getMessageById/{messageId}", produces = "application/json; charset=UTF-8")
-    public MessageVO getMessageById(@PathVariable String messageId) {
-        MessageVO msa = null;
-        try {
-            msa = messageService.findById(messageId);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
-        return msa;
-    }
-
-    /**
-     * @param messageId
-     * @param status
-     * @description 更新用户消息
-     * @author ZhangHuaRong
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/updateMssageStatus/{messageId}/{status}", produces = "application/json; charset=UTF-8")
-    public MessageVO updateMssageStatus(@PathVariable String messageId, @PathVariable Integer status) {
-        MessageVO msa = null;
-        try {
-            msa = messageService.findById(messageId);
-            messageService.updateMsg(msa.getId(), status);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
-        return msa;
-    }
 
     /**
      * @param userId   用户id

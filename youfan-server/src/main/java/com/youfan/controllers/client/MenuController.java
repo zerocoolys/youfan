@@ -1,6 +1,6 @@
 package com.youfan.controllers.client;
 
-import com.youfan.commons.vo.MenuVO;
+import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.MenuService;

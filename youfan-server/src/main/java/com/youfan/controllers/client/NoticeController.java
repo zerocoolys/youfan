@@ -1,6 +1,6 @@
 package com.youfan.controllers.client;
 
-import com.youfan.commons.vo.MessageVO;
+import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.services.client.MessageService;
 import com.youfan.utils.JSONUtils;
 import org.springframework.web.bind.annotation.RequestMapping;

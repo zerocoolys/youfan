@@ -1,26 +1,27 @@
 package com.youfan.data.dao.server.impl;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
 import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
+
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
 import com.youfan.data.support.IdGenerator;
-
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -160,6 +161,23 @@ public class OrderDAOImpl implements OrderDAO {
 				parameter);
 
 		return order;
+	}
+
+	@Override
+	public int count(OrderParams op) {
+		List<Object> lenO = sqlSession.selectList("count");
+		return Integer.parseInt(lenO.get(0).toString());
+	}
+
+	@Override
+	public int countAll() {
+		List<Object> lenO = sqlSession.selectList("countAll");
+		return Integer.parseInt(lenO.get(0).toString());
+	}
+
+	@Override
+	public List<OrderVO> getOrdersByParams(OrderParams op) {
+		return sqlSession.selectList("getOrdersByParams", op);
 	}
 
 }
