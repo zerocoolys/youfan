@@ -38,12 +38,12 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantKitchenInfoVO mrFindById(Long id) {
+    public MerchantKitchenInfoVO mrFindById(String id) {
         return merchantKitchenDAO.findById(id);
     }
 
     @Override
-    public MerchantUserVO muFindById(Long id) {
+    public MerchantUserVO muFindById(String id) {
         return merchantUserDao.findById(id);
     }
 

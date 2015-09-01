@@ -1,5 +1,6 @@
 package com.youfan.data.dao.merchant.impl;
 
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.Constants;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
@@ -162,7 +163,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     @Override
     public MerchantUserVO findById(String id) {
         Query q = new Query();
-        Criteria c = Criteria.where(Constants.FIELD_ID).is(id).and("status").is(0);
+        Criteria c = Criteria.where(Constants.FIELD_ID).is(id).and(Constants.MESSAGE_STATUS).is(0);
         q.addCriteria(c);
         MerchantUserEntity mue = mongoTemplate.findOne(q, getEntityClass());
         if (mue != null)
@@ -173,6 +174,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
 	@Override
 	public Class<MerchantUserEntity> getEntityClass() {
+		// TODO Auto-generated method stub
 		return MerchantUserEntity.class;
 	}
 

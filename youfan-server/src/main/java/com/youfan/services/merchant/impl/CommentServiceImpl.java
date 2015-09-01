@@ -32,4 +32,9 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentVO> findComment() {
         return commentDAO.findComment();
     }
+
+    @Override
+    public CommentVO findCommentById(String id) {
+        return commentDAO.findComment(id);
+    }
 }

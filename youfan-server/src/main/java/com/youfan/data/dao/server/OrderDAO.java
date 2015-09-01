@@ -34,5 +34,7 @@ public interface OrderDAO {
 	int count(OrderParams op);
 
 	List<OrderVO> getOrdersByParams(OrderParams op);
+	
+	int updateOrderStatus(OrderParams order);
 
 }
