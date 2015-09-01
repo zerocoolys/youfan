@@ -7,7 +7,7 @@
     <ion-content>
         <div class="list">
             <div class="item item-input">
-                <input type="text" id="tel" name="tel" ng-model="userClient.tel" placeholder="输入手机号" required>
+                <input type="text" id="tel" name="tel" ng-model="userClient.tel" placeholder="手机号" required>
             </div>
             <div class="item item-input">
                 <input type="text" id="verificationCode" name="verificationCode" ng-model="user.verificationCode"
@@ -17,7 +17,7 @@
             <div class="item item-input">
                 <input type="password" id="pwd" name="pwd" ng-model="userClient.pwd" placeholder="请输入6-12位数字、字母或组合形成密码" required>
             </div>
-            <button class="button button-block bar-balanced" ng-click="resetPwd()">完成</button>
+            <button class="button button-block bar-balanced" ng-click="resetPwd()">完 成</button>
             <p class="existingAccount">已有密码？&nbsp;&nbsp;<a  ui-sref="tab.pwd-login"
                                                             style="color: #0c63ee">立即登陆</a></p>
         </div>
