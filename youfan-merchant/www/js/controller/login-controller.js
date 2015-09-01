@@ -13,55 +13,91 @@
             verificationCode: ""
         };
         $scope.getVerificationCode = function (user) {
-            $scope.verificationCode = "";
-            //生成 6 位随机数验证码
-            for (var i = 0; i < 6; i++) {
-                $scope.verificationCode += parseInt(Math.random() * 9).toString();
-            }
-            // 向后台发送处理数据
-            $scope.url = "http://192.168.1.107:8080/platform/sendSMS/1/" + $scope.verificationCode + "/" + user.phoneNumber;
-            $http.get($scope.url).success(function (data) {
-                var options;
-                if (data.statusCode == "000000") {
-                    options = {
-                        "title": "验证码发送成功!",
-                        "buttons": [{
-                            text: "确定",
-                            type: "button-positive clam",
-                            onTap: function () {
-                                $scope.user = {
-                                    phoneNumber: user.phoneNumber,
-                                    verificationCode: $scope.verificationCode
-                                };
-                            }
-                        }]
-                    };
-                } else {
-                    options = {
-                        "title": "验证码发送失败!",
-                        "buttons": [{
-                            text: "关闭",
-                            type: "button-positive clam"
-                        }]
-                    };
+            $rootScope.user = {
+                id: ""
+            };
+            var options;
+            var phoneNumber = user.phoneNumber; //获取手机号
+            var phoneNumberReg = !!phoneNumber.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+            //手机号码验证
+            if (!phoneNumberReg) {
+                options = {
+                    "title": "手机号码格式不正确!",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam",
+                        onTap: function () {
+
+                        }
+                    }]
+                };
+                $ionicPopup.alert(options);
+            } else {
+                $scope.verificationCode = "";
+                //生成 6 位随机数验证码
+                for (var i = 0; i < 6; i++) {
+                    $scope.verificationCode += parseInt(Math.random() * 9).toString();
                 }
-                $ionicPopup.alert(options)
-                    .then(function () {
+                // 向后台发送处理数据
+                $scope.url = "http://192.168.1.107:8080/platform/sendSMS/1/" + $scope.verificationCode + "/" + user.phoneNumber;
+                $http.get($scope.url).success(function (data) {
 
-                    });
-            });
+                    if (data.statusCode == "000000") {
+                        options = {
+                            "title": "验证码发送成功!",
+                            "buttons": [{
+                                text: "确定",
+                                type: "button-positive clam",
+                                onTap: function () {
+                                    $scope.user = {
+                                        phoneNumber: user.phoneNumber,
+                                        verificationCode: $scope.verificationCode
+                                    };
+                                }
+                            }]
+                        };
+                    } else {
+                        options = {
+                            "title": "验证码发送失败!",
+                            "buttons": [{
+                                text: "关闭",
+                                type: "button-positive clam"
+                            }]
+                        };
+                    }
+                    $ionicPopup.alert(options)
+                        .then(function () {
 
+                        });
+                });
+            }
         };
         $scope.signIn = function (user) {
+            console.log($scope.user.phoneNumber)
+            //验证码不能为空
+            //if(user.verificationCode.toString()==null||user.verificationCode.toString().trim()==""){
+            //    var options = {
+            //        "title": "验证码不能为空！",
+            //        "buttons": [{
+            //            text: "关闭",
+            //            type: "button-positive clam"
+            //        }]
+            //    };
+            //    $ionicPopup.alert(options);
+            //}else{
             //if(user.verificationCode==$scope.verificationCode){
             var merchantUser = {
                 userName: user.phoneNumber
             };
-            $location.path("overview")
             $http.post(
-                YF_MERCHANT_HOST + "/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-
-                    if (data == "" || data == null) {
+                "http://127.0.0.1:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    if (data.code == "200") {
+                        $rootScope.user = {
+                            id: data.payload.id
+                        };
+                        console.log(data.payload.id)
+                        $location.path("overview")
+                    } else {
                         var options = {
                             "title": "系统繁忙！",
                             "buttons": [{
@@ -69,14 +105,7 @@
                                 type: "button-positive clam"
                             }]
                         };
-                        $ionicPopup.alert(options)
-                            .then(function () {
-                                //这个函数在弹出框关闭时被调用
-                            });
-                    } else {
-                        $scope.user = data;
-                        $rootScope.user = $scope.user;
-                        $location.path("overview")
+                        $ionicPopup.alert(options);
                     }
 
                 }, function (error) {
@@ -105,7 +134,7 @@
             //            //这个函数在弹出框关闭时被调用
             //        });
             //}
-
+            //}
         };
         $scope.register = function (user) {
             $http.post(
