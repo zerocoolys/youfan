@@ -290,12 +290,11 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     /*====================XiaoWei==================*/
     $scope.merchantObj = {}
     $scope.getMerchantKitchen = function () {
-        var merchantId = $stateParams.merchantId;
+        var merchantId = Merchant.mki;
         if (merchantId) {
             $http.get(REST_URL + "/mr/getMrOne/" + merchantId).success(function (result) {
                 if (result.payload != null) {
                     var _tmpData = result.payload;
-                    console.log(_tmpData);
                     _tmpData["lg"] = _tmpData.lat + "," + _tmpData.lng;
                     if (!_tmpData.distribution) {
                         _tmpData["distribution"] = "暂无说明";
@@ -321,19 +320,19 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     }
     $scope.merchantUser = {};
     $scope.getMerchantUser = function () {
-        var merchantId = $stateParams.merchantId;
+        var merchantId = Merchant.mki;
         if (merchantId) {
             $http.get(REST_URL + "/mr/getMuOne/" + merchantId).success(function (result) {
                 if (result.payload != null) {
                     var _tmpData = result.payload;
                     _tmpData["realName"] = _tmpData.realName.substring(0, 1) + "先生";
-                    _tmpData["address"] = _tmpData.address + "人";
+                    _tmpData["address"] = _tmpData.address.replace(/市|省|自治|区/g,'') + "人";
                     $scope.merchantUser = _tmpData;
                 }
             });
         }
     }
-    $scope.getMerchantUser();
     $scope.getMerchantKitchen();
+    $scope.getMerchantUser();
 
 });
