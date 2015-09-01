@@ -1,12 +1,11 @@
 package com.youfan.controllers.client;
 
 import com.youfan.commons.vo.client.MessageVO;
+import com.youfan.controllers.support.Response;
+import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.MessageService;
 import com.youfan.utils.JSONUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -28,34 +27,28 @@ public class NoticeController {
     private MessageService messageService;
 
 
-    @RequestMapping(value = "/getNotice", method = RequestMethod.GET)
-    public ModelAndView getNotice(HttpServletResponse response, HttpServletRequest request,
-                                  @RequestParam(value = "userId", required = false) Long userId) {
+    @RequestMapping(value = "/getNotice/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Response getNotice(HttpServletResponse response, HttpServletRequest request,
+                                  @PathVariable Long userId) {
         AbstractView jsonView = new MappingJackson2JsonView();
         List<MessageVO> entities = messageService.findMsgList(userId, 2);
-        Map<String, Object> attributes = JSONUtils.getJsonMapData(entities);
-        jsonView.setAttributesMap(attributes);
-        return new ModelAndView(jsonView);
+        return Responses.SUCCESS().setCode(1).setPayload(entities);
     }
 
-    @RequestMapping(value = "/getCount", method = RequestMethod.GET)
-    public ModelAndView getCount(HttpServletResponse response, HttpServletRequest request,
-                                 @RequestParam(value = "userId", required = false) Long userId) {
+    @RequestMapping(value = "/getCount/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public Response getCount(HttpServletResponse response, HttpServletRequest request,
+                                 @PathVariable Long userId) {
         AbstractView jsonView = new MappingJackson2JsonView();
         Long entities = messageService.countUnreadMsg(userId, 2);
-        Map<String, Object> attributes = JSONUtils.getJsonMapData(entities);
-        jsonView.setAttributesMap(attributes);
-        return new ModelAndView(jsonView);
+        return Responses.SUCCESS().setCode(1).setPayload(entities);
     }
 
-    @RequestMapping(value = "/modifyMsg", method = RequestMethod.GET)
-    public ModelAndView modifyMsg(HttpServletResponse response, HttpServletRequest request,
-                                  @RequestParam(value = "id", required = false) String id) {
+    @RequestMapping(value = "/modifyMsg/{id}", method = RequestMethod.GET, produces = "application/json")
+    public Response modifyMsg(HttpServletResponse response, HttpServletRequest request,
+                                  @PathVariable String id) {
         AbstractView jsonView = new MappingJackson2JsonView();
         boolean entities = messageService.updateMsg(id, 1);
-        Map<String, Object> attributes = JSONUtils.getJsonMapData(entities);
-        jsonView.setAttributesMap(attributes);
-        return new ModelAndView(jsonView);
+        return Responses.SUCCESS().setCode(1).setPayload(entities);
     }
 
 
