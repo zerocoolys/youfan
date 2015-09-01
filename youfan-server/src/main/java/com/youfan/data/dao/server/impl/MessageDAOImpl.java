@@ -24,11 +24,11 @@ public class MessageDAOImpl implements MessageDAO {
 
 
     @Override
-    public WriteResult updateMsg(MessageVO message) {
+    public boolean updateMsg(MessageVO message) {
         Query query = Query.query(Criteria.where(MESSAGE_ID).is(message.getId()));
         Update update = Update.update(MESSAGE_STATUS, message.getStatus());
         WriteResult result = mongoTemplate.updateFirst(query, update, getEntityClass());
-        return result;
+        return result.isUpdateOfExisting();
     }
 
 

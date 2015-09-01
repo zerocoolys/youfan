@@ -32,9 +32,8 @@ public class MessageServiceImpl implements MessageService {
         MessageVO message = new MessageVO();
         message.setId(id);
         message.setStatus(status);
-        WriteResult result = messageDAO.updateMsg(message);
-        System.out.println();
-        return result.isUpdateOfExisting();
+        boolean result = messageDAO.updateMsg(message);
+        return result;
     }
 
 

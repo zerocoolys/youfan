@@ -25,7 +25,8 @@ public interface Constants {
 
     // 菜单
     String SELLER_ID = "sellerId";
-    String MENU_ID = "menuId";
+    String MONGO_ID = "_id";
+    String ID = "id";
     String TYPE = "type";
     String NAME = "name";
     String DESCRIPTION = "descr";
@@ -50,21 +51,41 @@ public interface Constants {
      */
     String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
     String COLLECTION_USER = "merchantUser";
-    String COLLECTION_MERCHANTKITCHENINFOID = "mki";
+    String COLLECTION_MERCHANTKITCHENINFOID = "id";
     String COLLECTION_HEADPORTRAITPICURL = "hpu";
     String COLLECTION_IDCARDPICURL = "icpu";
     String COLLECTION_HEALTHCERTIFICATEPICURL = "hcpu";
-    String COLLECTION_MERCHANTUSERID = "mui";
+    String COLLECTION_MERCHANTUSERID = "id";
 
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
+    String COLLECTION_COUPONS = "coupons";
 
 
-    /*  subDong  */
+    /*  我的消息 subDong  */
     // messages 查询字段
+    String MESSAGE_ID = "id";
     String MESSAGE_RECEIVERID = "receiverId";
     String MESSAGE_RECEIVERPORT = "receiverPort";
     String MESSAGE_DATE = "date";
     String MESSAGE_STATUS = "status";
-    String MESSAGE_ID = "id";
+
+
+    /*  优惠卷 subDong  */
+    String CONPONS_ID = "id";
+    String COUPONS_STATUS = "status";
+    String CONPONS_COUPONSID = "cid";
+    String CONPONS_CREATEDATE = "cd";
+    String CONPONS_MODIFYDATE = "md";
+    String CONPONS_STATUS = "status";
+    String CONPONS_DATASTATUS = "ds";
+    String CONPONS_USERID = "userid";
+    
+    /* MrDeng*/
+    //couponsType 查询字段
+    
+    String COUPONS_TYPE_PORT = "port";
+    String COUPONS_TYPE_TIMELINE = "timeLine";
+    String COUPONS_TYPE_KITCHEN_ID= "kitchenId";
+    String COUPONS_TYPE_STATUS = "status";
 }

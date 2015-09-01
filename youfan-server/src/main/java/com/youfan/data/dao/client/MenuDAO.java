@@ -62,7 +62,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
         if (sellerId != null)
             criteria.and(SELLER_ID).is(sellerId);
         else if (menuId != null)
-            criteria.and(MENU_ID).is(menuId);
+            criteria.and(ID).is(menuId);
 
         return Query.query(criteria);
     }
@@ -71,7 +71,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
         Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
         if (menuIds != null && menuIds.size() > 0)
-            criteria.and(MENU_ID).in(menuIds);
+            criteria.and(ID).in(menuIds);
 
         return Query.query(criteria);
     }

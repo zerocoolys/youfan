@@ -1,20 +1,20 @@
 package com.youfan.controllers.params;
 
+import com.youfan.commons.Pagination;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.youfan.commons.Pagination;
 
 /**
  * Created by yousheng on 15/8/14.
  */
-public class OrderParams extends Pagination{
+public class OrderParams extends Pagination {
 
 	String orderNo;
-	
+
 	String buyerId;
 
-	Long sellerId;
+	String sellerId;
 
 	Map<String, Integer> itemMap = new HashMap<>();
 
@@ -22,11 +22,11 @@ public class OrderParams extends Pagination{
 
 	double price;
 
-	Integer orderStatus;
+	int orderStatus;
 
 	String repastMode;
-    
-    public String getOrderNo() {
+
+	public String getOrderNo() {
 		return orderNo;
 	}
 
@@ -42,11 +42,11 @@ public class OrderParams extends Pagination{
 		this.buyerId = buyerId;
 	}
 
-	public Long getSellerId() {
+	public String getSellerId() {
 		return sellerId;
 	}
 
-	public void setSellerId(Long sellerId) {
+	public void setSellerId(String sellerId) {
 		this.sellerId = sellerId;
 	}
 
@@ -74,11 +74,11 @@ public class OrderParams extends Pagination{
 		this.price = price;
 	}
 
-	public Integer getOrderStatus() {
+	public int getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(Integer orderStatus) {
+	public void setOrderStatus(int orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 

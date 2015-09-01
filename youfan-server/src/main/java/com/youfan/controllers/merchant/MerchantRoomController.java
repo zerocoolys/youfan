@@ -38,7 +38,7 @@ public class MerchantRoomController implements ResponseConstants {
 
 
     @RequestMapping(value = "/getMrOne/{id}")
-    public Response getMerchantOne(@PathVariable("id") Long id) {
+    public Response getMerchantOne(@PathVariable("id") String id) {
         MerchantKitchenInfoVO mkFind = merchantUsersService.mrFindById(id);
         if (mkFind != null) {
             return Responses.SUCCESS().setPayload(mkFind);
@@ -61,7 +61,7 @@ public class MerchantRoomController implements ResponseConstants {
     }
 
     @RequestMapping(value = "/getMuOne/{id}")
-    public Response getMerchantUserById(@PathVariable("id") Long merchantId) {
+    public Response getMerchantUserById(@PathVariable("id") String merchantId) {
         MerchantUserVO merchantUser = merchantUsersService.muFindById(merchantId);
         return Responses.SUCCESS().setPayload(merchantUser);
     }

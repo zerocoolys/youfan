@@ -1,10 +1,13 @@
 package com.youfan.services.server.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.controllers.params.CouponsParams;
 import com.youfan.data.dao.server.CouponsTypeDAO;
 import com.youfan.services.server.CouponsTypeService;
 
@@ -27,6 +30,16 @@ public class CouponsTypeServiceImpl implements CouponsTypeService{
 	public void save(CouponsTypeVO couponsTypeVO) {
 		// TODO Auto-generated method stub
 		couponsTypeDAO.insert(couponsTypeVO);
+	}
+	@Override
+	public Long count(CouponsParams couponsParams) {
+		// TODO Auto-generated method stub
+		return couponsTypeDAO.count(couponsParams);
+	}
+	@Override
+	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams) {
+		// TODO Auto-generated method stub
+		return couponsTypeDAO.getByCondition(couponsParams);
 	}
 
 }

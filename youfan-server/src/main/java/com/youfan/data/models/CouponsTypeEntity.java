@@ -36,7 +36,8 @@ public class CouponsTypeEntity {
 	private Integer timeLine;
 	
 	private String kitchenId;
-	
+
+
 	/**
 	 * 优惠券内容
 	 */

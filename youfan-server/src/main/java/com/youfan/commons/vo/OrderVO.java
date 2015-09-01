@@ -1,6 +1,5 @@
 package com.youfan.commons.vo;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -11,16 +10,16 @@ public class OrderVO {
 
     private Long id;
     private String orderNo;
-    private Long sellerId;
+    private String sellerId;
     private String buyerId;
     private int orderStatus;
     private double price;
     private Date orderTime;
-    private Timestamp repastTime;
+    private Date repastTime;
     private String repastMode;
     private String repastAddress;
     private double coupons;
-    private List<Long> cart;
+    private List<String> cart;
     private String comments;
 
     /**
@@ -32,6 +31,7 @@ public class OrderVO {
      * 菜单ID集合逗号分隔
      */
     private String dishesId;
+
 
     public Long getId() {
         return id;
@@ -49,11 +49,11 @@ public class OrderVO {
         this.orderNo = orderNo;
     }
 
-    public Long getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(Long sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
     }
 
@@ -89,11 +89,11 @@ public class OrderVO {
         this.orderTime = orderTime;
     }
 
-    public Timestamp getRepastTime() {
+    public Date getRepastTime() {
         return repastTime;
     }
 
-    public void setRepastTime(Timestamp repastTime) {
+    public void setRepastTime(Date repastTime) {
         this.repastTime = repastTime;
     }
 
@@ -129,11 +129,11 @@ public class OrderVO {
         this.comments = comments;
     }
 
-    public List<Long> getCart() {
+    public List<String> getCart() {
         return cart;
     }
 
-    public void setCart(List<Long> cart) {
+    public void setCart(List<String> cart) {
         this.cart = cart;
     }
 

@@ -5,8 +5,7 @@ package com.youfan.commons.vo.merchant;
  */
 public class MerchantUserVO {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
-    private Long merchantUserId;    //商家个人信息id
-    private String id;  //商家个人信息id
+    private String id;    //商家个人信息id
     private String userName;    //商家用户名
     private String passWord;    //商家密码
     private String headPortraitPicUrl; //商家个人头像
@@ -17,13 +16,6 @@ public class MerchantUserVO {
     private String idCardPicUrl;    //身份证照片
     private String healthCertificatePicUrl; //健康证照片
 
-    public Long getMerchantUserId() {
-        return merchantUserId;
-    }
-
-    public void setMerchantUserId(Long merchantUserId) {
-        this.merchantUserId = merchantUserId;
-    }
 
     public Integer getStatus() {
         return status;

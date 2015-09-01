@@ -20,7 +20,7 @@ public interface MessageDAO extends MongoBaseDAO<MessageEntity, MessageVO, Strin
      *
      * @param message
      */
-    WriteResult updateMsg(MessageVO message);
+    boolean updateMsg(MessageVO message);
 
 
     MessageVO findById(String id);

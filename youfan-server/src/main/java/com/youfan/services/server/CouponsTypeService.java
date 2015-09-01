@@ -1,6 +1,9 @@
 package com.youfan.services.server;
 
+import java.util.List;
+
 import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.controllers.params.CouponsParams;
 
 /**
  * 
@@ -14,4 +17,8 @@ import com.youfan.commons.vo.server.CouponsTypeVO;
  */
 public interface CouponsTypeService {
 	public void save(CouponsTypeVO coupons);
+
+	public Long count(CouponsParams couponsParams);
+
+	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams);
 }

@@ -58,9 +58,6 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
             String id = map.get("_id").toString();
             map.remove("_id");
             map.put("id", id);
-            Long merchantKitchenInfoId = Long.valueOf(map.get(COLLECTION_MERCHANTKITCHENINFOID).toString());
-            map.remove(COLLECTION_MERCHANTKITCHENINFOID);
-            map.put("merchantKitchenInfoId",merchantKitchenInfoId);
             merchantKitchenInfoEntity = JSONUtils.map2pojo(map, getEntityClass());
             list.add(convertToVO(merchantKitchenInfoEntity));
         }
@@ -68,8 +65,8 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO findById(Long id) {
-        Query q = new Query().addCriteria(Criteria.where(Constants.COLLECTION_MERCHANTKITCHENINFOID).is(id));
+    public MerchantKitchenInfoVO findById(String id) {
+        Query q = new Query().addCriteria(Criteria.where(Constants.FIELD_ID).is(id));
         MerchantKitchenInfoEntity mre = mongoTemplate.findOne(q, getEntityClass());
         return convertToVO(mre);
     }
@@ -81,7 +78,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
         Update update = new Update();
 
-        update.set(COLLECTION_MERCHANTKITCHENINFOID,merchantKitchenInfo.getMerchantKitchenInfoId());
+        update.set("id", merchantKitchenInfo.getId());
         update.set("cuisine", merchantKitchenInfo.getCuisine());
         update.set("desc", merchantKitchenInfo.getDesc());
         update.set("disPrice", merchantKitchenInfo.getDisPrice());
@@ -98,7 +95,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
         update.set("lat", merchantKitchenInfo.getLat());
         update.set("lng", merchantKitchenInfo.getLng());
-        return convertToVO(mongoTemplate.findAndModify(query(where(COLLECTION_MERCHANTKITCHENINFOID).is(merchantKitchenInfo.getMerchantKitchenInfoId())), update, getEntityClass()));
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass());
+        if (merchantKitchenInfoEntity == null) {
+            mongoTemplate.insert(convertToEntity(merchantKitchenInfo));
+            return merchantKitchenInfo;
+        } else {
+            return convertToVO(merchantKitchenInfoEntity);
+        }
+
     }
 
     @Override
@@ -109,7 +113,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
         update.set("kitchenPicUrl", merchantKitchenInfo.getKitchenPicUrl());
 
-        return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass()));
+        return convertToVO(mongoTemplate.findAndModify(query(where(COLLECTION_MERCHANTKITCHENINFOID).is(merchantKitchenInfo.getId())), update, getEntityClass()));
     }
 
     @Override
@@ -139,5 +143,15 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     @Override
     public List<MerchantKitchenInfoEntity> find(Query query) {
         return mongoTemplate.find(query, getEntityClass());
+    }
+
+    @Override
+    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id) {
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findOne(query(where("id").is(id)), getEntityClass());
+        if (merchantKitchenInfoEntity != null) {
+            return convertToVO(merchantKitchenInfoEntity);
+        } else {
+            return null;
+        }
     }
 }

@@ -3,6 +3,8 @@ package com.youfan.data.dao.client.impl;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
+import com.youfan.data.models.MenuEntity;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -35,9 +37,16 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public MenuVO findOne(String menuId) {
-        return convertToVO(mongoTemplate.findOne(
-                buildQuery(null, menuId, true), getEntityClass(),
-                COLLECTION_MENU));
+		MenuEntity menuEntity = mongoTemplate.findOne(
+				buildQuery(null, menuId, true), getEntityClass(),
+				COLLECTION_MENU);
+		if (menuEntity == null) {
+			Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
+					.is(menuId);
+			return findOne(Query.query(criteria));
+		} else {
+			return convertToVO(menuEntity);
+		}
     }
 
     @Override
@@ -56,14 +65,14 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public void update(MenuVO menu, Map<String, Object> map) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID).is(menu.getMenuId());
+        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID).is(menu.getId());
         mongoTemplate.updateFirst(Query.query(criteria), buildUpdate(map), getEntityClass());
 
     }
 
     @Override
     public void delete(String menuId) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID).is(menuId);
+        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID).is(menuId);
         mongoTemplate.updateFirst(Query.query(criteria), Update.update(DATA_STATUS, 0), getEntityClass());
     }
 
@@ -95,7 +104,7 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public int conversion(String menuId, boolean sale) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
                 .is(menuId);
         MenuVO menu = findOne(Query.query(criteria));
         if (menu == null)
@@ -126,8 +135,8 @@ public class MenuDAOImpl implements MenuDAO {
     @Override
     public void conversionStock(List<MenuVO> menus) {
         for (int i = 0, l = menus.size(); i < l; i++) {
-            Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
-                    .is(menus.get(i).getMenuId());
+            Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
+                    .is(menus.get(i).getId());
             MenuVO menu = findOne(Query.query(criteria));
             if (menu != null) {
                 mongoTemplate.updateFirst(Query.query(criteria),
@@ -141,8 +150,8 @@ public class MenuDAOImpl implements MenuDAO {
     @Override
     public void conversionRestNum(List<MenuVO> menus) {
         for (int i = 0, l = menus.size(); i < l; i++) {
-            Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
-                    .is(menus.get(i).getMenuId());
+            Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
+                    .is(menus.get(i).getId());
             MenuVO menu = findOne(Query.query(criteria));
             if (menu != null) {
                 mongoTemplate.updateFirst(Query.query(criteria),

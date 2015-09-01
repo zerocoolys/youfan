@@ -13,9 +13,7 @@ public class MenuVO {
 
     private String id;
 
-    private Long sellerId;  // 商家id
-
-    private Long menuId;    // 菜品id
+    private String sellerId;  // 商家id
 
     private String name;    // 菜品名称
 
@@ -53,20 +51,12 @@ public class MenuVO {
         this.id = id;
     }
 
-    public Long getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(Long sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
-    }
-
-    public Long getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
     }
 
     public String getName() {

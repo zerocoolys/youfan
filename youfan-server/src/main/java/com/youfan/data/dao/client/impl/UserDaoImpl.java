@@ -20,27 +20,26 @@ public class UserDaoImpl implements UserDao {
 	@Resource
 	private IdGenerator idGenerator;
 
-	@Override
-	public UserVO findOne(Long id) {
-		return null;
-	}
 
-	@Override
-	public void insert(UserVO userClientVO) {
-		ClientUserEntity ucEntity = convertToEntity(userClientVO);
-		long userId = generateId(idGenerator.next(COLLECTION_CLIENT_USER));
-		ucEntity.setUserId(userId);
-
-		mongoTemplate.insert(ucEntity, COLLECTION_CLIENT_USER);
-	}
-
-	@Override
-	public void delete(Long id) {
-
-	}
 
 	@Override
 	public void update(UserVO userClientVO) {
+
+	}
+
+    @Override
+    public UserVO findOne(String id) {
+        return null;
+    }
+
+    @Override
+    public void insert(UserVO userClientVO) {
+        ClientUserEntity ucEntity = convertToEntity(userClientVO);
+        mongoTemplate.insert(ucEntity, COLLECTION_CLIENT_USER);
+    }
+
+	@Override
+	public void delete(String s) {
 
 	}
 
@@ -72,7 +71,6 @@ public class UserDaoImpl implements UserDao {
 
 		UserVO userVO = mongoTemplate.findOne(buildQueryByid(id),
 				UserVO.class, COLLECTION_CLIENT_USER);
-
 		return userVO;
 	}
 

@@ -2,13 +2,12 @@ package com.youfan.controllers.server;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.server.OrderService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -69,7 +67,7 @@ public class OrderController {
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant")
 	public Response listByMerchant(
 			@RequestParam("orderStatus") int orderStatus,
-			@RequestParam("sellerId") Long sellerId,
+			@RequestParam("sellerId") String sellerId,
 			@RequestParam("repastMode") String repastMode) {
 		Response response = null;
 		OrderParams orderParams = new OrderParams();

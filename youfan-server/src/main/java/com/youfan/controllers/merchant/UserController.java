@@ -30,7 +30,6 @@ public class UserController {
     @RequestMapping(path = "/saveMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
     public MerchantUserVO add(@RequestBody MerchantUserVO merchantUser) {
         try {
-            System.out.println(merchantUser.getMerchantUserId());
             merchantUsersService.saveMerchantUserInfo(merchantUser);
         } catch (UserException ue) {
             System.out.println(ue.getMessage());
@@ -96,7 +95,13 @@ public class UserController {
     @RequestMapping(path = "/getMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
     public Response getMerchantUserInfo(@RequestBody MerchantUserVO merchantUserVO) {
         MerchantUserVO merchantUser = null;
-        merchantUser = merchantUsersService.getMerchantUserInfo(merchantUserVO.getMerchantUserId());
+        merchantUser = merchantUsersService.getMerchantUserInfo(merchantUserVO.getId());
         return Responses.SUCCESS().setCode(200).setPayload(merchantUser);
+    }
+    @RequestMapping(path = "/getMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
+    public Response getMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {
+        MerchantKitchenInfoVO merchantKitchenInfoVORes = null;
+        merchantKitchenInfoVORes = merchantUsersService.getMerchantKitchenBaseInfo(merchantKitchenInfoVO.getId());
+        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoVORes);
     }
 }
