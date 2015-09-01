@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $ionicModal, Order, REST_URL) {
+ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal, Order, REST_URL) {
 
     $ionicModal.fromTemplateUrl('templates/remarks.html', {
         scope: $scope
@@ -54,15 +54,21 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         // TEST CODE
         Order.details.price = 1;
 
-        //// 创建订单
-        //$http.post(REST_URL + '/orders/create', $scope.order).
-        //    then(function (response) {
-        //        console.log("Success");
-        //    }, function (err) {
-        //        console.log(err);
-        //    });
+        $scope.orderPromise($scope.order).then(function (response) {
+            console.log("===================");
+            $state.go('tab.pay-page');
+        });
 
-        $state.go('tab.pay-page', {name: "tes5t"});
+    };
+
+    $scope.orderPromise = function (order) {
+        // 创建订单
+        var orderRequest = $http.post(REST_URL + '/orders/create', order);
+
+        // 修改商家菜品余量信息
+        var menuRequest = $http.get(REST_URL + '/menu/lists/55e55136e04e8f4882f36f4e');
+
+        return $q.all([orderRequest, menuRequest]);
     };
 
     // 给商家的留言

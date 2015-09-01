@@ -96,6 +96,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //商家详情
             .state('tab.seller-detail', {
                 url: "/seller-detail",
+                cache:false,
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/seller-detail.html",
@@ -117,6 +118,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //个人中心
             .state('tab.chats', {
                 url: '/chats',
+                cache:false,
                 views: {
                     'tab-chats': {
                         templateUrl: 'templates/personalcenter/tab-chats.html',
