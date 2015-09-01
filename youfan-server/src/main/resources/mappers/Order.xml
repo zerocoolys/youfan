@@ -23,6 +23,9 @@
         <result column="order_time" property="orderTime"/>
         <result column="repast_Address" property="repastAddress"/>
         <result column="dishes_Id" property="dishesId"/>
+        <result column="payment_method" property="paymentMethod"/>
+        
+        
     </resultMap>
 
 <resultMap id="OrderEntityMap" type="com.youfan.data.models.OrderEntity">
@@ -106,7 +109,8 @@ WHERE
 	orders.order_time,
 	orders.BUYER_ID,
 	orders.price,
-	dishes.dishes_Id
+	dishes.dishes_Id,
+	orders.payment_method
 FROM
 	TBL_ORDERS orders
 JOIN (
@@ -251,6 +255,13 @@ WHERE
 
 
 	</select>
+	
+	<update id="updateOrder" parameterType="com.youfan.controllers.params.OrderParams">
 
+		update TBL_ORDERS order set order.order_status = #{orderStatus} 
+		
+		where order.order_no = #{orderNo} 
+
+    </update>
 
 </mapper>

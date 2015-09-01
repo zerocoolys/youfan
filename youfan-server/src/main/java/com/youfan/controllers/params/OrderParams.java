@@ -12,7 +12,7 @@ public class OrderParams extends Pagination{
 
 	String orderNo;
 	
-    Long buyerId;
+	String buyerId;
 
 	Long sellerId;
 
@@ -34,11 +34,11 @@ public class OrderParams extends Pagination{
 		this.orderNo = orderNo;
 	}
 
-	public Long getBuyerId() {
+	public String getBuyerId() {
 		return buyerId;
 	}
 
-	public void setBuyerId(Long buyerId) {
+	public void setBuyerId(String buyerId) {
 		this.buyerId = buyerId;
 	}
 

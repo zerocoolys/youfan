@@ -31,7 +31,7 @@ public class OrderEntity {
     private Long sellerId;
 
     // 用户id
-    private Long buyerId;
+    private String buyerId;
 
     // 下单时间
     private Timestamp orderTime;
@@ -100,11 +100,11 @@ public class OrderEntity {
         this.sellerId = sellerId;
     }
 
-    public Long getBuyerId() {
+    public String getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(Long buyerId) {
+    public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }
 

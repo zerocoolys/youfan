@@ -47,18 +47,18 @@ public class OrderController {
 
 		return Responses.SUCCESS();
 	}
-	
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/orderDetail/{orderNo}")
 	public Response getOrderDetailByOrderNo(@PathVariable final String orderNo) {
 
 		Response response = null;
 		try {
-		MerchantOrderDetailVO order = orderService.findOrderDetailByOrderNo(orderNo);
-		if (order == null) {
-			return response = Responses.FAILED().setMsg("未查询到该数据");
-		}
-		response = Responses.SUCCESS().setPayload(order);
+			MerchantOrderDetailVO order = orderService
+					.findOrderDetailByOrderNo(orderNo);
+			if (order == null) {
+				return response = Responses.FAILED().setMsg("未查询到该数据");
+			}
+			response = Responses.SUCCESS().setPayload(order);
 		} catch (Exception e) {
 			response = Responses.FAILED();
 			logger.error(e.getMessage());
@@ -88,9 +88,6 @@ public class OrderController {
 		return response;
 
 	}
-	
-	
-	
 
 	@RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
 	public Response listByUserId(@PathVariable String userId) {
@@ -133,6 +130,39 @@ public class OrderController {
 			@RequestBody String orderInfo) {
 
 		return Responses.SUCCESS();
+	}
+
+	/**
+	 * 修改订单状态，商家端
+	 * 
+	 * @param orderNo
+	 * @return
+	 */
+	@RequestMapping(path = "/merchant/{orderNo}", method = RequestMethod.POST, consumes = {
+			MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public Response updateOrderStatus(@PathVariable String orderNo,
+			@RequestBody String orderInfo) {
+
+		ObjectMapper mapper = new ObjectMapper();
+		OrderParams orderParams = null;
+
+		Response response = null;
+		try {
+			orderParams = mapper.readValue(orderInfo, OrderParams.class);
+			int tag = orderService.updateOrderStatus(orderParams);
+
+			if (tag == 1) {
+				response = Responses.SUCCESS();
+			} else {
+				response = Responses.FAILED();
+			}
+
+		} catch (IOException e) {
+			response = Responses.FAILED();
+			logger.error(e.getMessage());
+		}
+
+		return response;
 	}
 
 }

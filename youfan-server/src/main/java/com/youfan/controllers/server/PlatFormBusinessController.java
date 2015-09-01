@@ -74,7 +74,7 @@ public class PlatFormBusinessController {
 				op.setOrderNo(request.getParameter("orderNo"));
 			}
 			if (request.getParameter("buyerId") != null) {
-				op.setBuyerId(Long.valueOf(request.getParameter("buyerId")));
+				op.setBuyerId(request.getParameter("buyerId"));
 			}
 			if (request.getParameter("sellerId") != null) {
 				op.setSellerId(Long.valueOf(request.getParameter("sellerId")));

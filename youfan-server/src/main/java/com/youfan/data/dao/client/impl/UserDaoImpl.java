@@ -68,16 +68,16 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public UserVO findByUid(Long uid) {
+	public UserVO findByid(String id) {
 
-		UserVO userVO = mongoTemplate.findOne(buildQueryByUid(uid),
+		UserVO userVO = mongoTemplate.findOne(buildQueryByid(id),
 				UserVO.class, COLLECTION_CLIENT_USER);
 
 		return userVO;
 	}
 
-	public Query buildQueryByUid(Long uid) {
-		Criteria criteria = Criteria.where("userId").is(uid);
+	public Query buildQueryByid(String id) {
+		Criteria criteria = Criteria.where("id").is(id);
 
 		return Query.query(criteria);
 	}

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
-
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
@@ -21,6 +20,7 @@ import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
 import com.youfan.data.support.IdGenerator;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -178,6 +178,13 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<OrderVO> getOrdersByParams(OrderParams op) {
 		return sqlSession.selectList("getOrdersByParams", op);
+	}
+
+	@Override
+	public int updateOrderStatus(OrderParams order) {
+		
+		
+		return sqlSession.update("updateOrder", order);
 	}
 
 }

@@ -12,7 +12,7 @@ public class OrderVO {
     private Long id;
     private String orderNo;
     private Long sellerId;
-    private Long buyerId;
+    private String buyerId;
     private int orderStatus;
     private double price;
     private Date orderTime;
@@ -57,11 +57,11 @@ public class OrderVO {
         this.sellerId = sellerId;
     }
 
-    public Long getBuyerId() {
+    public String getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(Long buyerId) {
+    public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }
 

@@ -19,7 +19,7 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, Long> {
 
     
    //根据用于ID查询用户
-    UserVO findByUid(Long uid);
+    UserVO findByid(String id);
 
 
     @Override
