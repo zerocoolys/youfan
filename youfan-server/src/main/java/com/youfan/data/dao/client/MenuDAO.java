@@ -5,7 +5,6 @@ import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MenuEntity;
-
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -19,25 +18,32 @@ import java.util.Map;
  *
  * @author dolphineor
  */
-public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
+public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
 
-    List<MenuVO> findBySellerId(Long sellerId);
+    List<MenuVO> findBySellerId(String sellerId);
 
-    List<MechantMenuVO> findByMenuIds(List<Long> menuIds);
+    List<MechantMenuVO> findByMenuIds(List<String> menuIds);
 
-    int minusRestNum(Long menuId);
+    int minusRestNum(String menuId);
 
-    int plusTasteNum(Long menuId);
+    int plusTasteNum(String menuId);
 
-    void resetRestNumBySellerId(Long sellerId, int restNum);
+    void resetRestNumBySellerId(String sellerId, int restNum);
 
-    void resetRestNumByMenuId(Long menuId, int restNum);
+    void resetRestNumByMenuId(String menuId, int restNum);
 
-    List<MenuVO> findBySellerIdAndType(Long sellerId, String type);
+    List<MenuVO> findBySellerIdAndType(String sellerId, String type);
 
     MenuVO findOne(Query query);
 
     void update(MenuVO menu, Map<String, Object> map);
+
+    int conversion(String menuId, boolean sale);
+
+    void conversionStock(List<MenuVO> menus);
+
+    void conversionRestNum(List<MenuVO> menus);
+
 
     @Override
     default Class<MenuEntity> getEntityClass() {
@@ -49,8 +55,8 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
         return MenuVO.class;
     }
 
-    default Query buildQuery(Long sellerId, Long menuId, boolean isValid) {
-        Criteria criteria = Criteria.where(FIELD_STATUS).is(isValid ? 1 : 0)
+    default Query buildQuery(String sellerId, String menuId, boolean isValid) {
+        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0)
                 .and(IS_SALE).is(true);
 
         if (sellerId != null)
@@ -61,8 +67,8 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
         return Query.query(criteria);
     }
 
-    default Query buildQuery(List<Long> menuIds, boolean isValid) {
-        Criteria criteria = Criteria.where(FIELD_STATUS).is(isValid ? 1 : 0);
+    default Query buildQuery(List<String> menuIds, boolean isValid) {
+        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
         if (menuIds != null && menuIds.size() > 0)
             criteria.and(MENU_ID).in(menuIds);
@@ -70,8 +76,8 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
         return Query.query(criteria);
     }
 
-    default Query buildMerchantQuery(Long sellerId, String type, boolean isValid) {
-        Criteria criteria = Criteria.where(FIELD_STATUS).is(isValid ? 1 : 0);
+    default Query buildMerchantQuery(String sellerId, String type, boolean isValid) {
+        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
         if (sellerId != null) {
             criteria.and(SELLER_ID).is(sellerId);
@@ -91,13 +97,5 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
         }
         return update;
     }
-
-    int conversion(Long menuId, boolean sale);
-
-    void conversionStock(List<MenuVO> menus);
-
-    void conversionRestNum(List<MenuVO> menus);
-
-    MenuVO findByMenuId(long menuId);
 
 }

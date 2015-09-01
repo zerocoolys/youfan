@@ -36,7 +36,7 @@ public class CommentEntity {
     @Field(Constants.COMMENT_TIME)
     Date commentTime;
 
-    @Field(Constants.FIELD_STATUS)
+    @Field(Constants.DATA_STATUS)
     Integer dataStatus = 0;
 
     List<String> imgUrl;
