@@ -18,8 +18,12 @@ public class CommentEntity {
     @Id
     String id;
 
+
+
     @Indexed(unique = true)
     Long coId;
+
+    Long orderId;
 
     @Field(Constants.COMMENT_USER)
     String commentUser;
@@ -28,10 +32,11 @@ public class CommentEntity {
 
     String content;
 
+    Integer star;
     @Field(Constants.COMMENT_TIME)
     Date commentTime;
 
-    @Field(Constants.DATA_STATUS)
+    @Field(Constants.FIELD_STATUS)
     Integer dataStatus = 0;
 
     List<String> imgUrl;
@@ -98,5 +103,21 @@ public class CommentEntity {
 
     public void setImgUrl(List<String> imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
     }
 }

@@ -42,7 +42,7 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 
     long count(Query query);
 
-    MerchantUserVO findById(String id);
+    MerchantUserVO findById(Long id);
 
 
     @Override

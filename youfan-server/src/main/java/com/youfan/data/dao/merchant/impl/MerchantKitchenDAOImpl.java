@@ -1,6 +1,7 @@
 package com.youfan.data.dao.merchant.impl;
 
 import com.mongodb.DBCursor;
+import com.youfan.commons.Constants;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.Pagination;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
@@ -67,8 +68,8 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO findById(String id) {
-        Query q = new Query().addCriteria(Criteria.where("id").is(id));
+    public MerchantKitchenInfoVO findById(Long id) {
+        Query q = new Query().addCriteria(Criteria.where(Constants.COLLECTION_MERCHANTKITCHENINFOID).is(id));
         MerchantKitchenInfoEntity mre = mongoTemplate.findOne(q, getEntityClass());
         return convertToVO(mre);
     }

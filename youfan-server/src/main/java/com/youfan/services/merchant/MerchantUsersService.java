@@ -131,7 +131,7 @@ public interface MerchantUsersService {
      */
     public MerchantUserVO getMerchantUserInfo(Long id);
 
-    MerchantKitchenInfoVO mrFindById(String id);
+    MerchantKitchenInfoVO mrFindById(Long id);
 
-    MerchantUserVO muFindById(String id);
+    MerchantUserVO muFindById(Long id);
 }

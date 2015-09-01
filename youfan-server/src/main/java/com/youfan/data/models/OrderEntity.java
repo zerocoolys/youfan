@@ -1,3 +1,4 @@
+
 package com.youfan.data.models;
 
 import org.springframework.data.annotation.Id;

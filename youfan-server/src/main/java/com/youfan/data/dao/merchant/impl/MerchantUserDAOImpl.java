@@ -157,9 +157,9 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public MerchantUserVO findById(String id) {
+    public MerchantUserVO findById(Long id) {
         Query q = new Query();
-        Criteria c = Criteria.where(Constants.DATA_ID).is(id).and("status").is(0);
+        Criteria c = Criteria.where(Constants.COLLECTION_MERCHANTUSERID).is(id).and("status").is(0);
         q.addCriteria(c);
         MerchantUserEntity mue = mongoTemplate.findOne(q, getEntityClass());
         if (mue != null)

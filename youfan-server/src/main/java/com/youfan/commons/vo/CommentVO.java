@@ -11,11 +11,15 @@ public class CommentVO {
 
     Long coId;
 
+    Long orderId;
+
     String commentUser;
 
     String pid;//父评论
 
     String content;
+
+    Integer star;
 
     Date commentTime;
 
@@ -85,5 +89,21 @@ public class CommentVO {
 
     public void setImgUrl(List<String> imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
     }
 }

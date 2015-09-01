@@ -19,8 +19,8 @@ public interface Constants {
     String COLLECTION_SERVER_COUPONS_TYPE = "coupons_type";
 
     /*通用*/
-    String DATA_STATUS = "dataStatus";
-    String DATA_ID="id";
+    String FIELD_STATUS = "dataStatus";
+    String FIELD_ID ="id";
 
 
     // 菜单

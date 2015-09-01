@@ -6,13 +6,14 @@ import com.youfan.data.models.CommentEntity;
 import redis.clients.jedis.Jedis;
 
 import java.time.Instant;
+import java.util.List;
 
 
 /**
  * Created by xiaowei on 15-8-31.
  */
 public interface CommentDAO extends MongoBaseDAO<CommentEntity, CommentVO, Long> {
-
+    List<CommentVO> findComment();
 
     default long getGenerator(long no) {
 

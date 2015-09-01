@@ -50,7 +50,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
     }
 
     default Query buildQuery(Long sellerId, Long menuId, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0)
+        Criteria criteria = Criteria.where(FIELD_STATUS).is(isValid ? 1 : 0)
                 .and(IS_SALE).is(true);
 
         if (sellerId != null)
@@ -62,7 +62,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
     }
 
     default Query buildQuery(List<Long> menuIds, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
+        Criteria criteria = Criteria.where(FIELD_STATUS).is(isValid ? 1 : 0);
 
         if (menuIds != null && menuIds.size() > 0)
             criteria.and(MENU_ID).in(menuIds);
@@ -71,7 +71,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, Long> {
     }
 
     default Query buildMerchantQuery(Long sellerId, String type, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
+        Criteria criteria = Criteria.where(FIELD_STATUS).is(isValid ? 1 : 0);
 
         if (sellerId != null) {
             criteria.and(SELLER_ID).is(sellerId);

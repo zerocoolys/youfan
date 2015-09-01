@@ -49,7 +49,7 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public MenuVO findByMenuId(long menuId) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+        Criteria criteria = Criteria.where(FIELD_STATUS).is(1).and(MENU_ID)
                 .is(menuId);
         return findOne(Query.query(criteria));
     }
@@ -68,7 +68,7 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public void update(MenuVO menu, Map<String, Object> map) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+        Criteria criteria = Criteria.where(FIELD_STATUS).is(1).and(MENU_ID)
                 .is(menu.getMenuId());
 
         mongoTemplate.updateFirst(Query.query(criteria), buildUpdate(map),
@@ -78,10 +78,10 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public void delete(Long menuId) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+        Criteria criteria = Criteria.where(FIELD_STATUS).is(1).and(MENU_ID)
                 .is(menuId);
         mongoTemplate.updateFirst(Query.query(criteria),
-                Update.update(DATA_STATUS, 0), getEntityClass());
+                Update.update(FIELD_STATUS, 0), getEntityClass());
     }
 
     @Override
@@ -112,7 +112,7 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public int conversion(Long menuId, boolean sale) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+        Criteria criteria = Criteria.where(FIELD_STATUS).is(1).and(MENU_ID)
                 .is(menuId);
         MenuVO menu = findOne(Query.query(criteria));
         if (menu == null)
@@ -143,7 +143,7 @@ public class MenuDAOImpl implements MenuDAO {
     @Override
     public void conversionStock(List<MenuVO> menus) {
         for (int i = 0, l = menus.size(); i < l; i++) {
-            Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+            Criteria criteria = Criteria.where(FIELD_STATUS).is(1).and(MENU_ID)
                     .is(menus.get(i).getMenuId());
             MenuVO menu = findOne(Query.query(criteria));
             if (menu != null) {
@@ -158,7 +158,7 @@ public class MenuDAOImpl implements MenuDAO {
     @Override
     public void conversionRestNum(List<MenuVO> menus) {
         for (int i = 0, l = menus.size(); i < l; i++) {
-            Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MENU_ID)
+            Criteria criteria = Criteria.where(FIELD_STATUS).is(1).and(MENU_ID)
                     .is(menus.get(i).getMenuId());
             MenuVO menu = findOne(Query.query(criteria));
             if (menu != null) {
