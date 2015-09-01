@@ -26,10 +26,11 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     $scope.merChantData = [];
     $scope.initMerchant = function (cp) {
         $http.get(REST_URL + "/mr/getMrData").success(function (result) {
-            if (result.data.length) {
-                result.data.forEach(function (item) {
+            if (result.payload.length) {
+                result.payload.forEach(function (item) {
+                    console.log(item);
                     item["src"] = "img/1.jpg";
-                    item["hsrc"] = "img/avatar1.jpg";
+                    item["headImg"] = "img/avatar1.jpg";
                     $scope.merChantData.push(item);
                 });
                 if (cp) {

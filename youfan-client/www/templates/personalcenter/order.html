@@ -1,98 +1,112 @@
-<ion-view hide-nav-bar="true" hide-tabs class="order">
+<ion-view hide-nav-bar="true" hide-tabs class="order" cache-view="false">
     <ion-header-bar class="bar" align-title="center">
-        <a class="button button-clear icon ion-ios-arrow-back" onclick="history.back()"></a>
+        <a class="button button-clear ion-ios-arrow-back" ui-sref="tab.chats"></a>
+
         <h1 class="title">我的订单</h1>
     </ion-header-bar>
-    <div class="bar bar-subheader bar-light">
-        <div class="button-bar">
-            <a class="button" ng-class="slideIndex == 0 ? 'button-balanced':''" ng-click="activeSlide(0)">未完成</a>
-            <a class="button" ng-class="slideIndex == 1 ? 'button-balanced':''" ng-click="activeSlide(1)">已完成</a>
-            <a class="button" ng-class="slideIndex == 2 ? 'button-balanced':''" ng-click="activeSlide(2)">退款</a>
-            <a class="button" ng-class="slideIndex == 3 ? 'button-balanced':''" ng-click="activeSlide(3)">待评价</a>
-        </div>
-    </div>
-    <ion-content class="has-subheader">
-        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="table_menu">
-            <ion-slide>
-                <ion-list>
-                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
-                        <ion-item>
-                            <span>订单编号：{{orderUnfinish.number}}</span>
+    <ion-tabs class="tabs-striped tabs-top">
+        <ion-tab title="已完成" class="calm-border" animation="slide-left-right">
+            <ion-nav-view>
+                <ion-content>
+                    <ion-list>
+                        <div data-ng-repeat="orderUnfinish in orderFinishes" class="order_list">
+                            <ion-item>
+                                <span>订单编号：{{orderUnfinish.number}}</span>
 
-                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
-                        </ion-item>
-                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
-                            <img src="img/2.jpeg">
+                                <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                                <img src="img/2.jpeg">
 
-                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                                <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>
+                                </h2>
 
-                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
+                                <p style="margin: 10px 0 0 0">{{orderUnfinish.singleTime}}</p>
 
-                            <h2 style="line-height: 32px">{{orderUnfinish.price}}<a class="fr button button-calm button-small" href="#/tab/pay-page" ng-show="orderUnfinish.payWorld">{{orderUnfinish.payWorld}}</a></h2>
-                        </ion-item>
-                    </div>
-                </ion-list>
-            </ion-slide>
-            <ion-slide>
-                <ion-list>
-                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
-                        <ion-item>
-                            <span>订单编号：{{orderUnfinish.number}}</span>
+                                <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+        <ion-tab title="未完成" animation="slide-left-right">
+            <ion-nav-view>
+                <ion-content>
+                    <ion-list>
+                        <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
+                            <ion-item>
+                                <span>订单编号：{{orderUnfinish.number}}</span>
 
-                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
-                        </ion-item>
-                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
-                            <img src="img/2.jpeg">
+                                <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                                <img src="img/2.jpeg">
 
-                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                                <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>
+                                </h2>
 
-                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
+                                <p style="margin: 10px 0 0 0">{{orderUnfinish.singleTime}}</p>
 
-                            <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
-                        </ion-item>
-                    </div>
-                </ion-list>
-            </ion-slide>
-            <ion-slide>
-                <ion-list>
-                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
-                        <ion-item>
-                            <span>订单编号：{{orderUnfinish.number}}</span>
+                                <h2 style="line-height: 32px">{{orderUnfinish.price}}<a
+                                        class="fr button button-calm button-small" href="#/tab/pay-page"
+                                        ng-show="orderUnfinish.payWorld">{{orderUnfinish.payWorld}}</a></h2>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+        <ion-tab title="退款中" animation="slide-left-right">
+            <ion-nav-view>
+                <ion-content>
+                    <ion-list>
+                        <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
+                            <ion-item>
+                                <span>订单编号：{{orderUnfinish.number}}</span>
 
-                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
-                        </ion-item>
-                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
-                            <img src="img/2.jpeg">
+                                <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                                <img src="img/2.jpeg">
 
-                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                                <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>
+                                </h2>
 
-                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
+                                <p style="margin: 10px 0 0 0">{{orderUnfinish.singleTime}}</p>
 
-                            <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
-                        </ion-item>
-                    </div>
-                </ion-list>
-            </ion-slide>
-            <ion-slide>
-                <ion-list>
-                    <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
-                        <ion-item>
-                            <span>订单编号：{{orderUnfinish.number}}</span>
+                                <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+        <ion-tab title="待评价" animation="slide-left-right">
+            <ion-nav-view>
+                <ion-content>
+                    <ion-list>
+                        <div data-ng-repeat="orderUnfinish in orderUnfinishes" class="order_list">
+                            <ion-item>
+                                <span>订单编号：{{orderUnfinish.number}}</span>
 
-                            <p class="item-note mainColor">{{orderUnfinish.status}}</p>
-                        </ion-item>
-                        <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
-                            <img src="img/2.jpeg">
+                                <p class="item-note mainColor">{{orderUnfinish.status}}</p>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                                <img src="img/2.jpeg">
 
-                            <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                                <h2>{{orderUnfinish.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>
+                                </h2>
 
-                            <p style="margin: 10px 0 0 0">{{orderUnfinish.time}}</p>
+                                <p style="margin: 10px 0 0 0">{{orderUnfinish.singleTime}}</p>
 
-                            <h2 style="line-height: 32px">{{orderUnfinish.price}}</h2>
-                        </ion-item>
-                    </div>
-                </ion-list>
-            </ion-slide>
-        </ion-slide-box>
-    </ion-content>
+                                <h2 style="line-height: 32px">{{orderUnfinish.price}}<a
+                                        class="fr button button-outline button-calm button-small" ui-sref="tab.comment-details">立即评价</a></h2>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                </ion-content>
+            </ion-nav-view>
+        </ion-tab>
+    </ion-tabs>
 </ion-view>

@@ -1,9 +1,6 @@
 <ion-view view-title="" hide-nav-bar="true"  class="home_item" >
     <div class="bar bar-header item-input-inset">
-        <button class="button button-clear button-balanced">
-            高新区
-            <i class="ion-ios-arrow-down"></i>
-        </button>
+
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="search" placeholder="搜索"/>
@@ -39,7 +36,7 @@
         </ion-slide-box>
         <ion-list>
             <ion-item class="item" ng-repeat="mc in merChantData">
-                <div class="list" ui-sref="tab.dash-detail({merchantId:mc.id})">
+                <div class="list" ui-sref="tab.dash-detail({merchantId:mc.merchantKitchenInfoId})">
                     <div class="item item-body img_box">
                         <img class="full-image" src="{{mc.src}}"></a>
                         <div class="img_text">
@@ -47,7 +44,7 @@
                         </div>
                     </div>
                     <div class="item item-avatar item_box">
-                        <img src="{{mc.hsrc}}" ng-click="person('{{mc.id}}')" class="person_img">
+                        <img src="{{mc.headImg}}" ng-click="person('{{mc.id}}')" class="person_img">
                         <span class="badge badge-assertive ng-binding">内蒙古人</span>
                         <div class="row" href="#/tab/dash/{{mc.id}}">
                             <div class="col-90">

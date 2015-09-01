@@ -1,7 +1,7 @@
 <ion-view  hide-tabs hide-nav-bar="true" class="personal_info">
     <ion-header-bar>
         <!--<a class="button button-icon icon-left ion-chevron-left button-clear"></a>-->
-        <button class="button icon ion-ios-arrow-left button-clear" onclick="history.back()"></button>
+        <button class="button ion-ios-arrow-left button-clear" ui-sref="tab.chats"></button>
         <h2 class="title">我的资料</h2>
         <button class="button button-clear mainColor" ng-click="show()">
             保存
@@ -16,7 +16,7 @@
         <ion-list>
             <ion-item>
                 昵称
-                <span class="item-note" style="margin-right: -55px">
+                <span class="item-note">
                     <input type="text" value="饭友6666">
                 </span>
             </ion-item>
@@ -34,7 +34,7 @@
             </ion-item>
             <ion-item>
                 职业
-                 <span class="item-note"  style="margin-right: -55px">
+                 <span class="item-note">
                   <input type="text" placeholder="待完善">
                 </span>
             </ion-item>
