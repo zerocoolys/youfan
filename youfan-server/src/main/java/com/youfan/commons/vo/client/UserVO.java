@@ -18,6 +18,8 @@ public class UserVO {
     private String age;
     //职业
     private String jobs;
+    //注册时间
+    private String registerDate;
 
 
     public UserVO() {
@@ -77,5 +79,13 @@ public class UserVO {
 
     public void setJobs(String jobs) {
         this.jobs = jobs;
+    }
+
+    public String getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(String registerDate) {
+        this.registerDate = registerDate;
     }
 }
