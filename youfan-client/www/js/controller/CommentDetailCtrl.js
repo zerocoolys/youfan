@@ -1,4 +1,4 @@
-ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_URL, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicModal) {
+ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_URL,$location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicModal) {
     $scope.formData = {
         star: 1,
         commitUser: '张三',
