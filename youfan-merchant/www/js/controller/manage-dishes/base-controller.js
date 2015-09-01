@@ -151,7 +151,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 }
             }
             if ($scope.changeItem.length == 0) {
-                alert("库存没有变化");
+                $scope.$emit("youfan-merchant-show-msg", "库存没有变化");
                 $scope.isActive = false;
             } else {
                 $scope.doSave();
@@ -188,7 +188,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
         });
 
         $scope.$on("yf-merchant-load-dishes-error", function (e, data) {
-            alert("系统错误");
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
             $scope.isActive = false;
             //隐藏载入指示器
             $ionicLoading.hide();
@@ -271,7 +271,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 }
             }
             if ($scope.changeItem.length == 0) {
-                alert("库存没有变化");
+                $scope.$emit("youfan-merchant-show-msg", "库存没有变化");
                 $scope.isActive = false;
             } else {
                 $scope.doSave();
@@ -303,13 +303,12 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                     console.log("你是啥.....");
                 }
             });
-            console.log(data);
             //隐藏载入指示器
             $ionicLoading.hide();
         });
 
         $scope.$on("yf-merchant-load-dishes-error", function (e, data) {
-            alert("系统错误");
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
             //隐藏载入指示器
             $ionicLoading.hide();
         });
@@ -335,30 +334,18 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             })
             .state('m_dishes.nsc', {
                 url: '/nsc',
-                views: {
-                    'm_dishes_nsc': {
-                        controller: 'ManageDishesNscCtrl',
-                        templateUrl: 'templates/manage-dishes/manage-dishes-nsc.html'
-                    }
-                }
+                controller: 'ManageDishesNscCtrl',
+                templateUrl: 'templates/manage-dishes/manage-dishes-nsc.html'
             })
             .state('m_dishes.xfz', {
                 url: '/xfz',
-                views: {
-                    'm_dishes_xfz': {
-                        controller: 'ManageDishesXfzCtrl',
-                        templateUrl: 'templates/manage-dishes/manage-dishes-xfz.html'
-                    }
-                }
+                controller: 'ManageDishesXfzCtrl',
+                templateUrl: 'templates/manage-dishes/manage-dishes-xfz.html'
             })
             .state('m_dishes.qtc', {
                 url: '/qtc',
-                views: {
-                    'm_dishes_qtc': {
-                        controller: 'ManageDishesQtcCtrl',
-                        templateUrl: 'templates/manage-dishes/manage-dishes-qtc.html'
-                    }
-                }
+                controller: 'ManageDishesQtcCtrl',
+                templateUrl: 'templates/manage-dishes/manage-dishes-qtc.html'
             })
             .state("m_dishes_edit", {
                 url: '/manage/dishes',
@@ -409,4 +396,36 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
         ;
 
     })
+
+    .directive('youFanNumber', function () {
+        return {
+            restrict: 'EA',
+            require: '?ngModel',
+            link: function (scope, element, attrs, ngModel) {
+
+                element.on("keyup", function (e) {
+
+                    element[0].value = element[0].value.replace(/\D/g, '');
+                    ngModel.$setViewValue(element[0].value);
+
+                });
+
+                element.on("paste", function (e) {
+                    element[0].value = element[0].value.replace(/\D/g, '');
+                    ngModel.$setViewValue(element[0].value);
+                });
+            }
+        };
+    })
+
+    .directive('youFanSize', function () {
+        return {
+            restrict: 'EA',
+            require: '?ngModel',
+            link: function (scope, element, attrs, ngModel) {
+                element.attr({"maxLength": attrs["youFanSize"], "ngMaxLength": attrs["youFanSize"]});
+            }
+        };
+    })
+
 ;

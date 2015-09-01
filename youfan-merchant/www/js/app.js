@@ -24,10 +24,32 @@ angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_mer
             }
         });
 
-        $rootScope.$on("$stateChangeSuccess", function () {
-            console.log("!21312312");
-        });
     })
+
+    .directive('youFanMsg', function ($timeout) {
+        return {
+            restrict: 'EA',
+            templateUrl: 'templates/comment/msg_comment.html',
+            link: function (scope, element, attrs, ngModel) {
+                scope.msgObj = {flag: false, msg: ""};
+                element.css({
+                    "z-index": 10,
+                    "width": "100%",
+                    "position": "fixed",
+                    "bottom": "10%"
+                });
+
+                scope.$on("youfan-merchant-show-msg", function (e, msg) {
+                    scope.msgObj.flag = true;
+                    scope.msgObj.msg = msg;
+                    $timeout(function () {
+                        scope.msgObj = {flag: false, msg: ""};
+                    }, 1000);
+                });
+            }
+        }
+    })
+
     .factory('YF_MERCHANT_HOST', function () {
         return "http://192.168.1.111:8080";
     })

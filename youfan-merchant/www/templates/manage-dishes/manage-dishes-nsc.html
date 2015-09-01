@@ -2,7 +2,7 @@
 
     <ion-nav-buttons side="left">
         <button class="button button-clear button-calm" data-ng-click="goState('overview')"><i
-                class="icon ion-ios-arrow-back"></i></button>
+            class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <a class=" button button-clear button-calm " ui-sref="m_dishes_jr_stock({backType: 'nsc'})">
@@ -10,7 +10,13 @@
         </a>
     </ion-nav-buttons>
 
-    <ion-content class="no-header">
+    <ion-content class="">
+        <div class="button-bar light-bg dishes">
+            <a class="button button-clear current">拿手菜</a>
+            <a class="button button-clear" ui-sref="m_dishes.xfz">小饭桌</a>
+            <a class="button button-clear" ui-sref="m_dishes.qtc">其他菜</a>
+        </div>
+
         <ion-refresher pulling-text="下拉可以刷新" on-refresh="load()"></ion-refresher>
 
         <div style="padding: 10px; text-align: center;">

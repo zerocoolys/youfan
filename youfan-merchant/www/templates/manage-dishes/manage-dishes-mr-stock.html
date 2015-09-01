@@ -2,7 +2,7 @@
 
     <ion-nav-buttons side="left">
         <button class="button button-clear button-calm" data-ng-click="goState('m_dishes.' + backType)"><i
-                class="icon ion-ios-arrow-back"></i></button>
+            class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <a class="button button-clear button-calm" data-ng-disabled="isActive" data-ng-click="doCheckStock()">保存</a>
@@ -20,7 +20,9 @@
                                    <i class="icon ion-minus placeholder-icon calm" ng-click="subStock(item)"></i>
                                    <input type="text"
                                           style="width: 20px; height: 25px;padding: 0 0 0 5px; background:#eee;"
-                                          data-ng-model="item.stock">
+                                          data-ng-model="item.stock"
+                                          you-fan-number=""
+                                          you-fan-size="4">
                                    <i class="icon ion-plus placeholder-icon calm" ng-click="plusStock(item)"></i>
                                </span>
             </ion-item>
@@ -30,7 +32,9 @@
                                    <i class="icon ion-minus placeholder-icon calm" ng-click="subStock(item)"></i>
                                    <input type="text"
                                           style="width: 20px; height: 25px;padding: 0 0 0 5px; background:#eee;"
-                                          data-ng-model="item.stock">
+                                          data-ng-model="item.stock"
+                                          you-fan-number=""
+                                          you-fan-size="4">
                                    <i class="icon ion-plus placeholder-icon calm" ng-click="plusStock(item)"></i>
                                </span>
             </ion-item>
@@ -40,7 +44,9 @@
                                    <i class="icon ion-minus placeholder-icon calm" ng-click="subStock(item)"></i>
                                    <input type="text"
                                           style="width: 20px; height: 25px;padding: 0 0 0 5px; background:#eee;"
-                                          data-ng-model="item.stock">
+                                          data-ng-model="item.stock"
+                                          you-fan-number=""
+                                          you-fan-size="4">
                                    <i class="icon ion-plus placeholder-icon calm" ng-click="plusStock(item)"></i>
                                </span>
             </ion-item>

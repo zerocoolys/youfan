@@ -17,17 +17,19 @@ angular.module('yf_merchant.manage_dishes_service', [])
 
     .factory('ManageDishesService', function ($http, $rootScope, $ionicLoading, YF_MERCHANT_HOST) {
         function saveDishes(dishes) {
+            if ($rootScope.user && $rootScope.user.id != "") {
+                dishes.sellerId = $rootScope.user.id;
+            }
             $http.post(YF_MERCHANT_HOST + "/menu", dishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-save-dishes-success");
             }).error(function (data, status, headers, config) {
-                alert("error");
                 $rootScope.$broadcast("yf-merchant-save-dishes-error");
             })
         }
 
         function allDishes(merchantId, dishesType) {
             $http.get(YF_MERCHANT_HOST + "/menu/list/" + merchantId + "/" + dishesType).success(function (data, status, headers, config) {
-                $rootScope.$broadcast("yf-merchant-load-dishes-success", data.menus);
+                $rootScope.$broadcast("yf-merchant-load-dishes-success", data["payload"]);
             }).error(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-load-dishes-error");
             })
@@ -35,7 +37,7 @@ angular.module('yf_merchant.manage_dishes_service', [])
 
         function allSaleDishes(merchantId) {
             $http.get(YF_MERCHANT_HOST + "/menu/list/" + merchantId).success(function (data, status, headers, config) {
-                $rootScope.$broadcast("yf-merchant-load-dishes-success", data.menus);
+                $rootScope.$broadcast("yf-merchant-load-dishes-success", data["payload"]);
             }).error(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-load-dishes-error");
             })
@@ -45,7 +47,7 @@ angular.module('yf_merchant.manage_dishes_service', [])
             $http.post(YF_MERCHANT_HOST + "/menu/conversion/sale", dishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-dishes-reload");
             }).error(function (data, status, headers, config) {
-                alert("系统错误");
+                $rootScope.$emit("youfan-merchant-show-msg", "远程连接出错");
                 $ionicLoading.hide();
             })
         }
@@ -54,7 +56,7 @@ angular.module('yf_merchant.manage_dishes_service', [])
             $http.post(YF_MERCHANT_HOST + "/menu/conversion/stock", changeDishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-dishes-reload");
             }).error(function (data, status, headers, config) {
-                alert("系统错误");
+                $rootScope.$emit("youfan-merchant-show-msg", "远程连接出错");
                 $ionicLoading.hide();
             })
         }
@@ -63,16 +65,16 @@ angular.module('yf_merchant.manage_dishes_service', [])
             $http.post(YF_MERCHANT_HOST + "/menu/conversion/restNum", changeDishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-dishes-reload");
             }).error(function (data, status, headers, config) {
-                alert("系统错误");
+                $rootScope.$emit("youfan-merchant-show-msg", "远程连接出错");
                 $ionicLoading.hide();
             })
         }
 
         function findOneDishes(menuId) {
             $http.get(YF_MERCHANT_HOST + "/menu/lists/" + menuId).success(function (data, status, headers, config) {
-                $rootScope.$broadcast("yf-merchant-load-dishes-success", data["menu"]);
+                $rootScope.$broadcast("yf-merchant-load-dishes-success", data["payload"]);
             }).error(function (data, status, headers, config) {
-                alert("系统错误");
+                $rootScope.$emit("youfan-merchant-show-msg", "远程连接出错");
                 $rootScope.$broadcast("yf-merchant-error");
                 $ionicLoading.hide();
             })
@@ -82,7 +84,7 @@ angular.module('yf_merchant.manage_dishes_service', [])
             $http.post(YF_MERCHANT_HOST + "/menu/renewal/" + dishes.menuId, dishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-renewal-dishes-success");
             }).error(function (data, status, headers, config) {
-                alert("error");
+                $rootScope.$emit("youfan-merchant-show-msg", "远程连接出错");
                 $rootScope.$broadcast("yf-merchant-save-dishes-error");
             })
         }
@@ -91,7 +93,7 @@ angular.module('yf_merchant.manage_dishes_service', [])
             $http.delete(YF_MERCHANT_HOST + "/menu/menus/" + menuId).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-delete-dishes-success");
             }).error(function (data, status, headers, config) {
-                alert("error");
+                $rootScope.$emit("youfan-merchant-show-msg", "远程连接出错");
                 $rootScope.$broadcast("yf-merchant-save-dishes-error");
             })
         }
@@ -100,7 +102,7 @@ angular.module('yf_merchant.manage_dishes_service', [])
             $http.post(YF_MERCHANT_HOST + "/menu/conversion/type/" + dishes.menuId, dishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-renewal-dishes-success");
             }).error(function (data, status, headers, config) {
-                alert("error");
+                $rootScope.$emit("youfan-merchant-show-msg", "远程连接出错");
                 $rootScope.$broadcast("yf-merchant-save-dishes-error");
             })
         }
