@@ -18,9 +18,7 @@ public class MerchantUserEntity {
 
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
     @Id
-    private String id;
-    @Field(COLLECTION_MERCHANTUSERID)
-    private Long merchantUserId;    //商家个人信息id
+    private String id;    //商家个人信息id
     private String userName;    //商家用户名
     private String passWord;    //商家密码
     @Field(COLLECTION_HEADPORTRAITPICURL)
@@ -48,14 +46,6 @@ public class MerchantUserEntity {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Long getMerchantUserId() {
-        return merchantUserId;
-    }
-
-    public void setMerchantUserId(Long merchantUserId) {
-        this.merchantUserId = merchantUserId;
     }
 
     public String getUserName() {

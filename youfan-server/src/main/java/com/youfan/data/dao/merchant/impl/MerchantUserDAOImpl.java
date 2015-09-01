@@ -3,6 +3,7 @@ package com.youfan.data.dao.merchant.impl;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.Constants;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
+import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.data.support.IdGenerator;
 
@@ -29,8 +30,13 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     private IdGenerator idGenerator;
 
     @Override
-    public MerchantUserVO getMerchantUserInfo(Long id) {
-        return convertToVO(mongoTemplate.findOne(query(where(COLLECTION_MERCHANTUSERID).is(id)), getEntityClass()));
+    public MerchantUserVO getMerchantUserInfo(String id) {
+        MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where(COLLECTION_MERCHANTUSERID).is(id)), getEntityClass());
+        if(merchantUserEntity!=null){
+            return convertToVO(merchantUserEntity);
+        }else{
+            return null;
+        }
     }
 
     @Override
@@ -39,7 +45,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         if (test) {
             Update update = new Update();
             update.set("status", merchantUser.getStatus());
-            update.set(COLLECTION_MERCHANTUSERID, merchantUser.getMerchantUserId());
+            update.set("id", merchantUser.getId());
             update.set("address", merchantUser.getAddress());
             update.set("ageRange", merchantUser.getAgeRange());
             update.set(COLLECTION_HEADPORTRAITPICURL, merchantUser.getHeadPortraitPicUrl());
@@ -47,7 +53,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
             update.set(COLLECTION_IDCARDPICURL, merchantUser.getIdCardPicUrl());
             update.set("realName", merchantUser.getRealName());
             update.set("sex", merchantUser.getSex());
-            return convertToVO(mongoTemplate.findAndModify(query(where(COLLECTION_MERCHANTUSERID).is(merchantUser.getMerchantUserId())), update, getEntityClass()));
+            return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantUser.getId())), update, getEntityClass()));
         } else {
             mongoTemplate.insert(convertToEntity(merchantUser));
             return merchantUser;
@@ -71,13 +77,9 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         merchantUser.setUserName(userName);
         if (!mongoTemplate.collectionExists(getEntityClass())) {
             mongoTemplate.createCollection(getEntityClass());
-            long LongId = generateId(idGenerator.next(COLLECTION_CLIENT_USER));
-            merchantUser.setMerchantUserId(LongId);
             mongoTemplate.insert(convertToEntity(merchantUser));
         } else {
             if (mongoTemplate.findOne(query(where("userName").is(userName)), getEntityClass()) == null) {
-                long LongId = generateId(idGenerator.next(COLLECTION_CLIENT_USER));
-                merchantUser.setMerchantUserId(LongId);
                 mongoTemplate.insert(convertToEntity(merchantUser));
             }
         }
@@ -86,7 +88,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
             return null;
         } else {
             merchantUser.setId(merchantUserEntity.getId());
-            merchantUser.setMerchantUserId(merchantUserEntity.getMerchantUserId());
             return merchantUser;
         }
     }
@@ -119,7 +120,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
                 //注册成功
                 merchantUser.setId(merchantUserEntityRes.getId());
                 map.put("registerStatus", "1");
-                map.put("id", merchantUser.getId().toString());
+                map.put("id", merchantUser.getId());
                 map.put("userName", merchantUser.getUserName());
                 map.put("passWord", merchantUser.getPassWord());
                 return map;

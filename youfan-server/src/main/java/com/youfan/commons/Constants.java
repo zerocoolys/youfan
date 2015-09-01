@@ -51,11 +51,11 @@ public interface Constants {
      */
     String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
     String COLLECTION_USER = "merchantUser";
-    String COLLECTION_MERCHANTKITCHENINFOID = "mki";
+    String COLLECTION_MERCHANTKITCHENINFOID = "id";
     String COLLECTION_HEADPORTRAITPICURL = "hpu";
     String COLLECTION_IDCARDPICURL = "icpu";
     String COLLECTION_HEALTHCERTIFICATEPICURL = "hcpu";
-    String COLLECTION_MERCHANTUSERID = "mui";
+    String COLLECTION_MERCHANTUSERID = "id";
 
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
