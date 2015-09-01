@@ -31,7 +31,12 @@ body {
     color: #1dbeaf;
 
 }
-
+.color{
+    color: #1dbeaf;
+}
+.color:hover{
+    color: #1dbeaf;
+}
 .bar.bar-balanced.bar-footer {
     border-color: #1dbeaf;
     background: #1dbeaf;
