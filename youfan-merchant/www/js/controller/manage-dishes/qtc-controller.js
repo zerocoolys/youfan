@@ -18,7 +18,7 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             $timeout(function () {
                 $scope.$broadcast("scroll.refreshComplete");
                 ManageDishesService.allDishes("888888888", "qtc");
-            }, 500);
+            }, 800);
 
         };
 

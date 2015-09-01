@@ -1,46 +1,40 @@
+<ion-view view-title="设置" class="calm" cache-view="false">
 
-<ion-view hide-nav-bar="true" hide-tabs>
-    <ion-header-bar class="bar bar-header">
-        <a class="button button-clear icon ion-ios-arrow-back" href="#/overview"></a>
-        <div class="h1 title calm" align-text="center">设置</div>
+    <ion-nav-buttons side="left">
+        <button class="button button-clear button-calm" data-ng-click="goState('overview')"><i
+            class="icon ion-ios-arrow-back"></i></button>
+    </ion-nav-buttons>
 
-    </ion-header-bar>
-    <ion-content style="margin-top: 20px;">
+    <ion-content class="padding">
 
-        <div class="list" data-ng-click="pickImage()">
-            <a class="item item-icon-right " href="#">
-              我的银行卡
-                <i class="icon icon-accessory  ion-ios-arrow-right"></i>
+        <div class="list">
+            <a class="item item-icon-right" ui-sref="settings.card">
+                我的银行卡
+                <i class="icon icon-accessory ion-ios-arrow-right"></i>
             </a>
         </div>
         <div class="list">
-
-            <a class="item  item-icon-right" href="#/settings/helps">
-
-                帮&nbsp;助
-                <i class="icon   icon-accessory  ion-ios-arrow-right"></i>
+            <a class="item item-icon-right" ui-sref="settings.helps">
+                帮助
+                <i class="icon icon-accessory ion-ios-arrow-right"></i>
             </a>
         </div>
         <div class="list">
-            <a class="item item-icon-right" href="#/settings/disclaimer">
-             
+            <a class="item item-icon-right" ui-sref="settings.disclaimer">
                 免责声明
-                <i class="icon   icon-accessory ion-ios-arrow-right"></i>
+                <i class="icon icon-accessory ion-ios-arrow-right"></i>
             </a>
         </div>
         <div class="list">
-            <a class="item item-icon-right" href="#/settings/disclaimer">
-
-             检测新版本
-                <i class="icon  icon-accessory ion-ios-arrow-right"></i>
+            <a class="item item-icon-right" ui-sref="settings.disclaimer">
+                检测新版本
+                <i class="icon icon-accessory ion-ios-arrow-right"></i>
             </a>
         </div>
-
 
     </ion-content>
-    <div class="bar bar-footer bar-calm">
-        <div class="button-bar">
-            <a class="button button-clear" href="#">退出账号</a>
-        </div>
-    </div>
+
+    <ion-footer-bar class="bar-positive">
+        <a class="title" href="#">退出账号</a>
+    </ion-footer-bar>
 </ion-view>
