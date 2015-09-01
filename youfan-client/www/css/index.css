@@ -21,9 +21,11 @@
 .home_item .list .list {
     background: #fff;
 }
-.home_item .item .badge{
-    right:10px;
+
+.home_item .item .badge {
+    right: 10px;
 }
+
 .home_item .item {
     overflow: inherit;
     padding: 0 0 10px 0;
@@ -586,6 +588,7 @@ ul.rating li {
 ul.rating li i {
     font-size: 20px;
 }
+
 .profile-item {
     text-align: center;
 }
@@ -605,7 +608,7 @@ ul.rating li i {
 
 .profile-picture img {
     width: 68px;
-    height:68px;
+    height: 68px;
     border-radius: 100%;
 }
 
@@ -615,10 +618,21 @@ ul.rating li i {
     font-weight: bold !important;
     text-transform: capitalize;
 }
-.profile-item .button-small{
-    min-width:150px;
+
+.profile-item .button-small {
+    min-width: 150px;
 
 }
-.message .tab-content{
-    top:93px;
+
+.message .tab-content {
+    top: 93px;
+}
+
+.dash_detail.addcolor .bar-header i {
+    color: #1dbeaf;
+}
+
+.dash_detail.addcolor .bar.bar-light {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid #1dbeaf;
 }

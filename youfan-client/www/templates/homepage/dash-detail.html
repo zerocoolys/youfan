@@ -1,4 +1,4 @@
-<ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail">
+<ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail"  ng-class="{'addcolor': AddColor}">
     <ion-header-bar class="bar-header bar-light">
         <a ui-sref="tab.dash"><i class="ion-ios-arrow-left"></i></a>
 
@@ -10,9 +10,9 @@
             <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher></i>
         </div>
     </ion-header-bar>
-    <ion-content style="background-color: #fff">
+    <ion-content style="background-color: #fff"  on-scroll="onContentScroll()">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
-                       slide-interval="2000">
+                       slide-interval="2000" style="height:200px;">
             <ion-slide>
                 <div class="box blue"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
@@ -160,7 +160,7 @@
             <!--<a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"-->
             <!--ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>-->
             <a class="button button-clear" style="border-right: 1px solid #fff;" ng-click="toggleMenu()">
-                <span class="cart_bg mainColor"><i class="icon ion-android-cart icon-accessory"></i>&nbsp;&nbsp;{{count}}</span>
+                <span class="cart_bg mainColor"><i class="ion-android-cart icon-accessory"></i>&nbsp;&nbsp;{{count}}</span>
                 <span>￥{{subtotal}}</span>
             </a>
             <a class="button button-clear" ng-click="confirmOrder()">选好了</a>
