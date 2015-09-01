@@ -23,18 +23,13 @@ public interface UserService {
     void update(UserVO uc);
 
     /**
-     * 查询所有用户端用户信息
-     */
-    void fetchAllUC();
-
-    /**
      * 根据用户电话号码查询用户信息
      *
      * @param tel
      * @return
      * @throws UserException
      */
-    UserVO getUserByTel(String tel) throws UserException;
+    UserVO getUserByTel(String tel);
 
     /**
      * 根据用户电话号码和密码 进行登陆
@@ -44,5 +39,5 @@ public interface UserService {
      * @return
      * @throws UserException
      */
-    UserVO findUserByTelAndPwd(String tel, String pwd) throws UserException;
+    UserVO findUserByTelAndPwd(String tel, String pwd);
 }

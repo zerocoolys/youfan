@@ -29,20 +29,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
-    public void fetchAllUC() {
-
-    }
 
     @Override
-    public UserVO getUserByTel(String tel) throws UserException {
+    public UserVO getUserByTel(String tel){
         return null;
     }
 
     @Override
-    public UserVO findUserByTelAndPwd(String tel, String pwd) throws UserException {
-
-        UserVO result = ucDAO.getUserByTelAndPwd(tel, pwd);
-        return result;
+    public UserVO findUserByTelAndPwd(String tel, String password){
+        return ucDAO.getUserByTelAndPwd(tel, password);
     }
 }

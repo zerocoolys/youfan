@@ -6,12 +6,10 @@ package com.youfan.commons.vo.client;
 public class UserVO {
 
     private String id;
-    //用户id
-    private Long userId;
     //用户电话 作为 登陆账号
     private String tel;
     //登陆密码
-    private String loginPwd;
+    private String password;
     //昵称
     private String name;
     //性别
@@ -33,14 +31,6 @@ public class UserVO {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getTel() {
         return tel;
     }
@@ -49,12 +39,12 @@ public class UserVO {
         this.tel = tel;
     }
 
-    public String getLoginPwd() {
-        return loginPwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
