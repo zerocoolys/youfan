@@ -173,14 +173,12 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
 	@Override
 	public Class<MerchantUserEntity> getEntityClass() {
-		// TODO Auto-generated method stub
-		return null;
+		return MerchantUserEntity.class;
 	}
 
 	@Override
 	public Class<MerchantUserVO> getVOClass() {
-		// TODO Auto-generated method stub
-		return null;
+		return MerchantUserVO.class;
 	}
 
 	@Override
