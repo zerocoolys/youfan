@@ -127,10 +127,9 @@ public interface MerchantUsersService {
      * 获取商家厨房所有信息
      *
      * @param id 商家用户id或厨房信息id
-     * @return MerchantKitchenInfoVO对象
-     * @throws KitchenInfoException
+     * @return MerchantUserVO对象
      */
-    public MerchantKitchenInfoVO getMerchantKitchenInfo(Long id) throws KitchenInfoException;
+    public MerchantUserVO getMerchantUserInfo(Long id);
 
     MerchantKitchenInfoVO mrFindById(String id);
 
