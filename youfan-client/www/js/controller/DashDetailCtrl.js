@@ -1,10 +1,8 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $stateParams, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout) {
-
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $stateParams, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout, $ionicScrollDelegate) {
     // ========================= guochunyan =========================
-    $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
 
     //购物车显示隐藏
@@ -36,31 +34,14 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     $scope.activeSlide = function (index) {
         $ionicSlideBoxDelegate.slide(index);
     };
-
-    $scope.ZanPopup = function () {
-        $scope.data = {};
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '点赞成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
-    };
-
-    $scope.CPopup = function () {
-        var myPopup = $ionicPopup.show({
-            cssClass: 'zan_popup',
-            template: '收藏成功',
-            scope: $scope
-        });
-        $timeout(function () {
-            myPopup.close(); //close the popup after 3 seconds for some reason
-        }, 1000);
-    };
-
-
+    $scope.onContentScroll = function () {
+        if ($ionicScrollDelegate.getScrollPosition().top > 200) {
+            $scope.AddColor = true;
+        }
+        else {
+            $scope.AddColor = false;
+        }
+    }
     // ========================= dolphineor =========================
     $scope.items = {
         data: []
