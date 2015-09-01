@@ -120,4 +120,5 @@ public class MerchantUserEntity {
     public void setHealthCertificatePicUrl(String healthCertificatePicUrl) {
         this.healthCertificatePicUrl = healthCertificatePicUrl;
     }
+
 }
