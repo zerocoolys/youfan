@@ -44,6 +44,21 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+<<<<<<< HEAD
+    @Override
+    public UserVO findOne(String id) {
+        return null;
+    }
+
+    @Override
+    public void insert(UserVO userClientVO) {
+        ClientUserEntity ucEntity = convertToEntity(userClientVO);
+        mongoTemplate.insert(ucEntity, COLLECTION_CLIENT_USER);
+    }
+
+    @Override
+    public void delete(String id) {
+=======
 	@Override
 	public UserVO getUserByTelAndPwd(String tel, String pwd) {
 
@@ -60,6 +75,7 @@ public class UserDaoImpl implements UserDao {
 	public Class<ClientUserEntity> getEntityClass() {
 		return ClientUserEntity.class;
 	}
+>>>>>>> origin/youfan-server
 
 	@Override
 	public Class<UserVO> getVOClass() {
@@ -73,11 +89,22 @@ public class UserDaoImpl implements UserDao {
 		UserVO userVO = mongoTemplate.findOne(buildQueryByUid(uid),
 				UserVO.class, COLLECTION_CLIENT_USER);
 
+<<<<<<< HEAD
+    @Override
+    public UserVO getUserByTelAndPwd(String tel, String password) {
+
+        return convertToVO(mongoTemplate.findOne(
+                buildQuery(tel, password),
+                getEntityClass(),
+                COLLECTION_CLIENT_USER));
+    }
+=======
 		return userVO;
 	}
 
 	public Query buildQueryByUid(Long uid) {
 		Criteria criteria = Criteria.where("userId").is(uid);
+>>>>>>> origin/youfan-server
 
 		return Query.query(criteria);
 	}
