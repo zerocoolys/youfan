@@ -32,7 +32,7 @@
                                 <p ng-class=" headerIndex=='YZDC' ? 'display_none':''" class="item-note mainColor">待付款</p>
                                 -->
                             </ion-item>
-                            <ion-item class="item-thumbnail-left item-avatar" href="#/order_Details">
+                            <ion-item class="item-thumbnail-left item-avatar">
 
                                 <img src="{{order.img}}">
 
@@ -50,7 +50,8 @@
 
                                 <h2>订单金额：{{order.price}}
                                     <button class="fr button button-calm button-small" style="padding: 0 20px;"
-                                            ng-class=" headerIndex=='YZDC' ? 'display_none':''">查看
+                                            ng-class=" headerIndex=='YZDC' ? 'display_none':''"
+                                            ng-click="goToDetail(order.orderNo)">查看
                                     </button>
                                 </h2>
 

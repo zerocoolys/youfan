@@ -36,15 +36,15 @@
 
                         <p class="item-note mainColor">待付款</p>
                     </ion-item>
-                    <ion-item class="order_Details " href="#/order_Details">
+                    <ion-item class="order_Details ">
                         <ul>
-                            <li><b>订单号：</b>1231792655845201</li>
-                            <li><b>下单时间：</b>2015年06月05日 周六 13:39</li>
-                            <li><b>支付方式：</b>货到付款</li>
-                            <li><b>联系人：</b>李忠诚</li>
-                            <li><b>手机号码：</b>15159862314</li>
-                            <li><b>收货地址:</b> 天府软件园d7-903</li>
-                            <li><b>配送信息:</b> 本地单由京东外卖提供配送服务</li>
+                            <li><b>订单号：</b>{{detialOrder.orderNo}}</li>
+                            <li><b>下单时间：</b>{{detialOrder.orderTime| date:'yyyy-MM-dd HH:mm:ss'}}</li>
+                            <li><b>支付方式：</b>{{detialOrder.paymentMethod}}</li>
+                            <li><b>联系人：</b>{{detialOrder.buyerName}}</li>
+                            <li><b>手机号码：</b>{{detialOrder.phone}}</li>
+                            <li><b>收货地址:</b> {{detialOrder.repastAddress}}</li>
+                            <li><b>配送信息:</b> {{detialOrder.comment}}</li>
                         </ul>
                     </ion-item>
                 </ion-list>
@@ -52,7 +52,7 @@
     </ion-content>
     <div class="bar bar-footer bar-calm">
         <div class="button-bar">
-            <a class="button button-clear" href="#">确认</a>
+            <a class="button button-clear" ng-click="updateStatus(detialOrder.orderNo)">确认</a>
         </div>
     </div>
 </ion-view>

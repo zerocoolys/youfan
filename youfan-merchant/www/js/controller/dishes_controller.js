@@ -89,5 +89,10 @@
 
         $scope.loadOrderOrDishData();
 
+
+        $scope.goToDetail = function (orderNo) {
+            $state.go('order_Details',{ 'orderNo':orderNo});
+        }
+
     }
 })();
