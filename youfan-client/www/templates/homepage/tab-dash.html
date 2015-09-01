@@ -36,7 +36,7 @@
         </ion-slide-box>
         <ion-list>
             <ion-item class="item" ng-repeat="mc in merChantData">
-                <div class="list" ui-sref="tab.dash-detail({merchantId:mc.merchantKitchenInfoId})">
+                <div class="list"  ng-click="goTo(mc.id)">
                     <div class="item item-body img_box">
                         <img class="full-image" src="{{mc.src}}"></a>
                         <div class="img_text">

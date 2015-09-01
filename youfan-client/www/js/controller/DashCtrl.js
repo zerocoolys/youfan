@@ -28,7 +28,6 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
         $http.get(REST_URL + "/mr/getMrData").success(function (result) {
             if (result.payload.length) {
                 result.payload.forEach(function (item) {
-                    console.log(item);
                     item["src"] = "img/1.jpg";
                     item["headImg"] = "img/avatar1.jpg";
                     $scope.merChantData.push(item);
@@ -40,6 +39,10 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
         });
     }
     $scope.initMerchant();
+    $scope.goTo=function(_mki){
+        Merchant.mki=_mki;
+        $state.go("tab.dash-detail");
+    }
     /**
      * 验证码登陆
      */
