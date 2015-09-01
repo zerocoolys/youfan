@@ -49,13 +49,25 @@ public interface Constants {
     String COLLECTION_USER = "merchantUser";
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
+    String COLLECTION_COUPONS = "coupons";
 
 
-    /*  subDong  */
+    /*  我的消息 subDong  */
     // messages 查询字段
+    String MESSAGE_ID = "id";
     String MESSAGE_RECEIVERID = "receiverId";
     String MESSAGE_RECEIVERPORT = "receiverPort";
     String MESSAGE_DATE = "date";
     String MESSAGE_STATUS = "status";
-    String MESSAGE_ID = "id";
+
+
+    /*  优惠卷 subDong  */
+    String CONPONS_ID = "id";
+    String COUPONS_STATUS = "status";
+    String CONPONS_COUPONSID = "cid";
+    String CONPONS_CREATEDATE = "cd";
+    String CONPONS_MODIFYDATE = "md";
+    String CONPONS_STATUS = "status";
+    String CONPONS_DATASTATUS = "ds";
+    String CONPONS_USERID = "userid";
 }
