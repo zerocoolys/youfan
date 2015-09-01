@@ -110,7 +110,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/commentlist.html",
-                        controller: 'CommentDetailCtrl'
+                        controller: 'CommentListCtrl'
                     }
                 }
             })
@@ -262,7 +262,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            //短信验证码登陆
+            //注册
             .state('tab.user-register', {
                 url: '/user-register',
                 views: {
@@ -279,6 +279,16 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-dash': {
                         templateUrl: 'templates/login/reset-pwd.html',
                         controller: 'ResetPwdCtrl'
+                    }
+                }
+            })
+//            设置密码
+            .state('tab.set-pwd', {
+                url: '/set-pwd',
+                views: {
+                    'tab-chats': {
+                        templateUrl: 'templates/login/set-pwd.html',
+                        controller: 'SetPwdCtrl'
                     }
                 }
             })
@@ -323,11 +333,20 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 }
             })
             .state('tab.Map', {
-                url: '/mapCtrl',
+                url: '/mapCtrl/:lg',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/map.html',
                         controller: 'MapContainer'
+                    }
+                }
+            })
+            .state('tab.comment-details', {
+                url: '/comment-details',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/homepage/comment-detail.html',
+                        controller: 'CommentDetailCtrl'
                     }
                 }
             })

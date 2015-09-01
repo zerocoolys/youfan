@@ -22,6 +22,10 @@
     background: #fff;
 }
 
+.home_item .item .badge {
+    right: 10px;
+}
+
 .home_item .item {
     overflow: inherit;
     padding: 0 0 10px 0;
@@ -484,4 +488,151 @@ Alpha(opacity = 100);
 
 .care p i {
     margin-right: 2px;
+}
+
+/*评论详情*/
+.comment_detail .list .item-thumbnail-left p i {
+    font-size: 18px;
+    color: #e4c615;
+}
+
+.comment_input.item {
+    background: #fff;
+    height: auto;
+    padding: 0 0 10px 0;
+    border: none;
+}
+
+.comment_input.item .item-input {
+    padding: 16px;
+    margin-bottom: 5px;
+    border-bottom: none;
+}
+
+.comment_input.item button {
+    margin-left: 10px;
+}
+
+.comment_detail .checkbox input {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+.comment_detail .checkbox input:after, .checkbox-icon:after {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    display: table;
+    width: 10px;
+    height: 6px;
+}
+
+.range-container input[type="range"] {
+    display: inline-block;
+    overflow: visible;
+    margin: -45px auto 5px auto;
+    width: 145px;
+    height: 60px;
+    outline: none;
+    background: transparent;
+    background-position: center;
+    background-size: 99% 4px;
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+}
+
+.range-container input[type="range"]::-webkit-slider-thumb {
+    position: relative;
+    width: 30px;
+    height: 20px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: #CB0001;
+    background-color: transparent;
+    box-shadow: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.range-container input[type="range"]::-webkit-slider-thumb:before {
+    position: absolute;
+    top: 8px;
+    left: -2001px;
+    width: 2000px;
+    height: 0px;
+    background: #FFF;
+    content: ' ';
+}
+
+.range-container input[type="range"]::-webkit-slider-thumb:after {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    padding: 30px;
+    content: ' ';
+}
+
+.range-container {
+    width: 160px;
+}
+
+ul.rating li {
+    display: inline;
+    border: 0px;
+    background: none;
+    padding: 0px;
+    color: #e4c615;
+}
+
+ul.rating li i {
+    font-size: 20px;
+}
+
+.profile-item {
+    text-align: center;
+}
+
+.profile-picture {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    padding: 3px;
+    border-radius: 100%;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    margin: 0 auto;
+    width: 68px;
+    height: 68px;
+    overflow: hidden;
+}
+
+.profile-picture img {
+    width: 68px;
+    height: 68px;
+    border-radius: 100%;
+}
+
+.profile-name {
+    padding-top: 10px;
+    font-size: x-large !important;
+    font-weight: bold !important;
+    text-transform: capitalize;
+}
+
+.profile-item .button-small {
+    min-width: 150px;
+
+}
+
+.message .tab-content {
+    top: 93px;
+}
+
+.dash_detail.addcolor .bar-header i {
+    color: #1dbeaf;
+}
+
+.dash_detail.addcolor .bar.bar-light {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid #1dbeaf;
 }

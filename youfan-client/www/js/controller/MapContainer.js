@@ -1,16 +1,29 @@
 ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cordovaGeolocation) {
     $scope.geolocation;
     $scope.mapObj;
-
+    $scope.lg = {
+        x: 104.065735,
+        y: 30.657425
+    }
+    $scope.initMapLg = function () {
+        var lg = $stateParams.lg;
+        if (lg) {
+            if (lg.indexOf(",")) {
+                $scope.lg.x = parseFloat(lg.split(",")[0]);
+                $scope.lg.y = parseFloat(lg.split(",")[1]);
+            }
+        }
+    }
+    $scope.initMapLg();
     //加载地图，调用浏览器定位服务
     $scope.mapObj = new AMap.Map('mapContainer', {
         resizeEnable: true,
         view: new AMap.View2D({
-            center: new AMap.LngLat(104.065735, 30.657425),//地图中心点
+            center: new AMap.LngLat($scope.lg.x,$scope.lg.y),//地图中心点
             zoom: 16 //地图显示的缩放级别
         })
     });
-    dataXY = [{x: 104.065735, y: 30.657425}];
+    dataXY = [{x: $scope.lg.x, y: $scope.lg.y}];
     mapApiUtils.setMarker(dataXY, $scope.mapObj);
     //比例工具尺定位
     mapApiUtils.toolBar($scope.mapObj);
@@ -34,11 +47,11 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
         //返回定位成功处理
         AMap.event.addListener($scope.geolocation, 'complete', function (data) {
             var lnglatXY = new AMap.LngLat(data.position.getLng(), data.position.getLat());
-            var a = new AMap.LngLat(104.065735,30.657425);
+            var a = new AMap.LngLat($scope.lg.x,$scope.lg.y);
             //获取详细地址
             mapTools.geocoder(a, function (data) {
                 $scope.$apply(function () {
-                        $scope.geocoder = data;
+                    $scope.geocoder = data;
                 })
             });
             //通过经纬度计算地理距离
