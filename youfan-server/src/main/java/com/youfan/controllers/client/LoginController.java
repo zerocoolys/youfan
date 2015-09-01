@@ -1,6 +1,9 @@
 package com.youfan.controllers.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youfan.commons.vo.client.UserVO;
+import com.youfan.controllers.support.Response;
+import com.youfan.controllers.support.Responses;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.client.UserService;
 import org.slf4j.Logger;
@@ -38,36 +41,35 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.POST, path = "/register", produces = "application/json")
     public void register(@RequestBody UserVO uc) {
 
+        UserVO userVO = new UserVO();
+
         String tel = uc.getTel();
 
-        uc.setLoginPwd("待完善");
-        uc.setName("优饭" + tel.substring(tel.length() - 4, tel.length()));
-        uc.setSex("待完善");
-        uc.setAge("待完善");
-        uc.setJobs("待完善");
-        ucService.insert(uc);
+        userVO.setTel(tel);
+        userVO.setPassword(uc.getPassword());
+        userVO.setName("优饭" + tel.substring(tel.length() - 4, tel.length()));
+        userVO.setSex("待完善");
+        userVO.setAge("待完善");
+        userVO.setJobs("待完善");
+
+        ucService.insert(userVO);
     }
 
     /**
      * 用户登陆
      */
     @RequestMapping(method = RequestMethod.POST, path = "/login", produces = "application/json")
-    public ModelAndView login(@RequestBody UserVO ucVO) {
+    public Response login(@RequestBody UserVO ucVO) {
 
+        Response response = null;
         UserVO userClientVO = new UserVO();
         try {
-            userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getLoginPwd());
-        } catch (UserException e) {
-            System.out.println(e.getMessage());
+            userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getPassword());
+            response = Responses.SUCCESS().setPayload(userClientVO);
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
         }
-
-        Map<String, Object> ucMap = new HashMap<>();
-        ucMap.put("result", userClientVO);
-        AbstractView jsonView = new MappingJackson2JsonView();
-        jsonView.setAttributesMap(ucMap);
-
-        logger.info("find:" + jsonView);
-
-        return new ModelAndView(jsonView);
+        return response;
     }
 }

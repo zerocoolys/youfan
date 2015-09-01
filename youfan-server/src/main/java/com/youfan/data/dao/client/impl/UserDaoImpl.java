@@ -19,21 +19,18 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public UserVO findOne(Long id) {
+    public UserVO findOne(String id) {
         return null;
     }
 
     @Override
     public void insert(UserVO userClientVO) {
         ClientUserEntity ucEntity = convertToEntity(userClientVO);
-        long userId = generateId(idGenerator.next(COLLECTION_CLIENT_USER));
-        ucEntity.setUserId(userId);
-
         mongoTemplate.insert(ucEntity, COLLECTION_CLIENT_USER);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
 
     }
 
@@ -43,10 +40,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserVO getUserByTelAndPwd(String tel, String pwd) {
+    public UserVO getUserByTelAndPwd(String tel, String password) {
 
         return convertToVO(mongoTemplate.findOne(
-                buildQuery(tel, pwd),
+                buildQuery(tel, password),
                 getEntityClass(),
                 COLLECTION_CLIENT_USER));
     }
