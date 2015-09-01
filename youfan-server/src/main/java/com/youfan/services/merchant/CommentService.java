@@ -11,4 +11,6 @@ public interface CommentService {
     Integer createCm(CommentVO cm);
 
     List<CommentVO> findComment();
+
+    CommentVO findCommentById(String id);
 }

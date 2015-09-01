@@ -2,7 +2,6 @@ package com.youfan.data.models;
 
 import com.youfan.commons.Constants;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -18,12 +17,7 @@ public class CommentEntity {
     @Id
     String id;
 
-
-
-    @Indexed(unique = true)
-    Long coId;
-
-    Long orderId;
+    Integer orderId;
 
     @Field(Constants.COMMENT_USER)
     String commentUser;
@@ -47,14 +41,6 @@ public class CommentEntity {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Long getCoId() {
-        return coId;
-    }
-
-    public void setCoId(Long coId) {
-        this.coId = coId;
     }
 
     public String getCommentUser() {
@@ -105,11 +91,11 @@ public class CommentEntity {
         this.imgUrl = imgUrl;
     }
 
-    public Long getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 

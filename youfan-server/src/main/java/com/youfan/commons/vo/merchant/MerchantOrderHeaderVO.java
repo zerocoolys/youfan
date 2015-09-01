@@ -10,7 +10,7 @@ import java.util.List;
 public class MerchantOrderHeaderVO {
 
     private String orderNo;
-    private Long buyerId;
+    private String buyerId;
     private int orderStatus;
     private double price;
     private Timestamp repastTime;
@@ -38,11 +38,11 @@ public class MerchantOrderHeaderVO {
         this.orderNo = orderNo;
     }
 
-    public Long getBuyerId() {
+    public String getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(Long buyerId) {
+    public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }
 

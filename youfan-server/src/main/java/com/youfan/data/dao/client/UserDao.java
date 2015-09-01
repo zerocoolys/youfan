@@ -30,7 +30,7 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, String> 
     UserVO getUserByTel(String tel);
 
    //根据用于ID查询用户
-    UserVO findByUid(Long uid);
+    UserVO findByid(String id);
 
 
     @Override
