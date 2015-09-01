@@ -2,23 +2,6 @@
  * Created by icepros on 15-8-19.
  */
 ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state){
-    /**
-     * 验证码登陆
-     */
-//    $ionicModal.fromTemplateUrl('templates/user-register.html', {
-//        scope: $scope
-//    }).then(function(modal) {
-//        $scope.verifyLogin = modal;
-//    });
-
-    /**
-     * 密码登陆
-     */
-//    $ionicModal.fromTemplateUrl('templates/pwd-login.html', {
-//        scope: $scope
-//    }).then(function(modal) {
-//        $scope.pwdLogin = modal;
-//    });
 
     /**
      * 用户协议
@@ -30,105 +13,34 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
     });
 
     /**
-     * DI
-     * @type {{tel: string, password: string, verificationCode: string}}
+     * 协助字段
+     * @type {{captcha: string, rePassword: string}}
      */
-    $scope.user = {
-        verificationCode: ""
-    };
-
-    $scope.userClient = {
-        tel: "",
-        loginPwd: "",
-        name: "",
-        sex: "",
-        age: "",
-        jobs: ""
+    $scope.verify = {
+        captcha: "",
+        rePassword: ""
     };
 
     /**
-     * 密码验证登陆
+     * 表单字段
+     * @type {{tel: string, password: string}}
      */
-    /*$scope.signPwd = function(){
-        var tel = $scope.userClient.tel;
-        var password = $scope.userClient.loginPwd;
-        if(tel == ""){
-            var popupNull = $ionicPopup.show({
-                title: '请输入手机号',
-                scope: $scope
-            });
-            $timeout(function() {
-                popupNull.close(); //由于某种原因2秒后关闭弹出
-            }, 2000);
-        }else{
-            if(password == ""){
-                var popupCodeNull = $ionicPopup.show({
-                    title: '请输入密码',
-                    scope: $scope
-                });
-                $timeout(function() {
-                    popupCodeNull.close(); //由于某种原因2秒后关闭弹出
-                }, 2000);
-            } else {
-
-                var postData = {
-                    tel: tel,
-                    loginPwd: password
-                };
-
-                $http.post("http://localhost:8080/client/login/", JSON.stringify(postData))
-                    .success(function (data) {
-                        if(data.result != null){
-                            $scope.pwdLogin.hide()
-                            $state.go('tab.chats');
-                        } else {
-                            var dataNull = $ionicPopup.show({
-                                title: '手机号和密码不对',
-                                scope: $scope
-                            });
-                            $timeout(function() {
-                                dataNull.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
-                        }
-
-                    }).error(function(data){
-                        if(data.tel == null){
-                            var telNull = $ionicPopup.show({
-                                title: '手机号和密码不对',
-                                scope: $scope
-                            });
-                            $timeout(function() {
-                                telNull.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
-                        }
-                        if(data.password == null){
-                            var pwdNull = $ionicPopup.show({
-                                title: '手机号和密码不对',
-                                scope: $scope
-                            });
-                            $timeout(function() {
-                                pwdNull.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
-                        }
-
-                    });
-
-            }
-
-        }
-    };*/
+    $scope.user = {
+        tel: "",
+        password: ""
+    };
 
     /**
      * 发送验证码
      */
     $scope.sendMessage = function(){
 
-        var tel = $scope.userClient.tel;
+        var tel = $scope.user.tel;
         var re= /(^1[3|5|8][0-9]{9}$)/;
         if(tel != ""){
             $scope.code = "";      //验证码
             var codeLength = 6; //验证码长度
-            if(!re.test(tel)){
+            if(!re.test(tel.trim())){
                 var myPopup = $ionicPopup.show({
                     title: '请输入正确的手机号',
                     scope: $scope
@@ -141,15 +53,16 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                 for ( var i = 0; i < codeLength; i++) {
                     $scope.code += parseInt(Math.random() * 9).toString();
                 }
+                var model = {
+                    "captchaKey": "key" + tel,
+                    "captcha": $scope.code
+                }
+
                 // 向后台发送处理数据
                 $scope.url = "http://07zhywjh.6655.la:19982/platform/sendSMS/1/" + $scope.code + "/" + tel;
                 $http.get($scope.url).success(function(data) {
-                    //console.log(data);
-                    /*if(data.statusCode == "000000"){
-                        return data;
-                     }else{
-                        return "";
-                     }*/
+                    console.log(data);
+                    $http.post("http://localhost:8080/register/captcha",JSON.stringify(model));
                 }).then(function(response){
 
                 });
@@ -170,8 +83,12 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
      */
     $scope.messageLogin = function(){
 
-        var tel = $scope.userClient.tel;
-        var verificationCode = $scope.user.verificationCode;
+        var captcha = $scope.verify.captcha;
+        var rePassword = $scope.verify.rePassword;
+
+        var tel = $scope.user.tel;
+        var password = $scope.user.password;
+
         if(tel == ""){
             var popupNull = $ionicPopup.show({
                 title: '请输入手机号',
@@ -181,7 +98,7 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                 popupNull.close(); //由于某种原因2秒后关闭弹出
             }, 2000);
         }else{
-            if(verificationCode == ""){
+            if(captcha == ""){
                 var popupCodeNull = $ionicPopup.show({
                     title: '请输入验证码',
                     scope: $scope
@@ -191,22 +108,10 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                 }, 2000);
             } else {
 
-                /*$http.post("http://localhost:8080/client/register", JSON.stringify($scope.userClient))
-                    .success(function (data) {
-                        if(data != null){
-                            $scope.verifyLogin.hide()
-                            $state.go('tab.chats');
-                        }
-
-
-                    }).error(function(data){
-                        console.log(data);
-                    });*/
-
-                if($scope.verificationCode != ""){
+                if(captcha != ""){
                     if($scope.code != undefined){
                         var code = $scope.url.split("/")[6];
-                        if(verificationCode != code){
+                        if(captcha.trim() != code){
                             var popupCodeError = $ionicPopup.show({
                                 title: '验证码错误',
                                 scope: $scope
@@ -215,15 +120,63 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                                 popupCodeError.close(); //由于某种原因2秒后关闭弹出
                             }, 2000);
                         } else {
-                            $http.post("http://localhost:8080/client/register", JSON.stringify($scope.userClient))
-                                .success(function (data) {
-                                    //console.log(data.result);
-                                    $scope.verifyLogin.hide()
-                                    $state.go('tab.chats');
+                            var model = {
+                                "captchaKey": "client_captcha" + tel
+                            };
+                            if(password.trim() != ""){
+                                if(rePassword.trim() != ""){
+                                    if(password.trim() == rePassword.trim()){
 
-                                }).error(function(data){
-                                    console.log(data);
+                                        $http.post("http://localhost:8080/register/verify",JSON.stringify(model))
+                                            .success(function(data){
+                                                //console.log(data);
+                                                if(data.payload == true){
+                                                    $http.post("http://localhost:8080/client/register", JSON.stringify($scope.user))
+                                                        .success(function (data) {
+                                                            //console.log(data.result);
+                                                            $state.go('tab.chats');
+                                                        }).error(function(data){
+                                                            console.log(data);
+                                                        });
+                                                } else {
+                                                    var captchaFailure = $ionicPopup.show({
+                                                        title: '验证码超时',
+                                                        scope: $scope
+                                                    });
+                                                    $timeout(function() {
+                                                        captchaFailure.close(); //由于某种原因2秒后关闭弹出
+                                                    }, 2000);
+                                                }
+
+                                            });
+                                    } else {
+                                        var passwordEquals = $ionicPopup.show({
+                                            title: '请确保两次输入的密码一致i',
+                                            scope: $scope
+                                        });
+                                        $timeout(function() {
+                                            passwordEquals.close(); //由于某种原因2秒后关闭弹出
+                                        }, 2000);
+                                    }
+
+                                } else {
+                                    var passwordNull = $ionicPopup.show({
+                                        title: '请确认密码',
+                                        scope: $scope
+                                    });
+                                    $timeout(function() {
+                                        passwordNull.close(); //由于某种原因2秒后关闭弹出
+                                    }, 2000);
+                                }
+                            } else {
+                                var passwordNull = $ionicPopup.show({
+                                    title: '请输入密码',
+                                    scope: $scope
                                 });
+                                $timeout(function() {
+                                    passwordNull.close(); //由于某种原因2秒后关闭弹出
+                                }, 2000);
+                            }
                         }
                     } else {
                         var noPopupCode = $ionicPopup.show({
