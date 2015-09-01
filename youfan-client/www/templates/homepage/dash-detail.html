@@ -24,7 +24,7 @@
             </ion-slide>
         </ion-slide-box>
         <div class="list_detail_person_img">
-            <img src="img/avatar1.jpg">
+            <img ng-src="{{merchantUser.headPortraitPicUrl}}">
         </div>
         <div class="how_delivery text-right">
             <span class="active">送</span>
@@ -40,14 +40,14 @@
                 <i class="icon ion-star" style="color: #e4e400"></i>
                 <i class="icon ion-star" style="color: #e4e400"></i>
 
-                <p style="margin-top: 5px">李先生 海南人</p>
+                <p style="margin-top: 5px"><span ng-bind="merchantUser.realName">李先生</span> <span ng-bind="merchantUser.address">海南人</span></p>
 
-                <p style="margin-top: 35px">10:00 - 22:00 开放厨房</p>
+                <p style="margin-top: 35px"><span ng-bind="merchantObj.startTime"></span> - <span ng-bind="merchantObj.endTime"></span> 开放厨房</p>
 
                 <div class="row padding">
                     <a class="col col-30 col-offset-15 button-small button bar-balanced button-outline"
                        ui-sref="tab.comment-detail">234条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-30 bar-balanced button-small button button-outline">联系厨房</a>
+                    <a class="col col-30 bar-balanced button-small button button-outline" href="tell:18628903283">联系厨房</a>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
                     <i class="icon_bg ion-location icon-accessory"></i>
                 </span>
 
-                <h2 ui-sref="tab.Map" ng-bind="merchantObj.kitchenAddress">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
+                <h2 ui-sref="tab.Map" ng-bind="merchantObj.kitchenAddress" >四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
