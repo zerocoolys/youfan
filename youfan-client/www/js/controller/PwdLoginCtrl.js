@@ -6,17 +6,14 @@ ControllerModule.controller('PwdLoginCtrl', function($scope, $ionicModal, $ionic
     /**
      * 密码验证登陆
      */
-    $scope.userClient = {
+    $scope.user = {
         tel: "",
-        loginPwd: "",
-        name: "",
-        sex: "",
-        age: "",
-        jobs: ""
+        password: ""
     };
+
     $scope.signPwd = function(){
-        var tel = $scope.userClient.tel;
-        var password = $scope.userClient.loginPwd;
+        var tel = $scope.user.tel;
+        var password = $scope.user.password;
         if(tel == ""){
             var popupNull = $ionicPopup.show({
                 title: '请输入手机号',
@@ -35,13 +32,11 @@ ControllerModule.controller('PwdLoginCtrl', function($scope, $ionicModal, $ionic
                     popupCodeNull.close(); //由于某种原因2秒后关闭弹出
                 }, 2000);
             } else {
-                $http.post("http://localhost:8080/client/login/" + $scope.userClient.tel + "/"+$scope.userClient.loginPwd)
+                $http.post("http://localhost:8080/client/login/", JSON.stringify($scope.user))
                     .success(function (data) {
+                        console.log(data.code);
 
-                        console.log(data)
-
-                        if(data.result.tel != null){
-                            $scope.pwdLogin.hide()
+                        if(data.code == 0){
                             $state.go('tab.chats');
                         } else {
                             var dataNull = $ionicPopup.show({
