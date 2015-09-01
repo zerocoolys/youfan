@@ -16,8 +16,8 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                 $scope.rice.count = 1;
             }
 
-            if (!$scope.orderCartMap.containsKey($scope.rice.menuId)) {
-                $scope.orderCartMap.put($scope.rice.menuId, $scope.rice);
+            if (!$scope.orderCartMap.containsKey($scope.rice.id)) {
+                $scope.orderCartMap.put($scope.rice.id, $scope.rice);
             }
 
             $scope.items.data = Order.cart = $scope.orderCartMap.values();
@@ -49,7 +49,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
     // 米饭
     $scope.rice = {
-        'menuId': 21354687,
+        'id': 21354687,
         'name': "米饭",
         'restNum': 100,
         'unitPrice': 1,
@@ -82,11 +82,11 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                         $scope.removeRowFromCart(menuId);
                         $scope.orderCartMap.remove(menuId);
 
-                        if ($scope.orderCartMap.size() == 1 && $scope.orderCartMap.containsKey($scope.rice.menuId)) {
+                        if ($scope.orderCartMap.size() == 1 && $scope.orderCartMap.containsKey($scope.rice.id)) {
                             $scope.rice.count = 1;
                             $scope.rice.totalPrice = 0;
-                            $scope.removeRowFromCart($scope.rice.menuId);
-                            $scope.orderCartMap.remove($scope.rice.menuId);
+                            $scope.removeRowFromCart($scope.rice.id);
+                            $scope.orderCartMap.remove($scope.rice.id);
                         }
                     }
                 } else {
@@ -98,7 +98,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
                 // 更新菜品信息
                 $scope.menuItemArr.forEach(function (item) {
-                    if (item.menuId == menuId) {
+                    if (item.id == menuId) {
                         item.count = menu.count;
                         item.restNum = menu.restNum;
                         return false;
@@ -136,8 +136,8 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
                 menu.count = item.count;
             } else {
-                $scope.orderCartMap.put(menu.menuId, {
-                    'menuId': menu.menuId,
+                $scope.orderCartMap.put(menu.id, {
+                    'id': menu.id,
                     'name': menu.name,
                     'unitPrice': menu.price,
                     'totalPrice': menu.price,
@@ -150,7 +150,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             menu.restNum -= 1;
             // 更新菜品信息
             $scope.menuItemArr.forEach(function (item) {
-                if (item.menuId == menuId) {
+                if (item.id == menuId) {
                     item.count = menu.count;
                     item.restNum = menu.restNum;
                     return false;
@@ -187,10 +187,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     // 刷新购物车
     $scope.refreshCart = function () {
         $scope.items.data.forEach(function (item) {
-            if ($scope.orderCartMap.containsKey(item.menuId)) {
-                $scope.orderCartMap.put(item.menuId, item);
+            if ($scope.orderCartMap.containsKey(item.id)) {
+                $scope.orderCartMap.put(item.id, item);
             } else {
-                $scope.orderCartMap.remove(item.menuId);
+                $scope.orderCartMap.remove(item.id);
             }
         });
 
@@ -205,7 +205,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         var index = -1;
         var itemArr = eval($scope.items.data);
         for (var i = 0, l = itemArr.length; i < l; i++) {
-            if (itemArr[i].menuId === menuId) {
+            if (itemArr[i].id === menuId) {
                 index = i;
                 break;
             }
@@ -230,10 +230,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             jsonArr[i].changWidth = false;
             jsonArr[i].shopAccount = false;
             jsonArr[i].price = parseFloat(jsonArr[i].price).toFixed(2);
-            $scope.menuItemMap.put(jsonArr[i].menuId, jsonArr[i]);
+            $scope.menuItemMap.put(jsonArr[i].id, jsonArr[i]);
         }
 
-        $scope.menuItemMap.put($scope.rice.menuId, $scope.rice);
+        $scope.menuItemMap.put($scope.rice.id, $scope.rice);
 
         $scope.menuItemArr = jsonArr;
     });
