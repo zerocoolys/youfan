@@ -60,5 +60,6 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
      * @param id
      * @return
      */
-    MerchantUserVO getMerchantUserInfo(Long id);
+    MerchantUserVO getMerchantUserInfo(String id);
+
 }

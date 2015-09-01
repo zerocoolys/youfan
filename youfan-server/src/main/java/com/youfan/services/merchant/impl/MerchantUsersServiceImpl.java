@@ -57,8 +57,8 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException {
-        return null;
+    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id){
+        return merchantKitchenDAO.getMerchantKitchenBaseInfo(id);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantUserVO getMerchantUserInfo(Long id) {
+    public MerchantUserVO getMerchantUserInfo(String id) {
         return merchantUserDao.getMerchantUserInfo(id);
     }
 
