@@ -14,6 +14,8 @@ public class MerchantOrderDetailVO {
 	private int orderStatus;
 	private double price;
 	private Timestamp repastTime;
+	private Timestamp orderTime;
+
 	private String repastAddress;
 	private String paymentMethod;
 	private String buyerName;
@@ -126,6 +128,14 @@ public class MerchantOrderDetailVO {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Timestamp getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(Timestamp orderTime) {
+		this.orderTime = orderTime;
 	}
 
 }

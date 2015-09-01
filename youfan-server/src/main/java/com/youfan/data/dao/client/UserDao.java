@@ -17,6 +17,10 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, Long> {
     //更新密码
     UserVO updateUserPwd(String pwd);
 
+    
+   //根据用于ID查询用户
+    UserVO findByUid(Long uid);
+
 
     @Override
     default Class<ClientUserEntity> getEntityClass() {

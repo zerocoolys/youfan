@@ -52,12 +52,18 @@ public class OrderController {
 	@RequestMapping(method = RequestMethod.GET, path = "/orderDetail/{orderNo}")
 	public Response getOrderDetailByOrderNo(@PathVariable final String orderNo) {
 
+		Response response = null;
+		try {
 		MerchantOrderDetailVO order = orderService.findOrderDetailByOrderNo(orderNo);
-
 		if (order == null) {
-
+			return response = Responses.FAILED().setMsg("未查询到该数据");
 		}
-		return Responses.SUCCESS();
+		response = Responses.SUCCESS().setPayload(order);
+		} catch (Exception e) {
+			response = Responses.FAILED();
+			logger.error(e.getMessage());
+		}
+		return response;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant")

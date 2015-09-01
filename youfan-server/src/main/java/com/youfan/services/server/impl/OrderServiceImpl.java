@@ -11,15 +11,17 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.youfan.commons.Pagination;
-
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.data.dao.client.MenuDAO;
+import com.youfan.data.dao.client.UserDao;
+import com.youfan.data.dao.merchant.MerchantUserDAO;
 import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.services.server.OrderService;
 
@@ -34,6 +36,12 @@ public class OrderServiceImpl implements OrderService {
 
 	@Resource
 	private MenuDAO menuDao;
+
+	@Resource
+	private MerchantUserDAO merchantUserDAO;
+
+	@Resource
+	private UserDao userDao;
 
 	@Override
 	public List<OrderVO> findAll(Pagination pagination) {
@@ -127,8 +135,18 @@ public class OrderServiceImpl implements OrderService {
 		MerchantOrderDetailVO order = orderDAO.findOrderDetail(orderNo);
 
 		if (order != null) {
+			// 查询菜品
 			List<MechantMenuVO> dishes = menuDao.findByMenuIds(order
 					.longDishesId());
+
+			order.setDishes(dishes);
+
+			// 查询个人信息
+			UserVO user = userDao.findByUid(order.getBuyerId());
+			if (user != null) {
+				order.setBuyerName(user.getName());
+				order.setPhone(user.getTel());
+			}
 
 		} else {
 			return null;
