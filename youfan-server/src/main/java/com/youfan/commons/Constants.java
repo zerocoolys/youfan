@@ -25,7 +25,8 @@ public interface Constants {
 
     // 菜单
     String SELLER_ID = "sellerId";
-    String MENU_ID = "menuId";
+    String MONGO_ID = "_id";
+    String ID = "id";
     String TYPE = "type";
     String NAME = "name";
     String DESCRIPTION = "descr";
