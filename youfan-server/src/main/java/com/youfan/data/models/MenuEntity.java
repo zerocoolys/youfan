@@ -1,7 +1,6 @@
 package com.youfan.data.models;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -23,10 +22,7 @@ public class MenuEntity {
     @Id
     private String id;
 
-    private Long sellerId; // 商家id
-
-    @Indexed(unique = true)
-    private Long menuId; // 菜品id
+    private String sellerId; // 商家id
 
     private String name; // 菜品名称
 
@@ -65,20 +61,12 @@ public class MenuEntity {
         this.id = id;
     }
 
-    public Long getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(Long sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
-    }
-
-    public Long getMenuId() {
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId) {
-        this.menuId = menuId;
     }
 
     public String getName() {

@@ -2,11 +2,13 @@ package com.youfan.data.models;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.youfan.commons.Constants.COLLECTION_KITCHENINFO;
+import static com.youfan.commons.Constants.COLLECTION_MERCHANTKITCHENINFOID;
 
 /**
  * Created by perfection on 15-8-25.
@@ -15,7 +17,7 @@ import static com.youfan.commons.Constants.COLLECTION_KITCHENINFO;
 public class MerchantKitchenInfoEntity {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
     @Id
-    private String id;  //厨房id与商家用户id匹配
+    private String id; //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
     private List<String> cuisine = new ArrayList<>();   //厨房特色，菜系
@@ -27,22 +29,38 @@ public class MerchantKitchenInfoEntity {
     private boolean isTakeSelf; //是否支持自取
     private boolean isCanteen;  //是否支持食堂
     private Integer galleryFul; //如果支持厨房，该字段不为空，容纳人数
-    private boolean isDistribution; //是否支持配送
+    private boolean isDelivery; //是否支持配送
     private Double disPrice;    //配送费用
     private Double disRange;    //配送范围
-    private String distributionExplain;    //如果配送，配送说明
+    private String deliveryExplain;    //如果配送，配送说明
     private String startTime; //开店时间
     private String endTime;   //关店时间
     private String desc;    //厨房备注
     private String lat; //经度
     private String lng; //纬度
 
-    public String getDistributionExplain() {
-        return distributionExplain;
+    public boolean isDelivery() {
+        return isDelivery;
     }
 
-    public void setDistributionExplain(String distributionExplain) {
-        this.distributionExplain = distributionExplain;
+    public void setIsDelivery(boolean isDelivery) {
+        this.isDelivery = isDelivery;
+    }
+
+    public String getDeliveryExplain() {
+        return deliveryExplain;
+    }
+
+    public void setDeliveryExplain(String deliveryExplain) {
+        this.deliveryExplain = deliveryExplain;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLat() {
@@ -67,14 +85,6 @@ public class MerchantKitchenInfoEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getKitchenName() {
@@ -163,14 +173,6 @@ public class MerchantKitchenInfoEntity {
 
     public void setIsCanteen(boolean isCanteen) {
         this.isCanteen = isCanteen;
-    }
-
-    public boolean isDistribution() {
-        return isDistribution;
-    }
-
-    public void setIsDistribution(boolean isDistribution) {
-        this.isDistribution = isDistribution;
     }
 
     public Double getDisPrice() {

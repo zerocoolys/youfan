@@ -1,4 +1,4 @@
-package com.youfan.commons.vo.merchant;
+package com.youfan.commons.vo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class MerchantKitchenBaseInfo {
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
-    private Long id;  //厨房id与商家用户id匹配
+    private String id;  //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
     private List<String> cuisine = new ArrayList<>();   //厨房特色，菜系
@@ -40,11 +40,11 @@ public class MerchantKitchenBaseInfo {
         this.status = status;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

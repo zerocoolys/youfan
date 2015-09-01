@@ -16,7 +16,7 @@ public class Pagination {
     private boolean asc;
 
     public int getStart() {
-        return pageSize * pageNo + 1;
+        return pageSize * pageNo;
     }
 
 

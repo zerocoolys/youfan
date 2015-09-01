@@ -134,6 +134,7 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
      *
      * @param no Please use {@link IdGenerator} to get no
      * @return entityId
+     * @deprecated
      */
     default long generateId(long no) {
         return Instant.now().getEpochSecond() + no;

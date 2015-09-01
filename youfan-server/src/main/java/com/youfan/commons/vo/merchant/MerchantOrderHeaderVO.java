@@ -23,8 +23,14 @@ public class MerchantOrderHeaderVO {
      * 菜单ID集合逗号分隔
      */
     private String dishesId;
+    /**
+     * 点菜名称
+     */
+    private List<String> dishNames;
 
-    public String getOrderNo() {
+
+
+	public String getOrderNo() {
         return orderNo;
     }
 
@@ -88,16 +94,24 @@ public class MerchantOrderHeaderVO {
         this.dishesId = dishesId;
     }
 
-    public List<Long> longDishesId() {
-        List<Long> menuIds = new ArrayList<Long>();
+    public List<String> longDishesId() {
+        List<String> menuIds = new ArrayList<String>();
         String[] ids = dishesId.split(",");
 
         if (ids != null) {
             for (String id : ids) {
-                menuIds.add(Long.valueOf(id));
+                menuIds.add(id);
             }
         }
 
         return menuIds;
     }
+    
+    public List<String> getDishNames() {
+		return dishNames;
+	}
+
+	public void setDishNames(List<String> dishNames) {
+		this.dishNames = dishNames;
+	}
 }
