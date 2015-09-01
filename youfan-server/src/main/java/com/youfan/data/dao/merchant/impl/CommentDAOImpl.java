@@ -5,6 +5,8 @@ import com.youfan.commons.vo.CommentVO;
 import com.youfan.data.dao.merchant.CommentDAO;
 import com.youfan.data.models.CommentEntity;
 import com.youfan.data.support.IdGenerator;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -27,8 +29,6 @@ public class CommentDAOImpl implements CommentDAO {
 
     @Override
     public void insert(CommentVO commentVO) {
-        long no = idGenerator.next(Constants.COLLECTION_COMMENT);
-        commentVO.setCoId(no);
         commentVO.setCommentTime(new Date());
         mongoTemplate.insert(convertToEntity(commentVO));
     }
@@ -57,5 +57,11 @@ public class CommentDAOImpl implements CommentDAO {
     public List<CommentVO> findComment() {
         List<CommentEntity> resultList = mongoTemplate.findAll(getEntityClass());
         return convertToVOList(resultList);
+    }
+
+    @Override
+    public CommentVO findComment(String id) {
+        CommentEntity ce = mongoTemplate.findOne(new Query().addCriteria(Criteria.where(Constants.FIELD_ID).is(id)), getEntityClass());
+        return convertToVO(ce);
     }
 }

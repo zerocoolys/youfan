@@ -9,9 +9,7 @@ import java.util.List;
 public class CommentVO {
     String id;
 
-    Long coId;
-
-    Long orderId;
+    Integer orderId;
 
     String commentUser;
 
@@ -33,14 +31,6 @@ public class CommentVO {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Long getCoId() {
-        return coId;
-    }
-
-    public void setCoId(Long coId) {
-        this.coId = coId;
     }
 
     public String getCommentUser() {
@@ -91,11 +81,11 @@ public class CommentVO {
         this.imgUrl = imgUrl;
     }
 
-    public Long getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 

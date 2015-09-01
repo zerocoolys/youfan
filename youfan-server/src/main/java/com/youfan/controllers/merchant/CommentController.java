@@ -41,4 +41,10 @@ public class CommentController {
             return Responses.FAILED().setMsg("No Data Found");
         }
     }
+
+    @RequestMapping(value = "/getComment")
+    public Response getComment(String id) {
+        CommentVO cv = commentService.findCommentById(id);
+        return Responses.SUCCESS().setPayload(cv);
+    }
 }

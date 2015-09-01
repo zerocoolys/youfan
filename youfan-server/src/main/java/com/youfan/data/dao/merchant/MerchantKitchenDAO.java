@@ -39,7 +39,7 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
 
     List<MerchantKitchenInfoEntity> find(Query query);
 
-    MerchantKitchenInfoVO findById(Long id);
+    MerchantKitchenInfoVO findById(String id);
 
 
     @Override
