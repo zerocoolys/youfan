@@ -3,6 +3,8 @@ package com.youfan.data.dao.client.impl;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
+import com.youfan.data.models.MenuEntity;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -35,9 +37,16 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public MenuVO findOne(String menuId) {
-        return convertToVO(mongoTemplate.findOne(
-                buildQuery(null, menuId, true), getEntityClass(),
-                COLLECTION_MENU));
+		MenuEntity menuEntity = mongoTemplate.findOne(
+				buildQuery(null, menuId, true), getEntityClass(),
+				COLLECTION_MENU);
+		if (menuEntity == null) {
+			Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
+					.is(menuId);
+			return findOne(Query.query(criteria));
+		} else {
+			return convertToVO(menuEntity);
+		}
     }
 
     @Override
