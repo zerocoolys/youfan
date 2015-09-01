@@ -1,8 +1,8 @@
 package com.youfan.controllers.server;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.OrderVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
@@ -52,6 +52,24 @@ public class PlatFormBusinessController {
 	@Resource
 	CouponsTypeService couponsTypeService;
 	///////////////////////////////// 系统//////////////////////////////////////////
+	
+	/**
+	 * 检查敏感词
+	 * @param sentence
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月1日 上午9:44:27
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/checkWords/{sentence}")
+	public Response checkWords(@PathVariable String sentence,HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		res = Responses.SUCCESS().setCode(1).setMsg("No Sensitive Words");
+		return res;
+	}
 	/**
 	 * 分页获取订单信息
 	 * 
@@ -90,9 +108,9 @@ public class PlatFormBusinessController {
 				op.setOrderBy(request.getParameter("orderBy"));
 				ifPager = true;
 			}
-			int lenAll = orderService.count(op);
+			int recordCnt = orderService.count(op);
 			if (ifPager) {
-				CollectionVO<OrderVO> payload = new CollectionVO<>(new ArrayList<OrderVO>(), lenAll, op.getPageSize());
+				CollectionVO<OrderVO> payload = new CollectionVO<>(new ArrayList<OrderVO>(), recordCnt, op.getPageSize()<1?recordCnt:op.getPageSize());
 				payload = orderService.getOrdersByParams(op);
 				res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
 			} else {
@@ -106,8 +124,8 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveCoupons")
-	public Response saveCoupons(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveCouponsType")
+	public Response saveCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
 			if (request.getParameter("port") != null && request.getParameter("timeLine") != null
@@ -119,7 +137,10 @@ public class PlatFormBusinessController {
 				coupons.setKitchenId(request.getParameter("kitchenId"));
 				coupons.setDesc(request.getParameter("desc"));
 				coupons.setContent( JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
-				
+				//创建时间为保存时当前时间
+				coupons.setCreateTime(new Date().getTime());
+				//状态默认为1 表示开启使用状态
+				coupons.setStatus(1);
 				couponsTypeService.save(coupons);
 				res = Responses.SUCCESS().setMsg("数据保存成功");
 			} else {
@@ -127,6 +148,43 @@ public class PlatFormBusinessController {
 			}
 		} catch (Exception e) {
 			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
+		}
+		
+		return res;
+	}
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/getCouponsType")
+	public Response getCouponsType(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+			CouponsParams couponsParams = new CouponsParams();
+			if (request.getParameter("port") != null) {
+				couponsParams.setPort(Integer.valueOf(request.getParameter("port")));
+			}
+			if (request.getParameter("timeLine") != null) {
+				couponsParams.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
+			}
+
+			if (request.getParameter("kitchenId") != null) {
+				couponsParams.setKitchenId(request.getParameter("kitchenId"));
+			}
+			if (request.getParameter("status") != null) {
+				couponsParams.setStatus(Integer.valueOf(request.getParameter("status")));
+			}
+			long recordCnt= couponsTypeService.count(couponsParams);
+			if(request.getParameter("pageSize") != null&&request.getParameter("pageNo") != null){
+				couponsParams.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
+				couponsParams.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
+			}else{
+				couponsParams.setPageSize((int)recordCnt);
+				couponsParams.setPageNo(0);
+			}
+			CollectionVO<CouponsTypeVO> payload = new CollectionVO<>(new ArrayList<CouponsTypeVO>(), (int)recordCnt, couponsParams.getPageSize()<1?(int)recordCnt:couponsParams.getPageSize());
+			List<CouponsTypeVO> list = couponsTypeService.getByCondition(couponsParams);
+			payload.addAll(list);
+			res =  Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			res =  Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
 		}
 		
 		return res;

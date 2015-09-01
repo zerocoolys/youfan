@@ -1,13 +1,11 @@
 package com.youfan.data.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
 import static com.youfan.commons.Constants.COLLECTION_SERVER_COUPONS_TYPE;
 
 import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 优惠券类型
@@ -23,30 +21,31 @@ import java.util.List;
 public class CouponsTypeEntity {
 	@Id
 	private String id;
-	
+
 	/**
-	 * 优惠券针对端
-	 * 2 客户端 3商家端
+	 * 优惠券针对端 2 客户端 3商家端
 	 */
 	private Integer port;
-	
+
 	/**
 	 * 优惠券时效
 	 */
 	private Integer timeLine;
-	
+
 	private String kitchenId;
-	
+	private Integer status;
 	/**
 	 * 优惠券内容
 	 */
 	private List<CouponsContentEntity> content;
-	
-//	private JsonNode content;
+
+	// private JsonNode content;
 	/**
 	 * 优惠券描述
 	 */
 	private String desc;
+
+	private Long createTime;
 
 	public String getId() {
 		return id;
@@ -87,23 +86,37 @@ public class CouponsTypeEntity {
 	public void setContent(List<CouponsContentEntity> content) {
 		this.content = content;
 	}
-//
-//	public JsonNode getContent() {
-//		return content;
-//	}
-//
-//	public void setContent(JsonNode content) {
-//		this.content = content;
-//	}
+
+	//
+	// public JsonNode getContent() {
+	// return content;
+	// }
+	//
+	// public void setContent(JsonNode content) {
+	// this.content = content;
+	// }
 	public String getDesc() {
 		return desc;
 	}
 
-	
-
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
+	}
 
 }

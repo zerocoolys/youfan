@@ -3,7 +3,6 @@ package com.youfan.commons.vo.server;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.youfan.data.models.CouponsContentEntity;
 
 public class CouponsTypeVO {
@@ -20,7 +19,9 @@ public class CouponsTypeVO {
 	private Integer timeLine;
 
 	private String kitchenId;
-
+	private Integer status;
+	
+	private Long createTime;
 	/**
 	 * 优惠券内容
 	 */
@@ -39,6 +40,7 @@ public class CouponsTypeVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 
 	public Integer getPort() {
 		return port;
@@ -89,6 +91,22 @@ public class CouponsTypeVO {
 		this.desc = desc;
 	}
 	
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
+	}
 
 	public static CouponsContentEntity convertToContent(Map<String,Object> cMap){
 		CouponsContentEntity cce = new CouponsContentEntity();

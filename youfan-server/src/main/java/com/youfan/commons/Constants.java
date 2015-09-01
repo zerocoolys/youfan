@@ -67,4 +67,12 @@ public interface Constants {
     String MESSAGE_DATE = "date";
     String MESSAGE_STATUS = "status";
     String MESSAGE_ID = "id";
+    
+    /* MrDeng*/
+    //couponsType 查询字段
+    
+    String COUPONS_TYPE_PORT = "port";
+    String COUPONS_TYPE_TIMELINE = "timeLine";
+    String COUPONS_TYPE_KITCHEN_ID= "kitchenId";
+    String COUPONS_TYPE_STATUS = "status";
 }
