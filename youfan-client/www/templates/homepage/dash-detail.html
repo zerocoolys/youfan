@@ -40,14 +40,17 @@
                 <i class="icon ion-star" style="color: #e4e400"></i>
                 <i class="icon ion-star" style="color: #e4e400"></i>
 
-                <p style="margin-top: 5px"><span ng-bind="merchantUser.realName">李先生</span> <span ng-bind="merchantUser.address">海南人</span></p>
+                <p style="margin-top: 5px"><span ng-bind="merchantUser.realName">李先生</span> <span
+                        ng-bind="merchantUser.address">海南人</span></p>
 
-                <p style="margin-top: 35px"><span ng-bind="merchantObj.startTime"></span> - <span ng-bind="merchantObj.endTime"></span> 开放厨房</p>
+                <p style="margin-top: 35px"><span ng-bind="merchantObj.startTime"></span> - <span
+                        ng-bind="merchantObj.endTime"></span> 开放厨房</p>
 
                 <div class="row padding">
                     <a class="col col-30 col-offset-15 button-small button bar-balanced button-outline"
                        ui-sref="tab.comment-detail">234条评论</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col col-30 bar-balanced button-small button button-outline" href="tell:18628903283">联系厨房</a>
+                    <a class="col col-30 bar-balanced button-small button button-outline"
+                       href="tell:18628903283">联系厨房</a>
                 </div>
             </div>
         </div>
@@ -65,7 +68,7 @@
                     <i class="icon_bg ion-location icon-accessory"></i>
                 </span>
 
-                <h2 ui-sref="tab.Map" ng-bind="merchantObj.kitchenAddress" >四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
+                <h2 ui-sref="tab.Map" ng-bind="merchantObj.kitchenAddress">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
@@ -109,15 +112,15 @@
                             <span class="item-note">
                                 <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
                                     <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
-                                       ng-click="minusItem(menu.menuId)"></i>
+                                       ng-click="minusItem(menu.id)"></i>
                                     <span ng-show="menu.shopAccount">&nbsp;{{menu.count}}&nbsp;</span>
-                                    <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.menuId)"></i>
+                                    <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"></i>
                                 </span>
                             </span>
                         </ion-item>
                     </ion-item>
                 </ion-list>
-                <ion-list>
+                <!--<ion-list>
                     <ion-item class="item-body list-borderless item-borderless tip_menu_list">
                         <ion-item class="item-thumbnail-left" style="  margin-bottom: 12px;">
                             <img src="img/2.jpeg">
@@ -130,15 +133,15 @@
                                 <span class="item-note">
                                     <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
                                         <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
-                                           ng-click="minusItem(menu.menuId)"></i>
-                                        <span ng-show="menu.shopAccount">&nbsp;{{menu.account}}&nbsp;</span>
-                                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.menuId)"></i>
+                                           ng-click="minusItem(menu.id)"></i>
+                                        <span ng-show="menu.shopAccount">&nbsp;{{menu.count}}&nbsp;</span>
+                                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"></i>
                                     </span>
                                 </span>
                             </div>
                         </ion-item>
                     </ion-item>
-                </ion-list>
+                </ion-list>-->
                 <ion-list class="tip_menu">
                     <ion-item class="item-thumbnail-left item-icon-right" ng-repeat="menu in menuItemArr"
                               ng-repeat-start="2">
@@ -149,7 +152,7 @@
                         <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
 
                         <p ng-bind="'￥' + menu.price"></p>
-                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.menuId)"></i>
+                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"></i>
                     </ion-item>
                 </ion-list>
             </ion-slide>
@@ -176,9 +179,9 @@
                         <span class="col ">{{item.totalPrice}}</span>
                         <span class="col">
                             <i class="ion-minus-round"
-                               ng-click="minusItem(item.menuId)" ng-init="count = item.count"></i>
+                               ng-click="minusItem(item.id)" ng-init="count = item.count"></i>
                             <span class="food_price" ng-bind="item.count">{{count}}</span>
-                        <i class="ion-plus-round" ng-click="plusItem(item.menuId)" ng-init="count = item.count"></i>
+                        <i class="ion-plus-round" ng-click="plusItem(item.id)" ng-init="count = item.count"></i>
                         </span>
                     </li>
                 </ul>
