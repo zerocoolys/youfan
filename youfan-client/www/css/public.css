@@ -31,12 +31,15 @@ body {
     color: #1dbeaf;
 
 }
-.color{
+
+.color {
     color: #1dbeaf;
 }
-.color:hover{
+
+.color:hover {
     color: #1dbeaf;
 }
+
 .bar.bar-balanced.bar-footer {
     border-color: #1dbeaf;
     background: #1dbeaf;
@@ -59,13 +62,27 @@ body {
 .button.button-balanced.button-clear {
     color: #1dbeaf;
 }
-.margin{
-    margin-top:10px;
+
+.margin {
+    margin-top: 10px;
 }
-.checkbox input:checked+.checkbox-icon:before, .checkbox input:checked:before{
+
+.checkbox input:checked + .checkbox-icon:before, .checkbox input:checked:before {
     background: #1dbeaf;
     border-color: #1dbeaf;
 }
-.bar-header.has-tabs-top{
-    background:#f8f8f8;
+
+.bar-header.has-tabs-top {
+    background: #f8f8f8;
+}
+
+/*顶部圆*/
+.message_badge {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #ef473a;
+    position: absolute;
+    left: 46px;
+    border-radius: 8px;
 }
