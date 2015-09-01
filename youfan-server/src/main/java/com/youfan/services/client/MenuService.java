@@ -14,21 +14,21 @@ public interface MenuService extends Constants {
 
     void insert(MenuVO menu);
 
-    void delete(long menuId);
+    void delete(String menuId);
 
-    List<MenuVO> findBySellerId(long sellerId);
+    List<MenuVO> findBySellerId(String sellerId);
 
-    MenuVO findByMenuId(long menuId);
+    MenuVO findByMenuId(String menuId);
 
-    int minusRestNum(long menuId);
+    int minusRestNum(String menuId);
 
-    int plusTasteNum(long menuId);
+    int plusTasteNum(String menuId);
 
-    void resetRestNumBySellerId(long sellerId, int restNum);
+    void resetRestNumBySellerId(String sellerId, int restNum);
 
-    void resetRestNumByMenuId(long menuId, int restNum);
+    void resetRestNumByMenuId(String menuId, int restNum);
 
-    List<MenuVO> findBySellerIdAndType(Long sellerId, String type);
+    List<MenuVO> findBySellerIdAndType(String sellerId, String type);
 
     int conversion(MenuVO menu);
 
@@ -36,10 +36,10 @@ public interface MenuService extends Constants {
 
     void conversionRestNum(List<MenuVO> menus);
 
-    void updateMenu(Long menuId, MenuVO menu);
+    void updateMenu(String menuId, MenuVO menu);
 
-    void updateXfzMenu(Long menuId, MenuVO menu);
+    void updateXfzMenu(String menuId, MenuVO menu);
 
-    void conversionType(Long menuId, MenuVO menu);
+    void conversionType(String menuId, MenuVO menu);
 
 }

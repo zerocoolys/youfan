@@ -94,13 +94,13 @@ public class MerchantOrderHeaderVO {
         this.dishesId = dishesId;
     }
 
-    public List<Long> longDishesId() {
-        List<Long> menuIds = new ArrayList<Long>();
+    public List<String> longDishesId() {
+        List<String> menuIds = new ArrayList<String>();
         String[] ids = dishesId.split(",");
 
         if (ids != null) {
             for (String id : ids) {
-                menuIds.add(Long.valueOf(id));
+                menuIds.add(id);
             }
         }
 
