@@ -6,6 +6,7 @@ import com.youfan.services.merchant.CommentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by xiaowei on 15-8-31.
@@ -25,5 +26,10 @@ public class CommentServiceImpl implements CommentService {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    @Override
+    public List<CommentVO> findComment() {
+        return commentDAO.findComment();
     }
 }

@@ -2,30 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youfan.data.mappers.OrderMapper">
 
+	<resultMap id="MerchantOrderHeader"
+		type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
 
-    <resultMap id="MerchantOrderHeader" type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="BUYER_ID" property="buyerId" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="repast_Time" property="repastTime" />
+		<result column="repast_Address" property="repastAddress" />
+		<result column="dishes_Id" property="dishesId" />
+	</resultMap>
 
-        <result column="ORDER_NO" property="orderNo"/>
-        <result column="BUYER_ID" property="buyerId"/>
-        <result column="ORDER_STATUS" property="orderStatus"/>
-        <result column="repast_Time" property="repastTime"/>
-        <result column="repast_Address" property="repastAddress"/>
-        <result column="dishes_Id" property="dishesId"/>
-    </resultMap>
-    
-    
-       <resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
 
-        <result column="ORDER_NO" property="orderNo"/>
-        <result column="BUYER_ID" property="buyerId"/>
-        <result column="ORDER_STATUS" property="orderStatus"/>
-        <result column="repast_Time" property="repastTime"/>
-        <result column="order_time" property="orderTime"/>
-        <result column="repast_Address" property="repastAddress"/>
-        <result column="dishes_Id" property="dishesId"/>
-    </resultMap>
+	<resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
 
-<resultMap id="OrderEntityMap" type="com.youfan.data.models.OrderEntity">
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="BUYER_ID" property="buyerId" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="repast_Time" property="repastTime" />
+		<result column="order_time" property="orderTime" />
+		<result column="repast_Address" property="repastAddress" />
+		<result column="dishes_Id" property="dishesId" />
+	</resultMap>
+
+	<resultMap id="OrderEntityMap" type="com.youfan.data.models.OrderEntity">
 		<id column="ORDER_ID" property="id" />
 		<result column="ORDER_NO" property="orderNo" />
 		<result column="SELLER_ID" property="sellerId" />
@@ -55,83 +55,87 @@
 
 
 
-    <select id="findOrders" parameterType="com.youfan.data.models.OrderEntity" resultMap="MerchantOrderHeader">
+	<select id="findOrders" parameterType="com.youfan.data.models.OrderEntity"
+		resultMap="MerchantOrderHeader">
 
 
-       SELECT
-	orders.ORDER_NO,
-	orders.repast_Address,
-	orders.repast_Time,
-	orders.BUYER_ID,
-	orders.price,
-	orders.order_status,
-	dishes.dishes_Id
-FROM
-	TBL_ORDERS orders
-JOIN (
-	SELECT
+		SELECT
+		orders.ORDER_NO,
+		orders.repast_Address,
+		orders.repast_Time,
+		orders.BUYER_ID,
+		orders.price,
+		orders.order_status,
+		dishes.dishes_Id
+		FROM
+		TBL_ORDERS orders
+		JOIN (
+		SELECT
 		orders.order_id,
 		group_concat(dishes.DISH_ID) AS dishes_Id
-	FROM
+		FROM
 		TBL_ORDERS orders
-	JOIN TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
-	GROUP BY
+		JOIN
+		TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
+		GROUP BY
 		orders.order_id
-) dishes ON orders.order_id = dishes.order_id
-WHERE
-	1 = 1
+		) dishes ON orders.order_id = dishes.order_id
+		WHERE
+		1 = 1
 
-        <if test="sellerId != null and sellerId != ''">
-            and orders.seller_Id = #{sellerId}
-        </if>
+		<if test="sellerId != null and sellerId != ''">
+			and orders.seller_Id = #{sellerId}
+		</if>
 
-        <if test="orderStatus != null">
-            and orders.order_Status = #{orderStatus}
-        </if>
+		<if test="orderStatus != null">
+			and orders.order_Status = #{orderStatus}
+		</if>
 
-        <if test="repastMode != null and repastMode != ''">
-            and orders.repast_Mode = #{repastMode}
-        </if>
+		<if test="repastMode != null and repastMode != ''">
+			and orders.repast_Mode = #{repastMode}
+		</if>
 
-    </select>
-    
-    
-     <select id="findOrderDetail" parameterType="com.youfan.data.models.OrderEntity" resultMap="MerchantOrderDetail">
+	</select>
 
 
-       SELECT
-	orders.ORDER_NO,
-	orders.repast_Address,
-	orders.repast_Time,
-	orders.order_time,
-	orders.BUYER_ID,
-	orders.price,
-	dishes.dishes_Id
-FROM
-	TBL_ORDERS orders
-JOIN (
-	SELECT
+	<select id="findOrderDetail" parameterType="com.youfan.data.models.OrderEntity"
+		resultMap="MerchantOrderDetail">
+
+
+		SELECT
+		orders.ORDER_NO,
+		orders.repast_Address,
+		orders.repast_Time,
+		orders.order_time,
+		orders.BUYER_ID,
+		orders.price,
+		dishes.dishes_Id
+		FROM
+		TBL_ORDERS orders
+		JOIN (
+		SELECT
 		orders.order_id,
 		group_concat(dishes.DISH_ID) AS dishes_Id
-	FROM
+		FROM
 		TBL_ORDERS orders
-	JOIN TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
-	GROUP BY
+		JOIN
+		TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
+		GROUP BY
 		orders.order_id
-) dishes ON orders.order_id = dishes.order_id
-WHERE
-	1 = 1
+		) dishes ON orders.order_id = dishes.order_id
+		WHERE
+		1 = 1
 
-        <if test="orderNo != null and orderNo != ''">
-            and orders.ORDER_NO = #{orderNo}
-        </if>
-
-      
-
-    </select>
+		<if test="orderNo != null and orderNo != ''">
+			and orders.ORDER_NO = #{orderNo}
+		</if>
 
 
-	
+
+	</select>
+
+
+
 
 
 
@@ -178,7 +182,7 @@ WHERE
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
 	</select>
 
-	
+
 
 
 	<select id="findByCondition" parameterType="java.util.Map"

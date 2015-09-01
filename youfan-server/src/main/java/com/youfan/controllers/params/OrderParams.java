@@ -1,92 +1,93 @@
 package com.youfan.controllers.params;
 
+import com.youfan.commons.Pagination;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.youfan.commons.Pagination;
 
 /**
  * Created by yousheng on 15/8/14.
  */
-public class OrderParams extends Pagination{
+public class OrderParams extends Pagination {
 
-	String orderNo;
-	
-    Long buyerId;
+    String orderNo;
 
-	Long sellerId;
+    String buyerId;
 
-	Map<String, Integer> itemMap = new HashMap<>();
+    String sellerId;
 
-	String comments;
+    Map<String, Integer> itemMap = new HashMap<>();
 
-	double price;
+    String comments;
 
-	Integer orderStatus;
+    double price;
 
-	String repastMode;
-    
+    int orderStatus;
+
+    String repastMode;
+
+
     public String getOrderNo() {
-		return orderNo;
-	}
+        return orderNo;
+    }
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
-	public Long getBuyerId() {
-		return buyerId;
-	}
+    public String getBuyerId() {
+        return buyerId;
+    }
 
-	public void setBuyerId(Long buyerId) {
-		this.buyerId = buyerId;
-	}
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+    }
 
-	public Long getSellerId() {
-		return sellerId;
-	}
+    public String getSellerId() {
+        return sellerId;
+    }
 
-	public void setSellerId(Long sellerId) {
-		this.sellerId = sellerId;
-	}
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
 
-	public Map<String, Integer> getItemMap() {
-		return itemMap;
-	}
+    public Map<String, Integer> getItemMap() {
+        return itemMap;
+    }
 
-	public void setItemMap(Map<String, Integer> itemMap) {
-		this.itemMap = itemMap;
-	}
+    public void setItemMap(Map<String, Integer> itemMap) {
+        this.itemMap = itemMap;
+    }
 
-	public String getComments() {
-		return comments;
-	}
+    public String getComments() {
+        return comments;
+    }
 
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-	public Integer getOrderStatus() {
-		return orderStatus;
-	}
+    public int getOrderStatus() {
+        return orderStatus;
+    }
 
-	public void setOrderStatus(Integer orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-	public String getRepastMode() {
-		return repastMode;
-	}
+    public String getRepastMode() {
+        return repastMode;
+    }
 
-	public void setRepastMode(String repastMode) {
-		this.repastMode = repastMode;
-	}
+    public void setRepastMode(String repastMode) {
+        this.repastMode = repastMode;
+    }
 }

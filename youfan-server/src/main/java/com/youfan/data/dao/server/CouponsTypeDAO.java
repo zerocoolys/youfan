@@ -1,6 +1,10 @@
 package com.youfan.data.dao.server;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.controllers.params.CouponsParams;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.CouponsTypeEntity;
 
@@ -17,4 +21,8 @@ public interface CouponsTypeDAO extends MongoBaseDAO<CouponsTypeEntity, CouponsT
     default Class<CouponsTypeVO> getVOClass() {
         return CouponsTypeVO.class;
     }
+
+	public Long count(CouponsParams couponsParams);
+
+	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams);
 }

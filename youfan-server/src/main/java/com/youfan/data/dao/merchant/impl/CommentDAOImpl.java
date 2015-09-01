@@ -8,6 +8,8 @@ import com.youfan.data.support.IdGenerator;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by xiaowei on 15-8-31.
@@ -27,6 +29,7 @@ public class CommentDAOImpl implements CommentDAO {
     public void insert(CommentVO commentVO) {
         long no = idGenerator.next(Constants.COLLECTION_COMMENT);
         commentVO.setCoId(no);
+        commentVO.setCommentTime(new Date());
         mongoTemplate.insert(convertToEntity(commentVO));
     }
 
@@ -48,5 +51,11 @@ public class CommentDAOImpl implements CommentDAO {
     @Override
     public Class<CommentVO> getVOClass() {
         return CommentVO.class;
+    }
+
+    @Override
+    public List<CommentVO> findComment() {
+        List<CommentEntity> resultList = mongoTemplate.findAll(getEntityClass());
+        return convertToVOList(resultList);
     }
 }

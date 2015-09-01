@@ -20,12 +20,13 @@ public interface Constants {
 
     /*通用*/
     String DATA_STATUS = "dataStatus";
-    String DATA_ID="id";
+    String FIELD_ID = "id";
 
 
     // 菜单
     String SELLER_ID = "sellerId";
-    String MENU_ID = "menuId";
+    String MONGO_ID = "_id";
+    String ID = "id";
     String TYPE = "type";
     String NAME = "name";
     String DESCRIPTION = "descr";
@@ -45,8 +46,17 @@ public interface Constants {
     String COMMENT_USER = "cu";
 
 
+    /*
+        商家段字段与collection值
+     */
     String COLLECTION_KITCHENINFO = "merchantKitchenInfo";
     String COLLECTION_USER = "merchantUser";
+    String COLLECTION_MERCHANTKITCHENINFOID = "id";
+    String COLLECTION_HEADPORTRAITPICURL = "hpu";
+    String COLLECTION_IDCARDPICURL = "icpu";
+    String COLLECTION_HEALTHCERTIFICATEPICURL = "hcpu";
+    String COLLECTION_MERCHANTUSERID = "id";
+
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
     String COLLECTION_COUPONS = "coupons";
@@ -70,4 +80,12 @@ public interface Constants {
     String CONPONS_STATUS = "status";
     String CONPONS_DATASTATUS = "ds";
     String CONPONS_USERID = "userid";
+    
+    /* MrDeng*/
+    //couponsType 查询字段
+    
+    String COUPONS_TYPE_PORT = "port";
+    String COUPONS_TYPE_TIMELINE = "timeLine";
+    String COUPONS_TYPE_KITCHEN_ID= "kitchenId";
+    String COUPONS_TYPE_STATUS = "status";
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,10 +38,10 @@ public class MerchantRoomController implements ResponseConstants {
 
 
     @RequestMapping(value = "/getMrOne/{id}")
-    public Response getMerchantOne(@PathVariable("id") String id) {
+    public Response getMerchantOne(@PathVariable("id") Long id) {
         MerchantKitchenInfoVO mkFind = merchantUsersService.mrFindById(id);
         if (mkFind != null) {
-            return Responses.SUCCESS();
+            return Responses.SUCCESS().setPayload(mkFind);
         } else {
             return Responses.FAILED().setMsg("Data Not Found!");
         }
@@ -49,11 +50,18 @@ public class MerchantRoomController implements ResponseConstants {
     @RequestMapping(value = "/getMrData", method = RequestMethod.GET)
     public Response getMerchantRoomData() throws KitchenInfoException {
         List<MerchantKitchenInfoVO> pager = merchantUsersService.pageList(1, 10);
+//        List<MerchantKitchenInfoVO> customList=new ArrayList<>();
+//        for (int i=0;i<5;i++){
+//            MerchantKitchenInfoVO merchantKitchenInfoVO=new MerchantKitchenInfoVO();
+//            merchantKitchenInfoVO.setHeadImg("img/avatar.jpg");
+//            merchantKitchenInfoVO.setStatus(0);
+//            customList.add(merchantKitchenInfoVO);
+//        }
         return Responses.SUCCESS().setPayload(pager);
     }
 
     @RequestMapping(value = "/getMuOne/{id}")
-    public Response getMerchantUserById(@PathVariable("id") String merchantId) {
+    public Response getMerchantUserById(@PathVariable("id") Long merchantId) {
         MerchantUserVO merchantUser = merchantUsersService.muFindById(merchantId);
         return Responses.SUCCESS().setPayload(merchantUser);
     }

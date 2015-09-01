@@ -5,6 +5,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import static com.youfan.commons.Constants.COLLECTION_USER;
+import static com.youfan.commons.Constants.COLLECTION_HEADPORTRAITPICURL;
+import static com.youfan.commons.Constants.COLLECTION_IDCARDPICURL;
+import static com.youfan.commons.Constants.COLLECTION_HEALTHCERTIFICATEPICURL;
+import static com.youfan.commons.Constants.COLLECTION_MERCHANTUSERID;
 
 /**
  * Created by perfection on 15-8-24.
@@ -14,18 +18,18 @@ public class MerchantUserEntity {
 
     private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
     @Id
-    private String id;  //商家个人信息id
+    private String id;    //商家个人信息id
     private String userName;    //商家用户名
     private String passWord;    //商家密码
-    @Field("hpu")
+    @Field(COLLECTION_HEADPORTRAITPICURL)
     private String headPortraitPicUrl; //商家个人头像
     private String realName;    //商家实名
     private String sex; //性别
     private String ageRange;    //年龄范围
     private String address; //地址
-    @Field("iu")
+    @Field(COLLECTION_IDCARDPICURL)
     private String idCardPicUrl;    //身份证照片
-    @Field("hcu")
+    @Field(COLLECTION_HEALTHCERTIFICATEPICURL)
     private String healthCertificatePicUrl; //健康证照片
 
     public Integer getStatus() {
@@ -45,6 +49,7 @@ public class MerchantUserEntity {
     }
 
     public String getUserName() {
+
         return userName;
     }
 

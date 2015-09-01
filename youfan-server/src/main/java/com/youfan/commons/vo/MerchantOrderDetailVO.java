@@ -14,6 +14,8 @@ public class MerchantOrderDetailVO {
 	private int orderStatus;
 	private double price;
 	private Timestamp repastTime;
+	private Timestamp orderTime;
+
 	private String repastAddress;
 	private String paymentMethod;
 	private String buyerName;
@@ -91,13 +93,13 @@ public class MerchantOrderDetailVO {
 		this.dishesId = dishesId;
 	}
 
-	public List<Long> longDishesId() {
-		List<Long> menuIds = new ArrayList<Long>();
+	public List<String> longDishesId() {
+		List<String> menuIds = new ArrayList<String>();
 		String[] ids = dishesId.split(",");
 
 		if (ids != null) {
 			for (String id : ids) {
-				menuIds.add(Long.valueOf(id));
+				menuIds.add(id);
 			}
 		}
 
@@ -126,6 +128,14 @@ public class MerchantOrderDetailVO {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public Timestamp getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(Timestamp orderTime) {
+		this.orderTime = orderTime;
 	}
 
 }
