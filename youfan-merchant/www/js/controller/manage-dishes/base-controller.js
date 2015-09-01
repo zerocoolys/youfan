@@ -10,20 +10,20 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             });
 
             ManageDishesService.conversionSale({
-                menuId: obj.menuId,
+                id: obj.id,
                 sale: true
             });
         };
 
         $scope.downSale = function (obj) {
-            console.log("downSale");
+            console.log("downsale");
 
-            $ionicLoading.show({
+            $ionicloading.show({
                 template: "正在载入数据，请稍后..."
             });
 
-            ManageDishesService.conversionSale({
-                menuId: obj.menuId,
+            managedishesservice.conversionsale({
+                id: obj.id,
                 sale: false
             });
         };
@@ -129,7 +129,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             for (var i = 0; i < $scope.nscItems.length; i++) {
                 if ($scope.nscItems[i].restNum != $scope.nscItemsBase[i].restNum) {
                     $scope.changeItem.push({
-                        menuId: $scope.nscItems[i].menuId,
+                        id: $scope.nscItems[i].id,
                         restNum: $scope.nscItems[i].restNum
                     });
                 }
@@ -137,7 +137,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             for (var i = 0; i < $scope.qtcItems.length; i++) {
                 if ($scope.qtcItems[i].restNum != $scope.qtcItemsBase[i].restNum) {
                     $scope.changeItem.push({
-                        menuId: $scope.qtcItems[i].menuId,
+                        id: $scope.qtcItems[i].id,
                         restNum: $scope.qtcItems[i].restNum
                     });
                 }
@@ -145,7 +145,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             for (var i = 0; i < $scope.xfzItems.length; i++) {
                 if ($scope.xfzItems[i].restNum != $scope.xfzItemsBase[i].restNum) {
                     $scope.changeItem.push({
-                        menuId: $scope.xfzItems[i].menuId,
+                        id: $scope.xfzItems[i].id,
                         restNum: $scope.xfzItems[i].restNum
                     });
                 }
@@ -249,7 +249,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             for (var i = 0; i < $scope.nscItems.length; i++) {
                 if ($scope.nscItems[i].stock != $scope.nscItemsBase[i].stock) {
                     $scope.changeItem.push({
-                        menuId: $scope.nscItems[i].menuId,
+                        id: $scope.nscItems[i].id,
                         stock: $scope.nscItems[i].stock
                     });
                 }
@@ -257,7 +257,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             for (var i = 0; i < $scope.qtcItems.length; i++) {
                 if ($scope.qtcItems[i].stock != $scope.qtcItemsBase[i].stock) {
                     $scope.changeItem.push({
-                        menuId: $scope.qtcItems[i].menuId,
+                        id: $scope.qtcItems[i].id,
                         stock: $scope.qtcItems[i].stock
                     });
                 }
@@ -265,7 +265,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             for (var i = 0; i < $scope.xfzItems.length; i++) {
                 if ($scope.xfzItems[i].stock != $scope.xfzItemsBase[i].stock) {
                     $scope.changeItem.push({
-                        menuId: $scope.xfzItems[i].menuId,
+                        id: $scope.xfzItems[i].id,
                         stock: $scope.xfzItems[i].stock
                     });
                 }

@@ -30,7 +30,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             $timeout(function () {
                 $scope.$broadcast("scroll.refreshComplete");
                 ManageDishesService.allDishes("888888888", "xfz");
-            }, 500);
+            }, 800);
 
         };
 

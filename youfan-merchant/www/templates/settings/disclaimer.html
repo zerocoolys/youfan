@@ -1,10 +1,16 @@
 <!-- 免责声明 -->
-<ion-view view-title="免责声明">
+<ion-view view-title="免责声明" class="calm" cache-view="false">
+
+    <ion-nav-buttons side="left">
+        <button class="button button-clear button-calm" data-ng-click="goState('settings.index')"><i
+            class="icon ion-ios-arrow-back"></i></button>
+    </ion-nav-buttons>
+
     <ion-content class="padding">
 
         <ion-refresher
-                pulling-text="下拉能够刷新"
-                on-refresh="doRefresh()">
+            pulling-text="下拉能够刷新"
+            on-refresh="doRefresh()">
         </ion-refresher>
         <div data-ng-bind="disclaimerText"></div>
 

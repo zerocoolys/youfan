@@ -2,16 +2,16 @@
     <ion-header-bar class="bar bar-header">
         <a class="button button-clear button-calm icon ion-ios-arrow-back" href="#/editkitchen"></a>
         <div class=" title" align-text="center">编辑厨房信息</div>
-        <button ng-click="saveKitchenInfo(kitchenInfo,address,characteristic)"  class="button button-clear button-calm ">
+        <button ng-click="saveKitchenInfo()"  class="button button-clear button-calm ">
             保存
         </button>
     </ion-header-bar>
     <ion-content class="stable-bg">
         <ion-item class="item item-input  padding light-bg" style="margin: 20px 0">
-            <input type="text" ng-model="kitchenName" placeholder="请输入厨房名称">
+            <input type="text" ng-model="kitchenInfo.kitchenName" placeholder="请输入厨房名称">
         </ion-item>
         <ion-item class="item item-input padding light-bg" style="margin: 20px 0">
-            <input type="tel" ng-model="phoneNumber" placeholder="可填写另一个手机号(非必填)">
+            <input type="tel" ng-model="kitchenInfo.phoneNumber" placeholder="可填写另一个手机号(非必填)">
         </ion-item>
         <ion-item href="#/kitcheninfo-story" class="item  item-icon-right">
             <h2>厨房故事</h2>
@@ -26,20 +26,20 @@
             <span>厨房特色<label style="color: #e6b400">(每个标签最多输入5个字)</label></span>
         </ion-item>
         <ion-item class="padding row light-bg" >
-            <input class="col" type="text" ng-model="characteristic[0]" placeholder="烹饪菜系">
-            <input class="col" type="text" ng-model="characteristic[1]" placeholder="烹饪菜系">
+            <input class="col" type="text" ng-model="kitchenInfo.characteristic[0]" placeholder="烹饪菜系">
+            <input class="col" type="text" ng-model="kitchenInfo.characteristic[1]" placeholder="烹饪菜系">
         </ion-item>
         <ion-item class="padding  item-divider" >
             <span >厨房地址</span>
         </ion-item>
         <ion-item class="row">
-            <input class="col" type="text" ng-model="address.province" list="address_province" name="link" placeholder="省"
+            <input class="col" type="text" ng-model="kitchenInfo.kitchenAddress.province" list="address_province" name="link" placeholder="省"
             required="required"/>
             <datalist id="address_province">
             <option label="四川" value="四川"/>
             <option label="北京" value="北京"/>
             </datalist>
-            <input class="col" type="text" ng-model="address.city" list="address_city" name="link" placeholder="市"
+            <input class="col" type="text" ng-model="kitchenInfo.kitchenAddress.city" list="address_city" name="link" placeholder="市"
             required="required"/>
             <datalist id="address_city">
             <option label="成都" value="成都"/>
@@ -48,7 +48,7 @@
             </datalist>
         </ion-item>
         <ion-item class="item-input">
-            <input type="text" ng-model="address.specificAddress" placeholder="填写街道、小区名称、栋楼及单元号"
+            <input type="text" ng-model="kitchenInfo.kitchenAddress.specificAddress" placeholder="填写街道、小区名称、栋楼及单元号"
             required="required">
         </ion-item>
 

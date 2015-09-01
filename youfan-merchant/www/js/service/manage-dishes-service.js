@@ -20,7 +20,7 @@ angular.module('yf_merchant.manage_dishes_service', [])
             if ($rootScope.user && $rootScope.user.id != "") {
                 dishes.sellerId = $rootScope.user.id;
             }
-            $http.post(YF_MERCHANT_HOST + "/menu", dishes).success(function (data, status, headers, config) {
+            $http.post(YF_MERCHANT_HOST + "/menu/add", dishes).success(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-save-dishes-success");
             }).error(function (data, status, headers, config) {
                 $rootScope.$broadcast("yf-merchant-save-dishes-error");
