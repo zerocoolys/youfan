@@ -43,7 +43,6 @@ public class CaptchaController {
         Response response = null;
         try {
             captchaParams = mapper.readValue(captcha, CaptchaParams.class);
-            System.out.println(captchaParams.getCaptchaKey());
             response = Responses.SUCCESS().setPayload(captchaService.getCaptcha(captchaParams.getCaptchaKey())) ;
         } catch (Exception e) {
             response = Responses.FAILED();
@@ -53,7 +52,7 @@ public class CaptchaController {
     }
 
     /**
-     * 在 redis 存储验证码时效
+     * 在 redis 存储验证码时效 5 分钟
      * @param captchaParamsStr
      */
     @RequestMapping(method = RequestMethod.POST, path = "/captcha", produces = "application/json")
@@ -69,6 +68,6 @@ public class CaptchaController {
 
         }
 
-        captchaService.add(captchaParams.getCaptchaKey(), 60000, captchaParams.getCaptcha());
+        captchaService.add(captchaParams.getCaptchaKey(), 300000, captchaParams.getCaptcha());
     }
 }

@@ -5,6 +5,8 @@ import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.ClientUserEntity;
 import com.youfan.data.support.IdGenerator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -17,10 +19,7 @@ import javax.annotation.Resource;
 @Repository("ucDAO")
 public class UserDaoImpl implements UserDao {
 
-	@Resource
-	private IdGenerator idGenerator;
-
-
+	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	@Override
 	public void update(UserVO userClientVO) {
@@ -56,14 +55,14 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Class<ClientUserEntity> getEntityClass() {
-		return ClientUserEntity.class;
-	}
-
-	@Override
-	public Class<UserVO> getVOClass() {
-		// TODO Auto-generated method stub
-		return null;
+	public UserVO getUserByTel(String tel) {
+		UserVO result = new UserVO();
+		try {
+			result = convertToVO(mongoTemplate.findOne(buildQueryByTel(tel), getEntityClass(), COLLECTION_CLIENT_USER));
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return  result;
 	}
 
 	@Override
