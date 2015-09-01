@@ -117,6 +117,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //个人中心
             .state('tab.chats', {
                 url: '/chats',
+                cache:false,
                 views: {
                     'tab-chats': {
                         templateUrl: 'templates/personalcenter/tab-chats.html',

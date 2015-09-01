@@ -87,7 +87,7 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
     $scope.showAlert = function () {
         var alertPopup = $ionicPopup.alert({
             cssClass: 'zan_popup',
-            template: '亲!当前只对成都开放',
+            template: '亲!暂时不对成都之外的城市开发.敬请期待哦!!',
             scope: $scope,
             buttons: []
         });
