@@ -38,12 +38,12 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantKitchenInfoVO mrFindById(String id) {
+    public MerchantKitchenInfoVO mrFindById(Long id) {
         return merchantKitchenDAO.findById(id);
     }
 
     @Override
-    public MerchantUserVO muFindById(String id) {
+    public MerchantUserVO muFindById(Long id) {
         return merchantUserDao.findById(id);
     }
 
@@ -57,8 +57,8 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException {
-        return null;
+    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id){
+        return merchantKitchenDAO.getMerchantKitchenBaseInfo(id);
     }
 
     @Override
@@ -72,8 +72,8 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantKitchenInfoVO getMerchantKitchenInfo(Long id) throws KitchenInfoException {
-        return null;
+    public MerchantUserVO getMerchantUserInfo(String id) {
+        return merchantUserDao.getMerchantUserInfo(id);
     }
 
     @Override

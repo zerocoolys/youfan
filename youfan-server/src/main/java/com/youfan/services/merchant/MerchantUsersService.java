@@ -103,7 +103,7 @@ public interface MerchantUsersService {
      * @return MerchantKitchenInfoVO对象
      * @throws KitchenInfoException
      */
-    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(Long id) throws KitchenInfoException;
+    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id);
 
     /**
      * 获取厨房照片信息
@@ -127,12 +127,11 @@ public interface MerchantUsersService {
      * 获取商家厨房所有信息
      *
      * @param id 商家用户id或厨房信息id
-     * @return MerchantKitchenInfoVO对象
-     * @throws KitchenInfoException
+     * @return MerchantUserVO对象
      */
-    public MerchantKitchenInfoVO getMerchantKitchenInfo(Long id) throws KitchenInfoException;
+    public MerchantUserVO getMerchantUserInfo(String id);
 
-    MerchantKitchenInfoVO mrFindById(String id);
+    MerchantKitchenInfoVO mrFindById(Long id);
 
-    MerchantUserVO muFindById(String id);
+    MerchantUserVO muFindById(Long id);
 }

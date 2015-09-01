@@ -2,6 +2,8 @@ package com.youfan.controllers.merchant;
 
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
+import com.youfan.controllers.support.Response;
+import com.youfan.controllers.support.Responses;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.merchant.MerchantUsersService;
@@ -36,14 +38,14 @@ public class UserController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST, produces = "application/json")
-    public MerchantUserVO login(@RequestBody MerchantUserVO merchantUser) {
+    public Response login(@RequestBody MerchantUserVO merchantUser) {
         MerchantUserVO merchantUserRes = null;
         try {
             merchantUserRes = merchantUsersService.login(merchantUser.getUserName());
         } catch (UserException ue) {
             System.out.println(ue.getMessage());
         }
-        return merchantUserRes;
+        return Responses.SUCCESS().setCode(200).setPayload(merchantUserRes);
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST, produces = "application/json")
@@ -57,11 +59,11 @@ public class UserController {
         return mapRes;
     }
 
-    @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.GET, produces = "application/json")
-    public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
+    @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
+    public MerchantKitchenInfoVO saveMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {
         MerchantKitchenInfoVO merchantKitchenInfoRes = null;
         try {
-            merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenInfo(merchantKitchenInfo);
+            merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenInfo(merchantKitchenInfoVO);
         } catch (KitchenInfoException ke) {
             System.out.println(ke.getMessage());
         }
@@ -90,14 +92,16 @@ public class UserController {
         return merchantKitchenInfoRes;
     }
 
-    @RequestMapping(path = "/getMerchantKitchenStoryInfo", method = RequestMethod.GET, produces = "application/json")
-    public MerchantKitchenInfoVO getMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
-        MerchantKitchenInfoVO merchantKitchenInfoRes = null;
-        try {
-            merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
-        } catch (KitchenInfoException ke) {
-            System.out.println(ke.getMessage());
-        }
-        return merchantKitchenInfoRes;
+    @RequestMapping(path = "/getMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
+    public Response getMerchantUserInfo(@RequestBody MerchantUserVO merchantUserVO) {
+        MerchantUserVO merchantUser = null;
+        merchantUser = merchantUsersService.getMerchantUserInfo(merchantUserVO.getId());
+        return Responses.SUCCESS().setCode(200).setPayload(merchantUser);
+    }
+    @RequestMapping(path = "/getMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
+    public Response getMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {
+        MerchantKitchenInfoVO merchantKitchenInfoVORes = null;
+        merchantKitchenInfoVORes = merchantUsersService.getMerchantKitchenBaseInfo(merchantKitchenInfoVO.getId());
+        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoVORes);
     }
 }

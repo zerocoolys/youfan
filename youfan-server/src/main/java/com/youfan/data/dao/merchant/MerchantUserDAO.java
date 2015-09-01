@@ -3,6 +3,7 @@ package com.youfan.data.dao.merchant;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantUserEntity;
+
 import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
@@ -12,10 +13,26 @@ import java.util.Map;
  * Created by perfection on 15-8-19.
  */
 public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, MerchantUserVO, Long> {
+    /**
+     * 登陆
+     * @param userName 用户名手机号码
+     * @return
+     */
     MerchantUserVO login(String userName);
 
+    /**
+     * 注册
+     * @param userName
+     * @param passWord
+     * @return
+     */
     Map<String, String> register(String userName, String passWord);
 
+    /**
+     * 保存商家用户个人信息
+     * @param merchantUser
+     * @return
+     */
     MerchantUserVO saveMerchantUserInfo(MerchantUserVO merchantUser);
 
     List<MerchantUserEntity> getMerchantByStatus(Integer status);
@@ -26,7 +43,7 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 
     long count(Query query);
 
-    MerchantUserVO findById(String id);
+    MerchantUserVO findById(Long id);
 
 
     @Override
@@ -38,4 +55,13 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
     default Class<MerchantUserVO> getVOClass() {
         return MerchantUserVO.class;
     }
+
+    /**
+     * 根据id获取商家用户信息
+     * @param id
+     * @return
+     */
+     MerchantUserVO getMerchantUserInfo(String id);
+
+	MerchantUserVO findById(String id);
 }

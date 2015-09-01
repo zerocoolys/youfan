@@ -1,12 +1,18 @@
 package com.youfan.data.dao.merchant.impl;
 
 import com.youfan.commons.vo.merchant.MerchantUserVO;
+import com.youfan.commons.Constants;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
+import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.data.support.IdGenerator;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,17 +26,31 @@ import static org.springframework.data.mongodb.core.query.Query.query;
  */
 @Repository("merchantUserDao")
 public class MerchantUserDAOImpl implements MerchantUserDAO {
+    @Resource
+    private IdGenerator idGenerator;
+
+    @Override
+    public MerchantUserVO getMerchantUserInfo(String id) {
+        MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where(COLLECTION_MERCHANTUSERID).is(id)), getEntityClass());
+        if(merchantUserEntity!=null){
+            return convertToVO(merchantUserEntity);
+        }else{
+            return null;
+        }
+    }
 
     @Override
     public MerchantUserVO saveMerchantUserInfo(MerchantUserVO merchantUser) {
-        if (mongoTemplate.collectionExists(getEntityClass())) {
+        boolean test = mongoTemplate.collectionExists(getEntityClass());
+        if (test) {
             Update update = new Update();
-
+            update.set("status", merchantUser.getStatus());
+            update.set("id", merchantUser.getId());
             update.set("address", merchantUser.getAddress());
             update.set("ageRange", merchantUser.getAgeRange());
-            update.set("headPortraitPicUrl", merchantUser.getHeadPortraitPicUrl());
-            update.set("healthCertificatePicUrl", merchantUser.getHealthCertificatePicUrl());
-            update.set("idCardPicUrl", merchantUser.getIdCardPicUrl());
+            update.set(COLLECTION_HEADPORTRAITPICURL, merchantUser.getHeadPortraitPicUrl());
+            update.set(COLLECTION_HEALTHCERTIFICATEPICURL, merchantUser.getHealthCertificatePicUrl());
+            update.set(COLLECTION_IDCARDPICURL, merchantUser.getIdCardPicUrl());
             update.set("realName", merchantUser.getRealName());
             update.set("sex", merchantUser.getSex());
             return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantUser.getId())), update, getEntityClass()));
@@ -57,10 +77,10 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         merchantUser.setUserName(userName);
         if (!mongoTemplate.collectionExists(getEntityClass())) {
             mongoTemplate.createCollection(getEntityClass());
-            mongoTemplate.insert(merchantUser);
+            mongoTemplate.insert(convertToEntity(merchantUser));
         } else {
             if (mongoTemplate.findOne(query(where("userName").is(userName)), getEntityClass()) == null) {
-                mongoTemplate.insert(merchantUser);
+                mongoTemplate.insert(convertToEntity(merchantUser));
             }
         }
         MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where("userName").is(userName)), getEntityClass());
@@ -100,7 +120,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
                 //注册成功
                 merchantUser.setId(merchantUserEntityRes.getId());
                 map.put("registerStatus", "1");
-                map.put("id", merchantUser.getId().toString());
+                map.put("id", merchantUser.getId());
                 map.put("userName", merchantUser.getUserName());
                 map.put("passWord", merchantUser.getPassWord());
                 return map;
@@ -142,7 +162,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     @Override
     public MerchantUserVO findById(String id) {
         Query q = new Query();
-        Criteria c = Criteria.where("id").is(id).and("status").is(1);
+        Criteria c = Criteria.where(Constants.FIELD_ID).is(id).and("status").is(0);
         q.addCriteria(c);
         MerchantUserEntity mue = mongoTemplate.findOne(q, getEntityClass());
         if (mue != null)
@@ -150,4 +170,20 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
         return null;
     }
+
+	@Override
+	public Class<MerchantUserEntity> getEntityClass() {
+		return MerchantUserEntity.class;
+	}
+
+	@Override
+	public Class<MerchantUserVO> getVOClass() {
+		return MerchantUserVO.class;
+	}
+
+	@Override
+	public MerchantUserVO findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

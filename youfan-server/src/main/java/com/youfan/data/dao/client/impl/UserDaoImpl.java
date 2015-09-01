@@ -4,6 +4,9 @@ import com.youfan.commons.vo.client.UserVO;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.ClientUserEntity;
 import com.youfan.data.support.IdGenerator;
+
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -14,10 +17,34 @@ import javax.annotation.Resource;
 @Repository("ucDAO")
 public class UserDaoImpl implements UserDao {
 
-    @Resource
-    private IdGenerator idGenerator;
+	@Resource
+	private IdGenerator idGenerator;
 
+	@Override
+	public UserVO findOne(Long id) {
+		return null;
+	}
 
+	@Override
+	public void insert(UserVO userClientVO) {
+		ClientUserEntity ucEntity = convertToEntity(userClientVO);
+		long userId = generateId(idGenerator.next(COLLECTION_CLIENT_USER));
+		ucEntity.setUserId(userId);
+
+		mongoTemplate.insert(ucEntity, COLLECTION_CLIENT_USER);
+	}
+
+	@Override
+	public void delete(Long id) {
+
+	}
+
+	@Override
+	public void update(UserVO userClientVO) {
+
+	}
+
+<<<<<<< HEAD
     @Override
     public UserVO findOne(String id) {
         return null;
@@ -31,14 +58,38 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(String id) {
+=======
+	@Override
+	public UserVO getUserByTelAndPwd(String tel, String pwd) {
 
-    }
+		return convertToVO(mongoTemplate.findOne(buildQuery(tel, pwd),
+				getEntityClass(), COLLECTION_CLIENT_USER));
+	}
 
-    @Override
-    public void update(UserVO userClientVO) {
+	@Override
+	public UserVO updateUserPwd(String pwd) {
+		return null;
+	}
 
-    }
+	@Override
+	public Class<ClientUserEntity> getEntityClass() {
+		return ClientUserEntity.class;
+	}
+>>>>>>> origin/youfan-server
 
+	@Override
+	public Class<UserVO> getVOClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserVO findByUid(Long uid) {
+
+		UserVO userVO = mongoTemplate.findOne(buildQueryByUid(uid),
+				UserVO.class, COLLECTION_CLIENT_USER);
+
+<<<<<<< HEAD
     @Override
     public UserVO getUserByTelAndPwd(String tel, String password) {
 
@@ -47,9 +98,14 @@ public class UserDaoImpl implements UserDao {
                 getEntityClass(),
                 COLLECTION_CLIENT_USER));
     }
+=======
+		return userVO;
+	}
 
-    @Override
-    public UserVO updateUserPwd(String pwd) {
-        return null;
-    }
+	public Query buildQueryByUid(Long uid) {
+		Criteria criteria = Criteria.where("userId").is(uid);
+>>>>>>> origin/youfan-server
+
+		return Query.query(criteria);
+	}
 }

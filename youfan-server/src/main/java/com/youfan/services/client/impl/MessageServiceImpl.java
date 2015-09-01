@@ -25,10 +25,6 @@ public class MessageServiceImpl implements MessageService {
 
     }
 
-    @Override
-    public MessageVO findOne(Query query) {
-        return messageDAO.findOne(query);
-    }
 
     @Override
     public boolean updateMsg(String id, int status) {
@@ -41,20 +37,12 @@ public class MessageServiceImpl implements MessageService {
         return result.isUpdateOfExisting();
     }
 
-    @Override
-    public List<MessageVO> find(Query query) {
-        return messageDAO.find(query);
-    }
 
     @Override
     public MessageVO findById(String id) {
         return messageDAO.findById(id);
     }
 
-    @Override
-    public long count(Query query) {
-        return messageDAO.count(query);
-    }
 
     @Override
     public List<MessageVO> findMsgList(Long userId, Integer receiver) {

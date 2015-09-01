@@ -31,7 +31,7 @@ public class CollectionVO<T> implements Serializable {
         super();
         this.pageSize = pageSize;
         if (pageSize >= 0) {
-            pageCnt = (int) Math.ceil((double) recordCnt / (double) pageSize);
+            this.pageCnt = (int) Math.ceil((double) recordCnt / (double) pageSize);
         }
         this.recordCnt = recordCnt;
         this.list = list;
