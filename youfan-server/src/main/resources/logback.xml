@@ -41,11 +41,59 @@
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
+	
+	<appender name="charge"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/platform/charge/charge.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/charge.%d{yyyy-MM-dd}.txt
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	
+	<appender name="refund"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/platform/refund/refund.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/refund.%d{yyyy-MM-dd}.txt
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
 
 
 	<logger name="com.youfan.log.WebbooksLog" level="INFO"
 		additivity="false">
 		<appender-ref ref="platform" />
+	</logger>
+
+    <logger name="com.youfan.log.ChargeLog" level="INFO"
+		additivity="false">
+		<appender-ref ref="charge" />
+	</logger>
+
+    <logger name="com.youfan.log.RefundLog" level="INFO"
+		additivity="false">
+		<appender-ref ref="refund" />
 	</logger>
 
 

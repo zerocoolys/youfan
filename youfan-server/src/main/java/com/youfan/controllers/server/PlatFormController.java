@@ -10,6 +10,7 @@ import com.pingplusplus.model.*;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.controllers.params.ChargeParams;
+import com.youfan.log.ChargeLog;
 import com.youfan.log.WebbooksLog;
 import com.youfan.services.client.MessageService;
 import com.youfan.utils.CipherUtil;
@@ -165,6 +166,10 @@ public class PlatFormController {
             Event event = Webhooks.eventParse(buffer.toString());
             if ("charge.succeeded".equals(event.getType())) {
                 response.setStatus(200);
+                Map<String,Object> data =  event.getData();
+                Map<String,Object> obj = (Map<String, Object>) data.get("object");
+                ChargeLog.chargeLog(obj.get("order_no").toString(),obj.get("created").toString(),obj.get("amount").toString() );
+                
             } else if ("refund.succeeded".equals(event.getType())) {
                 response.setStatus(200);
             } else {
@@ -173,7 +178,6 @@ public class PlatFormController {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         WebbooksLog.recordWebbooks("");
