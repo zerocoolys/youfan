@@ -16,7 +16,12 @@ public class OrderParams extends Pagination {
 
     String sellerId;
 
-    Map<String, Integer> itemMap = new HashMap<>();
+    /**
+     * KEY: 菜品ID
+     * VALUE[0]: 订购的菜品份数
+     * VALUE[1]: 菜品今日余量
+     */
+    Map<String, Integer[]> itemMap = new HashMap<>();
 
     String comments;
 
@@ -25,6 +30,10 @@ public class OrderParams extends Pagination {
     int orderStatus;
 
     String repastMode;
+
+    String repastAddress;
+
+    private String couponId;
 
 
     public String getOrderNo() {
@@ -51,11 +60,11 @@ public class OrderParams extends Pagination {
         this.sellerId = sellerId;
     }
 
-    public Map<String, Integer> getItemMap() {
+    public Map<String, Integer[]> getItemMap() {
         return itemMap;
     }
 
-    public void setItemMap(Map<String, Integer> itemMap) {
+    public void setItemMap(Map<String, Integer[]> itemMap) {
         this.itemMap = itemMap;
     }
 
@@ -75,6 +84,14 @@ public class OrderParams extends Pagination {
         this.price = price;
     }
 
+    public String getRepastMode() {
+        return repastMode;
+    }
+
+    public void setRepastMode(String repastMode) {
+        this.repastMode = repastMode;
+    }
+
     public int getOrderStatus() {
         return orderStatus;
     }
@@ -83,11 +100,19 @@ public class OrderParams extends Pagination {
         this.orderStatus = orderStatus;
     }
 
-    public String getRepastMode() {
-        return repastMode;
+    public String getRepastAddress() {
+        return repastAddress;
     }
 
-    public void setRepastMode(String repastMode) {
-        this.repastMode = repastMode;
+    public void setRepastAddress(String repastAddress) {
+        this.repastAddress = repastAddress;
+    }
+
+    public String getCouponId() {
+        return couponId;
+    }
+
+    public void setCouponId(String couponId) {
+        this.couponId = couponId;
     }
 }

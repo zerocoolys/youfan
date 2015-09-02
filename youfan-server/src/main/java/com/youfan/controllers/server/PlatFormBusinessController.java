@@ -1,7 +1,7 @@
 package com.youfan.controllers.server;
 
 import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
