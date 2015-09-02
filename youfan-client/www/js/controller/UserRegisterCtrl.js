@@ -1,7 +1,7 @@
 /**
  * Created by icepros on 15-8-19.
  */
-ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state){
+ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state, $interval){
 
     /**
      * 用户协议
@@ -33,6 +33,20 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
     /**
      * 发送验证码
      */
+    $scope.validCode = "获取验证码";
+    $scope.isClick = false;
+    $scope.Count = function () {
+        if($scope.totalTime > 0){
+            $scope.totalTime--;
+            $scope.second = $scope.totalTime % 60;
+            $scope.second = $scope.second < 10 ? "0" + $scope.second : $scope.second;
+            $scope.validCode ="验证码"+ $scope.second + "秒";
+        }else{
+            $scope.isClick = false;
+            $scope.validCode = "获取验证码";
+            $interval.cancel ( $scope.Countdown )
+        }
+    }
     $scope.sendMessage = function(){
 
         var tel = $scope.user.tel;
@@ -49,6 +63,12 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                     myPopup.close(); //由于某种原因2秒后关闭弹出
                 }, 2000);
             } else {
+                /*倒计时效果初始化*/
+                $scope.isClick = true;
+                $scope.second = "60";
+                $scope.totalTime = 60;
+                $scope.Countdown = $interval($scope.Count,1000);
+
                 //生成 6 位随机数验证码
                 for ( var i = 0; i < codeLength; i++) {
                     $scope.code += parseInt(Math.random() * 9).toString();
@@ -108,6 +128,25 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                 }, 2000);
             } else {
 
+                /*$http.post("http://localhost:8080/client/register", JSON.stringify($scope.user))
+                    .success(function (data) {
+                        console.log(data);
+                        if(data.code == 0){
+                            $state.go('tab.chats');
+                        }
+                        if(data.code == 1){
+                            var telReg = $ionicPopup.show({
+                                title: '该手机号已注册',
+                                scope: $scope
+                            });
+                            $timeout(function() {
+                                telReg.close(); //由于某种原因2秒后关闭弹出
+                            }, 2000);
+                        }
+
+                    }).error(function(data){
+                        console.log(data);
+                    });*/
                 if(captcha != ""){
                     if($scope.code != undefined){
                         var code = $scope.url.split("/")[6];
@@ -130,11 +169,24 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
                                         $http.post("http://localhost:8080/register/verify",JSON.stringify(model))
                                             .success(function(data){
                                                 //console.log(data);
-                                                if(data.payload == true){
+                                                if(data.payload == false){
+
                                                     $http.post("http://localhost:8080/client/register", JSON.stringify($scope.user))
                                                         .success(function (data) {
-                                                            //console.log(data.result);
-                                                            $state.go('tab.chats');
+
+                                                            if(data.code == 0){
+                                                                $state.go('tab.chats');
+                                                            }
+                                                            if(data.code == 1){
+                                                                var telReg = $ionicPopup.show({
+                                                                    title: '该手机号已注册',
+                                                                    scope: $scope
+                                                                });
+                                                                $timeout(function() {
+                                                                    telReg.close(); //由于某种原因2秒后关闭弹出
+                                                                }, 2000);
+                                                            }
+
                                                         }).error(function(data){
                                                             console.log(data);
                                                         });

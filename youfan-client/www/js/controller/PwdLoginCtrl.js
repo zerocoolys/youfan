@@ -34,7 +34,7 @@ ControllerModule.controller('PwdLoginCtrl', function($scope, $ionicModal, $ionic
             } else {
                 $http.post("http://localhost:8080/client/login/", JSON.stringify($scope.user))
                     .success(function (data) {
-                        console.log(data.code);
+                        //console.log(data);
 
                         if(data.code == 0){
                             $state.go('tab.chats');
