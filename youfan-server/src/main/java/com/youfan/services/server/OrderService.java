@@ -42,4 +42,6 @@ public interface OrderService {
 	int countAll();
 	
 	CollectionVO<OrderVO> getOrdersByParams (OrderParams op);
+	
+	int updateOrderStatus(OrderParams order);
 }

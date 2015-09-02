@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVO getUserByTel(String tel){
-        return null;
+        return ucDAO.getUserByTel(tel);
     }
 
     @Override

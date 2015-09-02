@@ -1,21 +1,14 @@
 package com.youfan.controllers.server;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.OrderVO;
-import com.youfan.commons.vo.server.CouponsTypeVO;
-import com.youfan.controllers.params.CouponsParams;
-import com.youfan.controllers.params.OrderParams;
-import com.youfan.controllers.support.Response;
-import com.youfan.controllers.support.Responses;
-import com.youfan.data.models.CouponsContentEntity;
-import com.youfan.data.models.MerchantKitchenInfoEntity;
-import com.youfan.data.models.MerchantUserEntity;
-import com.youfan.exceptions.UserException;
-import com.youfan.services.merchant.MerchantKitchenService;
-import com.youfan.services.merchant.MerchantUsersService;
-import com.youfan.services.server.CouponsTypeService;
-import com.youfan.services.server.OrderService;
-import com.youfan.utils.JSONUtils;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -25,12 +18,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.youfan.commons.vo.ActiveVO;
+import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.client.UserVO;
+import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.controllers.params.CouponsParams;
+import com.youfan.controllers.params.OrderParams;
+import com.youfan.controllers.support.Response;
+import com.youfan.controllers.support.Responses;
+import com.youfan.data.models.CouponsContentEntity;
+import com.youfan.data.models.MerchantKitchenInfoEntity;
+import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.exceptions.ServerNoActiveDetailClazzException;
+import com.youfan.exceptions.ServerNoActiveEventException;
+import com.youfan.exceptions.UserException;
+import com.youfan.services.merchant.MerchantKitchenService;
+import com.youfan.services.merchant.MerchantUsersService;
+import com.youfan.services.server.ActiveService;
+import com.youfan.services.server.ActiveSupportService;
+import com.youfan.services.server.CouponsTypeService;
+import com.youfan.services.server.OrderService;
+import com.youfan.utils.JSONUtils;
 
 /**
  * Created by MrDeng on 15/8/17.
@@ -39,36 +48,69 @@ import java.util.List;
 @RequestMapping(path = "/pBusiness")
 public class PlatFormBusinessController {
 
-    Logger logger = LoggerFactory.getLogger(PlatFormBusinessController.class);
-    @Resource
-    MerchantUsersService merchantUsersService;
-    @Resource
-    MerchantKitchenService merchantKitchenService;
-    @Resource
-    OrderService orderService;
-
-    @Resource
-    CouponsTypeService couponsTypeService;
+	Logger logger = LoggerFactory.getLogger(PlatFormBusinessController.class);
+	@Resource
+	MerchantUsersService merchantUsersService;
+	@Resource
+	MerchantKitchenService merchantKitchenService;
+	@Resource
+	OrderService orderService;
+	@Resource
+	ActiveService activeService;
+	@Resource
+	ActiveSupportService activeSupportService;
+	@Resource
+	CouponsTypeService couponsTypeService;
     ///////////////////////////////// 系统//////////////////////////////////////////
 
-    /**
-     * 检查敏感词
-     *
-     * @param sentence
-     * @param request
-     * @param response
-     * @return
-     * @description TODO
-     * @version 1.0
-     * @author QinghaiDeng
-     * @update 2015年9月1日 上午9:44:27
-     */
-    @RequestMapping(method = RequestMethod.GET, path = "/sys/checkWords/{sentence}")
-    public Response checkWords(@PathVariable String sentence, HttpServletRequest request, HttpServletResponse response) {
-        Response res = null;
-        res = Responses.SUCCESS().setCode(1).setMsg("No Sensitive Words");
-        return res;
-    }
+	/**
+	 * Sys测试接口
+	 * @param sentence
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月1日 下午5:27:03
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/test")
+	public Response test(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		Map<String,Object> activeParams = new HashMap<String,Object>();
+		activeParams.put("buyerId", "1");
+		activeParams.put("clientUser", new UserVO());
+		try {
+			activeSupportService.joinActive("client_login", activeParams);
+			res = Responses.SUCCESS().setCode(1).setMsg("SUCCESS");
+		} catch (ServerNoActiveDetailClazzException e) {
+			res = Responses.FAILED().setCode(2).setMsg("ServerNoActiveDetailClazzException");
+		} catch (ServerNoActiveEventException e) {
+			res = Responses.FAILED().setCode(3).setMsg("ServerNoActiveEventException");
+		}
+		
+		
+		return res;
+	}
+	
+	
+	/**
+	 * 检查敏感词
+	 * @param sentence
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月1日 上午9:44:27
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/checkWords/{sentence}")
+	public Response checkWords(@PathVariable String sentence,HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		res = Responses.SUCCESS().setCode(1).setMsg("No Sensitive Words");
+		return res;
+	}
 
     /**
      * 分页获取订单信息
@@ -187,11 +229,41 @@ public class PlatFormBusinessController {
             e.printStackTrace();
             res = Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
         }
-
         return res;
     }
-    ///////////////////////////////// 客户//////////////////////////////////////////
-    ///////////////////////////////// 商家//////////////////////////////////////////
+
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveActive")
+	public Response saveActive(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+			if (request.getParameter("event")!=null&&request.getParameter("port") != null && request.getParameter("activeType") != null
+					&& request.getParameter("activeDetailClazz") != null ) {
+
+				ActiveVO activeVo = new ActiveVO();
+				activeVo.setPort(Integer.valueOf(request.getParameter("port")));
+				activeVo.setEvent(request.getParameter("event"));
+				activeVo.setActiveType(Integer.valueOf(request.getParameter("activeType")));
+				activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
+				activeVo.setDesc(request.getParameter("desc"));
+				activeVo.setContent( JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
+				//创建时间为保存时当前时间
+				activeVo.setCreateTime(new Date().getTime());
+				//状态默认为1 表示开启使用状态
+				activeVo.setStatus(1);
+				activeService.save(activeVo);
+				res = Responses.SUCCESS().setMsg("数据保存成功");
+			} else {
+				res = Responses.FAILED().setMsg("数据保存异常:参数错误");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
+		}
+		
+		return res;
+	}
+	///////////////////////////////// 商家//////////////////////////////////////////
 
     /**
      * 获取置顶状态的商家信息

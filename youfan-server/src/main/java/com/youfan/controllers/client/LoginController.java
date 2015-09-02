@@ -17,6 +17,8 @@ import org.springframework.web.servlet.view.AbstractView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,10 +41,13 @@ public class LoginController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST, path = "/register", produces = "application/json")
-    public void register(@RequestBody UserVO uc) {
+    public Response register(@RequestBody UserVO uc) {
 
+        Response response = null;
         UserVO userVO = new UserVO();
 
+        //设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String tel = uc.getTel();
 
         userVO.setTel(tel);
@@ -51,8 +56,21 @@ public class LoginController {
         userVO.setSex("待完善");
         userVO.setAge("待完善");
         userVO.setJobs("待完善");
+        userVO.setRegisterDate(df.format(new Date()));
 
-        ucService.insert(userVO);
+        try {
+            if (ucService.getUserByTel(tel).getTel() != null){
+                response = Responses.FAILED();
+            } else {
+                ucService.insert(userVO);
+                response = Responses.SUCCESS();
+            }
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
+        }
+
+        return  response;
     }
 
     /**
@@ -67,6 +85,7 @@ public class LoginController {
             userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getPassword());
             response = Responses.SUCCESS().setPayload(userClientVO);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             response = Responses.FAILED();
             logger.error(e.getMessage());
         }

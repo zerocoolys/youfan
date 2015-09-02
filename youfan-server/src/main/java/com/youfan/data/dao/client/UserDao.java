@@ -11,15 +11,26 @@ import org.springframework.data.mongodb.core.query.Query;
  */
 public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, String> {
 
-    //通过电话号码和密码获取用户信息
+    /**
+     * 通过电话号码和密码获取用户信息
+     * @param tel
+     * @param pwd
+     * @return
+     */
     UserVO getUserByTelAndPwd(String tel, String pwd);
 
     //更新密码
     UserVO updateUserPwd(String pwd);
 
+    /**
+     * 通过电话获取用户
+     * @param tel
+     * @return
+     */
+    UserVO getUserByTel(String tel);
 
    //根据用于ID查询用户
-    UserVO findByUid(Long uid);
+    UserVO findByid(String id);
 
 
     @Override
@@ -40,6 +51,11 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, String> 
             criteria.and("password").is(password);
         }
 
+        return Query.query(criteria);
+    }
+
+    default Query buildQueryByTel(String tel){
+        Criteria criteria = Criteria.where("tel").is(tel);
         return Query.query(criteria);
     }
 }
