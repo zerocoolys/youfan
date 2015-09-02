@@ -179,14 +179,8 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public void saveOrderDishes(List<OrderDishRelVO> dishRelVOs) {
-//        dishRelVOs.forEach(od -> {
-//            OrderDishRelEntity orderDishRelEntity = convertToEntity(od, OrderDishRelEntity.class, OrderDishRelVO.class);
-//            if (orderDishRelEntity != null) {
-//                sqlSession.insert("saveOrderDishes", orderDishRelEntity);
-//            }
-//        });
         List<OrderDishRelEntity> dishRelEntities = convertToEntityList(dishRelVOs, OrderDishRelEntity.class, OrderDishRelVO.class);
-        sqlSession.insert("", dishRelEntities);
+        sqlSession.insert("saveOrderDishes", dishRelEntities);
 
     }
 

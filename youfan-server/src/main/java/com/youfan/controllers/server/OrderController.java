@@ -128,10 +128,12 @@ public class OrderController {
             MenuVO menuVO = new MenuVO();
             menuVO.setId(k);
             menuVO.setRestNum(v[1]);
+            menuVOList.add(menuVO);
 
             OrderDishRelVO orderDishRelVO = new OrderDishRelVO();
             orderDishRelVO.setItemId(k);
             orderDishRelVO.setCount(v[0]);
+            orderDishRelVOList.add(orderDishRelVO);
         });
 
         // 创建订单

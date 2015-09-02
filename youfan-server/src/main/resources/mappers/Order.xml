@@ -151,7 +151,7 @@
 	</insert>
 
     <insert id="saveOrderDishes" useGeneratedKeys="true" parameterType="java.util.List">
-        INSERT INTO TBL_REL_ODR_DISH (ORDER_ID, DISH_ID, DATA_STATUS, DISH_COUNT) VALUE
+        INSERT INTO TBL_REL_ODR_DISH (ORDER_NO, DISH_ID, DATA_STATUS, DISH_COUNT) VALUE
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.orderNo},#{item.itemId},#{item.dataStatus},#{item.count})
         </foreach>
