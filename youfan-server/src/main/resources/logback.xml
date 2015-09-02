@@ -105,10 +105,10 @@
 	<!--&lt;!&ndash; sql语句打印 &ndash;&gt; -->
 	<!--<logger name="java.sql" level="ERROR" /> -->
 	
-	<logger name="org.springframework" level="INFO" />
+	<logger name="org.springframework" level="debug" />
 
 
-	<root level="info">
+	<root level="debug">
 		 <appender-ref ref="STDOUT" />
 		<!-- <appender-ref ref="file" /> -->
 	</root>

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;

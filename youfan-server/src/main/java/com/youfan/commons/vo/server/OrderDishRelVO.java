@@ -1,13 +1,12 @@
-package com.youfan.data.models;
-
-import org.springframework.data.annotation.Id;
+package com.youfan.commons.vo.server;
 
 /**
- * Created by yousheng on 15/8/14.
+ * Created on 2015-09-02.
+ *
+ * @author dolphineor
  */
-public class OrderDishRelEntity {
+public class OrderDishRelVO {
 
-    @Id
     private Long id;
 
     private String orderNo;
@@ -16,7 +15,7 @@ public class OrderDishRelEntity {
 
     private int count;
 
-    private int dataStatus = 1;
+    private int dataStatus;
 
 
     public Long getId() {
