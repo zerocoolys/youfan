@@ -49,25 +49,14 @@ ControllerModule.controller('PwdLoginCtrl', function($scope, $ionicModal, $ionic
                         }
 
                     }).error(function(data){
-                        if(data.tel == null){
-                            var telNull = $ionicPopup.show({
-                                title: '手机号和密码不对',
-                                scope: $scope
-                            });
-                            $timeout(function() {
-                                telNull.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
-                        }
-                        if(data.password == null){
-                            var pwdNull = $ionicPopup.show({
-                                title: '手机号和密码不对',
-                                scope: $scope
-                            });
-                            $timeout(function() {
-                                pwdNull.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
-                        }
 
+                        var serverError = $ionicPopup.show({
+                            title: '网络连接失败',
+                            scope: $scope
+                        });
+                        $timeout(function() {
+                            serverError.close(); //由于某种原因2秒后关闭弹出
+                        }, 2000);
                     });
 
             }
