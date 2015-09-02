@@ -4,6 +4,7 @@ import com.mongodb.DBCursor;
 import com.youfan.commons.Constants;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.merchant.MerchantKitchenMyHobbyVO;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;
@@ -46,6 +47,16 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     public void update(MerchantKitchenInfoVO merchantKitchenInfo) {
 //        Update
 //        mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())),);
+    }
+
+    @Override
+    public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO) {
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfoVO.getId())), Update.update("hobby", merchantKitchenInfoVO.getHobby()), getEntityClass());
+        if (merchantKitchenInfoEntity != null) {
+            return convertToVO(merchantKitchenInfoEntity);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -122,10 +133,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
         Update update = new Update();
 
-        update.set("address", merchantKitchenInfo.getKitchenStoryName());
-        update.set("ageRange", merchantKitchenInfo.getKitchenStoryContent());
-
-        return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass()));
+        update.set("kitchenStoryName", merchantKitchenInfo.getKitchenStoryName());
+        update.set("kitchenStoryContent", merchantKitchenInfo.getKitchenStoryContent());
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass());
+        if (merchantKitchenInfoEntity != null) {
+            return convertToVO(merchantKitchenInfoEntity);
+        } else {
+            return null;
+        }
     }
 
     private void createCollection(MerchantKitchenInfoVO merchantKitchenInfo) {

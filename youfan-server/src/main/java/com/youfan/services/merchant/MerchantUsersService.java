@@ -134,4 +134,6 @@ public interface MerchantUsersService {
     MerchantKitchenInfoVO mrFindById(Long id);
 
     MerchantUserVO muFindById(Long id);
+
+    public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO);
 }

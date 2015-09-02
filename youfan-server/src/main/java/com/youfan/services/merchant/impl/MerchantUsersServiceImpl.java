@@ -121,4 +121,9 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     public List<MerchantUserEntity> find(Query query) {
         return merchantUserDao.find(query);
     }
+
+    @Override
+    public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO) {
+        return merchantKitchenDAO.saveMyHobby(merchantKitchenInfoVO);
+    }
 }

@@ -1,5 +1,6 @@
 package com.youfan.data.dao.merchant.impl;
 
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.Constants;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
