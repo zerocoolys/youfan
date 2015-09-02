@@ -1,45 +1,50 @@
 <!-- 我的银行卡 -->
-<ion-view view-title="我的银行卡" class="calm" cache-view="false">
+<ion-view view-title="我的银行卡" class="calm" cache-view="false" data-ng-init="load()">
 
     <ion-nav-buttons side="left">
-        <button class="button button-clear button-calm" data-ng-click="goState('settings.index')"><i
+        <button class="button button-clear button-calm" ui-sref="settings.index"><i
             class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
 
-    <ion-content class="padding">
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-calm" ui-sref="settings.card_edit({cardId: items[0].id})"
+                data-ng-if="items.length > 0">
+            修改
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content class="">
 
         <div style="padding: 10px; text-align: center;" data-ng-if="items.length == 0">
             <button class="button button-calm" data-ng-click="addCard()">亲 赶快添加你的银行卡吧</button>
         </div>
 
-        <div class="item item-divider" data-ng-if="items.length > 0">
-            <ion-list>
-                <ion-item data-ng-repeat="item in items | orderBy:xfzNum">
-                    <img data-ng-src="{{item.picUrls[0]}}" style="width: 100%; height: 50%">
+        <ion-list data-ng-if="items.length > 0">
+            <ion-item data-ng-repeat="item in items">
+                <div class="item item-input">
 
-                    <table width="100%">
-                        <tr>
-                            <td>{{item.name}}</td>
-                            <td style="text-align: right" rowspan="2">
-                                <button class="button button-assertive"
-                                        ui-sref="m_dishes_edit.xfz({menuId: item.menuId})">编辑
-                                </button>
-                                <button data-ng-if="!item.sale" class="button button-energized"
-                                        data-ng-click="upSale(item)">上架
-                                </button>
-                                <button data-ng-if="item.sale" class="button button-energized"
-                                        data-ng-click="downSale(item)">下架
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><i class="icon ion-social-yen"></i>{{item.price}}</td>
-                        </tr>
-                    </table>
+                    <span style="width: 20%;">银行:</span>
 
-                </ion-item>
-            </ion-list>
-        </div>
+                    <span>{{item.bankName}}</span>
+
+                </div>
+                <div class="item item-input">
+
+                    <span style="width: 20%;">卡号:</span>
+
+                    <span>{{item.cardNumber}}</span>
+
+                </div>
+                <div class="item item-input">
+
+                    <span style="width: 20%;">持卡人:</span>
+
+                    <span>{{item.identityName}}</span>
+
+                </div>
+
+            </ion-item>
+        </ion-list>
 
     </ion-content>
 

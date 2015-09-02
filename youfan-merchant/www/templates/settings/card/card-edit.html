@@ -1,5 +1,5 @@
 <!-- 添加银行卡 -->
-<ion-view view-title="添加银行卡" class="calm" cache-view="false">
+<ion-view view-title="修改银行卡" class="calm" cache-view="false" data-ng-init="load()">
 
     <ion-nav-buttons side="left">
         <button class="button button-clear button-calm" data-ng-click="goState('settings.card')"><i
@@ -8,7 +8,7 @@
 
     <ion-nav-buttons side="right">
         <button class="button button-clear button-calm" data-ng-click="doCheckCard()" data-ng-disabled="isActive">
-            保存
+            修改
         </button>
     </ion-nav-buttons>
 

@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_nsc_controllers', [])
 
-    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService) {
+    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT) {
 
         console.log("ManageDishesNscCtrl");
 
@@ -12,7 +12,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         $scope.load = function () {
             $ionicLoading.show({
-                templateUrl: "templates/comment/loading_comment.html"
+                templateUrl: YF_MERCHANT_LOADING_COMMENT
             });
 
             $timeout(function () {

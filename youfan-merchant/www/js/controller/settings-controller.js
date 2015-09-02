@@ -53,21 +53,52 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
         };
     })
 
-    .controller('SettingsCardCtrl', function ($scope, $state) {
+    .controller('SettingsCardCtrl', function ($scope, $state, $ionicLoading, $timeout, CardHttpService, YF_MERCHANT_LOADING_COMMENT) {
         console.log("SettingsCardCtrl");
 
         $scope.items = [];
 
+        $scope.load = function () {
+
+            $ionicLoading.show({
+                templateUrl: YF_MERCHANT_LOADING_COMMENT
+            });
+
+            $timeout(function () {
+                $scope.$broadcast("scroll.refreshComplete");
+                CardHttpService.list("888888888");
+            }, 800);
+
+        };
+
         $scope.addCard = function () {
             $state.go("settings.card_add");
         };
+
+        $scope.$on("yf-merchant-load-card-success", function (e, data) {
+            $scope.items = data;
+            $ionicLoading.hide();
+        });
+
+        $scope.$on("yf-merchant-save-card-error", function () {
+            $ionicLoading.hide();
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
+        });
     })
 
-    .controller('SettingsCardAddCtrl', function ($scope, CardService) {
+    .controller('SettingsCardAddCtrl', function ($scope, $state, $ionicLoading, $timeout, CardService, CardHttpService, ValidationService, YF_MERCHANT_LOADING_COMMENT) {
         console.log("SettingsCardAddCtrl");
 
         $scope.isActive = false;
-        $scope.card = {bankName: "银行名称", areaName: "银行所在地", cardName: "", cardNumber: ""};
+        $scope.card = {
+            sellerId: "888888888",
+            bankName: "银行名称",
+            areaName: "银行所在地",
+            cardName: "",
+            cardNumber: "",
+            identityName: "",
+            identityNumber: ""
+        };
 
         $scope.bankNames = CardService.loadBankNameArray();
         $scope.areaNames = CardService.loadAreaNameArray();
@@ -92,15 +123,174 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
                 return;
             }
 
-            var reg = /^\d{19}$/g; // 以19位数字开头，以19位数字结尾
-            if (!reg.test($scope.card.cardNumber)) {
+            var card_num = $scope.card.cardNumber;
+
+            if (card_num == "") {
                 $scope.isActive = false;
-                $scope.$emit("youfan-merchant-show-msg", "请输入正确的银行卡号");
+                $scope.$emit("youfan-merchant-show-msg", "银行卡号不能为空");
                 return;
             }
 
+            if (!ValidationService.checkLuhmNumber(card_num)) {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "银行卡卡号格式不正确");
+                return;
+            }
+
+            if ($scope.card.identityName == "") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "持卡人姓名不能为空");
+                return;
+            }
+
+            var id_num = $scope.card.identityNumber;
+            if (id_num == "") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "证件号码不能为空");
+                return;
+            }
+
+            if (!ValidationService.checkIdCardNumber(id_num) && !ValidationService.checkPostNumber(id_num)) {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "证件号码格式不正确");
+                return;
+            }
+
+            $scope.doSaveCard();
         };
 
+        $scope.doSaveCard = function () {
+            $ionicLoading.show({
+                templateUrl: YF_MERCHANT_LOADING_COMMENT
+            });
+
+            $timeout(function () {
+                CardHttpService.saveCard($scope.card);
+            }, 1000);
+
+        };
+
+        $scope.$on("yf-merchant-save-card-success", function () {
+            $state.go("settings.card");
+        });
+
+        $scope.$on("yf-merchant-save-card-error", function () {
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
+            $ionicLoading.hide();
+            $scope.isActive = false;
+        })
+
+    })
+
+    .controller('SettingsCardEditCtrl', function ($scope, $state, $ionicLoading, $timeout, $stateParams, CardService, CardHttpService, ValidationService, YF_MERCHANT_LOADING_COMMENT) {
+        console.log("SettingsCardEditCtrl");
+
+        $scope.isActive = false;
+        $scope.cardId = $stateParams.cardId;
+        $scope.card = {};
+
+        $scope.bankNames = CardService.loadBankNameArray();
+        $scope.areaNames = CardService.loadAreaNameArray();
+
+        $scope.load = function () {
+            console.log("!23");
+            $ionicLoading.show({
+                templateUrl: YF_MERCHANT_LOADING_COMMENT
+            });
+
+            $timeout(function () {
+                CardHttpService.findCard($scope.cardId);
+            }, 1000);
+
+        };
+
+        $scope.doCheckCard = function () {
+            $scope.isActive = true;
+            if ($scope.card.bankName == "银行名称") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "请选择银行名称");
+                return;
+            }
+
+            if ($scope.card.areaName == "银行所在地") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "请选择银行所在地");
+                return;
+            }
+
+            if ($scope.card.cardName == "") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "开户行名称不能为空");
+                return;
+            }
+
+            var card_num = $scope.card.cardNumber;
+
+            if (card_num == "") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "银行卡号不能为空");
+                return;
+            }
+
+            if (!ValidationService.checkLuhmNumber(card_num)) {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "银行卡卡号格式不正确");
+                return;
+            }
+
+            if ($scope.card.identityName == "") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "持卡人姓名不能为空");
+                return;
+            }
+
+            var id_num = $scope.card.identityNumber;
+            if (id_num == "") {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "证件号码不能为空");
+                return;
+            }
+
+            if (!ValidationService.checkIdCardNumber(id_num) && !ValidationService.checkPostNumber(id_num)) {
+                $scope.isActive = false;
+                $scope.$emit("youfan-merchant-show-msg", "证件号码格式不正确");
+                return;
+            }
+
+            $scope.doSaveCard();
+        };
+
+        $scope.doSaveCard = function () {
+            $ionicLoading.show({
+                templateUrl: YF_MERCHANT_LOADING_COMMENT
+            });
+
+            $timeout(function () {
+                CardHttpService.updateCard($scope.card);
+            }, 1000);
+
+        };
+
+        $scope.$on("yf-merchant-load-card-success", function (e, data) {
+            $scope.card = data;
+            $ionicLoading.hide();
+            $scope.isActive = false;
+        });
+
+        $scope.$on("yf-merchant-load-card-error", function () {
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
+            $state.go("settings.card");
+        });
+
+        $scope.$on("yf-merchant-update-card-success", function () {
+            $state.go("settings.card");
+        });
+
+        $scope.$on("yf-merchant-update-card-error", function () {
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
+            $ionicLoading.hide();
+            $scope.isActive = false;
+        })
 
     })
 
@@ -128,6 +318,11 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
                 templateUrl: 'templates/settings/card/card-add.html',
                 controller: 'SettingsCardAddCtrl'
             })
+            .state('settings.card_edit', {
+                url: '/card/edit/:cardId',
+                templateUrl: 'templates/settings/card/card-edit.html',
+                controller: 'SettingsCardEditCtrl'
+            })
             .state('settings.helps', {
                 url: '/helps',
                 templateUrl: 'templates/settings/help/help.html',
@@ -144,5 +339,11 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
                 controller: 'SettingsDisclaimerCtrl'
             });
 
+    })
+
+    .filter("identity", function () {
+        return function () {
+            return "123123";
+        }
     })
 ;

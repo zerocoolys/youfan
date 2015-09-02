@@ -182,4 +182,48 @@ angular.module('yf_merchant.settings_service', [])
         }
     })
 
+    .factory("CardHttpService", function ($http, $rootScope, YF_MERCHANT_HOST) {
+        function saveCard(card) {
+            if ($rootScope.user && $rootScope.user.id != "") {
+                card.sellerId = $rootScope.user.id;
+            }
+            $http.post(YF_MERCHANT_HOST + "/cards", card).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-save-card-success");
+            }).error(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-save-card-error");
+            })
+        }
+
+        function updateCard(card) {
+            $http.post(YF_MERCHANT_HOST + "/cards/renewal", card).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-update-card-success");
+            }).error(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-update-card-error");
+            })
+        }
+
+        function list(sellerId) {
+            $http.get(YF_MERCHANT_HOST + "/cards?sellerId=" + sellerId).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-card-success", data["payload"]);
+            }).error(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-card-error");
+            })
+        }
+
+        function findCard(cardId) {
+            $http.get(YF_MERCHANT_HOST + "/cards/" + cardId).success(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-card-success", data["payload"]);
+            }).error(function (data, status, headers, config) {
+                $rootScope.$broadcast("yf-merchant-load-card-error");
+            })
+        }
+
+        return {
+            list: list,
+            findCard: findCard,
+            saveCard: saveCard,
+            updateCard: updateCard
+        }
+    })
+
 ;
