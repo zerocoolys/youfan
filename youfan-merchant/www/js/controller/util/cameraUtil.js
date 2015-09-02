@@ -1,7 +1,11 @@
 /**
  * Created by perfection on 15-9-1.
  */
-var createActionSheet = function () {
+var imageUrlPrefix = "http://kitchenimage.b0.upaiyun.com/";
+var upYunForm_API_key = "CNGPrBl5TAbJ/FpfYk1UjdRlQhg=";
+var upYunSpaceName = "kitchenimage";
+var upYunSavePath = "/kitchenimage/{random}{.suffix}";
+var createActionSheet = function (buttonId,$ionicActionSheet, $scope, $cordovaCamera) {
     $ionicActionSheet.show({
         buttons: [
             {text: '<p class="calm text-center"  >拍照</p>'},
@@ -25,11 +29,7 @@ var createActionSheet = function () {
                         saveToPhotoAlbum: false
                     };
                     $cordovaCamera.getPicture(options).then(function (imageURI) {
-                        $scope.uploadImg(imageURI);
-                        //$scope.imageUrl = imageURI;
-                        ////var img = document.getElementById("myImg");
-                        ////img.src = "data:image/jpeg;base64," + imageURI;
-                        //$scope.allowUpload = false;
+                        $scope.getImg(buttonId,imageURI);
                     }, function (err) {
                         // error
                     });
@@ -53,10 +53,7 @@ var createActionSheet = function () {
                     };
 
                     $cordovaCamera.getPicture(options).then(function (imageURI) {
-                        $scope.imageUrl = imageURI;
-                        //var img = document.getElementById("myImg");
-                        //img.src = "data:image/jpeg;base64," + imageURI;
-                        $scope.allowUpload = false;
+                        $scope.getImg(buttonId,imageURI);
                     }, function (err) {
                         // error
                     });
@@ -69,21 +66,21 @@ var createActionSheet = function () {
         }
     });
 };
-var uploadImg = function () {
-    var fileURL = $scope.imageUrl;
+var uploadImg = function (buttonId, imageUrl,$ionicLoading,$scope) {
+    var fileURL = imageUrl;
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
     options.chunkedMode = true;
     var baseObj = {
-        "bucket": "youfan-pic",
+        "bucket": upYunSpaceName,
         "expiration": (Date.parse(new Date()) / 1000) + 3600,
-        "save-key": "/test/{random}{.suffix}"
+        "save-key": upYunSavePath
     };
     var baseStr = JSON.stringify(baseObj);
     var policy = base64.base64encode(baseStr);
-    var signature = md5(policy + "&SEsEvErVbibUJ0IPLY9hH+IvCwQ=");
+    var signature = md5(policy + "&"+upYunForm_API_key);
     var params = {
         //bucket: "weiji",
         //expiration: (Date.parse(new Date()) / 1000) + 3600,
@@ -99,10 +96,11 @@ var uploadImg = function () {
 
 
     var ft = new FileTransfer();
-    ft.upload(fileURL, "http://v0.api.upyun.com/youfan-pic", function (data) {
+    ft.upload(fileURL, "http://v0.api.upyun.com/"+upYunSpaceName, function (data) {
         var result = JSON.parse(data.response);
         if (result.code == 200) {
-            alert("上传成功");
+            var htmlImageUrl = imageUrlPrefix+result.url;
+            $scope.saveImagePath(buttonId, htmlImageUrl);
             $ionicLoading.hide();
         } else {
             $ionicLoading.hide();

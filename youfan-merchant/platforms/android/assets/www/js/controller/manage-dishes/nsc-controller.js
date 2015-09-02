@@ -18,7 +18,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $timeout(function () {
                 $scope.$broadcast("scroll.refreshComplete");
                 ManageDishesService.allDishes("888888888", "nsc");
-            }, 500);
+            }, 800);
 
         };
 

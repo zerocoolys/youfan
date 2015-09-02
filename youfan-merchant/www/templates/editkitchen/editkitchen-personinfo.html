@@ -7,14 +7,27 @@
         </button>
     </ion-header-bar>
     <ion-content>
-        <ion-list class="light-bg">
+        <ion-list class="light-bg" >
             <ion-item class="item stable-bg">
-                <div ><img style="height:50px;width: auto;" src="http://image15-c.poco.cn/mypoco/myphoto/20141223/16/53598652201412231650121518178707483_005.jpg"></div>
-                <div align="center"><a ng-click="show()" class="button icon  calm-border light-bg ion-camera calm"
-                                       style="border-radius:100px;width: 60px;height: 60px; font-size: 100px;padding-top: 8px;"></a><br><label>点击上传图片</label>
+
+                    <!--<div ><img style="height:50px;width: auto;" src="http://image15-c.poco.cn/mypoco/myphoto/20141223/16/53598652201412231650121518178707483_005.jpg"></div>-->
+                    <!--<div align="center"><a ng-click="show()" class="button icon  calm-border light-bg ion-camera calm"-->
+                                           <!--style="border-radius:100px;width: 60px;height: 60px; font-size: 100px;padding-top: 8px;"></a><br><label>点击上传图片</label>-->
+
+                <div align="center">
+                        <div  class="">
+                            <img  ng-show="image.path[0]" style="height: 100px;width: 100px;border-radius: 100%;" src="{{image.path[0]}}" alt=""/>
+                            <a ng-show="!image.path[0]" ng-click="show(0)"   class="button icon  calm-border light-bg ion-camera calm" style="border-radius:100px;width: 100px;height: 100px; font-weight: 900; padding-top: 28px;"></a>
+                        </div>
+
+                    <label ng-show="image.path[0]">点击替换图片</label>
+                    <!--<i ng-show="imageHead"  class="icon ion-android-remove-circle"  data-ng-click="removePic($index)"></i>-->
+                    <!--<a ng-show="!imageHead" ng-click="show()"    ng-class=" isclick ? 'display_none':''"  class="button icon  calm-border light-bg ion-camera calm" style="border-radius:100px;width: 100px;height: 100px; font-weight: 900; padding-top: 28px;"></a>-->
+                    <br>
+                    <label ng-show="!image.path[0]">点击上传图片</label>
                 </div>
             </ion-item>
-            <ion-item class="item ">
+            <ion-item class="item " >
                 <i class="icon" style="color: #e6b400">*</i>
                 姓氏
                 <div class="item-note">
@@ -54,15 +67,19 @@
             <div class="row " style=" height: 80px; padding-top: 15px;">
                 <a class="col  dark  " >
                     <p class=" " style="font-size: 20px">身份证 <span style="font-size: 12px;">（正面照）</span></p>
-                    <button ng-click="show()" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
-                            style="width: 50px;height: 50px;  "></button>
+                    <!--<div ><img style="height: 60px;width: 60px;" src="../img/123.jpg" alt=""/></div>-->
+                    <button ng-show="!image.path[1]" ng-click="show(1)" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
+                            style="width: 100px;height: 100px;  "></button>
+                    <img ng-show="image.path[1]"  src="{{image.path[1]}}" style="width: 100px;height: 100px; alt="/>
+
                 </a>
 
 
                 <a class="col  dark  " >
                     <p class=" " style="font-size: 20px">健康证 <span style="font-size: 12px;">（正面照）</span></p>
-                    <button  ng-click="show()" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
-                            style="width: 50px;height: 50px;  "></button>
+                    <!--<div ><img style="height: 60px;width: 60px;" src="../img/1234.jpg" alt=""/></div>-->
+                    <button  ng-click="show(2)" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
+                             style="width: 100px;height: 100px;  "></button>
                 </a>
             </div>
         </ion-list>
