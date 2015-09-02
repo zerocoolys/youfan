@@ -152,12 +152,12 @@
                 .state('kitcheninfo_story_myhobby', {
                     url: '/kitcheninfo_story_myhobby',
                     templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story-myhobby.html',
-                    //controller: 'kitcheninfo_story_myhobby'
+                    controller: 'kitcheninfo_story_myhobby'
                 })
                 .state('kitcheninfo_story_mykitchenstory', {
                     url: '/kitcheninfo_story_mykitchenstory',
                     templateUrl: 'templates/editkitchen/editkitchen-kitcheninfo-story-mykitchenstory.html',
-                    //controller: 'kitcheninfo_story_mykitchenstory'
+                    controller: 'kitcheninfo_story_mykitchenstory'
                 })
                 .state('kitcheninfo_pic', {
                     url: '/kitcheninfo_pic',

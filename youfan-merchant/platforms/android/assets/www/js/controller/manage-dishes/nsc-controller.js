@@ -31,7 +31,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
         });
 
         $scope.$on("yf-merchant-load-dishes-error", function (e, data) {
-            alert("系统错误");
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
             //隐藏载入指示器
             $ionicLoading.hide();
         });
@@ -45,7 +45,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
     })
 
 
-    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
 
         console.log("ManageDishesNscAddCtrl");
 
@@ -64,14 +64,12 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             features: ["保护动物", "开心果", "刘德华", "自行车"],
             sellerId: "888888888"
         };
-        $scope.imgs = [{
-            index: 0,
-            url: "http://a3.att.hudong.com/84/07/01300001369290132072076178920.jpg"
-        }, {
-            index: 1,
-            url: "http://preview.quanjing.com/chineseview069/tpgrf-bgs20110532.jpg"
-        }];
+        $scope.imgs = [];
         $scope.isActive = false;
+
+        $scope.removePic = function (_index) {
+            $scope.imgs.splice(_index, 1);
+        };
 
         $scope.addNscPic = function () {
             console.log("addNscPic");
@@ -85,6 +83,10 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
                     if (!navigator.camera) {
                         alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                        $scope.imgs.push({
+                            index: $scope.imgs.length,
+                            url: PhotoService.randomPhoto()
+                        });
                     } else {
                         if (index == 0) {
                             $scope.cameraImage();
@@ -145,12 +147,32 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         $scope.doCheckDishes = function () {
             $scope.isActive = true;
+
             if ($scope.imgs.length == 0) {
-                alert("请添加菜品图片");
+                $scope.$emit("youfan-merchant-show-msg", "请添加菜品图片");
                 $scope.isActive = false;
-            } else {
-                $scope.doSave();
+                return;
             }
+
+            if (!$scope.dishes.name || $scope.dishes.name == "") {
+                $scope.$emit("youfan-merchant-show-msg", "请输入菜品名称");
+                $scope.isActive = false;
+                return;
+            }
+
+            if (!$scope.dishes.price || $scope.dishes.price == "") {
+                $scope.$emit("youfan-merchant-show-msg", "请输入菜品价格");
+                $scope.isActive = false;
+                return;
+            }
+
+            if (!$scope.dishes.stock || $scope.dishes.stock == "") {
+                $scope.$emit("youfan-merchant-show-msg", "请输入菜品库存");
+                $scope.isActive = false;
+                return;
+            }
+
+            $scope.doSave();
         };
 
         $scope.doSave = function () {
@@ -161,7 +183,6 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             angular.forEach($scope.imgs, function (e) {
                 $scope.dishes.picUrls.push(e.url);
             });
-            console.log($scope.dishes);
             $timeout(function () {
                 ManageDishesService.saveDishes($scope.dishes);
             }, 1000);
@@ -173,14 +194,14 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
         });
 
         $scope.$on("yf-merchant-save-dishes-error", function () {
-            alert("系统错误");
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
             $ionicLoading.hide();
             $scope.isActive = false;
         });
 
     })
 
-    .controller('ManageDishesNscEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, ManageDishesService) {
+    .controller('ManageDishesNscEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
 
         console.log("ManageDishesNscEditCtrl");
         // 初始化参数
@@ -189,6 +210,10 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
         $scope.dishes = {sale: true};
         $scope.imgs = [];
         $scope.isActive = false;
+
+        $scope.removePic = function (_index) {
+            $scope.imgs.splice(_index, 1);
+        };
 
         $scope.addQtcPic = function () {
             console.log("addQtcPic");
@@ -201,11 +226,18 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
                 buttonClicked: function (index) {
                     if (!navigator.camera) {
                         alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                        $scope.imgs.push({
+                            index: $scope.imgs.length,
+                            url: PhotoService.randomPhoto()
+                        });
+                    } else {
+                        if (index == 0) {
+                            $scope.cameraImage();
+                        }
+                        if (index == 1) {
+                            $scope.photoImage();
+                        }
                     }
-                    $scope.imgs.push({
-                        index: $scope.imgs.length,
-                        url: "https://avatars3.githubusercontent.com/u/11214?v=3&s=460"
-                    });
                     return true;
                 },
                 cancelText: "<p class='calm'>取消</p>",
@@ -221,14 +253,69 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         };
 
+        $scope.cameraImage = function () {
+            var options = {
+                destinationType: Camera.DestinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA
+            };
+
+            $cordovaCamera.getPicture(options).then(function (imageURI) {
+                $scope.imgs.push({
+                    index: $scope.imgs.length,
+                    url: imageURI
+                });
+            }, function (err) {
+                // error
+            });
+        };
+
+        $scope.photoImage = function () {
+            var options = {
+                maximumImagesCount: 1,
+                width: 800,
+                height: 800,
+                quality: 80
+            };
+
+            $cordovaImagePicker.getPictures(options)
+                .then(function (results) {
+                    $scope.imgs.push({
+                        index: $scope.imgs.length,
+                        url: results[0]
+                    });
+                }, function (error) {
+                    // error
+                });
+        };
+
         $scope.doCheckDishes = function () {
             $scope.isActive = true;
+
             if ($scope.imgs.length == 0) {
-                alert("请添加菜品图片");
+                $scope.$emit("youfan-merchant-show-msg", "请添加菜品图片");
                 $scope.isActive = false;
-            } else {
-                $scope.doSave();
+                return;
             }
+
+            if (!$scope.dishes.name || $scope.dishes.name == "") {
+                $scope.$emit("youfan-merchant-show-msg", "请输入菜品名称");
+                $scope.isActive = false;
+                return;
+            }
+
+            if (!$scope.dishes.price || $scope.dishes.price == "") {
+                $scope.$emit("youfan-merchant-show-msg", "请输入菜品价格");
+                $scope.isActive = false;
+                return;
+            }
+
+            if (!$scope.dishes.stock || $scope.dishes.stock == "") {
+                $scope.$emit("youfan-merchant-show-msg", "请输入菜品库存");
+                $scope.isActive = false;
+                return;
+            }
+
+            $scope.doSave();
         };
 
         $scope.doSave = function () {
@@ -285,11 +372,10 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
         });
 
         $scope.$on("yf-merchant-save-dishes-error", function () {
-            alert("系统错误");
+            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
             $ionicLoading.hide();
             $scope.isActive = false;
         });
-
 
     })
 
