@@ -76,6 +76,9 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
         $scope.addXfzPic = function () {
             console.log("addXfzPic");
+            createActionSheet("123123123", $ionicActionSheet, $scope, $cordovaCamera);
+            return;
+
             // Show the action sheet
             var hideSheet = $ionicActionSheet.show({
                 buttons: [
@@ -110,6 +113,27 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
                 //	hideSheet();
             }, 2000);
 
+        };
+
+        $scope.getImg = function (buttonId, url) {
+            $scope.image.path[Number(buttonId)] = url;
+            uploadImg(buttonId, url);
+        };
+        $scope.saveImagePath = function (buttonId, url, $ionicLoading, $scope) {
+            switch (Number(buttonId)) {
+                case 0:
+                    $scope.imageData.headPortraitPicUrl = url;
+                    break;
+                case 1:
+                    $scope.imageData.healthCertificatePicUrl = url;
+                    break;
+                case 2:
+                    $scope.imageData.idCardPicUrl = url;
+                    break;
+            }
+        };
+        $scope.show = function (buttonId) {
+            createActionSheet(buttonId, $ionicActionSheet, $scope, $cordovaCamera);
         };
 
         $scope.cameraImage = function () {
