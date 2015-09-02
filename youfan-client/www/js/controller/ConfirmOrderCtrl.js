@@ -77,7 +77,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         };
 
         // 创建订单
-        $http.post(REST_URL + '/orders/create', orderData)
+        $http.post(REST_URL + '/orders', orderData)
             .then(function (response) {
                 console.log(response);
                 $state.go('tab.pay-page');
