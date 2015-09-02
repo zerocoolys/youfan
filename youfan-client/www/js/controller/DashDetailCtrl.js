@@ -130,6 +130,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     if (item.count > 0) {
                         item.count += 1;
                         item.totalPrice = (parseFloat(item.totalPrice) + parseFloat(item.unitPrice)).toFixed(2);
+                        item.restNum = menu.restNum - 1;
                         $scope.orderCartMap.put(menuId, item);
                     }
                 }
@@ -141,7 +142,8 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     'name': menu.name,
                     'unitPrice': menu.price,
                     'totalPrice': menu.price,
-                    'count': 1
+                    'count': 1,
+                    'restNum': menu.restNum - 1
                 });
 
                 menu.count = 1;
