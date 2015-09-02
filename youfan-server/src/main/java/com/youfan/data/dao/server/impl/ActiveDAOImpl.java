@@ -1,7 +1,10 @@
 package com.youfan.data.dao.server.impl;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.youfan.commons.vo.ActiveVO;
@@ -47,14 +50,19 @@ public class ActiveDAOImpl implements ActiveDAO{
 
 	@Override
 	public Long count(ActiveParams activeParams) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query= new Query();
+		buildConditionQuery(query, activeParams);
+		return mongoTemplate.count(query, ActiveEntity.class);
 	}
 
 	@Override
 	public List<ActiveVO> getByCondition(ActiveParams activeParams) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = new Query();
+		
+		buildConditionQuery(query, activeParams);
+		query .skip((activeParams.getPageNo() - 1) * activeParams.getPageSize());
+		query.limit(activeParams.getPageSize());
+		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
 	}
 
 	@Override
@@ -62,5 +70,23 @@ public class ActiveDAOImpl implements ActiveDAO{
 		return convertToVO(mongoTemplate.findOne(query(where("event").is(event)), ActiveEntity.class));
 	}
 
+	private void buildConditionQuery(Query query,ActiveParams activeParams){
+		if(activeParams.getEvent()!=null&&activeParams.getEvent().trim()!=""){
+			query.addCriteria(where("event").is(activeParams.getEvent()));
+		}
+		if(activeParams.getStatus()!=null){
+			query.addCriteria(where("status").is(activeParams.getStatus()));
+		}
+		if(activeParams.getTitle()!=null){
+			query.addCriteria(where("title").is(activeParams.getTitle()));
+		}
+		
+	}
 
+	@Override
+	public void updateById(String id, Map<String, Object> updateMap) {
+		Update update = buildUpdate(updateMap);
+		mongoTemplate.updateFirst(query(where("id").is(id)), update, getEntityClass());
+		
+	}
 }

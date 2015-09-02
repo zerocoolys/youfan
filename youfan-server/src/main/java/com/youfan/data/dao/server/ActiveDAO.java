@@ -1,6 +1,7 @@
 package com.youfan.data.dao.server;
 
 import java.util.List;
+import java.util.Map;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
@@ -27,4 +28,6 @@ public interface ActiveDAO extends MongoBaseDAO<ActiveEntity, ActiveVO, String>{
 	public List<ActiveVO> getByCondition(ActiveParams activeParams);
 
 	public ActiveVO getByEvent(String event);
+
+	public void updateById(String id, Map<String, Object> updateMap);
 }
