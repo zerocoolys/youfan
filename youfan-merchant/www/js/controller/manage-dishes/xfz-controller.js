@@ -76,99 +76,28 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
         $scope.addXfzPic = function () {
             console.log("addXfzPic");
-            createActionSheet("123123123", $ionicActionSheet, $scope, $cordovaCamera);
-            return;
 
-            // Show the action sheet
-            var hideSheet = $ionicActionSheet.show({
-                buttons: [
-                    {text: "<p class='text-center calm'>打开相机</p>"},
-                    {text: "<p class='text-center calm'>打开相册</p>"}
-                ],
-                buttonClicked: function (index) {
-                    if (!navigator.camera) {
-                        alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
-                        $scope.imgs.push({
-                            index: $scope.imgs.length,
-                            url: PhotoService.randomPhoto()
-                        });
-                    } else {
-                        if (index == 0) {
-                            $scope.cameraImage();
-                        }
-                        if (index == 1) {
-                            $scope.photoImage();
-                        }
-                    }
-                    return true;
-                },
-                cancelText: "<p class='calm'>取消</p>",
-                cancel: function () {
-                    // add cancel code..
-                }
-            });
-
-            // For example's sake, hide the sheet after two seconds
-            $timeout(function () {
-                //	hideSheet();
-            }, 2000);
+            if (!navigator.camera) {
+                alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                $scope.imgs.push({
+                    index: $scope.imgs.length,
+                    url: PhotoService.randomPhoto()
+                });
+            } else {
+                createActionSheet("123123123", $ionicActionSheet, $scope, $cordovaCamera);
+            }
 
         };
 
         $scope.getImg = function (buttonId, url) {
-            $scope.image.path[Number(buttonId)] = url;
-            uploadImg(buttonId, url);
-        };
-        $scope.saveImagePath = function (buttonId, url, $ionicLoading, $scope) {
-            switch (Number(buttonId)) {
-                case 0:
-                    $scope.imageData.headPortraitPicUrl = url;
-                    break;
-                case 1:
-                    $scope.imageData.healthCertificatePicUrl = url;
-                    break;
-                case 2:
-                    $scope.imageData.idCardPicUrl = url;
-                    break;
-            }
-        };
-        $scope.show = function (buttonId) {
-            createActionSheet(buttonId, $ionicActionSheet, $scope, $cordovaCamera);
+            uploadImg(buttonId, url, $ionicLoading, $scope);
         };
 
-        $scope.cameraImage = function () {
-            var options = {
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.CAMERA
-            };
-
-            $cordovaCamera.getPicture(options).then(function (imageURI) {
-                $scope.imgs.push({
-                    index: $scope.imgs.length,
-                    url: imageURI
-                });
-            }, function (err) {
-                // error
+        $scope.saveImagePath = function (buttonId, url) {
+            $scope.imgs.push({
+                index: $scope.imgs.length,
+                url: url
             });
-        };
-
-        $scope.photoImage = function () {
-            var options = {
-                maximumImagesCount: 1,
-                width: 800,
-                height: 800,
-                quality: 80
-            };
-
-            $cordovaImagePicker.getPictures(options)
-                .then(function (results) {
-                    $scope.imgs.push({
-                        index: $scope.imgs.length,
-                        url: results[0]
-                    });
-                }, function (error) {
-                    // error
-                });
         };
 
         $scope.doCheckDishes = function () {

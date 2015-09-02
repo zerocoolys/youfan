@@ -161,10 +161,12 @@
                 });
         };
         $scope.getImg = function (buttonId, url) {
-            $scope.image.path[Number(buttonId)] = url;
-            uploadImg(buttonId, url);
+
+            uploadImg(buttonId, url, $ionicLoading, $scope);
         };
         $scope.saveImagePath = function (buttonId, url, $ionicLoading, $scope) {
+            $scope.image.path[Number(buttonId)] = url;
+            alert(url);
             switch (Number(buttonId)) {
                 case 0:
                     $scope.imageData.headPortraitPicUrl = url;

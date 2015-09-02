@@ -89,38 +89,38 @@
             var merchantUser = {
                 userName: user.phoneNumber
             };
-            $location.path("overview")
-            //$http.post(
-            //    "http://127.0.0.1:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-            //        if (data.code == "200") {
-            //            $rootScope.user = {
-            //                id: data.payload.id
-            //            };
-            //            console.log(data.payload.id)
-            //            $location.path("overview")
-            //        } else {
-            //            var options = {
-            //                "title": "系统繁忙！",
-            //                "buttons": [{
-            //                    text: "关闭",
-            //                    type: "button-positive clam"
-            //                }]
-            //            };
-            //            $ionicPopup.alert(options);
-            //        }
-            //
-            //    }, function (error) {
-            //        var options = {
-            //            "title": "系统繁忙！",
-            //            "buttons": [{
-            //                text: "关闭",
-            //                type: "button-positive clam"
-            //            }]
-            //        };
-            //        $ionicPopup.alert(options)
-            //            .then(function () {
-            //            });
-            //    });
+            //$location.path("overview")
+            $http.post(
+                "http://192.168.1.110:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    if (data.code == "200") {
+                        $rootScope.user = {
+                            id: data.payload.id
+                        };
+                        console.log(data.payload.id)
+                        $location.path("overview")
+                    } else {
+                        var options = {
+                            "title": "系统繁忙！",
+                            "buttons": [{
+                                text: "关闭",
+                                type: "button-positive clam"
+                            }]
+                        };
+                        $ionicPopup.alert(options);
+                    }
+
+                }, function (error) {
+                    var options = {
+                        "title": "系统繁忙！",
+                        "buttons": [{
+                            text: "关闭",
+                            type: "button-positive clam"
+                        }]
+                    };
+                    $ionicPopup.alert(options)
+                        .then(function () {
+                        });
+                });
 
             //}else{
             //    var options = {
