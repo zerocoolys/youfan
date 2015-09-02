@@ -7,10 +7,10 @@
     </ion-header-bar>
     <ion-content class="stable-bg">
         <ion-item class="item-input light-bg" style="margin: 20px 0;">
-            <input type="text" placeholder="给自己的故事起个题目"/>
+            <input type="text" ng-model="story.title" placeholder="给自己的故事起个题目"/>
         </ion-item>
         <ion-item class="item-input">
-            <textarea placeholder="说说您与美食的故事?让吃货们感受到美味中的情感点滴..  ." style="overflow-y: hidden" rows="10"></textarea>
+            <textarea data-ng-model="story.content" placeholder="说说您与美食的故事?让吃货们感受到美味中的情感点滴..  ." style="overflow-y: hidden" rows="10"></textarea>
 
         </ion-item>
         <label style="color: #ffc900; ">
