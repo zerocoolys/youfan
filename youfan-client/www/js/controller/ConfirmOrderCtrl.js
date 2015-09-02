@@ -1,7 +1,8 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal, Order, REST_URL) {
+ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal, $ionicPopup,
+                                                          $timeout, Merchant, Order, REST_URL) {
 
     $ionicModal.fromTemplateUrl('templates/remarks.html', {
         scope: $scope
@@ -45,30 +46,46 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
 
     // 支付
     $scope.toPay = function () {
+        if ($rootScope.userDiningWay.address == undefined) {
+            $scope.showAlert('亲 请选择就餐方式');
+            return;
+        }
+
         Order.details = {
             items: $scope.cart.data,
             price: $scope.remainPayedPrice,
             comments: $scope.comments.trim().replace(" ", ",")
         };
 
+        var menusJsonObj = {};
+        $scope.cart.data.forEach(function (item) {
+            menusJsonObj[item.id] = [item.count, item.restNum];
+        });
+
+
         // TEST CODE
         Order.details.price = 1;
 
-        $scope.orderPromise($scope.order).then(function (response) {
-            console.log("===================");
-            $state.go('tab.pay-page');
-        });
+        var orderData = {
+            buyerId: 22305304567,
+            sellerId: Merchant.sellerId,
+            itemMap: menusJsonObj,
+            comments: Order.details.comments,
+            price: Order.details.price,
+            repastMode: $rootScope.userDiningWay.pickUp == true ? "自取" : "配送",
+            repastAddress: $rootScope.userDiningWay.address.name + "," + $rootScope.userDiningWay.address.telNo + "," + $rootScope.userDiningWay.address.address
+        };
 
-    };
-
-    $scope.orderPromise = function (order) {
         // 创建订单
-        var orderRequest = $http.post(REST_URL + '/orders/create', order);
+        $http.post(REST_URL + '/orders', orderData)
+            .then(function (response) {
+                console.log(response);
+                $state.go('tab.pay-page');
+            }, function (error) {
+                $scope.showAlert('系统内部错误');
+                console.log(error);
+            });
 
-        // 修改商家菜品余量信息
-        var menuRequest = $http.get(REST_URL + '/menu/lists/55e55136e04e8f4882f36f4e');
-
-        return $q.all([orderRequest, menuRequest]);
     };
 
     // 给商家的留言
@@ -103,6 +120,19 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         // TODO 计算剩余支付, 当前默认使用订单总价
         $scope.remainPayedPrice = $scope.totalPrice;
 
-    }
+    };
+
+    $scope.showAlert = function (msg) {
+        var alertPopup = $ionicPopup.alert({
+            cssClass: 'zan_popup',
+            template: msg,
+            scope: $scope,
+            buttons: []
+        });
+
+        $timeout(function () {
+            alertPopup.close();
+        }, 1000);
+    };
 
 });

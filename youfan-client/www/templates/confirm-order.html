@@ -1,8 +1,9 @@
 <ion-view view-title="确认订单" hide-tab-bar hide-tabs class="confirm_order" ng-init="loadCart()">
-    <ion-content>
-        <div class="list">
-            <ion-item class="item-icon-right" href="#/tab/dining-way">
-                就餐方式
+    <form ng-submit="toPay()">
+        <ion-content>
+            <div class="list">
+                <ion-item class="item-icon-right" href="#/tab/dining-way">
+                    就餐方式
                 <span class="item-note">
                     <span ng-if="userDiningWay.address.name == null">请选择</span>
                     <span ng-if="userDiningWay.address.name != null">
@@ -12,56 +13,58 @@
                     </span>
                     <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
-            </ion-item>
-            <ion-item class="item-icon-right" ng-click="modal.show()">
-                给厨房捎句话
+                </ion-item>
+                <ion-item class="item-icon-right" ng-click="modal.show()">
+                    给厨房捎句话
                  <span class="item-note">{{comments}}
                   <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
-            </ion-item>
-            <ion-item class="item-icon-right" href="#/tab/coupons">
-                优惠券支付
+                </ion-item>
+                <ion-item class="item-icon-right" href="#/tab/coupons">
+                    优惠券支付
                 <span class="item-note">
                   1元试吃券<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
-            </ion-item>
-            <ion-item class="item-icon-right">
-                余额支付
+                </ion-item>
+                <ion-item class="item-icon-right">
+                    余额支付
                 <span class="item-note">
                   0元可用<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
-            </ion-item>
-        </div>
-        <div class="list order_list">
-            <ion-item ng-repeat="item in cart.data" class="item-icon-right">
-                {{item.name}}x{{item.count}}
+                </ion-item>
+            </div>
+            <div class="list order_list">
+                <ion-item ng-repeat="item in cart.data" class="item-icon-right">
+                    {{item.name}}x{{item.count}}
                 <span class="item-note">
                   ￥{{item.totalPrice}}
                 </span>
-            </ion-item>
-        </div>
-        <div class="list order_list">
-            <ion-item class="item-icon-right">
-                <span class="item-note" ng-bind="'总计: ￥' + totalPrice"></span>
-            </ion-item>
-            <ion-item class="item-icon-right item-avatar">
-                <img class="full-image" src="img/2.jpeg">
-                优惠券折扣
+                </ion-item>
+            </div>
+            <div class="list order_list">
+                <ion-item class="item-icon-right">
+                    <span class="item-note" ng-bind="'总计: ￥' + totalPrice"></span>
+                </ion-item>
+                <ion-item class="item-icon-right item-avatar">
+                    <img class="full-image" src="img/2.jpeg">
+                    优惠券折扣
                 <span class="item-note">
                   -￥11
                 </span>
-            </ion-item>
+                </ion-item>
+            </div>
+        </ion-content>
+        <div class="bar bar-footer bar-balanced">
+            <div class="button-bar">
+                <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">
+                    还需支付 ￥{{remainPayedPrice}}
+                </a>
+                <!--<a class="button button-clear" href="#/tab/pay-page">去支付</a>-->
+                <!--<a class="button button-clear" ng-click="toPay()">去支付</a>-->
+                <button class="button button-clear" type="submit">去支付</button>
+            </div>
         </div>
-    </ion-content>
-    <div class="bar bar-footer bar-balanced">
-        <div class="button-bar">
-            <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">
-                还需支付 ￥{{remainPayedPrice}}
-            </a>
-            <!--<a class="button button-clear" href="#/tab/pay-page">去支付</a>-->
-            <a class="button button-clear" ng-click="toPay()">去支付</a>
-        </div>
-    </div>
+    </form>
 </ion-view>
 <script id="templates/remarks.html" type="text/ng-template">
     <ion-modal-view>
