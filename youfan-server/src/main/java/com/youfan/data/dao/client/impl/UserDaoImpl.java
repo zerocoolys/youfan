@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -22,8 +23,8 @@ public class UserDaoImpl implements UserDao {
 	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	@Override
-	public void update(UserVO userClientVO) {
-
+	public UserVO update(Query query,Update update) {
+		return convertToVO(mongoTemplate.findAndModify(query, update, getEntityClass(), COLLECTION_CLIENT_USER));
 	}
 
     @Override
@@ -43,15 +44,15 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	public void update(UserVO userVO) {
+
+	}
+
+	@Override
 	public UserVO getUserByTelAndPwd(String tel, String pwd) {
 
 		return convertToVO(mongoTemplate.findOne(buildQuery(tel, pwd),
 				getEntityClass(), COLLECTION_CLIENT_USER));
-	}
-
-	@Override
-	public UserVO updateUserPwd(String pwd) {
-		return null;
 	}
 
 	@Override
