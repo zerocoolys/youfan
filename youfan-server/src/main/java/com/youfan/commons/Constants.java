@@ -17,6 +17,7 @@ public interface Constants {
     String COLLECTION_CLIENT_USER = "client_user";
     //
     String COLLECTION_SERVER_COUPONS_TYPE = "coupons_type";
+    String COLLECTION_SERVER_ACTIVE = "active";
 
     /*通用*/
     String DATA_STATUS = "dataStatus";
