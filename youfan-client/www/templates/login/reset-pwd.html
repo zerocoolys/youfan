@@ -5,17 +5,16 @@
         <h1 class="title">找回密码</h1>
     </ion-header-bar>
     <ion-content>
-        <div class="list">
+        <div class="list" ng-controller="SmsCaptchaCtrl">
             <div class="item item-input">
-                <input type="text" id="tel" name="tel" ng-model="userClient.tel" placeholder="手机号" required>
+                <input type="text" id="tel" name="tel" ng-model="user.tel" placeholder="手机号" required>
             </div>
             <div class="item item-input">
-                <input type="text" id="verificationCode" name="verificationCode" ng-model="user.verificationCode"
-                       placeholder="输入验证码" required>
-                <button class="button bar-balanced button-small" ng-class="isClick ? 'disabled' : ''" style="margin-right: 20px" ng-click="getValidCode()">{{validCode}}</button>
+                <input type="text" id="c" name="verificationCode" ng-model="user.captcha" placeholder="输入验证码" required>
+                <button class="button bar-balanced button-small" ng-class="isClick ? 'disabled' : ''" style="margin-right: 20px" ng-click="sendMessage()">{{validCode}}</button>
             </div>
             <div class="item item-input">
-                <input type="password" id="pwd" name="pwd" ng-model="userClient.pwd" placeholder="请输入6-12位数字、字母或组合形成密码" required>
+                <input type="password" id="pwd" name="pwd" ng-model="user.pwd" placeholder="请输入6-12位数字、字母或组合形成密码" required>
             </div>
             <button class="button button-block bar-balanced" ng-click="resetPwd()">完 成</button>
             <p class="existingAccount">已有密码？&nbsp;&nbsp;<a  ui-sref="tab.pwd-login"

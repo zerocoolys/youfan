@@ -284,7 +284,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-//            设置密码
+            //设置密码
             .state('tab.set-pwd', {
                 url: '/set-pwd',
                 views: {

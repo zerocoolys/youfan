@@ -40,17 +40,18 @@ ControllerModule.controller('UserRegisterCtrl', function($scope, $ionicModal, $i
             $scope.totalTime--;
             $scope.second = $scope.totalTime % 60;
             $scope.second = $scope.second < 10 ? "0" + $scope.second : $scope.second;
-            $scope.validCode ="验证码"+ $scope.second + "秒";
+            $scope.validCode ="再次发送"+"(" +$scope.second + ")";
         }else{
             $scope.isClick = false;
             $scope.validCode = "获取验证码";
             $interval.cancel ( $scope.Countdown )
         }
-    }
+    };
     $scope.sendMessage = function(){
 
         var tel = $scope.user.tel;
         var re= /(^1[3|5|8][0-9]{9}$)/;
+
         if(tel != ""){
             $scope.code = "";      //验证码
             var codeLength = 6; //验证码长度
