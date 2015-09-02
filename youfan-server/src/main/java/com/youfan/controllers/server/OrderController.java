@@ -1,12 +1,14 @@
 package com.youfan.controllers.server;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.server.OrderDishRelVO;
+import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
+import com.youfan.services.client.MenuService;
 import com.youfan.services.server.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static com.youfan.commons.OrderStatus.ODR_WAIT_FOR_PAY;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -25,142 +30,142 @@ import java.util.List;
 @RequestMapping(path = "/orders")
 public class OrderController {
 
-	@Resource
-	private OrderService orderService;
-	Logger logger = LoggerFactory.getLogger(OrderController.class);
+    Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-	@RequestMapping(method = RequestMethod.GET, path = "/{orderNo}")
-	public Response getOrder(@PathVariable final String orderNo) {
+    @Resource
+    private OrderService orderService;
 
-		OrderVO order = orderService.findByOrderNo(orderNo);
+    @Resource
+    private MenuService menuService;
 
-		if (order == null) {
 
-		}
-		return Responses.SUCCESS();
-	}
+    @RequestMapping(method = RequestMethod.GET, path = "/{orderNo}")
+    public Response getOrder(@PathVariable final String orderNo) {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public Response list() {
+        OrderVO order = orderService.findByOrderNo(orderNo);
 
-		return Responses.SUCCESS();
-	}
+        if (order == null) {
 
-	@RequestMapping(method = RequestMethod.GET, path = "/orderDetail/{orderNo}")
-	public Response getOrderDetailByOrderNo(@PathVariable final String orderNo) {
+        }
+        return Responses.SUCCESS();
+    }
 
-		Response response = null;
-		try {
-			MerchantOrderDetailVO order = orderService
-					.findOrderDetailByOrderNo(orderNo);
-			if (order == null) {
-				return response = Responses.FAILED().setMsg("未查询到该数据");
-			}
-			response = Responses.SUCCESS().setPayload(order);
-		} catch (Exception e) {
-			response = Responses.FAILED();
-			logger.error(e.getMessage());
-		}
-		return response;
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public Response list() {
+        return Responses.SUCCESS();
+    }
 
-	@RequestMapping(method = RequestMethod.GET, path = "/merchant")
-	public Response listByMerchant(
-			@RequestParam("orderStatus") int orderStatus,
-			@RequestParam("sellerId") String sellerId,
-			@RequestParam("repastMode") String repastMode) {
-		Response response = null;
-		OrderParams orderParams = new OrderParams();
-		try {
-			orderParams.setSellerId(sellerId);
-			orderParams.setOrderStatus(orderStatus);
-			orderParams.setRepastMode(repastMode);
-			List<MerchantOrderHeaderVO> orders = orderService
-					.findOrdersByMerchant(orderParams);
-			response = Responses.SUCCESS().setPayload(orders);
-		} catch (Exception e) {
-			response = Responses.FAILED();
-			logger.error(e.getMessage());
-		}
 
-		return response;
+    @RequestMapping(method = RequestMethod.GET, path = "/orderDetail/{orderNo}")
+    public Response getOrderDetailByOrderNo(@PathVariable final String orderNo) {
 
-	}
+        Response response = null;
+        try {
+            MerchantOrderDetailVO order = orderService.findOrderDetailByOrderNo(orderNo);
+            if (order == null) {
+                return response = Responses.FAILED().setMsg("未查询到该数据");
+            }
+            response = Responses.SUCCESS().setPayload(order);
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
+        }
+        return response;
+    }
 
-	@RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
-	public Response listByUserId(@PathVariable String userId) {
-		return Responses.SUCCESS();
-	}
+    @RequestMapping(method = RequestMethod.GET, path = "/merchant")
+    public Response listByMerchant(
+            @RequestParam("orderStatus") int orderStatus,
+            @RequestParam("sellerId") String sellerId,
+            @RequestParam("repastMode") String repastMode) {
+        Response response = null;
+        OrderParams orderParams = new OrderParams();
+        try {
+            orderParams.setSellerId(sellerId);
+            orderParams.setOrderStatus(orderStatus);
+            orderParams.setRepastMode(repastMode);
+            List<MerchantOrderHeaderVO> orders = orderService
+                    .findOrdersByMerchant(orderParams);
+            response = Responses.SUCCESS().setPayload(orders);
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
+        }
 
-	@RequestMapping(path = "/create", method = RequestMethod.POST, consumes = {
-			MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	@Transactional
-	public Response create(@RequestBody String orderParamStr) {
-		ObjectMapper mapper = new ObjectMapper();
-		OrderParams orderParams = null;
-		try {
-			orderParams = mapper.readValue(orderParamStr, OrderParams.class);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		OrderVO order = new OrderVO();
+        return response;
 
-		order.setBuyerId(orderParams.getBuyerId());
-		order.setSellerId(orderParams.getSellerId());
-		order.setComments(orderParams.getComments());
-		order.setOrderStatus(orderParams.getOrderStatus());
+    }
 
-		OrderVO result = orderService.createOrder(order);
 
-		Response response = null;
-		if (result == null) {
-			response = Responses.FAILED();
-		} else {
-			response = Responses.SUCCESS().setPayload(result);
-		}
+    @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
+    public Response listByUserId(@PathVariable String userId) {
+        return Responses.SUCCESS();
+    }
 
-		return response;
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//    @Transactional
+    public Response create(@RequestBody OrderParams orderParams) {
+        OrderVO order = new OrderVO();
 
-	}
+        order.setBuyerId(orderParams.getBuyerId());
+        order.setSellerId(orderParams.getSellerId());
+        order.setOrderStatus(ODR_WAIT_FOR_PAY.value());
+        order.setDataStatus(1);
+        order.setPrice(orderParams.getPrice());
+        order.setOrderTime(new Date());
+        // TODO  前端缺少就餐时间选项
+        order.setRepastTime(new Date());
+        order.setRepastMode(orderParams.getRepastMode());
+        order.setRepastAddress(orderParams.getRepastAddress());
+        order.setCouponId(orderParams.getCouponId());
+        order.setComments(orderParams.getComments());
 
-	@RequestMapping(method = RequestMethod.POST, params = "/{orderNo}")
-	public Response refund(@PathVariable String orderNo,
-			@RequestBody String orderInfo) {
+        // 订购的菜品信息
+        List<OrderDishRelVO> orderDishRelVOList = new ArrayList<>();
+        // 菜品余量信息
+        List<MenuVO> menuVOList = new ArrayList<>();
+        orderParams.getItemMap().forEach((k, v) -> {
+            MenuVO menuVO = new MenuVO();
+            menuVO.setId(k);
+            menuVO.setRestNum(v[1]);
+            menuVOList.add(menuVO);
 
-		return Responses.SUCCESS();
-	}
+            OrderDishRelVO orderDishRelVO = new OrderDishRelVO();
+            orderDishRelVO.setItemId(k);
+            orderDishRelVO.setCount(v[0]);
+            orderDishRelVOList.add(orderDishRelVO);
+        });
 
-	/**
-	 * 修改订单状态，商家端
-	 * 
-	 * @param orderNo
-	 * @return
-	 */
-	@RequestMapping(path = "/merchant/{orderNo}", method = RequestMethod.POST, consumes = {
-			MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public Response updateOrderStatus(@PathVariable String orderNo,
-			@RequestBody String orderInfo) {
+        // 创建订单
+        OrderVO result = orderService.createOrder(order);
 
-		ObjectMapper mapper = new ObjectMapper();
-		OrderParams orderParams = null;
+        // 存储当前订单的菜品信息
+        for (OrderDishRelVO orderDishRelVO : orderDishRelVOList) {
+            orderDishRelVO.setOrderNo(result.getOrderNo());
+            orderDishRelVO.setDataStatus(1);
+        }
+        orderService.saveOrderDishes(orderDishRelVOList);
 
-		Response response = null;
-		try {
-			orderParams = mapper.readValue(orderInfo, OrderParams.class);
-			int tag = orderService.updateOrderStatus(orderParams);
+        Response response;
+        if (result == null) {
+            response = Responses.FAILED();
+        } else {
+            response = Responses.SUCCESS().setPayload(result);
 
-			if (tag == 1) {
-				response = Responses.SUCCESS();
-			} else {
-				response = Responses.FAILED();
-			}
+            // 修改商家菜品余量
+            menuService.conversionRestNum(menuVOList);
+            // TODO 若使用优惠券元需要修改优惠券状态
+        }
 
-		} catch (IOException e) {
-			response = Responses.FAILED();
-			logger.error(e.getMessage());
-		}
+        return response;
 
-		return response;
-	}
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "/{orderNo}")
+    public Response refund(@PathVariable String orderNo,
+                           @RequestBody String orderInfo) {
+
+        return Responses.SUCCESS();
+    }
 
 }

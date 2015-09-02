@@ -82,21 +82,31 @@ public class UserController {
     }
 
     @RequestMapping(path = "/saveMerchantKitchenStoryInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
+    public Response saveMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
         MerchantKitchenInfoVO merchantKitchenInfoRes = null;
         try {
             merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
         } catch (KitchenInfoException ke) {
             System.out.println(ke.getMessage());
         }
-        return merchantKitchenInfoRes;
+        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoRes);
+    }
+    @RequestMapping(path = "/saveMyHobby", method = RequestMethod.POST, produces = "application/json")
+    public Response saveMyHobby(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
+        MerchantKitchenInfoVO merchantKitchenInfoRes = null;
+        try {
+            merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
+        } catch (KitchenInfoException ke) {
+            System.out.println(ke.getMessage());
+        }
+        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoRes);
     }
 
     @RequestMapping(path = "/getMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
-    public Response getMerchantUserInfo(@RequestBody MerchantUserVO merchantUserVO) {
-        MerchantUserVO merchantUser = null;
-        merchantUser = merchantUsersService.getMerchantUserInfo(merchantUserVO.getId());
-        return Responses.SUCCESS().setCode(200).setPayload(merchantUser);
+    public Response getMerchantUserInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {
+        MerchantKitchenInfoVO merchantKitchenInfoVORes = null;
+        merchantKitchenInfoVORes = merchantUsersService.saveMyHobby(merchantKitchenInfoVO);
+        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoVORes);
     }
     @RequestMapping(path = "/getMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
     public Response getMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {

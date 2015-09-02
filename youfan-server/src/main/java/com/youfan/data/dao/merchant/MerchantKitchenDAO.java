@@ -33,7 +33,21 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
      */
     MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id);
 
+    /**
+     * 获取所有商家厨房信息并分页
+     * @param page 第几页
+     * @param pageSize 一页数据条数
+     * @return
+     * @throws KitchenInfoException
+     */
     List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) throws KitchenInfoException;
+
+    /**
+     * 保存商家用户的兴趣爱好
+     * @param merchantKitchenInfoVO 含有兴趣爱好信息
+     * @return
+     */
+    MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO);
 
     long count(Query query);
 

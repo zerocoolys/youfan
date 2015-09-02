@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import com.youfan.commons.vo.server.OrderDishRelVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,9 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.OrderVO;
+import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
-import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.dao.client.UserDao;
@@ -72,8 +72,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public OrderVO createOrder(OrderVO order) {
-		orderDAO.insert(order);
-		return null;
+		return orderDAO.insert(order);
 	}
 
 	@Override
@@ -89,6 +88,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderVO refundOrder(OrderVO order) {
 		return null;
+	}
+
+	@Override
+	public void saveOrderDishes(List<OrderDishRelVO> dishRelVOs) {
+		orderDAO.saveOrderDishes(dishRelVOs);
 	}
 
 	@Override
@@ -109,11 +113,11 @@ public class OrderServiceImpl implements OrderService {
 					// 加载菜品列表
 					if (StringUtils.isBlank(parameter.getRepastMode())) {
 						List<MechantMenuVO> dishes = menuDao
-								.findByMenuIds(order.longDishesId());
+                                .findByMenuIds(order.longDishesId());
 
 						List<String> dishNames = dishes.stream()
-								.map(menu -> menu.getName())
-								.collect(Collectors.toList());
+                                .map(menu -> menu.getName())
+                                .collect(Collectors.toList());
 						order.setDishNames(dishNames);
 
 					}
@@ -137,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
 		if (order != null) {
 			// 查询菜品
 			List<MechantMenuVO> dishes = menuDao.findByMenuIds(order
-					.longDishesId());
+                    .longDishesId());
 
 			order.setDishes(dishes);
 
