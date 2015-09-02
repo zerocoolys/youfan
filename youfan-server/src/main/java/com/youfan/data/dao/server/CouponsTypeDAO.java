@@ -1,6 +1,5 @@
 package com.youfan.data.dao.server;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.youfan.commons.vo.server.CouponsTypeVO;

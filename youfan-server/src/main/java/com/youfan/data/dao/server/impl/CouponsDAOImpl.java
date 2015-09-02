@@ -1,36 +1,27 @@
-package com.youfan.data.dao.client.impl;
+package com.youfan.data.dao.server.impl;
 
-import com.mongodb.WriteResult;
-import com.youfan.commons.vo.CouponsVO;
-import com.youfan.data.dao.client.CouponDao;
-import com.youfan.data.models.CouponsEntity;
-import com.youfan.data.support.IdGenerator;
+import java.util.List;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
-import java.util.List;
+import com.mongodb.WriteResult;
+import com.youfan.commons.vo.server.CouponsVO;
+import com.youfan.data.dao.server.CouponsDAO;
+import com.youfan.data.models.CouponsEntity;
 
-/**
- * Created by subdong on 15-8-31.
- */
-@Repository("couponDao")
-public class CouponDaoImpl implements CouponDao {
+@Repository("couponsDAO")
+public class CouponsDAOImpl implements CouponsDAO{
 
-    @Resource
-    private IdGenerator idGenerator;
-
-    @Override
-    public CouponsVO findOne(String s) {
-
-        return null;
-    }
-
-    @Override
+	@Override
+	public CouponsVO findOne(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
     public void insert(CouponsVO couponsVO) {
-        couponsVO.setDataStatus(1);
         mongoTemplate.insert(convertToEntity(couponsVO));
     }
 
@@ -46,7 +37,6 @@ public class CouponDaoImpl implements CouponDao {
     public void update(CouponsVO couponsVO) {
         Query  query = Query.query(Criteria.where(CONPONS_ID).is(couponsVO.getId()).and(CONPONS_DATASTATUS).is(1));
         Update update = new Update();
-        update.set(COUPONS_STATUS,couponsVO.getStatus());
         mongoTemplate.updateFirst(query, update,getEntityClass());
     }
 
@@ -67,16 +57,18 @@ public class CouponDaoImpl implements CouponDao {
         return result.isUpdateOfExisting();
     }
 
+	@Override
+	public Class<CouponsEntity> getEntityClass() {
+		// TODO Auto-generated method stub
+		return CouponsEntity.class;
+	}
 
-    @Override
-    public Class<CouponsEntity> getEntityClass() {
-        return CouponsEntity.class;
-    }
+	@Override
+	public Class<CouponsVO> getVOClass() {
+		// TODO Auto-generated method stub
+		return CouponsVO.class;
+	}
 
-    @Override
-    public Class<CouponsVO> getVOClass() {
-        return CouponsVO.class;
-    }
-
+	
 
 }

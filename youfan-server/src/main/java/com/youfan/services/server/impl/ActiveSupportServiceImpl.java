@@ -1,5 +1,6 @@
 package com.youfan.services.server.impl;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.data.dao.server.ActiveDAO;
+import com.youfan.data.dao.server.CouponsDAO;
 import com.youfan.exceptions.ServerNoActiveDetailClazzException;
 import com.youfan.exceptions.ServerNoActiveEventException;
 import com.youfan.services.active.ActiveDetail;
@@ -19,6 +21,8 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	@Resource
 	ActiveDAO activeDAO;
 
+	@Resource
+	CouponsDAO couponsDAO;
 	@Override
 	public Object joinActive(String event, Map<String, Object> pramasMap)
 			throws ServerNoActiveEventException, ServerNoActiveDetailClazzException {
@@ -29,11 +33,15 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 			if (active == null) {
 				throw new ServerNoActiveEventException(event);
 			}
+			//判断活动时间
+			Long curTime = new Date().getTime();
+			if(curTime<active.getStartTime()||curTime>active.getEndTime()){
+				//处理参加时间不在活动时间范围内
+			}
 			try {
 				Class<?> activeDetailClazz = Class.forName(active.getActiveDetailClazz());// "com.youfan.services.active.impl.LoginActiveDetail"
 				ActiveDetail activeDetail = (ActiveDetail) activeDetailClazz.newInstance();
-				System.out.println(pramasMap.get("buyerId"));
-				return activeDetail.active(active, pramasMap);
+				return activeDetail.active(active, pramasMap,couponsDAO);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 				throw new ServerNoActiveDetailClazzException(active.getActiveDetailClazz());
