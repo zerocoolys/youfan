@@ -126,21 +126,30 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
-            .state('merchantcheck', {
-                url: '/merchant/merchantcheck',
-                templateUrl: 'merchant/merchantcheck.html',
-                resolve: {
-                    load: loadDeps([
-                        'controllers/merchant/merchantCheckCtrl'
-                    ])
-                }
-            })
+            //.state('merchantcheck', {
+            //    url: '/merchant/merchantcheck',
+            //    templateUrl: 'merchant/merchantcheck.html',
+            //    resolve: {
+            //        load: loadDeps([
+            //            'controllers/merchant/merchantCheckCtrl'
+            //        ])
+            //    }
+            //})
             .state('kitcheninfo', {
                 url: '/merchant/kitcheninfo',
                 templateUrl: 'merchant/kitcheninfo.html',
                 resolve: {
                     load: loadDeps([
                         'controllers/merchant/kitchenInfoCtrl'
+                    ])
+                }
+            })
+            .state('dishescheck', {
+                url: '/merchant/dishescheck',
+                templateUrl: 'merchant/dishescheck.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/merchant/dishesCheckCtrl'
                     ])
                 }
             })

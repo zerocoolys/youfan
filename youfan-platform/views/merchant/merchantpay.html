@@ -2,4 +2,27 @@
     <div ng-controller="tableCtrl">
         <div ui-grid="gridOptions" ui-grid-cellnav ui-grid-selection></div>
     </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pagination pagination-centered pagination-large">
+                <ul >
+                    <li class="header" id="head">
+                        <a href="#">首页</a>
+                    </li>
+                    <li class="prev disabled" id="prev">
+                        <a href="#" >上一页</a>
+                    </li>
+                    <li data-ng-repeat="page in pages" >
+                        <a href="#">1</a>
+                    </li>
+                    <li class="next" id="next">
+                        <a href="#">下一页</a>
+                    </li>
+                    <li id="tail">
+                        <a href="#">尾页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

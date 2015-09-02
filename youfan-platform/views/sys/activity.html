@@ -1,3 +1,62 @@
 <div  ng-controller="activityCtrl">
-    <h1>活动管理</h1>
+    <div class="row-fluid">
+        <div class="span12">
+            <form class="form-search">
+                <label>事件</label>
+                <input class="input-medium search-query" type="text" ng-model="event"/>
+                <label>名称:</label>
+                <input class="input-medium search-query" type="text" ng-model="title"/>
+                <label>状态:</label>
+                <input class="input-medium search-query" type="text" ng-model="status"/>
+                <!-- Single button -->
+                <div class="btn-group dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a >Action</a></li>
+                        <li><a>Another action</a></li>
+                        <li><a >Something else here</a></li>
+                        <li><a >Separated link</a></li>
+                    </ul>
+                </div>
+                <button type="submit" class="btn btn-success" ng-click="searchData()">筛选</button>
+                <button type="submit" class="btn btn-success" ng-click="openAddActiveDialog()">新增活动</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="row-fluid">
+                <div ng-controller="tableCtrl">
+                    <div ui-grid="gridOptions" ui-grid-cellnav ui-grid-selection ui-grid-pagination ui-grid-exporter
+                         ui-grid-auto-resize ui.grid.selection></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pagination pagination-centered pagination-large">
+                <ul>
+                    <li class="header" id="head" ng-click="headPage()">
+                        <a href="#">首页</a>
+                    </li>
+                    <li class="prev disabled" id="prev" ng-click="prePage()">
+                        <a href="#">上一页</a>
+                    </li>
+                    <li data-ng-repeat="page in pages">
+                        <a href="#">{{page}}</a>
+                    </li>
+                    <li class="next" id="next" ng-click="nextPage()">
+                        <a href="#">下一页</a>
+                    </li>
+                    <li id="tail" ng-click="tailPage()" >
+                        <a href="#">尾页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>

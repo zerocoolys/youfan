@@ -1,0 +1,42 @@
+<div class="row-fluid">
+    <div class="span12">
+        <div>
+            <label>选择优惠对象：</label>
+            <label class="radio"><input type="radio" name="port"/>客户</label>
+            <label class="radio"><input type="radio" name="port"/>商家</label>
+        </div>
+        <div>
+            <label>选择优惠时限类型：</label>
+            <label class="radio"><input type="radio" name="timeType"/>即时</label>
+            <label class="radio"><input type="radio" name="timeType"/>延时</label>
+        </div>
+        <div>
+            <label>选择优惠券使用范围：</label>
+            <label>厨房编号：</label><input id="kitchenId" type="text"><a href="#/merchant/merchantinfo" ng-click="closeDialog()">查看（跳转到厨房信息页面）</a>
+        </div>
+
+        <div>
+            <label>优惠券内容：</label>
+
+            <div>
+                <label>优惠方式：</label>
+                <label class="radio"><input type="radio" name="voucherType"/>减免</label>
+                <label class="radio"><input type="radio" name="voucherType"/>折扣</label>
+                <label class="radio"><input type="radio" name="voucherType"/>返现</label>
+            </div>
+            <div>
+                <label>优惠量：</label><input id="voucherValue" type="text">
+            </div>
+            <div>
+                <label>优惠条件：</label><input id="voucherCondition" type="text">
+            </div>
+            <div>
+                <label>描述：</label>
+                <textarea style="width: 300px;height: 200px;float: left" class="form-control"> 优惠券描述</textarea>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success" ng-click="addVoucher()">添加优惠券</button>
+    </div>
+</div>
