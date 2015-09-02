@@ -1,13 +1,11 @@
 package com.youfan.data.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
 import static com.youfan.commons.Constants.COLLECTION_SERVER_COUPONS_TYPE;
 
 import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 优惠券类型
@@ -34,7 +32,10 @@ public class CouponsTypeEntity {
 	 * 优惠券时效
 	 */
 	private Integer timeLine;
-	
+	/**
+	 * 是否为全场使用
+	 */
+	private Boolean ifAll;
 	private String kitchenId;
 
 
@@ -104,6 +105,14 @@ public class CouponsTypeEntity {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public Boolean getIfAll() {
+		return ifAll;
+	}
+
+	public void setIfAll(Boolean ifAll) {
+		this.ifAll = ifAll;
 	}
 	
 

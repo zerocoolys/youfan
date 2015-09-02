@@ -4,6 +4,7 @@ import com.youfan.commons.Constants;
 import com.youfan.data.support.IdGenerator;
 import com.youfan.system.mongo.MongoPool;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -140,4 +141,11 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
         return Instant.now().getEpochSecond() + no;
     }
 
+    default Update buildUpdate(Map<String, Object> map) {
+        Update update = new Update();
+        for (String key : map.keySet()) {
+            update.set(key, map.get(key));
+        }
+        return update;
+    }
 }
