@@ -2,8 +2,6 @@ package com.youfan.data.models;
 
 import static com.youfan.commons.Constants.COLLECTION_SERVER_ACTIVE;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -19,6 +17,11 @@ public class ActiveEntity {
 	 */
 	@Indexed(unique=true)
 	private String event;
+	
+	/**
+	 * 活动标题
+	 */
+	private String title;
 	/**
 	 * 活动针对端 目前默认为2 2.客户端 3.商家端
 	 */
@@ -27,32 +30,44 @@ public class ActiveEntity {
 	/**
 	 * 活动类型 1.注册完成活动 2.登录后活动 3.订单生成后活动 4.订单完成后活动 5.其他
 	 */
+	@Field("atype")
 	private Integer activeType;
 
 	/**
 	 * 优惠方式 1.发放优惠券 2.价格折扣减免
 	 */
+	@Field("ctype")
 	private Integer couponsType;
 
 	/**
 	 * 是否为唯一参加活动 即和别的活动一起参加
 	 */
+	@Field("ifuique")
 	private boolean ifUnique;
 
 	/**
 	 * 是否可以同时使用优惠券
 	 */
+	@Field("iuc")
 	private boolean ifUseCoupons;
 
 	/**
 	 * 是否为全场
 	 */
+	@Field("ifall")
 	private boolean ifAll;
+	
+	/**
+	 * 非全场时指定厨房ID
+	 */
+	@Field("kid")
+	private String kitchenId;
 
 	/**
 	 * 优惠规则内容 包括 满减、折扣、返现
 	 */
-	private List<CouponsContentEntity> content;
+	@Field("ctid")
+	private String couponsTypeId;
 
 	/**
 	 * 优惠券有效期 设置时候若给天数 则从第二日起计算出有效期 若给日期则有效期至指定日期
@@ -63,14 +78,17 @@ public class ActiveEntity {
 	/**
 	 * 活动创建时间
 	 */
+	@Field("ct")
 	private Long createTime;
 	/**
 	 * 活动发布日期 UNIX时间 以 00:00:00开始
 	 */
+	@Field("st")
 	private Long startTime;
 	/**
 	 * 活动结束日期 UNIX时间 以23:59:59结束
 	 */
+	@Field("et")
 	private Long endTime;
 	/**
 	 * 活动处理类
@@ -155,13 +173,6 @@ public class ActiveEntity {
 		this.ifAll = ifAll;
 	}
 
-	public List<CouponsContentEntity> getContent() {
-		return content;
-	}
-
-	public void setContent(List<CouponsContentEntity> content) {
-		this.content = content;
-	}
 
 	public Long getValidityTime() {
 		return validityTime;
@@ -217,6 +228,30 @@ public class ActiveEntity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getKitchenId() {
+		return kitchenId;
+	}
+
+	public void setKitchenId(String kitchenId) {
+		this.kitchenId = kitchenId;
+	}
+
+	public String getCouponsTypeId() {
+		return couponsTypeId;
+	}
+
+	public void setCouponsTypeId(String couponsTypeId) {
+		this.couponsTypeId = couponsTypeId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	

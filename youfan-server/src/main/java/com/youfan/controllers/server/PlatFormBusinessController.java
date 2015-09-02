@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.OrderVO;
-import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
+import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.CouponsContentEntity;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
@@ -61,6 +61,9 @@ public class PlatFormBusinessController {
 	ActiveSupportService activeSupportService;
 	@Resource
 	CouponsTypeService couponsTypeService;
+	
+	@Resource
+	UserDao userDAO;
     ///////////////////////////////// 系统//////////////////////////////////////////
 
 	/**
@@ -78,10 +81,9 @@ public class PlatFormBusinessController {
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		Map<String,Object> activeParams = new HashMap<String,Object>();
-		activeParams.put("buyerId", "1");
-		activeParams.put("clientUser", new UserVO());
+		activeParams.put("userVo", userDAO.getUserByTel("13980041343"));
 		try {
-			activeSupportService.joinActive("client_login", activeParams);
+			activeSupportService.joinActive("client_register", activeParams);
 			res = Responses.SUCCESS().setCode(1).setMsg("SUCCESS");
 		} catch (ServerNoActiveDetailClazzException e) {
 			res = Responses.FAILED().setCode(2).setMsg("ServerNoActiveDetailClazzException");
@@ -246,9 +248,13 @@ public class PlatFormBusinessController {
 				activeVo.setActiveType(Integer.valueOf(request.getParameter("activeType")));
 				activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
 				activeVo.setDesc(request.getParameter("desc"));
-				activeVo.setContent( JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
+				activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));
+				activeVo.setCouponsType(Integer.valueOf(request.getParameter("couponsType")));
 				//创建时间为保存时当前时间
 				activeVo.setCreateTime(new Date().getTime());
+				activeVo.setValidityTime(Long.valueOf(request.getParameter("validityTime")));
+				activeVo.setStartTime(Long.valueOf(request.getParameter("startTime")));
+				activeVo.setEndTime(Long.valueOf(request.getParameter("endTime")));
 				//状态默认为1 表示开启使用状态
 				activeVo.setStatus(1);
 				activeService.save(activeVo);
