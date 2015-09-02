@@ -11,6 +11,9 @@ public enum OrderStatus {
     ODR_WITHDRAW_SELLER_CONFIRM(31, "31"),
     ODR_WITHDRAW_FINISHED(39, "39"),
     ODR_WITHDRAW_BUTER_APPLY(32, "32"),
+    
+    
+    ORD_MERCHANT_CONFIRM(4,"4"),
 
 
     ODR_FINISHED(100, "100");

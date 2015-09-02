@@ -2,8 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youfan.data.mappers.OrderMapper">
 
-	<resultMap id="MerchantOrderHeader"
-		type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
+    <resultMap id="MerchantOrderHeader" type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
+
+        <result column="ORDER_NO" property="orderNo"/>
+        <result column="BUYER_ID" property="buyerId"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="repast_Time" property="repastTime"/>
+        <result column="repast_Address" property="repastAddress"/>
+        <result column="dishes_Id" property="dishesId"/>
+    </resultMap>
+    
+    
+       <resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
+
+        <result column="ORDER_NO" property="orderNo"/>
+        <result column="BUYER_ID" property="buyerId"/>
+        <result column="ORDER_STATUS" property="orderStatus"/>
+        <result column="repast_Time" property="repastTime"/>
+        <result column="order_time" property="orderTime"/>
+        <result column="repast_Address" property="repastAddress"/>
+        <result column="dishes_Id" property="dishesId"/>
+        <result column="payment_method" property="paymentMethod"/>
+        
+        
+    </resultMap>
+
+   <resultMap id="OrderEntityMap" type="com.youfan.data.models.OrderEntity">
 
 		<result column="ORDER_NO" property="orderNo" />
 		<result column="BUYER_ID" property="buyerId" />
@@ -11,28 +35,6 @@
 		<result column="repast_Time" property="repastTime" />
 		<result column="repast_Address" property="repastAddress" />
 		<result column="dishes_Id" property="dishesId" />
-	</resultMap>
-
-
-	<resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
-
-		<result column="ORDER_NO" property="orderNo" />
-		<result column="BUYER_ID" property="buyerId" />
-		<result column="ORDER_STATUS" property="orderStatus" />
-		<result column="repast_Time" property="repastTime" />
-		<result column="order_time" property="orderTime" />
-		<result column="repast_Address" property="repastAddress" />
-		<result column="dishes_Id" property="dishesId" />
-	</resultMap>
-
-	<resultMap id="OrderEntityMap" type="com.youfan.data.models.OrderEntity">
-		<id column="ORDER_ID" property="id" />
-		<result column="ORDER_NO" property="orderNo" />
-		<result column="SELLER_ID" property="sellerId" />
-		<result column="BUYER_ID" property="buyerId" />
-		<result column="COMMENTS" property="comments" />
-		<result column="ORDER_STATUS" property="orderStatus" />
-
 	</resultMap>
 
 	<resultMap id="OrderFullEntityMap" type="com.youfan.data.models.OrderEntity">
@@ -79,24 +81,26 @@
 		TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
 		GROUP BY
 		orders.order_id
-		) dishes ON orders.order_id = dishes.order_id
-		WHERE
-		1 = 1
 
-		<if test="sellerId != null and sellerId != ''">
-			and orders.seller_Id = #{sellerId}
-		</if>
+) dishes ON orders.order_id = dishes.order_id
+WHERE
+	1 = 1
 
-		<if test="orderStatus != null">
-			and orders.order_Status = #{orderStatus}
-		</if>
+        <if test="sellerId != null and sellerId != ''">
+            and orders.seller_Id = #{sellerId}
+        </if>
 
-		<if test="repastMode != null and repastMode != ''">
-			and orders.repast_Mode = #{repastMode}
-		</if>
+        <if test="orderStatus != null">
+            and orders.order_Status = #{orderStatus}
+        </if>
 
-	</select>
+        <if test="repastMode != null and repastMode != ''">
+            and orders.repast_Mode = #{repastMode}
+        </if>
 
+    </select>
+    
+ 
 
 	<select id="findOrderDetail" parameterType="com.youfan.data.models.OrderEntity"
 		resultMap="MerchantOrderDetail">
@@ -255,6 +259,13 @@
 
 
 	</select>
+	
+	<update id="updateOrder" parameterType="com.youfan.controllers.params.OrderParams">
 
+		update TBL_ORDERS order set order.order_status = #{orderStatus} 
+		
+		where order.order_no = #{orderNo} 
+
+    </update>
 
 </mapper>

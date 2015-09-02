@@ -142,7 +142,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setDishes(dishes);
 
 			// 查询个人信息
-			UserVO user = userDao.findByUid(order.getBuyerId());
+			UserVO user = userDao.findByid(order.getBuyerId());
 			if (user != null) {
 				order.setBuyerName(user.getName());
 				order.setPhone(user.getTel());
@@ -173,5 +173,13 @@ public class OrderServiceImpl implements OrderService {
 		vo.addAll(list);
 		return vo;
 
+	}
+
+	@Override
+	public int updateOrderStatus(OrderParams order) {
+
+		int tag = orderDAO.updateOrderStatus(order);
+
+		return tag;
 	}
 }
