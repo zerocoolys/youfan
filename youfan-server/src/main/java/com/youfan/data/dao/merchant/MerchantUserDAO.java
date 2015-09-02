@@ -1,5 +1,6 @@
 package com.youfan.data.dao.merchant;
 
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantUserEntity;
@@ -15,6 +16,7 @@ import java.util.Map;
 public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, MerchantUserVO, Long> {
     /**
      * 登陆
+     *
      * @param userName 用户名手机号码
      * @return
      */
@@ -22,6 +24,7 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 
     /**
      * 注册
+     *
      * @param userName
      * @param passWord
      * @return
@@ -30,6 +33,7 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 
     /**
      * 保存商家用户个人信息
+     *
      * @param merchantUser
      * @return
      */
@@ -58,10 +62,12 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 
     /**
      * 根据id获取商家用户信息
+     *
      * @param id
      * @return
      */
-     MerchantUserVO getMerchantUserInfo(String id);
+    MerchantUserVO getMerchantUserInfo(String id);
 
-	MerchantUserVO findById(String id);
+    MerchantUserVO findById(String id);
+
 }
