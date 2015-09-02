@@ -38,15 +38,26 @@ public class CaptchaServiceImpl implements CaptchaService {
 
 
     @Override
-    public Object add(String captchaKey, int aliveSeconds, String captcha) {
+    public void insert(String captchaKey, String captcha) {
         RedisPool redisPool = new RedisPool();
-        redisPool.getJedis().setex(captchaKey, aliveSeconds, captcha);
-        return redisPool;
+        redisPool.getJedis().set(captchaKey, captcha);
     }
 
     @Override
-    public boolean getCaptcha(String captchaKey) {
+    public void setAlive(String captchaKey, int aliveSeconds, String captcha) {
         RedisPool redisPool = new RedisPool();
-        return redisPool.getJedis().exists(captchaKey);
+        redisPool.getJedis().setex(captchaKey, aliveSeconds, captcha);
+    }
+
+    @Override
+    public String getCaptcha(String captchaKey) {
+        RedisPool redisPool = new RedisPool();
+        String result = new String();
+        try {
+            result = redisPool.getJedis().get(captchaKey);
+        } catch (Exception e){
+            logger.info(e.getMessage());
+        }
+        return result;
     }
 }
