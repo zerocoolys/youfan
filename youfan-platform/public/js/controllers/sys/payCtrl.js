@@ -26,5 +26,14 @@ define(["./module"], function (ctrs) {
            })
         }
 
+
+        $scope.pay_ways = [];
+        /**
+         * 初始化显示所有支付渠道信息
+         */
+        $scope.initAll = function(){
+
+        }
+
     })
 });

@@ -1,17 +1,70 @@
-<div  ng-controller="payCtrl">
+<div ng-controller="payCtrl">
     <h1>支付管理</h1>
+
     <div class="span12">
-        <img alt="140x140" src="../img/epay.jpg" />
-        <button class="btn" type="button">启用</i></button>
+        <div class="row-fluid">
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+            <div class="span3">
+                <img alt="140x140" src="../img/epay.jpg"/>
+                <div>
+                    <button class="btn" type="button">开启</i></button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <label class="text_amount">
         <input id="amount" type="text" placeholder="金 额" value="0.1"/>
     </label>
+
     <div>
         <button type="button" class="btn btn-primary btn-lg active" ng-click="wap_pay('upmp_wap')">银联WAP(upmp)</button>
-        <button type="button" class="btn btn-primary btn-lg active" ng-click="wap_pay('upacp_wap')">银联WAP(upacp)</button>
-        <button type="button" class="btn btn-primary btn-lg active" ng-click="wap_pay('alipay_wap')">支付宝WAP</button>
+        <button type="button" class="btn btn-primary btn-lg active" ng-click="wap_pay('upacp_wap')">银联WAP(upacp)
+        </button>
+        <button type="button" class="btn btn-primary btn-lg active" ng-click="wap_pay('alipay_wap')">开启</button>
         <button type="button" class="btn btn-primary btn-lg active" ng-click="wap_pay('bfb_wap')">百付宝WAP</button>
     </div>
     <div>

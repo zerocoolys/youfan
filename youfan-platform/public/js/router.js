@@ -58,6 +58,15 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
+            .state('comment', {
+                url: '/sys/comment',
+                templateUrl: 'sys/comment.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/sys/commentCtrl'
+                    ])
+                }
+            })
             .state('activity', {
                 url: '/sys/activity',
                 templateUrl: 'sys/activity.html',
