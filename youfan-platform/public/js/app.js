@@ -14,6 +14,7 @@ define([
     "./controllers/loginCtrl",
     "./controllers/chatCtrl",
     "./controllers/leftMenuCtrl",
+    "./controllers/dateCtrl",
     "./controllers/navCtrl",
     "./controllers/tableCtrl",
     "./controllers/sys/module",

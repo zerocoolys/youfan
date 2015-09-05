@@ -3,10 +3,10 @@
         <div class="ngdialog-tilte">来自网页的消息</div>
         <div>
             <div>
-                <label>活动事件</label><input ng-model="add_event" type="text">
+                <label>活动事件</label><input  type="text" ng-model="active_model.event">
             </div>
             <div>
-                <label>活动名称</label><input ng-model="add_title" type="text">
+                <label>活动名称</label><input  type="text" ng-model="active_model.title">
             </div>
             <!--<div>-->
             <!--<label>端：</label>-->
@@ -27,23 +27,22 @@
             <!--<label>是否全场使用（checkBox）</label>-->
             <!--</div>-->
             <div id="vadivdityTime">
-                <label>优惠券有效期</label><input ng-model="add_title" type="text">
+                <label>优惠券有效期</label><input  type="text" ng-model="active_model.validityTime">
             </div>
             <div>
-                <label>活动开始时间</label><input ng-model="add_title" type="text">
+                <label>活动开始时间</label><input type="text" ng-model="active_model.startTime">
             </div>
             <div>
-                <label>活动结束时间</label><input ng-model="add_title" type="text">
+                <label>活动结束时间</label><input  type="text" ng-model="active_model.endTime">
             </div>
             <div>
-                <label>活动处理类</label><input ng-model="add_title" type="text">
+                <label>活动处理类</label><input type="text" ng-model="active_model.activeDetailClazz">
             </div>
             <div>
-                <label>活动描述</label><textarea class="form-control"> 活动描述</textarea>
             </div>
-            <button type="submit" class="btn btn-success">新增活动</button>
-            <button type="reset" class="btn ">重置</button>
-            <button type="console" class="btn">取消</button>
+            <button type="submit" class="btn btn-success" ng-click="saveActive()">新增活动</button>
+            <button type="reset" class="btn " ng-click="reset()">重置</button>
+            <button type="console" class="btn" ng-click="closeDialog()">取消</button>
         </div>
 
     </div>

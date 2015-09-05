@@ -11,6 +11,23 @@ define(["./module"], function (ctrs) {
         $rootScope.pageCount = 0;
         $rootScope.pages = [];
 
+        $scope.active_model={
+            event:"",
+            title:"",
+            port:2,
+            activeType:null,
+            couponsType:1,
+            ifUnique:false,
+            ifUseCoupons:true,
+            ifAll:true,
+            kitchenId:null,
+            couponsTypeId:null,
+            validityTime:null,
+            startTime:null,
+            endTime:null,
+            activeDetailClazz:null,
+            desc:null
+        }
         //筛选条件
         $scope.event = null;
         $scope.title = "";
@@ -78,6 +95,16 @@ define(["./module"], function (ctrs) {
                 className: 'ngdialog-theme-default admin_ngdialog',
                 scope: $scope
             });
+
+            $scope.saveActive = function(){
+                console.log("saveActive")
+                console.log($scope.active_model)
+                $scope.dialog.close();
+            }
+
+            $scope.closeDialog = function(){
+                $scope.dialog.close();
+            }
         }
         //指定数据查询方法
         $rootScope.searchData = function () {

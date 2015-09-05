@@ -22,6 +22,10 @@ router.get("/paysuccess", function (req, res, next) {
     res.render("pay/paysuccess.html", {});
 });
 
+router.get("/index", function (req, res, next) {
+    res.render("index.html", {});
+});
+
 
 router.get('/*.html', function (req, res, next) {
     var url = req.url.substring(1);

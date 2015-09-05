@@ -5,19 +5,19 @@ require.config({
     baseUrl: 'js',
     paths: {
         "angular": [
-            'http://cdn.bootcss.com/angular.js/1.3.15/angular.min'
+            'http://cdn.bootcss.com/angular.js/1.4.5/angular.min'
         ],
         "angular-cookies": [
-            'http://cdn.bootcss.com/angular.js/1.3.15/angular-cookies.min'
+            'http://cdn.bootcss.com/angular.js/1.4.5/angular-cookies.min'
         ],
         "js001": [
-            "http://cdn.bootcss.com/jquery/1.11.3/jquery.min"
+            "http://cdn.bootcss.com/jquery/2.1.4/jquery.min"
         ],
         "js002": [
             "http://cdn.bootcss.com/angular.js/1.4.0-beta.6/angular-sanitize.min"
         ],
         "js003": [
-            "http://cdn.bootcss.com/angular-ui-select/0.11.2/select"
+            "http://cdn.bootcss.com/angular-ui-select/0.12.1/select"
         ],
         "js004": [
             "http://cdn.bootcss.com/angular-ui-router/0.2.13/angular-ui-router.min"
@@ -26,7 +26,7 @@ require.config({
             "http://cdn.bootcss.com/angular-i18n/1.2.15/angular-locale_zh-cn"
         ],
         "js006": [
-            "http://cdn.bootcss.com/ng-dialog/0.3.12/js/ngDialog.min"
+            "http://cdn.bootcss.com/ng-dialog/0.5.1/js/ngDialog.min"
         ],
         "js007": [
             "http://cdn.bootcss.com/echarts/2.2.1/echarts-all"
