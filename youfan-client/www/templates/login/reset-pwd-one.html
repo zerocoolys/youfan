@@ -1,0 +1,25 @@
+<ion-view view-title="" hide-nav-bar="true" hide-tabs>
+    <ion-header-bar>
+        <a class="button button-clear" onclick="history.back()"><span
+                class="ion-chevron-left icon-accessory"></span></a>
+
+        <h1 class="title">获取验证码</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list" ng-controller="SmsCaptchaCtrl">
+            <div class="item item-input">
+                <input type="text" id="tel" name="tel" ng-model="user.tel" placeholder="手机号" required>
+            </div>
+            <div class="item item-input">
+                <input type="text" id="c" name="verificationCode" ng-model="user.captcha" placeholder="输入验证码" required>
+                <button class="button bar-balanced button-small" ng-class="isClick ? 'disabled' : ''"
+                        style="margin-right: 20px" ng-click="sendMessage()">{{validCode}}
+                </button>
+            </div>
+            <a class="button button-block bar-balanced" ui-sref="tab.reset-pwd-two">下一步</a>
+
+            <p class="existingAccount">已有密码？&nbsp;&nbsp;<a ui-sref="tab.pwd-login"
+                                                           style="color: #0c63ee">立即登陆</a></p>
+        </div>
+    </ion-content>
+</ion-view>

@@ -6,9 +6,11 @@
             <input type="search" placeholder="搜索"/>
         </label>
 
+<!--
         <a class="button button-clear button-balanced" ui-sref="tab.pwd-login">
             登录
         </a>
+-->
 
     </div>
     <div class="bar bar-subheader bar-light" style="height:30px;">
@@ -19,7 +21,7 @@
                </span>
         </div>
     </div>
-    <ion-content style="top:75px;" overflow-scroll="true">
+    <ion-content style="top:75px;" >
         <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
         </ion-refresher>
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
@@ -51,7 +53,7 @@
                         <i class="icon ion-ribbon-b icon-accessory mainColor" style="top: 15px;left: 37px;"></i>
 
                         <div class="img_text fr">
-                            111{{mc.cang}}<span>品尝过</span>
+                            111{{mc.cang}}人<span>品尝过</span>
                         </div>
                         <!--<span class="badge badge-assertive ng-binding">内蒙古人</span>
                         <div class="row" href="#/tab/dash/{{mc.id}}">

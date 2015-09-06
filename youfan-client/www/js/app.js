@@ -45,7 +45,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
 
             .state('tab.dash', {
                 url: '/dash',
-                cache:false,
+                cache: false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/tab-dash.html',
@@ -56,7 +56,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //详情页
             .state('tab.dash-detail', {
                 url: '/dash/:merchantId',
-                cache:false,
+                cache: false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/dash-detail.html',
@@ -70,7 +70,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/change-address.html',
-                        controller:'ChangeAddressCtrl'
+                        controller: 'ChangeAddressCtrl'
                     }
                 }
             })
@@ -96,7 +96,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //商家详情
             .state('tab.seller-detail', {
                 url: "/seller-detail",
-                cache:false,
+                cache: false,
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/seller-detail.html",
@@ -118,7 +118,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //个人中心
             .state('tab.chats', {
                 url: '/chats',
-                cache:false,
+                cache: false,
                 views: {
                     'tab-chats': {
                         templateUrl: 'templates/personalcenter/tab-chats.html',
@@ -274,13 +274,23 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            //重置密码
-            .state('tab.reset-pwd', {
-                url: '/reset-pwd',
+            //重置密码--获取验证码
+            .state('tab.reset-pwd-one', {
+                url: '/reset-pwd-one',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/login/reset-pwd.html',
-                        controller: 'ResetPwdCtrl'
+                        templateUrl: 'templates/login/reset-pwd-one.html',
+                        controller: 'ResetPwdOneCtrl'
+                    }
+                }
+            })
+            //重置密码--重置密码
+            .state('tab.reset-pwd-two', {
+                url: '/reset-pwd-two',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/login/reset-pwd-two.html',
+                        controller: 'ResetPwdTwoCtrl'
                     }
                 }
             })
@@ -306,7 +316,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
 //            支付页面
             .state('tab.pay-page', {
-                url: '/pay-page',
+                url: '/pay-page/:order_no/:price',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/pay-page.html',
@@ -372,8 +382,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 $scope.$on('$stateChangeSuccess', function () {
                     if ($state.current.name == "tab.dash" || $state.current.name == "tab.chats" || $state.current.name == "tab.account") {
                         $rootScope.hideTabs = false;
-                    }
-                    else {
+                    } else {
                         $rootScope.hideTabs = true;
                     }
                 });
