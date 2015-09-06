@@ -58,7 +58,6 @@ public class CaptchaServiceImpl implements CaptchaService {
         } catch (Exception e){
             logger.info(e.getMessage());
         }
-        //System.out.println("captcha:"+result);
         return result;
     }
 }
