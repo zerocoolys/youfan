@@ -3,7 +3,6 @@
  */
 ControllerModule.controller('ResetPwdOneCtrl', function($scope,$rootScope, $ionicPopup, $interval ,$timeout, $location, $http, $state){
 
-
     $scope.user = {
         tel: "",
         captcha: "",
@@ -13,19 +12,14 @@ ControllerModule.controller('ResetPwdOneCtrl', function($scope,$rootScope, $ioni
     /**
      * 重置密码
      */
-    $scope.resetPwd = function(){
+    $scope.verifyCaptcha = function(){
         var tel = $scope.user.tel;
         var captcha = $scope.user.captcha;
-        var pwd = $scope.user.pwd;
         var re= /(^1[3|5|8][0-9]{9}$)/;
 
         var keyObj = {
-            captchaKey: "client_resetpwd" + tel
+            captchaKey: "client_forgetpwd" + tel
         }
-        var clientResetPwdModel = {
-            tel: tel,
-            password: pwd
-        };
 
         if(tel.trim() != ""){
             if(!re.test(tel.trim())){
@@ -38,40 +32,32 @@ ControllerModule.controller('ResetPwdOneCtrl', function($scope,$rootScope, $ioni
                 }, 2000);
             } else {
                 if(captcha.trim() != ""){
-                    if(pwd.trim() != ""){
-                        $http.post("http://localhost:8080/captcha/verify",JSON.stringify(keyObj))
-                            .success(function(data){
-                                console.log(data);
-                                if(data.payload != null && data.payload == captcha){
-                                    $http.post("http://localhost:8080/captcha/verify",JSON.stringify(clientResetPwdModel))
-                                        .success(function(){
+                    $http.post("http://localhost:8080/captcha/verify",JSON.stringify(keyObj))
+                        .success(function(data){
+                            if(data.payload != null && data.payload == captcha){
+                                $state.go('tab.reset-pwd-two');
+                            } else if(data.payload != null && data.payload != captcha){
+                                var captchaError = $ionicPopup.show({
+                                    title: '验证码错误',
+                                    scope: $scope
+                                });
+                                $timeout(function() {
+                                    captchaError.close(); //由于某种原因2秒后关闭弹出
+                                }, 2000);
+                            } else {
+                                var captchaDied = $ionicPopup.show({
+                                    title: '验证码失效',
+                                    scope: $scope
+                                });
+                                $timeout(function() {
+                                    captchaDied.close(); //由于某种原因2秒后关闭弹出
+                                }, 2000);
+                            }
+                        })
+                        .error(function(){
 
-                                        })
-                                        .error(function(){
-
-                                        });
-                                } else {
-                                    var captchaDied = $ionicPopup.show({
-                                        title: '验证码失效',
-                                        scope: $scope
-                                    });
-                                    $timeout(function() {
-                                        captchaDied.close(); //由于某种原因2秒后关闭弹出
-                                    }, 2000);
-                                }
-                            })
-                            .error(function(){
-
-                            });
-                    } else {
-                        var pwdNull = $ionicPopup.show({
-                            title: '请输入密码',
-                            scope: $scope
                         });
-                        $timeout(function() {
-                            pwdNull.close(); //由于某种原因2秒后关闭弹出
-                        }, 2000);
-                    }
+
                 } else {
                     var captchaNull = $ionicPopup.show({
                         title: '请输入验证码',
