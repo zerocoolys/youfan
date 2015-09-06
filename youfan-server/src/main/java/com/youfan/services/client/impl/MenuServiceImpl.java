@@ -2,10 +2,13 @@ package com.youfan.services.client.impl;
 
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
+import com.youfan.exceptions.MenuNameExistsException;
 import com.youfan.services.client.MenuService;
+
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -26,11 +29,11 @@ public class MenuServiceImpl implements MenuService {
     private MenuDAO menuDAO;
 
     @Override
-    public void insert(MenuVO menu) {
+    public void insert(MenuVO menu) throws MenuNameExistsException {
         if (menu == null)
             return;
 
-        menuDAO.insert(menu);
+        menuDAO.insertMenu(menu);
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.youfan.controllers.merchant;
 
+import com.youfan.commons.Constants;
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaowei on 15-8-31.
@@ -43,8 +48,17 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/getComment")
-    public Response getComment(String id) {
-        CommentVO cv = commentService.findCommentById(id);
+    public Response getComment(Integer orderId) {
+        CommentVO cv = commentService.findCommentById(orderId);
         return Responses.SUCCESS().setPayload(cv);
+    }
+
+    @RequestMapping(value = "/getCommentPager")
+    public Response getComment(Pagination pagination, String content) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("content", content);
+        pagination.setParams(params);
+        Pager p = commentService.findCommentByPager(pagination);
+        return Responses.SUCCESS().setPayload(p);
     }
 }

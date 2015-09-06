@@ -1,10 +1,12 @@
 package com.youfan.data.dao.client.impl;
 
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.client.MenuVO;
-import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.models.MenuEntity;
+import com.youfan.exceptions.MenuNameExistsException;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -224,6 +226,24 @@ public class MenuDAOImpl implements MenuDAO {
 
 	interface lambdaInterface {
 		public void group(MechantMenuVO menu, MechantMenuVO menuCount);
+	}
+
+	@Override
+	public void insertMenu(MenuVO menu) throws MenuNameExistsException {
+
+		if (mongoTemplate.findOne(
+				Query.query(Criteria.where(SELLER_ID).is(menu.getSellerId())
+						.and(NAME).is(menu.getName())), getEntityClass(),
+				COLLECTION_MENU) != null) {
+			throw new MenuNameExistsException("菜单已存在");
+		}
+
+		mongoTemplate.insert(convertToEntity(menu));
+	}
+
+	@Override
+	public Pager findPager(Pagination p) {
+		return null;
 	}
 
 }
