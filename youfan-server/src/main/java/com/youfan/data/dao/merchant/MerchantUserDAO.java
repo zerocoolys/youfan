@@ -68,6 +68,24 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
      */
     MerchantUserVO getMerchantUserInfo(String id);
 
+    /**
+     * 根据商家用户信息的status来查询所有信息并分页
+     *
+     * @param page     　第几页，大于等于1
+     * @param pageSize 　每一页的大小
+     * @param query    　查询条件
+     * @return
+     */
+    List<MerchantUserVO> pageListByStatus(Integer page, Integer pageSize, Query query);
+
+    /**
+     * 根据数据状态获取该collection的数据条数
+     *
+     * @param status 状态：0为未审核，1为审核，-1为删除
+     * @return
+     */
+    Long getPageTotal(Integer status);
+
     MerchantUserVO findById(String id);
 
 }

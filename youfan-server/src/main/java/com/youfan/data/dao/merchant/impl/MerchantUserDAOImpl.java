@@ -175,7 +175,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
 	@Override
 	public Class<MerchantUserEntity> getEntityClass() {
-		// TODO Auto-generated method stub
 		return MerchantUserEntity.class;
 	}
 
@@ -186,7 +185,16 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
 	@Override
 	public MerchantUserVO findById(Long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public List<MerchantUserVO> pageListByStatus(Integer page, Integer pageSize, Query query) {
+        return convertToVOList(mongoTemplate.find(query.skip((page - 1) * pageSize).limit(pageSize), getEntityClass()));
+    }
+
+    @Override
+    public Long getPageTotal(Integer status) {
+        return mongoTemplate.count(query(where("status").is(status)), getEntityClass());
+    }
 }

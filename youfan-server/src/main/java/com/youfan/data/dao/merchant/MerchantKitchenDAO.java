@@ -16,18 +16,34 @@ import java.util.Map;
 public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEntity, MerchantKitchenInfoVO, Long> {
     /**
      * 保存商家厨房信息
-     * @param merchantKitchenInfo　厨房信息对象VO
+     *
+     * @param merchantKitchenInfo 　厨房信息对象VO
      * @return
      * @throws KitchenInfoException
      */
-    MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException;
+    MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo);
 
-    MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException;
+    /**
+     * 保存厨房照片
+     *
+     * @param merchantKitchenInfo 　厨房信息对象VO
+     * @return
+     * @throws KitchenInfoException
+     */
+    MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo);
 
-    MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException;
+    /**
+     * 保存厨房故事
+     *
+     * @param merchantKitchenInfo 　厨房故事对象VO
+     * @return
+     * @throws KitchenInfoException
+     */
+    MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo);
 
     /**
      * 根据商家用户id获取对应的厨房信息
+     *
      * @param id 商家用户id
      * @return
      */
@@ -35,15 +51,35 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
 
     /**
      * 获取所有商家厨房信息并分页
-     * @param page 第几页
+     *
+     * @param page     第几页
      * @param pageSize 一页数据条数
      * @return
      * @throws KitchenInfoException
      */
-    List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) throws KitchenInfoException;
+    List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize);
+
+    /**
+     * 根据厨房信息的status来查询所有信息并分页
+     *
+     * @param page     　第几页，大于等于1
+     * @param pageSize 　每一页的大小
+     * @param query    　查询条件
+     * @return
+     */
+    List<MerchantKitchenInfoVO> pageListByStatus(Integer page, Integer pageSize, Query query);
+
+    /**
+     * 根据数据状态获取该collection的数据条数
+     *
+     * @param status 状态：0为未审核，1为审核，-1为删除
+     * @return
+     */
+    Long getPageTotal(Integer status);
 
     /**
      * 保存商家用户的兴趣爱好
+     *
      * @param merchantKitchenInfoVO 含有兴趣爱好信息
      * @return
      */
