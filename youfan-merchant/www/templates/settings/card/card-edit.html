@@ -8,44 +8,45 @@
 
     <ion-nav-buttons side="right">
         <button class="button button-clear button-calm" data-ng-click="doCheckCard()" data-ng-disabled="isActive">
-            修改
+            保存
         </button>
     </ion-nav-buttons>
 
-    <ion-content class="padding">
+    <ion-content >
 
-        <div class="list">
-
-            <select style="height: 45px;width: 100%;"
+        <ion-item class="item item-select  " style="margin-top: 20px;" >
+         <p> 银行名称：</p>
+            <select style="height: 100%;width: 100%;"
                     ng-model="card.bankName"
                     ng-options="bankName for bankName in bankNames"></select>
 
-        </div>
+        </ion-item>
 
-        <div class="list">
-
-            <select style="height: 45px;width: 100%;"
+        <ion-item class="item item-select">
+            <p> 银行所在地：</p>
+            <select style="height: 100%;width: 100%;"
                     ng-model="card.areaName"
                     ng-options="areaName for areaName in areaNames"></select>
 
-        </div>
-
-        <div class="list" style="border: 1px solid gray;">
-            <input type="text"
-                   style="border-bottom: 1px solid gray; width: 95%; margin-left: 5%;padding-right: 5%;height: 45px;"
+        </ion-item>
+        <ion-item class=" item item-input "  style="margin-top: 20px;">
+            <input type="text" style="width: 95%; padding-right: 5%;height: 45px;"
                    placeholder="输入你的开户行" data-ng-model="card.cardName"/>
-            <input type="text" style="width: 95%; margin-left: 5%;padding-right: 5%;height: 45px;"
+        </ion-item>
+        <ion-item class=" item item-input " style="margin-bottom: 20px;">
+            <input type="text" style="width: 95%; padding-right: 5%;height: 45px;"
                    placeholder="输入你的银行卡" data-ng-model="card.cardNumber"/>
-        </div>
+        </ion-item>
 
-        <div class="list" style="border: 1px solid gray;">
-            <input type="text"
-                   style="border-bottom: 1px solid gray; width: 95%; margin-left: 5%;padding-right: 5%;height: 45px;"
+
+        <ion-item class=" item item-input "  style="margin-top: 20px;">
+            <input type="text" style="width: 95%; padding-right: 5%;height: 45px;"
                    placeholder="输入你的姓名" data-ng-model="card.identityName"/>
-            <input type="text" style="width: 95%; margin-left: 5%;padding-right: 5%;height: 45px;"
+        </ion-item>
+        <ion-item class=" item item-input " style="margin-bottom: 20px;">
+            <input type="text" style="width: 95%; padding-right: 5%;height: 45px;"
                    placeholder="输入你的身份证号码或护照号码" data-ng-model="card.identityNumber"/>
-        </div>
-
+        </ion-item>
     </ion-content>
 
 </ion-view>

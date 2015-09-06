@@ -13,42 +13,42 @@
         </button>
     </ion-nav-buttons>
 
-    <ion-content class="">
+    <ion-content class="stable-bg padding">
 
         <div style="padding: 10px; text-align: center;" data-ng-if="items.length == 0">
             <button class="button button-calm" data-ng-click="addCard()">亲 赶快添加你的银行卡吧</button>
         </div>
 
-        <ion-list data-ng-if="items.length > 0">
-            <ion-item data-ng-repeat="item in items">
-                <div class="item item-input">
+        <ion-list data-ng-if="items.length > 0" data-ng-repeat="item in items">
+            <ion-item  class="item item-input" >
 
-                    <span style="width: 20%;">银行:</span>
+                    <span style="width: 20%; padding:15px 0;">银行:</span>
 
                     <span>{{item.bankName}}</span>
 
-                </div>
-                <div class="item item-input">
+               </ion-item>
 
-                    <span style="width: 20%;">卡号:</span>
+                <ion-item class="item item-input">
+
+                    <span style="width: 20%; padding:15px 0;">卡号:</span>
 
                     <span>{{item.cardNumber}}</span>
 
-                </div>
-                <div class="item item-input">
+                </ion-item>
+                <ion-item class="item item-input">
 
-                    <span style="width: 20%;">持卡人:</span>
+                    <span style="width: 20%; padding:15px 0;">持卡人:</span>
 
                     <span>{{item.identityName}}</span>
 
-                </div>
+                </ion-item>
 
-            </ion-item>
+
         </ion-list>
 
     </ion-content>
 
-    <ion-footer-bar class="bar-positive">
-        <a class="title" href="#">客服电话:400-888-88888</a>
+    <ion-footer-bar class="bar-calm">
+        <a  href="tel:40088888888" class="title" >客服电话:400-888-88888</a>
     </ion-footer-bar>
 </ion-view>

@@ -6,18 +6,24 @@
             class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
 
-    <ion-content class="padding">
+    <ion-content class="stable-bg" >
         <ion-list>
-            <ion-item collection-repeat="item in help_items">
-                <a data-ng-if="item.type == 0" class="item item-icon-right" href="#/settings/helps/{{item.id}}">
+
+            <ion-item data-ng-if="item.type == 0"  href="#/settings/helps/{{item.id}}" class="item item-icon-right"  ng-repeat="item in help_items" style="margin: 20px 0;">
                     <span data-ng-bind="item.showTextOne"></span>
                     <i class="icon ion-chevron-right icon-accessory"></i>
-                </a>
-                <a data-ng-if="item.type == 1" class="item item-icon-right">
-                    <span data-ng-bind="item.showTextOne"></span>
-                    <i class="icon" data-ng-bind="item.showTextTwo"></i>
-                </a>
             </ion-item>
+            <ion-item data-ng-if="item.type == 1"  href="#/settings/helps/{{item.id}}" class="item item-icon-right"  ng-repeat="item in help_items" style="margin: 20px 0;">
+                <span data-ng-bind="item.showTextOne"></span>
+                <span class="icon " style="font-size: 16px;" >
+                    <span style="padding-right: 10px;"  data-ng-bind="item.showTextTwo"></span>
+                    <i class="ion-chevron-right icon-accessory"></i>
+                </span>
+
+
+
+
+                </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>

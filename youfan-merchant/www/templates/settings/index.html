@@ -5,36 +5,40 @@
             class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
 
-    <ion-content class="padding">
+    <ion-content class="stable-bg" >
 
-        <div class="list">
-            <a class="item item-icon-right" ui-sref="settings.card">
-                我的银行卡
+        <ion-item ui-sref="settings.card" class="item  item-icon-right " style="margin: 20px 0;">
+            <a class="calm" >
+                我的银行卡      </a>
                 <i class="icon icon-accessory ion-ios-arrow-right"></i>
-            </a>
-        </div>
-        <div class="list">
-            <a class="item item-icon-right" ui-sref="settings.helps">
-                帮助
+
+        </ion-item>
+        <ion-item  ui-sref="settings.helps" class="item  item-icon-right " style="margin: 20px 0;">
+            <a class="calm ">
+                帮助    </a>
                 <i class="icon icon-accessory ion-ios-arrow-right"></i>
-            </a>
-        </div>
-        <div class="list">
-            <a class="item item-icon-right" ui-sref="settings.disclaimer">
-                免责声明
+
+
+        </ion-item>
+        <ion-item  ui-sref="settings.disclaimer" class="item  item-icon-right  " style="margin: 20px 0;">
+            <a class=" calm">
+                免责声明      </a>
+
+            <i class="icon icon-accessory ion-ios-arrow-right"></i>
+
+    </ion-item>
+        <ion-item ui-sref="settings.disclaimer" class="item  item-icon-right "  style="margin: 20px 0;">
+            <a class="calm"  >
+                检测新版本   </a>
                 <i class="icon icon-accessory ion-ios-arrow-right"></i>
-            </a>
-        </div>
-        <div class="list">
-            <a class="item item-icon-right" ui-sref="settings.disclaimer">
-                检测新版本
-                <i class="icon icon-accessory ion-ios-arrow-right"></i>
-            </a>
-        </div>
+
+
+    </ion-item>
+
 
     </ion-content>
 
-    <ion-footer-bar class="bar-positive">
+    <ion-footer-bar class="bar-calm">
         <a class="title" href="#">退出账号</a>
     </ion-footer-bar>
 </ion-view>
