@@ -90,7 +90,7 @@ public class PlatFormBusinessController {
 		Map<String, Object> activeParams = new HashMap<String, Object>();
 		activeParams.put("userVo", userDAO.getUserByTel("13980041343"));
 		try {
-			activeSupportService.joinActive("client_register", activeParams);
+			activeSupportService.joinActive(1,"client_register", activeParams);
 			res = Responses.SUCCESS().setCode(1).setMsg("SUCCESS");
 		} catch (ServerNoActiveDetailClazzException e) {
 			res = Responses.FAILED().setCode(2).setMsg("ServerNoActiveDetailClazzException");

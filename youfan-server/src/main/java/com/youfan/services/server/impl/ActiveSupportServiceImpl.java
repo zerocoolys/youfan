@@ -14,7 +14,6 @@ import com.youfan.exceptions.ServerNoActiveDetailClazzException;
 import com.youfan.exceptions.ServerNoActiveEventException;
 import com.youfan.services.active.ActiveDetail;
 import com.youfan.services.server.ActiveSupportService;
-
 @Service("activeSupportService")
 public class ActiveSupportServiceImpl implements ActiveSupportService {
 
@@ -24,7 +23,7 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	@Resource
 	CouponsDAO couponsDAO;
 	@Override
-	public Object joinActive(String event, Map<String, Object> pramasMap)
+	public Object joinActive(Integer activeType,String event, Map<String, Object> pramasMap)
 			throws ServerNoActiveEventException, ServerNoActiveDetailClazzException {
 
 		// 查询activeType类型的活动
@@ -58,7 +57,7 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	public static void main(String[] args) {
 		ActiveSupportServiceImpl assi = new ActiveSupportServiceImpl();
 		try {
-			assi.joinActive("login_active", null);
+			assi.joinActive(1,"login_active", null);
 		} catch (ServerNoActiveEventException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
