@@ -1,6 +1,5 @@
 package com.youfan.commons;
 
-
 /**
  * Created on 2015-08-18.
  *
@@ -61,7 +60,10 @@ public interface Constants {
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
     String COLLECTION_COUPONS = "coupons";
-
+    //支付渠道
+    String COLLECTION_PAY_WAY = "pay_way";
+    //我的银行卡
+    String COLLECTION_CARD = "card";
 
     /*  我的消息 subDong  */
     // messages 查询字段
@@ -89,4 +91,14 @@ public interface Constants {
     String COUPONS_TYPE_TIMELINE = "timeLine";
     String COUPONS_TYPE_KITCHEN_ID= "kitchenId";
     String COUPONS_TYPE_STATUS = "status";
+    
+    /*
+     * 魏民升---银行卡---
+     */
+    String BANK_NAME = "bname";
+    String AREA_NAME = "aname";
+    String CARD_NAME = "cname";
+    String CARD_NUMBER = "cnum";
+    String IDENTITY_NAME = "iname";
+    String IDENTITY_NUMBER = "inum";
 }
