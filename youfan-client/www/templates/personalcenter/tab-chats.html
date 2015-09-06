@@ -7,7 +7,6 @@
         <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                   ui-sref="tab.personal-info" style="margin-bottom:20px;">
             <img src="img/2.jpeg">
-
             <div class="care_text">
                 <span> 忧饭2014 </span>
                 <span class="alright"> <i class="icon ion-chevron-right icon-accessory"></i> </span>
@@ -16,36 +15,36 @@
             </div>
         </ion-item>
         <ion-list class="person">
-            <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
+            <ion-item class="item-remove-animate item-avatar item-icon-left item-icon-right" type="item-text-wrap"
                       ui-sref="tab.order">
-                <span>我的订单</span>
+                <span><i class="order_icon_bg bg_browser ion-ios-browsers-outline"></i>我的订单</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       ui-sref="tab.wallet">
-                <span class="alleft">我的钱包</span>
+                <span class="alleft"><i class="order_icon_bg bg_bag ion-bag"></i>我的钱包</span>
                 <span class="item-note allright">
                     余额、优惠券<i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ui-sref="tab.care">
-                <span>我的关注</span>
+                <span><i class="order_icon_bg bg_star ion-ios-star-outline"></i>我的关注</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       ui-sref="tab.message">
-                <span>我的消息</span>
-                <i class="icon ion-chevron-right icon-accessory"></i>
+                <span><i class="order_icon_bg bg_chatbubble ion-ios-chatbubble-outline"></i>我的消息</span>
+                <i class="icon ion-chevron-right  icon-accessory"></i>
                 <span class="badge badge-assertive">{{msgNumber == 0?"":msgNumber}}</span>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       ui-sref="tab.address">
-                <span>送餐地址</span>
+                <span><i class="order_icon_bg  bg_location ion-ios-location-outline"></i>送餐地址</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
                       href="#/tab/chats/{{chat.id}}">
-                <span>我要做饭</span>
+                <span><i class="order_icon_bg ion-ios-pricetag-outline"></i>我要做饭</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>

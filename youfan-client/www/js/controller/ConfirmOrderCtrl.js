@@ -72,18 +72,20 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             itemMap: menusJsonObj,
             comments: Order.details.comments,
             price: Order.details.price,
-            repastMode: $rootScope.userDiningWay.pickUp == true ? "自取" : "配送",
+            //repastMode: $rootScope.userDiningWay.pickUp == true ? "自取" : "配送",
+            repastMode: $rootScope.userDiningWay.pickUp == true ? "zq" : "ps",
             repastAddress: $rootScope.userDiningWay.address.name + "," + $rootScope.userDiningWay.address.telNo + "," + $rootScope.userDiningWay.address.address
         };
 
         // 创建订单
         $http.post(REST_URL + '/orders', orderData)
             .then(function (response) {
-                console.log(response);
-                $state.go('tab.pay-page');
+                //console.log(JSON.stringify(response));
+                //Order.details.orderNo = response.data.payload.orderNo;
+                $state.go('tab.pay-page', {order_no: response.data.payload.orderNo, price: orderData.price});
             }, function (error) {
+                //console.log(error);
                 $scope.showAlert('系统内部错误');
-                console.log(error);
             });
 
     };
