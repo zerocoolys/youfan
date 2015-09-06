@@ -3,6 +3,7 @@ package com.youfan.eventbus;
 import java.util.concurrent.Executors;
 
 import com.google.common.eventbus.AsyncEventBus;
+import com.google.common.eventbus.EventBus;
 /**
  * 
  * @description TODO
@@ -11,9 +12,15 @@ import com.google.common.eventbus.AsyncEventBus;
 
 public class EventBusFactory {
 	
-	private static AsyncEventBus eventBus = new AsyncEventBus(Executors.newFixedThreadPool(1));
+	private static AsyncEventBus asyncEventBus = new AsyncEventBus(Executors.newFixedThreadPool(1));
 	
-	public static AsyncEventBus getEventBusInstanll(){
+	private final static EventBus eventBus = new EventBus();
+	
+	public static AsyncEventBus getAsyncEventBus(){
+		return asyncEventBus;
+	}
+
+	public static EventBus getEventBus(){
 		return eventBus;
 	}
 

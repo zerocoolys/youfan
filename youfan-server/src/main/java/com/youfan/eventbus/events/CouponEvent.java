@@ -42,7 +42,6 @@ public class CouponEvent implements Serializable{
 	}
 	
 	public void domain(){
-		
 		System.out.println(name+" ：已经发放");
 	}
 	
