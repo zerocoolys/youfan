@@ -21,6 +21,7 @@ public class OrderVO {
     private String couponId;
     private String comments;
     private String paymentWay;
+    private String chargeId;
 
 //    /**
 //     * 购买者头像
@@ -143,6 +144,14 @@ public class OrderVO {
 
     public void setPaymentWay(String paymentWay) {
         this.paymentWay = paymentWay;
+    }
+
+    public String getChargeId() {
+        return chargeId;
+    }
+
+    public void setChargeId(String chargeId) {
+        this.chargeId = chargeId;
     }
 
     //    public String getImg() {
