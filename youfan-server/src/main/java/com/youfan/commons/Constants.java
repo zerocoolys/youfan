@@ -101,4 +101,26 @@ public interface Constants {
     String CARD_NUMBER = "cnum";
     String IDENTITY_NAME = "iname";
     String IDENTITY_NUMBER = "inum";
+    public interface ACTIVE_TYPE{
+    	/**
+    	 * 用户注册时参加活动类型
+    	 */
+    	Integer CLIENT_REGISTER = 1;
+    	/**
+    	 * 用户登录时参加活动类型
+    	 */
+    	Integer CLIENT_LOGIN=2;
+    	/**
+    	 *  用户下订单之前参加活动类型
+    	 */
+    	Integer CLIENT_BEFORE_ORDER=3;
+    	/**
+    	 * 用户下订单之后参加活动类型
+    	 */
+    	Integer CLIENT_AFTER_ORDER=4;
+    	/**
+    	 * 其他类型活动
+    	 */
+    	Integer CLIENT_OTHER=5;
+    }
 }
