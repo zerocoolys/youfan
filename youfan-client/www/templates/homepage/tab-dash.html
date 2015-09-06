@@ -1,4 +1,4 @@
-<ion-view view-title="" hide-nav-bar="true"  class="home_item" >
+<ion-view view-title="" hide-nav-bar="true"  class="home_item" overflow-scroll="true">
     <div class="bar bar-header item-input-inset">
 
         <label class="item-input-wrapper">
@@ -19,7 +19,7 @@
                </span>
         </div>
     </div>
-    <ion-content style="top:75px;">
+    <ion-content style="top:75px;" overflow-scroll="true">
         <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
         </ion-refresher>
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
@@ -36,25 +36,33 @@
         </ion-slide-box>
         <ion-list>
             <ion-item class="item" ng-repeat="mc in merChantData">
-                <div class="list"  ng-click="goTo(mc.id)">
-                    <div class="item item-body img_box">
-                        <img class="full-image" src="{{mc.src}}"></a>
-                        <div class="img_text">
-                            {{mc.cang}}<span>品尝过</span>
-                        </div>
+                <div class="list img_box"  ng-click="goTo(mc.id)"  style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 200px;color: #fff">
+                    <div class="address" style="padding: 5px">
+                        <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}</p>
+                        <!--<img class="full-image" src="{{mc.src}}"></a>-->
+                        <!--<div class="img_text">
+                            111{{mc.cang}}<span>品尝过</span>
+                        </div>-->
                     </div>
-                    <div class="item item-avatar item_box">
-                        <img src="{{mc.headImg}}" ng-click="person('{{mc.id}}')" class="person_img">
+                    <div class="item-avatar person_img item-icon-left">
+                        <img src="{{mc.headImg}}" ng-click="person('{{mc.id}}')">
+                        <h2 style="color: #fff">{{mc.kitchenName}}</h2>
                         <span class="badge badge-assertive ng-binding">内蒙古人</span>
+                        <i class="icon ion-ribbon-b icon-accessory mainColor" style="top: 15px;left: 37px;"></i>
+
+                        <div class="img_text fr">
+                            111{{mc.cang}}<span>品尝过</span>
+                        </div>
+                        <!--<span class="badge badge-assertive ng-binding">内蒙古人</span>
                         <div class="row" href="#/tab/dash/{{mc.id}}">
                             <div class="col-90">
-                                <h2>{{mc.kitchenName}}</h2>
+
 
                                 <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}</p>
 
                                 <p><i class="ion-ribbon-b"></i> 实名认证</p>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </ion-item>

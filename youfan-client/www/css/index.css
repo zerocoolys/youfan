@@ -23,12 +23,15 @@
 }
 
 .home_item .item .badge {
-    right: 10px;
+    top: 25px;
+    /*left: 0;*/
+    right: auto;
+    font-size: 12px;
 }
 
 .home_item .item {
     overflow: inherit;
-    padding: 0 0 10px 0;
+    padding: 0;
     margin: 10px;
     border: none;
 }
@@ -81,15 +84,15 @@
 
 .img_text {
     position: absolute;
-    height: 30px;
-    padding: 0 5px;
-    line-height: 30px;
-    bottom: 30px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    filter: Alpha(opacity=50); /* 只支持IE6、7、8、9 */
+    /*height: 30px;*/
+    /*padding: 0 5px;*/
+    /*line-height: 30px;*/
+    bottom: 0;
+    right: 8px;
+   /* background-color: rgba(0, 0, 0, 0.5);
+    filter: Alpha(opacity=50);  *//*只支持IE6、7、8、9 */
     *zoom: 1;
-    color: #fff;
+    color:#fff;
 }
 
 .img_text span {
@@ -102,11 +105,35 @@
 }
 
 .home_item .person_img {
+    width: 100%;
     position: absolute;
+    bottom: 0;
+   /* background-color: rgba(0, 0, 0, 0.5);
+    filter: Alpha(opacity=50); */ /*只支持IE6、7、8、9 */
+    /*background: -webkit-linear-gradient( top, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.40));
+    background: -moz-linear-gradient( top, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.40));
+    background: -ms-linear-gradient( top, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.40));
+    background: -o-linear-gradient( top, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.40));*/
+}
+.home_item .address p{
+    padding: 5px;
+    font-size: 12px;
+    color: #fff;
+    /*background: -webkit-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
+    background: -moz-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
+    background: -ms-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
+    background: -o-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));*/
+}
+.home_item .person_img h2{
+    /*line-height: 50px;*/
+    /*margin-top: 10px;*/
+    position: absolute;
+    top: 3px;
+    font-size: 14px;
 }
 
 .home_item .item-avatar > img:first-child {
-    top: -16px;
+    top: 5px;
 
 }
 
@@ -478,7 +505,10 @@ Alpha(opacity = 100);
 }
 
 .home_item .badge.badge-assertive {
-    background: #e4c615;
+    /*background: #e4c615;*/
+    background-color: rgba(255, 255, 255, 0.50);
+    filter: Alpha(opacity=10);
+    font-weight: normal;
 }
 
 .comment .care_text .alright, .care p i {

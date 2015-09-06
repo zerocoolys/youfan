@@ -3,4 +3,16 @@
  */
 ControllerModule.controller('SetPwdCtrl', function($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state){
 
+    $scope.formValue = {
+        oldPwd: "",
+        newPwd: "",
+        confirmPwd: ""
+    };
+
+    /**
+     * 重置密码
+     */
+    $scope.setPassword = function(){
+
+    };
 });
