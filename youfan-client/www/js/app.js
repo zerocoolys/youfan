@@ -274,13 +274,23 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            //重置密码
-            .state('tab.reset-pwd', {
-                url: '/reset-pwd',
+            //重置密码--获取验证码
+            .state('tab.reset-pwd-one', {
+                url: '/reset-pwd-one',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/login/reset-pwd.html',
-                        controller: 'ResetPwdCtrl'
+                        templateUrl: 'templates/login/reset-pwd-one.html',
+                        controller: 'ResetPwdOneCtrl'
+                    }
+                }
+            })
+            //重置密码--重置密码
+            .state('tab.reset-pwd-two', {
+                url: '/reset-pwd-two',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/login/reset-pwd-two.html',
+                        controller: 'ResetPwdTwoCtrl'
                     }
                 }
             })

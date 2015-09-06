@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/28.
  */
-ControllerModule.controller('ResetPwdCtrl', function($scope,$rootScope, $ionicPopup, $interval,$ionicPopup,$timeout, $location, $http, $state){
+ControllerModule.controller('ResetPwdOneCtrl', function($scope,$rootScope, $ionicPopup, $interval ,$timeout, $location, $http, $state){
 
 
     $scope.user = {

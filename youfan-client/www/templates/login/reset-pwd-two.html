@@ -1,0 +1,20 @@
+<ion-view view-title="" hide-nav-bar="true" hide-tabs>
+    <ion-header-bar class="bar-light">
+        <a class="button button-clear"  onclick="history.back()"><span
+                class="ion-chevron-left icon-accessory"></span></a>
+        <h1 class="title">重置密码</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list" ng-controller="SmsCaptchaCtrl">
+            <div class="item item-input">
+                <input type="password" id="pwd" name="pwd" ng-model="user.pwd" placeholder="请输入6-12位数字、字母或组合形成密码" required>
+            </div>
+            <div class="item item-input">
+                <input type="password" id="confirmPwd" name="confirmPwd" ng-model="user.confirmPwd" placeholder="再次输入密码" required>
+            </div>
+            <button class="button button-block bar-balanced" ng-click="resetPwd()">完 成</button>
+            <p class="existingAccount">已有密码？&nbsp;&nbsp;<a  ui-sref="tab.pwd-login"
+                                                            style="color: #0c63ee">立即登陆</a></p>
+        </div>
+    </ion-content>
+</ion-view>
