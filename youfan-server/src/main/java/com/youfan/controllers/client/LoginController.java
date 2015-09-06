@@ -24,6 +24,7 @@ import java.util.Map;
 
 
 /**
+ * 客户端用户登陆控制器
  * Created by yousheng on 15/8/14.
  */
 @RestController

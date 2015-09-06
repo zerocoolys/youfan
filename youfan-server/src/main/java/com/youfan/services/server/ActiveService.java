@@ -1,6 +1,11 @@
 package com.youfan.services.server;
 
+import java.util.List;
+import java.util.Map;
+
 import com.youfan.commons.vo.ActiveVO;
+import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.controllers.params.ActiveParams;
 
 /**
  * 
@@ -11,5 +16,11 @@ import com.youfan.commons.vo.ActiveVO;
  */
 public interface ActiveService {
 	public void save(ActiveVO activeVo);
+
+	public long count(ActiveParams activeParams);
+
+	public List<ActiveVO> getByCondition(ActiveParams activeParams);
+
+	public void updateById(String id, Map<String, Object> updateMap);
 
 }

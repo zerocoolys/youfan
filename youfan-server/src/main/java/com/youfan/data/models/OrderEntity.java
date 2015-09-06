@@ -46,10 +46,12 @@ public class OrderEntity {
     private String repastAddress;
 
     // 优惠券
-    private BigDecimal coupons;
+    private String couponId;
 
     // 备注
     private String comments;
+
+    private String paymentWay;
 
 
     public Long getId() {
@@ -140,12 +142,12 @@ public class OrderEntity {
         this.repastAddress = repastAddress;
     }
 
-    public BigDecimal getCoupons() {
-        return coupons;
+    public String getCouponId() {
+        return couponId;
     }
 
-    public void setCoupons(BigDecimal coupons) {
-        this.coupons = coupons;
+    public void setCouponId(String couponId) {
+        this.couponId = couponId;
     }
 
     public String getComments() {
@@ -156,4 +158,11 @@ public class OrderEntity {
         this.comments = comments;
     }
 
+    public String getPaymentWay() {
+        return paymentWay;
+    }
+
+    public void setPaymentWay(String paymentWay) {
+        this.paymentWay = paymentWay;
+    }
 }

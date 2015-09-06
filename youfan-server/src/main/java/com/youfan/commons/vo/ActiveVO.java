@@ -1,95 +1,80 @@
 package com.youfan.commons.vo;
 
-import java.util.List;
-
-import com.youfan.data.models.CouponsContentEntity;
-
 public class ActiveVO {
 	private String id;
-	
-	/**
-	 * 活动针对端  目前默认为2
-	 * 2.客户端
-	 * 3.商家端
-	 */
-	private Integer port=2;
+
 	/**
 	 * 活动事件
 	 */
 	private String event;
-	
 	/**
-	 * 活动类型
-	 * 1.注册完成活动
-	 * 2.登录后活动
-	 * 3.订单生成后活动
-	 * 4.订单完成后活动
-	 * 5.其他
+	 * 活动标题
+	 */
+	private String title;
+	/**
+	 * 活动针对端 目前默认为2 2.客户端 3.商家端
+	 */
+	private Integer port = 2;
+
+	/**
+	 * 活动类型 1.注册完成活动 2.登录后活动 3.订单生成后活动 4.订单完成后活动 5.其他
 	 */
 	private Integer activeType;
-	
+
 	/**
-	 * 优惠方式
-	 * 1.发放优惠券
-	 * 2.价格折扣减免
+	 * 优惠方式 1.发放优惠券 2.价格折扣减免
 	 */
 	private Integer couponsType;
-	
-	
+
 	/**
 	 * 是否为唯一参加活动 即和别的活动一起参加
 	 */
 	private boolean ifUnique;
-	
+
 	/**
-	 * 是否可以同时使用优惠券
+	 * 是否可以同时使用优惠券 针对减免返现活动
 	 */
 	private boolean ifUseCoupons;
-	
+
 	/**
 	 * 是否为全场
 	 */
 	private boolean ifAll;
-	
+
 	
 	/**
-	 * 优惠内容
-	 * 包括 满减、折扣、返现
+	 * 非全场时指定厨房ID
 	 */
-	private List<CouponsContentEntity> content;
-	
+	private String kitchenId;
+
 	/**
-	 * 优惠券有效期
-	 * 设置时候若给天数 则从第二日起计算出有效期
-	 * 		若给日期则有效期至指定日期
+	 * 优惠规则内容 包括 满减、折扣、返现
+	 */
+	private String couponsTypeId;
+	/**
+	 * 优惠券有效期 设置时候若给天数 则从第二日起计算出有效期 若给日期则有效期至指定日期
 	 */
 	private Long validityTime;
-	
+
 	/**
 	 * 活动创建时间
 	 */
 	private Long createTime;
 	/**
-	 * 活动发布日期
-	 * UNIX时间 以 00:00:00开始
+	 * 活动发布日期 UNIX时间 以 00:00:00开始
 	 */
 	private Long startTime;
 	/**
-	 * 活动结束日期
-	 * UNIX时间 以23:59:59结束
+	 * 活动结束日期 UNIX时间 以23:59:59结束
 	 */
 	private Long endTime;
 	/**
 	 * 活动处理类
 	 */
 	private String activeDetailClazz;
-	
+
 	/**
-	 * 活动状态
-	 * -1:删除
-	 * 	0:待开启
-	 * 	1:开启
-	 * 	2:暂定
+	 * 活动状态 -1:删除 0:待开启 1:开启 2:暂定
 	 */
 	private Integer status;
 	/**
@@ -161,12 +146,21 @@ public class ActiveVO {
 		this.ifAll = ifAll;
 	}
 
-	public List<CouponsContentEntity> getContent() {
-		return content;
+
+	public String getKitchenId() {
+		return kitchenId;
 	}
 
-	public void setContent(List<CouponsContentEntity> content) {
-		this.content = content;
+	public void setKitchenId(String kitchenId) {
+		this.kitchenId = kitchenId;
+	}
+
+	public String getCouponsTypeId() {
+		return couponsTypeId;
+	}
+
+	public void setCouponsTypeId(String couponsTypeId) {
+		this.couponsTypeId = couponsTypeId;
 	}
 
 	public Long getValidityTime() {
@@ -224,7 +218,24 @@ public class ActiveVO {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-	
-	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	@Override
+	public String toString() {
+		return "ActiveVO [id=" + id + ", event=" + event + ", port=" + port + ", activeType=" + activeType
+				+ ", couponsType=" + couponsType + ", ifUnique=" + ifUnique + ", ifUseCoupons=" + ifUseCoupons
+				+ ", ifAll=" + ifAll + ", kitchenId=" + kitchenId + ", couponsTypeId=" + couponsTypeId
+				+ ", validityTime=" + validityTime + ", createTime=" + createTime + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", activeDetailClazz=" + activeDetailClazz + ", status=" + status + ", desc="
+				+ desc + "]";
+	}
+
+
 }

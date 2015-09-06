@@ -1,20 +1,16 @@
 package com.youfan.controllers.merchant;
 
-import com.youfan.commons.Constants;
+import com.youfan.commons.ResponseConstants;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
-import com.youfan.commons.ResponseConstants;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.services.merchant.MerchantUsersService;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

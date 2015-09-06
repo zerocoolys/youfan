@@ -6,18 +6,26 @@ package com.youfan.services.client;
 public interface CaptchaService {
 
     /**
+     * 添加数据
+     * @param captchaKey
+     * @param captcha
+     * @return
+     */
+    void insert(String captchaKey, String captcha);
+
+    /**
      * 设置验证码存活时间
      * @param captchaKey
      * @param aliveSeconds
      * @param captcha
      * @return
      */
-    Object add(String captchaKey, int aliveSeconds, String captcha);
+    void setAlive(String captchaKey, int aliveSeconds, String captcha);
 
     /**
-     * 校验 token 通过 token 获取验证码
+     * 通过 key 获得 keyValue
      * @param captchaKey
      * @return
      */
-    boolean getCaptcha(String captchaKey);
+    String getCaptcha(String captchaKey);
 }

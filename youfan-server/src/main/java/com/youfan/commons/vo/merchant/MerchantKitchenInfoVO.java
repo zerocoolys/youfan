@@ -11,6 +11,7 @@ public class MerchantKitchenInfoVO {
     private String id; //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
+    private String hobby;   //厨房用户兴趣爱好
     private List<String> cuisine = new ArrayList<>();   //厨房特色，菜系
     private String kitchenAddress;  //厨房地址
     private boolean isTakeSelf; //是否支持自取
@@ -28,6 +29,14 @@ public class MerchantKitchenInfoVO {
     private String kitchenStoryContent; //厨房故事内容
     private String lat; //经度
     private String lng; //纬度
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
 
     public boolean isDelivery() {
         return isDelivery;

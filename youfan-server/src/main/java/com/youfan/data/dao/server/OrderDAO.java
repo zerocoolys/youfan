@@ -1,40 +1,122 @@
 package com.youfan.data.dao.server;
 
-import java.util.List;
-
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.OrderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.server.OrderDishRelVO;
+import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.params.OrderParams;
+
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by yousheng on 15/8/13.
  */
 public interface OrderDAO {
 
-	String SEQ_ORDER = "ORDER";
+    String SEQ_ORDER = "ORDER";
 
-	OrderVO insert(OrderVO orderEntity);
+    OrderVO insert(OrderVO orderEntity);
 
-	OrderVO getOrderByOrderNo(String orderNo);
+    OrderVO getOrderByOrderNo(String orderNo);
 
-	List<OrderVO> findAll(Pagination pagination);
+    List<OrderVO> findAll(Pagination pagination);
 
-	List<OrderVO> getOrdersByBuyerId(Long buyerId, Pagination pagination);
+    List<OrderVO> getOrdersByBuyerId(Long buyerId, Pagination pagination);
 
-	List<OrderVO> getOrdersBySellerId(Long sellerId, Pagination pagination);
+    List<OrderVO> getOrdersBySellerId(Long sellerId, Pagination pagination);
 
-	List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order);
+    List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order);
 
-	MerchantOrderDetailVO findOrderDetail(String orderNo);
+    MerchantOrderDetailVO findOrderDetail(String orderNo);
 
-	int countAll();
+    int countAll();
 
-	int count(OrderParams op);
+    int count(OrderParams op);
 
-	List<OrderVO> getOrdersByParams(OrderParams op);
-	
-	int updateOrderStatus(OrderParams order);
+    List<OrderVO> getOrdersByParams(OrderParams op);
+
+    void saveOrderDishes(List<OrderDishRelVO> dishRelVOs);
+
+    int updateOrderStatus(OrderParams order);
+
+
+    default <E, T> E convertToEntity(T t, Class<E> entityClass, Class<T> voClass) {
+        try {
+            E entity = entityClass.newInstance();
+
+            Map<String, Field> entityFieldMap = Arrays.stream(entityClass.getDeclaredFields())
+                    .map(field -> {
+                        field.setAccessible(true);
+                        return field;
+                    })
+                    .collect(Collectors.toMap(Field::getName, field -> field));
+
+            Field[] fields = voClass.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                if (Objects.equals(BigDecimal.class, entityFieldMap.get(field.getName()).getType())) {
+                    entityFieldMap.get(field.getName())
+                            .set(entity, BigDecimal.valueOf((Double) field.get(t)));
+                } else if (Objects.equals(Date.class, field.getType())) {
+                    if (Objects.equals(Timestamp.class, entityFieldMap.get(field.getName()).getType())) {
+                        entityFieldMap.get(field.getName()).set(entity, Timestamp.from(((Date) field.get(t)).toInstant()));
+                    } else {
+                        entityFieldMap.get(field.getName()).set(entity, field.get(t));
+                    }
+                } else {
+                    entityFieldMap.get(field.getName()).set(entity, field.get(t));
+                }
+
+            }
+
+            return entity;
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    default <E, T> T convertToVO(E entity, Class<E> entityClass, Class<T> voClass) {
+        try {
+            T t = voClass.newInstance();
+
+            Map<String, Field> voFieldMap = Arrays.stream(voClass.getDeclaredFields())
+                    .map(field -> {
+                        field.setAccessible(true);
+                        return field;
+                    })
+                    .collect(Collectors.toMap(Field::getName, field -> field));
+
+            Field[] fields = entityClass.getDeclaredFields();
+            for (Field field : fields) {
+                if (voFieldMap.containsKey(field.getName())) {
+                    field.setAccessible(true);
+                    if (Objects.equals(BigDecimal.class, field.getType())) {
+                        voFieldMap.get(field.getName())
+                                .set(t, ((BigDecimal) field.get(entity)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                    } else {
+                        voFieldMap.get(field.getName()).set(t, field.get(entity));
+                    }
+
+                }
+            }
+
+            return t;
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    default <E, T> List<E> convertToEntityList(List<T> tList, Class<E> entityClass, Class<T> voClass) {
+        return tList.stream().map(t -> convertToEntity(t, entityClass, voClass)).filter(e -> e != null).collect(Collectors.toList());
+    }
 
 }

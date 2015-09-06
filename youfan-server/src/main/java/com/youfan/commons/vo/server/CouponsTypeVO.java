@@ -20,7 +20,10 @@ public class CouponsTypeVO {
 
 	private String kitchenId;
 	private Integer status;
-	
+	/**
+	 * 是否为全场使用
+	 */
+	private Boolean ifAll;
 	private Long createTime;
 	/**
 	 * 优惠券内容
@@ -106,6 +109,14 @@ public class CouponsTypeVO {
 
 	public void setCreateTime(Long createTime) {
 		this.createTime = createTime;
+	}
+
+	public Boolean getIfAll() {
+		return ifAll;
+	}
+
+	public void setIfAll(Boolean ifAll) {
+		this.ifAll = ifAll;
 	}
 
 	public static CouponsContentEntity convertToContent(Map<String,Object> cMap){
