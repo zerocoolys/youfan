@@ -1,4 +1,4 @@
-ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $http, HTTP_HEAD, $ionicModal) {
+ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $http, REST_URL, $ionicModal) {
     $scope.slideIndex = 0;
     // Called each time the slide changes
     $scope.slideChanged = function (index) {
@@ -11,11 +11,10 @@ ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ioni
 
     $http({
         method: 'GET',
-        url: HTTP_HEAD + "127.0.0.1:8080/notice/getNotice/2",
+        url: REST_URL + "/notice/getNotice/2",
         dataType: "json"
     }).success(function (dataConfig) {
         $scope.data = [];
-        console.log(dataConfig)
         if (dataConfig.code == 1) {
             dataConfig.payload.forEach(function (item, i) {
                 var dataRes = {};
@@ -25,9 +24,10 @@ ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ioni
                 dataRes["des"] = item.des;
                 dataRes["userId"] = item.receiverId;
                 dataRes["receiver"] = item.receiverPort;
-                dataRes["status"] = item.status == 0 ? "未读" : item.status == 1 ? "已读" : "已删除";
+                dataRes["status"] = item.status;
                 dataRes["title"] = item.title;
                 dataRes["code"] = item.code;
+                dataRes["date"] = new Date(item.date).Format("yyyy-MM-dd hh:mm:ss");
                 $scope.data.push(dataRes);
             })
         }
@@ -35,24 +35,15 @@ ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ioni
 
     $scope.checkDetail = function (index) {
 
-        if ($scope.data[index].status == "未读") {
+        if ($scope.data[index].status == 0) {
             $http({
                 method: 'GET',
-                url: HTTP_HEAD + "127.0.0.1:8080/notice/modifyMsg/" + $scope.data[index].id,
+                url: REST_URL + "/notice/modifyMsg/" + $scope.data[index].id,
                 dataType: "json"
             }).success(function (dataConfig) {
                 if (dataConfig.payload) {
-                    $scope.data[index]["status"] = "已读";
-                    var alertPopup = $ionicPopup.alert({
-                        cssClass: 'zan_popup',
-                        template: $scope.data[index].context,
-                        scope: $scope,
-                        buttons: []
-                    });
-                    $ionicBackdrop.release();
-                    $timeout(function () {
-                        alertPopup.close();
-                    }, 2000);
+                    $scope.data[index]["status"] = 1;
+
                 } else {
                     var alertPopup = $ionicPopup.alert({
                         cssClass: 'zan_popup',
@@ -66,21 +57,6 @@ ControllerModule.controller('MessageCtrl', function ($scope, $stateParams, $ioni
                     }, 2000);
                 }
             });
-        } else {
-            /*
-             var alertPopup = $ionicPopup.alert({
-             template: $scope.data[index].context,
-             title: '您的货品已出库',
-             scope: $scope,
-             buttons: []
-             });
-             $timeout(function () {
-             alertPopup.close();
-             }, 2000);
-
-             }
-
-             */
         }
     }
     $scope.deleteItem = function (item) {

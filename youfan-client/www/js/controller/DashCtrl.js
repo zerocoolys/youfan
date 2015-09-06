@@ -39,10 +39,11 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
         });
     }
     $scope.initMerchant();
-    $scope.goTo=function(_mki){
-        Merchant.mki=_mki;
+    $scope.goTo = function (_mki) {
+        Merchant.mki = _mki;
         $state.go("tab.dash-detail");
     }
+
     /**
      * 验证码登陆
      */
@@ -81,5 +82,27 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
      * 返回参数存放在 $rootScope.mapCity
      */
     mapTools.cityLocation($scope, $rootScope, $scope.mapObj);
+
+    //搜索基本参数
+    $scope.inputText = {value: ""};
+
+    $scope.tab_keydown = function (data) {
+        console.log(data)
+        if (data == "" || data == undefined) {
+            return
+        }
+        $http.get(REST_URL + "/mr/getKitchenByName/" + data).success(function (result) {
+            if (result.payload.length) {
+                console.log(result.payload);
+                $scope.merChantData = [];
+                result.payload.forEach(function (item, i) {
+                    item["src"] = "img/1.jpg";
+                    item["headImg"] = "img/avatar1.jpg";
+                    $scope.merChantData.push(item);
+                })
+            }
+        });
+    }
+
 
 });

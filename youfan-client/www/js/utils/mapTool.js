@@ -90,14 +90,14 @@ var mapTools = {
      * @param end   参数类型 AMap.LngLat
      * @param cb    回调函数 返回数据单位 米
      */
-    getDistance:function(start,end,cb){
+    getDistance: function (start, end, cb) {
         AMap.service(["AMap.Walking"], function () {
             var walking = new AMap.Walking();
             walking.search(start, end, function (status, result) {
                 if (status === 'complete' && result.info === 'ok') {
                     cb(result.count > 0 ? result.routes[0].distance : "计算错误请重试");
-                }else{
-                    cb("计算错误")
+                } else {
+                    cb(false)
                 }
             })
         });
@@ -107,7 +107,7 @@ var mapTools = {
      * @param lnglatXY  参数类型 AMap.LngLat
      * @param cb        回调函数
      */
-    geocoder:function(lnglatXY,cb){
+    geocoder: function (lnglatXY, cb) {
         var MGeocoder;
         AMap.service(["AMap.Geocoder"], function () {
             MGeocoder = new AMap.Geocoder({
@@ -119,9 +119,30 @@ var mapTools = {
                 if (status === 'complete' && result.info === 'OK') {
                     cb(result.regeocode.formattedAddress);
                 } else {
-                    cb("获取失败");
+                    cb(false);
                 }
             });
+        });
+    },
+    /**
+     * 通过坐标获取周边信息
+     * @param lnglatXY  中心坐标   //参数类型 AMap.LngLat
+     * @param cb        回调函数
+     * @param mapObj    地图初始话参数
+     */
+    nearbySearch: function (lnglatXY, mapObj, cb) {
+        var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
+            pageSize:5,
+            pageIndex:1,
+            map: mapObj
+        });
+        placeSearch.searchNearBy('', lnglatXY, 3000,function(status ,result){
+            if (status === 'complete' && result.info === 'OK') {
+                console.log(result)
+            } else {
+                cb(false);
+            }
+
         });
     }
 };
