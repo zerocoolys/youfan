@@ -1,5 +1,7 @@
 package com.youfan.data.dao.client.impl;
 
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.client.UserVO;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.ClientUserEntity;
@@ -13,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * Created by icepros on 15-8-25.
@@ -46,6 +49,11 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void update(UserVO userVO) {
 
+	}
+
+	@Override
+	public Pager findPager(Pagination p) {
+		return null;
 	}
 
 	@Override

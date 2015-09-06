@@ -1,8 +1,11 @@
 package com.youfan.data.dao;
 
 import com.youfan.commons.Constants;
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import com.youfan.data.support.IdGenerator;
 import com.youfan.system.mongo.MongoPool;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Update;
 
@@ -23,7 +26,6 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
     MongoTemplate mongoTemplate = MongoPool.getMongoTemplate(MONGO_YOUFAN);
 
-
     T findOne(ID id);
 
     void insert(T t);
@@ -32,14 +34,15 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
     void update(T t);
 
+    Pager findPager(Pagination p);
+
     Class<E> getEntityClass();
 
     Class<T> getVOClass();
 
-
     /**
-     * <p>该方法用于将VO转换为Entity, 大部分情况下通用,
-     * 若出现无法转换的情况, 请在DAO的实现层覆盖并自行实现相应的转换方法.
+     * <p>
+     * 该方法用于将VO转换为Entity, 大部分情况下通用, 若出现无法转换的情况, 请在DAO的实现层覆盖并自行实现相应的转换方法.
      *
      * @param t
      * @return
@@ -49,7 +52,8 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
         try {
             E entity = clazz.newInstance();
 
-            Map<String, Field> entityFieldMap = Arrays.stream(getEntityClass().getDeclaredFields())
+            Map<String, Field> entityFieldMap = Arrays
+                    .stream(getEntityClass().getDeclaredFields())
                     .map(field -> {
                         field.setAccessible(true);
                         return field;
@@ -59,17 +63,24 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
             Field[] fields = getVOClass().getDeclaredFields();
             for (Field field : fields) {
                 field.setAccessible(true);
-                if (Objects.equals(BigDecimal.class, entityFieldMap.get(field.getName()).getType())) {
-                    entityFieldMap.get(field.getName())
-                            .set(entity, BigDecimal.valueOf((Double) field.get(t)));
+                if (Objects.equals(BigDecimal.class,
+                        entityFieldMap.get(field.getName()).getType())) {
+                    entityFieldMap.get(field.getName()).set(entity,
+                            BigDecimal.valueOf((Double) field.get(t)));
                 } else if (Objects.equals(Date.class, field.getType())) {
-                    if (Objects.equals(Timestamp.class, entityFieldMap.get(field.getName()).getType())) {
-                        entityFieldMap.get(field.getName()).set(entity, Timestamp.from(((Date) field.get(t)).toInstant()));
+                    if (Objects.equals(Timestamp.class,
+                            entityFieldMap.get(field.getName()).getType())) {
+                        entityFieldMap.get(field.getName()).set(
+                                entity,
+                                Timestamp.from(((Date) field.get(t))
+                                        .toInstant()));
                     } else {
-                        entityFieldMap.get(field.getName()).set(entity, field.get(t));
+                        entityFieldMap.get(field.getName()).set(entity,
+                                field.get(t));
                     }
                 } else {
-                    entityFieldMap.get(field.getName()).set(entity, field.get(t));
+                    entityFieldMap.get(field.getName()).set(entity,
+                            field.get(t));
                 }
 
             }
@@ -83,7 +94,8 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
     }
 
     /**
-     * <p>该方法用于将Entity转换为VO, 注意事项同{@link MongoBaseDAO#convertToEntity(Object)}
+     * <p>
+     * 该方法用于将Entity转换为VO, 注意事项同{@link MongoBaseDAO#convertToEntity(Object)}
      *
      * @param entity
      * @return
@@ -93,8 +105,8 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
         try {
             T t = clazz.newInstance();
 
-            Map<String, Field> voFieldMap = Arrays.stream(getVOClass().getDeclaredFields())
-                    .map(field -> {
+            Map<String, Field> voFieldMap = Arrays
+                    .stream(getVOClass().getDeclaredFields()).map(field -> {
                         field.setAccessible(true);
                         return field;
                     })
@@ -105,10 +117,17 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
                 if (voFieldMap.containsKey(field.getName())) {
                     field.setAccessible(true);
                     if (Objects.equals(BigDecimal.class, field.getType())) {
-                        voFieldMap.get(field.getName())
-                                .set(t, ((BigDecimal) field.get(entity)).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        voFieldMap
+                                .get(field.getName())
+                                .set(t,
+                                        ((BigDecimal) field.get(entity))
+                                                .setScale(
+                                                        2,
+                                                        BigDecimal.ROUND_HALF_UP)
+                                                .doubleValue());
                     } else {
-                        voFieldMap.get(field.getName()).set(t, field.get(entity));
+                        voFieldMap.get(field.getName()).set(t,
+                                field.get(entity));
                     }
 
                 }
@@ -123,17 +142,21 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
     }
 
     default List<E> convertToEntityList(List<T> tList) {
-        return tList.stream().map(this::convertToEntity).filter(e -> e != null).collect(Collectors.toList());
+        return tList.stream().map(this::convertToEntity).filter(e -> e != null)
+                .collect(Collectors.toList());
     }
 
     default List<T> convertToVOList(List<E> eList) {
-        return eList.stream().map(this::convertToVO).filter(t -> t != null).collect(Collectors.toList());
+        return eList.stream().map(this::convertToVO).filter(t -> t != null)
+                .collect(Collectors.toList());
     }
 
     /**
-     * <p>Generate entity id.
+     * <p>
+     * Generate entity id.
      *
-     * @param no Please use {@link IdGenerator} to get no
+     * @param no
+     *            Please use {@link IdGenerator} to get no
      * @return entityId
      * @deprecated
      */

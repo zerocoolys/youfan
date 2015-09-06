@@ -16,7 +16,7 @@ public class RegisterActiveDetail implements ActiveDetail{
 	public Object active(ActiveVO active, Map<String, Object> pramsMap,CouponsDAO couponsDAO) {
 		// TODO Auto-generated method stub
 		//得到用户
-		UserVO user  = (UserVO) pramsMap.get("userVo");
+		UserVO user  = (UserVO) pramsMap.get("userVO");
 		//判定用户是否满足活动条件
 		
 		//

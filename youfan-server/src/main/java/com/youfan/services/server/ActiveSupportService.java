@@ -27,5 +27,5 @@ public interface ActiveSupportService {
 	 * @author QinghaiDeng
 	 * @update 2015年9月1日 下午3:39:55
 	 */
-	public Object joinActive(String activeType,Map<String,Object>pramasMap)throws ServerNoActiveDetailClazzException,ServerNoActiveEventException;
+	public Object joinActive(Integer activeType,String event,Map<String,Object>paramsMap)throws ServerNoActiveDetailClazzException,ServerNoActiveEventException;
 }

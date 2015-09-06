@@ -15,7 +15,9 @@ import java.util.List;
 public interface CommentDAO extends MongoBaseDAO<CommentEntity, CommentVO, Long> {
     List<CommentVO> findComment();
 
-    CommentVO findComment(String id);
+    CommentVO findComment(Integer orderId);
+
+
 
     default long getGenerator(long no) {
 
