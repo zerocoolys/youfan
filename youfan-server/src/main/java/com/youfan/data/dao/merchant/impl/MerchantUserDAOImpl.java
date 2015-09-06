@@ -1,6 +1,8 @@
 package com.youfan.data.dao.merchant.impl;
 
 //import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.Constants;
@@ -138,6 +140,11 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     @Override
     public void update(MerchantUserVO userEntity) {
 
+    }
+
+    @Override
+    public Pager findPager(Pagination p) {
+        return null;
     }
 
 

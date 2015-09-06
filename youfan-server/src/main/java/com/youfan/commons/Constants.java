@@ -41,9 +41,11 @@ public interface Constants {
     String STAPLE = "staple";
     String FEATURES = "features";
 
-    /*评论*/
+    /*评论 XiaoWei*/
     String COMMENT_TIME = "ct";
     String COMMENT_USER = "cu";
+    String COMMENT_MERCHANT_ID="mid";
+    String COMMENT_IS_HIDE_NAME="ihn";
 
 
     /*

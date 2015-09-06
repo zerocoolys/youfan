@@ -4,7 +4,10 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 //import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
+import java.util.Map;
 
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -31,6 +34,11 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 	public void update(CouponsTypeVO t) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Pager findPager(Pagination p) {
+		return null;
 	}
 
 	@Override
