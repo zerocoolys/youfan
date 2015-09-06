@@ -19,7 +19,7 @@ public class MechantMenuVO {
 	/**
 	 * 菜品id
 	 */
-	private Long menuId;
+	private String menuId;
 
 	/**
 	 * 菜品名称
@@ -30,6 +30,20 @@ public class MechantMenuVO {
 	 * 价格
 	 */
 	private double price;
+	/**
+	 * 菜品份数
+	 */
+	private int dishCount;
+	
+
+
+	public int getDishCount() {
+		return dishCount;
+	}
+
+	public void setDishCount(int dishCount) {
+		this.dishCount = dishCount;
+	}
 
 	public double getPrice() {
 		return price;
@@ -55,11 +69,11 @@ public class MechantMenuVO {
 		this.sellerId = sellerId;
 	}
 
-	public Long getMenuId() {
+	public String getMenuId() {
 		return menuId;
 	}
 
-	public void setMenuId(Long menuId) {
+	public void setMenuId(String menuId) {
 		this.menuId = menuId;
 	}
 

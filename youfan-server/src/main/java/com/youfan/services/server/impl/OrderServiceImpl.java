@@ -113,11 +113,11 @@ public class OrderServiceImpl implements OrderService {
 					// 加载菜品列表
 					if (StringUtils.isBlank(parameter.getRepastMode())) {
 						List<MechantMenuVO> dishes = menuDao
-                                .findByMenuIds(order.longDishesId());
+								.findByMenuIds(order.longDishesId());
 
 						List<String> dishNames = dishes.stream()
-                                .map(menu -> menu.getName())
-                                .collect(Collectors.toList());
+								.map(menu -> menu.getName())
+								.collect(Collectors.toList());
 						order.setDishNames(dishNames);
 
 					}
@@ -140,8 +140,8 @@ public class OrderServiceImpl implements OrderService {
 
 		if (order != null) {
 			// 查询菜品
-			List<MechantMenuVO> dishes = menuDao.findByMenuIds(order
-                    .longDishesId());
+			List<MechantMenuVO> dishes = menuDao.findByMenuIds(
+					order.longDishesId(), orderNo);
 
 			order.setDishes(dishes);
 

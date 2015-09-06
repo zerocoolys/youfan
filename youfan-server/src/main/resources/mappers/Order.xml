@@ -10,7 +10,19 @@
         <result column="repast_Time" property="repastTime"/>
         <result column="repast_Address" property="repastAddress"/>
         <result column="dishes_Id" property="dishesId"/>
+      
+        
     </resultMap>
+
+
+
+ <resultMap id="MechantMenuVO" type="com.youfan.commons.vo.MechantMenuVO">
+
+        <result column="dish_id" property="menuId"/>
+        <result column="dish_Count" property="dishCount"/>
+    
+    </resultMap>
+
 
 
     <resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
@@ -22,7 +34,7 @@
         <result column="order_time" property="orderTime"/>
         <result column="repast_Address" property="repastAddress"/>
         <result column="dishes_Id" property="dishesId"/>
-        <result column="payment_method" property="paymentMethod"/>
+        <result column="payment_way" property="paymentWay"/>
 
 
     </resultMap>
@@ -58,28 +70,26 @@
             resultMap="MerchantOrderHeader">
 
 
-        SELECT
-        orders.ORDER_NO,
-        orders.repast_Address,
-        orders.repast_Time,
-        orders.BUYER_ID,
-        orders.price,
-        orders.order_status,
-        dishes.dishes_Id
-        FROM
-        TBL_ORDERS orders
-        JOIN (
-        SELECT
-        orders.order_id,
-        group_concat(dishes.DISH_ID) AS dishes_Id
-        FROM
-        TBL_ORDERS orders
-        JOIN
-        TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
-        GROUP BY
-        orders.order_id
-
-        ) dishes ON orders.order_id = dishes.order_id
+       SELECT
+	orders.ORDER_NO,
+	orders.repast_Address,
+	orders.repast_Time,
+	orders.BUYER_ID,
+	orders.price,
+	orders.order_status,
+	dishes.dishes_Id
+FROM
+	TBL_ORDERS orders
+JOIN (
+	SELECT
+		orders.ORDER_NO,
+		group_concat(dishes.DISH_ID) AS dishes_Id
+	FROM
+		TBL_ORDERS orders
+	JOIN TBL_REL_ODR_DISH dishes ON orders.ORDER_NO = dishes.ORDER_NO
+	GROUP BY
+		orders.ORDER_NO
+) dishes ON orders.ORDER_NO = dishes.ORDER_NO
         WHERE
         1 = 1
 
@@ -109,20 +119,21 @@
         orders.order_time,
         orders.BUYER_ID,
         orders.price,
-        dishes.dishes_Id
+        dishes.dishes_Id,
+        orders.payment_way
         FROM
         TBL_ORDERS orders
         JOIN (
         SELECT
-        orders.order_id,
+        orders.ORDER_NO,
         group_concat(dishes.DISH_ID) AS dishes_Id
         FROM
         TBL_ORDERS orders
         JOIN
-        TBL_REL_ODR_DISH dishes ON orders.order_id = dishes.order_id
+        TBL_REL_ODR_DISH dishes ON orders.ORDER_NO = dishes.ORDER_NO
         GROUP BY
-        orders.order_id
-        ) dishes ON orders.order_id = dishes.order_id
+        orders.ORDER_NO
+        ) dishes ON orders.ORDER_NO = dishes.ORDER_NO
         WHERE
         1 = 1
 
@@ -132,6 +143,28 @@
 
 
     </select>
+    
+    
+     <select id="findMenuCount" parameterType="java.util.Map"
+            resultMap="MechantMenuVO">
+            
+            SELECT
+	dishes.DISH_ID,
+	dishes.DISH_COUNT
+FROM
+	TBL_REL_ODR_DISH dishes
+WHERE 1 = 1 
+
+
+            and dishes.ORDER_NO = #{orderNo}
+
+
+            and  dishes.DISH_ID in 
+        <foreach collection="dishesId" open="(" close=")" item="dishId" index="index" separator=",">
+            #{dishId}
+        </foreach>
+       
+      </select>
 
 
     <select id="getOrder" parameterType="int" resultMap="OrderEntityMap">
