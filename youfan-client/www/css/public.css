@@ -33,11 +33,11 @@ body {
 }
 
 .color {
-    color: #1dbeaf;
+    color: #fff;
 }
 
 .color:hover {
-    color: #1dbeaf;
+    color: #fff;
 }
 
 .bar.bar-balanced.bar-footer {
@@ -73,7 +73,7 @@ body {
 }
 
 .bar-header.has-tabs-top {
-    background: #f8f8f8;
+    background: #1dbeaf;
 }
 
 /*顶部圆*/
@@ -85,4 +85,17 @@ body {
     position: absolute;
     left: 46px;
     border-radius: 8px;
+}
+
+.bar .title, .bar.bar-stable {
+    color: #fff;
+    background: #1dbeaf;
+}
+
+.bar .button.button-clear {
+    color: #fff;
+}
+
+.bar.bar-stable .title {
+    color: #fff;
 }
