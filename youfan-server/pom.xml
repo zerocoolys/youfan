@@ -136,6 +136,7 @@
 			<artifactId>guava</artifactId>
 			<version>19.0-rc1</version>
         </dependency>
+        
     </dependencies>
 
     <build>
@@ -162,7 +163,6 @@
             <url>https://repo.spring.io/libs-release</url>
         </repository>
     </repositories>
-    
     <pluginRepositories>
         <pluginRepository>
             <id>spring-releases</id>

@@ -1,33 +1,45 @@
 package com.youfan.controllers.server;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.cloopen.rest.sdk.CCPRestSmsSDK;
 import com.pingplusplus.Pingpp;
 import com.pingplusplus.exception.APIConnectionException;
 import com.pingplusplus.exception.APIException;
 import com.pingplusplus.exception.AuthenticationException;
 import com.pingplusplus.exception.InvalidRequestException;
-import com.pingplusplus.model.*;
-import com.youfan.commons.vo.CollectionVO;
+import com.pingplusplus.model.Charge;
+import com.pingplusplus.model.ChargeCollection;
+import com.pingplusplus.model.Event;
+import com.pingplusplus.model.Refund;
+import com.pingplusplus.model.Webhooks;
 import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.controllers.params.ChargeParams;
+import com.youfan.eventbus.ServerEventBus;
+import com.youfan.eventbus.events.CouponEvent;
 import com.youfan.log.ChargeLog;
 import com.youfan.log.WebbooksLog;
 import com.youfan.services.client.MessageService;
 import com.youfan.utils.CipherUtil;
 import com.youfan.utils.ConfigUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.*;
 
 /**
  * Created by zhanghr on 15/8/17.
@@ -38,7 +50,8 @@ public class PlatFormController {
 
     @Resource
     private MessageService messageService;
-
+    @Resource
+    private  ServerEventBus eventBus;
 
     public static Map<String, String> usermap = new HashMap<String, String>();// 测试用
     Logger logger = LoggerFactory.getLogger(PlatFormController.class);
@@ -280,4 +293,19 @@ public class PlatFormController {
         }
         return result;
     }
+    
+    
+    
+    @RequestMapping(method = RequestMethod.GET, path = "/event")
+    public String event(HttpServletRequest request, HttpServletResponse response) {
+    	
+    	CouponEvent event = new CouponEvent("优惠券",100);
+    	eventBus.post(event);
+    	
+
+        return "200";
+    }
+
+    
+    
 }
