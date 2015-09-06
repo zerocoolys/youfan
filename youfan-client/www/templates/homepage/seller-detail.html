@@ -18,9 +18,9 @@
         <ion-list class="home_item">
             <div class="row">
                 <div class="col col-center">
-                    <h3>真女士</h3>
+                    <h3 ng-bind="user.realName">真女士</h3>
 
-                    <p>50后|黑龙江人</p>
+                    <p><span ng-bind="user.ageRange">50后</span>|<span ng-bind="user.realName">黑龙江人</span></p>
                 </div>
             </div>
             <!--<div class="list">-->
@@ -37,11 +37,11 @@
                 <h2 class="padding"><i class="icon ion-ios-albums-outline"></i>实名认证</h2>
             </ion-item>
             <ion-item>
-                <h2 class="padding"><i class="icon ion-ios-location"></i>全部菜品请提前一天预定</h2>
+                <h2 class="padding"><i class="icon ion-ios-location"></i><span ng-bind="kin.kitchenStoryName">全部菜品请提前一天预定</span></h2>
 
                 <div class="row">
                     <div class="col">
-                        <p>
+                        <p ng-bind="kin.kitchenStoryContent">
                             它之所以如此成功，是因为它的菜式都非常符合人们的胃口，创新也恰到好处。茉莉餐厅的精品菜肴，不仅继承保留了中国美食推崇的色香味，更是在此基础上大胆创新，融合了各个菜系的优点，发展出独特的新派菜风格。接下来我们就来详细了解一下它吧。</p>
                     </div>
                 </div>

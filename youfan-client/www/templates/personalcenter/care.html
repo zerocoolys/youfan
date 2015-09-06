@@ -1,4 +1,9 @@
-<ion-view view-title="我的关注" hide-tabs class="care">
+<ion-view view-title="" hide-tabs class="care" hide-nav-bar="true">
+    <ion-header-bar class="bar" align-title="center">
+        <a class="button button-clear ion-ios-arrow-back" ui-sref="tab.chats"></a>
+
+        <h1 class="title">我的关注</h1>
+    </ion-header-bar>
     <ion-content>
         <div class="list">
             <a ng-repeat="item in items"

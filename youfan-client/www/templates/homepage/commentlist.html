@@ -13,21 +13,20 @@
                         <span>
                             {{comment.name}}
                         </span>
-                        <span class="alright">
-                      <i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-half"></i><i class="ion-ios-star-outline"></i><i
-                                class="ion-ios-star-outline"></i>
+                    <span class="alright" ng-bind-html="takeStar(comment.star)">
                         </span>
 
                     <p>{{comment.content}}</p>
-                    <p class="time">{{comment.time}}</p>
+
+                    <p class="time">{{comment.commentTime}}</p>
                 </div>
-                <div class="care_text2">
+                <div class="care_text2" ng-class="{'hide':2>1}">
                     <p> 【家厨回复】
                         <span>
                             {{comment.reply}}
                         </span></p>
 
-                    <p class="time">{{comment.time}}</p>
+                    <p class="time">{{comment.commentTime}}</p>
                 </div>
             </div>
         </div>
