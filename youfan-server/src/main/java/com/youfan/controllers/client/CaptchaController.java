@@ -38,7 +38,7 @@ public class CaptchaController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/verify", produces = "application/json")
     public Response verify(@RequestBody String captcha){
-
+        System.out.println("=====================================verify");
         ObjectMapper mapper = new ObjectMapper();
         CaptchaParams captchaParams = null;
         Response response = null;
@@ -61,7 +61,7 @@ public class CaptchaController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/add", produces = "application/json")
     public Response add(@RequestBody String captchaParamsStr) {
-        System.out.println("=====================================");
+        System.out.println("=====================================add");
         ObjectMapper mapper = new ObjectMapper();
         CaptchaParams captchaParams = null;
         Response response = null;
@@ -83,7 +83,7 @@ public class CaptchaController {
      */
     @RequestMapping(method = RequestMethod.POST, path = "/alive", produces = "application/json")
     public Response setAlive(@RequestBody String captchaParamsStr){
-
+        System.out.println("=====================================alive");
         ObjectMapper objectMapper = new ObjectMapper();
         CaptchaParams captchaParams = null;
         Response response = null;
