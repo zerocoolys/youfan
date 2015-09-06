@@ -55,6 +55,14 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
 
     MerchantKitchenInfoVO findById(String id);
 
+    /**
+     * 通过店铺名称模糊查询
+     * @param merchantName
+     * @return
+     */
+    List<MerchantKitchenInfoVO> conditionalSearch(String merchantName);
+
+
 
     @Override
     default Class<MerchantKitchenInfoEntity> getEntityClass() {

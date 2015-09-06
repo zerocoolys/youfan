@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -125,5 +126,11 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     @Override
     public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO) {
         return merchantKitchenDAO.saveMyHobby(merchantKitchenInfoVO);
+    }
+
+    @Override
+    public List<MerchantKitchenInfoVO> conditionalSearch(String merchantName) {
+        List<MerchantKitchenInfoVO> merchantKitchenInfoVOs = new ArrayList<>(merchantKitchenDAO.conditionalSearch(merchantName));
+        return merchantKitchenInfoVOs;
     }
 }

@@ -89,4 +89,7 @@ public interface Constants {
     String COUPONS_TYPE_TIMELINE = "timeLine";
     String COUPONS_TYPE_KITCHEN_ID= "kitchenId";
     String COUPONS_TYPE_STATUS = "status";
+
+    /* 店铺 subDong*/
+    String MERCHANTKITCHEN_NAME = "kitchenName";
 }

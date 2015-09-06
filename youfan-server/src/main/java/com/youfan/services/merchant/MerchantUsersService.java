@@ -136,4 +136,11 @@ public interface MerchantUsersService {
     MerchantUserVO muFindById(String id);
 
     public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO);
+
+    /**
+     * 通过店铺名称模糊查询
+     * @param merchantName
+     * @return
+     */
+    List<MerchantKitchenInfoVO> conditionalSearch(String merchantName);
 }

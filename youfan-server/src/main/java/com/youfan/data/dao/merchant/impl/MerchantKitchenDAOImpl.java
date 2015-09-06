@@ -10,14 +10,20 @@ import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.utils.JSONUtils;
 
+import org.springframework.data.geo.*;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -27,6 +33,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
  */
 @Repository("merchantKitchenDAO")
 public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
+
 
     @Override
     public MerchantKitchenInfoVO findOne(Long aLong) {
@@ -80,6 +87,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         Query q = new Query().addCriteria(Criteria.where(Constants.FIELD_ID).is(id));
         MerchantKitchenInfoEntity mre = mongoTemplate.findOne(q, getEntityClass());
         return convertToVO(mre);
+    }
+
+    @Override
+    public List<MerchantKitchenInfoVO> conditionalSearch(String merchantName) {
+        Pattern pattern = Pattern.compile("^.*" + merchantName + ".*$", Pattern.CASE_INSENSITIVE);
+        Query query = Query.query(Criteria.where(MERCHANTKITCHEN_NAME).regex(pattern));
+        List<MerchantKitchenInfoEntity> merchantUserEntities = mongoTemplate.find(query, getEntityClass());
+        return convertToVOList(merchantUserEntities);
     }
 
     @Override
