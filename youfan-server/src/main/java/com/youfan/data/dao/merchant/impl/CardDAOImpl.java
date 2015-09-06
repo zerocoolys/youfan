@@ -3,6 +3,8 @@ package com.youfan.data.dao.merchant.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -40,6 +42,11 @@ public class CardDAOImpl implements CardDAO {
     public void update(CardVO t) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public Pager findPager(Pagination p) {
+        return null;
     }
 
     @Override
