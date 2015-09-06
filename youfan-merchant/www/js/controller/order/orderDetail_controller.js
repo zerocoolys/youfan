@@ -28,6 +28,7 @@
 
             url = url + $stateParams.orderNo;
 
+            console.log(url);
 
             $http.get(url).success
             (function (res) {

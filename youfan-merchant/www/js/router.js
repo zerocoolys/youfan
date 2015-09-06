@@ -78,7 +78,6 @@
 
             //????
             $stateProvider
-
                 .state('order_Details', {
                     url: '/order_Details',
                     params: {'orderNo': null},

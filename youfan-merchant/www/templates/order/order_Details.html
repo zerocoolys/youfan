@@ -10,24 +10,16 @@
                     <p class="item-note mainColor" >单价</p>
                     <p class="item-note mainColor" style="margin-right: 50px;">数量</p>
                 </div>
-                <div class="item item-text-wrap">
-                    <span>大份黄焖鸡</span>
-                    <p class="item-note mainColor" >￥20</p>
-                    <p class="item-note mainColor" style="margin-right: 50px;">1份</p>
+                <div class="item item-text-wrap" ng-repeat="dish in detialOrder.dishes">
+                    <span>{{dish.name}}</span>
+                    <p class="item-note mainColor" >{{dish.price}}</p>
+                    <p class="item-note mainColor" style="margin-right: 50px;">{{dish.dishCount}}</p>
+
                 </div>
-                <div class="item item-text-wrap">
-                    <span>青椒肉丝</span>
-                    <p class="item-note mainColor" >￥40</p>
-                    <p class="item-note mainColor" style="margin-right: 50px;">2份</p>
-                </div>
-                <div class="item item-text-wrap">
-                    <span>回锅肉</span>
-                    <p class="item-note mainColor" >￥30</p>
-                    <p class="item-note mainColor" style="margin-right: 50px;">10份</p>
-                </div>
+
                 <div class="item item-divider">
                     <span>合计</span>
-                    <p class="item-note mainColor" >￥380</p>
+                    <p class="item-note mainColor" >{{detialOrder.total}}</p>
                 </div>
                 <ion-list >
                     <ion-item class="item item-icon-left">
@@ -40,7 +32,7 @@
                         <ul>
                             <li><b>订单号：</b>{{detialOrder.orderNo}}</li>
                             <li><b>下单时间：</b>{{detialOrder.orderTime| date:'yyyy-MM-dd HH:mm:ss'}}</li>
-                            <li><b>支付方式：</b>{{detialOrder.paymentMethod}}</li>
+                            <li><b>支付方式：</b>{{detialOrder.paymentWay}}</li>
                             <li><b>联系人：</b>{{detialOrder.buyerName}}</li>
                             <li><b>手机号码：</b>{{detialOrder.phone}}</li>
                             <li><b>收货地址:</b> {{detialOrder.repastAddress}}</li>

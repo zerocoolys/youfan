@@ -63,7 +63,7 @@
                 merchant.repastMode = "";
             }
 
-            merchant.sellerId = "2"; //获取商家用户ID
+            merchant.sellerId = "888888888"; //获取商家用户ID
             merchant.orderStatus = $scope.statusIndex; //获取状态选择
 
 
