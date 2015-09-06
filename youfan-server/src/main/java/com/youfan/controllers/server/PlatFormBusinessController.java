@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.commons.vo.server.OrderVO;
+import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.controllers.params.ActiveParams;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
@@ -42,6 +42,7 @@ import com.youfan.services.server.ActiveService;
 import com.youfan.services.server.ActiveSupportService;
 import com.youfan.services.server.CouponsTypeService;
 import com.youfan.services.server.OrderService;
+import com.youfan.services.server.PayWayService;
 import com.youfan.utils.JSONUtils;
 
 /**
@@ -64,9 +65,8 @@ public class PlatFormBusinessController {
 	ActiveSupportService activeSupportService;
 	@Resource
 	CouponsTypeService couponsTypeService;
-
 	@Resource
-	UserDao userDAO;
+	PayWayService payWayService;
 	///////////////////////////////// 系统//////////////////////////////////////////
 
 	/**
@@ -81,13 +81,16 @@ public class PlatFormBusinessController {
 	 * @author QinghaiDeng
 	 * @update 2015年9月1日 下午5:27:03
 	 */
+	@Resource
+	UserDao userDAO;
+
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/test")
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		Map<String, Object> activeParams = new HashMap<String, Object>();
 		activeParams.put("userVo", userDAO.getUserByTel("13980041343"));
 		try {
-			activeSupportService.joinActive("client_register", activeParams);
+			activeSupportService.joinActive(1,"client_register", activeParams);
 			res = Responses.SUCCESS().setCode(1).setMsg("SUCCESS");
 		} catch (ServerNoActiveDetailClazzException e) {
 			res = Responses.FAILED().setCode(2).setMsg("ServerNoActiveDetailClazzException");
@@ -325,6 +328,116 @@ public class PlatFormBusinessController {
 			e.printStackTrace();
 			res = Responses.SUCCESS().setCode(0).setMsg("活动更新失败");
 		}
+		return res;
+	}
+
+	/**
+	 * 保存支付渠道
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月6日 上午11:45:48
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/savePayWay")
+	public Response savePayWay(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+			PayWayVO payWayVo = new PayWayVO();
+			payWayVo.setCode(request.getParameter("code"));
+			payWayVo.setName(request.getParameter("name"));
+			payWayVo.setIconUrl(request.getParameter("iconUrl"));
+			payWayVo.setStatus(
+					request.getParameter("status") == null ? 0 : Integer.valueOf(request.getParameter("status")));
+			payWayService.save(payWayVo);
+			res = Responses.SUCCESS().setMsg("数据保存成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
+		}
+
+		return res;
+	}
+
+	/**
+	 * 获取所有支付渠道
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月6日 上午11:45:59
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/getPayWay")
+	public Response getPayWay(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+
+			List<PayWayVO> list = payWayService.getAll();
+			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.FAILED().setMsg("数据获取异常：数据库异常");
+		}
+
+		return res;
+	}
+
+	/**
+	 * 获取指定支付渠道
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月6日 上午11:45:59
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/getPayWayById")
+	public Response getPayWayById(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+
+			PayWayVO vo = request.getParameter("id") == null ? null : (PayWayVO)payWayService.getById(request.getParameter("id"));
+			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.FAILED().setMsg("数据获取异常：数据库异常");
+		}
+
+		return res;
+	}
+
+	/**
+	 * 更改支付渠道状态
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月6日 上午11:46:10
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updatePayWayStatus")
+	public Response updatePayWayStatus(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+
+			payWayService.updatePayWayStatus(request.getParameter("id"),
+					Integer.valueOf(request.getParameter("status")));
+			res = Responses.SUCCESS().setMsg("数据更新成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.FAILED().setMsg("数据更新异常：数据库异常");
+		}
+
 		return res;
 	}
 	///////////////////////////////// 商家//////////////////////////////////////////

@@ -3,11 +3,14 @@ package com.youfan.controllers.client;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
+import com.youfan.exceptions.MenuNameExistsException;
 import com.youfan.services.client.MenuService;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+
 import java.util.List;
 
 /**
@@ -31,8 +34,9 @@ public class MenuController {
 
     @RequestMapping(path = "/list/{sellerId}/{type}", method = RequestMethod.GET, produces = "application/json")
     public Response listByType(@PathVariable String sellerId,
-                               @PathVariable String type) {
-        List<MenuVO> menuList = menuService.findBySellerIdAndType(sellerId, type);
+            @PathVariable String type) {
+        List<MenuVO> menuList = menuService.findBySellerIdAndType(sellerId,
+                type);
         return Responses.SUCCESS().setPayload(menuList);
     }
 
@@ -43,8 +47,13 @@ public class MenuController {
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST, produces = "application/json")
-    public void addMenu(@RequestBody MenuVO menu) {
-        menuService.insert(menu);
+    public Response addMenu(@RequestBody MenuVO menu) {
+        try {
+            menuService.insert(menu);
+            return Responses.SUCCESS();
+        } catch (MenuNameExistsException e) {
+            return Responses.FAILED().setMsg(e.getMessage());
+        }
     }
 
     @RequestMapping(path = "/conversion/sale", method = RequestMethod.POST, produces = "application/json")
@@ -63,7 +72,8 @@ public class MenuController {
     }
 
     @RequestMapping(path = "/conversion/type/{menuId}", method = RequestMethod.POST, produces = "application/json")
-    public void conversionType(@PathVariable String menuId, @RequestBody MenuVO menu) {
+    public void conversionType(@PathVariable String menuId,
+            @RequestBody MenuVO menu) {
         menuService.conversionType(menuId, menu);
     }
 

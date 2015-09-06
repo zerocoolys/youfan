@@ -1,7 +1,10 @@
 package com.youfan.data.dao.server.impl;
 
 import java.util.List;
+import java.util.Map;
 
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -38,6 +41,11 @@ public class CouponsDAOImpl implements CouponsDAO{
         Query  query = Query.query(Criteria.where(CONPONS_ID).is(couponsVO.getId()).and(CONPONS_DATASTATUS).is(1));
         Update update = new Update();
         mongoTemplate.updateFirst(query, update,getEntityClass());
+    }
+
+    @Override
+    public Pager findPager(Pagination p) {
+        return null;
     }
 
 

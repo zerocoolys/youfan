@@ -1,9 +1,12 @@
 package com.youfan.data.dao.client.impl;
 
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.models.MenuEntity;
+import com.youfan.exceptions.MenuNameExistsException;
 
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -37,25 +40,35 @@ public class MenuDAOImpl implements MenuDAO {
 
     @Override
     public MenuVO findOne(String menuId) {
-		MenuEntity menuEntity = mongoTemplate.findOne(
-				buildQuery(null, menuId, true), getEntityClass(),
-				COLLECTION_MENU);
-		if (menuEntity == null) {
-			Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
-					.is(menuId);
-			return findOne(Query.query(criteria));
-		} else {
-			return convertToVO(menuEntity);
-		}
+        MenuEntity menuEntity = mongoTemplate.findOne(
+                buildQuery(null, menuId, true), getEntityClass(),
+                COLLECTION_MENU);
+        if (menuEntity == null) {
+            Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
+                    .is(menuId);
+            return findOne(Query.query(criteria));
+        } else {
+            return convertToVO(menuEntity);
+        }
     }
 
     @Override
-    public void insert(MenuVO menu) {
+    public void insert(MenuVO t) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void insertMenu(MenuVO menu) throws MenuNameExistsException {
+
         if (mongoTemplate.findOne(
-                Query.query(Criteria.where(SELLER_ID).is(menu.getSellerId()).and(NAME).is(menu.getName())),
-                getEntityClass(), COLLECTION_MENU) == null) {
-            mongoTemplate.insert(convertToEntity(menu));
+                Query.query(Criteria.where(SELLER_ID).is(menu.getSellerId())
+                        .and(NAME).is(menu.getName())), getEntityClass(),
+                COLLECTION_MENU) != null) {
+            throw new MenuNameExistsException("菜单已存在");
         }
+
+        mongoTemplate.insert(convertToEntity(menu));
     }
 
     @Override
@@ -64,16 +77,25 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
+    public Pager findPager(Pagination p) {
+        return null;
+    }
+
+    @Override
     public void update(MenuVO menu, Map<String, Object> map) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID).is(menu.getId());
-        mongoTemplate.updateFirst(Query.query(criteria), buildUpdate(map), getEntityClass());
+        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
+                .is(menu.getId());
+        mongoTemplate.updateFirst(Query.query(criteria), buildUpdate(map),
+                getEntityClass());
 
     }
 
     @Override
     public void delete(String menuId) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID).is(menuId);
-        mongoTemplate.updateFirst(Query.query(criteria), Update.update(DATA_STATUS, 0), getEntityClass());
+        Criteria criteria = Criteria.where(DATA_STATUS).is(1).and(MONGO_ID)
+                .is(menuId);
+        mongoTemplate.updateFirst(Query.query(criteria),
+                Update.update(DATA_STATUS, 0), getEntityClass());
     }
 
     @Override
@@ -165,8 +187,9 @@ public class MenuDAOImpl implements MenuDAO {
     @Override
     public List<MechantMenuVO> findByMenuIds(List<String> menuIds) {
 
-        List<MechantMenuVO> list = mongoTemplate.find(buildQuery(menuIds, true),
-                MechantMenuVO.class, COLLECTION_MENU);
+        List<MechantMenuVO> list = mongoTemplate
+                .find(buildQuery(menuIds, true), MechantMenuVO.class,
+                        COLLECTION_MENU);
 
         return list;
     }

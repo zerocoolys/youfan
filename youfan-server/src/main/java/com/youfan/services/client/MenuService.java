@@ -2,6 +2,7 @@ package com.youfan.services.client;
 
 import com.youfan.commons.Constants;
 import com.youfan.commons.vo.client.MenuVO;
+import com.youfan.exceptions.MenuNameExistsException;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface MenuService extends Constants {
 
-    void insert(MenuVO menu);
+    void insert(MenuVO menu) throws MenuNameExistsException;
 
     void delete(String menuId);
 

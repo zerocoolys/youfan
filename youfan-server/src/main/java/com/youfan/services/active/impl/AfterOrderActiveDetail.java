@@ -6,12 +6,11 @@ import com.youfan.commons.vo.ActiveVO;
 import com.youfan.data.dao.server.CouponsDAO;
 import com.youfan.services.active.ActiveDetail;
 
-public class LoginActiveDetail implements ActiveDetail{
+public class AfterOrderActiveDetail implements ActiveDetail{
 
 	@Override
-	public Object active(ActiveVO active, Map<String, Object> pramsMap,CouponsDAO couponsDAO) {
-		// TODO Auto-generated method stub
-		System.out.println("LoginActiveDetail");
+	public Object active(ActiveVO active, Map<String, Object> pramsMap, CouponsDAO couponsDAO) {
+		System.out.println("AfterOrderActiveDetail");
 		return null;
 	}
 
