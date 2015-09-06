@@ -1,14 +1,14 @@
-ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_URL,$location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicModal) {
+ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_URL,Order,Merchant,$location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicModal) {
     $scope.formData = {
         star: 1,
-        commitUser: '张三',
-        orderId: 1234567,
-        pid: 0
+        comment_user:'用户1',
+        order_id: Order.id,
+        pid: 0,
+        is_hide_name:false
     };
     $scope.comment = function () {
         console.log($scope.formData);
         $http.post(REST_URL + "/cm/save", $scope.formData).success(function (result) {
-            console.log(result.code);
             if (result.code === 0) {
                 var myPopup = $ionicPopup.show({
                     cssClass: 'zan_popup',
@@ -29,8 +29,13 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_U
         }
     }
 
+    $scope.commentDataList=[];
     $scope.initComment = function () {
-        $http.get(REST_URL + "/cm/getComment?id=55e543e3e4b04a8ed7405aa8").success(function (result) {
+        var order_id=2;
+        $http.post(REST_URL + "/cm/getComment",{orderId:order_id}).success(function (result) {
+            if(result.code===0){
+                console.log(result.payload);
+            }
         });
     }
     $scope.initComment();

@@ -38,7 +38,7 @@
         </ion-slide-box>
         <ion-list>
             <ion-item class="item" ng-repeat="mc in merChantData">
-                <div class="list img_box"  ng-click="goTo(mc.id)"  style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 200px;color: #fff">
+                <div class="list img_box"  ui-sref="tab.dash-detail({merchantId:mc.id})"  style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 200px;color: #fff">
                     <div class="address" style="padding: 5px">
                         <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}</p>
                         <!--<img class="full-image" src="{{mc.src}}"></a>-->

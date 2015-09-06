@@ -290,6 +290,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
 
     /*====================XiaoWei==================*/
+    Merchant.mki=$stateParams.merchantId
     $scope.merchantObj = {}
     $scope.getMerchantKitchen = function () {
         var merchantId = Merchant.mki;
@@ -307,15 +308,20 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     if (!_tmpData["kitchenStoryName"]) {
                         _tmpData["kitchenStoryName"] = "暂无故事标题";
                     }
+                    if (!_tmpData["kitchenStoryContent"]) {
+                        _tmpData["kitchenStoryContent"] = "暂无故事内容";
+                    }
                     if (!_tmpData["kitchenAddress"]) {
                         _tmpData["kitchenAddress"] = "亲，厨房还没地址哦！";
                     }
                     if (_tmpData.canteen) {
-                        _tmpData["canteen"] = "支持|可容纳人数：" + _tmpData.galleryFul;
+                        _tmpData["canteenText"] = "支持|可容纳人数：" + _tmpData.galleryFul;
                     } else {
-                        _tmpData["canteen"] = "不支持";
+                        _tmpData["canteenText"] = "不支持食堂";
                     }
                     $scope.merchantObj = _tmpData;
+                    Merchant.kinInfo = _tmpData;
+                    console.log($scope.merchantObj);
                 }
             });
         }
@@ -328,8 +334,9 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                 if (result.payload != null) {
                     var _tmpData = result.payload;
                     _tmpData["realName"] = _tmpData.realName.substring(0, 1) + "先生";
-                    _tmpData["address"] = _tmpData.address.replace(/市|省|自治|区/g,'') + "人";
+                    _tmpData["address"] = _tmpData.address.replace(/市|省|自治|区/g, '') + "人";
                     $scope.merchantUser = _tmpData;
+                    Merchant.userInfo = _tmpData;
                 }
             });
         }

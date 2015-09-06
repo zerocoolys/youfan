@@ -39,10 +39,10 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
         });
     }
     $scope.initMerchant();
-    $scope.goTo=function(_mki){
-        Merchant.mki=_mki;
-        $state.go("tab.dash-detail");
-    }
+    //$scope.goTo=function(_mki){
+    //    Merchant.mki=_mki;
+    //    $state.go("tab.dash-detail");
+    //}
     /**
      * 验证码登陆
      */
