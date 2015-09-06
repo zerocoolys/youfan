@@ -73,7 +73,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) throws KitchenInfoException {
+    public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) {
         DBCursor limit = mongoTemplate.getCollection(COLLECTION_KITCHENINFO).find().skip((page - 1) * pageSize).limit(pageSize);
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = null;
         List<MerchantKitchenInfoVO> list = new ArrayList<>();
@@ -104,7 +104,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         //判断是否存在该表
         createCollection(merchantKitchenInfo);
 
@@ -138,7 +138,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         createCollection(merchantKitchenInfo);
 
         Update update = new Update();
@@ -149,7 +149,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         createCollection(merchantKitchenInfo);
 
         Update update = new Update();
@@ -162,6 +162,16 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<MerchantKitchenInfoVO> pageListByStatus(Integer page, Integer pageSize, Query query) {
+        return convertToVOList(mongoTemplate.find(query.skip((page - 1) * pageSize).limit(pageSize), getEntityClass()));
+    }
+
+    @Override
+    public Long getPageTotal(Integer status) {
+        return mongoTemplate.count(query(where("status").is(status)), getEntityClass());
     }
 
     private void createCollection(MerchantKitchenInfoVO merchantKitchenInfo) {

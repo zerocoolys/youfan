@@ -13,8 +13,12 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 /**
  * Created by perfection on 15-8-19.
@@ -29,7 +33,7 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     @Resource
     private MerchantKitchenDAO merchantKitchenDAO;
 
-    public MerchantUserVO login(String userName) throws UserException {
+    public MerchantUserVO login(String userName) {
         return merchantUserDao.login(userName);
     }
 
@@ -49,26 +53,26 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public void saveMerchantUserInfo(MerchantUserVO merchantUser) throws UserException {
+    public void saveMerchantUserInfo(MerchantUserVO merchantUser) {
         merchantUserDao.saveMerchantUserInfo(merchantUser);
     }
 
-    public Map<String, String> register(String userName, String passWord) throws UserException {
+    public Map<String, String> register(String userName, String passWord) {
         return merchantUserDao.register(userName, passWord);
     }
 
     @Override
-    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id){
+    public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id) {
         return merchantKitchenDAO.getMerchantKitchenBaseInfo(id);
     }
 
     @Override
-    public MerchantKitchenInfoVO getMerchantKitchenPicInfo(Long id) throws KitchenInfoException {
+    public MerchantKitchenInfoVO getMerchantKitchenPicInfo(Long id) {
         return null;
     }
 
     @Override
-    public MerchantKitchenInfoVO getMerchantKitchenStoryInfo(Long id) throws KitchenInfoException {
+    public MerchantKitchenInfoVO getMerchantKitchenStoryInfo(Long id) {
         return null;
     }
 
@@ -78,22 +82,22 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         return merchantKitchenDAO.saveMerchantKitchenInfo(merchantKitchenInfo);
     }
 
     @Override
-    public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) throws KitchenInfoException {
+    public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) {
         return merchantKitchenDAO.pageList(page, pageSize);
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         return merchantKitchenDAO.saveMerchantKitchenPicInfo(merchantKitchenInfo);
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) throws KitchenInfoException {
+    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         return merchantKitchenDAO.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
     }
 
@@ -132,5 +136,22 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     public List<MerchantKitchenInfoVO> conditionalSearch(String merchantName) {
         List<MerchantKitchenInfoVO> merchantKitchenInfoVOs = new ArrayList<>(merchantKitchenDAO.conditionalSearch(merchantName));
         return merchantKitchenInfoVOs;
+    }
+	@Override
+    public Map MerchantKitchenInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
+        Long count = merchantKitchenDAO.getPageTotal(status);
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", count);
+        map.put("pageData", merchantKitchenDAO.pageListByStatus(page, pageSize, query(where("status").is(status))));
+        return map;
+    }
+
+    @Override
+    public Map MerchantUserInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
+        Long count = merchantUserDao.getPageTotal(status);
+        Map<String, Object> map = new HashMap<>();
+        map.put("total", count);
+        map.put("pageData", merchantUserDao.pageListByStatus(page, pageSize, query(where("status").is(status))));
+        return map;
     }
 }
