@@ -61,7 +61,8 @@ public interface Constants {
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
     String COLLECTION_COUPONS = "coupons";
-
+    //支付渠道
+    String COLLECTION_PAY_WAY = "pay_way";
 
     /*  我的消息 subDong  */
     // messages 查询字段
