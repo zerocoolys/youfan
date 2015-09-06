@@ -102,7 +102,7 @@ public class OrderController {
         return Responses.SUCCESS();
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE})
 //    @Transactional
     public Response create(@RequestBody OrderParams orderParams) {
         OrderVO order = new OrderVO();

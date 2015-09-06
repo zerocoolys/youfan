@@ -133,15 +133,15 @@ public class PlatFormController {
             extraMap.put("success_url", "http://07zhywjh.6655.la:19982/platform/success");
 
 //            params.put("extra", extraMap);
-            params.put("order_no", "1234567989");
+            params.put("order_no", chargeParams.getOrderNo());
             params.put("amount", chargeParams.getAmount());
             params.put("channel", chargeParams.getChannel());
             params.put("currency", chargeParams.getCurrency());
-            params.put("client_ip", "127.0.0.1");
+            params.put("client_ip", chargeParams.getClientIp());
             params.put("subject", chargeParams.getSubject());
             params.put("body", chargeParams.getBody());
             charge = Charge.create(params);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             logger.error(e.getMessage());
         }
 
