@@ -1,5 +1,7 @@
 package com.youfan.commons.vo;
 
+import java.util.List;
+
 public class ActiveVO {
 	private String id;
 
@@ -41,7 +43,8 @@ public class ActiveVO {
 	 */
 	private boolean ifAll;
 
-	
+	private Integer allowTimes;
+
 	/**
 	 * 非全场时指定厨房ID
 	 */
@@ -68,10 +71,14 @@ public class ActiveVO {
 	 * 活动结束日期 UNIX时间 以23:59:59结束
 	 */
 	private Long endTime;
-	/**
-	 * 活动处理类
-	 */
-	private String activeDetailClazz;
+	
+	private List<ConditionVO> userConditions;
+	
+	private List<ConditionVO> orderConditions;
+//	/**
+//	 * 活动处理类
+//	 */
+//	private String activeDetailClazz;
 
 	/**
 	 * 活动状态 -1:删除 0:待开启 1:开启 2:暂定
@@ -195,13 +202,13 @@ public class ActiveVO {
 		this.endTime = endTime;
 	}
 
-	public String getActiveDetailClazz() {
-		return activeDetailClazz;
-	}
-
-	public void setActiveDetailClazz(String activeDetailClazz) {
-		this.activeDetailClazz = activeDetailClazz;
-	}
+//	public String getActiveDetailClazz() {
+//		return activeDetailClazz;
+//	}
+//
+//	public void setActiveDetailClazz(String activeDetailClazz) {
+//		this.activeDetailClazz = activeDetailClazz;
+//	}
 
 	public String getDesc() {
 		return desc;
@@ -227,15 +234,55 @@ public class ActiveVO {
 		this.title = title;
 	}
 
+	public List<ConditionVO> getUserConditions() {
+		return userConditions;
+	}
+
+	public void setUserConditions(List<ConditionVO> userConditions) {
+		this.userConditions = userConditions;
+	}
+
+	public List<ConditionVO> getOrderConditions() {
+		return orderConditions;
+	}
+
+	public void setOrderConditions(List<ConditionVO> orderConditions) {
+		this.orderConditions = orderConditions;
+	}
+
+	public Integer isAllowTimes() {
+		return allowTimes;
+	}
+
+	public void setAllowTimes(Integer allowTimes) {
+		this.allowTimes = allowTimes;
+	}
+
 	@Override
 	public String toString() {
-		return "ActiveVO [id=" + id + ", event=" + event + ", port=" + port + ", activeType=" + activeType
-				+ ", couponsType=" + couponsType + ", ifUnique=" + ifUnique + ", ifUseCoupons=" + ifUseCoupons
-				+ ", ifAll=" + ifAll + ", kitchenId=" + kitchenId + ", couponsTypeId=" + couponsTypeId
-				+ ", validityTime=" + validityTime + ", createTime=" + createTime + ", startTime=" + startTime
-				+ ", endTime=" + endTime + ", activeDetailClazz=" + activeDetailClazz + ", status=" + status + ", desc="
-				+ desc + "]";
+		return "ActiveVO [id=" + id + ", event=" + event + ", title=" + title + ", port=" + port + ", activeType="
+				+ activeType + ", couponsType=" + couponsType + ", ifUnique=" + ifUnique + ", ifUseCoupons="
+				+ ifUseCoupons + ", ifAll=" + ifAll + ", allowTimes=" + allowTimes + ", kitchenId=" + kitchenId
+				+ ", couponsTypeId=" + couponsTypeId + ", validityTime=" + validityTime + ", createTime=" + createTime
+				+ ", startTime=" + startTime + ", endTime=" + endTime + ", userConditions=" + userConditions
+				+ ", orderConditions=" + orderConditions + ", status=" + status + ", desc=" + desc + ", getId()="
+				+ getId() + ", getPort()=" + getPort() + ", getEvent()=" + getEvent() + ", getActiveType()="
+				+ getActiveType() + ", getCouponsType()=" + getCouponsType() + ", isIfUnique()=" + isIfUnique()
+				+ ", isIfUseCoupons()=" + isIfUseCoupons() + ", isIfAll()=" + isIfAll() + ", getKitchenId()="
+				+ getKitchenId() + ", getCouponsTypeId()=" + getCouponsTypeId() + ", getValidityTime()="
+				+ getValidityTime() + ", getCreateTime()=" + getCreateTime() + ", getStartTime()=" + getStartTime()
+				+ ", getEndTime()=" + getEndTime() + ", getDesc()=" + getDesc() + ", getStatus()=" + getStatus()
+				+ ", getTitle()=" + getTitle() + ", getUserConditions()=" + getUserConditions()
+				+ ", getOrderConditions()=" + getOrderConditions() + ", isAllowTimes()=" + isAllowTimes()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 
 
+//	public class Condition{
+//		String attr;
+//        String oper;//操作（eq,=,>,<,>=,<=）
+//        Double value;//值
+//
+//	}
 }

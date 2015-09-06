@@ -75,16 +75,16 @@ public class LoginController {
 				response = Responses.SUCCESS();
                 /////////////// MrDeng添加活动参加功能 请此处完善代码时
                 /////////////// 把这段代码移动到成功注册判定下/////////////////////////
-                Map<String, Object> paramsMap = new HashMap<>();
-                paramsMap.put("userVO", userVO);
-                try {
-                    activeSupportService.joinActive(ACTIVE_TYPE.CLIENT_REGISTER, "client_register", paramsMap);
-                } catch (ServerNoActiveDetailClazzException e1) {
-                    System.out.println("不存在[client_register]对应活动的处理方式 写入日志");
-                    logger.error("不存在[client_register]对应活动的处理方式 写入日志");
-                } catch (ServerNoActiveEventException e1) {
-                    System.out.println("不存在[client_register]对应活动");
-                }
+//                Map<String, Object> paramsMap = new HashMap<>();
+//                paramsMap.put("userVO", userVO);
+//                try {
+//                    activeSupportService.joinActive(ACTIVE_TYPE.CLIENT_REGISTER, "client_register", paramsMap);
+//                } catch (ServerNoActiveDetailClazzException e1) {
+//                    System.out.println("不存在[client_register]对应活动的处理方式 写入日志");
+//                    logger.error("不存在[client_register]对应活动的处理方式 写入日志");
+//                } catch (ServerNoActiveEventException e1) {
+//                    System.out.println("不存在[client_register]对应活动");
+//                }
                 ////////////////////////////////////////////////////////////
 			}
 		} catch (Exception e) {
@@ -108,16 +108,16 @@ public class LoginController {
 			response = Responses.SUCCESS().setPayload(userClientVO);
 			/////////////// MrDeng添加活动参加功能 请此处完善代码时
 			/////////////// 把这段代码移动到成功登录判定下/////////////////////////
-			Map<String, Object> paramsMap = new HashMap<>();
-			paramsMap.put("userVO", userClientVO);
-			try {
-				activeSupportService.joinActive(ACTIVE_TYPE.CLIENT_LOGIN, "client_login", paramsMap);
-			} catch (ServerNoActiveDetailClazzException e1) {
-				System.out.println("不存在[client_register]对应活动的处理方式 写入日志");
-				logger.error("不存在[client_register]对应活动的处理方式 写入日志");
-			} catch (ServerNoActiveEventException e1) {
-				System.out.println("不存在[client_register]对应活动");
-			}
+//			Map<String, Object> paramsMap = new HashMap<>();
+//			paramsMap.put("userVO", userClientVO);
+//			try {
+////				activeSupportService.joinActive(ACTIVE_TYPE.CLIENT_LOGIN, "client_login", paramsMap);
+//			} catch (ServerNoActiveDetailClazzException e1) {
+//				System.out.println("不存在[client_register]对应活动的处理方式 写入日志");
+//				logger.error("不存在[client_register]对应活动的处理方式 写入日志");
+//			} catch (ServerNoActiveEventException e1) {
+//				System.out.println("不存在[client_register]对应活动");
+//			}
 			////////////////////////////////////////////////////////////
 		} catch (Exception e) {
 			response = Responses.FAILED();

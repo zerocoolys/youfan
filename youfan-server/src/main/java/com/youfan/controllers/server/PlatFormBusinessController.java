@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
@@ -89,14 +90,8 @@ public class PlatFormBusinessController {
 		Response res = null;
 		Map<String, Object> activeParams = new HashMap<String, Object>();
 		activeParams.put("userVo", userDAO.getUserByTel("13980041343"));
-		try {
-			activeSupportService.joinActive(1,"client_register", activeParams);
+//			activeSupportService.joinActive(1, "client_register", activeParams);
 			res = Responses.SUCCESS().setCode(1).setMsg("SUCCESS");
-		} catch (ServerNoActiveDetailClazzException e) {
-			res = Responses.FAILED().setCode(2).setMsg("ServerNoActiveDetailClazzException");
-		} catch (ServerNoActiveEventException e) {
-			res = Responses.FAILED().setCode(3).setMsg("ServerNoActiveEventException");
-		}
 
 		return res;
 	}
@@ -249,14 +244,20 @@ public class PlatFormBusinessController {
 		Response res = null;
 		try {
 			if (request.getParameter("event") != null && request.getParameter("port") != null
-					&& request.getParameter("activeType") != null
-					&& request.getParameter("activeDetailClazz") != null) {
+					&& request.getParameter("activeType") != null) {
 
 				ActiveVO activeVo = new ActiveVO();
 				activeVo.setPort(Integer.valueOf(request.getParameter("port")));
 				activeVo.setEvent(request.getParameter("event"));
 				activeVo.setActiveType(Integer.valueOf(request.getParameter("activeType")));
-				activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
+				// activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
+
+//				System.out.println(request.getParameter("userCondition"));
+				activeVo.setUserConditions(
+						JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
+				activeVo.setOrderConditions(
+						JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
+				activeVo.setAllowTimes(0);
 				activeVo.setDesc(request.getParameter("desc"));
 				activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));
 				activeVo.setCouponsType(Integer.valueOf(request.getParameter("couponsType")));
@@ -267,7 +268,8 @@ public class PlatFormBusinessController {
 				activeVo.setEndTime(Long.valueOf(request.getParameter("endTime")));
 				// 状态默认为1 表示开启使用状态
 				activeVo.setStatus(1);
-				activeService.save(activeVo);
+				System.out.println(activeVo.toString());
+				 activeService.save(activeVo);
 				res = Responses.SUCCESS().setMsg("数据保存成功");
 			} else {
 				res = Responses.FAILED().setMsg("数据保存异常:参数错误");
@@ -404,7 +406,8 @@ public class PlatFormBusinessController {
 		Response res = null;
 		try {
 
-			PayWayVO vo = request.getParameter("id") == null ? null : (PayWayVO)payWayService.getById(request.getParameter("id"));
+			PayWayVO vo = request.getParameter("id") == null ? null
+					: (PayWayVO) payWayService.getById(request.getParameter("id"));
 			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(vo);
 		} catch (Exception e) {
 			e.printStackTrace();

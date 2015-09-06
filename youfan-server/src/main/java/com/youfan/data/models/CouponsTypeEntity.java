@@ -27,7 +27,10 @@ public class CouponsTypeEntity {
 	 * 2 客户端 3商家端
 	 */
 	private Integer port;
-	
+	/**
+	 * 标题
+	 */
+	private String title;
 	/**
 	 * 优惠券时效
 	 */
@@ -113,6 +116,14 @@ public class CouponsTypeEntity {
 
 	public void setIfAll(Boolean ifAll) {
 		this.ifAll = ifAll;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 

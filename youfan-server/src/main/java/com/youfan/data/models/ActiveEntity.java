@@ -2,10 +2,14 @@ package com.youfan.data.models;
 
 import static com.youfan.commons.Constants.COLLECTION_SERVER_ACTIVE;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.youfan.commons.vo.ConditionVO;
 
 @Document(collection = COLLECTION_SERVER_ACTIVE)
 public class ActiveEntity {
@@ -15,9 +19,9 @@ public class ActiveEntity {
 	/**
 	 * 活动事件
 	 */
-	@Indexed(unique=true)
+	@Indexed(unique = true)
 	private String event;
-	
+
 	/**
 	 * 活动标题
 	 */
@@ -56,7 +60,10 @@ public class ActiveEntity {
 	 */
 	@Field("ifall")
 	private boolean ifAll;
-	
+
+	@Field("at")
+	private Integer allowTimes;
+
 	/**
 	 * 非全场时指定厨房ID
 	 */
@@ -90,22 +97,22 @@ public class ActiveEntity {
 	 */
 	@Field("et")
 	private Long endTime;
-	/**
-	 * 活动处理类
-	 */
-	@Field("adc")
-	private String activeDetailClazz;
+	@Field("userc")
+	private List<ConditionVO> userConditions;
+	@Field("orderc")
+	private List<ConditionVO> orderConditions;
+//	/**
+//	 * 活动处理类
+//	 */
+//	@Field("adc")
+//	private String activeDetailClazz;
 
 	/**
 	 * 活动描述
 	 */
 	private String desc;
 	/**
-	 * 活动状态
-	 * -1:删除
-	 * 	0:待开启
-	 * 	1:开启
-	 * 	2:暂定
+	 * 活动状态 -1:删除 0:待开启 1:开启 2:暂定
 	 */
 	private Integer status;
 
@@ -173,7 +180,6 @@ public class ActiveEntity {
 		this.ifAll = ifAll;
 	}
 
-
 	public Long getValidityTime() {
 		return validityTime;
 	}
@@ -206,16 +212,33 @@ public class ActiveEntity {
 		this.endTime = endTime;
 	}
 
-	public String getActiveDetailClazz() {
-		return activeDetailClazz;
-	}
-
-	public void setActiveDetailClazz(String activeDetailClazz) {
-		this.activeDetailClazz = activeDetailClazz;
-	}
+//	public String getActiveDetailClazz() {
+//		return activeDetailClazz;
+//	}
+//
+//	public void setActiveDetailClazz(String activeDetailClazz) {
+//		this.activeDetailClazz = activeDetailClazz;
+//	}
+	
 
 	public String getDesc() {
 		return desc;
+	}
+
+	public List<ConditionVO> getUserConditions() {
+		return userConditions;
+	}
+
+	public void setUserConditions(List<ConditionVO> userConditions) {
+		this.userConditions = userConditions;
+	}
+
+	public List<ConditionVO> getOrderConditions() {
+		return orderConditions;
+	}
+
+	public void setOrderConditions(List<ConditionVO> orderConditions) {
+		this.orderConditions = orderConditions;
 	}
 
 	public void setDesc(String desc) {
@@ -254,5 +277,12 @@ public class ActiveEntity {
 		this.title = title;
 	}
 
-	
+	public Integer isAllowTimes() {
+		return allowTimes;
+	}
+
+	public void setAllowTimes(Integer allowTimes) {
+		this.allowTimes = allowTimes;
+	}
+
 }

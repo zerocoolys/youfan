@@ -1,50 +1,32 @@
 package com.youfan.eventbus;
 
-import java.util.Set;
-
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.eventbus.EventBus;
-
+import com.google.common.eventbus.AsyncEventBus;
 /**
  * 
- * @description guava 事件处理采用同步的方式
- * @author ZhangHuaRong
+ * @description guava 事件处理
+ * @author ZhangHuaRong   
  */
 @Component("eventBus")
-public class ServerEventBus implements InitializingBean, DisposableBean {
+public class ServerEventBus  {
 
-	private EventBus eventBus;
-	@Autowired
-	private Set<EventBusListener> listeners;
+	private AsyncEventBus asyncEventBus;
+	
 
 	public ServerEventBus() {
-		eventBus = EventBusFactory.getEventBus();
+		asyncEventBus = EventBusFactory.getEventBusInstanll();
+		register(new ServerEventListener());
 	}
 
-	public void register(Object object) {
-		eventBus.register(object);
-	}
-
-	public void post(Object event) {
-		eventBus.post(event);
-	}
-
-	@Override
-	public void destroy() throws Exception {
-
-	}
+	 public void register(Object object) {
+		 asyncEventBus.register(object);
+	 }
+     
+	 public void post(Object event) {
+		 asyncEventBus.post(event);
+	 }
 	
 	
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		for (EventBusListener listerer : listeners) {
-			eventBus.register(listerer);
-		}
-	}
 
 }
