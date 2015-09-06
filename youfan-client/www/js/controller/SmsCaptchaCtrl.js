@@ -20,9 +20,14 @@ ControllerModule.controller('SmsCaptchaCtrl', function($scope, $ionicPopup, $int
     };
 
     /**
+     * obj == 0 : 注册
+     * obj == 1 : 忘记密码
+     */
+
+    /**
      * 发送短信验证码
      */
-    $scope.sendMessage = function(){
+    $scope.sendMessage = function(obj){
 
         var tel = $scope.user.tel;
         var re= /(^1[3|5|8][0-9]{9}$)/;
@@ -57,56 +62,64 @@ ControllerModule.controller('SmsCaptchaCtrl', function($scope, $ionicPopup, $int
                 };
 
                 //客户端 重置密码
-                var clientResetPwdModel = {
-                    "captchaKey": "client_resetpwd" + tel,
+                var clientForgetPwdModel = {
+                    "captchaKey": "client_forgetpwd" + tel,
                     "captcha": code
                 };
-
-                /*************************************************/
-                console.log(code);
-                if(clientRegModel.captchaKey != ""){
-                    $http.post("http://localhost:8080/captcha/add",JSON.stringify(clientRegModel))
-                        .success(function(data){
-                            console.log(data);
-                            if(data.code == 0){
-                                $http.post("http://localhost:8080/captcha/alive",JSON.stringify(clientRegModel))
-                                    .success(function(data){
-                                        console.log(data);
-                                    })
-                                    .error(function(){
-
-                                    });
-                            }
-                        })
-                        .error(function(){
-
-                        });
-                }
-                /*************************************************/
 
                 //发送短信 url
                 var smsUrl = "http://07zhywjh.6655.la:19982/platform/sendSMS/1/" + code + "/" + tel;
                 //验证码发送
                 $http.get(smsUrl).success(function(data) {
-                    console.log(data);
-                    //存储 redis
-                    if(clientRegModel.captchaKey != ""){
-                        $http.post("http://localhost:8080/captcha/add",JSON.stringify(clientRegModel))
-                            .success(function(data){
-                                console.log(data);
-                            })
-                            .error(function(){
+                    if(data.statusCode == 000000){
+                        //注册
+                        if(0 == obj){
+                            //存储 redis
+                            $http.post("http://localhost:8080/captcha/add",JSON.stringify(clientRegModel))
+                                    .success(function(data){
+                                        if(data.code == 0){
+                                            //设置验证码时效
+                                            $http.post("http://localhost:8080/captcha/alive",JSON.stringify(clientRegModel))
+                                                    .success(function(data){
+                                                        //console.log(data);
+                                                    })
+                                                    .error(function(){
 
-                            });
-                    }
-                    if(clientResetPwdModel.captchaKey != ""){
-                        $http.post("http://localhost:8080/captcha/alive",JSON.stringify(clientResetPwdModel))
-                            .success(function(){
+                                                    });
+                                        }
+                                    })
+                                    .error(function(){
 
-                            })
-                            .error(function(){
+                                    });
+                        };
+                        //忘记密码
+                        if(1 == obj){
+                            //存储 redis
+                            $http.post("http://localhost:8080/captcha/add",JSON.stringify(clientForgetPwdModel))
+                                    .success(function(data){
+                                        if(data.code == 0){
+                                            //设置验证码时效
+                                            $http.post("http://localhost:8080/captcha/alive",JSON.stringify(clientForgetPwdModel))
+                                                    .success(function(data){
+                                                        //console.log(data);
+                                                    })
+                                                    .error(function(){
 
-                            });;
+                                                    });
+                                        }
+                                    })
+                                    .error(function(){
+
+                                    });
+                        }
+                    } else {
+                        var smsError = $ionicPopup.show({
+                            title: '短信发送失败',
+                            scope: $scope
+                        });
+                        $timeout(function() {
+                            smsError.close(); //由于某种原因2秒后关闭弹出
+                        }, 2000);
                     }
 
                 }).error(function(data){
