@@ -150,7 +150,45 @@ a{
     left: 2%;
     width: 100%;
     height: 100%;
-
-
 }
 
+.slider {
+    height: 100%;
+}
+.slider-slide {
+    text-align: center;
+    font-weight: 300;
+}
+
+.box  {
+    height: 100%;
+}
+.box h1  {
+    color: #fff;
+}
+
+.blue {
+    background-color: #4a87ee;
+}
+.yellow {
+    background-color: #f0b840;
+}
+.pink {
+    background-color: #8a6de9;
+}
+
+.pink a {
+    right:0;
+}
+
+.btn-start {
+    top: initial;
+    bottom : 40px;
+    width: 100px;
+    margin:0 auto;
+    display:block;
+}
+
+.selected {
+    background-color: #d2dced;
+}

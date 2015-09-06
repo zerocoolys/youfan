@@ -97,7 +97,7 @@
                             id: data.payload.id
                         };
                         console.log(data.payload.id)
-                        $location.path("overview")
+                        $location.path("tutorial")
                     } else {
                         var options = {
                             "title": "系统繁忙！",
@@ -156,7 +156,7 @@
                                 .then(function () {
                                     $scope.user = data;
                                     $rootScope.user = $scope.user;
-                                    $location.path("overview")
+                                    $location.path("tutorial")
                                 });
                             break;
                         case "0":
