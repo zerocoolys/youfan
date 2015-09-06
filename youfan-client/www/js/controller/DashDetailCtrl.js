@@ -290,7 +290,6 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
 
     /*====================XiaoWei==================*/
-    Merchant.mki=$stateParams.merchantId
     $scope.merchantObj = {}
     $scope.getMerchantKitchen = function () {
         var merchantId = Merchant.mki;

@@ -1,4 +1,4 @@
-<ion-view view-title="" hide-nav-bar="true"  class="home_item">
+<ion-view view-title="" hide-nav-bar="true"  class="home_item" overflow-scroll="true">
     <div class="bar bar-header item-input-inset">
 
         <label class="item-input-wrapper">
@@ -6,11 +6,9 @@
             <input type="search" placeholder="搜索"/>
         </label>
 
-<!--
         <a class="button button-clear button-balanced" ui-sref="tab.pwd-login">
             登录
         </a>
--->
 
     </div>
     <div class="bar bar-subheader bar-light" style="height:30px;">
@@ -21,7 +19,7 @@
                </span>
         </div>
     </div>
-    <ion-content style="top:75px;" >
+    <ion-content style="top:75px;" overflow-scroll="true">
         <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
         </ion-refresher>
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
@@ -38,7 +36,7 @@
         </ion-slide-box>
         <ion-list>
             <ion-item class="item" ng-repeat="mc in merChantData">
-                <div class="list img_box"  ui-sref="tab.dash-detail({merchantId:mc.id})"  style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 200px;color: #fff">
+                <div class="list img_box"  ng-click="goTo(mc.id)"  style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 200px;color: #fff">
                     <div class="address" style="padding: 5px">
                         <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}</p>
                         <!--<img class="full-image" src="{{mc.src}}"></a>-->
@@ -53,7 +51,7 @@
                         <i class="icon ion-ribbon-b icon-accessory mainColor" style="top: 15px;left: 37px;"></i>
 
                         <div class="img_text fr">
-                            111{{mc.cang}}人<span>品尝过</span>
+                            111{{mc.cang}}<span>品尝过</span>
                         </div>
                         <!--<span class="badge badge-assertive ng-binding">内蒙古人</span>
                         <div class="row" href="#/tab/dash/{{mc.id}}">
