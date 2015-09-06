@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_qtc_controllers', [])
 
-    .controller('ManageDishesQtcCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService) {
+    .controller('ManageDishesQtcCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_INFO) {
 
         console.log("ManageDishesQtcCtrl");
 
@@ -17,7 +17,7 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
 
             $timeout(function () {
                 $scope.$broadcast("scroll.refreshComplete");
-                ManageDishesService.allDishes("888888888", "qtc");
+                ManageDishesService.allDishes(YF_MERCHANT_INFO.mID, "qtc");
             }, 800);
 
         };
@@ -44,7 +44,7 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
 
     })
 
-    .controller('ManageDishesQtcAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller('ManageDishesQtcAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO) {
 
         console.log("ManageDishesQtcAddCtrl");
 
@@ -61,7 +61,7 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             taste: 3,
             staple: true,
             features: ["保护动物", "开心果", "刘德华", "自行车"],
-            sellerId: "888888888"
+            sellerId: YF_MERCHANT_INFO.mID
         };
         $scope.imgs = [];
         $scope.isActive = false;
@@ -191,8 +191,8 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             $state.go("m_dishes.qtc");
         });
 
-        $scope.$on("yf-merchant-save-dishes-error", function () {
-            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
+        $scope.$on("yf-merchant-save-dishes-error", function (e, msg) {
+            $scope.$emit("youfan-merchant-show-msg", msg);
             $ionicLoading.hide();
             $scope.isActive = false;
         });

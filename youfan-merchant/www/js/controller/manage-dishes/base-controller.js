@@ -85,7 +85,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
     })
 
     //今日余量
-    .controller("ManageDishesStockJrCtrl", function ($scope, $timeout, $stateParams, $ionicLoading, ManageDishesService) {
+    .controller("ManageDishesStockJrCtrl", function ($scope, $timeout, $stateParams, $ionicLoading, ManageDishesService, YF_MERCHANT_INFO) {
         console.log("ManageDishesStockJrCtrl");
         $scope.backType = $stateParams.backType;
         $scope.init = function () {
@@ -118,7 +118,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
 
             $timeout(function () {
                 $scope.init();
-                ManageDishesService.allSaleDishes("888888888");
+                ManageDishesService.allSaleDishes(YF_MERCHANT_INFO.mID);
             }, 1000);
 
         };
@@ -204,7 +204,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
     })
 
     //每日余量
-    .controller("ManageDishesStockMrCtrl", function ($scope, $timeout, $stateParams, $ionicLoading, ManageDishesService) {
+    .controller("ManageDishesStockMrCtrl", function ($scope, $timeout, $stateParams, $ionicLoading, ManageDishesService, YF_MERCHANT_INFO) {
         console.log("ManageDishesStockMrCtrl");
         $scope.backType = $stateParams.backType;
 
@@ -238,7 +238,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
 
             $timeout(function () {
                 $scope.init();
-                ManageDishesService.allSaleDishes("888888888");
+                ManageDishesService.allSaleDishes(YF_MERCHANT_INFO.mID);
             }, 1000);
 
         };

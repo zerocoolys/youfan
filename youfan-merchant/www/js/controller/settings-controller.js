@@ -53,7 +53,7 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
         };
     })
 
-    .controller('SettingsCardCtrl', function ($scope, $state, $ionicLoading, $timeout, CardHttpService, YF_MERCHANT_LOADING_COMMENT) {
+    .controller('SettingsCardCtrl', function ($scope, $state, $ionicLoading, $timeout, CardHttpService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO) {
         console.log("SettingsCardCtrl");
 
         $scope.items = [];
@@ -66,7 +66,7 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
 
             $timeout(function () {
                 $scope.$broadcast("scroll.refreshComplete");
-                CardHttpService.list("888888888");
+                CardHttpService.list(YF_MERCHANT_INFO.mID);
             }, 800);
 
         };
@@ -86,12 +86,12 @@ angular.module('yf_merchant.settings_controllers', ['yf_merchant.settings_servic
         });
     })
 
-    .controller('SettingsCardAddCtrl', function ($scope, $state, $ionicLoading, $timeout, CardService, CardHttpService, ValidationService, YF_MERCHANT_LOADING_COMMENT) {
+    .controller('SettingsCardAddCtrl', function ($scope, $state, $ionicLoading, $timeout, CardService, CardHttpService, ValidationService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO) {
         console.log("SettingsCardAddCtrl");
 
         $scope.isActive = false;
         $scope.card = {
-            sellerId: "888888888",
+            sellerId: YF_MERCHANT_INFO.mID,
             bankName: "银行名称",
             areaName: "银行所在地",
             cardName: "",

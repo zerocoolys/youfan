@@ -21,9 +21,13 @@ angular.module('yf_merchant.manage_dishes_service', [])
                 dishes.sellerId = $rootScope.user.id;
             }
             $http.post(YF_MERCHANT_HOST + "/menu/add", dishes).success(function (data, status, headers, config) {
-                $rootScope.$broadcast("yf-merchant-save-dishes-success");
+                if (data.code == 1) {
+                    $rootScope.$broadcast("yf-merchant-save-dishes-error", data.msg);
+                } else {
+                    $rootScope.$broadcast("yf-merchant-save-dishes-success");
+                }
             }).error(function (data, status, headers, config) {
-                $rootScope.$broadcast("yf-merchant-save-dishes-error");
+                $rootScope.$broadcast("yf-merchant-save-dishes-error", "远程连接失败");
             })
         }
 

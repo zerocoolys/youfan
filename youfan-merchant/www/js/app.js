@@ -54,6 +54,13 @@ angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_mer
         return "http://192.168.1.111:8080";
     })
 
+    .factory('YF_MERCHANT_INFO', function () {
+        var m_info = {
+            mID: "888888888"
+        };
+        return m_info;
+    })
+
     .factory('YF_MERCHANT_LOADING_COMMENT', function () {
         return "templates/comment/loading_comment.html";
     })

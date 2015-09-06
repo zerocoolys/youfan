@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_xfz_controllers', [])
 
-    .controller('ManageDishesXfzCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicActionSheet, ManageDishesService) {
+    .controller('ManageDishesXfzCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicActionSheet, ManageDishesService, YF_MERCHANT_INFO) {
 
         console.log("ManageDishesXfzCtrl");
 
@@ -29,7 +29,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
             $timeout(function () {
                 $scope.$broadcast("scroll.refreshComplete");
-                ManageDishesService.allDishes("888888888", "xfz");
+                ManageDishesService.allDishes(YF_MERCHANT_INFO.mID, "xfz");
             }, 800);
 
         };
@@ -56,7 +56,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
     })
 
-    .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $stateParams, $ionicLoading, $ionicModal, $timeout, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $stateParams, $ionicLoading, $ionicModal, $timeout, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO) {
         console.log("ManageDishesXfzAddCtrl");
 
         $scope.xfzNum = $stateParams.xfzNum;
@@ -65,7 +65,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             stock: 3,
             type: "xfz",
             xfzNum: $scope.xfzNum,
-            sellerId: "888888888"
+            sellerId: YF_MERCHANT_INFO.mID
         };
         $scope.imgs = [];
         $scope.isActive = false;
@@ -150,8 +150,8 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             $state.go("m_dishes.xfz");
         });
 
-        $scope.$on("yf-merchant-save-dishes-error", function () {
-            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
+        $scope.$on("yf-merchant-save-dishes-error", function (e, msg) {
+            $scope.$emit("youfan-merchant-show-msg", msg);
             $ionicLoading.hide();
             $scope.isActive = false;
         });
