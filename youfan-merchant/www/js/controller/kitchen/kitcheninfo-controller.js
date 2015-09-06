@@ -26,7 +26,6 @@ function getLocation(data) {
         };
         $http.post(
             "http://127.0.0.1:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                console.log(data)
                 if (data.code == "200") {
                     if (data.payload != null) {
                         $scope.kitchenInfo = {
@@ -52,7 +51,6 @@ function getLocation(data) {
                 });
                 //逆地理编码
                 MGeocoder.getLocation($scope.kitchenInfo.kitchenAddress.province + $scope.kitchenInfo.kitchenAddress.city + $scope.kitchenInfo.kitchenAddress.specificAddress, function (status, result) {
-                    console.log(result)
                     if (status === 'complete' && result.info === 'OK') {
                         var merchantKitchenInfoVO = {
                             id: $rootScope.user.id, //厨房id与商家用户id匹配

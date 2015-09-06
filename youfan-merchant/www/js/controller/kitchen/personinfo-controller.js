@@ -53,9 +53,7 @@
             $rootScope.city = city;
         };
         $http.post(
-            "http://127.0.0.1:8080/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                console.log(data);
-
+            "http://192.168.1.110:8080/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "200") {
                     if (data.payload == null) {
                         $rootScope.Province = "";
@@ -94,14 +92,20 @@
                         if (data.payload.realName != null) {
                             $scope.user.realName = data.payload.realName;
                         }
+                        $scope.image = {
+                            path: ["", "", ""]
+                        };
                         if (data.payload.headPortraitPicUrl != null) {
-                            $scope.imageData.headPortraitPicUrl = data.payload.headPortraitPicUrl;
+                            //$scope.imageData.headPortraitPicUrl = data.payload.headPortraitPicUrl;
+                            $scope.image.path.push(data.payload.headPortraitPicUrl);
                         }
                         if (data.payload.healthCertificatePicUrl != null) {
-                            $scope.imageData.healthCertificatePicUrl = data.payload.healthCertificatePicUrl;
+                            //$scope.imageData.healthCertificatePicUrl = data.payload.healthCertificatePicUrl;
+                            $scope.image.path.push(data.payload.healthCertificatePicUrl);
                         }
                         if (data.payload.idCardPicUrl != null) {
-                            $scope.imageData.idCardPicUrl = data.payload.idCardPicUrl
+                            //$scope.imageData.idCardPicUrl = data.payload.idCardPicUrl
+                            $scope.image.path.push(data.payload.idCardPicUrl);
                         }
                     }
                 }
@@ -117,7 +121,8 @@
             });
 
 
-        $scope.saveUserInfo = function (realName) {
+        $scope.saveUserInfo = function () {
+            alert(JSON.stringify($scope.imageData));
             var userInfo = {
                 realName: $scope.user.realName,
                 address: $rootScope.Province + $rootScope.city,
@@ -129,7 +134,7 @@
                 sex: $scope.sex
             };
             $http.post(
-                "http://127.0.0.1:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     var options;
                     if (data.code == "200" && data.payload != null) {
                         options = {
@@ -145,7 +150,6 @@
                                 type: "button-positive clam"
                             }]
                         };
-
                     } else {
                         options = {
                             "title": "保存成功！",
@@ -161,20 +165,18 @@
                 });
         };
         $scope.getImg = function (buttonId, url) {
-
+            $scope.image.path[Number(buttonId)] = url;
             uploadImg(buttonId, url, $ionicLoading, $scope);
         };
-        $scope.saveImagePath = function (buttonId, url, $ionicLoading, $scope) {
-            $scope.image.path[Number(buttonId)] = url;
-            alert(url);
+        $scope.saveImagePath = function (buttonId, url) {
             switch (Number(buttonId)) {
                 case 0:
                     $scope.imageData.headPortraitPicUrl = url;
                     break;
-                case 1:
+                case 2:
                     $scope.imageData.healthCertificatePicUrl = url;
                     break;
-                case 2:
+                case 1:
                     $scope.imageData.idCardPicUrl = url;
                     break;
             }

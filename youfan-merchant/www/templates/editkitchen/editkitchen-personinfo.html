@@ -2,7 +2,7 @@
     <ion-header-bar class="bar bar-header">
         <a class="button button-clear icon ion-ios-arrow-back button-calm" href="#/editkitchen"></a>
         <div class="h1 title " align-text="center">编辑个人信息</div>
-        <button class="button button-clear button-calm " ng-click="saveUserInfo(realName)">
+        <button class="button button-clear button-calm " ng-click="saveUserInfo()">
             保存
         </button>
     </ion-header-bar>
@@ -78,26 +78,11 @@
                 <a class="col  dark  " >
                     <p class=" " style="font-size: 20px">健康证 <span style="font-size: 12px;">（正面照）</span></p>
                     <!--<div ><img style="height: 60px;width: 60px;" src="../img/1234.jpg" alt=""/></div>-->
-                    <button  ng-click="show(2)" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
-                             style="width: 100px;height: 100px;  "></button>
+                    <button ng-show="!image.path[2]" ng-click="show(2)" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
+                            style="width: 100px;height: 100px;  "></button>
+                    <img ng-show="image.path[2]"  src="{{image.path[2]}}" style="width: 100px;height: 100px; alt="/>
                 </a>
             </div>
         </ion-list>
-
-
-        <!--<input type="text" ng-model="person.healthCertificatePicUrl" value="healthCertificatePicUrl"-->
-        <!--placeholder="healthCertificatePicUrl"/>1-->
-        <!--<input type="text" ng-model="person.idCardPicUrl" value="idCardPicUrl"/>3-->
-        <!--<input type="text" ng-model="person.headPortraitPicUrl" value="headPortraitPicUrl"/>2-->
-        <!--<div>-->
-            <!--<div>-->
-                <!--<input type="text" ng-model="person.healthCertificatePicUrl" value="healthCertificatePicUrl"-->
-                       <!--placeholder="healthCertificatePicUrl"/>1-->
-                <!--<input type="text" ng-model="person.idCardPicUrl" value="idCardPicUrl"/>3-->
-                <!--<input type="text" ng-model="person.headPortraitPicUrl" value="headPortraitPicUrl"/>2-->
-            <!--</div>-->
-
-        <!--</div>-->
-
     </ion-content>
 </ion-view>
