@@ -51,7 +51,11 @@ public class OrderEntity {
     // 备注
     private String comments;
 
+    // 支付方式
     private String paymentWay;
+
+    // 支付id
+    private String chargeId;
 
 
     public Long getId() {
@@ -164,5 +168,13 @@ public class OrderEntity {
 
     public void setPaymentWay(String paymentWay) {
         this.paymentWay = paymentWay;
+    }
+
+    public String getChargeId() {
+        return chargeId;
+    }
+
+    public void setChargeId(String chargeId) {
+        this.chargeId = chargeId;
     }
 }

@@ -13,7 +13,6 @@ import com.youfan.services.server.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -102,7 +101,7 @@ public class OrderController {
         return Responses.SUCCESS();
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE})
 //    @Transactional
     public Response create(@RequestBody OrderParams orderParams) {
         OrderVO order = new OrderVO();

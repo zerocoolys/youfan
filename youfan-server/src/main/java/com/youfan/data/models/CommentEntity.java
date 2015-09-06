@@ -17,10 +17,12 @@ public class CommentEntity {
     @Id
     String id;
 
-    Integer orderId;
+    @Field(Constants.COMMENT_MERCHANT_ID)
+    String merchant_id;
+    Integer order_id;
 
     @Field(Constants.COMMENT_USER)
-    String commentUser;
+    String comment_user;
 
     String pid;//父评论
 
@@ -33,7 +35,11 @@ public class CommentEntity {
     @Field(Constants.DATA_STATUS)
     Integer dataStatus = 0;
 
-    List<String> imgUrl;
+    List<String> img_url;
+
+
+    @Field(Constants.COMMENT_IS_HIDE_NAME)
+    Boolean is_hide_name;
 
     public String getId() {
         return id;
@@ -43,12 +49,28 @@ public class CommentEntity {
         this.id = id;
     }
 
-    public String getCommentUser() {
-        return commentUser;
+    public String getMerchant_id() {
+        return merchant_id;
     }
 
-    public void setCommentUser(String commentUser) {
-        this.commentUser = commentUser;
+    public void setMerchant_id(String merchant_id) {
+        this.merchant_id = merchant_id;
+    }
+
+    public Integer getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(Integer order_id) {
+        this.order_id = order_id;
+    }
+
+    public String getComment_user() {
+        return comment_user;
+    }
+
+    public void setComment_user(String comment_user) {
+        this.comment_user = comment_user;
     }
 
     public String getPid() {
@@ -67,6 +89,14 @@ public class CommentEntity {
         this.content = content;
     }
 
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
+    }
+
     public Date getCommentTime() {
         return commentTime;
     }
@@ -83,27 +113,19 @@ public class CommentEntity {
         this.dataStatus = dataStatus;
     }
 
-    public List<String> getImgUrl() {
-        return imgUrl;
+    public List<String> getImg_url() {
+        return img_url;
     }
 
-    public void setImgUrl(List<String> imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImg_url(List<String> img_url) {
+        this.img_url = img_url;
     }
 
-    public Integer getOrderId() {
-        return orderId;
+    public Boolean getIs_hide_name() {
+        return is_hide_name;
     }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
-
-    public Integer getStar() {
-        return star;
-    }
-
-    public void setStar(Integer star) {
-        this.star = star;
+    public void setIs_hide_name(Boolean is_hide_name) {
+        this.is_hide_name = is_hide_name;
     }
 }

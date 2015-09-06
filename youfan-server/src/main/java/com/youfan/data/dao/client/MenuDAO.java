@@ -1,10 +1,10 @@
 package com.youfan.data.dao.client;
 
-
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MenuEntity;
+import com.youfan.exceptions.MenuNameExistsException;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -20,82 +20,86 @@ import java.util.Map;
  */
 public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
 
-    List<MenuVO> findBySellerId(String sellerId);
+	void insertMenu(MenuVO menu) throws MenuNameExistsException;
 
-    List<MechantMenuVO> findByMenuIds(List<String> menuIds);
+	List<MenuVO> findBySellerId(String sellerId);
 
-    int minusRestNum(String menuId);
+	int minusRestNum(String menuId);
 
-    int plusTasteNum(String menuId);
+	int plusTasteNum(String menuId);
 
-    void resetRestNumBySellerId(String sellerId, int restNum);
+	void resetRestNumBySellerId(String sellerId, int restNum);
 
-    void resetRestNumByMenuId(String menuId, int restNum);
+	void resetRestNumByMenuId(String menuId, int restNum);
 
-    List<MenuVO> findBySellerIdAndType(String sellerId, String type);
+	List<MenuVO> findBySellerIdAndType(String sellerId, String type);
 
-    MenuVO findOne(Query query);
+	MenuVO findOne(Query query);
 
-    void update(MenuVO menu, Map<String, Object> map);
+	void update(MenuVO menu, Map<String, Object> map);
 
-    int conversion(String menuId, boolean sale);
+	int conversion(String menuId, boolean sale);
 
-    void conversionStock(List<MenuVO> menus);
+	void conversionStock(List<MenuVO> menus);
 
-    void conversionRestNum(List<MenuVO> menus);
+	void conversionRestNum(List<MenuVO> menus);
 
+	@Override
+	default Class<MenuEntity> getEntityClass() {
+		return MenuEntity.class;
+	}
 
-    @Override
-    default Class<MenuEntity> getEntityClass() {
-        return MenuEntity.class;
-    }
+	@Override
+	default Class<MenuVO> getVOClass() {
+		return MenuVO.class;
+	}
 
-    @Override
-    default Class<MenuVO> getVOClass() {
-        return MenuVO.class;
-    }
+	default Query buildQuery(String sellerId, String menuId, boolean isValid) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0)
+				.and(IS_SALE).is(true);
 
-    default Query buildQuery(String sellerId, String menuId, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0)
-                .and(IS_SALE).is(true);
+		if (sellerId != null)
+			criteria.and(SELLER_ID).is(sellerId);
+		else if (menuId != null)
+			criteria.and(ID).is(menuId);
 
-        if (sellerId != null)
-            criteria.and(SELLER_ID).is(sellerId);
-        else if (menuId != null)
-            criteria.and(ID).is(menuId);
+		return Query.query(criteria);
+	}
 
-        return Query.query(criteria);
-    }
+	default Query buildQuery(List<String> menuIds, boolean isValid) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
-    default Query buildQuery(List<String> menuIds, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
+		if (menuIds != null && menuIds.size() > 0)
+			criteria.and(ID).in(menuIds);
 
-        if (menuIds != null && menuIds.size() > 0)
-            criteria.and(ID).in(menuIds);
+		return Query.query(criteria);
+	}
 
-        return Query.query(criteria);
-    }
+	default Query buildMerchantQuery(String sellerId, String type,
+			boolean isValid) {
+		Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
-    default Query buildMerchantQuery(String sellerId, String type, boolean isValid) {
-        Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
+		if (sellerId != null) {
+			criteria.and(SELLER_ID).is(sellerId);
+		}
 
-        if (sellerId != null) {
-            criteria.and(SELLER_ID).is(sellerId);
-        }
+		if (type != null) {
+			criteria.and(TYPE).is(type);
+		}
 
-        if (type != null) {
-            criteria.and(TYPE).is(type);
-        }
+		return Query.query(criteria);
+	}
 
-        return Query.query(criteria);
-    }
+	default Update buildUpdate(Map<String, Object> map) {
+		Update update = Update.update("u_date", new Date());
+		for (String key : map.keySet()) {
+			update.set(key, map.get(key));
+		}
+		return update;
+	}
 
-    default Update buildUpdate(Map<String, Object> map) {
-        Update update = Update.update("u_date", new Date());
-        for (String key : map.keySet()) {
-            update.set(key, map.get(key));
-        }
-        return update;
-    }
+	List<MechantMenuVO> findByMenuIds(List<String> menuIds, String OrderNo);
+
+	List<MechantMenuVO> findByMenuIds(List<String> menuIds);
 
 }

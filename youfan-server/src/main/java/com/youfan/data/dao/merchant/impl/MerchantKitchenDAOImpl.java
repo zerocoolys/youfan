@@ -2,6 +2,7 @@ package com.youfan.data.dao.merchant.impl;
 
 import com.mongodb.DBCursor;
 import com.youfan.commons.Constants;
+import com.youfan.commons.Pager;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.merchant.MerchantKitchenMyHobbyVO;
@@ -54,6 +55,11 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     public void update(MerchantKitchenInfoVO merchantKitchenInfo) {
 //        Update
 //        mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())),);
+    }
+
+    @Override
+    public Pager findPager(Pagination p) {
+        return null;
     }
 
     @Override

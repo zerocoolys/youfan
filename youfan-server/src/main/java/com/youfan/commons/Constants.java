@@ -1,7 +1,6 @@
 package com.youfan.commons;
 
-
-/**
+	/**
  * Created on 2015-08-18.
  *
  * @author dolphineor
@@ -42,9 +41,11 @@ public interface Constants {
     String STAPLE = "staple";
     String FEATURES = "features";
 
-    /*评论*/
+    /*评论 XiaoWei*/
     String COMMENT_TIME = "ct";
     String COMMENT_USER = "cu";
+    String COMMENT_MERCHANT_ID="mid";
+    String COMMENT_IS_HIDE_NAME="ihn";
 
 
     /*
@@ -61,7 +62,10 @@ public interface Constants {
     String COLLECTION_COMMENT = "comment";
     String COLLECTION_MESSAGE = "messages";
     String COLLECTION_COUPONS = "coupons";
-
+    //支付渠道
+    String COLLECTION_PAY_WAY = "pay_way";
+    //我的银行卡
+    String COLLECTION_CARD = "card";
 
     /*  我的消息 subDong  */
     // messages 查询字段
@@ -92,4 +96,36 @@ public interface Constants {
 
     /* 店铺 subDong*/
     String MERCHANTKITCHEN_NAME = "kitchenName";
+
+    /*
+     * 魏民升---银行卡---
+     */
+    String BANK_NAME = "bname";
+    String AREA_NAME = "aname";
+    String CARD_NAME = "cname";
+    String CARD_NUMBER = "cnum";
+    String IDENTITY_NAME = "iname";
+    String IDENTITY_NUMBER = "inum";
+    public interface ACTIVE_TYPE{
+    	/**
+    	 * 用户注册时参加活动类型
+    	 */
+    	Integer CLIENT_REGISTER = 1;
+    	/**
+    	 * 用户登录时参加活动类型
+    	 */
+    	Integer CLIENT_LOGIN=2;
+    	/**
+    	 *  用户下订单之前参加活动类型
+    	 */
+    	Integer CLIENT_BEFORE_ORDER=3;
+    	/**
+    	 * 用户下订单之后参加活动类型
+    	 */
+    	Integer CLIENT_AFTER_ORDER=4;
+    	/**
+    	 * 其他类型活动
+    	 */
+    	Integer CLIENT_OTHER=5;
+    }
 }
