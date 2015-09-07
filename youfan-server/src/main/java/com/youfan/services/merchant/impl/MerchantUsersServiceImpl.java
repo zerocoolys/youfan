@@ -1,5 +1,6 @@
 package com.youfan.services.merchant.impl;
 
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.merchant.*;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
@@ -137,21 +138,27 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         List<MerchantKitchenInfoVO> merchantKitchenInfoVOs = new ArrayList<>(merchantKitchenDAO.conditionalSearch(merchantName));
         return merchantKitchenInfoVOs;
     }
-	@Override
-    public Map MerchantKitchenInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
+
+    @Override
+    public CollectionVO merchantKitchenInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
         Long count = merchantKitchenDAO.getPageTotal(status);
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", count);
-        map.put("pageData", merchantKitchenDAO.pageListByStatus(page, pageSize, query(where("status").is(status))));
-        return map;
+        CollectionVO collectionVO = new CollectionVO();
+        collectionVO.setPageSize(pageSize);
+        collectionVO.setRecordCnt(Integer.parseInt(count.toString()));
+        collectionVO.setPageCnt(Integer.parseInt(count.toString()) % pageSize > 0 ? Integer.parseInt(count.toString()) / pageSize + 1 : Integer.parseInt(count.toString()) / pageSize);
+
+        collectionVO.addAll(merchantKitchenDAO.pageListByStatus(page, pageSize, query(where("status").is(status))));
+        return collectionVO;
     }
 
     @Override
-    public Map MerchantUserInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
+    public CollectionVO merchantUserInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
         Long count = merchantUserDao.getPageTotal(status);
-        Map<String, Object> map = new HashMap<>();
-        map.put("total", count);
-        map.put("pageData", merchantUserDao.pageListByStatus(page, pageSize, query(where("status").is(status))));
-        return map;
+        CollectionVO collectionVO = new CollectionVO();
+        collectionVO.setPageSize(pageSize);
+        collectionVO.setRecordCnt(Integer.parseInt(count.toString()));
+        collectionVO.setPageCnt(Integer.parseInt(count.toString()) % pageSize > 0 ? Integer.parseInt(count.toString()) / pageSize + 1 : Integer.parseInt(count.toString()) / pageSize);
+        collectionVO.addAll(merchantUserDao.pageListByStatus(page, pageSize, query(where("status").is(status))));
+        return collectionVO;
     }
 }
