@@ -92,7 +92,7 @@
             //$location.path("overview")
             $http.post(
                 "http://192.168.1.110:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                    if (data.code == "200") {
+                    if (data.code == "0") {
                         $rootScope.user = {
                             id: data.payload.id
                         };

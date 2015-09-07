@@ -17,7 +17,7 @@
         };
         $http.post(
             "http://127.0.0.1:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                if (data.code == "200") {
+                if (data.code == "0") {
                     if (data.payload != null) {
                         $scope.story = {
                             title:data.payload.kitchenStoryName,
@@ -43,7 +43,7 @@
             $http.post(
                 "http://127.0.0.1:8080/user/saveMerchantKitchenStoryInfo", JSON.stringify(story_template), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     var options;
-                    if (data.code == "200") {
+                    if (data.code == "0") {
                         if(data.payload == null||data.payload==""){
                             options = {
                                 "title": "系统繁忙！",

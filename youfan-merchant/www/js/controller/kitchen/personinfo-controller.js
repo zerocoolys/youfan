@@ -54,7 +54,7 @@
         };
         $http.post(
             "http://192.168.1.110:8080/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                if (data.code == "200") {
+                if (data.code == "0") {
                     if (data.payload == null) {
                         $rootScope.Province = "";
                         $rootScope.city = "";
@@ -136,7 +136,7 @@
             $http.post(
                 "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     var options;
-                    if (data.code == "200" && data.payload != null) {
+                    if (data.code == "0" && data.payload != null) {
                         options = {
                             "title": "系统繁忙！",
                             "buttons": [{
