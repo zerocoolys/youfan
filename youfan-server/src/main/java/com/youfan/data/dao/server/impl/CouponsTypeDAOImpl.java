@@ -4,10 +4,13 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.mongodb.WriteResult;
 import com.youfan.commons.Pager;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.server.CouponsTypeVO;
@@ -42,7 +45,6 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 
 	@Override
 	public void insert(CouponsTypeVO couponsTypeVO) {
-		// TODO Auto-generated method stub
 		 mongoTemplate.insert(convertToEntity(couponsTypeVO));
 	}
 
@@ -51,42 +53,62 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 	 */
 	@Override
 	public Long count(CouponsParams couponsParams) {
-		Query query= new Query();
+		Query squery= new Query();
 		if(couponsParams.getPort()!=null){
-			query.addCriteria(where(COUPONS_TYPE_PORT).is(couponsParams.getPort()));
+			squery.addCriteria(where(COUPONS_TYPE_PORT).is(couponsParams.getPort()));
 		}
 		if(couponsParams.getTimeLine()!=null){
-			query.addCriteria(where(COUPONS_TYPE_TIMELINE).is(couponsParams.getTimeLine()));
+			squery.addCriteria(where(COUPONS_TYPE_TIMELINE).is(couponsParams.getTimeLine()));
 		}
 		if(couponsParams.getKitchenId()!=null){
-			query.addCriteria(where(COUPONS_TYPE_KITCHEN_ID).is(couponsParams.getKitchenId()));
+			squery.addCriteria(where(COUPONS_TYPE_KITCHEN_ID).is(couponsParams.getKitchenId()));
 		}
 		if(couponsParams.getStatus()!=null){
-			query.addCriteria(where(COUPONS_TYPE_STATUS).is(couponsParams.getStatus()));
+			squery.addCriteria(where(COUPONS_TYPE_STATUS).is(couponsParams.getStatus()));
 		}
-		return mongoTemplate.count(query, getEntityClass());
+		return mongoTemplate.count(squery, getEntityClass());
 	}
 
 	@Override
 	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams) {
-		Query query= new Query();
+		Query squery= new Query();
 		if(couponsParams.getPort()!=null){
-			query.addCriteria(where(COUPONS_TYPE_PORT).is(couponsParams.getPort()));
+			squery.addCriteria(where(COUPONS_TYPE_PORT).is(couponsParams.getPort()));
 		}
 		if(couponsParams.getTimeLine()!=null){
-			query.addCriteria(where(COUPONS_TYPE_TIMELINE).is(couponsParams.getTimeLine()));
+			squery.addCriteria(where(COUPONS_TYPE_TIMELINE).is(couponsParams.getTimeLine()));
 		}
 		if(couponsParams.getKitchenId()!=null){
-			query.addCriteria(where(COUPONS_TYPE_KITCHEN_ID).is(couponsParams.getKitchenId()));
+			squery.addCriteria(where(COUPONS_TYPE_KITCHEN_ID).is(couponsParams.getKitchenId()));
 		}
 		if(couponsParams.getStatus()!=null){
-			query.addCriteria(where(COUPONS_TYPE_STATUS).is(couponsParams.getStatus()));
+			squery.addCriteria(where(COUPONS_TYPE_STATUS).is(couponsParams.getStatus()));
 		}
 //		
-		query.skip((couponsParams.getPageNo() - 1) * couponsParams.getPageSize());
-		query.limit(couponsParams.getPageSize());
+		squery.skip((couponsParams.getPageNo() - 1) * couponsParams.getPageSize());
+		squery.limit(couponsParams.getPageSize());
 		
-		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
+		return convertToVOList(mongoTemplate.find(squery, getEntityClass()));
+	}
+
+//	@Override
+//	public Class<CouponsTypeEntity> getEntityClass() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public Class<CouponsTypeVO> getVOClass() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+	@Override
+	public int updateById(String id, Map<String, Object> updateMap) {
+		Update update = buildUpdate(updateMap);
+		WriteResult re = mongoTemplate.updateFirst(query(where("id").is(id)), update, getEntityClass());
+		System.out.println(re.toString());
+		return re.getN();
 	}
 
 }

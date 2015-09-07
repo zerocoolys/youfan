@@ -24,13 +24,14 @@ public class CouponsTypeEntity {
 	private String id;
 
 	/**
-	 * 优惠券针对端 2 客户端 3商家端
-	 */
-	private Integer port;
-	/**
 	 * 标题
 	 */
 	private String title;
+	/**
+	 * 优惠券针对端 2 客户端 3商家端
+	 */
+	private Integer port;
+	
 	/**
 	 * 优惠券时效
 	 */

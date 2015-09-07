@@ -47,21 +47,21 @@ public class ActiveEntity {
 	 * 是否为唯一参加活动 即和别的活动一起参加
 	 */
 	@Field("ifuique")
-	private boolean ifUnique;
+	private boolean ifUnique=false;
 
 	/**
 	 * 是否可以同时使用优惠券
 	 */
 	@Field("iuc")
-	private boolean ifUseCoupons;
+	private boolean ifUseCoupons=true;
 
 	/**
 	 * 是否为全场
 	 */
 	@Field("ifall")
-	private boolean ifAll;
+	private boolean ifAll=true;
 
-	@Field("at")
+//	@Field("ats")
 	private Integer allowTimes;
 
 	/**
@@ -277,12 +277,12 @@ public class ActiveEntity {
 		this.title = title;
 	}
 
-	public Integer isAllowTimes() {
-		return allowTimes;
-	}
-
 	public void setAllowTimes(Integer allowTimes) {
 		this.allowTimes = allowTimes;
+	}
+
+	public Integer getAllowTimes() {
+		return allowTimes;
 	}
 
 }
