@@ -84,13 +84,14 @@ public class PlatFormBusinessController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/test")
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
-//		return activeSupportService.joinActive("client_register", userDAO.getUserByTel("13980041343"));
+		// return activeSupportService.joinActive("client_register",
+		// userDAO.getUserByTel("13980041343"));
 		UserVO user = userDAO.getUserByTel("13980041343");
 		user.setSex("男");
 		OrderVO ov = new OrderVO();
-		ov.setPrice(1000);
-		
-		return activeSupportService.joinActive("client_order_8折", user,ov);
+		ov.setOrgPrice(1000);
+
+		return activeSupportService.joinActive("client_order_8折", user, ov);
 	}
 
 	/**
@@ -127,7 +128,6 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/getOrder")
 	public Response getOrders(HttpServletRequest request, HttpServletResponse response) {
 		OrderParams op = new OrderParams();
-		boolean ifPager = false;
 		Response res = null;
 		try {
 
@@ -144,26 +144,52 @@ public class PlatFormBusinessController {
 				op.setOrderStatus(Integer.valueOf(request.getParameter("orderStatus")));
 			}
 
+			int recordCnt = orderService.count(op);
 			if (request.getParameter("pageNo") != null && request.getParameter("pageSize") != null
 					&& request.getParameter("orderBy") != null) {
 				op.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
 				op.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
 				op.setOrderBy(request.getParameter("orderBy"));
-				ifPager = true;
-			}
-			int recordCnt = orderService.count(op);
-			if (ifPager) {
-				CollectionVO<OrderVO> payload = new CollectionVO<>(new ArrayList<OrderVO>(), recordCnt,
-						op.getPageSize() < 1 ? recordCnt : op.getPageSize());
-				payload = orderService.getOrdersByParams(op);
-				res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
 			} else {
-				// orderService.ge(op, p)
+				op.setPageSize(recordCnt);
+				op.setPageNo(1);
+				op.setOrderBy("ID");
 			}
+			// System.out.println("总记录条数："+recordCnt+" 当前获取"+op.getStart()+" 到
+			// "+op.getEnd());
+			List<OrderVO> list = orderService.getOrdersByParams(op);
+			CollectionVO<OrderVO> payload = new CollectionVO<OrderVO>(list, recordCnt, op.getPageSize());
+			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			res = Responses.FAILED().setMsg("数据获取异常");
+		}
+		return res;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateOrderStatus/{id}/{orderStatus}")
+	public Response updateOrderStatus(@PathVariable Long id, @PathVariable int orderStatus, HttpServletRequest request,
+			HttpServletResponse response) {
+		Response res = null;
+		try {
+			OrderVO order = orderService.findOrderById(id);
+			if (order == null) {
+				res = Responses.SUCCESS().setCode(0).setMsg("订单更新失败 订单不存在");
+			}
+			OrderParams op = new OrderParams();
+			op.setOrderNo(order.getOrderNo());
+			op.setOrderStatus(orderStatus);
+			int r = orderService.updateOrderStatus(op);
+			if(r==1){
+				res = Responses.SUCCESS().setPayload(null).setCode(1).setMsg("订单更新成功");
+			}else{
+				res = Responses.SUCCESS().setPayload(null).setCode(0).setMsg("订单未更新");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.SUCCESS().setCode(0).setMsg("订单更新失败");
 		}
 		return res;
 	}
@@ -250,10 +276,10 @@ public class PlatFormBusinessController {
 				// activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
 
 				// System.out.println(request.getParameter("userCondition"));
-				activeVo.setUserConditions(request.getParameter("userCondition")==null?null:
-						JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
-				activeVo.setOrderConditions(request.getParameter("orderCondition")==null?null:
-						JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
+				activeVo.setUserConditions(request.getParameter("userCondition") == null ? null
+						: JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
+				activeVo.setOrderConditions(request.getParameter("orderCondition") == null ? null
+						: JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
 				activeVo.setAllowTimes(0);
 				activeVo.setDesc(request.getParameter("desc"));
 				activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));

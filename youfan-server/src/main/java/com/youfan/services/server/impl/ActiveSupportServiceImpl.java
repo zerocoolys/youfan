@@ -165,9 +165,9 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 							getAttributeValue(orderVo, cce.getCondition().getAttr()),
 							cce.getCondition().getValue())) {
 						if (cce.getType().equals("-")) {// 减免
-							orderVo.setPrice(orderVo.getPrice() - Double.valueOf(cce.getValue()));
+							orderVo.setDiscountPrice(orderVo.getOrgPrice() - Double.valueOf(cce.getValue()));
 						} else if (cce.getType().equals("*")) {// 折扣
-							orderVo.setPrice(orderVo.getPrice() * Double.valueOf(cce.getValue()));
+							orderVo.setDiscountPrice(orderVo.getOrgPrice() * Double.valueOf(cce.getValue()));
 						}
 						break;
 					}

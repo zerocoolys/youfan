@@ -69,7 +69,8 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public OrderVO findOrderById(Long id) {
-        return sqlSession.selectOne("findOrderById", id);
+    	OrderEntity entity = sqlSession.selectOne("findOrderById", id);
+        return convertToVO(entity,OrderEntity.class,OrderVO.class);
     }
 
     @Override
@@ -194,8 +195,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public int updateOrderStatus(OrderParams order) {
-
-
         return sqlSession.update("updateOrder", order);
     }
 

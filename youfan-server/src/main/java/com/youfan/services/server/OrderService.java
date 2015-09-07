@@ -27,7 +27,7 @@ public interface OrderService {
 
     OrderVO createOrder(OrderVO order);
 
-    OrderVO updateOrder(OrderVO order);
+    void updateOrder(OrderVO order);
 
     OrderVO cancelOrder(OrderVO order);
 
@@ -43,7 +43,7 @@ public interface OrderService {
 
     int countAll();
 
-    CollectionVO<OrderVO> getOrdersByParams(OrderParams op);
+    List<OrderVO> getOrdersByParams(OrderParams op);
 
     int updateOrderStatus(OrderParams order);
 
