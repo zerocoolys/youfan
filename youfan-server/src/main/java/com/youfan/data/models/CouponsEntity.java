@@ -23,6 +23,12 @@ public class CouponsEntity {
 	private String userId;
 
 	/**
+	 * 优惠券名称
+	 */
+	
+	private String title;
+	
+	/**
 	 * 是否全场使用
 	 */
 	@Field("ifall")
@@ -111,6 +117,12 @@ public class CouponsEntity {
 	}
 	public void setUpdateTime(Long updateTime) {
 		this.updateTime = updateTime;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

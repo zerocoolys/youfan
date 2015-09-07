@@ -36,8 +36,15 @@ public class MerchantKitchenInfoEntity {
     private String startTime; //开店时间
     private String endTime;   //关店时间
     private String desc;    //厨房备注
-    private String lat; //经度
-    private String lng; //纬度
+    private List<String> location = new ArrayList<>();  //经纬度
+
+    public List<String> getLocation() {
+        return location;
+    }
+
+    public void setLocation(List<String> location) {
+        this.location = location;
+    }
 
     public boolean isDelivery() {
         return isDelivery;
@@ -61,22 +68,6 @@ public class MerchantKitchenInfoEntity {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLng() {
-        return lng;
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng;
     }
 
     public Integer getStatus() {

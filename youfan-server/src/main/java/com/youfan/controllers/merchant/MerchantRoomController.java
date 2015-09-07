@@ -62,4 +62,10 @@ public class MerchantRoomController implements ResponseConstants {
         return Responses.SUCCESS().setPayload(merchantUser);
     }
 
+    @RequestMapping(value = "/getKitchenByName/{kitName}", method = RequestMethod.GET)
+    public Response getKitchenByName(@PathVariable String kitName) {
+        List<MerchantKitchenInfoVO> merchantKitchenInfoVOs = merchantUsersService.conditionalSearch(kitName);
+
+        return Responses.SUCCESS().setPayload(merchantKitchenInfoVOs);
+    }
 }

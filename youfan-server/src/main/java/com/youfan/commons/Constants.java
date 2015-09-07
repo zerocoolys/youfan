@@ -1,6 +1,6 @@
 package com.youfan.commons;
 
-/**
+	/**
  * Created on 2015-08-18.
  *
  * @author dolphineor
@@ -93,7 +93,10 @@ public interface Constants {
     String COUPONS_TYPE_TIMELINE = "timeLine";
     String COUPONS_TYPE_KITCHEN_ID= "kitchenId";
     String COUPONS_TYPE_STATUS = "status";
-    
+
+    /* 店铺 subDong*/
+    String MERCHANTKITCHEN_NAME = "kitchenName";
+
     /*
      * 魏民升---银行卡---
      */

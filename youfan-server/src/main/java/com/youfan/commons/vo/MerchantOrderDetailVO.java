@@ -17,13 +17,19 @@ public class MerchantOrderDetailVO {
 	private Timestamp orderTime;
 
 	private String repastAddress;
-	private String paymentMethod;
+	private String paymentWay;
 	private String buyerName;
 	private String phone;
 	/**
 	 * 菜单ID集合逗号分隔
 	 */
 	private String dishesId;
+
+	/**
+	 * 合计
+	 */
+	private double total;
+
 	/**
 	 * 菜单集合
 	 */
@@ -106,12 +112,12 @@ public class MerchantOrderDetailVO {
 		return menuIds;
 	}
 
-	public String getPaymentMethod() {
-		return paymentMethod;
+	public String getPaymentWay() {
+		return paymentWay;
 	}
 
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setPaymentWay(String paymentWay) {
+		this.paymentWay = paymentWay;
 	}
 
 	public String getBuyerName() {
@@ -136,6 +142,22 @@ public class MerchantOrderDetailVO {
 
 	public void setOrderTime(Timestamp orderTime) {
 		this.orderTime = orderTime;
+	}
+
+	public double getTotal() {
+
+		double sum = 0;
+		if (dishes != null) {
+			for (MechantMenuVO dish : dishes) {
+				sum = dish.getDishCount() * dish.getPrice();
+			}
+		}
+
+		return sum;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
 	}
 
 }

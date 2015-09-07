@@ -5,8 +5,6 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
 
-import com.youfan.commons.Pager;
-import com.youfan.commons.Pagination;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
@@ -48,10 +46,6 @@ public class PayWayDAOImpl implements PayWayDAO{
 		
 	}
 
-	@Override
-	public Pager findPager(Pagination p) {
-		return null;
-	}
 
 	@Override
 	public Class<PayWayEntity> getEntityClass() {

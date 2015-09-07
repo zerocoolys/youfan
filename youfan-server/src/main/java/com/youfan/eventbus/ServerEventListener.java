@@ -1,6 +1,7 @@
 package com.youfan.eventbus;
 
 import com.google.common.eventbus.Subscribe;
+import com.youfan.eventbus.events.ActiveEvent;
 import com.youfan.eventbus.events.CouponEvent;
 /**
  * 
@@ -15,6 +16,10 @@ public class ServerEventListener {
 		couponEvent.domain();
 	}
 	
+	@Subscribe
+	public void postActive(ActiveEvent activeEvent){
+		activeEvent.domain();
+	}
 
 	
 }

@@ -1,7 +1,6 @@
 package com.youfan.commons.vo.server;
 
 import java.util.List;
-import java.util.Map;
 
 import com.youfan.data.models.CouponsContentEntity;
 
@@ -14,12 +13,15 @@ public class CouponsTypeVO {
 	private Integer port;
 
 	/**
+	 * 标题
+	 */
+	private String title;
+	/**
 	 * 优惠券时效
 	 */
 	private Integer timeLine;
 
-	private String kitchenId;
-	private Integer status;
+	
 	/**
 	 * 是否为全场使用
 	 */
@@ -29,13 +31,13 @@ public class CouponsTypeVO {
 	 * 优惠券内容
 	 */
 	private List<CouponsContentEntity> content;
-//	private JsonNode content;
 
 	/**
 	 * 优惠券描述
 	 */
 	private String desc;
 
+	private Integer status;
 	public String getId() {
 		return id;
 	}
@@ -61,14 +63,6 @@ public class CouponsTypeVO {
 		this.timeLine = timeLine;
 	}
 
-	public String getKitchenId() {
-		return kitchenId;
-	}
-
-	public void setKitchenId(String kitchenId) {
-		this.kitchenId = kitchenId;
-	}
-
 	public List<CouponsContentEntity> getContent() {
 		return content;
 	}
@@ -77,13 +71,6 @@ public class CouponsTypeVO {
 		this.content = content;
 	}
 
-//	public JsonNode getContent() {
-//		return content;
-//	}
-//
-//	public void setContent(JsonNode content) {
-//		this.content = content;
-//	}
 	public String getDesc() {
 		return desc;
 	}
@@ -119,11 +106,12 @@ public class CouponsTypeVO {
 		this.ifAll = ifAll;
 	}
 
-	public static CouponsContentEntity convertToContent(Map<String,Object> cMap){
-		CouponsContentEntity cce = new CouponsContentEntity();
-		cce.setType(cMap.get("type").toString());
-		cce.setValue(Double.valueOf(cMap.get("value").toString()));
-		cce.setCondition(cMap.get("condition").toString());
-		return cce ;
+	public String getTitle() {
+		return title;
 	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 }
