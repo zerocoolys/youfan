@@ -1,5 +1,6 @@
 package com.youfan.services.merchant;
 
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.merchant.*;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
@@ -78,7 +79,7 @@ public interface MerchantUsersService {
      * @param status   　状态：0为未审核，1为审核，-1为删除
      * @return total为数据总条数，pageData每一页的数据
      */
-    Map MerchantKitchenInfoPageListByStatus(Integer page, Integer pageSize, Integer status);
+    CollectionVO merchantKitchenInfoPageListByStatus(Integer page, Integer pageSize, Integer status);
 
     /**
      * 根据商家用户信息的status来查询所有信息并分页
@@ -88,7 +89,7 @@ public interface MerchantUsersService {
      * @param status   　状态：0为未审核，1为审核，-1为删除
      * @return total为数据总条数，pageData每一页的数据
      */
-    Map MerchantUserInfoPageListByStatus(Integer page, Integer pageSize, Integer status);
+    CollectionVO merchantUserInfoPageListByStatus(Integer page, Integer pageSize, Integer status);
 
     public List<MerchantUserEntity> getMerchantByStatus(Integer status) throws UserException;
 
