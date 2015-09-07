@@ -1,5 +1,7 @@
 package com.youfan.data.dao.merchant;
 
+import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.CommentEntity;
@@ -17,7 +19,7 @@ public interface CommentDAO extends MongoBaseDAO<CommentEntity, CommentVO, Long>
 
     CommentVO findComment(Integer orderId);
 
-
+    CollectionVO<CommentVO> findPager(Pagination p);
 
     default long getGenerator(long no) {
 

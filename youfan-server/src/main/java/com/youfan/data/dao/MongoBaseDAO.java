@@ -1,8 +1,8 @@
 package com.youfan.data.dao;
 
 import com.youfan.commons.Constants;
-import com.youfan.commons.Pager;
 import com.youfan.commons.Pagination;
+import com.youfan.data.support.IdGenerator;
 import com.youfan.system.mongo.MongoPool;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Update;
@@ -31,7 +31,6 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
     void update(T t);
 
-    Pager findPager(Pagination p);
 
     Class<E> getEntityClass();
 

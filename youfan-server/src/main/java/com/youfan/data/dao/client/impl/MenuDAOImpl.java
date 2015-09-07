@@ -1,7 +1,5 @@
 package com.youfan.data.dao.client.impl;
 
-import com.youfan.commons.Pager;
-import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
@@ -241,9 +239,5 @@ public class MenuDAOImpl implements MenuDAO {
 		mongoTemplate.insert(convertToEntity(menu));
 	}
 
-	@Override
-	public Pager findPager(Pagination p) {
-		return null;
-	}
 
 }

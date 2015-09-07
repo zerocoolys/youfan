@@ -4,7 +4,6 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -38,10 +37,6 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 		
 	}
 
-	@Override
-	public Pager findPager(Pagination p) {
-		return null;
-	}
 
 	@Override
 	public void insert(CouponsTypeVO couponsTypeVO) {

@@ -1,11 +1,8 @@
 package com.youfan.data.dao.client.impl;
 
-import com.youfan.commons.Pager;
-import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.client.UserVO;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.ClientUserEntity;
-import com.youfan.data.support.IdGenerator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +10,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * Created by icepros on 15-8-25.
@@ -51,10 +45,6 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
-	@Override
-	public Pager findPager(Pagination p) {
-		return null;
-	}
 
 	@Override
 	public UserVO getUserByTelAndPwd(String tel, String pwd) {

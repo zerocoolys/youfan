@@ -1,8 +1,8 @@
 package com.youfan.data.dao.merchant.impl;
 
 import com.youfan.commons.Constants;
-import com.youfan.commons.Pager;
 import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.data.dao.merchant.CommentDAO;
 import com.youfan.data.models.CommentEntity;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by xiaowei on 15-8-31.
@@ -48,7 +47,7 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
-    public Pager findPager(Pagination p) {
+    public CollectionVO<CommentVO> findPager(Pagination p) {
         Query query = new Query();
         Criteria c = Criteria.where(Constants.DATA_STATUS).is(0);
         if (p.getParams() != null && p.getParams().size() > 0) {
@@ -56,8 +55,7 @@ public class CommentDAOImpl implements CommentDAO {
         }
         query.addCriteria(c);
         long totalCount = this.mongoTemplate.count(query, this.getEntityClass());
-        Pager pager = new Pager(p.getPageNo(), p.getPageSize(), totalCount);
-        query.skip(pager.getFirstResult());
+        query.skip((p.getPageNo() - 1) * p.getPageSize());
         query.limit(p.getPageSize());
         if (!p.getAsc().equals("") && p.getSortBy() != null) {
             Sort sort = new Sort(new Sort.Order(p.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, p.getSortBy()));
@@ -65,8 +63,8 @@ public class CommentDAOImpl implements CommentDAO {
         }
         List<CommentEntity> entities = this.mongoTemplate.find(query, getEntityClass());
         List<CommentVO> rows = convertToVOList(entities);
-        pager.setRows(rows);
-        return pager;
+        CollectionVO<CommentVO> collectionVO = new CollectionVO<>(rows, (int) totalCount, p.getPageSize());
+        return collectionVO;
     }
 
     @Override

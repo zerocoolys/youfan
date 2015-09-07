@@ -3,8 +3,6 @@ package com.youfan.data.dao.server.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.youfan.commons.Pager;
-import com.youfan.commons.Pagination;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -44,10 +42,6 @@ public class ActiveDAOImpl implements ActiveDAO{
 		
 	}
 
-	@Override
-	public Pager findPager(Pagination p) {
-		return null;
-	}
 
 	@Override
 	public void insert(CouponsTypeVO couponsTypeVO) {
