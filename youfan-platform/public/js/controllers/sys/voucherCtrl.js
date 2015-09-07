@@ -3,8 +3,6 @@
  */
 define(["./module"], function (ctrs) {
     ctrs.controller('voucherCtrl',function ($scope, $rootScope, $q,$state,$http,$location,ngDialog) {
-        console.log("voucherCtrl")
-
         //分页信息
         $rootScope.pageNo = 0;
         $rootScope.pageSize = 20;
@@ -15,7 +13,6 @@ define(["./module"], function (ctrs) {
         //筛选条件
         $scope.port = null;
         $scope.timeLine = null;
-        $scope.kitchenId = "";
         $scope.status = null;
 
         $scope.portDesc = {
@@ -34,36 +31,36 @@ define(["./module"], function (ctrs) {
         $rootScope.gridTitleArray = [
             {name: '客户端/商家端', field: "portDes",maxWidth: 150},
             {name: '时效', field: "timeLineDes",maxWidth: 60},
-            {name: '厨房编号', field: "kitchenId",maxWidth: 100},
-            {name: '优惠券内容', field: "content", maxWidth: 400},
+            //{name: '厨房编号', field: "kitchenId",maxWidth: 100},
+            {name: '优惠券内容', field: "content", maxWidth: 500},
             {name: '创建时间', field: "createTimeDes",maxWidth: 150},
-            {name: '描述', field: "desc",maxWidth: 300},
-            {name: '状态', field: "statusDes",maxWidth: 80},
+            {name: '描述', field: "desc",maxWidth: 400},
+            //{name: '状态', field: "statusDes",maxWidth: 80},
             {
                 name: "操作",
                 displayName: "操作",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.ckeckMerchant(row.entity)' >开启</a></div>",
+                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.voucheOper(row.entity)' >{{row.entity.status == 1 ? '停用':'开启' }}</a></div>",
                 maxWidth: 80,
                 enableSorting: false
             },
         ];
-        $scope.ckeckMerchant = function (entity) {
-            $scope.choosedStatus = entity.status;
-            var dialog = ngDialog.open({
-                template: './merchant/dialog/checkmerchantdialog.html',
+        $scope.voucheOper = function (entity) {
+            $scope.dialog_msg = "确认"+(entity.status == 1 ? '停用':'开启' )+" 优惠券 "+entity.title+"?";
+            $scope.dialog = ngDialog.open({
+                template: './sys/dialog/sys_msg_dialog.html',
                 className: 'ngdialog-theme-default admin_ngdialog',
                 scope: $scope
             });
-            $scope.radioChoosed = function (status) {
-                $scope.choosedStatus = status;
-            }
-            $scope.submitCheck = function () {
+            $scope.dialogSure = function (status) {
+                entity.status = entity.status == 1 ? 0 : 1;
                 $http({
                     method: 'GET',
-                    url: 'merchant/checkStatus?id=' + entity.id + '&status=' + $scope.choosedStatus
-                }).success(function (data, status) {
-                })
-                dialog.close();
+                    url: 'sys/updateCouponsTypeStatus/'+entity.id+"/"+entity.status
+                }).success(function (result, status) {
+                    entity.status == 1 ? '停用':'开启'
+                    entity.statusDes = $scope.statusDesc[entity.status + ""]
+                });
+                $scope.dialog.close();
             }
         }
         $scope.openAddVoucherDialog = function (entity) {
@@ -77,8 +74,18 @@ define(["./module"], function (ctrs) {
             }
         }
         //指定数据查询方法
+        //指定数据查询方法
         $rootScope.searchData = function () {
             $scope.search();
+        }
+        $rootScope.initSearchData = function(){
+            $rootScope.pageNo = 1;
+            $scope.search();
+        }
+        $scope.clareSearchConditon = function(){
+            $scope.port = null;
+            $scope.timeLine = null;
+            //$scope.status = null;
         }
         $scope.search = function () {
             var condition = "";
@@ -86,15 +93,12 @@ define(["./module"], function (ctrs) {
                 condition += "&port=" + $scope.port
             if ($scope.timeLine != null&&$scope.timeLine.trim() != null)
                 condition += "&timeLine=" + $scope.timeLine
-            if ($scope.kitchenId != null&&$scope.kitchenId.trim() != "")
-                condition += "&kitchenId=" + $scope.kitchenId
-            if ($scope.status != null &&$scope.status!="")
-                condition += "&status=" + $scope.status
+            //if ($scope.status != null &&$scope.status!="")
+            //    condition += "&status=" + $scope.status
             $http({
                 method: 'GET',
                 url: 'sys/getCouponsType?orderBy=createTime&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
             }).success(function (result, status) {
-                console.log(result)
                 $rootScope.gridOptions.data = result.payload.list;
                 $rootScope.pageCount = result.payload.pageCnt;
                 $rootScope.recordCount = result.payload.recordCnt;

@@ -6,8 +6,8 @@ define(["./module"], function (ctrs) {
         console.log("orderInfoCtrl")
 
         //分页信息
-        $rootScope.pageNo = 0;
-        $rootScope.pageSize = 20;
+        $rootScope.pageNo = 1;
+        $rootScope.pageSize = 10;
         $rootScope.recordCount = 0;
         $rootScope.pageCount = 0;
         $rootScope.pages = [];
@@ -38,30 +38,30 @@ define(["./module"], function (ctrs) {
             {
                 name: "操作",
                 displayName: "操作",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.ckeckMerchant(row.entity)' >审核</a></div>",
+                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.orderOper(row.entity)' >{{row.entity.orderStatus == 1 ? '取消 退款':'取消订单' }}</a></div>",
                 maxWidth: 80,
                 enableSorting: false
             },
         ];
-        $scope.ckeckMerchant = function (entity) {
-            //$scope.statusRadio = [false,false,false]
-            //$scope.statusRadio[entity.status] = true;
-            $scope.choosedStatus = entity.status;
-            var dialog = ngDialog.open({
-                template: './merchant/dialog/checkmerchantdialog.html',
+        $scope.orderOper = function (entity) {
+            $scope.dialog_msg = "确认 "+(entity.orderStatus == 1 ? '取消并退款':'取消订单' )+" 订单:"+entity.orderNo+"?";
+            $scope.choosedStatus = entity.orderStatus;
+            $scope.dialog = ngDialog.open({
+                template: './sys/dialog/sys_msg_dialog.html',
                 className: 'ngdialog-theme-default admin_ngdialog',
                 scope: $scope
             });
-            $scope.radioChoosed = function (status) {
-                $scope.choosedStatus = status;
-            }
-            $scope.submitCheck = function () {
+            $scope.dialogSure = function (status) {
+                entity.orderStatus = entity.orderStatus == 1 ? 0 : 1;
+                $scope.dialog.close();
                 $http({
                     method: 'GET',
-                    url: 'merchant/checkStatus?id=' + entity.id + '&status=' + $scope.choosedStatus
-                }).success(function (data, status) {
-                })
-                dialog.close();
+                    url: 'sys/updateOrderStatus/'+entity.id+"/"+entity.orderStatus
+                }).success(function (result, status) {
+                    if(result.code==1){
+                        entity.orderStatusDes =  $scope.statusDesc[entity.orderStatus + ""]
+                    }
+                });
             }
         }
 
@@ -69,6 +69,16 @@ define(["./module"], function (ctrs) {
         //指定数据查询方法
         $rootScope.searchData = function () {
             $scope.search();
+        }
+        $rootScope.initSearchData = function(){
+            $rootScope.pageNo = 1;
+            $scope.search();
+        }
+        $scope.clareSearchConditon = function(){
+            $scope.orderNo = "";
+            $scope.sellerId = "";
+            $scope.buyerId = "";
+            $scope.orderStatus = null;
         }
         $scope.search = function () {
             var condition = "";
@@ -82,9 +92,9 @@ define(["./module"], function (ctrs) {
                 condition += "&orderStatus=" + $scope.orderStatus
             $http({
                 method: 'GET',
-                url: 'sys/getOrder?orderBy=orderNo&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
+                url: 'sys/getOrder?orderBy=orderNo&pageNo=' + ($scope.pageNo-1) + '&pageSize=' + $scope.pageSize + "&" + condition
             }).success(function (result, status) {
-                console.log(result)
+
                 $rootScope.gridOptions.data = result.payload.list;
                 $rootScope.pageCount = result.payload.pageCnt;
                 $rootScope.recordCount = result.payload.recordCnt;
@@ -93,11 +103,10 @@ define(["./module"], function (ctrs) {
                     item.orderTimeDes = new Date(item.orderTime).format("yyyy-MM-dd hh:mm:ss")
                     item.repastTimeDes = new Date(item.repastTime).format("yyyy-MM-dd hh:mm:ss")
                 })
+                console.log($rootScope.gridOptions.data)
                 //设置分页样式
                 $rootScope.setPagerBar();
             })
         }
-
-
     })
 });

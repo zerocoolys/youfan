@@ -8,7 +8,7 @@ define(["./module"], function (ctrs) {
         $rootScope.gridOptions = {
             enableSorting: false,
             enableCellEditOnFocus: false,
-            paginationPageSize: 20,
+            paginationPageSize: 10,
             paginationPageSizes: [20, 50, 100],
             expandableRowHeight: 360,
             enableColumnMenus: false,
@@ -63,6 +63,12 @@ define(["./module"], function (ctrs) {
         $rootScope.prePage = function () {
             if ($rootScope.pageNo > 1) {
                 $rootScope.pageNo--;
+                $rootScope.searchData();
+            }
+        }
+        $rootScope. jumpPage = function(index){
+            if ($rootScope.pageNo != (index+1) ){
+                $rootScope.pageNo = index+1;
                 $rootScope.searchData();
             }
         }
@@ -135,7 +141,9 @@ define(["./module"], function (ctrs) {
             }
             return format;
         }
-
+        $rootScope.closeDialog = function (dialog){
+            console.log(dialog)
+        }
 
     })
 });

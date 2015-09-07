@@ -95,8 +95,8 @@ define(["./module"], function (ctrs) {
                 condition += "&userName=" + $scope.userName
             if ($scope.realName.trim() != "")
                 condition += "&realName=" + $scope.realName
-            if ($scope.status != null)
-                condition += "&status=" + $scope.status
+            //if ($scope.status != null)
+            //    condition += "&status=" + $scope.status
             $http({
                 method: 'GET',
                 url: 'merchant/getMerchant/' + $scope.pageNo + '/' + $scope.pageSize + "?" + condition

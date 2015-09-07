@@ -6,20 +6,20 @@
                 <input class="input-medium search-query" type="text" ng-model="userName"/>
                 <label>姓名:</label>
                 <input class="input-medium search-query" type="text" ng-model="realName"/>
-                <label>状态:</label>
-                <input class="input-medium search-query" type="text" ng-model="status"/>
+                <!--<label>状态:</label>-->
+                <!--<input class="input-medium search-query" type="text" ng-model="status"/>-->
                 <!-- Single button -->
-                <div class="btn-group dropdown">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Action <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a >Action</a></li>
-                        <li><a>Another action</a></li>
-                        <li><a >Something else here</a></li>
-                        <li><a >Separated link</a></li>
-                    </ul>
-                </div>
+                <!--<div class="btn-group dropdown">-->
+                    <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+                        <!--Action <span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a >Action</a></li>-->
+                        <!--<li><a>Another action</a></li>-->
+                        <!--<li><a >Something else here</a></li>-->
+                        <!--<li><a >Separated link</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
                 <button type="submit" class="btn btn-success" ng-click="searchData()">筛选</button>
             </form>
         </div>
@@ -32,20 +32,20 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="pagination pagination-centered pagination-large">
-                <ul >
-                    <li class="header" id="head">
+                <ul>
+                    <li class="header" id="head" ng-click="headPage()">
                         <a href="#">首页</a>
                     </li>
-                    <li class="prev disabled" id="prev">
-                        <a href="#" >上一页</a>
+                    <li class="prev disabled" id="prev" ng-click="prePage()">
+                        <a href="#">上一页</a>
                     </li>
-                    <li data-ng-repeat="page in pages" >
-                        <a href="#">1</a>
+                    <li data-ng-repeat="page in pages">
+                        <a href="#">{{page}}</a>
                     </li>
-                    <li class="next" id="next">
+                    <li class="next" id="next" ng-click="nextPage()">
                         <a href="#">下一页</a>
                     </li>
-                    <li id="tail">
+                    <li id="tail" ng-click="tailPage()" >
                         <a href="#">尾页</a>
                     </li>
                 </ul>
