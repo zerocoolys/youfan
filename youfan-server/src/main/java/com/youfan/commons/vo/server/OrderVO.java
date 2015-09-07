@@ -13,7 +13,8 @@ public class OrderVO {
     private String buyerId;
     private int orderStatus;
     private int dataStatus;
-    private double price;
+    private double orgPrice;
+    private double discountPrice;
     private Date orderTime;
     private Date repastTime;
     private String repastMode;
@@ -83,12 +84,20 @@ public class OrderVO {
         this.couponId = couponId;
     }
 
-    public double getPrice() {
-        return price;
+    public double getOrgPrice() {
+        return orgPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setOrgPrice(double orgPrice) {
+        this.orgPrice = orgPrice;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public Date getOrderTime() {
