@@ -57,6 +57,9 @@ public class OrderEntity {
     // 支付id
     private String chargeId;
 
+    // 活动id
+    private String activeId;
+
 
     public Long getId() {
         return id;
@@ -176,5 +179,13 @@ public class OrderEntity {
 
     public void setChargeId(String chargeId) {
         this.chargeId = chargeId;
+    }
+
+    public String getActiveId() {
+        return activeId;
+    }
+
+    public void setActiveId(String activeId) {
+        this.activeId = activeId;
     }
 }
