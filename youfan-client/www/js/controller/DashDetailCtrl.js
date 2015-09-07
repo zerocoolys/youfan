@@ -336,7 +336,6 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     }
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;
-                    console.log($scope.merchantObj);
                 }
             });
         }
@@ -349,7 +348,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                 if (result.payload != null) {
                     var _tmpData = result.payload;
                     _tmpData["realName"] = _tmpData.realName.substring(0, 1) + "先生";
-                    _tmpData["address"] = _tmpData.address.replace(/市|省|自治|区/g, '') + "人";
+                    _tmpData["address"] = _tmpData.address?_tmpData.address.replace(/市|省|自治|区/g, '') + "人":"暂无";
                     $scope.merchantUser = _tmpData;
                     Merchant.userInfo = _tmpData;
                 }

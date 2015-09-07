@@ -62,13 +62,17 @@
                               maxlength="500" ng-model="formData.content" ng-change="textAreaChange()"></textarea>
                 </ion-item>
                 <button class="button-clear fr"><span ng-bind="formData.content.length"></span>/500</button>
-                <button class="button icon-left button-small ion-star bar-balanced button-outline ">添加晒单图片!</button>
+                <button class="button icon-left button-small ion-star bar-balanced button-outline" ng-click="createActionSheet()">添加晒单图片!</button>
                 {{formData}}
             </ion-list>
         </div>
         <label class="checkbox">
             <input type="checkbox" class="alleft" ng-model="formData.is_hide_name"><span class="alleft">匿名评价</span>
         </label>
+        <div>
+            <img ng-src="{{cImg||'img/1.jpg'}}" style="width:200px;height:200px;" />
+            <button ng-click="upCommentImg()">上传</button>
+        </div>
 
     </ion-content>
     <div class="bar bar-footer bar-balanced">
