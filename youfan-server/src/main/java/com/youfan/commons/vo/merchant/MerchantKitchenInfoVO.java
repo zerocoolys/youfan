@@ -29,13 +29,13 @@ public class MerchantKitchenInfoVO {
     private List<String> kitchenPicUrl = new ArrayList<>(); //厨房照片路径
     private String kitchenStoryName;    //厨房故事标题
     private String kitchenStoryContent; //厨房故事内容
-    private LocationEntity location;  //经纬度
+    private List<String> location = new ArrayList<>();  //经纬度
 
-    public LocationEntity getLocation() {
+    public List<String> getLocation() {
         return location;
     }
 
-    public void setLocation(LocationEntity location) {
+    public void setLocation(List<String> location) {
         this.location = location;
     }
 
