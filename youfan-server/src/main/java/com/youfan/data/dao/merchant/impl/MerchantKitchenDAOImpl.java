@@ -74,18 +74,19 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) {
-        DBCursor limit = mongoTemplate.getCollection(COLLECTION_KITCHENINFO).find().skip((page - 1) * pageSize).limit(pageSize);
-        MerchantKitchenInfoEntity merchantKitchenInfoEntity = null;
-        List<MerchantKitchenInfoVO> list = new ArrayList<>();
-        while (limit.hasNext()) {
-            Map map = limit.next().toMap();
-            String id = map.get("_id").toString();
-            map.remove("_id");
-            map.put("id", id);
-            merchantKitchenInfoEntity = JSONUtils.map2pojo(map, getEntityClass());
-            list.add(convertToVO(merchantKitchenInfoEntity));
-        }
-        return list;
+//        DBCursor limit = mongoTemplate.getCollection(COLLECTION_KITCHENINFO).find().skip((page - 1) * pageSize).limit(pageSize);
+//        MerchantKitchenInfoEntity merchantKitchenInfoEntity = null;
+//        List<MerchantKitchenInfoVO> list = new ArrayList<>();
+//        while (limit.hasNext()) {
+//            Map map = limit.next().toMap();
+//            String id = map.get("_id").toString();
+//            map.remove("_id");
+//            map.put("id", id);
+//            merchantKitchenInfoEntity = JSONUtils.map2pojo(map, getEntityClass());
+//            list.add(convertToVO(merchantKitchenInfoEntity));
+//        }
+//
+        return convertToVOList(mongoTemplate.find(query(where("status").is(0)).skip((page - 1) * pageSize).limit(pageSize), getEntityClass()));
     }
 
     @Override
@@ -125,8 +126,9 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("isCanteen", merchantKitchenInfo.isCanteen());
         update.set("isDelivery", merchantKitchenInfo.isDelivery());
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
-        update.set("lat", merchantKitchenInfo.getLat());
-        update.set("lng", merchantKitchenInfo.getLng());
+//        update.set("lat", merchantKitchenInfo.getLat());
+//        update.set("lng", merchantKitchenInfo.getLng());
+        update.set("location",merchantKitchenInfo.getLocation());
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass());
         if (merchantKitchenInfoEntity == null) {
             mongoTemplate.insert(convertToEntity(merchantKitchenInfo));

@@ -1,5 +1,7 @@
 package com.youfan.commons.vo.merchant;
 
+import com.youfan.data.models.LocationEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +29,15 @@ public class MerchantKitchenInfoVO {
     private List<String> kitchenPicUrl = new ArrayList<>(); //厨房照片路径
     private String kitchenStoryName;    //厨房故事标题
     private String kitchenStoryContent; //厨房故事内容
-    private String lat; //经度
-    private String lng; //纬度
+    private LocationEntity location;  //经纬度
+
+    public LocationEntity getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationEntity location) {
+        this.location = location;
+    }
 
     public String getHobby() {
         return hobby;
@@ -60,22 +69,6 @@ public class MerchantKitchenInfoVO {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getLat() {
-        return lat;
-    }
-
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLng() {
-        return lng;
-    }
-
-    public void setLng(String lng) {
-        this.lng = lng;
     }
 
     public Integer getStatus() {
