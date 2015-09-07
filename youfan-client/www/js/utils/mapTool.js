@@ -130,19 +130,21 @@ var mapTools = {
      * @param cb        回调函数
      * @param mapObj    地图初始话参数
      */
-    nearbySearch: function (lnglatXY, mapObj, cb) {
-        var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
-            pageSize:5,
-            pageIndex:1,
-            map: mapObj
-        });
-        placeSearch.searchNearBy('', lnglatXY, 3000,function(status ,result){
-            if (status === 'complete' && result.info === 'OK') {
-                console.log(result)
-            } else {
-                cb(false);
-            }
+    nearbySearch: function (lng, lat, cb) {
+        var cpoint = new AMap.LngLat(lng,lat);
+        AMap.service(["AMap.PlaceSearch"], function () {
+            var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
+                pageSize: 20,
+                pageIndex: 1
+            });
+            placeSearch.searchNearBy('', cpoint, 3000, function (status, result) {
+                if (status === 'complete' && result.info === 'OK') {
+                    cb(result.poiList.pois)
+                } else {
+                    cb(false);
+                }
 
-        });
+            });
+        })
     }
 };
