@@ -15,7 +15,7 @@
         $scope.ways = [{name: "配送", code: 'PS'}, {name: "上门", code: 'SM'}, {name: "要做的菜", code: 'YZDC'}];
 
         $scope.status_list = [{name: "新订单", id: 1, number: 0},
-            {name: "已接单", id: 3, number: 0},
+            {name: "已接单", id: 4, number: 0},
             {name: "已完成", id: 100, number: 0},
             {name: "退款中", id: 31, number: 0},
             {name: "已退款", id: 39, number: 0}];
@@ -54,6 +54,9 @@
             var merchant = {};
 
             url = "http://127.0.0.1:8080/orders/merchant?";
+            merchant.sellerId = "888888888"; //获取商家用户ID
+            merchant.orderStatus = $scope.statusIndex; //获取状态选择
+
             //订单（配送或上门）
             if($scope.headerIndex == 'PS') {
                 merchant.repastMode = "PS";
@@ -61,11 +64,8 @@
                 merchant.repastMode = "SM";
             } else if($scope.headerIndex == 'YZDC') {
                 merchant.repastMode = "";
+                merchant.orderStatus = 4;
             }
-
-            merchant.sellerId = "888888888"; //获取商家用户ID
-            merchant.orderStatus = $scope.statusIndex; //获取状态选择
-
 
             url = url+"orderStatus="+merchant.orderStatus+"&sellerId="+merchant.sellerId+"&repastMode="+merchant.repastMode;
             console.log(url);

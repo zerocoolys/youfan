@@ -42,9 +42,9 @@
                 </ion-list>
             </div>
     </ion-content>
-    <div class="bar bar-footer bar-calm">
+    <div class="bar bar-footer bar-calm" ng-if="detialOrder.orderStatus == 1">
         <div class="button-bar">
-            <a class="button button-clear" ng-click="updateStatus(detialOrder.orderNo)">确认</a>
+            <a class="button button-clear"  ng-click="updateStatus(detialOrder.orderNo)">确认</a>
         </div>
     </div>
 </ion-view>
