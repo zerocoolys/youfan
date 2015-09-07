@@ -16,7 +16,7 @@ import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.server.OrderVO;
-import com.youfan.commons.vo.client.UserVO;
+import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.data.dao.client.MenuDAO;
@@ -146,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setDishes(dishes);
 
 			// 查询个人信息
-			UserVO user = userDao.findByid(order.getBuyerId());
+			ClientUserVO user = userDao.findByid(order.getBuyerId());
 			if (user != null) {
 				order.setBuyerName(user.getName());
 				order.setPhone(user.getTel());

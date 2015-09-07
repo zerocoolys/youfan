@@ -1,6 +1,6 @@
 package com.youfan.data.dao.client;
 
-import com.youfan.commons.vo.client.UserVO;
+import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.ClientUserEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -10,33 +10,38 @@ import org.springframework.data.mongodb.core.query.Update;
 /**
  * Created by icepros on 15-8-25.
  */
-public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, String> {
+public interface UserDao extends MongoBaseDAO<ClientUserEntity, ClientUserVO, String> {
 
     /**
      * 通过电话号码和密码获取用户信息
+     *
      * @param tel
      * @param pwd
      * @return
      */
-    UserVO getUserByTelAndPwd(String tel, String pwd);
+    ClientUserVO getUserByTelAndPwd(String tel, String pwd);
 
     /**
      * 通过电话获取用户
+     *
      * @param tel
      * @return
      */
-    UserVO getUserByTel(String tel);
+    ClientUserVO getUserByTel(String tel);
 
-   //根据用于ID查询用户
-    UserVO findByid(String id);
+    //根据用于ID查询用户
+    ClientUserVO findByid(String id);
 
     /**
      * 更新用户
-     * @param query
-     * @param update
+     *
+     * @param
+     * @param
      * @return
      */
-    UserVO update(Query query, Update update);
+    void update(String id, ClientUserVO clientUserVO);
+
+    void updateUserPwd(String id, String pwd);
 
 
     @Override
@@ -45,11 +50,17 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, String> 
     }
 
     @Override
-    default Class<UserVO> getVOClass() {
-        return UserVO.class;
+    default Class<ClientUserVO> getVOClass() {
+        return ClientUserVO.class;
     }
 
-
+    /**
+     * 用户手机号和密码查询
+     *
+     * @param tel
+     * @param password
+     * @return
+     */
     default Query buildQuery(String tel, String password) {
         Criteria criteria = Criteria.where("tel").is(tel);
 
@@ -60,8 +71,25 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, UserVO, String> 
         return Query.query(criteria);
     }
 
-    default Query buildQueryByTel(String tel){
+    /**
+     * 用户手机号查询
+     *
+     * @param tel
+     * @return
+     */
+    default Query buildQueryByTel(String tel) {
         Criteria criteria = Criteria.where("tel").is(tel);
+        return Query.query(criteria);
+    }
+
+    /**
+     * 用户id查询
+     *
+     * @param id
+     * @return
+     */
+    default Query buildQueryById(String id) {
+        Criteria criteria = Criteria.where("id").is(id);
         return Query.query(criteria);
     }
 
