@@ -67,7 +67,6 @@
                                     isCity = true;
                                 }
                             });
-                            console.log(isCity);
                             if (isCity) {
                                 $rootScope.city = data.payload.address;
                             } else {
@@ -122,47 +121,70 @@
 
 
         $scope.saveUserInfo = function () {
-            alert(JSON.stringify($scope.imageData));
-            var userInfo = {
-                realName: $scope.user.realName,
-                address: $rootScope.Province + $rootScope.city,
-                ageRange: $scope.ages,
-                headPortraitPicUrl: $scope.imageData.headPortraitPicUrl,
-                healthCertificatePicUrl: $scope.imageData.healthCertificatePicUrl,
-                idCardPicUrl: $scope.imageData.idCardPicUrl,
-                id: $rootScope.user.id,
-                sex: $scope.sex
-            };
-            $http.post(
-                "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                    var options;
-                    if (data.code == "0" && data.payload != null) {
-                        options = {
-                            "title": "系统繁忙！",
-                            "buttons": [{
-                                text: "重试",
-                                type: "button-positive clam",
-                                onTap: function () {
-                                    $scope.saveUserInfo();
-                                }
-                            }, {
-                                text: "关闭",
-                                type: "button-positive clam"
-                            }]
-                        };
-                    } else {
-                        options = {
-                            "title": "保存成功！",
-                            "buttons": [{
-                                text: "确定",
-                                type: "button-positive clam"
-                            }]
-                        };
-                    }
-                    $ionicPopup.alert(options);
-                }).error(function (error) {
-                    console.log(error)
-                });
+            var addressTemplate = "";
+            if ($rootScope.Province != null || $rootScope.Province != "" || $rootScope.Province != undefined) {
+                addressTemplate += $rootScope.Province
+            }
+            if ($rootScope.city != null || $rootScope.city != "" || $rootScope.city != undefined) {
+                addressTemplate += $rootScope.city
+            }
+            var hasRealName = $scope.user.realName == null || $scope.user.realName == "" || $scope.user.realName == undefined;
+            var hasAddress = addressTemplate == "";
+            var hasAgeRange = $scope.ages == null || $scope.ages == "" || $scope.ages == undefined;
+            var hasSex = $scope.sex == null || $scope.sex == "" || $scope.sex == undefined;
+
+            if (hasRealName || hasAddress || hasAgeRange || hasSex) {
+                var options = {
+                    "title": "信息不完整！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam"
+                    }]
+                };
+                $ionicPopup.alert(options);
+            } else {
+                var userInfo = {
+                    realName: $scope.user.realName,
+                    address: addressTemplate,
+                    ageRange: $scope.ages,
+                    headPortraitPicUrl: $scope.imageData.headPortraitPicUrl,
+                    healthCertificatePicUrl: $scope.imageData.healthCertificatePicUrl,
+                    idCardPicUrl: $scope.imageData.idCardPicUrl,
+                    id: $rootScope.user.id,
+                    sex: $scope.sex
+                };
+                $http.post(
+                    "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                        var options;
+                        if (data.code != "0") {
+                            options = {
+                                "title": "系统繁忙！",
+                                "buttons": [{
+                                    text: "重试",
+                                    type: "button-positive clam",
+                                    onTap: function () {
+                                        $scope.saveUserInfo();
+                                    }
+                                }, {
+                                    text: "关闭",
+                                    type: "button-positive clam"
+                                }]
+                            };
+                        } else {
+                            options = {
+                                "title": "保存成功！",
+                                "buttons": [{
+                                    text: "确定",
+                                    type: "button-positive clam"
+                                }]
+                            };
+                        }
+                        $ionicPopup.alert(options);
+                    }).error(function (error) {
+                        console.log(error)
+                    });
+            }
+
         };
         $scope.getImg = function (buttonId, url) {
             $scope.image.path[Number(buttonId)] = url;
