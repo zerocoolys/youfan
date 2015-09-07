@@ -75,7 +75,7 @@
 	orders.repast_Address,
 	orders.repast_Time,
 	orders.BUYER_ID,
-	orders.price,
+	orders.ORIGINAL_PRICE,
 	orders.order_status,
 	dishes.dishes_Id
 FROM
@@ -118,7 +118,7 @@ JOIN (
         orders.repast_Time,
         orders.order_time,
         orders.BUYER_ID,
-        orders.price,
+        orders.ORIGINAL_PRICE,
         dishes.dishes_Id,
         orders.payment_way
         FROM
@@ -291,9 +291,9 @@ WHERE 1 = 1
 
     <update id="updateOrder" parameterType="com.youfan.controllers.params.OrderParams">
 
-		update TBL_ORDERS order set order.order_status = #{orderStatus} 
+		update TBL_ORDERS orders set orders.order_status = #{orderStatus} 
 		
-		where order.order_no = #{orderNo} 
+		where orders.order_no = #{orderNo} 
 
     </update>
 
