@@ -52,14 +52,18 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderVO> findByUserId(String userId, Pagination pagination) {
-		return null;
+        List<OrderVO> result = orderDAO.findByBuyerId(userId, pagination);
+        if (result == null)
+            return Collections.emptyList();
+
+        return result;
 	}
 
 	@Override
 	public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
 		List<OrderVO> result = new ArrayList<>();
 
-		result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
+		result.addAll(orderDAO.findBySellerId(sellerId, pagination));
 
 		return result;
 	}
@@ -183,6 +187,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void updateOrder(OrderVO order) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

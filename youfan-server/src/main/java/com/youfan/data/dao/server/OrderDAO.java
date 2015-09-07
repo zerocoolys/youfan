@@ -28,9 +28,9 @@ public interface OrderDAO {
 
     List<OrderVO> findAll(Pagination pagination);
 
-    List<OrderVO> getOrdersByBuyerId(String buyerId, Pagination pagination);
+    List<OrderVO> findByBuyerId(String buyerId, Pagination pagination);
 
-    List<OrderVO> getOrdersBySellerId(String sellerId, Pagination pagination);
+    List<OrderVO> findBySellerId(String sellerId, Pagination pagination);
 
     List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order);
 

@@ -1,5 +1,6 @@
 package com.youfan.controllers.server;
 
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
@@ -16,9 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.youfan.commons.OrderStatus.ODR_WAIT_FOR_PAY;
 
@@ -96,9 +95,25 @@ public class OrderController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
-    public Response listByUserId(@PathVariable String userId) {
-        return Responses.SUCCESS();
+    @RequestMapping(method = RequestMethod.POST, path = "/users/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response listByUserId(@PathVariable String userId, @RequestBody OrderParams orderParams) {
+        Pagination pagination = new Pagination();
+        pagination.setPageNo(orderParams.getPageNo());
+        pagination.setPageSize(orderParams.getPageSize());
+        Map<String, Object> pageParamsMap = orderParams.getParams();
+        if (pageParamsMap == null)
+            pageParamsMap = new HashMap<>();
+
+        pageParamsMap.put("start", pagination.getStart());
+        pageParamsMap.put("end", pagination.getEnd());
+        pageParamsMap.put("userId", userId);
+        pageParamsMap.put("orderBy", orderParams.getOrderBy());
+        pageParamsMap.put("sort", orderParams.getAsc());
+        pagination.setParams(pageParamsMap);
+
+        List<OrderVO> result = orderService.findByUserId(userId, pagination);
+
+        return Responses.SUCCESS().setPayload(result);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE})
