@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderVO> findBySellerId(Long sellerId, Pagination pagination) {
+	public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
 		List<OrderVO> result = new ArrayList<>();
 
 		result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
@@ -66,8 +66,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public OrderVO findOrderById(Long id) {
+		return orderDAO.findOrderById(id);
+	}
+
+	@Override
 	public OrderVO findByOrderNo(String orderNo) {
-		return null;
+		return orderDAO.getOrderByOrderNo(orderNo);
 	}
 
 	@Override

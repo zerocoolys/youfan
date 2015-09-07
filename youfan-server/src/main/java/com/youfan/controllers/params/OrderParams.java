@@ -25,7 +25,9 @@ public class OrderParams extends Pagination {
 
     String comments;
 
-    double price;
+    double originalPrice;
+
+    double discountPrice;
 
     int orderStatus;
 
@@ -76,12 +78,20 @@ public class OrderParams extends Pagination {
         this.comments = comments;
     }
 
-    public double getPrice() {
-        return price;
+    public double getOriginalPrice() {
+        return originalPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setOriginalPrice(double originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public String getRepastMode() {

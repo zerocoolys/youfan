@@ -211,6 +211,10 @@ WHERE 1 = 1
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
 	</select>
 
+    <select id="findOrderById">
+        SELECT * FROM TBL_ORDERS WHERE ORDER_ID = #{0} AND DATA_STATUS = 1
+    </select>
+
     <select id="getOrdersBySellerId">
 		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND
 		DATA_STATUS = 1 LIMIT

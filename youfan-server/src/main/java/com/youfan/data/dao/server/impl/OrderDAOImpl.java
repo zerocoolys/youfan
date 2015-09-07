@@ -68,6 +68,11 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
+    public OrderVO findOrderById(Long id) {
+        return sqlSession.selectOne("findOrderById", id);
+    }
+
+    @Override
     public List<OrderVO> findAll(Pagination pagination) {
         List<OrderVO> list = sqlSession.selectList("findAllByPagination",
                 pagination);
@@ -76,7 +81,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<OrderVO> getOrdersByBuyerId(Long buyerId, Pagination pagination) {
+    public List<OrderVO> getOrdersByBuyerId(String buyerId, Pagination pagination) {
         List<OrderVO> orders = sqlSession.selectList("getOrdersByBuyerId",
                 pagination);
 
@@ -84,7 +89,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<OrderVO> getOrdersBySellerId(Long sellerId,
+    public List<OrderVO> getOrdersBySellerId(String sellerId,
                                              Pagination pagination) {
         List<OrderVO> orders = sqlSession.selectList("getOrdersBySellerId",
                 pagination);
@@ -98,7 +103,8 @@ public class OrderDAOImpl implements OrderDAO {
         orderEntity.setId(order.getId());
         orderEntity.setBuyerId(order.getBuyerId());
         orderEntity.setSellerId(order.getSellerId());
-        orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));
+        orderEntity.setOrgPrice(BigDecimal.valueOf(order.getOrgPrice()));
+        orderEntity.setDiscountPrice(BigDecimal.valueOf(order.getDiscountPrice()));
         orderEntity.setOrderStatus(order.getOrderStatus());
 
         orderEntity.setOrderTime(Timestamp.from(Instant.now()));
@@ -123,7 +129,9 @@ public class OrderDAOImpl implements OrderDAO {
         order.setComments(orderEntity.getComments());
         order.setOrderStatus(orderEntity.getOrderStatus());
 
-        order.setPrice(orderEntity.getPrice()
+        order.setOrgPrice(orderEntity.getOrgPrice()
+                .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        order.setDiscountPrice(orderEntity.getDiscountPrice()
                 .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         order.setCouponId(orderEntity.getCouponId());
 

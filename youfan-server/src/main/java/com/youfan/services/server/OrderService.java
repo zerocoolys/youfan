@@ -19,7 +19,9 @@ public interface OrderService {
 
     List<OrderVO> findByUserId(String userId, Pagination pagination);
 
-    List<OrderVO> findBySellerId(Long sellerId, Pagination pagination);
+    List<OrderVO> findBySellerId(String sellerId, Pagination pagination);
+
+    OrderVO findOrderById(Long id);
 
     OrderVO findByOrderNo(String orderNo);
 

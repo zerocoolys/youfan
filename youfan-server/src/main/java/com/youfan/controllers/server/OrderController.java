@@ -110,7 +110,8 @@ public class OrderController {
         order.setSellerId(orderParams.getSellerId());
         order.setOrderStatus(ODR_WAIT_FOR_PAY.value());
         order.setDataStatus(1);
-        order.setPrice(orderParams.getPrice());
+        order.setOrgPrice(orderParams.getOriginalPrice());
+        order.setDiscountPrice(orderParams.getDiscountPrice());
         order.setOrderTime(new Date());
         // TODO  前端缺少就餐时间选项
         order.setRepastTime(new Date());
