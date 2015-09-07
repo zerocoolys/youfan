@@ -87,13 +87,11 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     $scope.inputText = {value: ""};
 
     $scope.tab_keydown = function (data) {
-        console.log(data)
-        if (data == "" || data == undefined) {
+        if (data.trim() == "" || data == undefined) {
             return
         }
         $http.get(REST_URL + "/mr/getKitchenByName/" + data).success(function (result) {
             if (result.payload.length) {
-                console.log(result.payload);
                 $scope.merChantData = [];
                 result.payload.forEach(function (item, i) {
                     item["src"] = "img/1.jpg";
