@@ -79,9 +79,9 @@
                     <textarea placeholder="给厨房捎句话~" style="height: 120px" ng-bind="comments"></textarea>
                 </ion-item>
                 <button class="button-clear fr">140字</button>
-                <div ng-repeat="t in tastes" class="row" style="margin-top: 10px">
+                <div  class="confirm_list" style="margin-top: 10px">
                     <button class="col col-25 col-offset-25 button-small button button-calm button-outline"
-                            ng-bind="t.name" ng-click="addTasteComment(t)"></button>
+                            ng-bind="t.name" ng-click="addTasteComment(t)" ng-repeat="t in tastes"></button>
                 </div>
             </ion-list>
         </ion-content>
