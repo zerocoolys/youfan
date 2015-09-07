@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.youfan.commons.vo.client.ClientUserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
@@ -33,8 +35,6 @@ import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.CouponsContentEntity;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
-import com.youfan.exceptions.ServerNoActiveDetailClazzException;
-import com.youfan.exceptions.ServerNoActiveEventException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.merchant.MerchantUsersService;
@@ -86,19 +86,14 @@ public class PlatFormBusinessController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/test")
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
-		Response res = null;
-		Map<String, Object> activeParams = new HashMap<String, Object>();
-		activeParams.put("userVo", userDAO.getUserByTel("13980041343"));
-		try {
-			activeSupportService.joinActive(1,"client_register", activeParams);
-			res = Responses.SUCCESS().setCode(1).setMsg("SUCCESS");
-		} catch (ServerNoActiveDetailClazzException e) {
-			res = Responses.FAILED().setCode(2).setMsg("ServerNoActiveDetailClazzException");
-		} catch (ServerNoActiveEventException e) {
-			res = Responses.FAILED().setCode(3).setMsg("ServerNoActiveEventException");
-		}
+		// return activeSupportService.joinActive("client_register",
+		// userDAO.getUserByTel("13980041343"));
+		ClientUserVO user = userDAO.getUserByTel("13980041343");
+		user.setSex("男");
+		OrderVO ov = new OrderVO();
+		ov.setOrgPrice(1000);
 
-		return res;
+		return activeSupportService.joinActive("client_order_8折", user, ov);
 	}
 
 	/**
@@ -135,7 +130,6 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/getOrder")
 	public Response getOrders(HttpServletRequest request, HttpServletResponse response) {
 		OrderParams op = new OrderParams();
-		boolean ifPager = false;
 		Response res = null;
 		try {
 
@@ -152,22 +146,20 @@ public class PlatFormBusinessController {
 				op.setOrderStatus(Integer.valueOf(request.getParameter("orderStatus")));
 			}
 
+			int recordCnt = orderService.count(op);
 			if (request.getParameter("pageNo") != null && request.getParameter("pageSize") != null
 					&& request.getParameter("orderBy") != null) {
 				op.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
 				op.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
 				op.setOrderBy(request.getParameter("orderBy"));
-				ifPager = true;
-			}
-			int recordCnt = orderService.count(op);
-			if (ifPager) {
-				CollectionVO<OrderVO> payload = new CollectionVO<>(new ArrayList<OrderVO>(), recordCnt,
-						op.getPageSize() < 1 ? recordCnt : op.getPageSize());
-				payload = orderService.getOrdersByParams(op);
-				res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
 			} else {
-				// orderService.ge(op, p)
+				op.setPageSize(recordCnt);
+				op.setPageNo(1);
+				op.setOrderBy("ID");
 			}
+			List<OrderVO> list = orderService.getOrdersByParams(op);
+			CollectionVO<OrderVO> payload = new CollectionVO<OrderVO>(list, recordCnt, op.getPageSize());
+			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -176,17 +168,42 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateOrderStatus/{id}/{orderStatus}")
+	public Response updateOrderStatus(@PathVariable Long id, @PathVariable int orderStatus, HttpServletRequest request,
+			HttpServletResponse response) {
+		Response res = null;
+		try {
+			OrderVO order = orderService.findOrderById(id);
+			if (order == null) {
+				res = Responses.SUCCESS().setCode(0).setMsg("订单更新失败 订单不存在");
+			}
+			OrderParams op = new OrderParams();
+			op.setOrderNo(order.getOrderNo());
+			op.setOrderStatus(orderStatus);
+			int r = orderService.updateOrderStatus(op);
+			if (r == 1) {
+				res = Responses.SUCCESS().setPayload(null).setCode(1).setMsg("订单更新成功");
+			} else {
+				res = Responses.SUCCESS().setPayload(null).setCode(0).setMsg("订单未更新");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.SUCCESS().setCode(0).setMsg("订单更新失败");
+		}
+		return res;
+	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveCouponsType")
 	public Response saveCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-			if (request.getParameter("port") != null && request.getParameter("timeLine") != null
-					&& request.getParameter("kitchenId") != null) {
+			if (request.getParameter("port") != null && request.getParameter("timeLine") != null) {
 
 				CouponsTypeVO coupons = new CouponsTypeVO();
 				coupons.setPort(Integer.valueOf(request.getParameter("port")));
 				coupons.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
-				coupons.setKitchenId(request.getParameter("kitchenId"));
+				// coupons.setKitchenId(request.getParameter("kitchenId"));
 				coupons.setDesc(request.getParameter("desc"));
 				coupons.setContent(
 						JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
@@ -200,6 +217,7 @@ public class PlatFormBusinessController {
 				res = Responses.FAILED().setMsg("数据保存异常:参数错误");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
 		}
 
@@ -239,7 +257,28 @@ public class PlatFormBusinessController {
 			res = Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
+			res = Responses.FAILED().setCode(0).setMsg("数据获取失败");
+		}
+		return res;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCouponsTypeStatus/{id}/{status}")
+	public Response updateCouponsTypeStatus(@PathVariable String id, @PathVariable int status,
+			HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+			Map<String, Object> updateParams = new HashMap<>();
+			updateParams.put("status", status);
+			int un = couponsTypeService.updateById(id, updateParams);
+			if (un == 1) {
+				Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型更新成功");
+			} else {
+				Responses.FAILED().setPayload(null).setCode(0).setMsg("优惠券类型未更新");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.FAILED().setCode(0).setMsg("优惠券类型更新失败");
 		}
 		return res;
 	}
@@ -249,14 +288,20 @@ public class PlatFormBusinessController {
 		Response res = null;
 		try {
 			if (request.getParameter("event") != null && request.getParameter("port") != null
-					&& request.getParameter("activeType") != null
-					&& request.getParameter("activeDetailClazz") != null) {
+					&& request.getParameter("activeType") != null) {
 
 				ActiveVO activeVo = new ActiveVO();
 				activeVo.setPort(Integer.valueOf(request.getParameter("port")));
 				activeVo.setEvent(request.getParameter("event"));
 				activeVo.setActiveType(Integer.valueOf(request.getParameter("activeType")));
-				activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
+				// activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
+
+				// System.out.println(request.getParameter("userCondition"));
+				activeVo.setUserConditions(request.getParameter("userCondition") == null ? null
+						: JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
+				activeVo.setOrderConditions(request.getParameter("orderCondition") == null ? null
+						: JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
+				activeVo.setAllowTimes(0);
 				activeVo.setDesc(request.getParameter("desc"));
 				activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));
 				activeVo.setCouponsType(Integer.valueOf(request.getParameter("couponsType")));
@@ -265,8 +310,10 @@ public class PlatFormBusinessController {
 				activeVo.setValidityTime(Long.valueOf(request.getParameter("validityTime")));
 				activeVo.setStartTime(Long.valueOf(request.getParameter("startTime")));
 				activeVo.setEndTime(Long.valueOf(request.getParameter("endTime")));
+				activeVo.setTitle(request.getParameter("title"));
 				// 状态默认为1 表示开启使用状态
 				activeVo.setStatus(1);
+				System.out.println(activeVo.toString());
 				activeService.save(activeVo);
 				res = Responses.SUCCESS().setMsg("数据保存成功");
 			} else {
@@ -304,7 +351,6 @@ public class PlatFormBusinessController {
 				activeParams.setPageNo(0);
 			}
 
-			System.out.println("记录条数：" + recordCnt);
 			CollectionVO<ActiveVO> payload = new CollectionVO<>(new ArrayList<ActiveVO>(), (int) recordCnt,
 					activeParams.getPageSize() < 1 ? (int) recordCnt : activeParams.getPageSize());
 			List<ActiveVO> list = activeService.getByCondition(activeParams);
@@ -404,7 +450,8 @@ public class PlatFormBusinessController {
 		Response res = null;
 		try {
 
-			PayWayVO vo = request.getParameter("id") == null ? null : (PayWayVO)payWayService.getById(request.getParameter("id"));
+			PayWayVO vo = request.getParameter("id") == null ? null
+					: (PayWayVO) payWayService.getById(request.getParameter("id"));
 			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(vo);
 		} catch (Exception e) {
 			e.printStackTrace();

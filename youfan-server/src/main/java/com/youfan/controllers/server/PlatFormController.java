@@ -34,6 +34,7 @@ import com.pingplusplus.model.Webhooks;
 import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.controllers.params.ChargeParams;
 import com.youfan.eventbus.ServerEventBus;
+import com.youfan.eventbus.events.ActiveEvent;
 import com.youfan.eventbus.events.CouponEvent;
 import com.youfan.log.ChargeLog;
 import com.youfan.log.WebbooksLog;
@@ -299,10 +300,10 @@ public class PlatFormController {
     @RequestMapping(method = RequestMethod.GET, path = "/event")
     public String event(HttpServletRequest request, HttpServletResponse response) {
     	
-    	CouponEvent event = new CouponEvent("优惠券",100);
+    	ActiveEvent event = new ActiveEvent("优惠券",100);
     	eventBus.post(event);
     	
-
+    	System.out.println("调用事件");
         return "200";
     }
 

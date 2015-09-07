@@ -1,8 +1,6 @@
 package com.youfan.data.dao.server.impl;
 
 import com.mongodb.WriteResult;
-import com.youfan.commons.Pager;
-import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.client.MessageVO;
 import com.youfan.data.dao.server.MessageDAO;
 import com.youfan.data.models.MessageEntity;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @Repository("messageDAO")
 public class MessageDAOImpl implements MessageDAO {
@@ -78,8 +75,4 @@ public class MessageDAOImpl implements MessageDAO {
     public void update(MessageVO message) {
     }
 
-    @Override
-    public Pager findPager(Pagination p) {
-        return null;
-    }
 }

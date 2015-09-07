@@ -1,13 +1,9 @@
 package com.youfan.data.dao.merchant.impl;
 
 //import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
-import com.youfan.commons.Pager;
-import com.youfan.commons.Pagination;
-import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.Constants;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
-import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.data.support.IdGenerator;
 
@@ -142,11 +138,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
     }
 
-    @Override
-    public Pager findPager(Pagination p) {
-        return null;
-    }
-
 
     @Override
     public List<MerchantUserEntity> getMerchantByStatus(Integer status) {
@@ -182,7 +173,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
 	@Override
 	public Class<MerchantUserEntity> getEntityClass() {
-		// TODO Auto-generated method stub
 		return MerchantUserEntity.class;
 	}
 
@@ -193,7 +183,16 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
 	@Override
 	public MerchantUserVO findById(Long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public List<MerchantUserVO> pageListByStatus(Integer page, Integer pageSize, Query query) {
+        return convertToVOList(mongoTemplate.find(query.skip((page - 1) * pageSize).limit(pageSize), getEntityClass()));
+    }
+
+    @Override
+    public Long getPageTotal(Integer status) {
+        return mongoTemplate.count(query(where("status").is(status)), getEntityClass());
+    }
 }

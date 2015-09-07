@@ -1,5 +1,7 @@
 package com.youfan.data.models;
 
+import com.youfan.commons.vo.ConditionVO;
+
 public class CouponsContentEntity {
 	/**
 	 * 优惠券使用方式
@@ -16,7 +18,10 @@ public class CouponsContentEntity {
 	/**
 	 * 描述享受折扣条件
 	 */
-	private String condition;
+	private ConditionVO condition;
+	
+//	@Field("oc")
+//	private List<ConditionVO> orderCondition;
 	public String getType() {
 		return type;
 	}
@@ -29,11 +34,10 @@ public class CouponsContentEntity {
 	public void setValue(Double value) {
 		this.value = value;
 	}
-	public String getCondition() {
+	public ConditionVO getCondition() {
 		return condition;
 	}
-	public void setCondition(String condition) {
+	public void setCondition(ConditionVO condition) {
 		this.condition = condition;
 	}
-	
 }

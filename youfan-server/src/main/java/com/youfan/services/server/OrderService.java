@@ -19,13 +19,15 @@ public interface OrderService {
 
     List<OrderVO> findByUserId(String userId, Pagination pagination);
 
-    List<OrderVO> findBySellerId(Long sellerId, Pagination pagination);
+    List<OrderVO> findBySellerId(String sellerId, Pagination pagination);
+
+    OrderVO findOrderById(Long id);
 
     OrderVO findByOrderNo(String orderNo);
 
     OrderVO createOrder(OrderVO order);
 
-    OrderVO updateOrder(OrderVO order);
+    void updateOrder(OrderVO order);
 
     OrderVO cancelOrder(OrderVO order);
 
@@ -41,7 +43,7 @@ public interface OrderService {
 
     int countAll();
 
-    CollectionVO<OrderVO> getOrdersByParams(OrderParams op);
+    List<OrderVO> getOrdersByParams(OrderParams op);
 
     int updateOrderStatus(OrderParams order);
 

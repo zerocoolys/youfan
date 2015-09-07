@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,12 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
+    public OrderVO findOrderById(Long id) {
+        OrderEntity entity = sqlSession.selectOne("findOrderById", id);
+        return convertToVO(entity, OrderEntity.class, OrderVO.class);
+    }
+
+    @Override
     public List<OrderVO> findAll(Pagination pagination) {
         List<OrderVO> list = sqlSession.selectList("findAllByPagination",
                 pagination);
@@ -76,18 +83,17 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<OrderVO> getOrdersByBuyerId(Long buyerId, Pagination pagination) {
-        List<OrderVO> orders = sqlSession.selectList("getOrdersByBuyerId",
-                pagination);
+    public List<OrderVO> findByBuyerId(String buyerId, Pagination pagination) {
+        List<OrderEntity> orderEntityList = sqlSession.selectList("findByBuyerId", pagination.getParams());
+        if (orderEntityList == null)
+            return Collections.emptyList();
 
-        return orders;
+        return convertToVOList(orderEntityList, OrderEntity.class, OrderVO.class);
     }
 
     @Override
-    public List<OrderVO> getOrdersBySellerId(Long sellerId,
-                                             Pagination pagination) {
-        List<OrderVO> orders = sqlSession.selectList("getOrdersBySellerId",
-                pagination);
+    public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
+        List<OrderVO> orders = sqlSession.selectList("findBySellerId", pagination);
 
         return orders;
     }
@@ -98,7 +104,8 @@ public class OrderDAOImpl implements OrderDAO {
         orderEntity.setId(order.getId());
         orderEntity.setBuyerId(order.getBuyerId());
         orderEntity.setSellerId(order.getSellerId());
-        orderEntity.setPrice(BigDecimal.valueOf(order.getPrice()));
+        orderEntity.setOrgPrice(BigDecimal.valueOf(order.getOrgPrice()));
+        orderEntity.setDiscountPrice(BigDecimal.valueOf(order.getDiscountPrice()));
         orderEntity.setOrderStatus(order.getOrderStatus());
 
         orderEntity.setOrderTime(Timestamp.from(Instant.now()));
@@ -123,7 +130,9 @@ public class OrderDAOImpl implements OrderDAO {
         order.setComments(orderEntity.getComments());
         order.setOrderStatus(orderEntity.getOrderStatus());
 
-        order.setPrice(orderEntity.getPrice()
+        order.setOrgPrice(orderEntity.getOrgPrice()
+                .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        order.setDiscountPrice(orderEntity.getDiscountPrice()
                 .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         order.setCouponId(orderEntity.getCouponId());
 
@@ -186,8 +195,6 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public int updateOrderStatus(OrderParams order) {
-
-
         return sqlSession.update("updateOrder", order);
     }
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.common.eventbus.AsyncEventBus;
 import com.google.common.eventbus.EventBus;
 
 /**
@@ -14,15 +15,15 @@ import com.google.common.eventbus.EventBus;
  * @description guava 事件处理采用同步的方式
  * @author ZhangHuaRong
  */
-@Component("eventBus")
-public class ServerEventBus implements InitializingBean, DisposableBean {
+@Component("asyncEventBus")
+public class ServerAsyncEventBus implements InitializingBean, DisposableBean {
 
-	private EventBus eventBus;
+	private AsyncEventBus eventBus;
 	@Autowired
-	private Set<EventBusListener> listeners;
+	private Set<AsyncEventBusListener> listeners;
 
-	public ServerEventBus() {
-		eventBus = EventBusFactory.getEventBus();
+	public ServerAsyncEventBus() {
+		eventBus = EventBusFactory.getAsyncEventBus();
 	}
 
 	public void register(Object object) {
@@ -42,7 +43,7 @@ public class ServerEventBus implements InitializingBean, DisposableBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		for (EventBusListener listerer : listeners) {
+		for (AsyncEventBusListener listerer : listeners) {
 			eventBus.register(listerer);
 		}
 	}

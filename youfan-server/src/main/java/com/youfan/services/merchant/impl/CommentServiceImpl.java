@@ -1,7 +1,7 @@
 package com.youfan.services.merchant.impl;
 
-import com.youfan.commons.Pager;
 import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.data.dao.merchant.CommentDAO;
 import com.youfan.services.merchant.CommentService;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by xiaowei on 15-8-31.
@@ -42,7 +41,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Pager findCommentByPager(Pagination p) {
+    public CollectionVO<CommentVO> findCommentByPager(Pagination p) {
         return commentDAO.findPager(p);
     }
 }
