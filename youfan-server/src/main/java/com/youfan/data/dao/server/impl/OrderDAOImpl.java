@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,8 +70,8 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public OrderVO findOrderById(Long id) {
-    	OrderEntity entity = sqlSession.selectOne("findOrderById", id);
-        return convertToVO(entity,OrderEntity.class,OrderVO.class);
+        OrderEntity entity = sqlSession.selectOne("findOrderById", id);
+        return convertToVO(entity, OrderEntity.class, OrderVO.class);
     }
 
     @Override
@@ -82,18 +83,17 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<OrderVO> getOrdersByBuyerId(String buyerId, Pagination pagination) {
-        List<OrderVO> orders = sqlSession.selectList("getOrdersByBuyerId",
-                pagination);
+    public List<OrderVO> findByBuyerId(String buyerId, Pagination pagination) {
+        List<OrderEntity> orderEntityList = sqlSession.selectList("findByBuyerId", pagination.getParams());
+        if (orderEntityList == null)
+            return Collections.emptyList();
 
-        return orders;
+        return convertToVOList(orderEntityList, OrderEntity.class, OrderVO.class);
     }
 
     @Override
-    public List<OrderVO> getOrdersBySellerId(String sellerId,
-                                             Pagination pagination) {
-        List<OrderVO> orders = sqlSession.selectList("getOrdersBySellerId",
-                pagination);
+    public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
+        List<OrderVO> orders = sqlSession.selectList("findBySellerId", pagination);
 
         return orders;
     }
