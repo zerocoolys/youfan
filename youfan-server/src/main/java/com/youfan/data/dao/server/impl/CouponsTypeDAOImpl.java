@@ -4,13 +4,13 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.WriteResult;
-import com.youfan.commons.Pager;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;
