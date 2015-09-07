@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_nsc_controllers', [])
 
-    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT) {
+    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO) {
 
         console.log("ManageDishesNscCtrl");
 
@@ -17,7 +17,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
             $timeout(function () {
                 $scope.$broadcast("scroll.refreshComplete");
-                ManageDishesService.allDishes("888888888", "nsc");
+                ManageDishesService.allDishes(YF_MERCHANT_INFO.mID, "nsc");
             }, 800);
 
         };
@@ -45,7 +45,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
     })
 
 
-    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO) {
 
         console.log("ManageDishesNscAddCtrl");
 
@@ -62,7 +62,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             taste: 3,
             staple: true,
             features: ["保护动物", "开心果", "刘德华", "自行车"],
-            sellerId: "888888888"
+            sellerId: YF_MERCHANT_INFO.mID
         };
         $scope.imgs = [];
         $scope.isActive = false;
@@ -193,8 +193,8 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $state.go("m_dishes.nsc");
         });
 
-        $scope.$on("yf-merchant-save-dishes-error", function () {
-            $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
+        $scope.$on("yf-merchant-save-dishes-error", function (e, msg) {
+            $scope.$emit("youfan-merchant-show-msg", msg);
             $ionicLoading.hide();
             $scope.isActive = false;
         });
