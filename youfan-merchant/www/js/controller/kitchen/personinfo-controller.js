@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $filter, $state, $stateParams, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -38,27 +38,44 @@
                 citys: ['大连市', '泸州市']
             }
         ];
-
+        $ionicModal.fromTemplateUrl('templates/home.html', {
+            scope: $scope
+        }).then(function(modal) {
+            $scope.home = modal;
+        });
+        $ionicModal.fromTemplateUrl('templates/city.html', {
+            scope: $scope
+        }).then(function(homes) {
+            $scope.homes =homes ;
+            //$scope.home.remove();
+        });
 
         $scope.Province_$index = function (Province) {
-            $rootScope.Province = Province;
+            $scope.home.hide();
+            $rootScope.Province = Province.id;
+            $scope.c_citys = Province.citys;
+            $scope.homes.show();
+
         };
 
-        $scope.scity_$index = function (city) {
-            $rootScope.city = city;
+        $scope.scity_$index = function (ciy) {
+            $scope.homes.hide();
+            $rootScope.city = ciy;
         };
 
         $scope.city_$index = function (city) {
+            $scope.home.hide();
             $rootScope.Province = '';
             $rootScope.city = city;
         };
+
         $http.post(
             "http://192.168.1.110:8080/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload == null) {
                         $rootScope.Province = "";
                         $rootScope.city = "";
-                        $scope.ages = "请选择";
+
                     } else {
                         if (data.payload.address != null) {
                             var isCity = false;
@@ -186,6 +203,9 @@
             }
 
         };
+
+
+
         $scope.getImg = function (buttonId, url) {
             $scope.image.path[Number(buttonId)] = url;
             uploadImg(buttonId, url, $ionicLoading, $scope);
@@ -238,6 +258,11 @@
         };
 
 
+
+
+
+
     }
+
 })
 ();

@@ -1,8 +1,9 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar bar-header">
         <a class="button button-clear button-calm icon ion-ios-arrow-back" href="#/editkitchen"></a>
+
         <div class=" title" align-text="center">编辑厨房信息</div>
-        <button ng-click="saveKitchenInfo()"  class="button button-clear button-calm ">
+        <button ng-click="saveKitchenInfo()" class="button button-clear button-calm ">
             保存
         </button>
     </ion-header-bar>
@@ -15,41 +16,78 @@
         </ion-item>
         <ion-item href="#/kitcheninfo-story" class="item  item-icon-right">
             <h2>厨房故事</h2>
-            <a class="button button-clear icon ion-ios-arrow-right" ></a>
+            <a class="button button-clear icon ion-ios-arrow-right"></a>
         </ion-item>
         <ion-item href="#/kitcheninfo_pic" class="item  item-icon-right">
             <h2>厨房照片</h2>
 
             <a class="button button-clear icon ion-ios-arrow-right"></a>
         </ion-item>
-        <ion-item class="padding  item-divider" >
+        <ion-item class="padding  item-divider">
             <span>厨房特色<label style="color: #e6b400">(每个标签最多输入5个字)</label></span>
         </ion-item>
-        <ion-item class="padding row light-bg" >
+        <ion-item class="padding row light-bg">
             <input class="col" type="text" ng-model="kitchenInfo.characteristic[0]" placeholder="烹饪菜系">
             <input class="col" type="text" ng-model="kitchenInfo.characteristic[1]" placeholder="烹饪菜系">
         </ion-item>
-        <ion-item class="padding  item-divider" >
-            <span >厨房地址</span>
+        <ion-item class="padding  item-divider">
+            <span>厨房地址</span>
         </ion-item>
-        <ion-item class="row">
-            <input class="col" type="text" ng-model="kitchenInfo.kitchenAddress.province" list="address_province" name="link" placeholder="省"
-            required="required"/>
-            <datalist id="address_province">
-            <option label="四川" value="四川"/>
-            <option label="北京" value="北京"/>
-            </datalist>
-            <input class="col" type="text" ng-model="kitchenInfo.kitchenAddress.city" list="address_city" name="link" placeholder="市"
-            required="required"/>
-            <datalist id="address_city">
-            <option label="成都" value="成都"/>
-            <option label="绵阳" value="绵阳"/>
-            <option label="雅安" value="雅安"/>
-            </datalist>
+
+        <!--<input class="col" type="text" ng-model="kitchenInfo.kitchenAddress.province" list="address_province" name="link" placeholder="省"-->
+        <!--required="required"/>-->
+        <!--<datalist id="address_province">-->
+        <!--<option label="四川" value="四川"/>-->
+        <!--<option label="北京" value="北京"/>-->
+        <!--</datalist>-->
+        <!--<input class="col" type="text" ng-model="kitchenInfo.kitchenAddress.city" list="address_city" name="link" placeholder="市"-->
+        <!--required="required"/>-->
+        <!--<datalist id="address_city">-->
+        <!--<option label="成都" value="成都"/>-->
+        <!--<option label="绵阳" value="绵阳"/>-->
+        <!--<option label="雅安" value="雅安"/>-->
+        <!--</datalist>-->
+        <ion-item ng-click="home.show()" class="item-icon-right">
+            <P>请选择省市:</P>
+                <span class="icon ">
+
+                    <span style="font-size: 14px; padding-right: 10px;">{{Province_s}} {{city_s}}</span>
+               <i class="   icon-accessory ion-ios-arrow-right"></i>
+                </span>
         </ion-item>
+
         <ion-item class="item-input">
             <input type="text" ng-model="kitchenInfo.kitchenAddress.specificAddress" placeholder="填写街道、小区名称、栋楼及单元号"
-            required="required">
+                   required="required">
         </ion-item>
     </ion-content>
+    <script id="templates/home.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header stable-bg">
+                <button class="button button-clear icon ion-ios-arrow-back button-calm" ng-click="home.hide()"></button>
+                <div class="h1 title " align-text="center">省</div>
+            </ion-header-bar>
+            <ion-content>
+                <ion-item ng-click="city_$index(city)" ng-repeat="city in citys">{{city}}</ion-item>
+
+                <ion-item ng-click="Province_$index(Province)" ng-repeat="Province in Provinces"
+                          class="item-icon-right">{{Province.id}}
+                    <i class="icon icon-accessory  ion-ios-arrow-right"></i>
+                </ion-item>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <script id="templates/city.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header stable-bg">
+                <button class="button button-clear icon ion-ios-arrow-back button-calm"
+                        ng-click="homes.hide()"></button>
+                <div class="h1 title " align-text="center">市</div>
+            </ion-header-bar>
+            <ion-content>
+                <ion-item ng-click="scity_$index(ciy)" ng-repeat="ciy in c_citys">{{ciy}}</ion-item>
+            </ion-content>
+
+        </ion-modal-view>
+    </script>
 </ion-view>

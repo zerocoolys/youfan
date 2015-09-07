@@ -13,7 +13,9 @@ function getLocation(data) {
         .controller('kitcheninfo', kitchenInfo);
 
 
-    function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicPopup) {
+
+    function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicModal) {
+
         $scope.kitchenInfo = {
             kitchenName: "",
             phoneNumber: "",
@@ -128,6 +130,46 @@ function getLocation(data) {
             });
 
 
-        }
+        };
+        $scope.Provinces = [
+            {
+                id: '四川省',
+                citys: ['成都市', '泸州市']
+            },
+            {
+                id: '辽宁省',
+                citys: ['大连市', '泸州市']
+            }
+        ];
+        $ionicModal.fromTemplateUrl('templates/home.html', {
+            scope: $scope
+        }).then(function(modal) {
+            $scope.home = modal;
+        });
+        $ionicModal.fromTemplateUrl('templates/city.html', {
+            scope: $scope
+        }).then(function(homes) {
+            $scope.homes =homes ;
+            //$scope.home.remove();
+        });
+        $scope.Province_$index = function (Province) {
+            $scope.home.hide();
+            $rootScope.Province_s = Province.id;
+            $scope.c_citys = Province.citys;
+            $scope.homes.show();
+
+        };
+
+        $scope.scity_$index = function (ciy) {
+            $scope.homes.hide();
+            $rootScope.city_s = ciy;
+        };
+
+        $scope.city_$index = function (city) {
+            $scope.home.hide();
+            $rootScope.Province_s = '';
+            $rootScope.city_s = city;
+        };
+
     }
 })();

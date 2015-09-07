@@ -1,24 +1,28 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar bar-header">
         <a class="button button-clear icon ion-ios-arrow-back button-calm" href="#/editkitchen"></a>
+
         <div class="h1 title " align-text="center">编辑个人信息</div>
         <button class="button button-clear button-calm " ng-click="saveUserInfo()">
             保存
         </button>
     </ion-header-bar>
     <ion-content>
-        <ion-list class="light-bg" >
+        <ion-list class="light-bg">
             <ion-item class="item stable-bg">
 
-                    <!--<div ><img style="height:50px;width: auto;" src="http://image15-c.poco.cn/mypoco/myphoto/20141223/16/53598652201412231650121518178707483_005.jpg"></div>-->
-                    <!--<div align="center"><a ng-click="show()" class="button icon  calm-border light-bg ion-camera calm"-->
-                                           <!--style="border-radius:100px;width: 60px;height: 60px; font-size: 100px;padding-top: 8px;"></a><br><label>点击上传图片</label>-->
+                <!--<div ><img style="height:50px;width: auto;" src="http://image15-c.poco.cn/mypoco/myphoto/20141223/16/53598652201412231650121518178707483_005.jpg"></div>-->
+                <!--<div align="center"><a ng-click="show()" class="button icon  calm-border light-bg ion-camera calm"-->
+                <!--style="border-radius:100px;width: 60px;height: 60px; font-size: 100px;padding-top: 8px;"></a><br><label>点击上传图片</label>-->
 
                 <div align="center">
-                        <div  class="">
-                            <img  ng-show="image.path[0]" style="height: 100px;width: 100px;border-radius: 100%;" src="{{image.path[0]}}" alt=""/>
-                            <a ng-show="!image.path[0]" ng-click="show(0)"   class="button icon  calm-border light-bg ion-camera calm" style="border-radius:100px;width: 100px;height: 100px; font-weight: 900; padding-top: 28px;"></a>
-                        </div>
+                    <div class="">
+                        <img ng-show="image.path[0]" ng-click="show(0)"
+                             style="height: 100px;width: 100px;border-radius: 100%;" src="{{image.path[0]}}" alt=""/>
+                        <a ng-show="!image.path[0]" ng-click="show(0)"
+                           class="button icon  calm-border light-bg ion-camera calm"
+                           style="border-radius:100px;width: 100px;height: 100px; font-weight: 900; padding-top: 28px;"></a>
+                    </div>
 
                     <label ng-show="image.path[0]">点击替换图片</label>
                     <!--<i ng-show="imageHead"  class="icon ion-android-remove-circle"  data-ng-click="removePic($index)"></i>-->
@@ -27,7 +31,7 @@
                     <label ng-show="!image.path[0]">点击上传图片</label>
                 </div>
             </ion-item>
-            <ion-item class="item " >
+            <ion-item class="item ">
                 <i class="icon" style="color: #e6b400">*</i>
                 姓氏
                 <div class="item-note">
@@ -47,42 +51,79 @@
 
 
             </ion-item>
-            <ion-item >
-                <i style="color: #e6b400">*</i>
+            <ion-item ng-click="showPopup()" class="item-icon-right">
+                <span style="color: #e6b400">*</span>
                 年龄段
-                <a href=""  ng-click="showPopup()"  class="item-note" >
-                    <i style="padding: 0 5px">{{ages}}</i>
-                    <i class=" icon  icon-accessory ion-ios-arrow-right"></i>
-                </a>
+                <span class="icon">
+                    <span ng-show="!ages" style="font-size: 14px; padding-right: 10px; color: #a1a1a1;">请选择</span>
+                    <span ng-show="ages" style="font-size: 14px; padding-right: 10px;">{{ages}}</span>
+                    <i class="  icon-accessory ion-ios-arrow-right"></i>
+                </span>
             </ion-item>
-            <ion-item >
-                <i style="color: #e6b400">*</i>
+            <ion-item ng-click="home.show()" class="item-icon-right">
+                <span style="color: #e6b400">*</span>
                 家乡
-                <a href="#/home" class="item-note" >
-                    <i style="padding: 0 5px">{{Province}} {{city}}</i>
-                    <i class=" icon  icon-accessory ion-ios-arrow-right"></i>
-                </a>
+                <span class="icon ">
+                      <span ng-show="!city" style="font-size: 14px; padding-right: 10px; color: #a1a1a1;">请选择</span>
+                    <span ng-show="city" style="font-size: 14px; padding-right: 10px;">{{Province}} {{city}}</span>
+               <i class="   icon-accessory ion-ios-arrow-right"></i>
+                </span>
+
             </ion-item>
 
             <div class="row " style=" height: 80px; padding-top: 15px;">
-                <a class="col  dark  " >
+                <a class="col  dark  ">
                     <p class=" " style="font-size: 20px">身份证 <span style="font-size: 12px;">（正面照）</span></p>
                     <!--<div ><img style="height: 60px;width: 60px;" src="../img/123.jpg" alt=""/></div>-->
-                    <button ng-show="!image.path[1]" ng-click="show(1)" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
+                    <button ng-show="!image.path[1]" ng-click="show(1)"
+                            class="button light-bg calm-border calm-bg light  icon ion-plus-round "
                             style="width: 100px;height: 100px;  "></button>
-                    <img ng-show="image.path[1]"  src="{{image.path[1]}}" style="width: 100px;height: 100px; alt="/>
+                    <img ng-show="image.path[1]" ng-click="show(1)" src="{{image.path[1]}}"
+                         style="width: 100px;height: 100px; alt="/>
 
                 </a>
 
 
-                <a class="col  dark  " >
+                <a class="col  dark  ">
                     <p class=" " style="font-size: 20px">健康证 <span style="font-size: 12px;">（正面照）</span></p>
                     <!--<div ><img style="height: 60px;width: 60px;" src="../img/1234.jpg" alt=""/></div>-->
-                    <button ng-show="!image.path[2]" ng-click="show(2)" class="button light-bg calm-border calm-bg light  icon ion-plus-round "
+
+                    <button ng-show="!image.path[2]" ng-click="show(2)"
+                            class="button light-bg calm-border calm-bg light  icon ion-plus-round "
                             style="width: 100px;height: 100px;  "></button>
-                    <img ng-show="image.path[2]"  src="{{image.path[2]}}" style="width: 100px;height: 100px; alt="/>
                 </a>
             </div>
         </ion-list>
     </ion-content>
+    <script id="templates/home.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header stable-bg">
+                <button class="button button-clear icon ion-ios-arrow-back button-calm" ng-click="home.hide()"></button>
+                <div class="h1 title " align-text="center">家乡</div>
+            </ion-header-bar>
+            <ion-content>
+                <ion-item ng-click="city_$index(city)" ng-repeat="city in citys">{{city}}</ion-item>
+
+                <ion-item ng-click="Province_$index(Province)" ng-repeat="Province in Provinces"
+                          class="item-icon-right">{{Province.id}}
+                    <i class="icon icon-accessory  ion-ios-arrow-right"></i>
+                </ion-item>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+
+    <script id="templates/city.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header stable-bg">
+                <button class="button button-clear icon ion-ios-arrow-back button-calm"
+                        ng-click="homes.hide()"></button>
+                <div class="h1 title " align-text="center">家乡</div>
+            </ion-header-bar>
+            <ion-content>
+                <ion-item ng-click="scity_$index(ciy)" ng-repeat="ciy in c_citys">{{ciy}}</ion-item>
+            </ion-content>
+
+        </ion-modal-view>
+    </script>
+
 </ion-view>
