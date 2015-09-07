@@ -17,13 +17,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import static com.youfan.commons.OrderStatus.ODR_WAIT_FOR_PAY;
 
@@ -104,6 +101,43 @@ public class OrderController {
 		return Responses.SUCCESS();
 	}
 
+	@RequestMapping(method = RequestMethod.POST, params = "/{orderNo}")
+	public Response refund(@PathVariable String orderNo,
+			@RequestBody String orderInfo) {
+
+		return Responses.SUCCESS();
+	}
+
+	/**
+	 * 修改订单状态
+	 * 
+	 * @param orderNo
+	 * @return
+	 */
+	@RequestMapping(value = "/merchant/{orderNo}", method = RequestMethod.POST)
+	public Response updateOrderStatus(@PathVariable final String orderNo,
+			int orderStatus) {
+
+		Response response = null;
+		OrderParams order = new OrderParams();
+		order.setOrderNo(orderNo);
+		order.setOrderStatus(orderStatus);
+
+		try {
+			int tag = orderService.updateOrderStatus(order);
+			if (tag == 1) {
+				response = Responses.SUCCESS();
+			} else {
+				response = Responses.FAILED();
+			}
+		} catch (Exception e) {
+			response = Responses.FAILED();
+			logger.error(e.getMessage());
+		}
+
+		return response;
+	}
+
 	@RequestMapping(method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_FORM_URLENCODED_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
@@ -115,7 +149,8 @@ public class OrderController {
 		order.setSellerId(orderParams.getSellerId());
 		order.setOrderStatus(ODR_WAIT_FOR_PAY.value());
 		order.setDataStatus(1);
-		order.setPrice(orderParams.getPrice());
+		order.setOrgPrice(orderParams.getOriginalPrice());
+		order.setDiscountPrice(orderParams.getDiscountPrice());
 		order.setOrderTime(new Date());
 		// TODO 前端缺少就餐时间选项
 		order.setRepastTime(new Date());
@@ -164,42 +199,4 @@ public class OrderController {
 		return response;
 
 	}
-
-	@RequestMapping(method = RequestMethod.POST, params = "/{orderNo}")
-	public Response refund(@PathVariable String orderNo,
-			@RequestBody String orderInfo) {
-
-		return Responses.SUCCESS();
-	}
-
-	/**
-	 * 修改订单状态
-	 * 
-	 * @param orderNo
-	 * @return
-	 */
-	@RequestMapping(value = "/merchant/{orderNo}", method = RequestMethod.POST)
-	public Response updateOrderStatus(@PathVariable final String orderNo,
-			int orderStatus) {
-
-		Response response = null;
-		OrderParams order = new OrderParams();
-		order.setOrderNo(orderNo);
-		order.setOrderStatus(orderStatus);
-
-		try {
-			int tag = orderService.updateOrderStatus(order);
-			if (tag == 1) {
-				response = Responses.SUCCESS();
-			} else {
-				response = Responses.FAILED();
-			}
-		} catch (Exception e) {
-			response = Responses.FAILED();
-			logger.error(e.getMessage());
-		}
-
-		return response;
-	}
-
 }

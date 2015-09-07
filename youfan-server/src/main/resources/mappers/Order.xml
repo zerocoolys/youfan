@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youfan.data.mappers.OrderMapper">
 
+
     <resultMap id="MerchantOrderHeader" type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
 
         <result column="ORDER_NO" property="orderNo"/>
@@ -66,28 +67,140 @@
     </resultMap>
 
 
-    <select id="findOrders" parameterType="com.youfan.data.models.OrderEntity"
-            resultMap="MerchantOrderHeader">
+
+	<resultMap id="MerchantOrderHeader"
+		type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
+
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="BUYER_ID" property="buyerId" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="repast_Time" property="repastTime" />
+		<result column="repast_Address" property="repastAddress" />
+		<result column="dishes_Id" property="dishesId" />
 
 
-       SELECT
-	orders.ORDER_NO,
-	orders.repast_Address,
-	orders.repast_Time,
-	orders.BUYER_ID,
-	orders.ORIGINAL_PRICE,
-	orders.order_status,
-	dishes.dishes_Id
-FROM
-	TBL_ORDERS orders
-JOIN (
-	SELECT
+	</resultMap>
+
+
+
+	<resultMap id="MechantMenuVO" type="com.youfan.commons.vo.MechantMenuVO">
+
+		<result column="dish_id" property="menuId" />
+		<result column="dish_Count" property="dishCount" />
+
+	</resultMap>
+
+
+
+	<resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
+
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="BUYER_ID" property="buyerId" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="repast_Time" property="repastTime" />
+		<result column="order_time" property="orderTime" />
+		<result column="repast_Address" property="repastAddress" />
+		<result column="dishes_Id" property="dishesId" />
+		<result column="payment_way" property="paymentWay" />
+
+
+	</resultMap>
+
+	<resultMap id="OrderEntityMap" type="com.youfan.data.models.OrderEntity">
+
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="BUYER_ID" property="buyerId" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="repast_Time" property="repastTime" />
+		<result column="repast_Address" property="repastAddress" />
+		<result column="dishes_Id" property="dishesId" />
+	</resultMap>
+
+	<resultMap id="OrderFullEntityMap" type="com.youfan.data.models.OrderEntity">
+		<id column="ORDER_ID" property="id" />
+		<result column="ORDER_NO" property="orderNo" />
+		<result column="DATA_STATUS" property="dataStatus" />
+		<result column="ORDER_STATUS" property="orderStatus" />
+		<result column="ORIGINAL_PRICE" property="orgPrice" />
+		<result column="DISCOUNT_PRICE" property="discountPrice" />
+		<result column="SELLER_ID" property="sellerId" />
+		<result column="BUYER_ID" property="buyerId" />
+		<result column="order_Time" property="orderTime" />
+		<result column="repast_Time" property="repastTime" />
+		<result column="repast_Mode" property="repastMode" />
+		<result column="repast_Address" property="repastAddress" />
+		<result column="coupons" property="coupons" />
+		<result column="comments" property="comments" />
+	</resultMap>
+
+
+	<select id="findOrders" parameterType="com.youfan.data.models.OrderEntity"
+		resultMap="MerchantOrderHeader">
+
+
+		SELECT
+		orders.ORDER_NO,
+		orders.repast_Address,
+		orders.repast_Time,
+		orders.BUYER_ID,
+		orders.price,
+		orders.order_status,
+		dishes.dishes_Id
+		FROM
+		TBL_ORDERS orders
+		JOIN (
+		SELECT
 		orders.ORDER_NO,
 		group_concat(dishes.DISH_ID) AS dishes_Id
-	FROM
+		FROM
 		TBL_ORDERS orders
-	JOIN TBL_REL_ODR_DISH dishes ON orders.ORDER_NO = dishes.ORDER_NO
-	GROUP BY
+		JOIN
+		TBL_REL_ODR_DISH dishes ON orders.ORDER_NO = dishes.ORDER_NO
+		GROUP BY
+		orders.ORDER_NO
+		) dishes ON orders.ORDER_NO = dishes.ORDER_NO
+		WHERE
+		1 = 1
+
+		<if test="sellerId != null and sellerId != ''">
+			and orders.seller_Id = #{sellerId}
+		</if>
+
+		<if test="orderStatus != null">
+			and orders.order_Status = #{orderStatus}
+		</if>
+
+		<if test="repastMode != null and repastMode != ''">
+			and orders.repast_Mode = #{repastMode}
+		</if>
+
+	</select>
+
+
+	<select id="findOrderDetail" parameterType="com.youfan.data.models.OrderEntity"
+		resultMap="MerchantOrderDetail">
+
+
+		SELECT
+		orders.ORDER_NO,
+		orders.repast_Address,
+		orders.repast_Time,
+		orders.order_time,
+		orders.BUYER_ID,
+		orders.price,
+		dishes.dishes_Id,
+		orders.payment_way
+		FROM
+		TBL_ORDERS orders
+		JOIN (
+		SELECT
+		orders.ORDER_NO,
+		group_concat(dishes.DISH_ID) AS dishes_Id
+		FROM
+		TBL_ORDERS orders
+		JOIN
+		TBL_REL_ODR_DISH dishes ON orders.ORDER_NO = dishes.ORDER_NO
+		GROUP BY
 		orders.ORDER_NO
 ) dishes ON orders.ORDER_NO = dishes.ORDER_NO
         WHERE
@@ -166,85 +279,142 @@ WHERE 1 = 1
        
       </select>
 
+	<select id="findMenuCount" parameterType="java.util.Map"
+		resultMap="MechantMenuVO">
 
-    <select id="getOrder" parameterType="int" resultMap="OrderEntityMap">
+		SELECT
+		dishes.DISH_ID,
+		dishes.DISH_COUNT
+		FROM
+		TBL_REL_ODR_DISH dishes
+		WHERE 1 = 1
+
+
+		and dishes.ORDER_NO = #{orderNo}
+
+
+		and dishes.DISH_ID in
+		<foreach collection="dishesId" open="(" close=")" item="dishId"
+			index="index" separator=",">
+			#{dishId}
+		</foreach>
+
+	</select>
+
+
+	<select id="getOrder" parameterType="int" resultMap="OrderEntityMap">
+
 		SELECT *
 		FROM TBL_ORDERS WHERE ORDER_ID=#{id} AND DATA_STATUS = 1
 	</select>
 
-    <update id="deleteOrder" parameterType="java.lang.Integer">
+	<update id="deleteOrder" parameterType="java.lang.Integer">
 		UPDATE TBL_ORDERS SET
 		DATA_STATUS = 0 WHERE ORDER_ID = #{id}
 	</update>
 
-    <insert id="createOrder" parameterType="com.youfan.data.models.OrderEntity">
+	<insert id="createOrder" parameterType="com.youfan.data.models.OrderEntity">
 		INSERT INTO
-		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY)
-		VALUES(#{orderNo},#{sellerId},#{buyerId},#{price},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay})
+		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY)
+		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay})
 	</insert>
 
-    <insert id="saveOrderDishes" useGeneratedKeys="true" parameterType="java.util.List">
-        INSERT INTO TBL_REL_ODR_DISH (ORDER_NO, DISH_ID, DATA_STATUS, DISH_COUNT) VALUE
-        <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.orderNo},#{item.itemId},#{item.dataStatus},#{item.count})
-        </foreach>
-    </insert>
+	<insert id="saveOrderDishes" useGeneratedKeys="true"
+		parameterType="java.util.List">
+		INSERT INTO TBL_REL_ODR_DISH (ORDER_NO, DISH_ID, DATA_STATUS,
+		DISH_COUNT) VALUE
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.orderNo},#{item.itemId},#{item.dataStatus},#{item.count})
+		</foreach>
+	</insert>
 
-    <insert id="createOrderDishRel" parameterType="com.youfan.data.models.OrderDishRelEntity">
+	<insert id="createOrderDishRel" parameterType="com.youfan.data.models.OrderDishRelEntity">
 		INSERT INTO
 		TBL_REL_ODR_DISH(ODR_ID,DISH_ID) VALUES(#{orderNo},#{itemId})
 	</insert>
 
-    <select id="findAll">
+	<select id="findAll">
 		SELECT * FROM TBL_ORDERS
 	</select>
 
-    <select id="findAllByPagination" parameterType="com.youfan.commons.Pagination"
-            resultMap="OrderEntityMap">
+	<select id="findAllByPagination" parameterType="com.youfan.commons.Pagination"
+		resultMap="OrderEntityMap">
 		SELECT * FROM TBL_ORDERS ORDER BY #{orderBy} #{asc} LIMIT
 		#{start}, #{end}
 	</select>
 
-    <select id="getOrdersByBuyerId">
+	<select id="getOrdersByBuyerId">
 		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{0} AND
 		DATA_STATUS = 1 LIMIT
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
 	</select>
 
-    <select id="getOrdersBySellerId">
+	<select id="findOrderById" resultMap="OrderFullEntityMap">
+		SELECT * FROM TBL_ORDERS WHERE ORDER_ID = #{0} AND
+		DATA_STATUS = 1
+	</select>
+
+	<select id="getOrdersBySellerId">
 		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND
 		DATA_STATUS = 1 LIMIT
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
 	</select>
 
 
-    <select id="findByCondition" parameterType="java.util.Map"
-            resultMap="OrderEntityMap">
-        SELECT * FROM TBL_ORDERS
-        WHERE 1=1
-        <!-- 此处Map的orderNo 获取方式不统一 -->
-        <if test="map.orderNo != null and map.orderNo != ''">
-            and ORDER_NO = #{map.orderNo}
-        </if>
-        <if test="map.sellerId != null and map.sellerId != ''">
-            and seller_Id = #{map.sellerId}
-        </if>
-        <if test="map.order.orderStatus != null">
-            and order_Status = #{map.order.orderStatus}
-        </if>
+	<select id="findByCondition" parameterType="java.util.Map"
+		resultMap="OrderEntityMap">
+		SELECT * FROM TBL_ORDERS
+		WHERE 1=1
+		<!-- 此处Map的orderNo 获取方式不统一 -->
+		<if test="map.orderNo != null and map.orderNo != ''">
+			and ORDER_NO = #{map.orderNo}
+		</if>
+		<if test="map.sellerId != null and map.sellerId != ''">
+			and seller_Id = #{map.sellerId}
+		</if>
+		<if test="map.order.orderStatus != null">
+			and order_Status = #{map.order.orderStatus}
+		</if>
 
-        <if test="map.order.repastMode != null and map.order.repastMode != ''">
-            and repast_Mode = #{map.order.repastMode}
-        </if>
+		<if test="map.order.repastMode != null and map.order.repastMode != ''">
+			and repast_Mode = #{map.order.repastMode}
+		</if>
 
 
-        ORDER BY #{map.pager.orderBy} #{map.pager.asc} LIMIT
-        #{map.pager.start}, #{map.pager.end}
-    </select>
+		ORDER BY #{map.pager.orderBy} #{map.pager.asc} LIMIT
+		#{map.pager.start}, #{map.pager.end}
+	</select>
 
-    <select id="countAll" resultType="int">
+	<select id="countAll" resultType="int">
 		SELECT count(*) FROM TBL_ORDERS
 	</select>
+
+
+	<select id="getOrdersByParams" parameterType="com.youfan.controllers.params.OrderParams"
+		resultMap="OrderFullEntityMap">
+		SELECT * FROM TBL_ORDERS
+		WHERE 1=1
+		<if test="orderNo != null and orderNo != ''">
+			and ORDER_NO = #{orderNo}
+		</if>
+		<if test="sellerId != null">
+			and SELLER_ID = #{sellerId}
+		</if>
+		<if test="buyerId != null and buyerId != ''">
+			and BUYER_ID = #{buyerId}
+		</if>
+		<if test="orderStatus != null"> and ORDER_STATUS = #{orderStatus} </if>
+
+		<!-- 排序分页 -->
+		<if test="orderBy!=null">ORDER BY #{orderBy} #{asc}</if>
+		<if test="start!=null and end!=null">
+			LIMIT #{start}, #{pageSize}
+		</if>
+
+
+	</select>
+
 
     <select id="count" parameterType="com.youfan.controllers.params.OrderParams"
             resultType="int">
@@ -296,5 +466,4 @@ WHERE 1 = 1
 		where orders.order_no = #{orderNo} 
 
     </update>
-
 </mapper>

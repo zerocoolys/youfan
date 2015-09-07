@@ -38,7 +38,7 @@ public class MerchantUserController {
     @RequestMapping(path = "/login", method = RequestMethod.POST, produces = "application/json")
     public Response login(@RequestBody MerchantUserVO merchantUser) {
         MerchantUserVO merchantUserRes = merchantUsersService.login(merchantUser.getUserName());
-        return Responses.SUCCESS().setCode(200).setPayload(merchantUserRes);
+        return Responses.SUCCESS().setCode(0).setPayload(merchantUserRes);
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST, produces = "application/json")
@@ -65,24 +65,24 @@ public class MerchantUserController {
     @RequestMapping(path = "/saveMerchantKitchenStoryInfo", method = RequestMethod.POST, produces = "application/json")
     public Response saveMerchantKitchenStoryInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
         MerchantKitchenInfoVO merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
-        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoRes);
+        return Responses.SUCCESS().setCode(0).setPayload(merchantKitchenInfoRes);
     }
 
     @RequestMapping(path = "/saveMyHobby", method = RequestMethod.POST, produces = "application/json")
     public Response saveMyHobby(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
         MerchantKitchenInfoVO merchantKitchenInfoRes = merchantUsersService.saveMyHobby(merchantKitchenInfo);
-        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoRes);
+        return Responses.SUCCESS().setCode(0).setPayload(merchantKitchenInfoRes);
     }
 
     @RequestMapping(path = "/getMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
     public Response getMerchantUserInfo(@RequestBody MerchantUserVO MerchantUserVO) {
         MerchantUserVO merchantUserVORes = merchantUsersService.getMerchantUserInfo(MerchantUserVO.getId());
-        return Responses.SUCCESS().setCode(200).setPayload(merchantUserVORes);
+        return Responses.SUCCESS().setCode(0).setPayload(merchantUserVORes);
     }
 
     @RequestMapping(path = "/getMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
     public Response getMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {
         MerchantKitchenInfoVO merchantKitchenInfoVORes = merchantUsersService.getMerchantKitchenBaseInfo(merchantKitchenInfoVO.getId());
-        return Responses.SUCCESS().setCode(200).setPayload(merchantKitchenInfoVORes);
+        return Responses.SUCCESS().setCode(0).setPayload(merchantKitchenInfoVORes);
     }
 }

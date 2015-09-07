@@ -24,11 +24,13 @@ public interface OrderDAO {
 
     OrderVO getOrderByOrderNo(String orderNo);
 
+    OrderVO findOrderById(Long id);
+
     List<OrderVO> findAll(Pagination pagination);
 
-    List<OrderVO> getOrdersByBuyerId(Long buyerId, Pagination pagination);
+    List<OrderVO> getOrdersByBuyerId(String buyerId, Pagination pagination);
 
-    List<OrderVO> getOrdersBySellerId(Long sellerId, Pagination pagination);
+    List<OrderVO> getOrdersBySellerId(String sellerId, Pagination pagination);
 
     List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order);
 
@@ -117,6 +119,10 @@ public interface OrderDAO {
 
     default <E, T> List<E> convertToEntityList(List<T> tList, Class<E> entityClass, Class<T> voClass) {
         return tList.stream().map(t -> convertToEntity(t, entityClass, voClass)).filter(e -> e != null).collect(Collectors.toList());
+    }
+
+    default <E, T> List<T> convertToVOList(List<E> eList, Class<E> entityClass, Class<T> voClass) {
+        return eList.stream().map(e -> convertToVO(e, entityClass, voClass)).filter(t -> t != null).collect(Collectors.toList());
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * 优惠券类型
@@ -21,10 +22,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CouponsTypeEntity {
 	@Id
 	private String id;
-	
+
 	/**
-	 * 优惠券针对端
-	 * 2 客户端 3商家端
+	 * 优惠券针对端 2 客户端 3商家端
 	 */
 	private Integer port;
 	/**
@@ -34,24 +34,28 @@ public class CouponsTypeEntity {
 	/**
 	 * 优惠券时效
 	 */
+	@Field("tl")
 	private Integer timeLine;
+	
+	
 	/**
 	 * 是否为全场使用
 	 */
 	private Boolean ifAll;
-	private String kitchenId;
 
-
+	@Field("ct")
+	private Long createTime;
 	/**
 	 * 优惠券内容
 	 */
 	private List<CouponsContentEntity> content;
-	
-//	private JsonNode content;
+
 	/**
 	 * 优惠券描述
 	 */
 	private String desc;
+	
+	private Integer status;
 
 	public String getId() {
 		return id;
@@ -77,14 +81,6 @@ public class CouponsTypeEntity {
 		this.timeLine = timeLine;
 	}
 
-	public String getKitchenId() {
-		return kitchenId;
-	}
-
-	public void setKitchenId(String kitchenId) {
-		this.kitchenId = kitchenId;
-	}
-
 	public List<CouponsContentEntity> getContent() {
 		return content;
 	}
@@ -92,19 +88,10 @@ public class CouponsTypeEntity {
 	public void setContent(List<CouponsContentEntity> content) {
 		this.content = content;
 	}
-//
-//	public JsonNode getContent() {
-//		return content;
-//	}
-//
-//	public void setContent(JsonNode content) {
-//		this.content = content;
-//	}
+
 	public String getDesc() {
 		return desc;
 	}
-
-	
 
 	public void setDesc(String desc) {
 		this.desc = desc;
@@ -125,6 +112,21 @@ public class CouponsTypeEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
+	public Long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 }

@@ -7,17 +7,16 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
-import com.youfan.commons.vo.server.OrderDishRelVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.server.OrderDishRelVO;
+import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.dao.client.UserDao;
@@ -57,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderVO> findBySellerId(Long sellerId, Pagination pagination) {
+	public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
 		List<OrderVO> result = new ArrayList<>();
 
 		result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
@@ -66,8 +65,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public OrderVO findOrderById(Long id) {
+		return orderDAO.findOrderById(id);
+	}
+
+	@Override
 	public OrderVO findByOrderNo(String orderNo) {
-		return null;
+		return orderDAO.getOrderByOrderNo(orderNo);
 	}
 
 	@Override
@@ -76,8 +80,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public OrderVO updateOrder(OrderVO order) {
-		return null;
+	public int updateOrderStatus(OrderParams order) {
+		return orderDAO.updateOrderStatus(order);
 	}
 
 	@Override
@@ -170,20 +174,15 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public CollectionVO<OrderVO> getOrdersByParams(OrderParams op) {
-		// TODO Auto-generated method stub
-		CollectionVO<OrderVO> vo = new CollectionVO<OrderVO>();
+	public List<OrderVO> getOrdersByParams(OrderParams op) {
 		List<OrderVO> list = orderDAO.getOrdersByParams(op);
-		vo.addAll(list);
-		return vo;
+		return list;
 
 	}
 
 	@Override
-	public int updateOrderStatus(OrderParams order) {
-
-		int tag = orderDAO.updateOrderStatus(order);
-
-		return tag;
+	public void updateOrder(OrderVO order) {
+		// TODO Auto-generated method stub
+		
 	}
 }

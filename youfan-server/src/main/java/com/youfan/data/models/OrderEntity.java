@@ -24,8 +24,11 @@ public class OrderEntity {
     // 订单状态
     private int orderStatus;
 
-    // 价格
-    private BigDecimal price;
+    // 订单原始价格
+    private BigDecimal orgPrice;
+
+    // 使用折扣后的价格
+    private BigDecimal discountPrice;
 
     // 商家id
     private String sellerId;
@@ -93,12 +96,20 @@ public class OrderEntity {
         this.orderStatus = orderStatus;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getOrgPrice() {
+        return orgPrice;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setOrgPrice(BigDecimal orgPrice) {
+        this.orgPrice = orgPrice;
+    }
+
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(BigDecimal discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public String getSellerId() {
