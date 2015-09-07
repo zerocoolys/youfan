@@ -1,15 +1,15 @@
-package com.youfan.commons.vo.client;
+package com.youfan.controllers.params;
 
 /**
- * Created by icepros on 15-8-25.
+ * Created by icepros on 15-9-7.
  */
-public class UserVO {
+public class ClientUserParams {
+    private String token;
+    private String password;
+    private String uid;
 
-    private String id;
     //用户电话 作为 登陆账号
     private String tel;
-    //登陆密码
-    private String password;
     //昵称
     private String name;
     //性别
@@ -21,24 +21,12 @@ public class UserVO {
     //注册时间
     private String registerDate;
 
-
-    public UserVO() {
+    public String getToken() {
+        return token;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getPassword() {
@@ -47,6 +35,22 @@ public class UserVO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
     }
 
     public String getName() {
