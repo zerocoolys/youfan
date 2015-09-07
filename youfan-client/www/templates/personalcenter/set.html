@@ -10,7 +10,8 @@
             <h2>修改密码</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap"
+                  ui-sref="tab.user-agreement">
             <h2>免责声明</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
@@ -28,7 +29,7 @@
         </ion-item>
     </ion-content>
     <div class="bar bar-footer bar-balanced">
-        <div class="title"> 注销登录</div>
+        <div class="title" ng-controller="PwdLoginCtrl" ng-click="signOut()"> 注销登录</div>
     </div>
 </ion-view>
 <script id="templates/opinion.html" type="text/ng-template">
