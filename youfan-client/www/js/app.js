@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerModule', 'ServiceModule', 'ngCordova'])
+var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerModule', 'ServiceModule', 'ngCordova', 'LocalStorageModule'])
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -23,10 +23,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, localStorageServiceProvider) {
         $ionicConfigProvider.tabs.position('bottom');
         $ionicConfigProvider.tabs.style('standard');
         $ionicConfigProvider.navBar.alignTitle('center');
+        localStorageServiceProvider.setPrefix('youfan');
+        localStorageServiceProvider.setStorageType('sessionStorage');
+        localStorageServiceProvider.setStorageCookie(45, 'tab.chats');
+        localStorageServiceProvider.setStorageCookieDomain('');
+        localStorageServiceProvider.setNotify(true, true);
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
@@ -301,6 +306,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-chats': {
                         templateUrl: 'templates/login/set-pwd.html',
                         controller: 'SetPwdCtrl'
+                    }
+                }
+            })
+            //免责协议
+            .state('tab.user-agreement', {
+                url: '/user-agreement',
+                views: {
+                    'tab-dash': {
+                        templateUrl: 'templates/user-agreement.html',
                     }
                 }
             })
