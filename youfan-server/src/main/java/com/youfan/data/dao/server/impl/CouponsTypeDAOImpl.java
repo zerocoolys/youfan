@@ -1,16 +1,15 @@
 package com.youfan.data.dao.server.impl;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
-//import static org.springframework.data.mongodb.core.query.Query.query;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 import java.util.List;
-import java.util.Map;
 
-import com.youfan.commons.Pager;
-import com.youfan.commons.Pagination;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import com.youfan.commons.Pager;
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.data.dao.server.CouponsTypeDAO;
@@ -21,7 +20,7 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 	@Override
 	public CouponsTypeVO findOne(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return convertToVO( mongoTemplate.findOne(query(where("id").is(id)), getEntityClass()));
 	}
 
 	@Override
