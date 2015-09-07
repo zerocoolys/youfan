@@ -179,8 +179,8 @@ WHERE 1 = 1
 
     <insert id="createOrder" parameterType="com.youfan.data.models.OrderEntity">
 		INSERT INTO
-		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY)
-		VALUES(#{orderNo},#{sellerId},#{buyerId},#{price},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay})
+		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY)
+		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay})
 	</insert>
 
     <insert id="saveOrderDishes" useGeneratedKeys="true" parameterType="java.util.List">
