@@ -115,6 +115,7 @@
 }
 .dash_detail .main_menu .item-body{
     background-color: #eee;
+    padding-bottom:48px;
 }
 .dash_detail .main_menu .item-body .menu_line{
     border-top-width: 1px;

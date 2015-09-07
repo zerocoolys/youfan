@@ -18,16 +18,6 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
 
 
     // ========================= dolphineor =========================
-    //// 订单
-    //$scope.order = {
-    //    items: [],  // 菜品
-    //    price: 0,
-    //    repastMode: '',  // 就餐方式
-    //    repastAddress: '',  // 就餐地址
-    //    coupons: 0,  // 优惠券
-    //    comments: ''    // 备注
-    //};
-
     // 口味
     $scope.tastes = [{id: 1, name: "不吃辣"}, {id: 2, name: "微辣"}, {id: 3, name: "多放辣椒"}, {id: 4, name: "不放蒜"},
         {id: 5, name: "不放香菜"}, {id: 6, name: "少放盐"}, {id: 7, name: "米饭多点"}, {id: 8, name: "菜量多点"}];
@@ -35,7 +25,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
     // 就餐方式
     $rootScope.userDiningWay = {};
 
-    // 购物车
+    // 购物车列表
     $scope.cart = {};
 
     // 此次订单的总价
@@ -51,38 +41,37 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             return;
         }
 
-        Order.details = {
-            items: $scope.cart.data,
-            price: $scope.remainPayedPrice,
-            comments: $scope.comments.trim().replace(" ", ",")
-        };
-
         var menusJsonObj = {};
         $scope.cart.data.forEach(function (item) {
             menusJsonObj[item.id] = [item.count, item.restNum];
         });
 
-
-        // TEST CODE
-        Order.details.price = 1;
-
         var orderData = {
             buyerId: 22305304567,
             sellerId: Merchant.sellerId,
             itemMap: menusJsonObj,
-            comments: Order.details.comments,
-            price: Order.details.price,
-            //repastMode: $rootScope.userDiningWay.pickUp == true ? "自取" : "配送",
+            comments: $scope.comments.trim().replace(" ", ","),
+            originalPrice: $scope.totalPrice,
+            discountPrice: $scope.remainPayedPrice,
             repastMode: $rootScope.userDiningWay.pickUp == true ? "zq" : "ps",
-            repastAddress: $rootScope.userDiningWay.address.name + "," + $rootScope.userDiningWay.address.telNo + "," + $rootScope.userDiningWay.address.address
+            repastAddress: $rootScope.userDiningWay.address.name + "," + $rootScope.userDiningWay.address.telNo + "," + $rootScope.userDiningWay.address.address,
+            couponId: null,
+            activeId: null
         };
+
+        // ========= TEST CODE ==========
+        // ===== 支付价格设置为0.01￥ =====
+        orderData.discountPrice = 1;
+        // ==============================
 
         // 创建订单
         $http.post(REST_URL + '/orders', orderData)
             .then(function (response) {
                 //console.log(JSON.stringify(response));
-                //Order.details.orderNo = response.data.payload.orderNo;
-                $state.go('tab.pay-page', {order_no: response.data.payload.orderNo, price: orderData.price});
+                $state.go('tab.pay-page', {
+                    order_no: response.data.payload.orderNo,
+                    discountPrice: orderData.discountPrice
+                });
             }, function (error) {
                 //console.log(error);
                 $scope.showAlert('系统内部错误');
@@ -109,6 +98,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         });
     };
 
+    // 加载购物车信息
     $scope.loadCart = function () {
         $scope.cart.data = Order.cart;
 

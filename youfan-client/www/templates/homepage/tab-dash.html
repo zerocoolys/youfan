@@ -1,14 +1,14 @@
-<ion-view view-title="" hide-nav-bar="true"  class="home_item" overflow-scroll="true">
+<ion-view view-title="" hide-nav-bar="true"  class="home_item" overflow-scroll="false">
     <div class="bar bar-header item-input-inset">
 
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="搜索"/>
+            <input type="search" ng-model="inputText.value" ng-change="tab_keydown(inputText.value)" placeholder="搜索"/>
         </label>
-
+<!--
         <a class="button button-clear button-balanced" ui-sref="tab.pwd-login">
             登录
-        </a>
+        </a>-->
 
     </div>
     <div class="bar bar-subheader bar-light" style="height:30px;">
@@ -19,7 +19,7 @@
                </span>
         </div>
     </div>
-    <ion-content style="top:75px;" overflow-scroll="true">
+    <ion-content style="top:75px;" overflow-scroll="false">
         <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
         </ion-refresher>
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
