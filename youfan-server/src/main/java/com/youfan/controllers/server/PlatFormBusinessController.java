@@ -2,9 +2,7 @@ package com.youfan.controllers.server;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.ConditionVO;
+import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
@@ -34,8 +33,6 @@ import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.CouponsContentEntity;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
-import com.youfan.exceptions.ServerNoActiveDetailClazzException;
-import com.youfan.exceptions.ServerNoActiveEventException;
 import com.youfan.exceptions.UserException;
 import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.merchant.MerchantUsersService;
@@ -87,13 +84,13 @@ public class PlatFormBusinessController {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/test")
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
-		Response res = null;
-		Map<String, Object> activeParams = new HashMap<String, Object>();
-		activeParams.put("userVo", userDAO.getUserByTel("13980041343"));
-//			activeSupportService.joinActive(1, "client_register", activeParams);
-			res = Responses.SUCCESS().setCode(1).setMsg("SUCCESS");
-
-		return res;
+//		return activeSupportService.joinActive("client_register", userDAO.getUserByTel("13980041343"));
+		UserVO user = userDAO.getUserByTel("13980041343");
+		user.setSex("男");
+		OrderVO ov = new OrderVO();
+		ov.setPrice(1000);
+		
+		return activeSupportService.joinActive("client_order_8折", user,ov);
 	}
 
 	/**
@@ -175,13 +172,12 @@ public class PlatFormBusinessController {
 	public Response saveCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-			if (request.getParameter("port") != null && request.getParameter("timeLine") != null
-					&& request.getParameter("kitchenId") != null) {
+			if (request.getParameter("port") != null && request.getParameter("timeLine") != null) {
 
 				CouponsTypeVO coupons = new CouponsTypeVO();
 				coupons.setPort(Integer.valueOf(request.getParameter("port")));
 				coupons.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
-				coupons.setKitchenId(request.getParameter("kitchenId"));
+				// coupons.setKitchenId(request.getParameter("kitchenId"));
 				coupons.setDesc(request.getParameter("desc"));
 				coupons.setContent(
 						JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
@@ -195,6 +191,7 @@ public class PlatFormBusinessController {
 				res = Responses.FAILED().setMsg("数据保存异常:参数错误");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
 		}
 
@@ -252,10 +249,10 @@ public class PlatFormBusinessController {
 				activeVo.setActiveType(Integer.valueOf(request.getParameter("activeType")));
 				// activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
 
-//				System.out.println(request.getParameter("userCondition"));
-				activeVo.setUserConditions(
+				// System.out.println(request.getParameter("userCondition"));
+				activeVo.setUserConditions(request.getParameter("userCondition")==null?null:
 						JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
-				activeVo.setOrderConditions(
+				activeVo.setOrderConditions(request.getParameter("orderCondition")==null?null:
 						JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
 				activeVo.setAllowTimes(0);
 				activeVo.setDesc(request.getParameter("desc"));
@@ -269,7 +266,7 @@ public class PlatFormBusinessController {
 				// 状态默认为1 表示开启使用状态
 				activeVo.setStatus(1);
 				System.out.println(activeVo.toString());
-				 activeService.save(activeVo);
+				activeService.save(activeVo);
 				res = Responses.SUCCESS().setMsg("数据保存成功");
 			} else {
 				res = Responses.FAILED().setMsg("数据保存异常:参数错误");

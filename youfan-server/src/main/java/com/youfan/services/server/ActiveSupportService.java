@@ -1,13 +1,8 @@
 package com.youfan.services.server;
 
-import java.util.List;
-import java.util.Map;
-
-import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.server.OrderVO;
-import com.youfan.exceptions.ServerNoActiveDetailClazzException;
-import com.youfan.exceptions.ServerNoActiveEventException;
+import com.youfan.controllers.support.Response;
 
 /**
  * 活动支撑接口
@@ -32,7 +27,7 @@ public interface ActiveSupportService {
 	 * @author QinghaiDeng
 	 * @update 2015年9月6日 下午6:17:23
 	 */
-	public Object joinActive(Integer activeType, UserVO userVo);
+	public Response joinActive(Integer activeType, UserVO userVo);
 
 	/**
 	 * 参加活动类型下指定活动 不涉及订单
@@ -45,7 +40,7 @@ public interface ActiveSupportService {
 	 * @author QinghaiDeng
 	 * @update 2015年9月6日 下午6:17:35
 	 */
-	public Object joinActive(String event, UserVO userVo);
+	public Response joinActive(String event, UserVO userVo);
 
 	/**
 	 * 参加活动类型下所有活动
@@ -59,7 +54,7 @@ public interface ActiveSupportService {
 	 * @author QinghaiDeng
 	 * @update 2015年9月6日 下午6:18:41
 	 */
-	public Object joinActive(Integer activeType, UserVO userVo, OrderVO orderVo);
+	public Response joinActive(Integer activeType, UserVO userVo, OrderVO orderVo);
 	/**
 	 * 参加活动类型下指定活动
 	 * @param activeType
@@ -72,5 +67,5 @@ public interface ActiveSupportService {
 	 * @author QinghaiDeng
 	 * @update 2015年9月6日 下午6:18:41
 	 */
-	public Object joinActive(String event, UserVO userVo, OrderVO orderVo);
+	public Response joinActive(String event, UserVO userVo, OrderVO orderVo);
 }
