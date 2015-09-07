@@ -120,8 +120,9 @@
     background: -ms-linear-gradient( top, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.40));
     background: -o-linear-gradient( top, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.40));*/
 }
-.person_img h2,.person_img span{
-    color:#e4c615;
+
+.person_img h2, .person_img span {
+    color: #e4c615;
     font-family: "微软雅黑", "黑体";
 }
 
@@ -733,4 +734,19 @@ ul.rating li i {
     float: left;
 
     margin-bottom: 10px;
+}
+
+/*分享*/
+.share button {
+    font-size: 14px;
+    text-align: left;
+}
+
+.share img {
+    margin: 10px 5px 0 0;
+}
+
+.share .action-sheet .button {
+
+    padding-left: 35%;
 }

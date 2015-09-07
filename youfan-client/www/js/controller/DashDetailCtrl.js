@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $stateParams, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout, $ionicScrollDelegate) {
+ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $stateParams, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout, $ionicScrollDelegate, $ionicActionSheet) {
     // ========================= guochunyan =========================
     $scope.slideIndex = 0;
 
@@ -42,6 +42,22 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             $scope.AddColor = false;
         }
     }
+    $scope.share = function () {
+
+        $ionicActionSheet.show({
+            cssClass: "share",
+            buttons: [
+                {text: '<img src="img/weixin_btn.png" width="24" height="24">微信 '},
+                {text: '<img src="img/signupqq.png" width="24" height="24">QQ'},
+                {text: '<img src="img/share_sina.png" width="24" height="24">新浪微博'}
+            ],
+            cancelText: '取消',
+            buttonClicked: function (index) {
+                return true;
+            }
+        });
+
+    };
     // ========================= dolphineor =========================
     $scope.items = {
         data: []

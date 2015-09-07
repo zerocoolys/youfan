@@ -9,7 +9,7 @@ var mapApiUtils = {
         if(dataXY.length != 0){
             dataXY.forEach(function(item, i){
                 var marker = new AMap.Marker({
-                    icon: "http://webapi.amap.com/images/marker_sprite.png",
+                    icon: "img/location.png",
                     position: new AMap.LngLat(item.x, item.y)
                 });
                 marker.setMap(mapObj);  //在地图上添加点
