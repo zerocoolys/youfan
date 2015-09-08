@@ -1,8 +1,14 @@
 ControllerModule.controller('CommentListCtrl', function ($scope, $http, REST_URL, $stateParams, $ionicSlideBoxDelegate) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.commentData = [];
+    $scope.params = {
+        pageNo: 1,
+        pageSize: 10,
+        asc: false,
+        sortBy: "ct"
+    }
     $scope.initComment = function () {
-        $http.get(REST_URL + "/cm/getCommentPager?pageNo=1&pageSize=10&asc=false&sortBy=ct").success(function (result) {
+        $http.post(REST_URL + "/cm/getCommentPager", $scope.params).success(function (result) {
             if (result.payload.list.length) {
                 result.payload.list.forEach(function (item) {
                     item["img"] = "img/2.jpeg";

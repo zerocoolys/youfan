@@ -3,6 +3,8 @@
  */
 ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $stateParams, $ionicSlideBoxDelegate, Order, Merchant, REST_URL, $ionicPopup, $timeout, $ionicScrollDelegate, $ionicActionSheet) {
     // ========================= guochunyan =========================
+    $scope.$root.tabsHidden = "tabs-hide";
+
     $scope.slideIndex = 0;
 
     //购物车显示隐藏
@@ -290,6 +292,17 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     // 数量
     $scope.count = 0;
 
+    $scope.showDishDetail = function () {
+        $scope.dishDetail = {
+            name: "鱼香肉丝",
+            description: "好吃",
+            restNum: 15,
+            tasteNum: 56,
+            price: 12.00
+        };
+        $state.go('tab.food-detail');
+    };
+
 
     $scope.showAlert = function () {
         var alertPopup = $ionicPopup.alert({
@@ -311,9 +324,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         var merchantId = Merchant.mki;
         if (merchantId) {
             $http.get(REST_URL + "/mr/getMrOne/" + merchantId).success(function (result) {
+                console.log(result);
                 if (result.payload != null) {
                     var _tmpData = result.payload;
-                    _tmpData["lg"] = _tmpData.lat + "," + _tmpData.lng;
+                    _tmpData["lg"] =_tmpData.location;
                     if (!_tmpData.distribution) {
                         _tmpData["distribution"] = "暂无说明";
                     }
@@ -332,7 +346,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     if (_tmpData.canteen) {
                         _tmpData["canteenText"] = "支持|可容纳人数：" + _tmpData.galleryFul;
                     } else {
-                        _tmpData["canteenText"] = "不支持食堂";
+                        _tmpData["canteenText"] = "不支持堂食";
                     }
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;
@@ -348,7 +362,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                 if (result.payload != null) {
                     var _tmpData = result.payload;
                     _tmpData["realName"] = _tmpData.realName.substring(0, 1) + "先生";
-                    _tmpData["address"] = _tmpData.address?_tmpData.address.replace(/市|省|自治|区/g, '') + "人":"暂无";
+                    _tmpData["address"] = _tmpData.address ? _tmpData.address.replace(/市|省|自治|区/g, '') + "人" : "暂无";
                     $scope.merchantUser = _tmpData;
                     Merchant.userInfo = _tmpData;
                 }

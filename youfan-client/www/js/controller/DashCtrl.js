@@ -1,4 +1,5 @@
 ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merchant, $state, $ionicModal, $rootScope) {
+    //console.log(Merchant.localRange + "<<<<<<<<")
     $rootScope.hideTabs = false;
     //下拉刷新
     $scope.doRefresh = function () {
@@ -7,6 +8,17 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
             $scope.$broadcast('scroll.refreshComplete');
         });
     };
+    //地图信息初始化加载
+    $scope.mapObj = new AMap.Map("mapContainer", {
+        resizeEnable: true
+    });
+    $scope.loadMore = function () {
+        //console.log('loadMore');
+    }
+    $scope.moreDataCanBeLoaded = function () {
+        //console.log("loadComplete")
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
     //$scope.testData = {
     //    uId: "12123sadfasfdd",
     //    mrName: '动态念家厨房32',
@@ -25,17 +37,33 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     //};
     $scope.merChantData = [];
     $scope.initMerchant = function (cp) {
-        $http.get(REST_URL + "/mr/getMrData").success(function (result) {
-            if (result.payload.length) {
-                result.payload.forEach(function (item) {
-                    item["src"] = "img/1.jpg";
-                    item["headImg"] = "img/avatar1.jpg";
-                    $scope.merChantData.push(item);
-                });
-                if (cp) {
-                    cp();
-                }
+        mapTools.getUserLngLat($scope, $scope.mapObj, function (data) {
+            var per = {};
+            var p = {}
+            if (Merchant.localRange) {
+                per["lng"] = 104.069624;//Merchant.localRange.split(",")[0];
+                per["lat"] = 30.522269;//Merchant.localRange.split(",")[1];
+                p["params"] = per
+                Merchant.localRange = undefined;
+            } else {
+                per["lng"] = 104.070091;//data.split(",")[0];
+                per["lat"] = 30.510871;//data.split(",")[1];
+                p["params"] = per
             }
+            $http.post(REST_URL + "/mr/getGeographical", p).success(function (result) {
+                console.log(result);
+                if (result.payload.list.length) {
+                    result.payload.list.forEach(function (item) {
+                        item["src"] = "img/1.jpg";
+                        item["headImg"] = "img/avatar1.jpg";
+                        item["loc"]=parseInt(item['location']*1000)+"m";
+                        $scope.merChantData.push(item);
+                    });
+                    if (cp) {
+                        cp();
+                    }
+                }
+            });
         });
     }
     $scope.initMerchant();

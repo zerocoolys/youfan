@@ -38,7 +38,7 @@
             <ion-item class="item" ng-repeat="mc in merChantData">
                 <div class="list img_box"  ng-click="goTo(mc.id)"  style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 200px;color: #fff">
                     <div class="address" style="padding: 5px">
-                        <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}</p>
+                        <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}&nbsp;<span ng-bind="mc.loc">342m</span></p>
                         <!--<img class="full-image" src="{{mc.src}}"></a>-->
                         <!--<div class="img_text">
                             111{{mc.cang}}<span>品尝过</span>
@@ -121,6 +121,11 @@
             <!--</div>-->
             <!--</ion-item>-->
         </ion-list>
+        <!--<ion-infinite-scroll-->
+                <!--on-infinite="loadMore()"-->
+                <!--distance=" 1%">-->
+        <!--</ion-infinite-scroll>-->
+
     </ion-content>
 
 </ion-view>

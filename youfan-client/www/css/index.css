@@ -36,7 +36,7 @@
 .home_item .item {
     overflow: inherit;
     padding: 0;
-    margin: 10px 0 0 0;
+    margin: 5px 0 0 0;
     border: none;
 }
 
@@ -416,7 +416,7 @@ Alpha(opacity = 100);
 }
 
 .shop_cart ul li {
-    border-bottom: 1px solid #c0c0c0;
+    border-bottom: 1px solid #f3f3f3;
     height: 40px;
     line-height: 40px;
 }
@@ -773,4 +773,49 @@ ul.rating li i {
 .profile-item .care_text span, .profile-item .care_text p {
     color: #fff;
 
+}
+
+.icon_bg.ion-ios-paper-outline {
+    background: #74d5ef;
+}
+
+.icon_bg.ion-location {
+    background: #74d5ef;
+}
+
+.photo_img {
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.photo_img ul li {
+    display: block;
+    float: left;
+    margin: 0 0 10px 5px;
+
+}
+
+.photo_img ul li img {
+    width: 80px;
+    height: 80px;
+}
+
+.comment_input {
+    position: relative;
+}
+
+.comment_input .button-clear {
+    position: absolute;
+    bottom: 10px;
+    right: 18px;
+}
+
+.message_text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.message_text.add_text{
+    white-space: normal;
+    text-overflow: clip;
 }

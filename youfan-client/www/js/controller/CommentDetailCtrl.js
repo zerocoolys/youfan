@@ -23,7 +23,6 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_U
         img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg"]
     };
     $scope.comment = function () {
-        console.log($scope.formData);
         $http.post(REST_URL + "/cm/save", $scope.formData).success(function (result) {
             if (result.code === 0) {
                 var myPopup = $ionicPopup.show({

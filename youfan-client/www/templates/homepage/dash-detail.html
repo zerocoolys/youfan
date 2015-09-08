@@ -35,16 +35,16 @@
         <div class="item text-center" style="border-width: 0;">
             <div class="segmented-control-item">
                 <h2 style="margin-top: 40px" ng-bind="merchantObj.kitchenName"></h2>
-                <i class="icon ion-star" style="color: #e4e400"></i>
-                <i class="icon ion-star" style="color: #e4e400"></i>
-                <i class="icon ion-star" style="color: #e4e400"></i>
-                <i class="icon ion-star" style="color: #e4e400"></i>
-                <i class="icon ion-star" style="color: #e4e400"></i>
+                <i class="icon ion-star" style="color: #e4c615"></i>
+                <i class="icon ion-star" style="color: #e4c615"></i>
+                <i class="icon ion-star" style="color: #e4c615"></i>
+                <i class="icon ion-star" style="color: #e4c615"></i>
+                <i class="icon ion-star" style="color: #e4c615"></i>
 
                 <p style="margin-top: 5px"><span ng-bind="merchantUser.realName">李先生</span> <span
                         ng-bind="merchantUser.address">海南人</span></p>
 
-                <p style="margin-top: 35px"><span ng-bind="merchantObj.startTime"></span> - <span
+                <p><span ng-bind="merchantObj.startTime"></span> - <span
                         ng-bind="merchantObj.endTime"></span> 开放厨房</p>
 
                 <div class="row padding">
@@ -69,7 +69,8 @@
                     <i class="icon_bg ion-location icon-accessory"></i>
                 </span>
 
-                <h2 ui-sref="tab.Map({lg:merchantObj.lg})" ng-bind="merchantObj.kitchenAddress">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
+                <h2 ui-sref="tab.Map({lg:merchantObj.lg})" ng-bind="merchantObj.kitchenAddress">
+                    四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">
@@ -92,7 +93,9 @@
                 <ion-list>
                     <ion-item class="item-body list-borderless item-borderless" ng-repeat="menu in menuItemArr"
                               ng-repeat-end="1">
-                        <img class="full-image" ng-src="{{menu.picUrl}}">
+                        <!--<img class="full-image" ng-src="{{menu.picUrl}}" ng-click="showDishDetail()">-->
+                        <img class="full-image" ng-src="http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg"
+                             ng-click="showDishDetail()">
                         <ion-item class="item-icon-right item-icon-left">
                             <span class="icon">
                                 <i class="icon_bg ion-coffee icon-accessory"></i>
@@ -109,7 +112,6 @@
 
                             <span ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"
                                   class="mainColor"></span>
-                            <!--<i class="icon ion-plus icon-accessory" ng-click="addToCart(menu)"></i>-->
                             <span class="item-note">
                                 <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
                                     <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
@@ -121,28 +123,6 @@
                         </ion-item>
                     </ion-item>
                 </ion-list>
-                <!--<ion-list>
-                    <ion-item class="item-body list-borderless item-borderless tip_menu_list">
-                        <ion-item class="item-thumbnail-left" style="  margin-bottom: 12px;" ui-sref="tab.food-detail">
-                            <img src="img/2.jpeg">
-
-                            <h2 class="tip_menu_list_name">西红柿炒鸡蛋</h2>
-                            <span class="mainColor">还有11份 | 105人品尝过</span>
-
-                            <div class="price">
-                                <span>￥15.00</span>
-                                <span class="item-note">
-                                    <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
-                                        <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
-                                           ng-click="minusItem(menu.id)"></i>
-                                        <span ng-show="menu.shopAccount">&nbsp;{{menu.count}}&nbsp;</span>
-                                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"></i>
-                                    </span>
-                                </span>
-                            </div>
-                        </ion-item>
-                    </ion-item>
-                </ion-list>-->
                 <ion-list class="tip_menu">
                     <ion-item class="item-thumbnail-left item-icon-right" ng-repeat="menu in menuItemArr"
                               ng-repeat-start="2">
