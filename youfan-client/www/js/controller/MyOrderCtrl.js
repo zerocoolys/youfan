@@ -106,14 +106,15 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $ionicSlideBoxDeleg
     $scope.notCommentedOrders = [];
 
 
-    $scope.retrieveOrdersByUserId = function () {
-        var pagination = {
-            pageNo: 0,
-            pageSize: 10,
-            orderBy: 'orderTime',
-            asc: false
-        };
+    $scope.pagination = {
+        pageNo: 0,
+        pageSize: 10,
+        orderBy: 'orderTime',
+        asc: false
+    };
 
+
+    $scope.retrieveOrdersByUserId = function () {
         $http.post(REST_URL + '/orders/users/' + 22305304567, pagination)
             .then(function (response) {
                 console.log(JSON.stringify(response));
