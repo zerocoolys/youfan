@@ -163,12 +163,10 @@ var mapTools = {
             //返回定位成功处理
             AMap.event.addListener(geolocation, 'complete', function (data) {
                 var Lnglat = data.position.getLng() + "," + data.position.getLat();
-                console.log(Lnglat);
                 cb(Lnglat);
             });
             //返回定位出错信息处理
             AMap.event.addListener(geolocation, 'error', function () {
-                console.log(0)
                 cb(false);
             });
         });

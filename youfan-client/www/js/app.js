@@ -360,6 +360,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             .state('tab.Map', {
                 url: '/mapCtrl/:lg',
+                cache:false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/map.html',

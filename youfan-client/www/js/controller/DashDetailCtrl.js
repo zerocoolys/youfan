@@ -324,9 +324,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         var merchantId = Merchant.mki;
         if (merchantId) {
             $http.get(REST_URL + "/mr/getMrOne/" + merchantId).success(function (result) {
+                console.log(result);
                 if (result.payload != null) {
                     var _tmpData = result.payload;
-                    _tmpData["lg"] = _tmpData.lat + "," + _tmpData.lng;
+                    _tmpData["lg"] =_tmpData.location;
                     if (!_tmpData.distribution) {
                         _tmpData["distribution"] = "暂无说明";
                     }
@@ -345,7 +346,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     if (_tmpData.canteen) {
                         _tmpData["canteenText"] = "支持|可容纳人数：" + _tmpData.galleryFul;
                     } else {
-                        _tmpData["canteenText"] = "不支持食堂";
+                        _tmpData["canteenText"] = "不支持堂食";
                     }
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;

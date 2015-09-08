@@ -12,6 +12,13 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     $scope.mapObj = new AMap.Map("mapContainer", {
         resizeEnable: true
     });
+    $scope.loadMore = function () {
+        //console.log('loadMore');
+    }
+    $scope.moreDataCanBeLoaded = function () {
+        //console.log("loadComplete")
+        $scope.$broadcast('scroll.infiniteScrollComplete');
+    }
     //$scope.testData = {
     //    uId: "12123sadfasfdd",
     //    mrName: '动态念家厨房32',
@@ -30,8 +37,7 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     //};
     $scope.merChantData = [];
     $scope.initMerchant = function (cp) {
-        mapTools.getUserLngLat($scope,$scope.mapObj, function (data) {
-            console.log(1);
+        mapTools.getUserLngLat($scope, $scope.mapObj, function (data) {
             var per = {};
             var p = {}
             if (Merchant.localRange) {
@@ -45,10 +51,12 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
                 p["params"] = per
             }
             $http.post(REST_URL + "/mr/getGeographical", p).success(function (result) {
-                if (result.payload.length) {
-                    result.payload.forEach(function (item) {
+                console.log(result);
+                if (result.payload.list.length) {
+                    result.payload.list.forEach(function (item) {
                         item["src"] = "img/1.jpg";
                         item["headImg"] = "img/avatar1.jpg";
+                        item["loc"]=parseInt(item['location']*1000)+"m";
                         $scope.merChantData.push(item);
                     });
                     if (cp) {
