@@ -7,7 +7,8 @@
                popupsure="点赞成功" popupcancel="取消点赞"></i>
             <i class="ion-ios-star-outline" on-icon="ion-ios-star-outline" off-icon="ion-ios-star" icon-switcher
                popupsure="关注成功" popupcancel="取消关注"></i>
-            <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher></i>
+            <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher
+               ng-click="share()"></i>
         </div>
     </ion-header-bar>
     <ion-content style="background-color: #fff" on-scroll="onContentScroll()">
@@ -68,7 +69,7 @@
                     <i class="icon_bg ion-location icon-accessory"></i>
                 </span>
 
-                <h2 ui-sref="tab.Map" ng-bind="merchantObj.kitchenAddress">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
+                <h2 ui-sref="tab.Map({lg:merchantObj.lg})" ng-bind="merchantObj.kitchenAddress">四川省成都市武侯区玉林街道百年花西世纪名苑</h2>
                 <i class="icon ion-ios-arrow-right icon-accessory"></i>
             </ion-item>
             <ion-item class="item-icon-left item-icon-right">

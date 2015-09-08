@@ -1,10 +1,26 @@
-ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_URL,Order,Merchant,$location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicModal) {
+ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_URL, Order, Merchant, $location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicActionSheet, $ionicModal, CameraService) {
+    $scope.cImg = "";
+    CameraService.createCameraPath($scope, function (result) {
+        if (result) {
+            if (!result.getType) {
+                $scope.cImg = result.pathData;
+            } else {
+                $scope.cImg = result.pathData[0];
+            }
+        }
+    });
+    $scope.upCommentImg = function () {
+        CameraService.upImg($scope.cImg, function (result) {
+            alert(JSON.stringify(result));
+        });
+    }
     $scope.formData = {
         star: 1,
-        comment_user:'用户1',
+        comment_user: '用户1',
         order_id: Order.id,
         pid: 0,
-        is_hide_name:false
+        is_hide_name: false,
+        img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg"]
     };
     $scope.comment = function () {
         console.log($scope.formData);
@@ -29,17 +45,5 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_U
         }
     }
 
-    $scope.commentDataList=[];
-    $scope.initComment = function () {
-        var order_id=2;
-        $http.post(REST_URL + "/cm/getComment",{orderId:order_id}).success(function (result) {
-            if(result.code===0){
-                console.log(result.payload);
-            }
-        });
-    }
-    $scope.initComment();
-    //$scope.rating_full = {
-    //    value: 5
-    //};
+    $scope.commentDataList = [];
 });

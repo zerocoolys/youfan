@@ -16,16 +16,12 @@
                 <input type="search" ng-model="inputText.value" ng-change="keydown()" placeholder="小区/大厦/学校/街道"/>
             </label>
         </div>
-        <label class="item-input item-stacked-label padding-right">
-            <span class="input-label">我的地址</span>
-        </label>
-
         <div data-ng-repeat="item in items" id='divid{{$index + 1}}' data-ng-click='selectResult($index)'
              style="font-size: 13px;cursor:pointer;padding:5px 5px 5px 5px;">{{item.name}}<span style='color:#C1C1C1;'>{{item.value}}</span>
         </div>
-        <div data-ng-if="mapPrompt == 1" >
+        <div data-ng-if="mapPrompt == 1" style="text-align: center">
             <i class="icon ion-sad-outline "></i>
-            "亲,优饭找不到结果!<br/>要不试试：<br/>1.确保所有字词拼写正确<br/>2.尝试不同的关键字<br/>3.尝试更宽泛的关键字"
+            "亲,优饭找不到结果哦！<br/><!--要不试试：<br/>1.确保所有字词拼写正确<br/>2.尝试不同的关键字<br/>3.尝试更宽泛的关键字"-->
         </div>
         <div ng-hide="showhi">
             <div class="list padding-left padding-right ">

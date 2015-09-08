@@ -99,3 +99,6 @@ body {
 .bar.bar-stable .title {
     color: #fff;
 }
+.dash_detail .bar .title{
+    background:none;
+}

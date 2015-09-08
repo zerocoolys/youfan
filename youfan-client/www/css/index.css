@@ -121,6 +121,11 @@
     background: -o-linear-gradient( top, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.40));*/
 }
 
+.person_img h2, .person_img span {
+    color: #e4c615;
+    font-family: "微软雅黑", "黑体";
+}
+
 .home_item .address p {
     padding: 5px;
     font-size: 12px;
@@ -348,6 +353,10 @@ ul.rating li i {
     min-height: 54px;
 }
 
+.person .item-content span {
+    line-height: 24px;
+}
+
 .item_left {
     position: absolute;
     top: 16px;
@@ -435,7 +444,7 @@ Alpha(opacity = 100);
 
 .zan_popup .popup-head {
     padding: 0px;
-
+    border: none;
 }
 
 .zan_popup .popup-body {
@@ -447,6 +456,7 @@ Alpha(opacity = 100);
 
 .popup-container.zan_popup .popup {
     width: auto;
+    border-radius: 10px;
 }
 
 .bar-footer .item {
@@ -468,6 +478,9 @@ Alpha(opacity = 100);
     padding-right: 10px;
 }
 
+/*.dash_detail .item-body{
+    padding-bottom:40px;
+}*/
 .slider-pager .slider-pager-page {
     color: #fff;
 }
@@ -631,7 +644,7 @@ ul.rating li i {
 }
 
 .profile-picture {
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 10);
     padding: 3px;
     border-radius: 100%;
     -webkit-box-sizing: content-box;
@@ -676,7 +689,7 @@ ul.rating li i {
 
 .item-input-wrapper {
     border-radius: 28px;
-    background: #fff;
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .order_icon_bg {
@@ -711,4 +724,53 @@ ul.rating li i {
 
 .order_icon_bg.bg_location {
     background: #b483bd;
+}
+
+.confirm_list {
+    overflow: hidden;
+}
+
+.confirm_list .button {
+    float: left;
+
+    margin-bottom: 10px;
+}
+
+/*分享*/
+.share button {
+    font-size: 14px;
+    text-align: left;
+}
+
+.share img {
+    margin: 10px 5px 0 0;
+}
+
+.share .action-sheet .button {
+
+    padding-left: 35%;
+}
+
+.photo_bg {
+    background: url(../img/bg.jpg) no-repeat;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+    margin: 0px;
+    overflow: hidden;
+
+}
+
+.photo_bg .item {
+    background: none;
+    border: none;
+}
+
+.photo_bg .button.bar-balanced {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: none;
+}
+
+.profile-item .care_text span, .profile-item .care_text p {
+    color: #fff;
+
 }

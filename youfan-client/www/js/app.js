@@ -330,7 +330,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
 //            支付页面
             .state('tab.pay-page', {
-                url: '/pay-page/:order_no/:price',
+                url: '/pay-page/:order_no/:discountPrice',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/pay-page.html',
@@ -381,7 +381,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/detail-address.html',
-                        controller: 'MapContainer'
+                        controller: 'DetailAddressCtrl'
                     }
                 }
             });

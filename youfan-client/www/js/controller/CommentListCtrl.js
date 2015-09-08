@@ -2,9 +2,9 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $http, REST_URL
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.commentData = [];
     $scope.initComment = function () {
-        $http.get(REST_URL + "/cm/getCommentPager?pageNo=1&pageSize=10&asc=true&sortBy=ct").success(function (result) {
-            if (result.payload.rows.length) {
-                result.payload.rows.forEach(function (item) {
+        $http.get(REST_URL + "/cm/getCommentPager?pageNo=1&pageSize=10&asc=false&sortBy=ct").success(function (result) {
+            if (result.payload.list.length) {
+                result.payload.list.forEach(function (item) {
                     item["img"] = "img/2.jpeg";
                     var dateTime = new Date(item["commentTime"]);
                     item["commentTime"] = dateTime.toLocaleDateString() + "  " + dateTime.toLocaleTimeString();

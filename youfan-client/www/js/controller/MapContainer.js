@@ -19,7 +19,7 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
     $scope.mapObj = new AMap.Map('mapContainer', {
         resizeEnable: true,
         view: new AMap.View2D({
-            center: new AMap.LngLat($scope.lg.x,$scope.lg.y),//地图中心点
+            center: new AMap.LngLat($scope.lg.x, $scope.lg.y),//地图中心点
             zoom: 16 //地图显示的缩放级别
         })
     });
@@ -34,7 +34,7 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
             maximumAge: 300000,      //定位结果缓存0毫秒，默认：0
             convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
             showButton: true,        //显示定位按钮，默认：true
-            buttonDom: "<img src='http://image.chinawriter.com.cn/cr/2013/0425/3873279506.jpg' width='30' height='30'/>",
+            buttonDom: "<img src='img/marker.png' width='30' height='30'/>",
             buttonPosition: 'RT',    //定位按钮停靠位置，默认：'LB'，左下角
             buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
             showMarker: false,        //定位成功后在定位到的位置显示点标记，默认：true
@@ -47,7 +47,7 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
         //返回定位成功处理
         AMap.event.addListener($scope.geolocation, 'complete', function (data) {
             var lnglatXY = new AMap.LngLat(data.position.getLng(), data.position.getLat());
-            var a = new AMap.LngLat($scope.lg.x,$scope.lg.y);
+            var a = new AMap.LngLat($scope.lg.x, $scope.lg.y);
             //获取详细地址
             mapTools.geocoder(a, function (data) {
                 $scope.$apply(function () {
@@ -77,7 +77,7 @@ ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cor
             maximumAge: 300000,      //定位结果缓存0毫秒，默认：0
             convert: true,           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
             showButton: true,        //显示定位按钮，默认：true
-            buttonDom: "<img src='http://image.chinawriter.com.cn/cr/2013/0425/3873279506.jpg' width='30' height='30'/>",
+            buttonDom: "<img src='img/marker.png' width='30' height='30'/>",
             buttonPosition: 'RT',    //定位按钮停靠位置，默认：'LB'，左下角
             buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
             showMarker: true,        //定位成功后在定位到的位置显示点标记，默认：true
