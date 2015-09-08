@@ -40,13 +40,13 @@
         ];
         $ionicModal.fromTemplateUrl('templates/home.html', {
             scope: $scope
-        }).then(function(modal) {
+        }).then(function (modal) {
             $scope.home = modal;
         });
         $ionicModal.fromTemplateUrl('templates/city.html', {
             scope: $scope
-        }).then(function(homes) {
-            $scope.homes =homes ;
+        }).then(function (homes) {
+            $scope.homes = homes;
             //$scope.home.remove();
         });
 
@@ -169,7 +169,7 @@
                 $http.post(
                     "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                         var options;
-                        if (data.code != "0") {
+                        if (Number(data.code) != 0) {
                             options = {
                                 "title": "系统繁忙！",
                                 "buttons": [{
@@ -199,7 +199,6 @@
             }
 
         };
-
 
 
         $scope.getImg = function (buttonId, url) {
@@ -253,10 +252,6 @@
                 }
             });
         };
-
-
-
-
 
 
     }
