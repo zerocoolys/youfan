@@ -149,33 +149,33 @@ angular.module('yf_merchant.base_service', [])
         }
     })
 
-    .factory('YF_MERCHANT_MUSIC', function () {
-        alert("11111");
-        var mp3URL = getMediaURL("sounds/bg.mp3");
-        var media = new Media(mp3URL, null, mediaError);
-        media.play();
-
-        function playMP3() {
-            alert(media.getCurrentPosition());
-            if (media.getCurrentPosition()) {
-
-            }
+    .factory('YF_MERCHANT_MUSIC', function ($timeout) {
+        function playMP3(url) {
+            var mp3URL = getMediaURL(url || "sounds/bg.mp3");
+            var media = new Media(mp3URL, null, mediaError);
             media.play();
+            $timeout(function () {
+                stopMP3();
+            }, 60000);
         }
 
         function getMediaURL(s) {
-            if (device.platform.toLowerCase() === "android") {
+            if (device && device.platform.toLowerCase() === "android") {
                 return "/android_asset/www/" + s;
             }
             return s;
         }
 
         function mediaError(e) {
-            alert('Media Error');
+            console.log('Media Error');
         }
 
         function stopMP3() {
-            media.stop();
+            if (media) {
+                media.stop();
+                // on an Android device,it is important to release the media
+                media.release();
+            }
         }
 
         return {
