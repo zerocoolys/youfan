@@ -1,5 +1,18 @@
 package com.youfan.data.dao.server.impl;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
 import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
@@ -11,17 +24,6 @@ import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
 import com.youfan.data.support.IdGenerator;
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
-
-import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -29,44 +31,44 @@ import java.util.Map;
 @Repository("orderDAO")
 public class OrderDAOImpl implements OrderDAO {
 
-    @Resource
-    private IdGenerator idGenerator;
+	@Resource
+	private IdGenerator idGenerator;
 
-    @Resource
-    private SqlSession sqlSession;
+	@Resource
+	private SqlSession sqlSession;
 
-    @Override
-    public OrderVO insert(OrderVO order) {
+	@Override
+	public OrderVO insert(OrderVO order) {
 
-        OrderEntity orderEntity = createEntity(order);
+		OrderEntity orderEntity = createEntity(order);
 
-        long no = idGenerator.next(SEQ_ORDER);
+		long no = idGenerator.next(SEQ_ORDER);
 
-        String orderNo = OrderNoGenerator.orderNo(no);
+		String orderNo = OrderNoGenerator.orderNo(no);
 
-        orderEntity.setOrderNo(orderNo);
+		orderEntity.setOrderNo(orderNo);
 
-        int ret = sqlSession.insert("createOrder", orderEntity);
-        if (ret == 0) {
-            return null;
-        }
+		int ret = sqlSession.insert("createOrder", orderEntity);
+		if (ret == 0) {
+			return null;
+		}
 
-        order.setOrderNo(orderEntity.getOrderNo());
-        return order;
-    }
+		order.setOrderNo(orderEntity.getOrderNo());
+		return order;
+	}
 
-    @Override
-    public OrderVO getOrderByOrderNo(String orderNo) {
+	@Override
+	public OrderVO getOrderByOrderNo(String orderNo) {
 
-        OrderEntity orderEntity = sqlSession.selectOne("getOrderByOrderNo",
-                orderNo);
+		OrderEntity orderEntity = sqlSession.selectOne("getOrderByOrderNo",
+				orderNo);
 
-        OrderVO order = createObject(orderEntity);
-        List<OrderDishRelEntity> dishList = sqlSession.selectList(
-                "getOrderItemsByOrderNo", orderNo);
+		OrderVO order = createObject(orderEntity);
+		List<OrderDishRelEntity> dishList = sqlSession.selectList(
+				"getOrderItemsByOrderNo", orderNo);
 
-        return null;
-    }
+		return null;
+	}
 
     @Override
     public OrderVO findOrderById(Long id) {

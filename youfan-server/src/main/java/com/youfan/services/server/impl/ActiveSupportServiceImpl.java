@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.youfan.commons.vo.client.ClientUserVO;
 import org.springframework.stereotype.Service;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.ConditionVO;
+import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.CouponsVO;
 import com.youfan.commons.vo.server.OrderVO;
@@ -42,6 +42,9 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	@Override
 	public Response joinActive(String event, ClientUserVO userVo) {
 		ActiveVO activeVo = activeDAO.getByEvent(event);
+		if(activeVo.getStatus()!=1){//活动未开启
+			return Responses.FAILED().setCode(0).setMsg("该活动未开启");
+		}
 		// 设定若非 用户参加活动 不涉及订单的种类
 		return excutActive(activeVo, userVo);
 	}
@@ -106,6 +109,9 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	@Override
 	public Response joinActive(String event, ClientUserVO userVo, OrderVO orderVo) {
 		ActiveVO activeVo = activeDAO.getByEvent(event);
+		if(activeVo.getStatus()!=1){//活动未开启
+			return Responses.FAILED().setCode(0).setMsg("该活动未开启");
+		}
 		// 设定若非 用户参加活动 不涉及订单的种类
 		return excutActive(activeVo, userVo, orderVo);
 	}

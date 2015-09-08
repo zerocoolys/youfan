@@ -1,7 +1,5 @@
 package com.youfan.commons.vo;
 
-import com.youfan.data.models.CommentEntity;
-
 import java.util.Date;
 import java.util.List;
 
