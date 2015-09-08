@@ -1,6 +1,7 @@
 package com.youfan.services.server.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -40,6 +41,11 @@ public class CouponsTypeServiceImpl implements CouponsTypeService{
 	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams) {
 		// TODO Auto-generated method stub
 		return couponsTypeDAO.getByCondition(couponsParams);
+	}
+	@Override
+	public int updateById(String id, Map<String, Object> updateMap) {
+		// TODO Auto-generated method stub
+		return couponsTypeDAO.updateById(id, updateMap);
 	}
 
 }

@@ -210,11 +210,17 @@
 		SELECT * FROM TBL_ORDERS
 	</select>
 
+	<select id="findOrderById" resultMap="OrderFullEntityMap">
+		SELECT * FROM TBL_ORDERS WHERE ORDER_ID = #{0} AND
+		DATA_STATUS = 1
+	</select>
+
 	<select id="findAllByPagination" parameterType="com.youfan.commons.Pagination"
 		resultMap="OrderEntityMap">
 		SELECT * FROM TBL_ORDERS ORDER BY #{orderBy} #{asc} LIMIT
 		#{start}, #{end}
 	</select>
+
 
 	<select id="getOrdersByBuyerId">
 		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{0} AND
@@ -222,13 +228,15 @@
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
 	</select>
 
-	<select id="findOrderById" resultMap="OrderFullEntityMap">
-		SELECT * FROM TBL_ORDERS
-		WHERE ORDER_ID = #{0} AND
-		DATA_STATUS = 1
+
+
+	<select id="findByBuyerId" parameterType="java.util.Map" resultMap="OrderFullEntityMap">
+		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND
+		DATA_STATUS = 1 ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
+
 	</select>
 
-	<select id="getOrdersBySellerId">
+	<select id="findBySellerId">
 		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND
 		DATA_STATUS = 1 LIMIT
 		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc

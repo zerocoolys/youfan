@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,137 +68,134 @@ public class OrderDAOImpl implements OrderDAO {
 		return null;
 	}
 
-	@Override
-	public OrderVO findOrderById(Long id) {
-		OrderEntity entity = sqlSession.selectOne("findOrderById", id);
-		return convertToVO(entity, OrderEntity.class, OrderVO.class);
-	}
+    @Override
+    public OrderVO findOrderById(Long id) {
+        OrderEntity entity = sqlSession.selectOne("findOrderById", id);
+        return convertToVO(entity, OrderEntity.class, OrderVO.class);
+    }
 
-	@Override
-	public List<OrderVO> findAll(Pagination pagination) {
-		List<OrderVO> list = sqlSession.selectList("findAllByPagination",
-				pagination);
-		return list;
-	}
+    @Override
+    public List<OrderVO> findAll(Pagination pagination) {
+        List<OrderVO> list = sqlSession.selectList("findAllByPagination",
+                pagination);
 
-	@Override
-	public List<OrderVO> getOrdersByBuyerId(String buyerId,
-			Pagination pagination) {
-		List<OrderVO> orders = sqlSession.selectList("getOrdersByBuyerId",
-				pagination);
+        return list;
+    }
 
-		return orders;
-	}
+    @Override
+    public List<OrderVO> findByBuyerId(String buyerId, Pagination pagination) {
+        List<OrderEntity> orderEntityList = sqlSession.selectList("findByBuyerId", pagination.getParams());
+        if (orderEntityList == null)
+            return Collections.emptyList();
 
-	@Override
-	public List<OrderVO> getOrdersBySellerId(String sellerId,
-			Pagination pagination) {
-		List<OrderVO> orders = sqlSession.selectList("getOrdersBySellerId",
-				pagination);
+        return convertToVOList(orderEntityList, OrderEntity.class, OrderVO.class);
+    }
 
-		return orders;
-	}
+    @Override
+    public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
+        List<OrderVO> orders = sqlSession.selectList("findBySellerId", pagination);
 
-	private OrderEntity createEntity(OrderVO order) {
-		OrderEntity orderEntity = new OrderEntity();
+        return orders;
+    }
 
-		orderEntity.setId(order.getId());
-		orderEntity.setBuyerId(order.getBuyerId());
-		orderEntity.setSellerId(order.getSellerId());
-		orderEntity.setOrgPrice(BigDecimal.valueOf(order.getOrgPrice()));
-		orderEntity.setDiscountPrice(BigDecimal.valueOf(order
-				.getDiscountPrice()));
-		orderEntity.setOrderStatus(order.getOrderStatus());
+    private OrderEntity createEntity(OrderVO order) {
+        OrderEntity orderEntity = new OrderEntity();
 
-		orderEntity.setOrderTime(Timestamp.from(Instant.now()));
-		orderEntity.setRepastTime(Timestamp.from(order.getRepastTime()
-				.toInstant()));
-		orderEntity.setRepastMode(order.getRepastMode());
-		orderEntity.setRepastAddress(order.getRepastAddress());
-		orderEntity.setCouponId(order.getCouponId());
-		orderEntity.setComments(order.getComments());
+        orderEntity.setId(order.getId());
+        orderEntity.setBuyerId(order.getBuyerId());
+        orderEntity.setSellerId(order.getSellerId());
+        orderEntity.setOrgPrice(BigDecimal.valueOf(order.getOrgPrice()));
+        orderEntity.setDiscountPrice(BigDecimal.valueOf(order.getDiscountPrice()));
+        orderEntity.setOrderStatus(order.getOrderStatus());
 
-		return orderEntity;
-	}
+        orderEntity.setOrderTime(Timestamp.from(Instant.now()));
+        orderEntity.setRepastTime(Timestamp.from(order.getRepastTime()
+                .toInstant()));
+        orderEntity.setRepastMode(order.getRepastMode());
+        orderEntity.setRepastAddress(order.getRepastAddress());
+        orderEntity.setCouponId(order.getCouponId());
+        orderEntity.setComments(order.getComments());
 
-	private OrderVO createObject(OrderEntity orderEntity) {
-		OrderVO order = new OrderVO();
+        return orderEntity;
+    }
 
-		order.setId(orderEntity.getId());
-		order.setOrderNo(orderEntity.getOrderNo());
-		order.setBuyerId(orderEntity.getBuyerId());
-		order.setSellerId(orderEntity.getSellerId());
+    private OrderVO createObject(OrderEntity orderEntity) {
+        OrderVO order = new OrderVO();
 
-		order.setComments(orderEntity.getComments());
-		order.setOrderStatus(orderEntity.getOrderStatus());
+        order.setId(orderEntity.getId());
+        order.setOrderNo(orderEntity.getOrderNo());
+        order.setBuyerId(orderEntity.getBuyerId());
+        order.setSellerId(orderEntity.getSellerId());
 
-		order.setOrgPrice(orderEntity.getOrgPrice()
-				.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-		order.setDiscountPrice(orderEntity.getDiscountPrice()
-				.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-		order.setCouponId(orderEntity.getCouponId());
+        order.setComments(orderEntity.getComments());
+        order.setOrderStatus(orderEntity.getOrderStatus());
 
-		order.setOrderTime(orderEntity.getOrderTime());
-		order.setRepastTime(orderEntity.getRepastTime());
-		order.setRepastMode(orderEntity.getRepastMode());
-		order.setRepastAddress(orderEntity.getRepastAddress());
+        order.setOrgPrice(orderEntity.getOrgPrice()
+                .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        order.setDiscountPrice(orderEntity.getDiscountPrice()
+                .setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        order.setCouponId(orderEntity.getCouponId());
 
-		return order;
-	}
+        order.setOrderTime(orderEntity.getOrderTime());
+        order.setRepastTime(orderEntity.getRepastTime());
+        order.setRepastMode(orderEntity.getRepastMode());
+        order.setRepastAddress(orderEntity.getRepastAddress());
 
-	@Override
-	public List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order) {
-		OrderEntity orderEntity = new OrderEntity();
-		orderEntity.setOrderStatus(order.getOrderStatus());
-		orderEntity.setSellerId(order.getSellerId());
-		orderEntity.setRepastMode(order.getRepastMode());
+        return order;
+    }
 
-		List<MerchantOrderHeaderVO> orders = sqlSession.selectList(
-				"findOrders", orderEntity);
+    @Override
+    public List<MerchantOrderHeaderVO> findMerchantOrders(OrderParams order) {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setOrderStatus(order.getOrderStatus());
+        orderEntity.setSellerId(order.getSellerId());
+        orderEntity.setRepastMode(order.getRepastMode());
 
-		return orders;
-	}
+        List<MerchantOrderHeaderVO> orders = sqlSession.selectList(
+                "findOrders", orderEntity);
 
-	@Override
-	public MerchantOrderDetailVO findOrderDetail(String orderNo) {
+        return orders;
+    }
 
-		Map<String, Object> parameter = new HashMap<>();
-		parameter.put("orderNo", orderNo);
+    @Override
+    public MerchantOrderDetailVO findOrderDetail(String orderNo) {
 
-		MerchantOrderDetailVO order = sqlSession.selectOne("findOrderDetail",
-				parameter);
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("orderNo", orderNo);
 
-		return order;
-	}
+        MerchantOrderDetailVO order = sqlSession.selectOne("findOrderDetail",
+                parameter);
 
-	@Override
-	public int count(OrderParams op) {
-		List<Object> lenO = sqlSession.selectList("count");
-		return Integer.parseInt(lenO.get(0).toString());
-	}
+        return order;
+    }
 
-	@Override
-	public int countAll() {
-		List<Object> lenO = sqlSession.selectList("countAll");
-		return Integer.parseInt(lenO.get(0).toString());
-	}
+    @Override
+    public int count(OrderParams op) {
+        List<Object> lenO = sqlSession.selectList("count");
+        return Integer.parseInt(lenO.get(0).toString());
+    }
 
-	@Override
-	public List<OrderVO> getOrdersByParams(OrderParams op) {
-		return sqlSession.selectList("getOrdersByParams", op);
-	}
+    @Override
+    public int countAll() {
+        List<Object> lenO = sqlSession.selectList("countAll");
+        return Integer.parseInt(lenO.get(0).toString());
+    }
 
-	@Override
-	public void saveOrderDishes(List<OrderDishRelVO> dishRelVOs) {
-		List<OrderDishRelEntity> dishRelEntities = convertToEntityList(
-				dishRelVOs, OrderDishRelEntity.class, OrderDishRelVO.class);
-		sqlSession.insert("saveOrderDishes", dishRelEntities);
+    @Override
+    public List<OrderVO> getOrdersByParams(OrderParams op) {
+        return sqlSession.selectList("getOrdersByParams", op);
+    }
 
-	}
+    @Override
+    public void saveOrderDishes(List<OrderDishRelVO> dishRelVOs) {
+        List<OrderDishRelEntity> dishRelEntities = convertToEntityList(dishRelVOs, OrderDishRelEntity.class, OrderDishRelVO.class);
+        sqlSession.insert("saveOrderDishes", dishRelEntities);
 
-	@Override
-	public int updateOrderStatus(OrderParams order) {
-		return sqlSession.update("updateOrder", order);
-	}
+    }
+
+    @Override
+    public int updateOrderStatus(OrderParams order) {
+        return sqlSession.update("updateOrder", order);
+    }
 
 }

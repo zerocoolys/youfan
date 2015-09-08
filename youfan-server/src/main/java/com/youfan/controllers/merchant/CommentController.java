@@ -1,8 +1,7 @@
 package com.youfan.controllers.merchant;
 
-import com.youfan.commons.Constants;
-import com.youfan.commons.Pager;
 import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
@@ -56,9 +55,11 @@ public class CommentController {
     @RequestMapping(value = "/getCommentPager")
     public Response getComment(Pagination pagination, String content) {
         Map<String, Object> params = new HashMap<>();
-        params.put("content", content);
+        if (content != null)
+            params.put("content", content);
+
         pagination.setParams(params);
-        Pager p = commentService.findCommentByPager(pagination);
+        CollectionVO<CommentVO> p = commentService.findCommentByPager(pagination);
         return Responses.SUCCESS().setPayload(p);
     }
 }

@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.youfan.commons.vo.client.ClientUserVO;
 import org.springframework.stereotype.Service;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.ConditionVO;
-import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.CouponsVO;
 import com.youfan.commons.vo.server.OrderVO;
@@ -34,19 +34,19 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	CouponsDAO couponsDAO;
 
 	@Override
-	public Response joinActive(Integer activeType, UserVO userVo) {
+	public Response joinActive(Integer activeType, ClientUserVO userVo) {
 		// 查询所有活动 再参加
 		return null;
 	}
 
 	@Override
-	public Response joinActive(String event, UserVO userVo) {
+	public Response joinActive(String event, ClientUserVO userVo) {
 		ActiveVO activeVo = activeDAO.getByEvent(event);
 		// 设定若非 用户参加活动 不涉及订单的种类
 		return excutActive(activeVo, userVo);
 	}
 
-	private Response excutActive(ActiveVO activeVo, UserVO userVo) {
+	private Response excutActive(ActiveVO activeVo, ClientUserVO userVo) {
 		// 设定若非 用户参加活动 不涉及订单的种类
 		if (activeVo.getActiveType() / 100 != 1) {
 			return Responses.FAILED().setCode(2).setMsg("活动类型不匹配");
@@ -98,19 +98,19 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	}
 
 	@Override
-	public Response joinActive(Integer activeType, UserVO userVo, OrderVO orderVo) {
+	public Response joinActive(Integer activeType, ClientUserVO userVo, OrderVO orderVo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Response joinActive(String event, UserVO userVo, OrderVO orderVo) {
+	public Response joinActive(String event, ClientUserVO userVo, OrderVO orderVo) {
 		ActiveVO activeVo = activeDAO.getByEvent(event);
 		// 设定若非 用户参加活动 不涉及订单的种类
 		return excutActive(activeVo, userVo, orderVo);
 	}
 
-	private Response excutActive(ActiveVO activeVo, UserVO userVo, OrderVO orderVo) {
+	private Response excutActive(ActiveVO activeVo, ClientUserVO userVo, OrderVO orderVo) {
 		// 设定若非 用户参加活动 不涉及订单的种类
 		if (activeVo.getActiveType() / 100 != 2) {
 			return Responses.FAILED().setCode(2).setMsg("活动类型不匹配");

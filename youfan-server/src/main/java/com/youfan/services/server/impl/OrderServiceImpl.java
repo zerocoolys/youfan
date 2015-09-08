@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.client.UserVO;
+import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.server.OrderVO;
+import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
 import com.youfan.commons.vo.server.OrderVO;
@@ -52,14 +54,18 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderVO> findByUserId(String userId, Pagination pagination) {
-		return null;
+        List<OrderVO> result = orderDAO.findByBuyerId(userId, pagination);
+        if (result == null)
+            return Collections.emptyList();
+
+        return result;
 	}
 
 	@Override
 	public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
 		List<OrderVO> result = new ArrayList<>();
 
-		result.addAll(orderDAO.getOrdersBySellerId(sellerId, pagination));
+		result.addAll(orderDAO.findBySellerId(sellerId, pagination));
 
 		return result;
 	}
@@ -150,7 +156,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setDishes(dishes);
 
 			// 查询个人信息
-			UserVO user = userDao.findByid(order.getBuyerId());
+			ClientUserVO user = userDao.findByid(order.getBuyerId());
 			if (user != null) {
 				order.setBuyerName(user.getName());
 				order.setPhone(user.getTel());
@@ -183,6 +189,6 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void updateOrder(OrderVO order) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

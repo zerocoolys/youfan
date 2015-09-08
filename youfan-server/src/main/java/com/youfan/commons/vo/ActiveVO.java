@@ -250,32 +250,12 @@ public class ActiveVO {
 		this.orderConditions = orderConditions;
 	}
 
-	public Integer isAllowTimes() {
+	public Integer getAllowTimes() {
 		return allowTimes;
 	}
 
 	public void setAllowTimes(Integer allowTimes) {
 		this.allowTimes = allowTimes;
-	}
-
-	@Override
-	public String toString() {
-		return "ActiveVO [id=" + id + ", event=" + event + ", title=" + title + ", port=" + port + ", activeType="
-				+ activeType + ", couponsType=" + couponsType + ", ifUnique=" + ifUnique + ", ifUseCoupons="
-				+ ifUseCoupons + ", ifAll=" + ifAll + ", allowTimes=" + allowTimes + ", kitchenId=" + kitchenId
-				+ ", couponsTypeId=" + couponsTypeId + ", validityTime=" + validityTime + ", createTime=" + createTime
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", userConditions=" + userConditions
-				+ ", orderConditions=" + orderConditions + ", status=" + status + ", desc=" + desc + ", getId()="
-				+ getId() + ", getPort()=" + getPort() + ", getEvent()=" + getEvent() + ", getActiveType()="
-				+ getActiveType() + ", getCouponsType()=" + getCouponsType() + ", isIfUnique()=" + isIfUnique()
-				+ ", isIfUseCoupons()=" + isIfUseCoupons() + ", isIfAll()=" + isIfAll() + ", getKitchenId()="
-				+ getKitchenId() + ", getCouponsTypeId()=" + getCouponsTypeId() + ", getValidityTime()="
-				+ getValidityTime() + ", getCreateTime()=" + getCreateTime() + ", getStartTime()=" + getStartTime()
-				+ ", getEndTime()=" + getEndTime() + ", getDesc()=" + getDesc() + ", getStatus()=" + getStatus()
-				+ ", getTitle()=" + getTitle() + ", getUserConditions()=" + getUserConditions()
-				+ ", getOrderConditions()=" + getOrderConditions() + ", isAllowTimes()=" + isAllowTimes()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
 	}
 
 

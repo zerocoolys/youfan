@@ -1,11 +1,9 @@
 package com.youfan.data.dao.client.impl;
 
-import com.youfan.commons.Pager;
 import com.youfan.commons.Pagination;
-import com.youfan.commons.vo.client.UserVO;
+import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.ClientUserEntity;
-import com.youfan.data.support.IdGenerator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,77 +12,85 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
-import java.util.Map;
-
 /**
  * Created by icepros on 15-8-25.
  */
 @Repository("ucDAO")
 public class UserDaoImpl implements UserDao {
 
-	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
-
-	@Override
-	public UserVO update(Query query,Update update) {
-		return convertToVO(mongoTemplate.findAndModify(query, update, getEntityClass(), COLLECTION_CLIENT_USER));
-	}
+    private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Override
-    public UserVO findOne(String id) {
+    public void update(String id, ClientUserVO clientUserVO) {
+        Update update = new Update();
+        update.set("name", clientUserVO.getName());
+        update.set("sex", clientUserVO.getSex());
+        update.set("age", clientUserVO.getAge());
+        update.set("jobs", clientUserVO.getJobs());
+
+        convertToVO(mongoTemplate.findAndModify(buildQueryByid(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
+    }
+
+    @Override
+    public void updateUserPwd(String id, String pwd) {
+        Update update = new Update();
+        update.set("password", pwd);
+
+        convertToVO(mongoTemplate.findAndModify(buildQueryByid(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
+    }
+
+    @Override
+    public ClientUserVO findOne(String id) {
         return null;
     }
 
     @Override
-    public void insert(UserVO userClientVO) {
+    public void insert(ClientUserVO userClientVO) {
         ClientUserEntity ucEntity = convertToEntity(userClientVO);
         mongoTemplate.insert(ucEntity, COLLECTION_CLIENT_USER);
     }
 
-	@Override
-	public void delete(String s) {
+    @Override
+    public void delete(String s) {
 
-	}
+    }
 
-	@Override
-	public void update(UserVO userVO) {
+    @Override
+    public void update(ClientUserVO userVO) {
 
-	}
+    }
 
-	@Override
-	public Pager findPager(Pagination p) {
-		return null;
-	}
 
-	@Override
-	public UserVO getUserByTelAndPwd(String tel, String pwd) {
 
-		return convertToVO(mongoTemplate.findOne(buildQuery(tel, pwd),
-				getEntityClass(), COLLECTION_CLIENT_USER));
-	}
+    @Override
+    public ClientUserVO getUserByTelAndPwd(String tel, String pwd) {
 
-	@Override
-	public UserVO getUserByTel(String tel) {
-		UserVO result = new UserVO();
-		try {
-			result = convertToVO(mongoTemplate.findOne(buildQueryByTel(tel), getEntityClass(), COLLECTION_CLIENT_USER));
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		return  result;
-	}
+        return convertToVO(mongoTemplate.findOne(buildQuery(tel, pwd),
+                getEntityClass(), COLLECTION_CLIENT_USER));
+    }
 
-	@Override
-	public UserVO findByid(String id) {
+    @Override
+    public ClientUserVO getUserByTel(String tel) {
+        ClientUserVO result = new ClientUserVO();
+        try {
+            result = convertToVO(mongoTemplate.findOne(buildQueryByTel(tel), getEntityClass(), COLLECTION_CLIENT_USER));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return result;
+    }
 
-		UserVO userVO = mongoTemplate.findOne(buildQueryByid(id),
-				UserVO.class, COLLECTION_CLIENT_USER);
-		return userVO;
-	}
+    @Override
+    public ClientUserVO findByid(String id) {
 
-	public Query buildQueryByid(String id) {
-		Criteria criteria = Criteria.where("id").is(id);
+        ClientUserVO userVO = mongoTemplate.findOne(buildQueryByid(id),
+                ClientUserVO.class, COLLECTION_CLIENT_USER);
+        return userVO;
+    }
 
-		return Query.query(criteria);
-	}
+    public Query buildQueryByid(String id) {
+        Criteria criteria = Criteria.where("id").is(id);
+
+        return Query.query(criteria);
+    }
 }

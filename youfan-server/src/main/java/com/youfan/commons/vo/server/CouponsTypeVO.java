@@ -21,7 +21,7 @@ public class CouponsTypeVO {
 	 */
 	private Integer timeLine;
 
-	private Integer status;
+	
 	/**
 	 * 是否为全场使用
 	 */
@@ -37,6 +37,7 @@ public class CouponsTypeVO {
 	 */
 	private String desc;
 
+	private Integer status;
 	public String getId() {
 		return id;
 	}

@@ -2,12 +2,15 @@ package com.youfan.controllers.server;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.youfan.commons.vo.client.ClientUserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -20,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.ConditionVO;
-import com.youfan.commons.vo.client.UserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
@@ -86,7 +88,7 @@ public class PlatFormBusinessController {
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
 		// return activeSupportService.joinActive("client_register",
 		// userDAO.getUserByTel("13980041343"));
-		UserVO user = userDAO.getUserByTel("13980041343");
+		ClientUserVO user = userDAO.getUserByTel("13980041343");
 		user.setSex("男");
 		OrderVO ov = new OrderVO();
 		ov.setOrgPrice(1000);
@@ -155,8 +157,6 @@ public class PlatFormBusinessController {
 				op.setPageNo(1);
 				op.setOrderBy("ID");
 			}
-			// System.out.println("总记录条数："+recordCnt+" 当前获取"+op.getStart()+" 到
-			// "+op.getEnd());
 			List<OrderVO> list = orderService.getOrdersByParams(op);
 			CollectionVO<OrderVO> payload = new CollectionVO<OrderVO>(list, recordCnt, op.getPageSize());
 			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
@@ -181,12 +181,12 @@ public class PlatFormBusinessController {
 			op.setOrderNo(order.getOrderNo());
 			op.setOrderStatus(orderStatus);
 			int r = orderService.updateOrderStatus(op);
-			if(r==1){
+			if (r == 1) {
 				res = Responses.SUCCESS().setPayload(null).setCode(1).setMsg("订单更新成功");
-			}else{
+			} else {
 				res = Responses.SUCCESS().setPayload(null).setCode(0).setMsg("订单未更新");
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			res = Responses.SUCCESS().setCode(0).setMsg("订单更新失败");
@@ -257,7 +257,28 @@ public class PlatFormBusinessController {
 			res = Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
+			res = Responses.FAILED().setCode(0).setMsg("数据获取失败");
+		}
+		return res;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCouponsTypeStatus/{id}/{status}")
+	public Response updateCouponsTypeStatus(@PathVariable String id, @PathVariable int status,
+			HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+			Map<String, Object> updateParams = new HashMap<>();
+			updateParams.put("status", status);
+			int un = couponsTypeService.updateById(id, updateParams);
+			if (un == 1) {
+				Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型更新成功");
+			} else {
+				Responses.FAILED().setPayload(null).setCode(0).setMsg("优惠券类型未更新");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.FAILED().setCode(0).setMsg("优惠券类型更新失败");
 		}
 		return res;
 	}
@@ -289,6 +310,7 @@ public class PlatFormBusinessController {
 				activeVo.setValidityTime(Long.valueOf(request.getParameter("validityTime")));
 				activeVo.setStartTime(Long.valueOf(request.getParameter("startTime")));
 				activeVo.setEndTime(Long.valueOf(request.getParameter("endTime")));
+				activeVo.setTitle(request.getParameter("title"));
 				// 状态默认为1 表示开启使用状态
 				activeVo.setStatus(1);
 				System.out.println(activeVo.toString());
@@ -329,7 +351,6 @@ public class PlatFormBusinessController {
 				activeParams.setPageNo(0);
 			}
 
-			System.out.println("记录条数：" + recordCnt);
 			CollectionVO<ActiveVO> payload = new CollectionVO<>(new ArrayList<ActiveVO>(), (int) recordCnt,
 					activeParams.getPageSize() < 1 ? (int) recordCnt : activeParams.getPageSize());
 			List<ActiveVO> list = activeService.getByCondition(activeParams);
