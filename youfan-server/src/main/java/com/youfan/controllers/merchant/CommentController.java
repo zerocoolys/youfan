@@ -53,12 +53,7 @@ public class CommentController {
     }
 
     @RequestMapping(value = "/getCommentPager")
-    public Response getComment(Pagination pagination, String content) {
-        Map<String, Object> params = new HashMap<>();
-        if (content != null)
-            params.put("content", content);
-
-        pagination.setParams(params);
+    public Response getComment(@RequestBody Pagination pagination) {
         CollectionVO<CommentVO> p = commentService.findCommentByPager(pagination);
         return Responses.SUCCESS().setPayload(p);
     }

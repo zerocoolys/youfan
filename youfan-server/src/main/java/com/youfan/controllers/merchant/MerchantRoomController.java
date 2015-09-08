@@ -11,6 +11,7 @@ import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.merchant.MerchantUsersService;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -50,7 +51,7 @@ public class MerchantRoomController implements ResponseConstants {
     }
 
     @RequestMapping(value = "/getMrData", method = RequestMethod.GET)
-    public Response getMerchantRoomData(@RequestParam double lng,@RequestParam double lat) throws KitchenInfoException {
+    public Response getMerchantRoomData(@RequestParam double lng, @RequestParam double lat) throws KitchenInfoException {
         List<MerchantKitchenInfoVO> pager = merchantUsersService.pageList(1, 10);
 //        List<MerchantKitchenInfoVO> customList=new ArrayList<>();
 //        for (int i=0;i<5;i++){
@@ -75,10 +76,16 @@ public class MerchantRoomController implements ResponseConstants {
         return Responses.SUCCESS().setPayload(merchantKitchenInfoVOs);
     }
 
-    @RequestMapping(value = "/getGeographical", method = RequestMethod.POST)
+    @RequestMapping(value = "/getGeographical", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public Response getGeographical(@RequestBody Pagination p) {
-        CollectionVO<MerchantKitchenInfoVO> merchantKitchenInfoVOs = merchantKitchenService.geographicalSearch(p);
-
-        return Responses.SUCCESS().setPayload(merchantKitchenInfoVOs);
+        CollectionVO<MerchantKitchenInfoVO> merchantKitchenInfoVOs = null;
+        try {
+            merchantKitchenInfoVOs = merchantKitchenService.geographicalSearch(p);
+            System.out.println("");
+            return Responses.SUCCESS().setPayload(merchantKitchenInfoVOs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Responses.FAILED();
+        }
     }
 }

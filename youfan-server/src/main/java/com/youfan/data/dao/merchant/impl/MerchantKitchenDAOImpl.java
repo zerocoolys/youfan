@@ -122,7 +122,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
         Point point = new Point(Double.valueOf(p.getParams().get("lng").toString()), Double.valueOf(p.getParams().get("lat").toString()));
 
-        NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(3).query(query);
+        NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(2).query(query);
 
         TypedAggregation<MerchantKitchenInfoEntity> aggs = newAggregation(MerchantKitchenInfoEntity.class, geoNear(geoNear, MERCHANTKITCHEN_LOCATION),sort(Sort.Direction.ASC, MERCHANTKITCHEN_LOCATION));
 
