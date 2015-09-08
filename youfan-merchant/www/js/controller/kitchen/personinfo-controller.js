@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -108,20 +108,17 @@
                         if (data.payload.realName != null) {
                             $scope.user.realName = data.payload.realName;
                         }
-                        $scope.image = {
-                            path: ["", "", ""]
-                        };
                         if (data.payload.headPortraitPicUrl != null) {
                             //$scope.imageData.headPortraitPicUrl = data.payload.headPortraitPicUrl;
-                            $scope.image.path.push(data.payload.headPortraitPicUrl);
+                            $scope.image.path[0] = (data.payload.headPortraitPicUrl);
                         }
                         if (data.payload.healthCertificatePicUrl != null) {
                             //$scope.imageData.healthCertificatePicUrl = data.payload.healthCertificatePicUrl;
-                            $scope.image.path.push(data.payload.healthCertificatePicUrl);
+                            $scope.image.path[1] = (data.payload.healthCertificatePicUrl);
                         }
                         if (data.payload.idCardPicUrl != null) {
                             //$scope.imageData.idCardPicUrl = data.payload.idCardPicUrl
-                            $scope.image.path.push(data.payload.idCardPicUrl);
+                            $scope.image.path[2] = (data.payload.idCardPicUrl);
                         }
                     }
                 }
@@ -130,7 +127,6 @@
                 if ($scope.pId) {
                     $scope.citys = $scope.Provinces[$scope.pId].citys;
                 }
-
 
             }).error(function (error) {
                 console.log(error)
@@ -208,6 +204,7 @@
 
         $scope.getImg = function (buttonId, url) {
             $scope.image.path[Number(buttonId)] = url;
+            alert(url);
             uploadImg(buttonId, url, $ionicLoading, $scope);
         };
         $scope.saveImagePath = function (buttonId, url) {
@@ -224,7 +221,7 @@
             }
         };
         $scope.show = function (buttonId) {
-            createActionSheet(buttonId, $ionicActionSheet, $scope, $cordovaCamera);
+            createActionSheet(buttonId, $ionicActionSheet, $scope, $cordovaCamera, $cordovaImagePicker);
         };
         $scope.showPopup = function () {
             $ionicActionSheet.show({
