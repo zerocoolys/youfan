@@ -131,7 +131,7 @@ var mapTools = {
      * @param mapObj    地图初始话参数
      */
     nearbySearch: function (lng, lat, cb) {
-        var cpoint = new AMap.LngLat(lng,lat);
+        var cpoint = new AMap.LngLat(lng, lat);
         AMap.service(["AMap.PlaceSearch"], function () {
             var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
                 pageSize: 20,
@@ -146,5 +146,32 @@ var mapTools = {
 
             });
         })
+    },
+    /**
+     * 获取用户当前位置经纬度
+     * @param mapObj  地图初始化参数
+     * @param cb      返回函数
+     */
+    getUserLngLat: function ($scope, mapObj, cb) {
+        var geolocation
+        mapObj.plugin('AMap.Geolocation', function () {
+            geolocation = new AMap.Geolocation({
+                enableHighAccuracy: true,//是否使用高精度定位，默认:true
+                timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+                convert: true           //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+            });
+            //返回定位成功处理
+            AMap.event.addListener(geolocation, 'complete', function (data) {
+                var Lnglat = data.position.getLng() + "," + data.position.getLat();
+                console.log(Lnglat);
+                cb(Lnglat);
+            });
+            //返回定位出错信息处理
+            AMap.event.addListener(geolocation, 'error', function () {
+                console.log(0)
+                cb(false);
+            });
+        });
+        geolocation.getCurrentPosition();
     }
 };

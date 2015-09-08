@@ -1,8 +1,7 @@
 /**
- <<<<<<< Updated upstream
  * Created by subdong on 15-8-21.
  */
-ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, $rootScope, $ionicPopup, $timeout) {
+ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, $state, Merchant, $rootScope, $ionicPopup, $timeout) {
     /**--------------------------------------------地图获取-----------------------------**/
         //地图加载
     $scope.mapObj = new AMap.Map("mapContainer", {
@@ -32,6 +31,7 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
             if ($scope.inputText.value.length > 0) {
                 $scope.showhi = true;
                 AMap.event.addListener(auto, "complete", function (data) {
+                    $scope.autoData = data.tips;
                     $scope.items = [];
                     var resultStr = "";
                     var tipArr = data.tips;
@@ -70,7 +70,10 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
             $scope.showAlert();
             return
         }
-        $scope.inputText.value = document.getElementById("divid" + (index + 1)).innerHTML.replace(/<[^>].*?>.*<\/[^>].*?>/g, "");
+        Merchant.localRange=$scope.autoData[index].location.lng + "," + $scope.autoData[index].location.lat;
+        $state.go('tab.dash');
+        console.log($scope.autoData[index].location.lng + "," + $scope.autoData[index].location.lat);
+        $scope.inputText.value = (document.getElementById("divid" + (index + 1)).innerHTML.replace(/<[^>].*?>.*<\/[^>].*?>/g, "")).trim();
         $scope.items = [];
         $scope.showhi = false;
     };
