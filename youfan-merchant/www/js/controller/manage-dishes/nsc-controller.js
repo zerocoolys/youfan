@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_nsc_controllers', [])
 
-    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO) {
+    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO, YF_MERCHANT_MUSIC) {
 
         console.log("ManageDishesNscCtrl");
 
@@ -16,6 +16,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             });
 
             $timeout(function () {
+                YF_MERCHANT_MUSIC.playMP3();
                 $scope.$broadcast("scroll.refreshComplete");
                 ManageDishesService.allDishes(YF_MERCHANT_INFO.mID, "nsc");
             }, 800);
