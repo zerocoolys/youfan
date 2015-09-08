@@ -123,7 +123,8 @@ public class LoginController {
 
         } catch (Exception e) {
             logger.error(e.getMessage());
-            return Responses.FAILED().setMsg(e.getMessage());
+            //未找到用户
+            return Responses.FAILED().setMsg(e.getMessage()).setCode(2);
         }
 
         if (userClientVO != null) {
@@ -137,8 +138,10 @@ public class LoginController {
             ClientUserParams p = new ClientUserParams();
             p.setToken(token);
             p.setUid(userClientVO.getId());
+            //登陆成功
             return Responses.SUCCESS().setPayload(p);
         } else {
+            //未登录
             return Responses.FAILED();
         }
     }
