@@ -11,19 +11,20 @@
                 <ion-list show-delete="showDelete"
                           class="">
                     <ion-item class="item-remove-animate item-avatar" data-ng-repeat="item in data"
-                              data-ng-click='checkDetail(item.index)'" >
+                              data-ng-click='checkDetail(item.index)'
+                    " >
 
                     <img src="img/1.jpg">
                     <span ng-if="item.status == 0" class="message_badge"></span>
 
                     <div class="care_text">
                         <p>
-                            <span class="alleft">{{item.title}}</span>
-                            <span  class="alright" >{{item.date}} &nbsp;&nbsp;<i class="ion-ios-arrow-down"></i></span>
-
+                            <span class="alleft"><b>{{item.title}}</b></span>
+                            <span class="alright"><font style="font-size:12px;">{{item.date}}</font> &nbsp;<i
+                                    class="ion-ios-arrow-down" ng-click="item.active = !item.active"></i></span>
                         </p>
 
-                        <p>{{item.des}}</p>
+                        <p class="message_text" ng-class="{add_text : item.active}">{{item.des}}</p>
                     </div>
                     <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item)"></ion-delete-button>
                     </ion-item>

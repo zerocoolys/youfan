@@ -314,7 +314,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 url: '/user-agreement',
                 views: {
                     'tab-dash': {
-                        templateUrl: 'templates/user-agreement.html',
+                        templateUrl: 'templates/user-agreement.html'
                     }
                 }
             })
