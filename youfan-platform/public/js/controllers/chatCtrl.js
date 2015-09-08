@@ -16,7 +16,7 @@ define(["./module"], function (ctrs) {
         var socket = null;
         //收到server的连接确认
         $scope.connServer = function () {
-            socket = io.connect('http://192.168.1.102:8000');
+            socket = io.connect('http://192.168.1.102:8000?port=2');
             socket.on('open', function (msg) {
                 console.log("连接成功 ")
                 $scope.connStatus = "已连接"
@@ -26,9 +26,14 @@ define(["./module"], function (ctrs) {
             });
             //监听message事件，打印消息信息
             socket.on('message', function (json) {
+                console.log("接收到推送消息" + JSON.stringify(json))
+                $scope.rMsg = $scope.rMsg + "   " + "接收到推送消息" + JSON.stringify(json);
+            });
+            socket.on('system', function (json) {
                 console.log("接收到系统消息" + JSON.stringify(json))
                 $scope.rMsg = $scope.rMsg + "   " + "接收到系统消息" + JSON.stringify(json);
             });
+
         }
         $scope.login = function () {
             socket.send({code: 1, fromPort: Number($scope.fromPort), data: {userName: $scope.count}});

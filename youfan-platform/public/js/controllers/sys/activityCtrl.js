@@ -97,9 +97,6 @@ define(["./module"], function (ctrs) {
                 $scope.dialog.close();
             }
 
-            $scope.closeDialog = function(){
-                $scope.dialog.close();
-            }
         }
         //指定数据查询方法
         $rootScope.searchData = function () {
@@ -125,23 +122,25 @@ define(["./module"], function (ctrs) {
                 method: 'GET',
                 url: 'sys/getActive?orderBy=createTime&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
             }).success(function (result, status) {
-                $rootScope.gridOptions.data = result.payload.list;
+                if( result.payload.list!=null){
+                    $rootScope.gridOptions.data = result.payload.list;
+                    $rootScope.gridOptions.data.forEach(function (item) {
+                        item.portDes = $scope.portDesc[item.port + ""]
+                        item.timeLineDes = $scope.timeLineDesc[item.timeLine + ""]
+                        item.allowTimesDes = item.allowTimes==0?"无限":(item.allowTimes+"次")
+                        item.ifUniqueDes = item.ifUnique?'是':'否'
+                        item.ifUseCouponsDes=item.ifUseCoupons?'是':'否'
+                        item.ifAllDes=item.ifAll?'是':'否'
+                        item.createTimeDes = new Date(item.validityTime).format("yyyy-MM-dd hh:mm:ss")
+                        item.validityTimeDes = new Date(item.createTime).format("yyyy-MM-dd hh:mm:ss")
+                        item.startTimeDes = new Date(item.startTime).format("yyyy-MM-dd hh:mm:ss")
+                        item.endTimeDes = new Date(item.endTime).format("yyyy-MM-dd hh:mm:ss")
+
+                    })
+                }
+                //设置分页样式
                 $rootScope.pageCount = result.payload.pageCnt;
                 $rootScope.recordCount = result.payload.recordCnt;
-                $rootScope.gridOptions.data.forEach(function (item) {
-                    item.portDes = $scope.portDesc[item.port + ""]
-                    item.timeLineDes = $scope.timeLineDesc[item.timeLine + ""]
-                    item.allowTimesDes = item.allowTimes==0?"无限":(item.allowTimes+"次")
-                    item.ifUniqueDes = item.ifUnique?'是':'否'
-                    item.ifUseCouponsDes=item.ifUseCoupons?'是':'否'
-                    item.ifAllDes=item.ifAll?'是':'否'
-                    item.createTimeDes = new Date(item.validityTime).format("yyyy-MM-dd hh:mm:ss")
-                    item.validityTimeDes = new Date(item.createTime).format("yyyy-MM-dd hh:mm:ss")
-                    item.startTimeDes = new Date(item.startTime).format("yyyy-MM-dd hh:mm:ss")
-                    item.endTimeDes = new Date(item.endTime).format("yyyy-MM-dd hh:mm:ss")
-
-                })
-                //设置分页样式
                 $rootScope.setPagerBar();
             })
         }

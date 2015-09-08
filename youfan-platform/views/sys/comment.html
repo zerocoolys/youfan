@@ -2,13 +2,14 @@
     <div class="row-fluid">
         <div class="span12">
             <form class="form-search">
-                <label>厨房编号:</label>
-                <input class="input-medium search-query" type="text" ng-model="timeLine"/>
+                <label>订单编号:</label>
+                <input class="input-medium search-query" type="text" ng-model="orderId"/>
                 <label>商家:</label>
-                <input class="input-medium search-query" type="text" ng-model="kitchenId"/>
+                <input class="input-medium search-query" type="text" ng-model="merchantId"/>
                 <label>用户:</label>
-                <input class="input-medium search-query" type="text" ng-model="status"/>
-                <button type="submit" class="btn btn-success" ng-click="searchData()">筛选</button>
+                <input class="input-medium search-query" type="text" ng-model="commentUser"/>
+                <button type="submit" class="btn btn-success" ng-click="initSearchData()">筛选</button>
+                <button type="reset" class="btn btn-default" ng-click="clareSearchConditon()">清空</button>
             </form>
         </div>
     </div>
@@ -27,20 +28,20 @@
         <div class="span12">
             <div class="pagination pagination-centered pagination-large">
                 <ul>
-                    <li class="header" id="head">
-                        <a href="#">首页</a>
+                    <li class="header" id="head" ng-click="headPage()">
+                        <a >首页</a>
                     </li>
-                    <li class="prev disabled" id="prev">
-                        <a href="#">上一页</a>
+                    <li class="prev disabled" id="prev" ng-click="prePage()">
+                        <a >上一页</a>
                     </li>
-                    <li data-ng-repeat="page in pages">
-                        <a href="#">1</a>
+                    <li data-ng-repeat="page in pages" ng-click="jumpPage($index)">
+                        <a>{{page}}</a>
                     </li>
-                    <li class="next" id="next">
-                        <a href="#">下一页</a>
+                    <li class="next" id="next" ng-click="nextPage()">
+                        <a >下一页</a>
                     </li>
-                    <li id="tail">
-                        <a href="#">尾页</a>
+                    <li id="tail" ng-click="tailPage()" >
+                        <a >尾页</a>
                     </li>
                 </ul>
             </div>
