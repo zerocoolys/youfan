@@ -20,25 +20,21 @@ public class ActiveServiceImpl implements ActiveService{
 	
 	@Override
 	public void save(ActiveVO activeVo) {
-		// TODO Auto-generated method stub
 		activeDAO.insert(activeVo);
 	}
 
 	@Override
 	public long count(ActiveParams activeParams) {
-		// TODO Auto-generated method stub
 		return activeDAO.count(activeParams) ;
 	}
 
 	@Override
 	public List<ActiveVO> getByCondition(ActiveParams activeParams) {
-		// TODO Auto-generated method stub
 		return activeDAO.getByCondition(activeParams);
 	}
 
 	@Override
 	public void updateById(String id, Map<String, Object> updateMap) {
-		// TODO Auto-generated method stub
 		activeDAO.updateById(id,updateMap);
 	}
 
