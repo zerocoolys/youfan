@@ -150,10 +150,14 @@ angular.module('yf_merchant.base_service', [])
     })
 
     .factory('YF_MERCHANT_MUSIC', function ($timeout) {
+        var _my_media = null;
         function playMP3(url) {
+            if ("undefined" == typeof device) {
+                return;
+            }
             var mp3URL = getMediaURL(url || "sounds/bg.mp3");
-            var media = new Media(mp3URL, null, mediaError);
-            media.play();
+            _my_media = new Media(mp3URL, null, mediaError);
+            _my_media.play();
             $timeout(function () {
                 stopMP3();
             }, 60000);
@@ -171,10 +175,10 @@ angular.module('yf_merchant.base_service', [])
         }
 
         function stopMP3() {
-            if (media) {
-                media.stop();
+            if (_my_media) {
+                _my_media.stop();
                 // on an Android device,it is important to release the media
-                media.release();
+                _my_media.release();
             }
         }
 
