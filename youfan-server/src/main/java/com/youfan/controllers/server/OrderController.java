@@ -26,7 +26,7 @@ import java.util.List;
 
 import java.util.*;
 
-import static com.youfan.commons.OrderStatus.ODR_WAIT_FOR_PAY;
+import static com.youfan.commons.OrderStatus.ORDER_WAIT_FOR_PAY;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -171,7 +171,7 @@ public class OrderController {
 
         order.setBuyerId(orderParams.getBuyerId());
         order.setSellerId(orderParams.getSellerId());
-        order.setOrderStatus(ODR_WAIT_FOR_PAY.value());
+        order.setOrderStatus(ORDER_WAIT_FOR_PAY.value());
         order.setDataStatus(1);
         order.setOrgPrice(orderParams.getOriginalPrice());
         order.setDiscountPrice(orderParams.getDiscountPrice());
