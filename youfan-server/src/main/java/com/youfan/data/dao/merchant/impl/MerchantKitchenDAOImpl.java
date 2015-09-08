@@ -1,6 +1,5 @@
 package com.youfan.data.dao.merchant.impl;
 
-import com.mongodb.DBCursor;
 import com.youfan.commons.Constants;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
@@ -24,7 +23,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
@@ -108,7 +106,11 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         Query query = new Query();
         Criteria c = Criteria.where(Constants.CONPONS_STATUS).is(0);
         if (p.getParams() != null && p.getParams().size() > 0) {
-                p.getParams().forEach((k, v) -> {if("lnglat".indexOf(k) == -1){c.and(k).is(v);}});
+            p.getParams().forEach((k, v) -> {
+                if ("lnglat".indexOf(k) == -1) {
+                    c.and(k).is(v);
+                }
+            });
         }
         query.addCriteria(c);
         long totalCount = this.mongoTemplate.count(query, this.getEntityClass());
@@ -124,7 +126,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
         NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(2).query(query);
 
-        TypedAggregation<MerchantKitchenInfoEntity> aggs = newAggregation(MerchantKitchenInfoEntity.class, geoNear(geoNear, MERCHANTKITCHEN_LOCATION),sort(Sort.Direction.ASC, MERCHANTKITCHEN_LOCATION));
+        TypedAggregation<MerchantKitchenInfoEntity> aggs = newAggregation(MerchantKitchenInfoEntity.class, geoNear(geoNear, MERCHANTKITCHEN_LOCATION), sort(Sort.Direction.ASC, MERCHANTKITCHEN_LOCATION));
 
         AggregationResults<MerchantKitchenInfoEntity> results = mongoTemplate.aggregate(aggs, MerchantKitchenInfoEntity.class);
 

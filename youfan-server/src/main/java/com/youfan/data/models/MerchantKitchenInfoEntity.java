@@ -36,13 +36,13 @@ public class MerchantKitchenInfoEntity {
     private String startTime; //开店时间
     private String endTime;   //关店时间
     private String desc;    //厨房备注
-    private List<String> location = new ArrayList<>();  //经纬度
+    private List<Double> location = new ArrayList<>();  //经纬度
 
-    public List<String> getLocation() {
+    public List<Double> getLocation() {
         return location;
     }
 
-    public void setLocation(List<String> location) {
+    public void setLocation(List<Double> location) {
         this.location = location;
     }
 

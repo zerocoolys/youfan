@@ -1,7 +1,5 @@
 package com.youfan.commons.vo.merchant;
 
-import com.youfan.data.models.LocationEntity;
-
 import java.util.ArrayList;
 import java.util.List;
 
