@@ -4,7 +4,7 @@
 var imageUrlPrefix = "http://youfan-merchant-img.b0.upaiyun.com/";
 var upYunForm_API_key = "+GJEDJwQ6qecG6Er+VrFEPektEo=";
 var upYunSpaceName = "youfan-merchant-img";
-var upYunSavePath = "{random}{.suffix}";
+var upYunSavePath = "{filemd5}{.suffix}";
 var createActionSheet = function (buttonId,$ionicActionSheet, $scope, $cordovaCamera) {
     $ionicActionSheet.show({
         buttons: [

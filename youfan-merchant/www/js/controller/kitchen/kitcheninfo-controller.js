@@ -13,7 +13,9 @@ function getLocation(data) {
         .controller('kitcheninfo', kitchenInfo);
 
 
-    function kitchenInfo($scope, $filter, $state, $rootScope, $http) {
+
+    function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicModal) {
+
         $scope.kitchenInfo = {
             kitchenName: "",
             phoneNumber: "",
@@ -25,8 +27,8 @@ function getLocation(data) {
             }
         };
         $http.post(
-            "http://127.0.0.1:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                if (data.code == "200") {
+            "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                if (data.code == "0") {
                     if (data.payload != null) {
                         $scope.kitchenInfo = {
                             kitchenName: data.payload.kitchenName,
@@ -68,12 +70,49 @@ function getLocation(data) {
                             startTime: "00:00", //开店时间
                             endTime: "24:59",   //关店时间
                             desc: "水表厨房",    //厨房备注
-                            lat: result.geocodes[0].location.lat, //经度
-                            lng: result.geocodes[0].location.lng //纬度
+                            location: [result.geocodes[0].location.lng, result.geocodes[0].location.lat]
                         };
+                        if ($scope.kitchenInfo.phoneNumber != null || $scope.kitchenInfo.phoneNumber != "" || $scope.kitchenInfo.phoneNumber != undefined) {
+                            var phoneNumber = $scope.kitchenInfo.phoneNumber; //获取手机号
+                            var phoneNumberReg = !!phoneNumber.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/);
+                            //手机号码验证
+                            if (!phoneNumberReg) {
+                                options = {
+                                    "title": "手机号码格式不正确!",
+                                    "buttons": [{
+                                        text: "关闭",
+                                        type: "button-positive clam",
+                                        onTap: function () {
+
+                                        }
+                                    }]
+                                };
+                                $ionicPopup.alert(options);
+                            }
+                        }
                         $http.post(
-                            "http://127.0.0.1:8080/user/saveMerchantKitchenInfo", (merchantKitchenInfoVO), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                                $scope.user = data;
+                            "http://192.168.1.110:8080/user/saveMerchantKitchenInfo", (merchantKitchenInfoVO), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                                if (data.code == "0") {
+                                    options = {
+                                        "title": "保存成功!",
+                                        "buttons": [{
+                                            text: "确定",
+                                            type: "button-positive clam",
+                                            onTap: function () {
+                                                $location.path("#/editkitchen")
+                                            }
+                                        }]
+                                    };
+                                } else {
+                                    options = {
+                                        "title": "系统繁忙!",
+                                        "buttons": [{
+                                            text: "关闭",
+                                            type: "button-positive clam"
+                                        }]
+                                    };
+                                }
+                                $ionicPopup.alert(options);
                             }, function (error) {
                                 console.log(error)
                             });
@@ -91,6 +130,46 @@ function getLocation(data) {
             });
 
 
-        }
+        };
+        $scope.Provinces = [
+            {
+                id: '四川省',
+                citys: ['成都市', '泸州市']
+            },
+            {
+                id: '辽宁省',
+                citys: ['大连市', '泸州市']
+            }
+        ];
+        $ionicModal.fromTemplateUrl('templates/home.html', {
+            scope: $scope
+        }).then(function(modal) {
+            $scope.home = modal;
+        });
+        $ionicModal.fromTemplateUrl('templates/city.html', {
+            scope: $scope
+        }).then(function(homes) {
+            $scope.homes =homes ;
+            //$scope.home.remove();
+        });
+        $scope.Province_$index = function (Province) {
+            $scope.home.hide();
+            $rootScope.Province_s = Province.id;
+            $scope.c_citys = Province.citys;
+            $scope.homes.show();
+
+        };
+
+        $scope.scity_$index = function (ciy) {
+            $scope.homes.hide();
+            $rootScope.city_s = ciy;
+        };
+
+        $scope.city_$index = function (city) {
+            $scope.home.hide();
+            $rootScope.Province_s = '';
+            $rootScope.city_s = city;
+        };
+
     }
 })();

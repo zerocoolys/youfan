@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $filter, $state, $stateParams, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -38,27 +38,44 @@
                 citys: ['大连市', '泸州市']
             }
         ];
-
+        $ionicModal.fromTemplateUrl('templates/home.html', {
+            scope: $scope
+        }).then(function(modal) {
+            $scope.home = modal;
+        });
+        $ionicModal.fromTemplateUrl('templates/city.html', {
+            scope: $scope
+        }).then(function(homes) {
+            $scope.homes =homes ;
+            //$scope.home.remove();
+        });
 
         $scope.Province_$index = function (Province) {
-            $rootScope.Province = Province;
+            $scope.home.hide();
+            $rootScope.Province = Province.id;
+            $scope.c_citys = Province.citys;
+            $scope.homes.show();
+
         };
 
-        $scope.scity_$index = function (city) {
-            $rootScope.city = city;
+        $scope.scity_$index = function (ciy) {
+            $scope.homes.hide();
+            $rootScope.city = ciy;
         };
 
         $scope.city_$index = function (city) {
+            $scope.home.hide();
             $rootScope.Province = '';
             $rootScope.city = city;
         };
+
         $http.post(
             "http://192.168.1.110:8080/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                if (data.code == "200") {
+                if (data.code == "0") {
                     if (data.payload == null) {
                         $rootScope.Province = "";
                         $rootScope.city = "";
-                        $scope.ages = "请选择";
+
                     } else {
                         if (data.payload.address != null) {
                             var isCity = false;
@@ -67,7 +84,6 @@
                                     isCity = true;
                                 }
                             });
-                            console.log(isCity);
                             if (isCity) {
                                 $rootScope.city = data.payload.address;
                             } else {
@@ -122,48 +138,74 @@
 
 
         $scope.saveUserInfo = function () {
-            alert(JSON.stringify($scope.imageData));
-            var userInfo = {
-                realName: $scope.user.realName,
-                address: $rootScope.Province + $rootScope.city,
-                ageRange: $scope.ages,
-                headPortraitPicUrl: $scope.imageData.headPortraitPicUrl,
-                healthCertificatePicUrl: $scope.imageData.healthCertificatePicUrl,
-                idCardPicUrl: $scope.imageData.idCardPicUrl,
-                id: $rootScope.user.id,
-                sex: $scope.sex
-            };
-            $http.post(
-                "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                    var options;
-                    if (data.code == "200" && data.payload != null) {
-                        options = {
-                            "title": "系统繁忙！",
-                            "buttons": [{
-                                text: "重试",
-                                type: "button-positive clam",
-                                onTap: function () {
-                                    $scope.saveUserInfo();
-                                }
-                            }, {
-                                text: "关闭",
-                                type: "button-positive clam"
-                            }]
-                        };
-                    } else {
-                        options = {
-                            "title": "保存成功！",
-                            "buttons": [{
-                                text: "确定",
-                                type: "button-positive clam"
-                            }]
-                        };
-                    }
-                    $ionicPopup.alert(options);
-                }).error(function (error) {
-                    console.log(error)
-                });
+            var addressTemplate = "";
+            if ($rootScope.Province != null || $rootScope.Province != "" || $rootScope.Province != undefined) {
+                addressTemplate += $rootScope.Province
+            }
+            if ($rootScope.city != null || $rootScope.city != "" || $rootScope.city != undefined) {
+                addressTemplate += $rootScope.city
+            }
+            var hasRealName = $scope.user.realName == null || $scope.user.realName == "" || $scope.user.realName == undefined;
+            var hasAddress = addressTemplate == "";
+            var hasAgeRange = $scope.ages == null || $scope.ages == "" || $scope.ages == undefined;
+            var hasSex = $scope.sex == null || $scope.sex == "" || $scope.sex == undefined;
+
+            if (hasRealName || hasAddress || hasAgeRange || hasSex) {
+                var options = {
+                    "title": "信息不完整！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam"
+                    }]
+                };
+                $ionicPopup.alert(options);
+            } else {
+                var userInfo = {
+                    realName: $scope.user.realName,
+                    address: addressTemplate,
+                    ageRange: $scope.ages,
+                    headPortraitPicUrl: $scope.imageData.headPortraitPicUrl,
+                    healthCertificatePicUrl: $scope.imageData.healthCertificatePicUrl,
+                    idCardPicUrl: $scope.imageData.idCardPicUrl,
+                    id: $rootScope.user.id,
+                    sex: $scope.sex
+                };
+                $http.post(
+                    "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                        var options;
+                        if (data.code != "0") {
+                            options = {
+                                "title": "系统繁忙！",
+                                "buttons": [{
+                                    text: "重试",
+                                    type: "button-positive clam",
+                                    onTap: function () {
+                                        $scope.saveUserInfo();
+                                    }
+                                }, {
+                                    text: "关闭",
+                                    type: "button-positive clam"
+                                }]
+                            };
+                        } else {
+                            options = {
+                                "title": "保存成功！",
+                                "buttons": [{
+                                    text: "确定",
+                                    type: "button-positive clam"
+                                }]
+                            };
+                        }
+                        $ionicPopup.alert(options);
+                    }).error(function (error) {
+                        console.log(error)
+                    });
+            }
+
         };
+
+
+
         $scope.getImg = function (buttonId, url) {
             $scope.image.path[Number(buttonId)] = url;
             uploadImg(buttonId, url, $ionicLoading, $scope);
@@ -216,6 +258,11 @@
         };
 
 
+
+
+
+
     }
+
 })
 ();

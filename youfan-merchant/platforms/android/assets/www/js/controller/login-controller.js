@@ -92,12 +92,12 @@
             //$location.path("overview")
             $http.post(
                 "http://192.168.1.110:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                    if (data.code == "200") {
+                    if (data.code == "0") {
                         $rootScope.user = {
                             id: data.payload.id
                         };
                         console.log(data.payload.id)
-                        $location.path("overview")
+                        $location.path("tutorial")
                     } else {
                         var options = {
                             "title": "系统繁忙！",
@@ -156,7 +156,7 @@
                                 .then(function () {
                                     $scope.user = data;
                                     $rootScope.user = $scope.user;
-                                    $location.path("overview")
+                                    $location.path("tutorial")
                                 });
                             break;
                         case "0":

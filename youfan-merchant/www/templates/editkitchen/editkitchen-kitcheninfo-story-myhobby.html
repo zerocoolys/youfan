@@ -8,16 +8,14 @@
         </button>
     </ion-header-bar>
     <ion-content>
-        <div class="list list-inset">
-            <textarea style="overflow-y: hidden" ng-model="text" rows="15"  autofocus="true" ng-change="checkText(text)"
-                      placeholder="编辑我的兴趣爱好"></textarea>
-        </div>
-        <div>
-            <label>
-                (说明:输入字数300以内)
-            </label>
-        </div>
 
+        <ion-item class="item-input">
+            <textarea ng-model="text"
+                     placeholder="编辑我的兴趣爱好....." style="overflow-y: hidden;margin-top: 20px;" rows="10" ></textarea>
 
+        </ion-item>
+        <label style="color: #ffc900; ">
+            说明:可添加1-4张图片,字数在50-1000之间
+        </label>
     </ion-content>
 </ion-view>
