@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.youfan.commons.vo.client.ClientUserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -20,9 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.CommentVO;
 import com.youfan.commons.vo.ConditionVO;
+import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
@@ -36,6 +38,7 @@ import com.youfan.data.models.CouponsContentEntity;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.UserException;
+import com.youfan.services.merchant.CommentService;
 import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.merchant.MerchantUsersService;
 import com.youfan.services.server.ActiveService;
@@ -44,6 +47,7 @@ import com.youfan.services.server.CouponsTypeService;
 import com.youfan.services.server.OrderService;
 import com.youfan.services.server.PayWayService;
 import com.youfan.utils.JSONUtils;
+import com.youfan.utils.StringUtil;
 
 /**
  * Created by MrDeng on 15/8/17.
@@ -67,6 +71,10 @@ public class PlatFormBusinessController {
 	CouponsTypeService couponsTypeService;
 	@Resource
 	PayWayService payWayService;
+	@Resource
+	CommentService commentService;
+	@Resource
+	UserDao userDAO;
 	///////////////////////////////// 系统//////////////////////////////////////////
 
 	/**
@@ -81,8 +89,6 @@ public class PlatFormBusinessController {
 	 * @author QinghaiDeng
 	 * @update 2015年9月1日 下午5:27:03
 	 */
-	@Resource
-	UserDao userDAO;
 
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/test")
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
@@ -168,6 +174,19 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	/**
+	 * 更新订单状态信息
+	 * 
+	 * @param id
+	 * @param orderStatus
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:26:46
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateOrderStatus/{id}/{orderStatus}")
 	public Response updateOrderStatus(@PathVariable Long id, @PathVariable int orderStatus, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -194,6 +213,17 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	/**
+	 * 保存优惠券类型
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:27:02
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveCouponsType")
 	public Response saveCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
@@ -224,6 +254,17 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	/**
+	 * 分页条件获取优惠券类型
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:27:14
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/getCouponsType")
 	public Response getCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
@@ -262,6 +303,19 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	/**
+	 * 更新优惠券类型状态
+	 * 
+	 * @param id
+	 * @param status
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:27:32
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCouponsTypeStatus/{id}/{status}")
 	public Response updateCouponsTypeStatus(@PathVariable String id, @PathVariable int status,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -283,6 +337,17 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	/**
+	 * 保存活动
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:27:45
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveActive")
 	public Response saveActive(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
@@ -327,6 +392,17 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	/**
+	 * 分页条件获取活动
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:27:55
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/getActive")
 	public Response getActive(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
@@ -363,6 +439,17 @@ public class PlatFormBusinessController {
 		return res;
 	}
 
+	/**
+	 * 更新活动状态
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:28:12
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateActive")
 	public Response updateActive(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
@@ -487,6 +574,67 @@ public class PlatFormBusinessController {
 
 		return res;
 	}
+
+	////////////////////////////////////// 评论//////////////////////////////////////////////
+	/**
+	 * 分页条件获取评论
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午2:29:16
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/getCommentsPager")
+	public Response getCommentsPager(HttpServletRequest request, HttpServletResponse response) {
+		Response res = null;
+		try {
+			Map<String,Object> paramMap=request.getParameter("paramMap")==null?null:JSONUtils.json2map(request.getParameter("paramMap"));
+			long recordCnt = commentService.count(paramMap);
+			Pagination pager = new Pagination();
+			pager.setParams(paramMap);
+			pager.setPageSize(StringUtil.isNumber(request.getParameter("pageSize"))
+					? Integer.valueOf(request.getParameter("pageSize")) : (int) recordCnt);
+			pager.setPageNo(StringUtil.isNumber(request.getParameter("pageNo"))
+					? Integer.valueOf(request.getParameter("pageNo")) : (int) recordCnt);
+			pager.setSortBy(request.getParameter("sortBy")==null?"ct":request.getParameter("sortBy"));
+			pager.setAsc(
+					request.getParameter("pageNo") == null ? false : Boolean.valueOf(request.getParameter("pageNo")));
+			
+			List<CommentVO> list = commentService.getPagerByCondition(pager);
+			CollectionVO<CommentVO> payload = new CollectionVO<>(list, (int) recordCnt,
+					pager.getPageSize() < 1 ? (int) recordCnt : pager.getPageSize());
+			res = Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
+		}
+		return res;
+	}
+	
+	/**
+	 * 删除评论
+	 * @param pageNo
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月8日 下午6:00:06
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/comment/delete/{id}")
+	public Response deleteCommentById(@PathVariable String id) {
+		try {
+			int r = commentService.deleteById(id);
+			if(r==1){
+				return Responses.SUCCESS().setCode(1).setMsg("评论删除成功");
+			}
+		} catch (Exception e) {
+		}
+		return Responses.FAILED().setCode(0).setMsg("评论删除");
+	}
+	
 	///////////////////////////////// 商家//////////////////////////////////////////
 
 	/**

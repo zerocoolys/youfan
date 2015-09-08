@@ -14,20 +14,7 @@
 
 
 	</resultMap>
-
-
-
-	<resultMap id="MechantMenuVO" type="com.youfan.commons.vo.MechantMenuVO">
-
-		<result column="dish_id" property="menuId" />
-		<result column="dish_Count" property="dishCount" />
-
-	</resultMap>
-
-
-
 	<resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
-
 		<result column="ORDER_NO" property="orderNo" />
 		<result column="BUYER_ID" property="buyerId" />
 		<result column="ORDER_STATUS" property="orderStatus" />
@@ -36,12 +23,9 @@
 		<result column="repast_Address" property="repastAddress" />
 		<result column="dishes_Id" property="dishesId" />
 		<result column="payment_way" property="paymentWay" />
-
-
 	</resultMap>
 
 	<resultMap id="OrderEntityMap" type="com.youfan.data.models.OrderEntity">
-
 		<result column="ORDER_NO" property="orderNo" />
 		<result column="BUYER_ID" property="buyerId" />
 		<result column="ORDER_STATUS" property="orderStatus" />
@@ -56,7 +40,6 @@
 		<result column="DATA_STATUS" property="dataStatus" />
 		<result column="ORDER_STATUS" property="orderStatus" />
 		<result column="ORIGINAL_PRICE" property="orgPrice" />
-		<result column="DISCOUNT_PRICE" property="discountPrice" />
 		<result column="SELLER_ID" property="sellerId" />
 		<result column="BUYER_ID" property="buyerId" />
 		<result column="order_Time" property="orderTime" />
@@ -68,6 +51,19 @@
 	</resultMap>
 
 
+
+
+	<resultMap id="MechantMenuVO" type="com.youfan.commons.vo.MechantMenuVO">
+
+		<result column="dish_id" property="menuId" />
+		<result column="dish_Count" property="dishCount" />
+
+	</resultMap>
+
+
+
+
+
 	<select id="findOrders" parameterType="com.youfan.data.models.OrderEntity"
 		resultMap="MerchantOrderHeader">
 
@@ -77,7 +73,7 @@
 		orders.repast_Address,
 		orders.repast_Time,
 		orders.BUYER_ID,
-		orders.price,
+		orders.ORIGINAL_PRICE,
 		orders.order_status,
 		dishes.dishes_Id
 		FROM
@@ -121,7 +117,7 @@
 		orders.repast_Time,
 		orders.order_time,
 		orders.BUYER_ID,
-		orders.price,
+		orders.ORIGINAL_PRICE,
 		dishes.dishes_Id,
 		orders.payment_way
 		FROM
@@ -140,10 +136,17 @@
 		WHERE
 		1 = 1
 
-		<if test="orderNo != null and orderNo != ''">
-			and orders.ORDER_NO = #{orderNo}
+		<if test="sellerId != null and sellerId != ''">
+			and orders.seller_Id = #{sellerId}
 		</if>
 
+		<if test="orderStatus != null">
+			and orders.order_Status = #{orderStatus}
+		</if>
+
+		<if test="repastMode != null and repastMode != ''">
+			and orders.repast_Mode = #{repastMode}
+		</if>
 
 	</select>
 
@@ -172,6 +175,7 @@
 
 
 	<select id="getOrder" parameterType="int" resultMap="OrderEntityMap">
+
 		SELECT *
 		FROM TBL_ORDERS WHERE ORDER_ID=#{id} AND DATA_STATUS = 1
 	</select>
@@ -217,9 +221,19 @@
 		#{start}, #{end}
 	</select>
 
+
+	<select id="getOrdersByBuyerId">
+		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{0} AND
+		DATA_STATUS = 1 LIMIT
+		#{start}, #{end} ORDER BY #{1}.orderBy #{1}.asc
+	</select>
+
+
+
 	<select id="findByBuyerId" parameterType="java.util.Map" resultMap="OrderFullEntityMap">
 		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND
 		DATA_STATUS = 1 ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
+
 	</select>
 
 	<select id="findBySellerId">
@@ -257,23 +271,7 @@
 		SELECT count(*) FROM TBL_ORDERS
 	</select>
 
-	<select id="count" parameterType="com.youfan.controllers.params.OrderParams"
-		resultType="int">
-		SELECT count(*) FROM TBL_ORDERS
-		WHERE 1=1
-		<if test="orderNo != null and orderNo != ''">
-			and ORDER_NO = #{orderNo}
-		</if>
-		<if test="sellerId != null">
-			and SELLER_ID = #{sellerId}
-		</if>
-		<if test="buyerId != null">
-			and BUYER_ID = #{buyerId}
-		</if>
-		<if test="orderStatus != null">
-			and ORDER_STATUS = #{orderStatus}
-		</if>
-	</select>
+
 	<select id="getOrdersByParams" parameterType="com.youfan.controllers.params.OrderParams"
 		resultMap="OrderFullEntityMap">
 		SELECT * FROM TBL_ORDERS
@@ -298,14 +296,33 @@
 
 	</select>
 
+
+	<select id="count" parameterType="com.youfan.controllers.params.OrderParams"
+		resultType="int">
+		SELECT count(*) FROM TBL_ORDERS
+		WHERE 1=1
+		<if test="orderNo != null and orderNo != ''">
+			and ORDER_NO = #{orderNo}
+		</if>
+		<if test="sellerId != null">
+			and SELLER_ID = #{sellerId}
+		</if>
+		<if test="buyerId != null">
+			and BUYER_ID = #{buyerId}
+		</if>
+		<if test="orderStatus != null">
+			and ORDER_STATUS = #{orderStatus}
+		</if>
+	</select>
+	
+
 	<update id="updateOrder" parameterType="com.youfan.controllers.params.OrderParams">
 
-		update TBL_ORDERS
-		set order_status = #{orderStatus}
+		update TBL_ORDERS orders
+		set orders.order_status = #{orderStatus}
 
-		where ORDER_NO =
+		where orders.order_no =
 		#{orderNo}
 
 	</update>
-
 </mapper>

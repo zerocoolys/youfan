@@ -3,12 +3,14 @@ package com.youfan.data.dao.merchant;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
+import com.youfan.controllers.params.CommentParams;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.CommentEntity;
 import redis.clients.jedis.Jedis;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -25,5 +27,11 @@ public interface CommentDAO extends MongoBaseDAO<CommentEntity, CommentVO, Long>
 
         return Instant.now().getEpochSecond() + no;
     }
+
+	long count(Map<String, Object> paramMap);
+	
+	List<CommentVO> getComments(Pagination pager);
+	
+	int updateStatus(String id,Integer status);
 
 }
