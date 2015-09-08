@@ -1,5 +1,6 @@
 package com.youfan.data.dao.merchant;
 
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.Pagination;
 import com.youfan.data.dao.MongoBaseDAO;
@@ -98,7 +99,11 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
      */
     List<MerchantKitchenInfoVO> conditionalSearch(String merchantName);
 
-
+    /**
+     * 更具用户的当前位置查询商家3公里以内的所有店铺
+     * @return
+     */
+    CollectionVO<MerchantKitchenInfoVO> getGeographicalSearch(Pagination pagination);
 
     @Override
     default Class<MerchantKitchenInfoEntity> getEntityClass() {

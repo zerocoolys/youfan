@@ -1,11 +1,14 @@
 package com.youfan.controllers.merchant;
 
+import com.youfan.commons.Pagination;
 import com.youfan.commons.ResponseConstants;
+import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.exceptions.KitchenInfoException;
+import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.merchant.MerchantUsersService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,9 @@ public class MerchantRoomController implements ResponseConstants {
 
     @Resource
     MerchantUsersService merchantUsersService;
+
+    @Resource
+    MerchantKitchenService merchantKitchenService;
 
 
     @RequestMapping(value = "/saveMr")
@@ -44,7 +50,7 @@ public class MerchantRoomController implements ResponseConstants {
     }
 
     @RequestMapping(value = "/getMrData", method = RequestMethod.GET)
-    public Response getMerchantRoomData() throws KitchenInfoException {
+    public Response getMerchantRoomData(@RequestParam double lng,@RequestParam double lat) throws KitchenInfoException {
         List<MerchantKitchenInfoVO> pager = merchantUsersService.pageList(1, 10);
 //        List<MerchantKitchenInfoVO> customList=new ArrayList<>();
 //        for (int i=0;i<5;i++){
@@ -65,6 +71,13 @@ public class MerchantRoomController implements ResponseConstants {
     @RequestMapping(value = "/getKitchenByName/{kitName}", method = RequestMethod.GET)
     public Response getKitchenByName(@PathVariable String kitName) {
         List<MerchantKitchenInfoVO> merchantKitchenInfoVOs = merchantUsersService.conditionalSearch(kitName);
+
+        return Responses.SUCCESS().setPayload(merchantKitchenInfoVOs);
+    }
+
+    @RequestMapping(value = "/getGeographical", method = RequestMethod.POST)
+    public Response getGeographical(@RequestBody Pagination p) {
+        CollectionVO<MerchantKitchenInfoVO> merchantKitchenInfoVOs = merchantKitchenService.geographicalSearch(p);
 
         return Responses.SUCCESS().setPayload(merchantKitchenInfoVOs);
     }

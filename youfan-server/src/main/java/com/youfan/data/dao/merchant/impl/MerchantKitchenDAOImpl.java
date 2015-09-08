@@ -2,12 +2,22 @@ package com.youfan.data.dao.merchant.impl;
 
 import com.mongodb.DBCursor;
 import com.youfan.commons.Constants;
+import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.CommentVO;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
+import com.youfan.data.models.CommentEntity;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.utils.JSONUtils;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -17,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
@@ -92,6 +103,41 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
+    public CollectionVO<MerchantKitchenInfoVO> getGeographicalSearch(Pagination p) {
+
+        Query query = new Query();
+        Criteria c = Criteria.where(Constants.CONPONS_STATUS).is(0);
+        if (p.getParams() != null && p.getParams().size() > 0) {
+                p.getParams().forEach((k, v) -> {if("lnglat".indexOf(k) == -1){c.and(k).is(v);}});
+        }
+        query.addCriteria(c);
+        long totalCount = this.mongoTemplate.count(query, this.getEntityClass());
+        query.skip((p.getPageNo() - 1) * p.getPageSize());
+        query.limit(p.getPageSize());
+        Sort sort = null;
+        if (!p.getAsc().equals("") && p.getSortBy() != null) {
+            sort = new Sort(new Sort.Order(p.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, p.getSortBy()));
+//            query.with(sort);
+        }
+
+        Point point = new Point(Double.valueOf(p.getParams().get("lng").toString()), Double.valueOf(p.getParams().get("lat").toString()));
+
+        NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(3).query(query);
+
+        TypedAggregation<MerchantKitchenInfoEntity> aggs = newAggregation(MerchantKitchenInfoEntity.class, geoNear(geoNear, MERCHANTKITCHEN_LOCATION),sort(Sort.Direction.ASC, MERCHANTKITCHEN_LOCATION));
+
+        AggregationResults<MerchantKitchenInfoEntity> results = mongoTemplate.aggregate(aggs, MerchantKitchenInfoEntity.class);
+
+        List<MerchantKitchenInfoEntity> entities = results.getMappedResults();
+
+        List<MerchantKitchenInfoVO> vos = convertToVOList(entities);
+
+        CollectionVO<MerchantKitchenInfoVO> collection = new CollectionVO<>(vos, (int) totalCount, p.getPageSize());
+
+        return collection;
+    }
+
+    @Override
     public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         //判断是否存在该表
         createCollection(merchantKitchenInfo);
@@ -115,7 +161,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
 //        update.set("lat", merchantKitchenInfo.getLat());
 //        update.set("lng", merchantKitchenInfo.getLng());
-        update.set("location",merchantKitchenInfo.getLocation());
+        update.set("location", merchantKitchenInfo.getLocation());
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfo.getId())), update, getEntityClass());
         if (merchantKitchenInfoEntity == null) {
             mongoTemplate.insert(convertToEntity(merchantKitchenInfo));
