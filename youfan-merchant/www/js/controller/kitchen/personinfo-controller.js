@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker, $stateParams) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -78,18 +78,12 @@
 
                     } else {
                         if (data.payload.address != null) {
-                            var isCity = false;
-                            $scope.citys.forEach(function (value) {
-                                if (data.payload.address == value) {
-                                    isCity = true;
-                                }
-                            });
-                            if (isCity) {
-                                $rootScope.city = data.payload.address;
-                            } else {
-                                var templateAddress = data.payload.address.split("省");
-                                $rootScope.Province = templateAddress + "省";
+                            var templateAddress = data.payload.address.split("-");
+                            if (templateAddress.length == 2) {
+                                $rootScope.Province = templateAddress[0];
                                 $rootScope.city = templateAddress[1];
+                            } else if (templateAddress.length > 0) {
+                                $rootScope.Province = templateAddress[0];
                             }
                         } else {
                             $rootScope.Province = "";
@@ -109,15 +103,15 @@
                             $scope.user.realName = data.payload.realName;
                         }
                         if (data.payload.headPortraitPicUrl != null) {
-                            //$scope.imageData.headPortraitPicUrl = data.payload.headPortraitPicUrl;
+                            $scope.imageData.headPortraitPicUrl = data.payload.headPortraitPicUrl;
                             $scope.image.path[0] = (data.payload.headPortraitPicUrl);
                         }
                         if (data.payload.healthCertificatePicUrl != null) {
-                            //$scope.imageData.healthCertificatePicUrl = data.payload.healthCertificatePicUrl;
+                            $scope.imageData.healthCertificatePicUrl = data.payload.healthCertificatePicUrl;
                             $scope.image.path[1] = (data.payload.healthCertificatePicUrl);
                         }
                         if (data.payload.idCardPicUrl != null) {
-                            //$scope.imageData.idCardPicUrl = data.payload.idCardPicUrl
+                            $scope.imageData.idCardPicUrl = data.payload.idCardPicUrl
                             $scope.image.path[2] = (data.payload.idCardPicUrl);
                         }
                     }
@@ -135,11 +129,18 @@
 
         $scope.saveUserInfo = function () {
             var addressTemplate = "";
+            var isP_C = false;
             if ($rootScope.Province != null || $rootScope.Province != "" || $rootScope.Province != undefined) {
-                addressTemplate += $rootScope.Province
+                addressTemplate += $rootScope.Province;
+                isP_C = true;
             }
             if ($rootScope.city != null || $rootScope.city != "" || $rootScope.city != undefined) {
-                addressTemplate += $rootScope.city
+                if (isP_C) {
+                    addressTemplate += "-" + $rootScope.city;
+                } else {
+                    addressTemplate += $rootScope.city;
+                }
+
             }
             var hasRealName = $scope.user.realName == null || $scope.user.realName == "" || $scope.user.realName == undefined;
             var hasAddress = addressTemplate == "";
@@ -203,7 +204,6 @@
 
         $scope.getImg = function (buttonId, url) {
             $scope.image.path[Number(buttonId)] = url;
-            alert(url);
             uploadImg(buttonId, url, $ionicLoading, $scope);
         };
         $scope.saveImagePath = function (buttonId, url) {

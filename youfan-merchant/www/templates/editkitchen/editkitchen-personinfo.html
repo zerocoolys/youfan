@@ -91,6 +91,8 @@
                     <button ng-show="!image.path[2]" ng-click="show(2)"
                             class="button light-bg calm-border calm-bg light  icon ion-plus-round "
                             style="width: 100px;height: 100px;  "></button>
+                    <img ng-show="image.path[2]" ng-click="show(2)" src="{{image.path[2]}}"
+                         style="width: 100px;height: 100px; alt="/>
                 </a>
             </div>
         </ion-list>
