@@ -18,7 +18,7 @@ angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_mer
                 cordova.plugins.Keyboard.disableScroll(true);
 
             }
-            
+
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleLightContent();
