@@ -9,11 +9,11 @@
         .controller('kitcheninfo_pic', kitchenInfo_pic)
     ;
 
-    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location) {
+    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location, $cordovaImagePicker, $ionicPopup) {
         $scope.imgs = [];
         $scope.imgsTemplate = [];
         $http.post(
-            "http://127.0.0.1:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload != null) {
                         data.payload.kitchenPicUrl.forEach(function (value) {
@@ -36,16 +36,31 @@
             $scope.imgsTemplate.slice(_index, 1);
         };
         $scope.isChange = function () {
-            if ($scope.imgsTemplate == $scope.imgs) {
-                return;
-            }else{
+            var isChangePic = true;
+            if (Number($scope.imgsTemplate.length) != Number($scope.imgs.length)) {
+                isChangePic = false;
+            } else if (Number($scope.imgsTemplate.length) == Number($scope.imgs.length) && Number($scope.imgs.length) != 0) {
+                if (Number($scope.imgs.length) == 0) {
+                    isChangePic = true;
+                } else {
+                    for (var i = 0; i < Number($scope.imgsTemplate.length); i++) {
+                        if ($scope.imgsTemplate[i].url != $scope.imgs[i].url) {
+                            isChangePic = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (isChangePic) {
+                $state.go("kitcheninfo")
+            } else {
                 var options = {
                     "title": "是否保存当前修改内容！",
                     "buttons": [{
                         text: "关闭",
                         type: "button-positive clam",
                         onTap: function () {
-                            $location.path("#/kitcheninfo")
+                            $state.go("kitcheninfo")
                         }
                     }, {
                         text: "确定",
@@ -70,9 +85,13 @@
                 };
                 $ionicPopup.alert(options);
             } else {
+                var urls = [];
+                for (var k = 0; k < Number($scope.imgsTemplate.length); k++) {
+                    urls.push($scope.imgsTemplate[k].url);
+                }
                 var kitchenPic = {
                     id: $rootScope.user.id,
-                    kitchenPicUrl: $scope.imgsTemplate
+                    kitchenPicUrl: urls
                 };
                 $http.post(
                     "http://192.168.1.110:8080/user/saveMerchantKitchenPicInfo", JSON.stringify(kitchenPic), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
@@ -93,7 +112,13 @@
                                         text: "确定",
                                         type: "button-positive clam",
                                         onTap: function () {
-                                            $location.path("#/kitcheninfo")
+                                            for (var k = 0; k < Number($scope.imgsTemplate.length); k++) {
+                                                $scope.imgs.push({
+                                                    index: $scope.imgs.length,
+                                                    url: $scope.imgsTemplate[k].url
+                                                });
+                                            }
+                                            $state.go("kitcheninfo")
                                         }
                                     }]
                                 };
@@ -118,7 +143,7 @@
                 index: $scope.imgs.length,
                 url: url
             });
-            //buttonId, imageUrl,$ionicLoading,$scope
+            //buttonId, url, $ionicLoading, $scope
             uploadImg(0, url, $ionicLoading, $scope);
         };
         $scope.saveImagePath = function (buttonId, url) {
@@ -133,7 +158,7 @@
         };
         $scope.addPic = function () {
             if ($scope.imgs.length <= 4) {
-                createActionSheet(0, $ionicActionSheet, $scope, $cordovaCamera);
+                createActionSheet(0, $ionicActionSheet, $scope, $cordovaCamera, $cordovaImagePicker);
             } else {
                 var options = {
                     "title": "图片最多4张！",
