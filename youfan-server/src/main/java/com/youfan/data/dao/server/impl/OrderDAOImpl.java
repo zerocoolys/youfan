@@ -192,6 +192,12 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
+    public List<OrderDishRelVO> findDishByOrderNo(String orderNo) {
+        List<OrderDishRelEntity> dishRelEntities = sqlSession.selectList("findDishByOrderNo", orderNo);
+        return convertToVOList(dishRelEntities, OrderDishRelEntity.class, OrderDishRelVO.class);
+    }
+
+	@Override
 	public Map<String, Integer> findOrdersByMerchantSummary(OrderParams order) {
 		// TODO Auto-generated method stub
 		return null;
