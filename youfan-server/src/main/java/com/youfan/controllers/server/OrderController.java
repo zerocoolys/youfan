@@ -19,14 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-<<<<<<< HEAD
-
-
-
-
-
-=======
->>>>>>> 32279d0f482bf5f4c5845f74dbd5182f6a730e24
 import java.util.*;
 
 import static com.youfan.commons.OrderStatus.ORDER_WAIT_FOR_PAY;
