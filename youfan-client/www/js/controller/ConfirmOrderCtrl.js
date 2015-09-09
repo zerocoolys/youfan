@@ -54,6 +54,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             originalPrice: $scope.totalPrice,
             discountPrice: $scope.remainPayedPrice,
             repastMode: $rootScope.userDiningWay.pickUp == true ? "zq" : "ps",
+            repastTime: new Date(),
             repastAddress: $rootScope.userDiningWay.address.name + "," + $rootScope.userDiningWay.address.telNo + "," + $rootScope.userDiningWay.address.address,
             couponId: null,
             activeId: null
@@ -68,6 +69,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         $http.post(REST_URL + '/orders', orderData)
             .then(function (response) {
                 //console.log(JSON.stringify(response));
+                // 跳转到支付页面
                 $state.go('tab.pay-page', {
                     order_no: response.data.payload.orderNo,
                     discountPrice: orderData.discountPrice
