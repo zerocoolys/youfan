@@ -1,11 +1,11 @@
-<ion-view hide-nav-bar="true" hide-tabs class="order" cache-view="false" ng-init="retrieveOrdersByUserId(2)">
+<ion-view hide-nav-bar="true" hide-tabs class="order" cache-view="false">
     <ion-header-bar class="bar" align-title="center">
         <a class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.chats"></a>
 
         <h1 class="title">我的订单</h1>
     </ion-header-bar>
     <ion-tabs class="tabs-striped tabs-top">
-        <ion-tab title="已完成" class="calm-border" animation="slide-left-right" ng-click="retrieveOrdersByUserId(2)">
+        <ion-tab title="已完成" class="calm-border" animation="slide-left-right" on-select="retrieveOrdersByUserId(2)">
             <ion-nav-view>
                 <ion-content>
                     <ion-list>
@@ -30,7 +30,7 @@
                 </ion-content>
             </ion-nav-view>
         </ion-tab>
-        <ion-tab title="未完成" animation="slide-left-right" ng-click="retrieveOrdersByUserId(1)">
+        <ion-tab title="未完成" animation="slide-left-right" on-select="retrieveOrdersByUserId(1)">
             <ion-nav-view>
                 <ion-content>
                     <ion-list>
@@ -57,7 +57,7 @@
                 </ion-content>
             </ion-nav-view>
         </ion-tab>
-        <ion-tab title="退款中" animation="slide-left-right" ng-click="retrieveOrdersByUserId(3)">
+        <ion-tab title="退款中" animation="slide-left-right" on-select="retrieveOrdersByUserId(3)">
             <ion-nav-view>
                 <ion-content>
                     <ion-list>
@@ -82,7 +82,7 @@
                 </ion-content>
             </ion-nav-view>
         </ion-tab>
-        <ion-tab title="待评价" animation="slide-left-right" ng-click="retrieveOrdersByUserId(4)">
+        <ion-tab title="待评价" animation="slide-left-right" on-select="retrieveOrdersByUserId(4)">
             <ion-nav-view>
                 <ion-content>
                     <ion-list>

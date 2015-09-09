@@ -154,23 +154,16 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $ionicSlideBoxDeleg
                         for (var i = 0, l = result.length; i < l; i++) {
                             var _status = parseInt(result[i].orderStatus);
 
-                            switch (_status) {
-                                case 1:
-                                    result[i].orderStatus = "去支付";
-                                    break;
-                                case 2:
-                                    result[i].orderStatus = "等待商家确认";
-                                    break;
-                                case 3:
-                                    result[i].orderStatus = "等待商家做菜";
-                                    break;
-                                case 4:
-                                    result[i].orderStatus = "等待商家发货";
-                                    break;
-                                case 5:
-                                    result[i].orderStatus = "确认收货";
-                                default :
-                                    break;
+                            if (_status == 1) {
+                                result[i].orderStatus = "等待支付";
+                            } else if (_status == 2) {
+                                result[i].orderStatus = "等待商家确认";
+                            } else if (_status == 3) {
+                                result[i].orderStatus = "等待商家做菜";
+                            } else if (_status == 4) {
+                                result[i].orderStatus = "等待商家发货";
+                            } else if (_status == 5) {
+                                result[i].orderStatus = "确认收货";
                             }
                         }
                         $scope.unfinishedOrders = result;
@@ -189,7 +182,7 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $ionicSlideBoxDeleg
                         break;
                     case 4:
                         for (var q = 0, s = result.length; q < s; q++) {
-                            result[q].orderStatus = "去评价";
+                            result[q].orderStatus = "等待评价";
                         }
                         $scope.notCommentedOrders = result;
                         break;
