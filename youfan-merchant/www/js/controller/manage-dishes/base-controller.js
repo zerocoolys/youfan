@@ -1,31 +1,36 @@
 angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_controllers', 'yf_merchant.m_d_xfz_controllers', 'yf_merchant.m_d_nsc_controllers', 'yf_merchant.manage_dishes_service'])
 
-    .controller('ManageDishesCtrl', function ($scope, $state, $ionicLoading, ManageDishesService) {
+    .controller('ManageDishesCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT) {
         console.log("ManageDishesCtrl");
         $scope.upSale = function (obj) {
             console.log("upSale");
 
             $ionicLoading.show({
-                template: "正在载入数据，请稍后..."
+                templateUrl: YF_MERCHANT_LOADING_COMMENT
             });
 
-            ManageDishesService.conversionSale({
-                id: obj.id,
-                sale: true
-            });
+            $timeout(function () {
+                ManageDishesService.conversionSale({
+                    id: obj.id,
+                    sale: true
+                });
+            }, 1000);
         };
 
         $scope.downSale = function (obj) {
             console.log("downsale");
 
-            $ionicloading.show({
-                template: "正在载入数据，请稍后..."
+            $ionicLoading.show({
+                templateUrl: YF_MERCHANT_LOADING_COMMENT
             });
 
-            managedishesservice.conversionsale({
-                id: obj.id,
-                sale: false
-            });
+            $timeout(function () {
+                ManageDishesService.conversionSale({
+                    id: obj.id,
+                    sale: false
+                });
+            }, 1000);
+
         };
 
     })
