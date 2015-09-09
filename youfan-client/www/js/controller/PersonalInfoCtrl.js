@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $timeout, $http) {
+ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading,$ionicPopup, $timeout, $http,UserService) {
 
     $scope.sex = "待完善";
     $scope.age = "待完善";
@@ -9,6 +9,9 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
         name: "优饭1343",
         jobs: "待完善"
     };
+
+    $scope.post = {};
+
     $scope.showActionSexSheet = function (id) {
         if (id == 1) {
             $ionicActionSheet.show({
@@ -16,13 +19,13 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
                     {
                         text: '<p class="text-center">男</p>',
                         onclick: function () {
-                            $scope.sex = '男';
+                            $scope.post.sex = '男';
                         }
                     },
                     {
                         text: '<p class="text-center">女</p>',
                         onclick: function () {
-                            $scope.sex = '女';
+                            $scope.post.sex = '女';
                         }
                     }
                 ],
@@ -38,25 +41,25 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
                     {
                         text: '<p class="text-center">60后</p>',
                         onclick: function () {
-                            $scope.age = "60后";
+                            $scope.post.age = "60后";
                         }
                     },
                     {
                         text: '<p class="text-center">70后</p>',
                         onclick: function () {
-                            $scope.age = "70后";
+                            $scope.post.age = "70后";
                         }
                     },
                     {
                         text: '<p class="text-center">80后</p>',
                         onclick: function () {
-                            $scope.age = "80后";
+                            $scope.post.age = "80后";
                         }
                     },
                     {
                         text: '<p class="text-center">90后</p>',
                         onclick: function () {
-                            $scope.age = "90后";
+                            $scope.post.age = "90后";
                         }
                     }
                 ],
@@ -68,40 +71,28 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
             })
         }
 
-    }
+    };
 
-    $scope.show = function () {
-        var userModel = {
-            name: $scope.user.name,
-            sex: $scope.sex,
-            age: $scope.age,
-            jobs: $scope.user.jobs,
-            token: $window.sessionStorage.token
-        };
+    $scope.show = function (post) {
+        UserService.updateInfo(post).success(function (data) {
+            if (data.code == 0) {
+                $state.go('tab.chats');
+            } else {
+                var updateErr = $ionicPopup.show({
+                    title: '网络异常,请重设密码',
+                    scope: $scope
+                });
+                $timeout(function () {
+                    updateErr.close();
+                }, 2000);
+            }
 
-        console.log(userModel.name);
+        })
+        .error(function (status, data) {
+            console.log(status);
+            console.log(data);
+        });
 
-        var urlStr = "http://localhost:8080/cuser/binfo";
-
-        $http.post(urlStr, JSON.stringify(userModel))
-            .success(function (data) {
-                console.log(data);
-                if (data.code == 0) {
-                    $state.go('tab.chats');
-                } else {
-                    var updateErr = $ionicPopup.show({
-                        title: '网络异常,请重设密码',
-                        scope: $scope
-                    });
-                    $timeout(function () {
-                        updateErr.close();
-                    }, 2000);
-                }
-
-            })
-            .error(function (data) {
-
-            });
 
         $ionicLoading.show({
             template: '<div><ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner>保存中...</div>'

@@ -13,7 +13,7 @@
             <div class="item item-input">
                 <input type="text" id="c" name="verificationCode" ng-model="user.captcha" placeholder="输入验证码" required>
                 <button class="button bar-balanced button-small" ng-class="isClick ? 'disabled' : ''"
-                        style="margin-right: 20px" ng-click="sendMessage(1)">{{validCode}}
+                        style="margin-right: 20px" ng-click="sendMessage(1, user.tel)">{{validCode}}
                 </button>
             </div>
             <a class="button button-block bar-balanced" ng-click="verifyCaptcha()">下一步</a>

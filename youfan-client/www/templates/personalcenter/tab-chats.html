@@ -4,17 +4,28 @@
         <a class="button button-clear icon-right ion-ios-gear-outline " ui-sref="tab.set"></a>
     </ion-header-bar>
     <ion-content>
-        <div class="list photo_bg">
+        <div class="list photo_bg" ng-controller="PwdLoginCtrl" ui-sref="tab.personal-info">
             <ion-item class="profile-item">
-                <div class="profile-picture big-profile-picture" ui-sref="tab.personal-info">
+                <div class="profile-picture big-profile-picture">
                     <img src="img/person.png">
                 </div>
             </ion-item>
             <ion-item class="profile-item" style="padding-top:0px;">
-                <!--                <div class="care_text"  ui-sref="tab.personal-info">
-                                    <span> 忧饭2014 </span>
-                                    <p>待完善</p>
-                                </div>-->
+                <div class="care_text" ui-sref="tab.personal-info">
+                    <span> 忧饭2014 </span>
+
+                    <p>待完善</p>
+                </div>
+                <!--<button class="button  button-small bar-balanced " ui-sref="tab.pwd-login">登录</button>-->
+            </ion-item>
+        </div>
+        <div class="list photo_bg" ng-controller="PwdLoginCtrl" ng-hide="isShow()">
+            <ion-item class="profile-item">
+                <div class="profile-picture big-profile-picture">
+                    <img src="img/person.png">
+                </div>
+            </ion-item>
+            <ion-item class="profile-item" style="padding-top:0px;">
                 <button class="button  button-small bar-balanced " ui-sref="tab.pwd-login">登录</button>
             </ion-item>
         </div>
