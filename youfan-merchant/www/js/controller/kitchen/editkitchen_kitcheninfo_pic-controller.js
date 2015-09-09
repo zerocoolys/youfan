@@ -77,7 +77,7 @@
                 $http.post(
                     "http://192.168.1.110:8080/user/saveMerchantKitchenPicInfo", JSON.stringify(kitchenPic), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                         var options;
-                        if (data.code == "0") {
+                        if (Number(data.code) == 0) {
                             if (data.payload == null || data.payload == "") {
                                 options = {
                                     "title": "系统繁忙！",

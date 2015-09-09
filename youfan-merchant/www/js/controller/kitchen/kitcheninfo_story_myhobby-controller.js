@@ -29,7 +29,7 @@
                 $scope.text = text;
             }
         };
-        $scope.isSaveText = function () {
+        $scope.isChange = function () {
             var isChange = textTemplate == $scope.text;
             if (isChange) {
                 var options = {
@@ -44,52 +44,57 @@
                         text: "确定",
                         type: "button-positive clam",
                         onTap: function () {
-                            textTemplate = $scope.text;
-                            $http.post(
-                                "http://127.0.0.1:8080/user/saveMyHobby", {
-                                    "id": $rootScope.user.id,
-                                    "hobby": $scope.text
-                                }, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                                    var option;
-                                    if (data.code == "0") {
-                                        if (data.payload == null || data.payload == "") {
-                                            option = {
-                                                "title": "系统繁忙！",
-                                                "buttons": [{
-                                                    text: "关闭",
-                                                    type: "button-positive clam"
-                                                }]
-                                            };
-                                        } else {
-                                            option = {
-                                                "title": "保存成功！",
-                                                "buttons": [{
-                                                    text: "确定",
-                                                    type: "button-positive clam",
-                                                    onTap: function () {
-                                                        $location.path("#/kitcheninfo-story")
-                                                    }
-                                                }]
-                                            };
-                                        }
-                                        $ionicPopup.alert(option);
-                                    } else {
-                                        option = {
-                                            "title": "系统繁忙！",
-                                            "buttons": [{
-                                                text: "关闭",
-                                                type: "button-positive clam"
-                                            }]
-                                        };
-                                        $ionicPopup.alert(option);
-                                    }
-                                });
+                            $scope.isSaveText();
                         }
-                    }
-                    ]
+                    }]
                 };
                 $ionicPopup.confirm(options);
+            } else {
+                return;
             }
+
+        };
+        $scope.isSaveText = function () {
+            textTemplate = $scope.text;
+            $http.post(
+                "http://127.0.0.1:8080/user/saveMyHobby", {
+                    "id": $rootScope.user.id,
+                    "hobby": $scope.text
+                }, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    var option;
+                    if (Number(data.code) == 0) {
+                        if (data.payload == null || data.payload == "") {
+                            option = {
+                                "title": "系统繁忙！",
+                                "buttons": [{
+                                    text: "关闭",
+                                    type: "button-positive clam"
+                                }]
+                            };
+                        } else {
+                            option = {
+                                "title": "保存成功！",
+                                "buttons": [{
+                                    text: "确定",
+                                    type: "button-positive clam",
+                                    onTap: function () {
+                                        $location.path("#/kitcheninfo-story")
+                                    }
+                                }]
+                            };
+                        }
+                        $ionicPopup.alert(option);
+                    } else {
+                        option = {
+                            "title": "系统繁忙！",
+                            "buttons": [{
+                                text: "关闭",
+                                type: "button-positive clam"
+                            }]
+                        };
+                        $ionicPopup.alert(option);
+                    }
+                });
 
 
         };
