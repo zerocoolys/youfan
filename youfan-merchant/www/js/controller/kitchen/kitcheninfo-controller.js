@@ -25,27 +25,60 @@ function getLocation(data) {
                 specificAddress: ""
             }
         };
+        $scope.kitchenInfoTemplate = {
+            kitchenName: "",
+            phoneNumber: "",
+            characteristic: [],
+            kitchenAddress: {
+                province: "",
+                city: "",
+                specificAddress: ""
+            }
+        };
+        $scope.addressTemplate = "";
         $http.post(
             "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                if (data.code == "0") {
+                if (Number(data.code) == 0) {
                     if (data.payload != null) {
+                        var add_tem = function () {
+                            var addressTemplate = data.payload.kitchenAddress.toString().split("-");
+                            if (addressTemplate.length == 3) {
+                                $rootScope.Province_s = data.payload.kitchenAddress.toString().split("-")[0];
+                                $rootScope.city_s = data.payload.kitchenAddress.toString().split("-")[1];
+                                $scope.addressTemplate = $rootScope.Province_s + $rootScope.city_s + data.payload.kitchenAddress.toString().split("-")[2];
+                                return {
+                                    province: data.payload.kitchenAddress.toString().split("-")[0],
+                                    city: data.payload.kitchenAddress.toString().split("-")[1],
+                                    specificAddress: data.payload.kitchenAddress.toString().split("-")[2]
+                                }
+                            } else {
+                                $rootScope.Province_s = data.payload.kitchenAddress.toString().split("-")[0];
+                                $scope.addressTemplate = $rootScope.Province_s + data.payload.kitchenAddress.toString().split("-")[1];
+                                return {
+                                    province: data.payload.kitchenAddress.toString().split("-")[0],
+                                    specificAddress: data.payload.kitchenAddress.toString().split("-")[1]
+                                }
+                            }
+                        };
                         $scope.kitchenInfo = {
                             kitchenName: data.payload.kitchenName,
                             phoneNumber: data.payload.phoneNumber,
                             characteristic: data.payload.cuisine,
-                            kitchenAddress: {
-                                province: data.payload.kitchenAddress.substr(0, 2),
-                                city: data.payload.kitchenAddress.substr(2, 2),
-                                specificAddress: data.payload.kitchenAddress.substr(4, data.payload.kitchenAddress.length)
-                            }
+                            kitchenAddress: add_tem()
+                        };
+                        $scope.kitchenInfoTemplate = {
+                            kitchenName: data.payload.kitchenName,
+                            phoneNumber: data.payload.phoneNumber,
+                            characteristic: data.payload.cuisine,
+                            kitchenAddress: add_tem()
                         };
                     }
                 }
             });
-        $scope.saveKitchenInfo = function () {
-            var kitchenAddressTemplate = "";
+        $scope.isChange = function () {
+            var kitchenAddressTemplate = ""
             if ($rootScope.Province_s != "" && $rootScope.Province_s != null && $rootScope.Province_s != undefined) {
-                kitchenAddressTemplate += $rootScope.Province_s
+                kitchenAddressTemplate += $rootScope.Province_s;
             }
             if ($rootScope.city_s != "" && $rootScope.city_s != null && $rootScope.city_s != undefined) {
                 kitchenAddressTemplate += $rootScope.city_s;
@@ -54,10 +87,65 @@ function getLocation(data) {
             ) {
                 kitchenAddressTemplate += $scope.kitchenInfo.kitchenAddress.specificAddress;
             }
+            var isChange_kitchenAddress = kitchenAddressTemplate == $scope.addressTemplate;
+            var isChange_kitchenName = $scope.kitchenInfoTemplate.kitchenName == $scope.kitchenInfo.kitchenName;
+            var isChange_phoneNumber = $scope.kitchenInfo.phoneNumber == $scope.kitchenInfoTemplate.phoneNumber;
+            var isChange_characteristic = true;
+            for (var i = 0; i < Number($scope.kitchenInfo.characteristic.length); i++) {
+                for (var k = 0; k < Number($scope.kitchenInfoTemplate.characteristic.length); k++) {
+                    if ($scope.kitchenInfo.characteristic[i] != $scope.kitchenInfoTemplate.characteristic[k]) {
+                        isChange_characteristic = false;
+                        break;
+                    }
+                }
+            }
+            if (isChange_kitchenAddress && isChange_kitchenName && isChange_phoneNumber && isChange_characteristic) {
+                $state.go("editkitchen");
+            } else {
+                var options = {
+                    "title": "是否保存当前修改内容！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam",
+                        onTap: function () {
+                            $state.go("editkitchen")
+                        }
+                    }, {
+                        text: "确定",
+                        type: "button-positive clam",
+                        onTap: function () {
+                            $scope.saveKitchenInfo();
+                        }
+                    }
+                    ]
+                };
+                $ionicPopup.confirm(options);
+            }
+        };
+        $scope.saveKitchenInfo = function () {
+            var kitchenAddressTemplate = "";
+            var isP_C = false;
+            var hasProvince_s = $rootScope.Province_s != "" && $rootScope.Province_s != null && $rootScope.Province_s != undefined;
+            if ($rootScope.Province_s != "" && $rootScope.Province_s != null && $rootScope.Province_s != undefined) {
+                kitchenAddressTemplate += $rootScope.Province_s;
+                isP_C = true;
+            }
+            var hasCity_s = $rootScope.city_s != "" && $rootScope.city_s != null && $rootScope.city_s != undefined;
+            if ($rootScope.city_s != "" && $rootScope.city_s != null && $rootScope.city_s != undefined) {
+                if (isP_C) {
+                    kitchenAddressTemplate += "-" + $rootScope.city_s;
+                } else {
+                    kitchenAddressTemplate += $rootScope.city_s;
+                }
+            }
+            var hasS_A = $scope.kitchenInfo.kitchenAddress.specificAddress != null && $scope.kitchenInfo.kitchenAddress.specificAddress != "" || $scope.kitchenInfo.kitchenAddress.specificAddress != undefined;
+            if ($scope.kitchenInfo.kitchenAddress.specificAddress != null && $scope.kitchenInfo.kitchenAddress.specificAddress != "" || $scope.kitchenInfo.kitchenAddress.specificAddress != undefined
+            ) {
+                kitchenAddressTemplate += "-" + $scope.kitchenInfo.kitchenAddress.specificAddress;
+            }
             var hasKitchenName = $scope.kitchenInfo.kitchenName != null && $scope.kitchenInfo.kitchenName != "" && $scope.kitchenInfo.kitchenName != undefined;
             var hasCuisine = $scope.kitchenInfo.characteristic != null && $scope.kitchenInfo.characteristic != [] && $scope.kitchenInfo.characteristic != "" && $scope.kitchenInfo.characteristic != undefined;
-            var hasKitchenAddress = kitchenAddressTemplate != "";
-            if (hasKitchenName && hasCuisine && hasKitchenAddress) {
+            if (hasKitchenName && hasCuisine && hasS_A && (hasCity_s || hasProvince_s)) {
                 var MGeocoder;
                 //加载地理编码插件
                 AMap.service(["AMap.Geocoder"], function () {
@@ -73,7 +161,7 @@ function getLocation(data) {
                                 kitchenName: $scope.kitchenInfo.kitchenName, //厨房名称
                                 phoneNumber: $scope.kitchenInfo.phoneNumber, //手机号码
                                 cuisine: [$scope.kitchenInfo.characteristic[0], $scope.kitchenInfo.characteristic[1]],   //厨房特色，菜系
-                                kitchenAddress: $rootScope.Province_s + $rootScope.city_s + $scope.kitchenInfo.kitchenAddress.specificAddress,  //厨房地址
+                                kitchenAddress: kitchenAddressTemplate,  //厨房地址
                                 isTakeSelf: false, //是否支持自取
                                 isCanteen: false,  //是否支持食堂
                                 galleryFul: 1, //如果支持厨房，该字段不为空，容纳人数
@@ -105,8 +193,7 @@ function getLocation(data) {
                                 }
                             }
                             $http.post(
-                                "http://127.0.0.1:8080/user/saveMerchantKitchenInfo", (merchantKitchenInfoVO), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                                    console.log(data);
+                                "http://192.168.1.110:8080/user/saveMerchantKitchenInfo", (merchantKitchenInfoVO), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                                     var options;
                                     if (Number(data.code) == 0) {
                                         options = {
@@ -115,7 +202,15 @@ function getLocation(data) {
                                                 text: "确定",
                                                 type: "button-positive clam",
                                                 onTap: function () {
-                                                    $location.path("#/editkitchen")
+                                                    $scope.addressTemplate = kitchenAddressTemplate;
+                                                    $scope.kitchenInfo.kitchenName = $scope.kitchenInfoTemplate.kitchenName;
+                                                    $scope.kitchenInfoTemplate.phoneNumber = $scope.kitchenInfo.phoneNumber;
+                                                    for (var i = 0; i < Number($scope.kitchenInfo.characteristic.length); i++) {
+                                                        for (var k = 0; k < Number($scope.kitchenInfoTemplate.characteristic.length); k++) {
+                                                            $scope.kitchenInfoTemplate.characteristic[k] = $scope.kitchenInfo.characteristic[i];
+                                                        }
+                                                    }
+                                                    $state.go("editkitchen")
                                                 }
                                             }]
                                         };
@@ -133,14 +228,14 @@ function getLocation(data) {
                                     console.log(error)
                                 });
                         } else {
-                            var options = {
+                            var option = {
                                 "title": "地址信息错误！",
                                 "buttons": [{
                                     text: "关闭",
                                     type: "button-positive clam"
                                 }]
                             };
-                            $ionicPopup.alert(options);
+                            $ionicPopup.alert(option);
                         }
                     });
                 });

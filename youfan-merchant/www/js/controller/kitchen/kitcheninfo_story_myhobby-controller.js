@@ -13,11 +13,11 @@
         $scope.text = "";
         var textTemplate = "";
         $http.post(
-            "http://127.0.0.1:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                if (data.code == "0") {
+            "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                if (Number(data.code) == 0) {
                     if (data.payload != null) {
                         $scope.text = data.payload.hobby;
-                        var textTemplate = data.payload.hobby;
+                        textTemplate = data.payload.hobby;
                     }
                 }
             });
@@ -30,15 +30,17 @@
             }
         };
         $scope.isChange = function () {
+            console.log(textTemplate);
+            console.log($scope.text);
             var isChange = textTemplate == $scope.text;
-            if (isChange) {
+            if (!isChange) {
                 var options = {
                     "title": "是否保存当前修改内容！",
                     "buttons": [{
                         text: "关闭",
                         type: "button-positive clam",
                         onTap: function () {
-                            $location.path("#/kitcheninfo-story")
+                            $state.go("kitcheninfo-story");
                         }
                     }, {
                         text: "确定",
@@ -50,14 +52,14 @@
                 };
                 $ionicPopup.confirm(options);
             } else {
-                return;
+                $state.go("kitcheninfo-story")
             }
 
         };
         $scope.isSaveText = function () {
             textTemplate = $scope.text;
             $http.post(
-                "http://127.0.0.1:8080/user/saveMyHobby", {
+                "http://192.168.1.110:8080/user/saveMyHobby", {
                     "id": $rootScope.user.id,
                     "hobby": $scope.text
                 }, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
@@ -78,7 +80,7 @@
                                     text: "确定",
                                     type: "button-positive clam",
                                     onTap: function () {
-                                        $location.path("#/kitcheninfo-story")
+                                        $state.go("kitcheninfo-story")
                                     }
                                 }]
                             };

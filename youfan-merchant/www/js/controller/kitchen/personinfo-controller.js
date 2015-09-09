@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker, $stateParams) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker, $stateParams, $state) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -22,6 +22,8 @@
             healthCertificatePicUrl: "",
             idCardPicUrl: ""
         };
+        $scope.allTemplate = "";
+        $scope.isChangePic = true;
         $scope.selectSex = function (sex) {
             $scope.sex = sex;
         };
@@ -82,7 +84,9 @@
                             if (templateAddress.length == 2) {
                                 $rootScope.Province = templateAddress[0];
                                 $rootScope.city = templateAddress[1];
+                                $scope.allTemplate += $rootScope.Province + $rootScope.city;
                             } else if (templateAddress.length > 0) {
+                                $scope.allTemplate += $rootScope.Province;
                                 $rootScope.Province = templateAddress[0];
                             }
                         } else {
@@ -93,14 +97,17 @@
                             $scope.sex = "";
                         } else {
                             $scope.sex = data.payload.sex;
+                            $scope.allTemplate += $scope.sex;
                         }
                         if (data.payload.ageRange == null) {
                             $scope.ages = "请选择";
                         } else {
                             $scope.ages = data.payload.ageRange;
+                            $scope.allTemplate += $scope.ages;
                         }
                         if (data.payload.realName != null) {
                             $scope.user.realName = data.payload.realName;
+                            $scope.allTemplate += $scope.user.realName;
                         }
                         if (data.payload.headPortraitPicUrl != null) {
                             $scope.imageData.headPortraitPicUrl = data.payload.headPortraitPicUrl;
@@ -126,7 +133,40 @@
                 console.log(error)
             });
 
-
+        $scope.isChange = function () {
+            var all_tem = "";
+            if ($rootScope.Province != null || $rootScope.Province != "" || $rootScope.Province != undefined) {
+                all_tem += $rootScope.Province;
+            }
+            if ($rootScope.city != null || $rootScope.city != "" || $rootScope.city != undefined) {
+                all_tem += $rootScope.city;
+            }
+            all_tem += $scope.sex;
+            all_tem += $scope.ages;
+            all_tem += $scope.user.realName;
+            if (all_tem == $scope.allTemplate && $scope.isChangePic) {
+                $state.go("editkitchen");
+            } else {
+                var options = {
+                    "title": "是否保存当前修改内容！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam",
+                        onTap: function () {
+                            $state.go("editkitchen")
+                        }
+                    }, {
+                        text: "确定",
+                        type: "button-positive clam",
+                        onTap: function () {
+                            $scope.saveUserInfo();
+                        }
+                    }
+                    ]
+                };
+                $ionicPopup.confirm(options);
+            }
+        };
         $scope.saveUserInfo = function () {
             var addressTemplate = "";
             var isP_C = false;
@@ -189,7 +229,10 @@
                                 "title": "保存成功！",
                                 "buttons": [{
                                     text: "确定",
-                                    type: "button-positive clam"
+                                    type: "button-positive clam",
+                                    onTap: function () {
+                                        $state.go("editkitchen");
+                                    }
                                 }]
                             };
                         }
@@ -207,6 +250,7 @@
             uploadImg(buttonId, url, $ionicLoading, $scope);
         };
         $scope.saveImagePath = function (buttonId, url) {
+            $scope.isChangePic = false;
             switch (Number(buttonId)) {
                 case 0:
                     $scope.imageData.headPortraitPicUrl = url;
