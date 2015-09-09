@@ -76,15 +76,14 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
         $scope.addXfzPic = function () {
             console.log("addXfzPic");
-
             if (!navigator.camera) {
-                alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
+                $scope.$emit("youfan-merchant-show-msg", "请在真机环境中使用相册功能。现在只是模拟一张图片");
                 $scope.imgs.push({
                     index: $scope.imgs.length,
                     url: PhotoService.randomPhoto()
                 });
             } else {
-                createActionSheet("123123123", $ionicActionSheet, $scope, $cordovaCamera);
+                createActionSheet("weims", $ionicActionSheet, $scope, $cordovaCamera, $cordovaImagePicker);
             }
 
         };
@@ -171,75 +170,27 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
 
         $scope.addXfzPic = function () {
             console.log("addXfzPic");
-            // Show the action sheet
-            var hideSheet = $ionicActionSheet.show({
-                buttons: [
-                    {text: "<p class='text-center calm'>打开相机</p>"},
-                    {text: "<p class='text-center calm'>打开相册</p>"}
-                ],
-                buttonClicked: function (index) {
-                    if (!navigator.camera) {
-                        alert('请在真机环境中使用相册功能。现在只是模拟一张图片')
-                        $scope.imgs.push({
-                            index: $scope.imgs.length,
-                            url: PhotoService.randomPhoto()
-                        });
-                    } else {
-                        if (index == 0) {
-                            $scope.cameraImage();
-                        }
-                        if (index == 1) {
-                            $scope.photoImage();
-                        }
-                    }
-                    return true;
-                },
-                cancelText: "<p class='calm'>取消</p>",
-                cancel: function () {
-                    // add cancel code..
-                }
-            });
-
-            // For example's sake, hide the sheet after two seconds
-            $timeout(function () {
-                //	hideSheet();
-            }, 2000);
-
-        };
-
-        $scope.cameraImage = function () {
-            var options = {
-                destinationType: Camera.DestinationType.FILE_URI,
-                sourceType: Camera.PictureSourceType.CAMERA
-            };
-
-            $cordovaCamera.getPicture(options).then(function (imageURI) {
+            if (!navigator.camera) {
+                $scope.$emit("youfan-merchant-show-msg", "请在真机环境中使用相册功能。现在只是模拟一张图片");
                 $scope.imgs.push({
                     index: $scope.imgs.length,
-                    url: imageURI
+                    url: PhotoService.randomPhoto()
                 });
-            }, function (err) {
-                // error
-            });
+            } else {
+                createActionSheet("weims", $ionicActionSheet, $scope, $cordovaCamera, $cordovaImagePicker);
+            }
+
         };
 
-        $scope.photoImage = function () {
-            var options = {
-                maximumImagesCount: 1,
-                width: 800,
-                height: 800,
-                quality: 80
-            };
+        $scope.getImg = function (buttonId, url) {
+            uploadImg(buttonId, url, $ionicLoading, $scope);
+        };
 
-            $cordovaImagePicker.getPictures(options)
-                .then(function (results) {
-                    $scope.imgs.push({
-                        index: $scope.imgs.length,
-                        url: results[0]
-                    });
-                }, function (error) {
-                    // error
-                });
+        $scope.saveImagePath = function (buttonId, url) {
+            $scope.imgs.push({
+                index: $scope.imgs.length,
+                url: url
+            });
         };
 
         $scope.doCheckDishes = function () {

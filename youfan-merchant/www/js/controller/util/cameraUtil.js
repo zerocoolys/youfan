@@ -91,7 +91,6 @@ var uploadImg = function (buttonId, imageUrl,$ionicLoading,$scope) {
 
     var ft = new FileTransfer();
     ft.upload(fileURL, "http://v0.api.upyun.com/"+upYunSpaceName, function (data) {
-        alert(JSON.stringify(data))
         var result = JSON.parse(data.response);
         if (result.code == 200) {
             $ionicLoading.hide();

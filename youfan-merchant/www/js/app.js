@@ -18,10 +18,21 @@ angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_mer
                 cordova.plugins.Keyboard.disableScroll(true);
 
             }
+            
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleLightContent();
             }
+
+            if (window.plugins) {
+                //启动极光推送服务
+                window.plugins.jPushPlugin.init();
+
+                //调试模式
+
+                window.plugins.jPushPlugin.setDebugMode(true);
+            }
+
         });
 
     })
