@@ -219,12 +219,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             //个人中心-我的订单-订单详情
             .state('tab.order-detail', {
-                url: "/order-detail/:detailId",
+                url: "/order-detail",
                 views: {
                     'tab-chats': {
                         templateUrl: "templates/personalcenter/order-detail.html",
                         controller: 'OrderDetailCtrl'
                     }
+                },
+                params: {
+                    order: null
                 }
             })
             //个人中心-我的订单-订单详情-支付成功

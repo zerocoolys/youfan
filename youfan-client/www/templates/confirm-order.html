@@ -7,11 +7,17 @@
                 <span class="item-note">
                     <span ng-if="userDiningWay.address.name == null">请选择</span>
                     <span ng-if="userDiningWay.address.name != null">
-                        <h2>{{userDiningWay.address.name}}</h2>
-                        <h2>{{userDiningWay.address.telNo}}</h2>
-                        <h2>{{userDiningWay.address.address}}</h2>
+                        <p>{{userDiningWay.address.name}}</p>
+                        <p>{{userDiningWay.address.telNo}}</p>
+                        <p>{{userDiningWay.address.address}}</p>
                     </span>
                     <i class="icon ion-chevron-right icon-accessory"></i>
+                </span>
+                </ion-item>
+                <ion-item class="item-icon-right" ng-click="diningTime()" ng-show="userDiningWay.address.name != null">
+                    就餐时间
+                 <span class="item-note">{{eatTime}}
+                  <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
                 </ion-item>
                 <ion-item class="item-icon-right" ng-click="modal.show()">
@@ -54,17 +60,51 @@
                 </ion-item>
             </div>
         </ion-content>
-        <div class="bar bar-footer bar-balanced">
+        <div class="bar bar-footer bar-balanced" ng-show="IsShowBar">
             <div class="button-bar">
-                <a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;">
+                <a class="button button-clear" style="border-right: 1px solid #fff;">
+                    <i class="ion-android-cart"></i>
                     还需支付 ￥{{remainPayedPrice}}
                 </a>
-                <!--<a class="button button-clear" href="#/tab/pay-page">去支付</a>-->
-                <!--<a class="button button-clear" ng-click="toPay()">去支付</a>-->
                 <button class="button button-clear" type="submit">去支付</button>
             </div>
         </div>
     </form>
+
+    <div class="diningTime" ng-show="showDiningTime">
+        <div class="time_wrap"  ng-click="cancelDiningTime()"></div>
+        <div class="modal_bottom">
+            <div class="time_line"></div>
+            <div class="row time_header">
+                <div class="col text-left" ng-click="cancelDiningTime()">取消</div>
+                <div class="col text-center"><span class="mainColor">今日&nbsp;</span>{{currentMonth}}</div>
+                <div class="col text-right mainColor" ng-click="finishDiningTime()">完成</div>
+            </div>
+            <div class="myDiv">
+                <div id="dining"><!--需要滚动的元素的父级，需要绝对定位-->
+                    <ul>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li ng-show="isShowDing">午餐</li>
+                        <li>晚餐</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
+                <div id="time"><!--需要滚动的元素的父级，需要绝对定位-->
+                    <ul>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                        <li ng-repeat="choiceTime in choiceTimes track by $index">{{choiceTime}}</li>
+                        <li>&nbsp;</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </ion-view>
 <script id="templates/remarks.html" type="text/ng-template">
     <ion-modal-view>
