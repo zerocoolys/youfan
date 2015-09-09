@@ -70,11 +70,6 @@ public class OrderDAOImpl implements OrderDAO {
 		return null;
 	}
 
-	@Override
-	public OrderVO findOrderById(Long id) {
-		OrderEntity entity = sqlSession.selectOne("findOrderById", id);
-		return convertToVO(entity, OrderEntity.class, OrderVO.class);
-	}
 
 	@Override
 	public List<OrderVO> findAll(Pagination pagination) {
@@ -84,16 +79,6 @@ public class OrderDAOImpl implements OrderDAO {
 		return list;
 	}
 
-	@Override
-	public List<OrderVO> findByBuyerId(String buyerId, Pagination pagination) {
-		List<OrderEntity> orderEntityList = sqlSession.selectList(
-				"findByBuyerId", pagination.getParams());
-		if (orderEntityList == null)
-			return Collections.emptyList();
-
-		return convertToVOList(orderEntityList, OrderEntity.class,
-				OrderVO.class);
-	}
 
 	@Override
 	public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
@@ -211,5 +196,20 @@ public class OrderDAOImpl implements OrderDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public OrderVO findOrderById(Long id) {
+        OrderEntity entity = sqlSession.selectOne("findOrderById", id);
+        return convertToVO(entity, OrderEntity.class, OrderVO.class);
+    }
+
+    @Override
+    public List<OrderVO> findByBuyerId(String buyerId, Pagination pagination) {
+        List<OrderEntity> orderEntityList = sqlSession.selectList("findByBuyerId", pagination.getParams());
+        if (orderEntityList == null)
+            return Collections.emptyList();
+
+        return convertToVOList(orderEntityList, OrderEntity.class, OrderVO.class);
+    }
 
 }

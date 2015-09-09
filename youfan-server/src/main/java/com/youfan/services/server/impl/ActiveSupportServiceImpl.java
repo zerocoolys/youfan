@@ -167,15 +167,25 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 			if (clist != null) {
 				for (CouponsContentEntity cce : clist) {
 					// cce.getCondition()==null时 无条件进行优惠处理
-					if (cce.getCondition() == null || checkAttribute(cce.getCondition().getOper(),
-							getAttributeValue(orderVo, cce.getCondition().getAttr()),
-							cce.getCondition().getValue())) {
-						if (cce.getType().equals("-")) {// 减免
-							orderVo.setDiscountPrice(orderVo.getOrgPrice() - Double.valueOf(cce.getValue()));
-						} else if (cce.getType().equals("*")) {// 折扣
-							orderVo.setDiscountPrice(orderVo.getOrgPrice() * Double.valueOf(cce.getValue()));
+					if(cce.getConditions() != null&&cce.getConditions().size()!=0){
+						boolean flag = false;
+						for( ConditionVO condition : cce.getConditions()){//判定所有条件都满足
+							if (condition != null &&checkAttribute(condition.getOper(),
+									getAttributeValue(orderVo, condition.getAttr()),
+									condition.getValue())) {
+								flag = true;
+							}else{
+								flag=false;
+								break;
+							}
 						}
-						break;
+						if(flag){
+							if (cce.getType().equals("-")) {// 减免
+								orderVo.setDiscountPrice(orderVo.getOrgPrice() - Double.valueOf(cce.getValue()));
+							} else if (cce.getType().equals("*")) {// 折扣
+								orderVo.setDiscountPrice(orderVo.getOrgPrice() * Double.valueOf(cce.getValue()));
+							}
+						}
 					}
 				}
 			}

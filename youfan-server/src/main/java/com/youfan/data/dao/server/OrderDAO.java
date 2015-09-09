@@ -85,6 +85,9 @@ public interface OrderDAO {
     }
 
     default <E, T> T convertToVO(E entity, Class<E> entityClass, Class<T> voClass) {
+    	if(entity==null){
+    		return null;
+    	}
         try {
             T t = voClass.newInstance();
 
