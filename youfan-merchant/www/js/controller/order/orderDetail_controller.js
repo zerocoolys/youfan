@@ -10,16 +10,15 @@
 
     function orderDetails($scope, $filter, $state, $ionicSlideBoxDelegate,$stateParams,$http,$rootScope) {
 
-        $scope.detialOrder = {};
+        $scope.detailOrder = {};
 
         /**处理加载后的数据*/
         $scope.disposeDetailData = function (datas) {
             if(datas == null) {
                 return;
             }
-            $scope.detialOrder = datas;
+            $scope.detailOrder = datas;
         }
-
 
         $scope.loadDetailData = function () {
 
@@ -83,11 +82,12 @@
         }];
 
 
-        $scope.updateStatus = function(orderNo) {
+        $scope.updateStatus = function(orderNo,status) {
             var url = "http://127.0.0.1:8080/orders/merchant/";
 
             url += orderNo;
-            $http.post(url,{ orderStatus: 4 }, {
+
+            $http.post(url,{ orderStatus: status }, {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
                 transformRequest: transformRequest
             }).success(function(responseData) {

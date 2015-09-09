@@ -14,15 +14,15 @@
         $scope.orders = [];
         $scope.ways = [{name: "配送", code: 'PS'}, {name: "上门", code: 'SM'}, {name: "要做的菜", code: 'YZDC'}];
 
-        $scope.status_list = [{name: "新订单", id: 1, number: 0},
-            {name: "已接单", id: 4, number: 0},
-            {name: "已完成", id: 100, number: 0},
-            {name: "退款中", id: 31, number: 0},
-            {name: "已退款", id: 39, number: 0}];
+        $scope.status_list = [{name: "新订单", id: 2, number: 0},
+            {name: "已接单", id: 3, number: 0},
+            {name: "已完成", id: 4, number: 0},
+            {name: "退款中", id: -1, number: 0},
+            {name: "已退款", id: -2, number: 0}];
 
 
         $scope.headerIndex = 'PS';
-        if($stateParams.path == 'dishes') {
+            if($stateParams.path == 'dishes') {
             $scope.headerIndex = 'YZDC';
         }
         /**切换标题*/
@@ -32,7 +32,7 @@
             $scope.loadOrderOrDishData();
         };
         /**切换订单状态*/
-        $scope.statusIndex = 1;
+        $scope.statusIndex = 2;
         $scope.selectedStatus = function (statusIndex) {
             $scope.statusIndex = statusIndex;
             $ionicSlideBoxDelegate.enableSlide([false]);
@@ -64,7 +64,7 @@
                 merchant.repastMode = "SM";
             } else if($scope.headerIndex == 'YZDC') {
                 merchant.repastMode = "";
-                merchant.orderStatus = 4;
+                merchant.orderStatus = 3;
             }
 
             url = url+"orderStatus="+merchant.orderStatus+"&sellerId="+merchant.sellerId+"&repastMode="+merchant.repastMode;
