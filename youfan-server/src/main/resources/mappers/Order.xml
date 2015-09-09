@@ -239,7 +239,10 @@
 
 
 	<select id="findByBuyerId" parameterType="java.util.Map" resultMap="OrderFullEntityMap">
-		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND DATA_STATUS = 1 AND COMMENT_STATUS = #{commentStatus}
+		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND DATA_STATUS = 1
+        <if test="commentStatus != null">
+            AND COMMENT_STATUS = #{commentStatus}
+        </if>
 		AND ORDER_STATUS IN (
 			<foreach collection="orderStatus" item="status" index="index" separator=",">
 				#{status}
