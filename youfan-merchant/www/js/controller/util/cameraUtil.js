@@ -5,7 +5,7 @@ var imageUrlPrefix = "http://youfan-merchant-img.b0.upaiyun.com/";
 var upYunForm_API_key = "+GJEDJwQ6qecG6Er+VrFEPektEo=";
 var upYunSpaceName = "youfan-merchant-img";
 var upYunSavePath = "{filemd5}{.suffix}";
-var createActionSheet = function (buttonId,$ionicActionSheet, $scope, $cordovaCamera) {
+var createActionSheet = function (buttonId,$ionicActionSheet, $scope, $cordovaCamera,$cordovaImagePicker) {
     $ionicActionSheet.show({
         buttons: [
             {text: '<p class="calm text-center"  >拍照</p>'},
@@ -35,27 +35,21 @@ var createActionSheet = function (buttonId,$ionicActionSheet, $scope, $cordovaCa
                     });
                     break;
                 case 1:
-                    if (!navigator.camera) {
-                        alert('请在真机环境中使用相册功能。');
+                    if (!window.imagePicker) {
+                        alert('目前您的环境不支持相册上传。');
                         return;
                     }
-                    options = {
-                        quality: 100,
-                        destinationType: Camera.DestinationType.FILE_URI,
-                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                        allowEdit: false,
-                        encodingType: Camera.EncodingType.JPEG,
-                        targetWidth: 323,
-                        targetHeight: 600,
-                        popoverOptions: CameraPopoverOptions,
-                        correctOrientation: true,
-                        saveToPhotoAlbum: false
+                    var options = {
+                        maximumImagesCount: 1,
+                        width: 323,
+                        height: 600,
+                        quality: 80
                     };
 
-                    $cordovaCamera.getPicture(options).then(function (imageURI) {
-                        $scope.getImg(buttonId,imageURI);
-                    }, function (err) {
-                        // error
+                    $cordovaImagePicker.getPictures(options).then(function (results) {
+                        $scope.getImg(buttonId,results[0]);
+                    }, function (error) {
+                        alert(error);
                     });
                     break;
                 case 2:
@@ -97,6 +91,7 @@ var uploadImg = function (buttonId, imageUrl,$ionicLoading,$scope) {
 
     var ft = new FileTransfer();
     ft.upload(fileURL, "http://v0.api.upyun.com/"+upYunSpaceName, function (data) {
+        alert(JSON.stringify(data))
         var result = JSON.parse(data.response);
         if (result.code == 200) {
             $ionicLoading.hide();

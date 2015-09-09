@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -40,13 +40,13 @@
         ];
         $ionicModal.fromTemplateUrl('templates/home.html', {
             scope: $scope
-        }).then(function(modal) {
+        }).then(function (modal) {
             $scope.home = modal;
         });
         $ionicModal.fromTemplateUrl('templates/city.html', {
             scope: $scope
-        }).then(function(homes) {
-            $scope.homes =homes ;
+        }).then(function (homes) {
+            $scope.homes = homes;
             //$scope.home.remove();
         });
 
@@ -108,20 +108,17 @@
                         if (data.payload.realName != null) {
                             $scope.user.realName = data.payload.realName;
                         }
-                        $scope.image = {
-                            path: ["", "", ""]
-                        };
                         if (data.payload.headPortraitPicUrl != null) {
                             //$scope.imageData.headPortraitPicUrl = data.payload.headPortraitPicUrl;
-                            $scope.image.path.push(data.payload.headPortraitPicUrl);
+                            $scope.image.path[0] = (data.payload.headPortraitPicUrl);
                         }
                         if (data.payload.healthCertificatePicUrl != null) {
                             //$scope.imageData.healthCertificatePicUrl = data.payload.healthCertificatePicUrl;
-                            $scope.image.path.push(data.payload.healthCertificatePicUrl);
+                            $scope.image.path[1] = (data.payload.healthCertificatePicUrl);
                         }
                         if (data.payload.idCardPicUrl != null) {
                             //$scope.imageData.idCardPicUrl = data.payload.idCardPicUrl
-                            $scope.image.path.push(data.payload.idCardPicUrl);
+                            $scope.image.path[2] = (data.payload.idCardPicUrl);
                         }
                     }
                 }
@@ -130,7 +127,6 @@
                 if ($scope.pId) {
                     $scope.citys = $scope.Provinces[$scope.pId].citys;
                 }
-
 
             }).error(function (error) {
                 console.log(error)
@@ -173,7 +169,7 @@
                 $http.post(
                     "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                         var options;
-                        if (data.code != "0") {
+                        if (Number(data.code) != 0) {
                             options = {
                                 "title": "系统繁忙！",
                                 "buttons": [{
@@ -205,9 +201,9 @@
         };
 
 
-
         $scope.getImg = function (buttonId, url) {
             $scope.image.path[Number(buttonId)] = url;
+            alert(url);
             uploadImg(buttonId, url, $ionicLoading, $scope);
         };
         $scope.saveImagePath = function (buttonId, url) {
@@ -224,7 +220,7 @@
             }
         };
         $scope.show = function (buttonId) {
-            createActionSheet(buttonId, $ionicActionSheet, $scope, $cordovaCamera);
+            createActionSheet(buttonId, $ionicActionSheet, $scope, $cordovaCamera, $cordovaImagePicker);
         };
         $scope.showPopup = function () {
             $ionicActionSheet.show({
@@ -256,10 +252,6 @@
                 }
             });
         };
-
-
-
-
 
 
     }

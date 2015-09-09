@@ -73,7 +73,6 @@
             }
         };
         $scope.signIn = function (user) {
-            console.log($scope.user.phoneNumber)
             //验证码不能为空
             //if(user.verificationCode.toString()==null||user.verificationCode.toString().trim()==""){
             //    var options = {
@@ -89,15 +88,13 @@
             var merchantUser = {
                 userName: user.phoneNumber
             };
-            //$location.path("overview")
             $http.post(
                 "http://192.168.1.110:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                    if (data.code == "0") {
+                    if (Number(data.code) == 0) {
                         $rootScope.user = {
                             id: data.payload.id
                         };
-                        console.log(data.payload.id)
-                        $location.path("tutorial")
+                        $location.path("overview")
                     } else {
                         var options = {
                             "title": "系统繁忙！",
