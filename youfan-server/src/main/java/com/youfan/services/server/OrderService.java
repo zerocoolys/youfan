@@ -50,4 +50,6 @@ public interface OrderService {
 
 	int updateOrderStatus(OrderParams order);
 
+	List<OrderDishRelVO> findDishByOrderNo(String orderNo);
+
 }

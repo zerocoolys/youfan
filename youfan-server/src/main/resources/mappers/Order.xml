@@ -54,6 +54,14 @@
 		<result column="COMMENT_STATUS" property="commentStatus" />
 	</resultMap>
 
+    <resultMap id="OrderDishEntityMap" type="com.youfan.data.models.OrderDishRelEntity">
+        <id column="ID" property="id"/>
+        <result column="ORDER_NO" property="orderNo"/>
+        <result column="DISH_ID" property="itemId"/>
+        <result column="DATA_STATUS" property="dataStatus"/>
+        <result column="DISH_COUNT" property="count"/>
+    </resultMap>
+
 
 
 
@@ -145,10 +153,12 @@
 		FROM
 		TBL_ORDERS orders
 		JOIN
-		TBL_REL_ODR_DISH dishes ON orders.ORDER_NO = dishes.ORDER_NO
+		TBL_REL_ODR_DISH dishes ON orders.ORDER_NO =
+		dishes.ORDER_NO
 		GROUP BY
 		orders.ORDER_NO
-		) dishes ON orders.ORDER_NO = dishes.ORDER_NO
+		) dishes ON orders.ORDER_NO =
+		dishes.ORDER_NO
 		WHERE
 		1 = 1
         <if test="orderNo != null and orderNo != ''">
@@ -219,7 +229,8 @@
 	</select>
 
 	<select id="findOrderById" resultMap="OrderFullEntityMap">
-		SELECT * FROM TBL_ORDERS WHERE ORDER_ID = #{0} AND
+		SELECT * FROM TBL_ORDERS
+		WHERE ORDER_ID = #{0} AND
 		DATA_STATUS = 1
 	</select>
 
@@ -249,8 +260,11 @@
 			</foreach>
 		)
 		ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
-
 	</select>
+
+    <select id="findDishByOrderNo" parameterType="java.lang.String" resultMap="OrderDishEntityMap">
+        SELECT * FROM TBL_REL_ODR_DISH WHERE ORDER_NO = #{0}
+    </select>
 
 	<select id="findBySellerId">
 		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND
@@ -277,14 +291,16 @@
 		<if test="map.order.repastMode != null and map.order.repastMode != ''">
 			and repast_Mode = #{map.order.repastMode}
 		</if>
+		AND DATA_STATUS = 1
 
-
-		ORDER BY #{map.pager.orderBy} #{map.pager.asc} LIMIT
+		ORDER BY #{map.pager.orderBy} #{map.pager.asc}
+		LIMIT
 		#{map.pager.start}, #{map.pager.end}
 	</select>
 
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM TBL_ORDERS
+		AND DATA_STATUS = 1
 	</select>
 
 
@@ -295,14 +311,14 @@
 		<if test="orderNo != null and orderNo != ''">
 			and ORDER_NO = #{orderNo}
 		</if>
-		<if test="sellerId != null">
+		<if test="sellerId != null and sellerId!=''">
 			and SELLER_ID = #{sellerId}
 		</if>
 		<if test="buyerId != null and buyerId != ''">
 			and BUYER_ID = #{buyerId}
 		</if>
 		<if test="orderStatus != null"> and ORDER_STATUS = #{orderStatus} </if>
-
+		AND DATA_STATUS = 1
 		<!-- 排序分页 -->
 		<if test="orderBy!=null">ORDER BY #{orderBy} #{asc}</if>
 		<if test="start!=null and end!=null">
@@ -316,21 +332,19 @@
 	<select id="count" parameterType="com.youfan.controllers.params.OrderParams"
 		resultType="int">
 		SELECT count(*) FROM TBL_ORDERS
-		WHERE 1=1
+		WHERE  DATA_STATUS = 1
 		<if test="orderNo != null and orderNo != ''">
 			and ORDER_NO = #{orderNo}
 		</if>
-		<if test="sellerId != null">
+		<if test="sellerId != null and sellerId!=''">
 			and SELLER_ID = #{sellerId}
 		</if>
-		<if test="buyerId != null">
+		<if test="buyerId != null and buyerId != ''">
 			and BUYER_ID = #{buyerId}
 		</if>
-		<if test="orderStatus != null">
-			and ORDER_STATUS = #{orderStatus}
-		</if>
+		<if test="orderStatus != null"> and ORDER_STATUS = #{orderStatus} </if>
 	</select>
-	
+
 
 	<update id="updateOrder" parameterType="com.youfan.controllers.params.OrderParams">
 
@@ -338,7 +352,7 @@
 		set orders.order_status = #{orderStatus}
 
 		where orders.order_no =
-		#{orderNo}
+		#{orderNo} AND DATA_STATUS = 1
 
 	</update>
 	

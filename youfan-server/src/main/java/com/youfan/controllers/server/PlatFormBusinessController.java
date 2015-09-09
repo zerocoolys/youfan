@@ -50,7 +50,14 @@ import com.youfan.utils.JSONUtils;
 import com.youfan.utils.StringUtil;
 
 /**
- * Created by MrDeng on 15/8/17.
+ * 
+ * @title PlatFormBusinessController.java
+ * @package com.youfan.controllers.server
+ * @description 运营端业务控制器
+ * @author QinghaiDeng   
+ * @update 2015年9月9日 上午11:23:24
+ * @version V1.0  
+ * Copyright (c)2012 chantsoft-版权所有
  */
 @RestController
 @RequestMapping(path = "/pBusiness")
@@ -163,6 +170,7 @@ public class PlatFormBusinessController {
 				op.setPageNo(1);
 				op.setOrderBy("ID");
 			}
+			
 			List<OrderVO> list = orderService.getOrdersByParams(op);
 			CollectionVO<OrderVO> payload = new CollectionVO<OrderVO>(list, recordCnt, op.getPageSize());
 			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
@@ -228,13 +236,24 @@ public class PlatFormBusinessController {
 	public Response saveCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-			if (request.getParameter("port") != null && request.getParameter("timeLine") != null) {
-
+			if (request.getParameter("port") != null && request.getParameter("timeLine") != null&&request.getParameter("title")!=null) {
 				CouponsTypeVO coupons = new CouponsTypeVO();
 				coupons.setPort(Integer.valueOf(request.getParameter("port")));
+				coupons.setTitle(request.getParameter("title"));
 				coupons.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
-				// coupons.setKitchenId(request.getParameter("kitchenId"));
 				coupons.setDesc(request.getParameter("desc"));
+				
+//				List<Map> list = JSONUtils.json2list(request.getParameter("content"), Map.class);
+//				
+//				List<CouponsContentEntity> contents = new ArrayList<CouponsContentEntity>();
+//				for(Map content:list){
+//					
+//					CouponsContentEntity e=new CouponsContentEntity();
+//					e.setType((String) content.get("type"));
+//					e.setValue(Double.valueOf(content.get("value").toString()));
+//					e.setCondition(condition);
+//					contents.add(e);
+//				}
 				coupons.setContent(
 						JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
 				// 创建时间为保存时当前时间

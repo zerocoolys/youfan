@@ -6,6 +6,7 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.server.DishVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.params.OrderParams;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.youfan.commons.OrderStatus.ORDER_WAIT_FOR_PAY;
 
@@ -134,8 +136,8 @@ public class OrderController {
             	orderStatusList.add(OrderStatus.ORDER_WITHDRAW_COD.value());
             	orderParams.setOrderStatusList(orderStatusList);
             }
-            
-            
+
+
             List<MerchantOrderHeaderVO> orders = orderService
                     .findOrdersByMerchant(orderParams);
             response = Responses.SUCCESS().setPayload(orders);
@@ -148,6 +150,18 @@ public class OrderController {
 
     }
 
+    @RequestMapping(method = RequestMethod.POST, path = "/{orderNo}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response findDishByOrderNo(@PathVariable String orderNo) {
+        List<DishVO> result = new ArrayList<>();
+
+        List<OrderDishRelVO> orderDishRelVOList = orderService.findDishByOrderNo(orderNo);
+
+        List<MenuVO> menuVOList = menuService.findByIds(orderDishRelVOList.stream().map(OrderDishRelVO::getItemId).collect(Collectors.toList()));
+
+        // TODO DishVO
+
+        return Responses.SUCCESS().setPayload(result);
+    }
 
     @RequestMapping(method = RequestMethod.POST, path = "/users/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response listByUserId(@PathVariable String userId, @RequestBody OrderParams orderParams) {
@@ -234,8 +248,8 @@ public class OrderController {
 
         return Responses.SUCCESS();
     }
-    
-    
+
+
     @RequestMapping(method = RequestMethod.GET, path = "/merchant/summary")
     public Response listByMerchantSummary( @RequestParam("sellerId") String sellerId) {
         Response response = null;
@@ -252,6 +266,6 @@ public class OrderController {
         return response;
 
     }
- 
+
 
 }

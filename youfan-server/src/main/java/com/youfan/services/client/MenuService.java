@@ -43,4 +43,5 @@ public interface MenuService extends Constants {
 
     void conversionType(String menuId, MenuVO menu);
 
+    List<MenuVO> findByIds(List<String> menuIds);
 }

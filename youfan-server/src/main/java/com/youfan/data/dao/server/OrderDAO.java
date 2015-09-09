@@ -46,6 +46,8 @@ public interface OrderDAO {
 
     int updateOrderStatus(OrderParams order);
 
+    List<OrderDishRelVO> findDishByOrderNo(String orderNo);
+
 
     default <E, T> E convertToEntity(T t, Class<E> entityClass, Class<T> voClass) {
         try {
@@ -85,6 +87,9 @@ public interface OrderDAO {
     }
 
     default <E, T> T convertToVO(E entity, Class<E> entityClass, Class<T> voClass) {
+    	if(entity==null){
+    		return null;
+    	}
         try {
             T t = voClass.newInstance();
 
@@ -124,8 +129,10 @@ public interface OrderDAO {
     default <E, T> List<T> convertToVOList(List<E> eList, Class<E> entityClass, Class<T> voClass) {
         return eList.stream().map(e -> convertToVO(e, entityClass, voClass)).filter(t -> t != null).collect(Collectors.toList());
     }
-    
-	
+
+    	
 	public List<Map<String, Object>> findOrdersByMerchantSummary(OrderParams order);
+
+
 
 }
