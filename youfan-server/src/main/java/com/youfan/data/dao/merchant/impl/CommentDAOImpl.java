@@ -1,20 +1,30 @@
 package com.youfan.data.dao.merchant.impl;
 
+import com.mongodb.WriteResult;
 import com.youfan.commons.Constants;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
+import com.youfan.controllers.params.CommentParams;
 import com.youfan.data.dao.merchant.CommentDAO;
 import com.youfan.data.models.CommentEntity;
 import com.youfan.data.support.IdGenerator;
+
+import org.apache.ibatis.scripting.xmltags.WhereSqlNode;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaowei on 15-8-31.
@@ -91,4 +101,37 @@ public class CommentDAOImpl implements CommentDAO {
 
         return null;
     }
+
+
+	@Override
+	public List<CommentVO> getComments( Pagination pager) {
+		Query query = buildAndEqualQuery(pager.getParams());
+		query.addCriteria(where("dataStatus").ne(-1));
+		// TODO 组合查询条件
+		query .skip((pager.getPageNo() - 1) * pager.getPageSize());
+		query.limit(pager.getPageSize());
+		if (pager.getAsc()!=null&&!pager.getAsc().equals("") && pager.getSortBy() != null) {
+            Sort sort = new Sort(new Sort.Order(pager.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, pager.getSortBy()));
+            query.with(sort);
+        }
+		System.out.println(query);
+		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
+	}
+
+	@Override
+	public long count(Map<String, Object> paramMap) {
+		Query query = buildAndEqualQuery(paramMap);
+		query.addCriteria(where("dataStatus").ne(-1));
+		return  mongoTemplate.count(query , this.getEntityClass());
+	}
+
+	@Override
+	public int  updateStatus(String id,Integer status) {
+		Update update = new Update();
+		update.set("dataStatus", -1);
+		WriteResult res = mongoTemplate.updateFirst(query(where("id").is(id)), update, getEntityClass());
+		return res.getN();
+		
+	}
+	
 }

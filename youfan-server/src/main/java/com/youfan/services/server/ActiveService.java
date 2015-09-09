@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.youfan.commons.vo.ActiveVO;
-import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.ActiveParams;
 
 /**

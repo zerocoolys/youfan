@@ -21,4 +21,14 @@ public class StringUtil {
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
+    
+    public static boolean isNumber(String str){
+    	if (str != null && !"".equals(str.trim()))  
+            return str.matches("^[-\\+]?[.\\d]*$");  
+        else  
+            return false;  
+    }
+    public static void main(String[] args) {
+		System.out.println(StringUtil.isNumber("10.5"));
+	}
 }

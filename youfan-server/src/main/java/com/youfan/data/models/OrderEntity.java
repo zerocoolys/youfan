@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -62,9 +63,19 @@ public class OrderEntity {
 
     // 活动id
     private String activeId;
+    
+    private List<Integer> orderStatusList;
 
 
-    public Long getId() {
+    public List<Integer> getOrderStatusList() {
+		return orderStatusList;
+	}
+
+	public void setOrderStatusList(List<Integer> orderStatusList) {
+		this.orderStatusList = orderStatusList;
+	}
+
+	public Long getId() {
         return id;
     }
 

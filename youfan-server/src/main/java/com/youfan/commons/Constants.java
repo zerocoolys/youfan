@@ -1,6 +1,6 @@
 package com.youfan.commons;
 
-	/**
+/**
  * Created on 2015-08-18.
  *
  * @author dolphineor
@@ -21,6 +21,11 @@ public interface Constants {
     /*通用*/
     String DATA_STATUS = "dataStatus";
     String FIELD_ID = "id";
+    
+    /**退款中*/
+    int ORDER_STATUS_REFUND = -1;
+    /**完成退款*/
+    int ORDER_STATUS_COMPLETE_REFUND = -2;
 
 
     // 菜单
@@ -44,8 +49,8 @@ public interface Constants {
     /*评论 XiaoWei*/
     String COMMENT_TIME = "ct";
     String COMMENT_USER = "cu";
-    String COMMENT_MERCHANT_ID="mid";
-    String COMMENT_IS_HIDE_NAME="ihn";
+    String COMMENT_MERCHANT_ID = "mid";
+    String COMMENT_IS_HIDE_NAME = "ihn";
 
 
     /*
@@ -78,7 +83,6 @@ public interface Constants {
 
     /*  优惠卷 subDong  */
     String CONPONS_ID = "id";
-    String COUPONS_STATUS = "status";
     String CONPONS_COUPONSID = "cid";
     String CONPONS_CREATEDATE = "cd";
     String CONPONS_MODIFYDATE = "md";
@@ -88,14 +92,15 @@ public interface Constants {
     
     /* MrDeng*/
     //couponsType 查询字段
-    
+
     String COUPONS_TYPE_PORT = "port";
     String COUPONS_TYPE_TIMELINE = "timeLine";
-    String COUPONS_TYPE_KITCHEN_ID= "kitchenId";
+    String COUPONS_TYPE_KITCHEN_ID = "kitchenId";
     String COUPONS_TYPE_STATUS = "status";
 
     /* 店铺 subDong*/
     String MERCHANTKITCHEN_NAME = "kitchenName";
+    String MERCHANTKITCHEN_LOCATION = "location";
 
     /*
      * 魏民升---银行卡---
@@ -106,26 +111,27 @@ public interface Constants {
     String CARD_NUMBER = "cnum";
     String IDENTITY_NAME = "iname";
     String IDENTITY_NUMBER = "inum";
-    public interface ACTIVE_TYPE{
-    	/**
-    	 * 用户注册时参加活动类型
-    	 */
-    	Integer CLIENT_REGISTER = 1;
-    	/**
-    	 * 用户登录时参加活动类型
-    	 */
-    	Integer CLIENT_LOGIN=2;
-    	/**
-    	 *  用户下订单之前参加活动类型
-    	 */
-    	Integer CLIENT_BEFORE_ORDER=3;
-    	/**
-    	 * 用户下订单之后参加活动类型
-    	 */
-    	Integer CLIENT_AFTER_ORDER=4;
-    	/**
-    	 * 其他类型活动
-    	 */
-    	Integer CLIENT_OTHER=5;
+
+    public interface ACTIVE_TYPE {
+        /**
+         * 用户注册时参加活动类型
+         */
+        Integer CLIENT_REGISTER = 1;
+        /**
+         * 用户登录时参加活动类型
+         */
+        Integer CLIENT_LOGIN = 2;
+        /**
+         * 用户下订单之前参加活动类型
+         */
+        Integer CLIENT_BEFORE_ORDER = 3;
+        /**
+         * 用户下订单之后参加活动类型
+         */
+        Integer CLIENT_AFTER_ORDER = 4;
+        /**
+         * 其他类型活动
+         */
+        Integer CLIENT_OTHER = 5;
     }
 }

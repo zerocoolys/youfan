@@ -11,11 +11,10 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.youfan.commons.OrderStatus;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
-import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
@@ -88,6 +87,14 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int updateOrderStatus(OrderParams order) {
+	
+		if(order.getOrderStatus() == OrderStatus.ORDER_PAYED.value()) {
+			order.setOrderStatus(OrderStatus.ORDER_MERCHANT_CONFIRM.value());
+		} else if(order.getOrderStatus() == OrderStatus.ORDER_MERCHANT_CONFIRM.value()) {
+			order.setOrderStatus(OrderStatus.ORDER_DISH_FINISHED.value());
+		} else {
+			return 0;
+		}
 		return orderDAO.updateOrderStatus(order);
 	}
 

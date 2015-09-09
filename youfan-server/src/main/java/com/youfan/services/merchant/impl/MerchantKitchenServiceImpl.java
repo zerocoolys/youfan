@@ -1,5 +1,8 @@
 package com.youfan.services.merchant.impl;
 
+import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.CollectionVO;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.services.merchant.MerchantKitchenService;
@@ -28,5 +31,10 @@ public class MerchantKitchenServiceImpl implements MerchantKitchenService {
     @Override
     public List<MerchantKitchenInfoEntity> find(Query query) {
         return merchantKitchenDAO.find(query);
+    }
+
+    @Override
+    public CollectionVO<MerchantKitchenInfoVO> geographicalSearch(Pagination pagination) {
+        return merchantKitchenDAO.getGeographicalSearch(pagination);
     }
 }

@@ -1,5 +1,7 @@
 package com.youfan.controllers.server;
 
+import com.youfan.commons.Constants;
+import com.youfan.commons.OrderStatus;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.MenuVO;
@@ -20,13 +22,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+
 
 import java.util.*;
 
-import static com.youfan.commons.OrderStatus.ODR_WAIT_FOR_PAY;
+import static com.youfan.commons.OrderStatus.ORDER_WAIT_FOR_PAY;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -130,6 +131,22 @@ public class OrderController {
             orderParams.setSellerId(sellerId);
             orderParams.setOrderStatus(orderStatus);
             orderParams.setRepastMode(repastMode);
+            List<Integer> orderStatusList = null;
+            if(orderParams.getOrderStatus() == Constants.ORDER_STATUS_REFUND) {
+            	orderStatusList = new ArrayList<Integer>();
+            	orderStatusList.add(OrderStatus.ORDER_STEP2_CLIENT_WITHDRAW_PAYED.value());
+            	orderStatusList.add(OrderStatus.ORDER_STEP2_MERCHANT_WITHDRAW_PAYED.value());
+            	orderStatusList.add(OrderStatus.ORDER_STEP3_CLIENT_WITHDRAW_PAYED.value());
+            	orderStatusList.add(OrderStatus.ORDER_STEP3_MERCHANT_WITHDRAW_PAYED.value());
+            	orderParams.setOrderStatusList(orderStatusList);
+            } else if(orderParams.getOrderStatus() == Constants.ORDER_STATUS_COMPLETE_REFUND) {
+            	orderStatusList = new ArrayList<Integer>();
+            	orderStatusList.add(OrderStatus.ORDER_WITHDRAW_PAYED.value());
+            	orderStatusList.add(OrderStatus.ORDER_WITHDRAW_COD.value());
+            	orderParams.setOrderStatusList(orderStatusList);
+            }
+            
+            
             List<MerchantOrderHeaderVO> orders = orderService
                     .findOrdersByMerchant(orderParams);
             response = Responses.SUCCESS().setPayload(orders);
@@ -171,7 +188,7 @@ public class OrderController {
 
         order.setBuyerId(orderParams.getBuyerId());
         order.setSellerId(orderParams.getSellerId());
-        order.setOrderStatus(ODR_WAIT_FOR_PAY.value());
+        order.setOrderStatus(ORDER_WAIT_FOR_PAY.value());
         order.setDataStatus(1);
         order.setOrgPrice(orderParams.getOriginalPrice());
         order.setDiscountPrice(orderParams.getDiscountPrice());

@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.mongodb.WriteResult;
-import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.data.dao.server.CouponsTypeDAO;

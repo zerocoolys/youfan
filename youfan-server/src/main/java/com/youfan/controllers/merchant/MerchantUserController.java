@@ -30,9 +30,9 @@ public class MerchantUserController {
     private MerchantUsersService merchantUsersService;
 
     @RequestMapping(path = "/saveMerchantUserInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantUserVO add(@RequestBody MerchantUserVO merchantUser) {
+    public Response add(@RequestBody MerchantUserVO merchantUser) {
         merchantUsersService.saveMerchantUserInfo(merchantUser);
-        return merchantUser;
+        return Responses.SUCCESS().setCode(0).setPayload(merchantUser);
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST, produces = "application/json")

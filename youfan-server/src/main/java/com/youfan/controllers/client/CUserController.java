@@ -49,6 +49,7 @@ public class CUserController {
             userService.updateUserPwd(userId, userParams.getPassword());
             return Responses.SUCCESS();
         } else {
+            //登陆超时
             return Responses.FAILED();
         }
     }

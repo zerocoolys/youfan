@@ -96,9 +96,20 @@
 			and orders.seller_Id = #{sellerId}
 		</if>
 
-		<if test="orderStatus != null">
-			and orders.order_Status = #{orderStatus}
-		</if>
+		<choose>  
+        <when test="orderStatus == -1 or orderStatus == -2">  
+           
+           and orders.order_Status in
+		<foreach collection="orderStatusList" open="(" close=")" item="orderStatus"
+			index="index" separator=",">
+			#{orderStatus}
+		</foreach>
+        </when>  
+  
+        <otherwise>  
+          and orders.order_Status = #{orderStatus}
+        </otherwise>  
+    	</choose>  
 
 		<if test="repastMode != null and repastMode != ''">
 			and orders.repast_Mode = #{repastMode}
@@ -119,7 +130,8 @@
 		orders.BUYER_ID,
 		orders.ORIGINAL_PRICE,
 		dishes.dishes_Id,
-		orders.payment_way
+		orders.payment_way,
+		orders.ORDER_STATUS
 		FROM
 		TBL_ORDERS orders
 		JOIN (
@@ -135,18 +147,10 @@
 		) dishes ON orders.ORDER_NO = dishes.ORDER_NO
 		WHERE
 		1 = 1
-
-		<if test="sellerId != null and sellerId != ''">
-			and orders.seller_Id = #{sellerId}
+        <if test="orderNo != null and orderNo != ''">
+			and orders.ORDER_NO = #{orderNo}
 		</if>
-
-		<if test="orderStatus != null">
-			and orders.order_Status = #{orderStatus}
-		</if>
-
-		<if test="repastMode != null and repastMode != ''">
-			and orders.repast_Mode = #{repastMode}
-		</if>
+	
 
 	</select>
 
