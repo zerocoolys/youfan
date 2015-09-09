@@ -201,12 +201,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             //个人中心-我的订单-订单详情
             .state('tab.order-detail', {
-                url: "/order-detail/:detailId",
+                url: "/order-detail",
                 views: {
                     'tab-chats': {
                         templateUrl: "templates/personalcenter/order-detail.html",
                         controller: 'OrderDetailCtrl'
                     }
+                },
+                params: {
+                    order: null
                 }
             })
             //个人中心-我的订单-订单详情-支付成功
@@ -360,7 +363,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             .state('tab.Map', {
                 url: '/mapCtrl/:lg',
-                cache:false,
+                cache: false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/map.html',
