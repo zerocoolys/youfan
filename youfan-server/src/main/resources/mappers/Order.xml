@@ -40,15 +40,27 @@
 		<result column="DATA_STATUS" property="dataStatus" />
 		<result column="ORDER_STATUS" property="orderStatus" />
 		<result column="ORIGINAL_PRICE" property="orgPrice" />
+		<result column="DISCOUNT_PRICE" property="discountPrice" />
 		<result column="SELLER_ID" property="sellerId" />
 		<result column="BUYER_ID" property="buyerId" />
-		<result column="order_Time" property="orderTime" />
-		<result column="repast_Time" property="repastTime" />
-		<result column="repast_Mode" property="repastMode" />
-		<result column="repast_Address" property="repastAddress" />
-		<result column="coupons" property="coupons" />
-		<result column="comments" property="comments" />
+		<result column="ORDER_TIME" property="orderTime" />
+		<result column="REPAST_TIME" property="repastTime" />
+		<result column="REPAST_MODE" property="repastMode" />
+		<result column="REPAST_ADDRESS" property="repastAddress" />
+		<result column="COUPON_ID" property="couponId" />
+		<result column="COMMENTS" property="comments" />
+		<result column="CHARGE_ID" property="chargeId" />
+		<result column="ACTIVE_ID" property="activeId" />
+		<result column="COMMENT_STATUS" property="commentStatus" />
 	</resultMap>
+
+    <resultMap id="OrderDishEntityMap" type="com.youfan.data.models.OrderDishRelEntity">
+        <id column="ID" property="id"/>
+        <result column="ORDER_NO" property="orderNo"/>
+        <result column="DISH_ID" property="itemId"/>
+        <result column="DATA_STATUS" property="dataStatus"/>
+        <result column="DISH_COUNT" property="count"/>
+    </resultMap>
 
 
 
@@ -96,9 +108,20 @@
 			and orders.seller_Id = #{sellerId}
 		</if>
 
-		<if test="orderStatus != null">
-			and orders.order_Status = #{orderStatus}
-		</if>
+		<choose>  
+        <when test="orderStatus == -1 or orderStatus == -2">  
+           
+           and orders.order_Status in
+		<foreach collection="orderStatusList" open="(" close=")" item="orderStatus"
+			index="index" separator=",">
+			#{orderStatus}
+		</foreach>
+        </when>  
+  
+        <otherwise>  
+          and orders.order_Status = #{orderStatus}
+        </otherwise>  
+    	</choose>  
 
 		<if test="repastMode != null and repastMode != ''">
 			and orders.repast_Mode = #{repastMode}
@@ -119,7 +142,8 @@
 		orders.BUYER_ID,
 		orders.ORIGINAL_PRICE,
 		dishes.dishes_Id,
-		orders.payment_way
+		orders.payment_way,
+		orders.ORDER_STATUS
 		FROM
 		TBL_ORDERS orders
 		JOIN (
@@ -129,24 +153,18 @@
 		FROM
 		TBL_ORDERS orders
 		JOIN
-		TBL_REL_ODR_DISH dishes ON orders.ORDER_NO = dishes.ORDER_NO
+		TBL_REL_ODR_DISH dishes ON orders.ORDER_NO =
+		dishes.ORDER_NO
 		GROUP BY
 		orders.ORDER_NO
-		) dishes ON orders.ORDER_NO = dishes.ORDER_NO
+		) dishes ON orders.ORDER_NO =
+		dishes.ORDER_NO
 		WHERE
 		1 = 1
-
-		<if test="sellerId != null and sellerId != ''">
-			and orders.seller_Id = #{sellerId}
+        <if test="orderNo != null and orderNo != ''">
+			and orders.ORDER_NO = #{orderNo}
 		</if>
-
-		<if test="orderStatus != null">
-			and orders.order_Status = #{orderStatus}
-		</if>
-
-		<if test="repastMode != null and repastMode != ''">
-			and orders.repast_Mode = #{repastMode}
-		</if>
+	
 
 	</select>
 
@@ -187,8 +205,8 @@
 
 	<insert id="createOrder" parameterType="com.youfan.data.models.OrderEntity">
 		INSERT INTO
-		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY)
-		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay})
+		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY,CHARGE_ID,ACTIVE_ID,COMMENT_STATUS)
+		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay},#{chargeId},#{activeId},#{commentStatus})
 	</insert>
 
 	<insert id="saveOrderDishes" useGeneratedKeys="true"
@@ -211,7 +229,8 @@
 	</select>
 
 	<select id="findOrderById" resultMap="OrderFullEntityMap">
-		SELECT * FROM TBL_ORDERS WHERE ORDER_ID = #{0} AND
+		SELECT * FROM TBL_ORDERS
+		WHERE ORDER_ID = #{0} AND
 		DATA_STATUS = 1
 	</select>
 
@@ -231,10 +250,21 @@
 
 
 	<select id="findByBuyerId" parameterType="java.util.Map" resultMap="OrderFullEntityMap">
-		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND
-		DATA_STATUS = 1 ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
-
+		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND DATA_STATUS = 1
+        <if test="commentStatus != null">
+            AND COMMENT_STATUS = #{commentStatus}
+        </if>
+		AND ORDER_STATUS IN (
+			<foreach collection="orderStatus" item="status" index="index" separator=",">
+				#{status}
+			</foreach>
+		)
+		ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
 	</select>
+
+    <select id="findDishByOrderNo" parameterType="java.lang.String" resultMap="OrderDishEntityMap">
+        SELECT * FROM TBL_REL_ODR_DISH WHERE ORDER_NO = #{0}
+    </select>
 
 	<select id="findBySellerId">
 		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND
@@ -261,14 +291,16 @@
 		<if test="map.order.repastMode != null and map.order.repastMode != ''">
 			and repast_Mode = #{map.order.repastMode}
 		</if>
+		AND DATA_STATUS = 1
 
-
-		ORDER BY #{map.pager.orderBy} #{map.pager.asc} LIMIT
+		ORDER BY #{map.pager.orderBy} #{map.pager.asc}
+		LIMIT
 		#{map.pager.start}, #{map.pager.end}
 	</select>
 
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM TBL_ORDERS
+		AND DATA_STATUS = 1
 	</select>
 
 
@@ -279,14 +311,14 @@
 		<if test="orderNo != null and orderNo != ''">
 			and ORDER_NO = #{orderNo}
 		</if>
-		<if test="sellerId != null">
+		<if test="sellerId != null and sellerId!=''">
 			and SELLER_ID = #{sellerId}
 		</if>
 		<if test="buyerId != null and buyerId != ''">
 			and BUYER_ID = #{buyerId}
 		</if>
 		<if test="orderStatus != null"> and ORDER_STATUS = #{orderStatus} </if>
-
+		AND DATA_STATUS = 1
 		<!-- 排序分页 -->
 		<if test="orderBy!=null">ORDER BY #{orderBy} #{asc}</if>
 		<if test="start!=null and end!=null">
@@ -300,21 +332,19 @@
 	<select id="count" parameterType="com.youfan.controllers.params.OrderParams"
 		resultType="int">
 		SELECT count(*) FROM TBL_ORDERS
-		WHERE 1=1
+		WHERE  DATA_STATUS = 1
 		<if test="orderNo != null and orderNo != ''">
 			and ORDER_NO = #{orderNo}
 		</if>
-		<if test="sellerId != null">
+		<if test="sellerId != null and sellerId!=''">
 			and SELLER_ID = #{sellerId}
 		</if>
-		<if test="buyerId != null">
+		<if test="buyerId != null and buyerId != ''">
 			and BUYER_ID = #{buyerId}
 		</if>
-		<if test="orderStatus != null">
-			and ORDER_STATUS = #{orderStatus}
-		</if>
+		<if test="orderStatus != null"> and ORDER_STATUS = #{orderStatus} </if>
 	</select>
-	
+
 
 	<update id="updateOrder" parameterType="com.youfan.controllers.params.OrderParams">
 
@@ -322,7 +352,36 @@
 		set orders.order_status = #{orderStatus}
 
 		where orders.order_no =
-		#{orderNo}
+		#{orderNo} AND DATA_STATUS = 1
 
 	</update>
+	
+	
+	
+		<select id="findOrderSummary" parameterType="com.youfan.controllers.params.OrderParams"
+		resultType="java.util.Map">
+		
+	SELECT
+	o.order_status,
+	COUNT(o.ORDER_STATUS) AS amount
+FROM
+	TBL_ORDERS o
+WHERE
+	1 = 1
+
+		
+		<if test="sellerId != null and sellerId != ''">
+			and o.seller_Id = #{sellerId}
+		</if>
+		
+		
+		GROUP BY
+	o.ORDER_STATUS
+		
+	</select>
+	
+	
+	
+	
+	
 </mapper>

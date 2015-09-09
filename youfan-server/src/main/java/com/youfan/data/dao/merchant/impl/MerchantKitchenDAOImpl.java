@@ -60,11 +60,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO) {
-        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfoVO.getId())), Update.update("hobby", merchantKitchenInfoVO.getHobby()), getEntityClass());
+        Update update = new Update();
+        update.set("hobby", merchantKitchenInfoVO.getHobby());
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query(where("id").is(merchantKitchenInfoVO.getId())), update, getEntityClass());
         if (merchantKitchenInfoEntity != null) {
             return convertToVO(merchantKitchenInfoEntity);
         } else {
-            return null;
+            mongoTemplate.insert(convertToEntity(merchantKitchenInfoVO));
+            return merchantKitchenInfoVO;
         }
     }
 

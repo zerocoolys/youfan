@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by yousheng on 15/8/13.
@@ -19,7 +20,7 @@ public class OrderEntity {
     private String orderNo;
 
     // 数据状态
-    private int dataStatus = 1;
+    private int dataStatus;
 
     // 订单状态
     private int orderStatus;
@@ -62,9 +63,22 @@ public class OrderEntity {
 
     // 活动id
     private String activeId;
+    
+    private List<Integer> orderStatusList;
+
+    // 订单的评论状态(0 -> 待评论, 1 -> 已评论)
+    private int commentStatus;
 
 
-    public Long getId() {
+    public List<Integer> getOrderStatusList() {
+		return orderStatusList;
+	}
+
+	public void setOrderStatusList(List<Integer> orderStatusList) {
+		this.orderStatusList = orderStatusList;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -198,5 +212,13 @@ public class OrderEntity {
 
     public void setActiveId(String activeId) {
         this.activeId = activeId;
+    }
+
+    public int getCommentStatus() {
+        return commentStatus;
+    }
+
+    public void setCommentStatus(int commentStatus) {
+        this.commentStatus = commentStatus;
     }
 }
