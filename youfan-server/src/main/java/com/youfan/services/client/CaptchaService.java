@@ -5,13 +5,13 @@ package com.youfan.services.client;
  */
 public interface CaptchaService {
 
-    /**
-     * 添加数据
-     * @param captchaKey
-     * @param captcha
-     * @return
-     */
-    void insert(String captchaKey, String captcha);
+//    /**
+//     * 添加数据
+//     * @param captchaKey
+//     * @param captcha
+//     * @return
+//     */
+//    void insert(String captchaKey, String captcha);
 
     /**
      * 设置验证码存活时间
