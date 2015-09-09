@@ -75,7 +75,7 @@
     "cn.jpush.phonegap.JPushPlugin": {
         "source": {
             "type": "local",
-            "path": "E:\\webapp\\push\\JPush\\plugins\\jpush-phonegap-plugin"
+            "path": "my_plugins\\jpush-phonegap-plugin"
         },
         "is_top_level": true,
         "variables": {}
