@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -132,7 +133,7 @@ public class LoginController {
             double r = Math.random() * 100000;
             String tmp = t + time + r;
             String token = DigestUtils.md5DigestAsHex(tmp.getBytes());
-
+            System.out.println("login==================================="+token);
             jedis.setex(token, (int) TimeUnit.DAYS.toSeconds(1), userClientVO.getId());
 
             ClientUserParams p = new ClientUserParams();
@@ -142,6 +143,22 @@ public class LoginController {
             return Responses.SUCCESS().setPayload(p);
         } else {
             //未登录
+            return Responses.FAILED();
+        }
+    }
+
+    /**
+     * 用户注销
+     */
+    @RequestMapping(method = RequestMethod.POST, path = "/logout", produces = "application/json")
+    public Response logout(HttpServletRequest request) {
+
+        String token = request.getHeader("Authorization");
+
+        if (token != null) {
+            jedis.del(token);
+            return Responses.SUCCESS();
+        } else {
             return Responses.FAILED();
         }
     }

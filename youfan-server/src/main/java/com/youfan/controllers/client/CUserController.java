@@ -1,6 +1,7 @@
 package com.youfan.controllers.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonObject;
 import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.controllers.params.ClientUserParams;
 import com.youfan.controllers.support.Response;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by icepros on 15-9-2.
@@ -60,14 +62,15 @@ public class CUserController {
      * @return
      */
     @RequestMapping(path = "/binfo", method = RequestMethod.POST, produces = "application/json")
-    public Response updateUserInfo(@RequestBody String clientUserParamsStr) {
+    public Response updateUserInfo(@RequestBody String clientUserParamsStr, HttpServletRequest request) {
 
+        String token = request.getHeader("Authorization");
         ObjectMapper mapper = new ObjectMapper();
         ClientUserParams userParams = null;
         String userId = null;
         try {
             userParams = mapper.readValue(clientUserParamsStr, ClientUserParams.class);
-            userId = userService.getUserIdByToken(userParams.getToken());
+            userId = userService.getUserIdByToken(token);
         } catch (Exception e) {
             return Responses.FAILED();
         }

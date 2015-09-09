@@ -37,11 +37,11 @@ public class CaptchaServiceImpl implements CaptchaService {
     }
 
 
-    @Override
-    public void insert(String captchaKey, String captcha) {
-        RedisPool redisPool = new RedisPool();
-        redisPool.getJedis().set(captchaKey, captcha);
-    }
+//    @Override
+//    public void insert(String captchaKey, String captcha) {
+//        RedisPool redisPool = new RedisPool();
+//        redisPool.getJedis().set(captchaKey, captcha);
+//    }
 
     @Override
     public void setAlive(String captchaKey, int aliveSeconds, String captcha) {

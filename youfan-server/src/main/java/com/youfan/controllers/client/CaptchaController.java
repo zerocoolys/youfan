@@ -53,27 +53,27 @@ public class CaptchaController {
         return response;
     }
 
-    /**
-     * 添加
-     * @param captchaParamsStr
-     * @return
-     */
-    @RequestMapping(method = RequestMethod.POST, path = "/add", produces = "application/json")
-    public Response add(@RequestBody String captchaParamsStr) {
-        ObjectMapper mapper = new ObjectMapper();
-        CaptchaParams captchaParams = null;
-        Response response = null;
-
-        try {
-            captchaParams = mapper.readValue(captchaParamsStr, CaptchaParams.class);
-            captchaService.insert(captchaParams.getCaptchaKey(), captchaParams.getCaptcha());
-            response = Responses.SUCCESS();
-        } catch (Exception e) {
-            response = Responses.FAILED();
-            logger.error(e.getMessage());
-        }
-        return response;
-    }
+//    /**
+//     * 添加
+//     * @param captchaParamsStr
+//     * @return
+//     */
+//    @RequestMapping(method = RequestMethod.POST, path = "/add", produces = "application/json")
+//    public Response add(@RequestBody String captchaParamsStr) {
+//        ObjectMapper mapper = new ObjectMapper();
+//        CaptchaParams captchaParams = null;
+//        Response response = null;
+//
+//        try {
+//            captchaParams = mapper.readValue(captchaParamsStr, CaptchaParams.class);
+//            captchaService.insert(captchaParams.getCaptchaKey(), captchaParams.getCaptcha());
+//            response = Responses.SUCCESS();
+//        } catch (Exception e) {
+//            response = Responses.FAILED();
+//            logger.error(e.getMessage());
+//        }
+//        return response;
+//    }
 
     /**
      * 在 redis 存储验证码时效 5 分钟
