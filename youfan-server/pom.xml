@@ -137,7 +137,32 @@
 			<version>19.0-rc1</version>
         </dependency>
         
-        
+        <dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>4.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId> org.apache.lucene</groupId>
+			<artifactId> lucene-analyzers-common</artifactId>
+			<version>4.10.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId> org.apache.lucene</groupId>
+			<artifactId> lucene-queryparser</artifactId>
+			<version>4.10.0</version>
+		</dependency>
+		
+        <dependency>
+            <groupId>org.wltea</groupId>
+            <artifactId>IKAnalyzer2012FF_u1</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/lib/IKAnalyzer2012FF_u1.jar</systemPath>
+        </dependency> 
+		
         
         
     </dependencies>
@@ -155,6 +180,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                 <version>1.2.5.RELEASE</version>
+                <configuration>
+      				  <addResources>false</addResources>
+      				  <mainClass>com.youfan.main.Main</mainClass>
+     			</configuration>
+                  <executions>
+					 <execution>
+						 <goals>
+							 <goal>repackage</goal>
+						 </goals>
+					 </execution>
+				 </executions> 
             </plugin>
         </plugins>
     </build>

@@ -2,6 +2,7 @@ package com.youfan.controllers.params;
 
 import com.youfan.commons.Pagination;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,13 @@ public class OrderParams extends Pagination {
 
 	String repastMode;
 
+<<<<<<< HEAD
 	String repastAddress;
+=======
+    Date repastTime;
+
+    String repastAddress;
+>>>>>>> 32279d0f482bf5f4c5845f74dbd5182f6a730e24
 
 	private String couponId;
 
@@ -102,9 +109,23 @@ public class OrderParams extends Pagination {
 		this.repastMode = repastMode;
 	}
 
+<<<<<<< HEAD
 	public Integer getOrderStatus() {
 		return orderStatus;
 	}
+=======
+    public Date getRepastTime() {
+        return repastTime;
+    }
+
+    public void setRepastTime(Date repastTime) {
+        this.repastTime = repastTime;
+    }
+
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
+>>>>>>> 32279d0f482bf5f4c5845f74dbd5182f6a730e24
 
 	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;

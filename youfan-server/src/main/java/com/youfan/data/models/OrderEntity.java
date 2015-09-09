@@ -20,7 +20,7 @@ public class OrderEntity {
     private String orderNo;
 
     // 数据状态
-    private int dataStatus = 1;
+    private int dataStatus;
 
     // 订单状态
     private int orderStatus;
@@ -65,6 +65,9 @@ public class OrderEntity {
     private String activeId;
     
     private List<Integer> orderStatusList;
+
+    // 订单的评论状态(0 -> 待评论, 1 -> 已评论)
+    private int commentStatus;
 
 
     public List<Integer> getOrderStatusList() {
@@ -209,5 +212,13 @@ public class OrderEntity {
 
     public void setActiveId(String activeId) {
         this.activeId = activeId;
+    }
+
+    public int getCommentStatus() {
+        return commentStatus;
+    }
+
+    public void setCommentStatus(int commentStatus) {
+        this.commentStatus = commentStatus;
     }
 }

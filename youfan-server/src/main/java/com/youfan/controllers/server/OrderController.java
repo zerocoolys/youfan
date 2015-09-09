@@ -13,18 +13,20 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.MenuService;
 import com.youfan.services.server.OrderService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> 32279d0f482bf5f4c5845f74dbd5182f6a730e24
 import java.util.*;
 
 import static com.youfan.commons.OrderStatus.ORDER_WAIT_FOR_PAY;
@@ -36,48 +38,8 @@ import static com.youfan.commons.OrderStatus.ORDER_WAIT_FOR_PAY;
 @RequestMapping(path = "/orders")
 public class OrderController {
 
-	
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
-	@RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
-	public Response listByUserId(@PathVariable String userId) {
-		return Responses.SUCCESS();
-	}
-
-	
-
-	/**
-	 * 修改订单状态
-	 * 
-	 * @param orderNo
-	 * @return
-	 */
-	@RequestMapping(value = "/merchant/{orderNo}", method = RequestMethod.POST)
-	public Response updateOrderStatus(@PathVariable final String orderNo,
-			int orderStatus) {
-
-		Response response = null;
-		OrderParams order = new OrderParams();
-		order.setOrderNo(orderNo);
-		order.setOrderStatus(orderStatus);
-
-		try {
-			int tag = orderService.updateOrderStatus(order);
-			if (tag == 1) {
-				response = Responses.SUCCESS();
-			} else {
-				response = Responses.FAILED();
-			}
-		} catch (Exception e) {
-			response = Responses.FAILED();
-			logger.error(e.getMessage());
-		}
-
-		return response;
-	}
-
-
-	
-    Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Resource
     private OrderService orderService;
@@ -85,6 +47,41 @@ public class OrderController {
     @Resource
     private MenuService menuService;
 
+
+    @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
+    public Response listByUserId(@PathVariable String userId) {
+        return Responses.SUCCESS();
+    }
+
+    /**
+     * 修改订单状态
+     *
+     * @param orderNo
+     * @return
+     */
+    @RequestMapping(value = "/merchant/{orderNo}", method = RequestMethod.POST)
+    public Response updateOrderStatus(@PathVariable final String orderNo,
+                                      int orderStatus) {
+
+        Response response = null;
+        OrderParams order = new OrderParams();
+        order.setOrderNo(orderNo);
+        order.setOrderStatus(orderStatus);
+
+        try {
+            int tag = orderService.updateOrderStatus(order);
+            if (tag == 1) {
+                response = Responses.SUCCESS();
+            } else {
+                response = Responses.FAILED();
+            }
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
+        }
+
+        return response;
+    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{orderNo}")
     public Response getOrder(@PathVariable final String orderNo) {
@@ -189,12 +186,10 @@ public class OrderController {
         order.setBuyerId(orderParams.getBuyerId());
         order.setSellerId(orderParams.getSellerId());
         order.setOrderStatus(ORDER_WAIT_FOR_PAY.value());
-        order.setDataStatus(1);
         order.setOrgPrice(orderParams.getOriginalPrice());
         order.setDiscountPrice(orderParams.getDiscountPrice());
         order.setOrderTime(new Date());
-        // TODO  前端缺少就餐时间选项
-        order.setRepastTime(new Date());
+        order.setRepastTime(orderParams.getRepastTime());
         order.setRepastMode(orderParams.getRepastMode());
         order.setRepastAddress(orderParams.getRepastAddress());
         order.setCouponId(orderParams.getCouponId());
