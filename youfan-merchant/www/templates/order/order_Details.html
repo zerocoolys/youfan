@@ -25,8 +25,14 @@
                     <ion-item class="item item-icon-left">
                         <i class="icon ion-card"></i>
                         <span>付款状态</span>
+                        <p class="item-note mainColor" >
+                                   <span ng-switch on="selectedOrderStatus">
+                            <span ng-switch-when="-1">退款中</span>
+                            <span ng-switch-when="-2">已退款</span>
+                            <span ng-switch-default="">已付款</span>
 
-                        <p class="item-note mainColor">待付款</p>
+                      </span>
+                        </p>
                     </ion-item>
                     <ion-item class="order_Details ">
                         <ul>

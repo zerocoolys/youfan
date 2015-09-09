@@ -11,6 +11,7 @@
     function orderDetails($scope, $filter, $state, $ionicSlideBoxDelegate,$stateParams,$http,$rootScope) {
 
         $scope.detailOrder = {};
+        $scope.selectedOrderStatus = $stateParams.orderStatus;
 
         /**处理加载后的数据*/
         $scope.disposeDetailData = function (datas) {
