@@ -40,14 +40,18 @@
 		<result column="DATA_STATUS" property="dataStatus" />
 		<result column="ORDER_STATUS" property="orderStatus" />
 		<result column="ORIGINAL_PRICE" property="orgPrice" />
+		<result column="DISCOUNT_PRICE" property="discountPrice" />
 		<result column="SELLER_ID" property="sellerId" />
 		<result column="BUYER_ID" property="buyerId" />
-		<result column="order_Time" property="orderTime" />
-		<result column="repast_Time" property="repastTime" />
-		<result column="repast_Mode" property="repastMode" />
-		<result column="repast_Address" property="repastAddress" />
-		<result column="coupons" property="coupons" />
-		<result column="comments" property="comments" />
+		<result column="ORDER_TIME" property="orderTime" />
+		<result column="REPAST_TIME" property="repastTime" />
+		<result column="REPAST_MODE" property="repastMode" />
+		<result column="REPAST_ADDRESS" property="repastAddress" />
+		<result column="COUPON_ID" property="couponId" />
+		<result column="COMMENTS" property="comments" />
+		<result column="CHARGE_ID" property="chargeId" />
+		<result column="ACTIVE_ID" property="activeId" />
+		<result column="COMMENT_STATUS" property="commentStatus" />
 	</resultMap>
 
 
@@ -187,8 +191,8 @@
 
 	<insert id="createOrder" parameterType="com.youfan.data.models.OrderEntity">
 		INSERT INTO
-		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY)
-		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay})
+		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY,CHARGE_ID,ACTIVE_ID,COMMENT_STATUS)
+		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay},#{chargeId},#{activeId},#{commentStatus})
 	</insert>
 
 	<insert id="saveOrderDishes" useGeneratedKeys="true"
@@ -231,8 +235,13 @@
 
 
 	<select id="findByBuyerId" parameterType="java.util.Map" resultMap="OrderFullEntityMap">
-		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND
-		DATA_STATUS = 1 ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
+		SELECT * FROM TBL_ORDERS WHERE BUYER_ID = #{userId} AND DATA_STATUS = 1 AND COMMENT_STATUS = #{commentStatus}
+		AND ORDER_STATUS IN (
+			<foreach collection="orderStatus" item="status" index="index" separator=",">
+				#{status}
+			</foreach>
+		)
+		ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
 
 	</select>
 

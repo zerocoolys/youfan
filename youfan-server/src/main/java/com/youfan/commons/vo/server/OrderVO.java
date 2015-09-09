@@ -12,7 +12,7 @@ public class OrderVO {
     private String sellerId;
     private String buyerId;
     private int orderStatus;
-    private int dataStatus;
+    private int dataStatus = 1;
     private double orgPrice;
     private double discountPrice;
     private Date orderTime;
@@ -24,16 +24,7 @@ public class OrderVO {
     private String paymentWay;
     private String chargeId;
     private String activeId;
-
-//    /**
-//     * 购买者头像
-//     */
-//    private String img;
-//
-//    /**
-//     * 菜单ID集合逗号分隔
-//     */
-//    private String dishesId;
+    private int commentStatus = 0;
 
 
     public Long getId() {
@@ -172,19 +163,11 @@ public class OrderVO {
         this.activeId = activeId;
     }
 
-    //    public String getImg() {
-//        return img;
-//    }
-//
-//    public void setImg(String img) {
-//        this.img = img;
-//    }
-//
-//    public String getDishesId() {
-//        return dishesId;
-//    }
-//
-//    public void setDishesId(String dishesId) {
-//        this.dishesId = dishesId;
-//    }
+    public int getCommentStatus() {
+        return commentStatus;
+    }
+
+    public void setCommentStatus(int commentStatus) {
+        this.commentStatus = commentStatus;
+    }
 }

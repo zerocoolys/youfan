@@ -6,27 +6,27 @@ package com.youfan.commons;
 public enum OrderStatus {
 
     /**
-     * 已生成订单
+     * 已生成订单(等待支付)
      */
     ORDER_WAIT_FOR_PAY(1, "1"),
 
     /**
-     * 订单已支付
+     * 订单已支付(等待确认)
      */
     ORDER_PAYED(2, "2"),
 
     /**
-     * 商家端已确认
+     * 商家端已确认(等待做菜)
      */
     ORDER_MERCHANT_CONFIRM(3, "3"),
 
     /**
-     * 订单菜品已做完
+     * 订单菜品已做完(等待发货)
      */
     ORDER_DISH_FINISHED(4, "4"),
 
     /**
-     * 已发货
+     * 已发货(等待收货)
      */
     ORDER_DELIVERY(5, "5"),
 
