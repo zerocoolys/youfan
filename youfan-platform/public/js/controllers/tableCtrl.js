@@ -26,7 +26,6 @@ define(["./module"], function (ctrs) {
          */
         $rootScope.showSinglePic = function (picUrl) {
             //var showPicUrl = entity[field];
-            console.log("查看图片URL：" + picUrl)
             if (picUrl == undefined || picUrl == "") {
                 picUrl = "/img/no_pic.jpg"
             }
@@ -52,8 +51,14 @@ define(["./module"], function (ctrs) {
             });
         }
 
-        //分页控制
 
+        //分页信息
+        $rootScope.pageNo = 1;
+        $rootScope.pageSize = 10;
+        $rootScope.recordCount = 0;
+        $rootScope.pageCount = 0;
+        $rootScope.pages = [];
+        //分页控制
         $rootScope.headPage = function () {
             if ($rootScope.pageNo != 1) {
                 $rootScope.pageNo = 1;
@@ -66,9 +71,9 @@ define(["./module"], function (ctrs) {
                 $rootScope.searchData();
             }
         }
-        $rootScope. jumpPage = function(index){
-            if ($rootScope.pageNo != (index+1) ){
-                $rootScope.pageNo = index+1;
+        $rootScope.jumpPage = function (index) {
+            if ($rootScope.pageNo != (index + 1)) {
+                $rootScope.pageNo = index + 1;
                 $rootScope.searchData();
             }
         }
@@ -88,7 +93,6 @@ define(["./module"], function (ctrs) {
         }
 
         $rootScope.setPagerBar = function () {
-            //console.log("当前PageNo"+$rootScope.pageNo)
             if ($rootScope.pages.length != $rootScope.pageCount) {
                 $rootScope.pages = [];
                 for (var index = 0; index < $rootScope.pageCount; index++) {
@@ -111,9 +115,6 @@ define(["./module"], function (ctrs) {
                 document.getElementById("next").className = "next";
             }
         }
-
-
-
 
 
         $rootScope.searchData();
@@ -141,9 +142,5 @@ define(["./module"], function (ctrs) {
             }
             return format;
         }
-        $rootScope.closeDialog = function (dialog){
-            console.log(dialog)
-        }
-
     })
 });

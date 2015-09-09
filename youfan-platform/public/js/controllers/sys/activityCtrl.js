@@ -3,13 +3,6 @@
  */
 define(["./module"], function (ctrs) {
     ctrs.controller('activityCtrl', function ($scope, $rootScope, $q, $state, $http, $location, ngDialog) {
-        console.log("activityCtrl")
-        //分页信息
-        $rootScope.pageNo = 1;
-        $rootScope.pageSize = 10;
-        $rootScope.recordCount = 0;
-        $rootScope.pageCount = 0;
-        $rootScope.pages = [];
 
         $scope.active_model={
             event:"",

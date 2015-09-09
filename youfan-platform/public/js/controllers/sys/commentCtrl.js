@@ -5,13 +5,6 @@ define(["./module"], function (ctrs) {
     ctrs.controller('commentCtrl',function ($scope, $rootScope, $q,$state,$http,$location,ngDialog) {
         console.log("commentCtrl")
 
-        //分页信息
-        $rootScope.pageNo = 1;
-        $rootScope.pageSize = 10;
-        $rootScope.recordCount = 0;
-        $rootScope.pageCount = 0;
-        $rootScope.pages = [];
-
         //筛选条件
         $scope.orderId = null;
         $scope.merchantId = null;
@@ -77,17 +70,14 @@ define(["./module"], function (ctrs) {
                 url: 'sys/getCommentsPager?orderBy=ct&asc=false&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&paramMap=" + JSON.stringify(condition)
             }).success(function (result, status) {
                 if(result.payload.list!=null){
-                    console.log("length="+result.payload.list.length)
                     $rootScope.gridOptions.data = result.payload.list;
                     $rootScope.gridOptions.data.forEach(function (item) {
                         item.commentTimeDes = new Date(item.commentTime).format("yyyy-MM-dd hh:mm:ss")
                     })
-
                 }
                 //设置分页样式
                 $rootScope.pageCount = result.payload.pageCnt;
                 $rootScope.recordCount = result.payload.recordCnt;
-
                 $rootScope.setPagerBar();
             })
         }
