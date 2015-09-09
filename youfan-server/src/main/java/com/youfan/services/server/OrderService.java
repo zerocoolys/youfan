@@ -38,7 +38,7 @@ public interface OrderService {
 
 	List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderParams order);
 
-	Map<String, Integer> findOrdersByMerchantSummary(OrderParams order);
+	Map<String, Long> findOrdersByMerchantSummary(OrderParams order);
 
 	MerchantOrderDetailVO findOrderDetailByOrderNo(String orderNo);
 

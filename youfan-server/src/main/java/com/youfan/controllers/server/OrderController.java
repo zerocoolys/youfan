@@ -242,9 +242,8 @@ public class OrderController {
         OrderParams orderParams = new OrderParams();
         try {
             orderParams.setSellerId(sellerId);
-            List<MerchantOrderHeaderVO> orders = orderService
-                    .findOrdersByMerchant(orderParams);
-            response = Responses.SUCCESS().setPayload(orders);
+            Map<String,Long> summary =  orderService.findOrdersByMerchantSummary(orderParams);
+            response = Responses.SUCCESS().setPayload(summary);
         } catch (Exception e) {
             response = Responses.FAILED();
             logger.error(e.getMessage());

@@ -347,35 +347,22 @@
 		<select id="findOrderSummary" parameterType="com.youfan.controllers.params.OrderParams"
 		resultType="java.util.Map">
 		
-		SELECT
-	CASE o.ORDER_STATUS
-WHEN o.ORDER_STATUS = 31
-OR o.ORDER_STATUS = 32 THEN
-	'withdraw'
-WHEN 4 THEN
-	'confirm'
-WHEN 100 THEN
-	'finished'
-WHEN 1 THEN
-	'new'
-WHEN 39 THEN
-	'withdraw_confirm'
-ELSE
-	'other'
-END AS query_status,
- COUNT(o.ORDER_STATUS) AS amount
+	SELECT
+	o.order_status,
+	COUNT(o.ORDER_STATUS) AS amount
 FROM
 	TBL_ORDERS o
-where 
-  
+WHERE
+	1 = 1
 
-GROUP BY
-	o.ORDER_STATUS
 		
 		<if test="sellerId != null and sellerId != ''">
-			and orders.seller_Id = #{sellerId}
+			and o.seller_Id = #{sellerId}
 		</if>
 		
+		
+		GROUP BY
+	o.ORDER_STATUS
 		
 	</select>
 	

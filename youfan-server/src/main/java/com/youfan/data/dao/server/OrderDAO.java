@@ -126,6 +126,6 @@ public interface OrderDAO {
     }
     
 	
-	public Map<String,Integer> findOrdersByMerchantSummary(OrderParams order);
+	public List<Map<String, Object>> findOrdersByMerchantSummary(OrderParams order);
 
 }

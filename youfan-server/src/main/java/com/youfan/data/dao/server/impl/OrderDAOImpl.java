@@ -207,9 +207,9 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-	public Map<String, Integer> findOrdersByMerchantSummary(OrderParams order) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, Object>> findOrdersByMerchantSummary(OrderParams order) {
+	
+		return sqlSession.selectList("findOrderSummary", order);
 	}
 
 }

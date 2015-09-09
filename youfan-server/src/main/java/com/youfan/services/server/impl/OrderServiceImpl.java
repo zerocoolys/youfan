@@ -2,6 +2,7 @@ package com.youfan.services.server.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,11 +55,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<OrderVO> findByUserId(String userId, Pagination pagination) {
-        List<OrderVO> result = orderDAO.findByBuyerId(userId, pagination);
-        if (result == null)
-            return Collections.emptyList();
+		List<OrderVO> result = orderDAO.findByBuyerId(userId, pagination);
+		if (result == null)
+			return Collections.emptyList();
 
-        return result;
+		return result;
 	}
 
 	@Override
@@ -87,10 +88,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int updateOrderStatus(OrderParams order) {
-	
-		if(order.getOrderStatus() == OrderStatus.ORDER_PAYED.value()) {
+
+		if (order.getOrderStatus() == OrderStatus.ORDER_PAYED.value()) {
 			order.setOrderStatus(OrderStatus.ORDER_MERCHANT_CONFIRM.value());
-		} else if(order.getOrderStatus() == OrderStatus.ORDER_MERCHANT_CONFIRM.value()) {
+		} else if (order.getOrderStatus() == OrderStatus.ORDER_MERCHANT_CONFIRM
+				.value()) {
 			order.setOrderStatus(OrderStatus.ORDER_DISH_FINISHED.value());
 		} else {
 			return 0;
@@ -112,12 +114,85 @@ public class OrderServiceImpl implements OrderService {
 	public void saveOrderDishes(List<OrderDishRelVO> dishRelVOs) {
 		orderDAO.saveOrderDishes(dishRelVOs);
 	}
-	
+
 	@Override
-	public Map<String,Integer> findOrdersByMerchantSummary(
-			OrderParams order) {
-		
-		return 	orderDAO.findOrdersByMerchantSummary(order);
+	public Map<String, Long> findOrdersByMerchantSummary(OrderParams order) {
+
+		List<Map<String, Object>> orderSummary = orderDAO
+				.findOrdersByMerchantSummary(order);
+		Map<String, Long> summary = new HashMap<String, Long>();
+
+		for (Map<String, Object> count : orderSummary) {
+			int orderStatus = (int) count.get("order_status");
+			Long amout = (long) count.get("amount");
+
+			if (orderStatus == OrderStatus.ORDER_PAYED.value()) {
+				Long number = summary.get(OrderStatus.ORDER_PAYED.value());
+
+				if (number != null && number == 0)
+					summary.put(OrderStatus.ORDER_PAYED.name(), amout + number);
+				else
+					summary.put(OrderStatus.ORDER_PAYED.name(), amout);
+
+			} else if (orderStatus == OrderStatus.ORDER_MERCHANT_CONFIRM
+					.value()) {
+
+				Long number = summary.get(OrderStatus.ORDER_MERCHANT_CONFIRM
+						.value());
+
+				if (number != null && number != 0)
+					summary.put(OrderStatus.ORDER_MERCHANT_CONFIRM.name(),
+							amout + number);
+				else
+					summary.put(OrderStatus.ORDER_MERCHANT_CONFIRM.name(),
+							amout);
+
+			} else if (orderStatus == OrderStatus.ORDER_DISH_FINISHED.value()) {
+
+				Long number = summary.get(OrderStatus.ORDER_DISH_FINISHED
+						.value());
+
+				if (number != null && number != 0)
+					summary.put(OrderStatus.ORDER_DISH_FINISHED.name(), amout
+							+ number);
+				else
+					summary.put(OrderStatus.ORDER_DISH_FINISHED.name(), amout);
+
+			} else if (orderStatus == OrderStatus.ORDER_STEP2_CLIENT_WITHDRAW_PAYED
+					.value()
+					|| orderStatus == OrderStatus.ORDER_STEP2_MERCHANT_WITHDRAW_PAYED
+							.value()
+					|| orderStatus == OrderStatus.ORDER_STEP3_CLIENT_WITHDRAW_PAYED
+							.value()
+					|| orderStatus == OrderStatus.ORDER_STEP3_MERCHANT_WITHDRAW_PAYED
+							.value()) {
+
+				Long number = summary.get(OrderStatus.ORDER__WITHDRAW.value());
+
+				if (number != null && number != 0)
+					summary.put(OrderStatus.ORDER__WITHDRAW.name(), amout
+							+ number);
+				else
+					summary.put(OrderStatus.ORDER__WITHDRAW.name(), amout);
+
+			} else if (orderStatus == OrderStatus.ORDER_WITHDRAW_COD.value()
+					|| orderStatus == OrderStatus.ORDER_WITHDRAW_PAYED.value()) {
+
+				Long number = summary.get(OrderStatus.ORDER__COMPELETE_WITHDRAW
+						.value());
+
+				if (number != null && number != 0)
+					summary.put(OrderStatus.ORDER__COMPELETE_WITHDRAW.name(),
+							amout + number);
+				else
+					summary.put(OrderStatus.ORDER__COMPELETE_WITHDRAW.name(),
+							amout);
+
+			}
+
+		}
+
+		return summary;
 	}
 
 	@Override
@@ -206,6 +281,5 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 
 	}
-
 
 }
