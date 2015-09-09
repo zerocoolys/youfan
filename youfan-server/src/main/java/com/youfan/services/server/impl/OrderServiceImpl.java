@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int updateOrderStatus(OrderParams order) {
-	
+
 		if(order.getOrderStatus() == OrderStatus.ORDER_PAYED.value()) {
 			order.setOrderStatus(OrderStatus.ORDER_MERCHANT_CONFIRM.value());
 		} else if(order.getOrderStatus() == OrderStatus.ORDER_MERCHANT_CONFIRM.value()) {
@@ -96,6 +96,11 @@ public class OrderServiceImpl implements OrderService {
 			return 0;
 		}
 		return orderDAO.updateOrderStatus(order);
+	}
+
+	@Override
+	public List<OrderDishRelVO> findDishByOrderNo(String orderNo) {
+		return orderDAO.findDishByOrderNo(orderNo);
 	}
 
 	@Override
@@ -112,11 +117,11 @@ public class OrderServiceImpl implements OrderService {
 	public void saveOrderDishes(List<OrderDishRelVO> dishRelVOs) {
 		orderDAO.saveOrderDishes(dishRelVOs);
 	}
-	
+
 	@Override
 	public Map<String,Integer> findOrdersByMerchantSummary(
 			OrderParams order) {
-		
+
 		return 	orderDAO.findOrdersByMerchantSummary(order);
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +174,15 @@ public class MenuDAOImpl implements MenuDAO {
 			}
 
 		}
+	}
+
+	@Override
+	public List<MenuVO> findByIds(List<String> menuIds) {
+        List<MenuEntity> list = mongoTemplate.find(buildQuery(menuIds, true), MenuEntity.class);
+        if (list == null || list.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return convertToVOList(list);
 	}
 
 	@Override

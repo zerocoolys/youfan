@@ -175,4 +175,9 @@ public class MenuServiceImpl implements MenuService {
         menuDAO.update(menu, map);
     }
 
+    @Override
+    public List<MenuVO> findByIds(List<String> menuIds) {
+        return menuDAO.findByIds(menuIds);
+    }
+
 }

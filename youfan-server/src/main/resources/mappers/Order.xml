@@ -54,6 +54,14 @@
 		<result column="COMMENT_STATUS" property="commentStatus" />
 	</resultMap>
 
+    <resultMap id="OrderDishEntityMap" type="com.youfan.data.models.OrderDishRelEntity">
+        <id column="ID" property="id"/>
+        <result column="ORDER_NO" property="orderNo"/>
+        <result column="DISH_ID" property="itemId"/>
+        <result column="DATA_STATUS" property="dataStatus"/>
+        <result column="DISH_COUNT" property="count"/>
+    </resultMap>
+
 
 
 
@@ -251,6 +259,10 @@
 		ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
 
 	</select>
+
+    <select id="findDishByOrderNo" parameterType="java.lang.String" resultMap="OrderDishEntityMap">
+        SELECT * FROM TBL_REL_ODR_DISH WHERE ORDER_NO = #{0}
+    </select>
 
 	<select id="findBySellerId">
 		SELECT * FROM TBL_ORDERS WHERE SELLER_ID = #{0} AND
