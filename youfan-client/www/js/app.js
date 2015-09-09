@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerModule', 'ServiceModule', 'ngCordova', 'LocalStorageModule'])
-    .run(function ($ionicPlatform,$rootScope, $location, $window, AuthenticationService) {
+    .run(function ($ionicPlatform, $rootScope, $location, $window, AuthenticationService) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -21,9 +21,16 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             }
 
         });
-        $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+        //$rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+        //    if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
+        //            && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
+        //
+        //        $location.path("tab.dash");
+        //    }
+        //});
+        $rootScope.$on("$routeChangeStart", function (event, nextRoute, currentRoute) {
             if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
-                    && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
+                && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
 
                 $location.path("tab.dash");
             }
@@ -40,7 +47,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         localStorageServiceProvider.setStorageCookieDomain('');
         localStorageServiceProvider.setNotify(true, true);
 
-        //$httpProvider.interceptors.push('TokenInterceptor');
+        $httpProvider.interceptors.push('TokenInterceptor');
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
@@ -136,7 +143,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 views: {
                     'tab-chats': {
                         templateUrl: 'templates/personalcenter/tab-chats.html',
-                        controller: 'ChatsCtrl'
+                        controller: 'ChatsCtrl',
+                        access: {requiredAuthentication: true}
                     }
                 }
             })
@@ -156,7 +164,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     'tab-chats': {
                         templateUrl: "templates/personalcenter/care.html",
                         controller: 'CareCtrl',
-                        access: { requiredLogin: true }
+                        access: {requiredAuthentication: true}
                     }
                 }
             })
@@ -370,7 +378,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             .state('tab.Map', {
                 url: '/mapCtrl/:lg',
-                cache:false,
+                cache: false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/map.html',

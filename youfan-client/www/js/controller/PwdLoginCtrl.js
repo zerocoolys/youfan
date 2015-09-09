@@ -11,7 +11,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
         password: ""
     };
 
-
+    $scope.isShow = false;
     /**
      * 登陆
      */
@@ -35,6 +35,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                 }, 2000);
             } else {
                 UserService.signIn(tel, password).success(function(data){
+                    console.log(data);
                     if (data.code == 0) {
                         //console.log(data.payload.token);
                         if (data.payload.token != "") {
@@ -53,7 +54,10 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                             AuthenticationService.isLogged = true;
                             $window.sessionStorage.token = data.payload.token;
                             $window.sessionStorage.uid = data.payload.uid;
+
                             $state.go('tab.chats');
+                            $scope.isShowxxxxx = true;
+
                         } else {
                             var loginDied = $ionicPopup.show({
                                 title: '链接超时',

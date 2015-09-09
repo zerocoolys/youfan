@@ -8,7 +8,7 @@ var api = {
 
 
 ServiceModule
-    .factory('AuthenticationService', function(){
+    .factory('AuthenticationService', function () {
         var auth = {
             isLogged: false
         }
@@ -17,6 +17,7 @@ ServiceModule
     .factory('TokenInterceptor', function ($q, $window, $location, AuthenticationService) {
         return {
             request: function (config) {
+
                 config.headers = config.headers || {};
                 if ($window.sessionStorage.token) {
                     config.headers.Authorization = $window.sessionStorage.token;
@@ -24,7 +25,7 @@ ServiceModule
                 return config;
             },
 
-            requestError: function(rejection) {
+            requestError: function (rejection) {
                 return $q.reject(rejection);
             },
 
@@ -37,7 +38,7 @@ ServiceModule
             },
 
             /* 如果返回 401 撤销客户端身份验证 */
-            responseError: function(rejection) {
+            responseError: function (rejection) {
                 if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || AuthenticationService.isAuthenticated)) {
                     delete $window.sessionStorage.token;
                     AuthenticationService.isAuthenticated = false;
@@ -48,31 +49,65 @@ ServiceModule
             }
         };
     })
-    .factory('UserService', function($http){
+    .factory('SMSService', function ($http) {
+        var code = "";
+        var codeLength = "";
+        //生成 6 位随机数验证码
+        for (var i = 0; i < codeLength; i++) {
+            code += parseInt(Math.random() * 9).toString();
+        }
         return {
-            register: function(){
+            sendSMS: function (tel) {
+                return $http.get('http://07zhywjh.6655.la:19982/platform/sendSMS/1/' + code + '/' + tel);
+            },
+            /**************************************************/
+            /*****************客户端--注册***********************/
+            /**************************************************/
+            registerCaptchaAlive: function (tel) {
+                return $http.post(api.base_url + '/captcha/alive', {captchaKey: "client_reg" + tel, captcha: code});
+            },
+            registerCaptchaVerify: function (tel) {
+                return $http.post(api.base_url + '/captcha/verify', {captchaKey: "client_reg" + tel});
+            },
+            /**************************************************/
+            /*****************客户端--忘记密码********************/
+            /**************************************************/
+            forgetPasswordCaptchaAlive: function (tel) {
+                return $http.post(api.base_url + '/captcha/alive', {
+                    captchaKey: "client_forgetpwd" + tel,
+                    captcha: code
+                });
+            },
+            forgetPasswordCaptchaVerify: function (tel) {
+                return $http.post(api.base_url + '/captcha/verify', {captchaKey: "client_forgetpwd" + tel});
+            }
+        }
+    })
+    .factory('UserService', function ($http) {
+        return {
+            register: function (tel, password) {
                 return $http.post(api.base_url + '/client/register', {tel: tel, password: password});
             },
-            signIn: function(tel, password) {
+            signIn: function (tel, password) {
                 return $http.post(api.base_url + '/client/login', {tel: tel, password: password});
             },
-            signOut: function() {
-                return $http.post(api.base_url + '/client/', {tel: tel, password: password});
+            signOut: function () {
+                return $http.post(api.base_url + '/client/logout', {});
             },
-            resetPassword: function(token, password){
+            resetPassword: function (password) {
                 return $http.post(api.base_url + '/cuser/pinfo', {password: password});
             },
-            updateInfo: function(){
-                return $http.post(api.base_url + '/cuser/binfo', {tel: tel, password: password});
+            updateInfo: function (post) {
+                return $http.post(api.base_url + '/cuser/binfo', post);
             },
-            mealsAddress: function(){
-                return $http.post(api.base_url + '/cuser/mealsaddress', {tel: tel, password: password});
+            mealsAddress: function () {
+                return $http.post(api.base_url + '/cuser/mealsaddress', {});
             },
-            attention: function(){
-                return $http.post(api.base_url + '/cuser/attention', {tel: tel, password: password});
+            attention: function () {
+                return $http.post(api.base_url + '/cuser/attention', {});
             },
-            praise: function(){
-                return $http.post(api.base_url + '/cuser/praise', {tel: tel, password: password});
+            praise: function () {
+                return $http.post(api.base_url + '/cuser/praise', {});
             }
         }
     });
