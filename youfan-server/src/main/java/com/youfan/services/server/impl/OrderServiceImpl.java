@@ -3,6 +3,7 @@ package com.youfan.services.server.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -104,6 +105,13 @@ public class OrderServiceImpl implements OrderService {
 	public void saveOrderDishes(List<OrderDishRelVO> dishRelVOs) {
 		orderDAO.saveOrderDishes(dishRelVOs);
 	}
+	
+	@Override
+	public Map<String,Integer> findOrdersByMerchantSummary(
+			OrderParams order) {
+		
+		return 	orderDAO.findOrdersByMerchantSummary(order);
+	}
 
 	@Override
 	public List<MerchantOrderHeaderVO> findOrdersByMerchant(
@@ -191,4 +199,6 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 
 	}
+
+
 }

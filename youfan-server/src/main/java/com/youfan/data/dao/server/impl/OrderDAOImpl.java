@@ -11,10 +11,12 @@ import com.youfan.data.dao.server.OrderDAO;
 import com.youfan.data.models.OrderDishRelEntity;
 import com.youfan.data.models.OrderEntity;
 import com.youfan.data.support.IdGenerator;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -197,5 +199,11 @@ public class OrderDAOImpl implements OrderDAO {
     public int updateOrderStatus(OrderParams order) {
         return sqlSession.update("updateOrder", order);
     }
+
+	@Override
+	public Map<String, Integer> findOrdersByMerchantSummary(OrderParams order) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

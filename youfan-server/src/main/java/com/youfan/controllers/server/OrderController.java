@@ -230,5 +230,25 @@ public class OrderController {
 
         return Responses.SUCCESS();
     }
+    
+    
+    @RequestMapping(method = RequestMethod.GET, path = "/merchant/summary")
+    public Response listByMerchantSummary( @RequestParam("sellerId") String sellerId) {
+        Response response = null;
+        OrderParams orderParams = new OrderParams();
+        try {
+            orderParams.setSellerId(sellerId);
+            List<MerchantOrderHeaderVO> orders = orderService
+                    .findOrdersByMerchant(orderParams);
+            response = Responses.SUCCESS().setPayload(orders);
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
+        }
+
+        return response;
+
+    }
+ 
 
 }

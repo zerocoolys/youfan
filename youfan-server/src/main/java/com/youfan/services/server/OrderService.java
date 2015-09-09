@@ -9,6 +9,7 @@ import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.params.OrderParams;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yousheng on 15/8/18.
@@ -36,6 +37,8 @@ public interface OrderService {
     void saveOrderDishes(List<OrderDishRelVO> dishRelVOs);
 
     List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderParams order);
+    
+    Map<String, Integer> findOrdersByMerchantSummary(OrderParams order);
 
     MerchantOrderDetailVO findOrderDetailByOrderNo(String orderNo);
 

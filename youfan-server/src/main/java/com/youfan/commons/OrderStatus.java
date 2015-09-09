@@ -15,7 +15,7 @@ public enum OrderStatus {
     
     ORD_MERCHANT_CONFIRM(4,"4"),
 
-
+    
     ODR_FINISHED(100, "100");
 
 
