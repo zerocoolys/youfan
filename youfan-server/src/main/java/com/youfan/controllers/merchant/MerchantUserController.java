@@ -49,17 +49,17 @@ public class MerchantUserController {
     }
 
     @RequestMapping(path = "/saveMerchantKitchenInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantKitchenInfoVO saveMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {
+    public Response saveMerchantKitchenInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfoVO) {
         MerchantKitchenInfoVO merchantKitchenInfoRes = null;
         merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenInfo(merchantKitchenInfoVO);
-        return merchantKitchenInfoRes;
+        return Responses.SUCCESS().setCode(0).setPayload(merchantKitchenInfoRes);
     }
 
     @RequestMapping(path = "/saveMerchantKitchenPicInfo", method = RequestMethod.POST, produces = "application/json")
-    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
+    public Response saveMerchantKitchenPicInfo(@RequestBody MerchantKitchenInfoVO merchantKitchenInfo) {
         MerchantKitchenInfoVO merchantKitchenInfoRes = null;
         merchantKitchenInfoRes = merchantUsersService.saveMerchantKitchenPicInfo(merchantKitchenInfo);
-        return merchantKitchenInfoRes;
+        return Responses.SUCCESS().setCode(0).setPayload(merchantKitchenInfoRes);
     }
 
     @RequestMapping(path = "/saveMerchantKitchenStoryInfo", method = RequestMethod.POST, produces = "application/json")

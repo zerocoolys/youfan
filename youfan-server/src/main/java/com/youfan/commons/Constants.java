@@ -21,6 +21,11 @@ public interface Constants {
     /*通用*/
     String DATA_STATUS = "dataStatus";
     String FIELD_ID = "id";
+    
+    /**退款中*/
+    int ORDER_STATUS_REFUND = -1;
+    /**完成退款*/
+    int ORDER_STATUS_COMPLETE_REFUND = -2;
 
 
     // 菜单

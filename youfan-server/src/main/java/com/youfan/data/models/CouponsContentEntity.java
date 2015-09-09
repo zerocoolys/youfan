@@ -1,8 +1,15 @@
 package com.youfan.data.models;
 
+import java.io.Serializable;
+import java.util.List;
+
 import com.youfan.commons.vo.ConditionVO;
 
-public class CouponsContentEntity {
+public class CouponsContentEntity implements Serializable{
+	
+	 /**serialVersionUID TODO*/ 
+	
+	private static final long serialVersionUID = 8718458989430755518L;
 	/**
 	 * 优惠券使用方式
 	 * *折扣 -满减 +返现
@@ -18,7 +25,7 @@ public class CouponsContentEntity {
 	/**
 	 * 描述享受折扣条件
 	 */
-	private ConditionVO condition;
+	private List<ConditionVO> conditions;
 	
 //	@Field("oc")
 //	private List<ConditionVO> orderCondition;
@@ -34,10 +41,10 @@ public class CouponsContentEntity {
 	public void setValue(Double value) {
 		this.value = value;
 	}
-	public ConditionVO getCondition() {
-		return condition;
+	public List<ConditionVO> getConditions() {
+		return conditions;
 	}
-	public void setCondition(ConditionVO condition) {
-		this.condition = condition;
+	public void setConditions(List<ConditionVO> conditions) {
+		this.conditions = conditions;
 	}
 }
