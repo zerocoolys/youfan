@@ -99,7 +99,7 @@
             <artifactId>CCP_REST_SMS_SDK_JAVA_v2.6.3r</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/lib/CCP_REST_SMS_SDK_JAVA_v2.6.3r.jar</systemPath>
+            <systemPath>${project.basedir}/lib/CCP_REST_SMS_SDK_JAVA_v2.6.3r.jar</systemPath>
         </dependency>
 
         <dependency>
@@ -160,7 +160,7 @@
             <artifactId>IKAnalyzer2012FF_u1</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/lib/IKAnalyzer2012FF_u1.jar</systemPath>
+            <systemPath>${project.basedir}/lib/IKAnalyzer2012FF_u1.jar</systemPath>
         </dependency> 
 		
         
