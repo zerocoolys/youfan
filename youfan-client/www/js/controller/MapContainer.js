@@ -1,7 +1,6 @@
 ControllerModule.controller('MapContainer', function ($scope, $stateParams, $cordovaGeolocation) {
     $scope.geolocation;
     $scope.mapObj;
-    console.log($stateParams.lg+"<<<<<");
     $scope.lg = {
         x: 104.065735,
         y: 30.657425

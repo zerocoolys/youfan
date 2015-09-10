@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $http, /*localStorageService, */User, REST_URL) {
+ControllerModule.controller('MyOrderCtrl', function ($scope, $state, Order, $ionicSlideBoxDelegate, $http, /*localStorageService, */REST_URL) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
     $scope.slideChanged = function (index) {
@@ -215,6 +215,13 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
         }).error(function (err) {
             console.log(err);
         });
+    }
+
+    $scope.goTo = function (orderObj) {
+        if (orderObj instanceof Object) {
+            Order.comment = orderObj;
+            $state.go('tab.comment-details');
+        }
     }
 
 });

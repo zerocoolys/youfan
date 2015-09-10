@@ -1,6 +1,6 @@
 <ion-view hide-nav-bar="true" hide-tabs class="order">
     <ion-header-bar class="bar" align-title="center">
-        <a class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.dash"></a>
+        <a class="button icon ion-ios-arrow-left button-clear" ng-click="back()"></a>
 
         <h1 class="title">评价晒单</h1>
     </ion-header-bar>
@@ -65,9 +65,6 @@
                 </ion-item>
                 <div class="photo_img">
                     <ul>
-                        <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
-                        <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
-                        <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
                         <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
                     </ul>
                 </div>

@@ -15,7 +15,7 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $http, REST_URL
                     var dateTime = new Date(item["commentTime"]);
                     item["commentTime"] = dateTime.toLocaleDateString() + "  " + dateTime.toLocaleTimeString();
                     $scope.comments.push(item)
-                })
+                });
             }
         });
     }
@@ -33,5 +33,9 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $http, REST_URL
             }
         }
         return html;
+    }
+    $scope.imgStyle = {width: '50px', height: '50px'};
+    $scope.imgToggle = function (img) {
+        console.log(img);
     }
 });

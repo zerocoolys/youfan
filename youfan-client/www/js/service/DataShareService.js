@@ -2,6 +2,7 @@ ServiceModule
     .factory('Order', function () {
         return {
             id: 20,
+            comment:{},
             cart: [],
             details: {}
         }

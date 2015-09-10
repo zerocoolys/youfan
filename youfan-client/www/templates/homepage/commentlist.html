@@ -17,6 +17,7 @@
                         </span>
 
                     <p>{{comment.content}}</p>
+                    <img ng-src="http://youfan-merchant-img.b0.upaiyun.com/{{cimg}}" ng-click="imgToggle(cimg)" ng-repeat="cimg in comment.img_url" ng-style="imgStyle" >
 
                     <p class="time">{{comment.commentTime}}</p>
                 </div>
