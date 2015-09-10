@@ -20,6 +20,15 @@
                         textTemplate = data.payload.hobby;
                     }
                 }
+            }).error(function (data, status, headers, config) {
+                var options = {
+                    "title": "服务器连接失败！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam"
+                    }]
+                };
+                $ionicPopup.alert(options);
             });
         //文本框限制输入字数300
         $scope.checkText = function (text) {
@@ -96,6 +105,15 @@
                         };
                         $ionicPopup.alert(option);
                     }
+                }).error(function (data, status, headers, config) {
+                    var options = {
+                        "title": "服务器连接失败！",
+                        "buttons": [{
+                            text: "关闭",
+                            type: "button-positive clam"
+                        }]
+                    };
+                    $ionicPopup.alert(options);
                 });
 
 

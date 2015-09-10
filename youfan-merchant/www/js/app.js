@@ -31,6 +31,10 @@ angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_mer
                 //调试模式
 
                 window.plugins.jPushPlugin.setDebugMode(true);
+                window.plugins.jPushPlugin.openNotificationInAndroidCallback = function (data) {
+                    console.log(data);
+                    alert(JSON.stringify(data));
+                }
             }
 
         });
@@ -62,7 +66,7 @@ angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_mer
     })
 
     .factory('YF_MERCHANT_HOST', function () {
-        return "http://192.168.1.111:8080";
+        return "http://192.168.1.110:8080";
     })
 
     .factory('YF_MERCHANT_INFO', function () {

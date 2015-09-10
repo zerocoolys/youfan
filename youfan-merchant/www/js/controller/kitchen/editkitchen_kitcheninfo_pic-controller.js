@@ -29,6 +29,15 @@
 
                     }
                 }
+            }).error(function (data, status, headers, config) {
+                var options = {
+                    "title": "服务器连接失败！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam"
+                    }]
+                };
+                $ionicPopup.alert(options);
             });
 
         $scope.removePic = function (_index) {
@@ -134,6 +143,15 @@
                             };
                             $ionicPopup.alert(options);
                         }
+                    }).error(function (data, status, headers, config) {
+                        var options = {
+                            "title": "服务器连接失败！",
+                            "buttons": [{
+                                text: "关闭",
+                                type: "button-positive clam"
+                            }]
+                        };
+                        $ionicPopup.alert(options);
                     });
             }
 

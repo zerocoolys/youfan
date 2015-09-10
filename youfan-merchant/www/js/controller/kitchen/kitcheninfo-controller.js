@@ -38,6 +38,7 @@ function getLocation(data) {
         $scope.addressTemplate = "";
         $http.post(
             YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                console.log(data)
                 if (Number(data.code) == 0) {
                     if (data.payload != null) {
                         var add_tem = function () {
@@ -74,6 +75,15 @@ function getLocation(data) {
                         };
                     }
                 }
+            }).error(function (data, status, headers, config) {
+                var options = {
+                    "title": "服务器连接失败！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam"
+                    }]
+                };
+                $ionicPopup.alert(options);
             });
         $scope.isChange = function () {
             var kitchenAddressTemplate = ""
@@ -224,8 +234,15 @@ function getLocation(data) {
                                         };
                                     }
                                     $ionicPopup.alert(options);
-                                }, function (error) {
-                                    console.log(error)
+                                }).error(function (data, status, headers, config) {
+                                    var options = {
+                                        "title": "服务器连接失败！",
+                                        "buttons": [{
+                                            text: "关闭",
+                                            type: "button-positive clam"
+                                        }]
+                                    };
+                                    $ionicPopup.alert(options);
                                 });
                         } else {
                             var option = {

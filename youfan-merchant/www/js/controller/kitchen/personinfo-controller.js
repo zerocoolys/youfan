@@ -129,8 +129,15 @@
                     $scope.citys = $scope.Provinces[$scope.pId].citys;
                 }
 
-            }).error(function (error) {
-                console.log(error)
+            }).error(function (data, status, headers, config) {
+                var options = {
+                    "title": "服务器连接失败！",
+                    "buttons": [{
+                        text: "关闭",
+                        type: "button-positive clam"
+                    }]
+                };
+                $ionicPopup.alert(options);
             });
 
         $scope.isChange = function () {
@@ -237,8 +244,15 @@
                             };
                         }
                         $ionicPopup.alert(options);
-                    }).error(function (error) {
-                        console.log(error)
+                    }).error(function (data, status, headers, config) {
+                        var options = {
+                            "title": "服务器连接失败！",
+                            "buttons": [{
+                                text: "关闭",
+                                type: "button-positive clam"
+                            }]
+                        };
+                        $ionicPopup.alert(options);
                     });
             }
 
