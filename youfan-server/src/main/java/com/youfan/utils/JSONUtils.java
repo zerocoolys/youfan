@@ -190,6 +190,10 @@ public class JSONUtils {
 	public static String obj2json(Object obj) throws Exception {
 		return mapper.writeValueAsString(obj);
 	}
+	
+	public static Map<String, Object> obj2map(Object obj) throws Exception {
+		return json2map(mapper.writeValueAsString(obj));
+	}
 
 	/**
 	 * json string convert to javaBean

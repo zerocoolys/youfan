@@ -14,6 +14,8 @@ import com.mongodb.WriteResult;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.data.dao.server.CouponsTypeDAO;
+import com.youfan.data.models.CouponsTypeEntity;
+import com.youfan.utils.JSONUtils;
 
 @Repository("couponsTypeDAO")
 public class CouponsTypeDAOImpl implements CouponsTypeDAO{
@@ -59,6 +61,8 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 		}
 		if(couponsParams.getStatus()!=null){
 			squery.addCriteria(where(COUPONS_TYPE_STATUS).is(couponsParams.getStatus()));
+		}else{
+			squery.addCriteria(where(COUPONS_TYPE_STATUS).ne(-1));
 		}
 		return mongoTemplate.count(squery, getEntityClass());
 	}
@@ -77,8 +81,9 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 		}
 		if(couponsParams.getStatus()!=null){
 			squery.addCriteria(where(COUPONS_TYPE_STATUS).is(couponsParams.getStatus()));
+		}else{
+			squery.addCriteria(where(COUPONS_TYPE_STATUS).ne(-1));
 		}
-//		
 		squery.skip((couponsParams.getPageNo() - 1) * couponsParams.getPageSize());
 		squery.limit(couponsParams.getPageSize());
 		
@@ -100,6 +105,32 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 	@Override
 	public int updateById(String id, Map<String, Object> updateMap) {
 		Update update = buildUpdate(updateMap);
+		WriteResult re = mongoTemplate.updateFirst(query(where("id").is(id)), update, getEntityClass());
+		System.out.println(re.toString());
+		return re.getN();
+	}
+
+	@Override
+	public Class<CouponsTypeEntity> getEntityClass() {
+		// TODO Auto-generated method stub
+		return CouponsTypeEntity.class;
+	}
+
+	@Override
+	public Class<CouponsTypeVO> getVOClass() {
+		// TODO Auto-generated method stub
+		return CouponsTypeVO.class;
+	}
+
+	@Override
+	public int updateById(String id, CouponsTypeVO vo) {
+		Update update;
+		try {
+			update = buildUpdate(JSONUtils.obj2map(vo));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			update =  new Update();
+		}
 		WriteResult re = mongoTemplate.updateFirst(query(where("id").is(id)), update, getEntityClass());
 		System.out.println(re.toString());
 		return re.getN();

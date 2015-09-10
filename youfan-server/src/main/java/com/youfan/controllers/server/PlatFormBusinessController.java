@@ -54,10 +54,9 @@ import com.youfan.utils.StringUtil;
  * @title PlatFormBusinessController.java
  * @package com.youfan.controllers.server
  * @description 运营端业务控制器
- * @author QinghaiDeng   
+ * @author QinghaiDeng
  * @update 2015年9月9日 上午11:23:24
- * @version V1.0  
- * Copyright (c)2012 chantsoft-版权所有
+ * @version V1.0 Copyright (c)2012 chantsoft-版权所有
  */
 @RestController
 @RequestMapping(path = "/pBusiness")
@@ -106,7 +105,7 @@ public class PlatFormBusinessController {
 		OrderVO ov = new OrderVO();
 		ov.setOrgPrice(1000);
 
-		return activeSupportService.joinActive("client_order_8折", user, ov);
+		return activeSupportService.joinActive("client_order_up_100", user, ov);
 	}
 
 	/**
@@ -170,7 +169,7 @@ public class PlatFormBusinessController {
 				op.setPageNo(1);
 				op.setOrderBy("ID");
 			}
-			
+
 			List<OrderVO> list = orderService.getOrdersByParams(op);
 			CollectionVO<OrderVO> payload = new CollectionVO<OrderVO>(list, recordCnt, op.getPageSize());
 			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
@@ -236,24 +235,13 @@ public class PlatFormBusinessController {
 	public Response saveCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-			if (request.getParameter("port") != null && request.getParameter("timeLine") != null&&request.getParameter("title")!=null) {
+			if (request.getParameter("port") != null && request.getParameter("timeLine") != null
+					&& request.getParameter("title") != null) {
 				CouponsTypeVO coupons = new CouponsTypeVO();
 				coupons.setPort(Integer.valueOf(request.getParameter("port")));
 				coupons.setTitle(request.getParameter("title"));
 				coupons.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
 				coupons.setDesc(request.getParameter("desc"));
-				
-//				List<Map> list = JSONUtils.json2list(request.getParameter("content"), Map.class);
-//				
-//				List<CouponsContentEntity> contents = new ArrayList<CouponsContentEntity>();
-//				for(Map content:list){
-//					
-//					CouponsContentEntity e=new CouponsContentEntity();
-//					e.setType((String) content.get("type"));
-//					e.setValue(Double.valueOf(content.get("value").toString()));
-//					e.setCondition(condition);
-//					contents.add(e);
-//				}
 				coupons.setContent(
 						JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
 				// 创建时间为保存时当前时间
@@ -338,22 +326,60 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCouponsTypeStatus/{id}/{status}")
 	public Response updateCouponsTypeStatus(@PathVariable String id, @PathVariable int status,
 			HttpServletRequest request, HttpServletResponse response) {
-		Response res = null;
 		try {
 			Map<String, Object> updateParams = new HashMap<>();
 			updateParams.put("status", status);
 			int un = couponsTypeService.updateById(id, updateParams);
 			if (un == 1) {
-				Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型更新成功");
+				return Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型更新成功");
 			} else {
-				Responses.FAILED().setPayload(null).setCode(0).setMsg("优惠券类型未更新");
+				return Responses.FAILED().setPayload(null).setCode(0).setMsg("优惠券类型未更新");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = Responses.FAILED().setCode(0).setMsg("优惠券类型更新失败");
+			return Responses.FAILED().setCode(0).setMsg("优惠券类型更新失败");
 		}
-		return res;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCouponsType/{id}")
+	public Response updateCouponsTypeById(@PathVariable String id, HttpServletRequest request) {
+		try {
+			CouponsTypeVO coupons = new CouponsTypeVO();
+			coupons.setPort(request.getParameter("port")==null?null:Integer.valueOf(request.getParameter("port")));
+			coupons.setTitle(request.getParameter("title"));
+			coupons.setTimeLine(request.getParameter("timeLine")==null?null:Integer.valueOf(request.getParameter("timeLine")));
+			coupons.setDesc(request.getParameter("desc"));
+			coupons.setContent(request.getParameter("content")==null?null:
+					JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
+			// 状态默认为1 表示开启使用状态
+			int un=couponsTypeService.updateById(id, coupons);
+			if (un == 1) {
+				return Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型更新成功");
+			} else {
+				return Responses.FAILED().setPayload(null).setCode(0).setMsg("优惠券类型未更新");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Responses.FAILED().setCode(0).setMsg("优惠券类型更新失败");
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/deleteCouponsType/{id}")
+	public Response deleteCouponsType(@PathVariable String id) {
+		try {
+			
+			// 状态默认为1 表示开启使用状态
+			int dn=couponsTypeService.deleteById(id);
+			if (dn == 1) {
+				return Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型删除成功");
+			} else {
+				return Responses.FAILED().setPayload(null).setCode(0).setMsg("优惠券类型未删除");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Responses.FAILED().setCode(0).setMsg("优惠券类型删除失败");
+		}
 	}
 
 	/**
@@ -610,7 +636,8 @@ public class PlatFormBusinessController {
 	public Response getCommentsPager(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-			Map<String,Object> paramMap=request.getParameter("paramMap")==null?null:JSONUtils.json2map(request.getParameter("paramMap"));
+			Map<String, Object> paramMap = request.getParameter("paramMap") == null ? null
+					: JSONUtils.json2map(request.getParameter("paramMap"));
 			long recordCnt = commentService.count(paramMap);
 			Pagination pager = new Pagination();
 			pager.setParams(paramMap);
@@ -618,10 +645,10 @@ public class PlatFormBusinessController {
 					? Integer.valueOf(request.getParameter("pageSize")) : (int) recordCnt);
 			pager.setPageNo(StringUtil.isNumber(request.getParameter("pageNo"))
 					? Integer.valueOf(request.getParameter("pageNo")) : (int) recordCnt);
-			pager.setSortBy(request.getParameter("sortBy")==null?"ct":request.getParameter("sortBy"));
+			pager.setSortBy(request.getParameter("sortBy") == null ? "ct" : request.getParameter("sortBy"));
 			pager.setAsc(
 					request.getParameter("pageNo") == null ? false : Boolean.valueOf(request.getParameter("pageNo")));
-			
+
 			List<CommentVO> list = commentService.getPagerByCondition(pager);
 			CollectionVO<CommentVO> payload = new CollectionVO<>(list, (int) recordCnt,
 					pager.getPageSize() < 1 ? (int) recordCnt : pager.getPageSize());
@@ -632,9 +659,10 @@ public class PlatFormBusinessController {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * 删除评论
+	 * 
 	 * @param pageNo
 	 * @return
 	 * @description TODO
@@ -646,14 +674,14 @@ public class PlatFormBusinessController {
 	public Response deleteCommentById(@PathVariable String id) {
 		try {
 			int r = commentService.deleteById(id);
-			if(r==1){
+			if (r == 1) {
 				return Responses.SUCCESS().setCode(1).setMsg("评论删除成功");
 			}
 		} catch (Exception e) {
 		}
 		return Responses.FAILED().setCode(0).setMsg("评论删除");
 	}
-	
+
 	///////////////////////////////// 商家//////////////////////////////////////////
 
 	/**

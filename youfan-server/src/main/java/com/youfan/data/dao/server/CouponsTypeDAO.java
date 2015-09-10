@@ -27,4 +27,6 @@ public interface CouponsTypeDAO extends MongoBaseDAO<CouponsTypeEntity, CouponsT
 	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams);
 	
 	public int updateById(String id, Map<String, Object> updateMap);
+
+	public int updateById(String id, CouponsTypeVO vo);
 }

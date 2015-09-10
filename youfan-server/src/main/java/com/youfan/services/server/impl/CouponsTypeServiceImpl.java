@@ -47,5 +47,17 @@ public class CouponsTypeServiceImpl implements CouponsTypeService{
 		// TODO Auto-generated method stub
 		return couponsTypeDAO.updateById(id, updateMap);
 	}
+	@Override
+	public int updateById(String id, CouponsTypeVO vo) {
+		// TODO Auto-generated method stub
+		return couponsTypeDAO.updateById(id, vo);
+	}
+	@Override
+	public int deleteById(String id) {
+		CouponsTypeVO vo = new CouponsTypeVO();
+		vo.setStatus(-1);
+		return couponsTypeDAO.updateById(id, vo);
+		
+	}
 
 }

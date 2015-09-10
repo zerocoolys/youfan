@@ -24,4 +24,8 @@ public interface CouponsTypeService {
 	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams);
 	
 	public int updateById(String id, Map<String, Object> updateMap);
+
+	public int updateById(String id, CouponsTypeVO vo);
+
+	public int deleteById(String id);
 }

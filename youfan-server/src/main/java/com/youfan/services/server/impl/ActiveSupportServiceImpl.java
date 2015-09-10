@@ -179,13 +179,23 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 								break;
 							}
 						}
+						System.out.println(flag);
 						if(flag){
 							if (cce.getType().equals("-")) {// 减免
 								orderVo.setDiscountPrice(orderVo.getOrgPrice() - Double.valueOf(cce.getValue()));
 							} else if (cce.getType().equals("*")) {// 折扣
 								orderVo.setDiscountPrice(orderVo.getOrgPrice() * Double.valueOf(cce.getValue()));
 							}
+							//优惠计算后直接条粗话
+							break;
 						}
+					}else{//无条件
+						if (cce.getType().equals("-")) {// 减免
+							orderVo.setDiscountPrice(orderVo.getOrgPrice() - Double.valueOf(cce.getValue()));
+						} else if (cce.getType().equals("*")) {// 折扣
+							orderVo.setDiscountPrice(orderVo.getOrgPrice() * Double.valueOf(cce.getValue()));
+						}
+						break;//无条件优惠后直接跳出
 					}
 				}
 			}
@@ -231,13 +241,23 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 			case "=":
 				return conditionValue == null ? false
 						: Double.valueOf(realValue.toString()) == Double.valueOf(conditionValue.toString());
+			case ">=":
+				return conditionValue == null ? false
+						: Double.valueOf(realValue.toString()) >= Double.valueOf(conditionValue.toString());
 			case ">":
 				return conditionValue == null ? false
 						: Double.valueOf(realValue.toString()) > Double.valueOf(conditionValue.toString());
+			case "<=":
+				return conditionValue == null ? false
+						: Double.valueOf(realValue.toString()) <= Double.valueOf(conditionValue.toString());
+			case "<":
+				return conditionValue == null ? false
+						: Double.valueOf(realValue.toString()) < Double.valueOf(conditionValue.toString());
 			default:
 				break;
 			}
 		} catch (NumberFormatException e) {
+			e.printStackTrace();
 		}
 
 		return false;
