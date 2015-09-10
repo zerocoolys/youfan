@@ -11,7 +11,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
         password: ""
     };
 
-    $scope.isShow = false;
+    $scope.isShow = true;
     /**
      * 登陆
      */

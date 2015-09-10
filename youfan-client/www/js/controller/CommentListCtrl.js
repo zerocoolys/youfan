@@ -1,4 +1,4 @@
-ControllerModule.controller('CommentListCtrl', function ($scope, $http, REST_URL, $stateParams, $ionicSlideBoxDelegate) {
+ControllerModule.controller('CommentListCtrl', function ($scope, $rootScope, $http, REST_URL, $stateParams, $ionicSlideBoxDelegate, $ionicModal) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.commentData = [];
     $scope.params = {
@@ -35,7 +35,38 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $http, REST_URL
         return html;
     }
     $scope.imgStyle = {width: '50px', height: '50px'};
-    $scope.imgToggle = function (img) {
-        console.log(img);
+    $scope.aImages = [];
+    $ionicModal.fromTemplateUrl('templates/public/image-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+    $rootScope.openModal = function () {
+        $ionicSlideBoxDelegate.slide(0);
+        $scope.modal.show();
+    };
+
+    $rootScope.closeModal = function () {
+        $scope.modal.hide();
+    };
+    $rootScope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+    $rootScope.next = function () {
+        $ionicSlideBoxDelegate.next();
+    };
+
+    $rootScope.previous = function () {
+        $ionicSlideBoxDelegate.previous();
+    };
+
+    $rootScope.goToSlide = function (index, arr) {
+        $scope.aImages = arr;
+        $scope.modal.show();
+        $ionicSlideBoxDelegate.slide(index);
     }
+    $rootScope.slideChanged = function (index) {
+        $scope.slideIndex = index;
+    };
 });

@@ -9,7 +9,6 @@
                 <img ng-src="{{comment.img}}">
 
                 <div class="care_text">
-
                         <span>
                             {{comment.name}}
                         </span>
@@ -17,8 +16,14 @@
                         </span>
 
                     <p>{{comment.content}}</p>
-                    <img ng-src="http://youfan-merchant-img.b0.upaiyun.com/{{cimg}}" ng-click="imgToggle(cimg)" ng-repeat="cimg in comment.img_url" ng-style="imgStyle" >
 
+                    <div class='photo_img'>
+                        <ul>
+                            <li ng-repeat="cimg in comment.img_url"><img
+                                    ng-src='http://youfan-merchant-img.b0.upaiyun.com/{{cimg}}'
+                                    ng-click='goToSlide($index,comment.img_url)' ng-style="imgStyle"/></li>
+                        </ul>
+                    </div>
                     <p class="time">{{comment.commentTime}}</p>
                 </div>
                 <div class="care_text2" ng-class="{'hide':2>1}">

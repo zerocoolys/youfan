@@ -1,4 +1,4 @@
-ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_URL, $state, Order, Merchant, $location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicActionSheet, $ionicModal, CameraService) {
+ControllerModule.controller('CommentDetailCtrl', function ($scope, $rootScope, $http, REST_URL, $state, Order, Merchant, $location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicActionSheet, $ionicModal, CameraService) {
     $scope.back = function () {
         $state.go('tab.order');
     }
@@ -33,7 +33,7 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_U
         star: 1,
         pid: 0,
         is_hide_name: false,
-        img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg","12dbba0b845a3372ef6510d7fdb3240b.jpg"]
+        img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg", "12dbba0b845a3372ef6510d7fdb3240b.jpg"]
         //img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg", "12dbba0b845a3372ef6510d7fdb3240b.jpg"]
     };
     $scope.comment = function () {
@@ -52,7 +52,7 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_U
                 popup.alert($ionicPopup, {
                     scope: $scope,
                     template: '评论成功！'
-                },function(){
+                }, function () {
                     $scope.back();
                 });
                 //$location.path('/order')
@@ -66,4 +66,46 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $http, REST_U
     }
 
     $scope.commentDataList = [];
+    $scope.commentDataList = [];
+    $scope.aImages = [{
+        'src': 'img/1.jpg'
+    }, {
+        'src': 'img/2.jpeg'
+    }, {
+        'src': 'img/1.jpg'
+    }];
+
+    $ionicModal.fromTemplateUrl('image-modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+    });
+
+    $rootScope.openModal = function () {
+        $ionicSlideBoxDelegate.slide(0);
+        $scope.modal.show();
+    };
+
+    $rootScope.closeModal = function () {
+        $scope.modal.hide();
+    };
+    $rootScope.$on('$destroy', function () {
+        $scope.modal.remove();
+    });
+    $rootScope.next = function () {
+        $ionicSlideBoxDelegate.next();
+    };
+
+    $rootScope.previous = function () {
+        $ionicSlideBoxDelegate.previous();
+    };
+
+    $rootScope.goToSlide = function (index) {
+        $scope.modal.show();
+        $ionicSlideBoxDelegate.slide(index);
+    }
+    $rootScope.slideChanged = function (index) {
+        $scope.slideIndex = index;
+    };
 });
