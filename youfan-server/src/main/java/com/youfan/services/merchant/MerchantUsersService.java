@@ -142,9 +142,23 @@ public interface MerchantUsersService {
      */
     public MerchantUserVO getMerchantUserInfo(String id);
 
+
+    /**
+     * 根据商家id查询商家厨房信息
+     *
+     * @param id
+     * @return 厨房Vo对象
+     */
     MerchantKitchenInfoVO mrFindById(String id);
 
+    /**
+     * 根据商家id查询商家信息
+     *
+     * @param id
+     * @return 商家对象Vo
+     */
     MerchantUserVO muFindById(String id);
+
 
     /**
      * 保存商家用户的个人兴趣爱好

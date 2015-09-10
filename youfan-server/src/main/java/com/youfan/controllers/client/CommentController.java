@@ -1,4 +1,4 @@
-package com.youfan.controllers.merchant;
+package com.youfan.controllers.client;
 
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.websocket.server.PathParam;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +27,11 @@ public class CommentController {
     @Resource
     private CommentService commentService;
 
+
     @RequestMapping(value = "/save")
     public Response createComment(@RequestBody CommentVO cm) {
+//        String commentUser=
+        System.out.println(cm.getComment_user());
         Integer result = commentService.createCm(cm);
         if (result != 0) {
             return Responses.SUCCESS();

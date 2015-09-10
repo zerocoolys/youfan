@@ -11,7 +11,7 @@ public class CommentVO {
     String id;
 
     String merchant_id;
-    Integer order_id;
+    long order_id;
 
     String comment_user;
 
@@ -21,6 +21,8 @@ public class CommentVO {
 
     Integer star;
     Date commentTime;
+
+    String seller_id;
 
     Integer dataStatus = 0;
 
@@ -45,11 +47,11 @@ public class CommentVO {
         this.merchant_id = merchant_id;
     }
 
-    public Integer getOrder_id() {
+    public long getOrder_id() {
         return order_id;
     }
 
-    public void setOrder_id(Integer order_id) {
+    public void setOrder_id(long order_id) {
         this.order_id = order_id;
     }
 
@@ -115,5 +117,13 @@ public class CommentVO {
 
     public void setIs_hide_name(Boolean is_hide_name) {
         this.is_hide_name = is_hide_name;
+    }
+
+    public String getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(String seller_id) {
+        this.seller_id = seller_id;
     }
 }

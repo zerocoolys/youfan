@@ -19,9 +19,11 @@ import java.util.Map;
 public interface CommentDAO extends MongoBaseDAO<CommentEntity, CommentVO, Long> {
     List<CommentVO> findComment();
 
-    CommentVO findComment(Integer orderId);
+    CommentVO findComment(long orderId);
 
     CollectionVO<CommentVO> findPager(Pagination p);
+
+    long commentCount(String muId);
 
     default long getGenerator(long no) {
 

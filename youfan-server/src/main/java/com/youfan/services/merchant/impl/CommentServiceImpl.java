@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentVO findCommentById(Integer orderId) {
+    public CommentVO findCommentById(long orderId) {
         return commentDAO.findComment(orderId);
     }
 
@@ -48,19 +48,24 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-	@Override
-	public List<CommentVO> getPagerByCondition(Pagination pager) {
-		return commentDAO.getComments(pager);
-	}
+    @Override
+    public List<CommentVO> getPagerByCondition(Pagination pager) {
+        return commentDAO.getComments(pager);
+    }
 
-	@Override
-	public long count(Map<String, Object> paramMap) {
-		return commentDAO.count(paramMap);
-	}
+    @Override
+    public long count(Map<String, Object> paramMap) {
+        return commentDAO.count(paramMap);
+    }
 
-	@Override
-	public int deleteById(String id) {
-		// TODO Auto-generated method stub
-		return commentDAO.updateStatus(id, -1);
-	}
+    @Override
+    public int deleteById(String id) {
+        // TODO Auto-generated method stub
+        return commentDAO.updateStatus(id, -1);
+    }
+
+    @Override
+    public long commentCount(String sellerId) {
+        return commentDAO.commentCount(sellerId);
+    }
 }

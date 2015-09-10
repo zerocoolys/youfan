@@ -19,10 +19,13 @@ public class CommentEntity {
 
     @Field(Constants.COMMENT_MERCHANT_ID)
     String merchant_id;
-    Integer order_id;
+    long order_id;
 
     @Field(Constants.COMMENT_USER)
     String comment_user;
+
+    @Field(Constants.SELLER_ID)
+    String seller_id;
 
     String pid;//父评论
 
@@ -57,11 +60,11 @@ public class CommentEntity {
         this.merchant_id = merchant_id;
     }
 
-    public Integer getOrder_id() {
+    public long getOrder_id() {
         return order_id;
     }
 
-    public void setOrder_id(Integer order_id) {
+    public void setOrder_id(long order_id) {
         this.order_id = order_id;
     }
 
@@ -127,5 +130,13 @@ public class CommentEntity {
 
     public void setIs_hide_name(Boolean is_hide_name) {
         this.is_hide_name = is_hide_name;
+    }
+
+    public String getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(String seller_id) {
+        this.seller_id = seller_id;
     }
 }

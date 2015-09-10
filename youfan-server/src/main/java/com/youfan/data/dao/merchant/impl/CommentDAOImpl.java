@@ -78,6 +78,12 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
+    public long commentCount(String sellerId) {
+        long count = mongoTemplate.count(new Query().addCriteria(Criteria.where(Constants.SELLER_ID).is(sellerId)), getEntityClass());
+        return count;
+    }
+
+    @Override
     public Class<CommentEntity> getEntityClass() {
         return CommentEntity.class;
     }
@@ -94,7 +100,7 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
-    public CommentVO findComment(Integer orderId) {
+    public CommentVO findComment(long orderId) {
 //        CommentEntity ce = mongoTemplate.findOne(new Query().addCriteria(Criteria.where(Constants.FIELD_ID).is(orderId)), getEntityClass());
 //        if(ce!=null)
 //        return convertToVO(ce);
