@@ -1,7 +1,7 @@
 ServiceModule
     .factory('Order', function () {
         return {
-            id:20,
+            id: 20,
             cart: [],
             details: {}
         }
@@ -16,11 +16,14 @@ ServiceModule
     })
     .factory('User', function () {
         return {
+            id: 22305304567,
+            name: "张三",
+            telNo: "15602800105",
             token: null
         }
     })
-    .factory('MapAddr', function(){
+    .factory('MapAddr', function () {
         return {
-            mapKey:{}
+            mapKey: {}
         }
     });

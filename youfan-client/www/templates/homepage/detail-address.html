@@ -12,11 +12,14 @@
             </label>
         </div>
         <div id="mapContainer" style="left: 0;right: 0;bottom: 0; height:300px;"></div>
-        <div class="list">
-            <div class="item" ng-repeat="item in datas" lag="{{item.lngLat}}">
-                <span>{{item.name}}</span>
-                <p>{{item.addr}}</p>
+        <ion-scroll zooming="true" direction="y" style="width: 100%; height: 500px;padding-bottom:48px;">
+            <div class="list">
+                <div class="item" ng-repeat="item in datas" laglat="{{item.lngLat}}" id="divid{{$index+1}}" data-ng-click='selectGEO($index)'>
+                    <span>{{item.name}}</span>
+
+                    <p>{{item.addr}}</p>
+                </div>
             </div>
-        </div>
+        </ion-scroll>
     </ion-content>
 </ion-view>

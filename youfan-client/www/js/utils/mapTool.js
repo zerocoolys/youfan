@@ -134,7 +134,7 @@ var mapTools = {
         var cpoint = new AMap.LngLat(lng, lat);
         AMap.service(["AMap.PlaceSearch"], function () {
             var placeSearch = new AMap.PlaceSearch({ //构造地点查询类
-                pageSize: 20,
+                pageSize: 30,
                 pageIndex: 1
             });
             placeSearch.searchNearBy('', cpoint, 3000, function (status, result) {
@@ -152,7 +152,7 @@ var mapTools = {
      * @param mapObj  地图初始化参数
      * @param cb      返回函数
      */
-    getUserLngLat: function ($scope, mapObj, cb) {
+    getUserLngLat: function (mapObj, cb) {
         var geolocation
         mapObj.plugin('AMap.Geolocation', function () {
             geolocation = new AMap.Geolocation({
@@ -162,6 +162,7 @@ var mapTools = {
             });
             //返回定位成功处理
             AMap.event.addListener(geolocation, 'complete', function (data) {
+                alert(0)
                 var Lnglat = data.position.getLng() + "," + data.position.getLat();
                 cb(Lnglat);
             });

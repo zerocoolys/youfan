@@ -23,6 +23,7 @@
     margin-top: -15px;
     position: absolute;
     z-index: 10000;
+    margin-left: -25px;
 }
 .how_delivery{
     background-color: #fff;
@@ -115,13 +116,17 @@
 }
 .dash_detail .main_menu .item-body{
     background-color: #eee;
-    padding-bottom:48px;
+    /*padding-bottom:48px;*/
 }
 .dash_detail .main_menu .item-body .menu_line{
     border-top-width: 1px;
 }
-.dash_detail .main_menu .item-body .menu_line img{
-
+.dash_detail .main_menu .item-body .full-image{
+    height: 180px;
+    margin-bottom: -2px;
+}
+.dash_detail .main_menu .item-body h2,.dash_detail .main_menu .item-body p{
+    margin: 5px 0;
 }
 /*附菜单的处理*/
 .tip_menu_list .item-thumbnail-left .item-content .item-image,

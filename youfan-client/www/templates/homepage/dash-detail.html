@@ -34,7 +34,7 @@
         </div>
         <div class="item text-center" style="border-width: 0;">
             <div class="segmented-control-item">
-                <h2 style="margin-top: 40px" ng-bind="merchantObj.kitchenName"></h2>
+                <h2 ng-bind="merchantObj.kitchenName"></h2>
                 <i class="icon ion-star" style="color: #e4c615"></i>
                 <i class="icon ion-star" style="color: #e4c615"></i>
                 <i class="icon ion-star" style="color: #e4c615"></i>
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <ion-list>
+            <ion-list>
             <ion-item class="item-icon-left item-icon-right">
                 <span class="icon">
                     <i class="icon_bg ion-ios-paper-outline icon-accessory"></i>
@@ -91,12 +91,12 @@
         <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="main_menu">
             <ion-slide>
                 <ion-list>
-                    <ion-item class="item-body list-borderless item-borderless" ng-repeat="menu in menuItemArr"
+                    <ion-item class="item-body list-borderless item-borderless" style="padding: 5px;" ng-repeat="menu in menuItemArr"
                               ng-repeat-end="1">
                         <!--<img class="full-image" ng-src="{{menu.picUrl}}" ng-click="showDishDetail()">-->
                         <img class="full-image" ng-src="http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg"
                              ng-click="showDishDetail()">
-                        <ion-item class="item-icon-right item-icon-left">
+                        <ion-item class="item-icon-right item-icon-left" style="padding: 5px 54px 5px 54px;">
                             <span class="icon">
                                 <i class="icon_bg ion-coffee icon-accessory"></i>
                             </span>
@@ -107,7 +107,7 @@
 
                             <i class="icon ion-ios-arrow-right icon-accessory"></i>
                         </ion-item>
-                        <ion-item class="menu_line">
+                        <ion-item class="menu_line" style="padding: 5px 16px 5px 54px;">
                             <p ng-bind="'￥' + menu.price"></p>
 
                             <span ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"

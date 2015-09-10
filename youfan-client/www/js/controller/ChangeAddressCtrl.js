@@ -72,7 +72,6 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
         }
         Merchant.localRange=$scope.autoData[index].location.lng + "," + $scope.autoData[index].location.lat;
         $state.go('tab.dash');
-        console.log($scope.autoData[index].location.lng + "," + $scope.autoData[index].location.lat);
         $scope.inputText.value = (document.getElementById("divid" + (index + 1)).innerHTML.replace(/<[^>].*?>.*<\/[^>].*?>/g, "")).trim();
         $scope.items = [];
         $scope.showhi = false;
@@ -90,7 +89,7 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
     $scope.showAlert = function () {
         var alertPopup = $ionicPopup.alert({
             cssClass: 'zan_popup',
-            template: '亲!暂时不对成都之外的城市开发.敬请期待哦!!',
+            template: '亲!暂时不对成都之外的城市开放.敬请期待哦!!',
             scope: $scope,
             buttons: []
         });
