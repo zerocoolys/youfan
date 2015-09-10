@@ -6,7 +6,7 @@
     </ion-header-bar>
     <ion-content>
         <ion-scroll>
-            <!--<div class="card">-->
+            <ion-item>
                 <div class="item item-divider">
                     <span>菜品</span>
 
@@ -14,61 +14,45 @@
 
                     <p class="item-note mainColor" style="margin-right: 50px;">数量</p>
                 </div>
+            </ion-item>
+            <ion-item ng-repeat="dish in dishes">
                 <div class="item item-text-wrap">
-                    <span>大份黄焖鸡</span>
+                    <span ng-bind="dish.name"></span>
 
-                    <p class="item-note mainColor">￥20</p>
+                    <p class="item-note mainColor" ng-bind="'￥' + dish.unitPrice"></p>
 
-                    <p class="item-note mainColor" style="margin-right: 50px;">1份</p>
+                    <p class="item-note mainColor" style="margin-right: 50px;" ng-bind="dish.count + '份'"></p>
                 </div>
-                <div class="item item-text-wrap">
-                    <span>青椒肉丝</span>
-
-                    <p class="item-note mainColor">￥40</p>
-
-                    <p class="item-note mainColor" style="margin-right: 50px;">2份</p>
-                </div>
-                <div class="item item-text-wrap">
-                    <span>回锅肉</span>
-
-                    <p class="item-note mainColor">￥30</p>
-
-                    <p class="item-note mainColor" style="margin-right: 50px;">10份</p>
-                </div>
+            </ion-item>
+            <ion-item>
                 <div class="item item-divider">
                     <span>合计</span>
 
-                    <p class="item-note mainColor">￥380</p>
+                    <p class="item-note mainColor" ng-bind="order.orgPrice"></p>
 
                 </div>
-                <ion-list>
-                    <ion-item class="item item-icon-left">
-                        <i class="icon ion-card"></i>
-                        <span>付款状态</span>
+            </ion-item>
+            <ion-list>
+                <ion-item class="item item-icon-left">
+                    <i class="icon ion-card"></i>
+                    <span>付款状态</span>
 
-                        <p class="item-note mainColor">待付款</p>
-                    </ion-item>
-                    <ion-item class="order_Details">
-                        <ul>
-                            <li><b>订 单 号&nbsp;&nbsp; :</b>{{order.orderNo}}</li>
-                            <li><b>下单时间 :</b>{{order.orderTime}}</li>
-                            <li><b>支付方式 :</b>{{order.repastMode}}</li>
-                            <li><b>联 系 人&nbsp;&nbsp; :</b>李忠诚</li>
-                            <li><b>手机号码 :</b>15159862314</li>
-                            <li><b>收货地址 :</b>天府软件园d7-903</li>
-                            <!--<li><b>配送信息 :</b>本地单由京东外卖提供配送服务</li>-->
-                        </ul>
-
-                    </ion-item>
-
-                </ion-list>
-
-
-            <!--</div>-->
-
-
+                    <p class="item-note mainColor">待付款</p>
+                </ion-item>
+                <ion-item class="order_Details">
+                    <ul>
+                        <li><b>订 单 号&nbsp;&nbsp; :</b>{{order.orderNo}}</li>
+                        <li><b>下单时间 :</b>{{order.orderTime}}</li>
+                        <!--<li><b>支付方式 :</b>{{order.paymentWay}}</li>-->
+                        <li><b>支付方式 :</b>支付宝</li>
+                        <li><b>联 系 人&nbsp;&nbsp; :</b>{{userInfo.name}}</li>
+                        <li><b>手机号码 :</b>{{userInfo.telNo}}</li>
+                        <li><b>收货地址 :</b>{{order.repastAddress}}</li>
+                        <!--<li><b>配送信息 :</b>本地单由京东外卖提供配送服务</li>-->
+                    </ul>
+                </ion-item>
+            </ion-list>
         </ion-scroll>
-
     </ion-content>
     <div class="bar bar-footer bar-calm">
         <div class="button-bar">

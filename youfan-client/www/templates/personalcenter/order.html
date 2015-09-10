@@ -15,7 +15,7 @@
 
                                 <p class="item-note mainColor">{{order.orderStatus}}</p>
                             </ion-item>
-                            <ion-item class="item-thumbnail-left" ui-sref="tab.order-detail({order: order})">
+                            <ion-item class="item-thumbnail-left" ng-click="showOrderDetails(order)">
                                 <img src="img/2.jpeg">
 
                                 <h2>{{order.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>
@@ -40,7 +40,7 @@
 
                                 <p class="item-note mainColor">{{order.orderStatus}}</p>
                             </ion-item>
-                            <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                            <ion-item class="item-thumbnail-left" ng-click="showOrderDetails(order)">
                                 <img src="img/2.jpeg">
 
                                 <h2>{{order.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>
@@ -67,7 +67,7 @@
 
                                 <p class="item-note mainColor">{{order.orderStatus}}</p>
                             </ion-item>
-                            <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                            <ion-item class="item-thumbnail-left" ng-click="showOrderDetails(order)">
                                 <img src="img/2.jpeg">
 
                                 <h2>{{order.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>
@@ -92,7 +92,7 @@
 
                                 <p class="item-note mainColor">{{order.orderStatus}}</p>
                             </ion-item>
-                            <ion-item class="item-thumbnail-left" href="#/tab/order-detail/0">
+                            <ion-item class="item-thumbnail-left" ng-click="showOrderDetails(order)">
                                 <img src="img/2.jpeg">
 
                                 <h2>{{order.cookName}} <i class="fr icon ion-chevron-right icon-accessory"></i>

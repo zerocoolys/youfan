@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('MyOrderCtrl', function ($scope, $ionicSlideBoxDelegate, $http, /*localStorageService, */REST_URL) {
+ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $http, /*localStorageService, */User, REST_URL) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
     $scope.slideChanged = function (index) {
@@ -109,8 +109,6 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $ionicSlideBoxDeleg
     $scope.pagination = {
         pageNo: 0,
         pageSize: 10,
-        orderBy: 'orderTime',
-        asc: false,
         params: {orderStatus: []}
     };
 
@@ -144,7 +142,7 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $ionicSlideBoxDeleg
     };
 
     $scope.loadOrdersData = function (type) {
-        $http.post(REST_URL + '/orders/users/' + '55e586cfe4b0312836262992', $scope.pagination)
+        $http.post(REST_URL + '/orders/users/' + '22305304567', $scope.pagination)
             .then(function (response) {
                 //console.log(JSON.stringify(response));
                 var result = response.data.payload;
@@ -192,6 +190,31 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $ionicSlideBoxDeleg
             }, function (error) {
                 console.log(error);
             });
+    };
+
+    $scope.userInfo = {
+        id: User.id,
+        name: User.name,
+        telNo: User.telNo
+    };
+
+    $scope.showOrderDetails = function (order) {
+        // 获取订单的菜品信息
+        $http.get(REST_URL + '/orders/' + order.orderNo + '/dishes').success(function (data) {
+            var _order = order;
+            _order.orderTime = (new Date(_order.orderTime)).Format("yyyy-MM-dd hh:mm:ss");
+
+            //var _paymentWay = _order.paymentWay;
+            //if (_paymentWay == "alipay") {
+            //    _order.paymentWay = "支付宝";
+            //} else if (_paymentWay == "wx") {
+            //    _order.paymentWay = "微信";
+            //}
+
+            $state.go('tab.order-detail', {order: _order, userInfo: $scope.userInfo, dishes: data.payload});
+        }).error(function (err) {
+            console.log(err);
+        });
     }
 
 });

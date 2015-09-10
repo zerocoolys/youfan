@@ -227,7 +227,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 },
                 params: {
-                    order: null
+                    order: null,
+                    userInfo: null,
+                    dishes: null
                 }
             })
             //个人中心-我的订单-订单详情-支付成功
@@ -351,12 +353,16 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
 //            支付页面
             .state('tab.pay-page', {
-                url: '/pay-page/:order_no/:discountPrice',
+                url: '/pay-page/',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/pay-page.html',
                         controller: 'OrderPayCtrl'
                     }
+                },
+                params: {
+                    discountPrice: 0,
+                    orderNo: null
                 }
             })
 //            就餐方式页
