@@ -14,7 +14,7 @@
             var jpushServiceFactory = {};
             //启动极光推送
             var _init = function () {
-                console.log($window)
+                console.log(JSON.stringify($window.plugins.jPushPlugin))
                 $window.plugins.jPushPlugin.init();
                 $window.plugins.jPushPlugin.setDebugMode(true);
             };
@@ -56,7 +56,7 @@
             return jpushServiceFactory;
         }]);
 
-    function news($scope, $filter, $state, $ionicSlideBoxDelegate, jpushService) {
+    function news($scope, $filter, $state, $ionicSlideBoxDelegate, jpushService, $ionicPopup) {
         console.log()
 
         $scope.newsIndex = 0;
@@ -70,7 +70,7 @@
         $scope.activeSlide = function (slideIndex) {
             $scope.slideIndex = slideIndex;
             $ionicSlideBoxDelegate.enableSlide([false])
-
+            console.log($ionicSlideBoxDelegate)
 
         };
 

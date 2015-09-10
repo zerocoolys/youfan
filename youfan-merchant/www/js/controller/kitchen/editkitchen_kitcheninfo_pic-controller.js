@@ -9,11 +9,11 @@
         .controller('kitcheninfo_pic', kitchenInfo_pic)
     ;
 
-    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location, $cordovaImagePicker, $ionicPopup) {
+    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location, $cordovaImagePicker, $ionicPopup, YF_MERCHANT_HOST) {
         $scope.imgs = [];
         $scope.imgsTemplate = [];
         $http.post(
-            "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload != null) {
                         data.payload.kitchenPicUrl.forEach(function (value) {
@@ -94,7 +94,7 @@
                     kitchenPicUrl: urls
                 };
                 $http.post(
-                    "http://192.168.1.110:8080/user/saveMerchantKitchenPicInfo", JSON.stringify(kitchenPic), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    YF_MERCHANT_HOST + "/user/saveMerchantKitchenPicInfo", JSON.stringify(kitchenPic), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                         var options;
                         if (Number(data.code) == 0) {
                             if (data.payload == null || data.payload == "") {

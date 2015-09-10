@@ -13,7 +13,7 @@ function getLocation(data) {
         .controller('kitcheninfo', kitchenInfo);
 
 
-    function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicModal, $ionicPopup) {
+    function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicModal, $ionicPopup, YF_MERCHANT_HOST) {
 
         $scope.kitchenInfo = {
             kitchenName: "",
@@ -37,7 +37,7 @@ function getLocation(data) {
         };
         $scope.addressTemplate = "";
         $http.post(
-            "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (Number(data.code) == 0) {
                     if (data.payload != null) {
                         var add_tem = function () {
@@ -193,7 +193,7 @@ function getLocation(data) {
                                 }
                             }
                             $http.post(
-                                "http://192.168.1.110:8080/user/saveMerchantKitchenInfo", (merchantKitchenInfoVO), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                                YF_MERCHANT_HOST + "/user/saveMerchantKitchenInfo", (merchantKitchenInfoVO), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                                     var options;
                                     if (Number(data.code) == 0) {
                                         options = {

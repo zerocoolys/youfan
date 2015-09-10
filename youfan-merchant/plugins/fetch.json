@@ -75,7 +75,7 @@
     "cn.jpush.phonegap.JPushPlugin": {
         "source": {
             "type": "local",
-            "path": "my_plugins\\jpush-phonegap-plugin"
+            "path": "/home/perfection/文档/开发资料学习文档/jpush-phonegap-plugin"
         },
         "is_top_level": true,
         "variables": {}

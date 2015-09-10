@@ -89,7 +89,7 @@
                 userName: user.phoneNumber
             };
             $http.post(
-                "http://192.168.1.110:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                YF_MERCHANT_HOST + "/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     if (Number(data.code) == 0) {
                         $rootScope.user = {
                             id: data.payload.id
@@ -136,7 +136,7 @@
         };
         $scope.register = function (user) {
             $http.post(
-                "http://192.168.1.110:8080/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                YF_MERCHANT_HOST + "/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
 
                     var options;
                     switch (data.registerStatus) {
