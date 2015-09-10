@@ -1,7 +1,7 @@
 <div class="row-fluid">
     <div class="span12">
         <div>
-            <label>添加优惠券类型</label>
+            <label style="color: red"><strong>{{dialog_title}}</strong></label>
             <li>
                 <div style="height:40px;">
                     <label>优惠券名称：</label>
@@ -20,11 +20,15 @@
             </li>
 
             <li>
-                <label>优惠内容：</label>
-                <button class="btn" ng-click="add_content()">添加优惠内容</button>
+                <div style="height: 40px;width: 200px;">
+                    <label>优惠内容：</label>
+                    <button class="btn" ng-click="add_content()">添加优惠内容</button>
+                </div>
                 <div ng-repeat="cont in add_voucher.content">
-                    <label>优惠{{$index+1}}：</label>
-
+                    <div style="height: 40px;width: 200px;">
+                        <label style="color: blue">优惠{{$index+1}}：</label>
+                        <button class="btn" ng-click="delete_content()">删除优惠内容</button>
+                    </div>
                     <div style="height: 40px;">
                         <label>优惠方式：</label>
                         <select class="selectpicker" data-ng-model="cont.type" style="height: 30px;width: 150px;">
@@ -37,13 +41,13 @@
                         <label>优 惠 量 ：</label>
                         <input type="text" data-ng-model="cont.value" style="height: 30px;width:150px;">
                         <label ng-if="cont.type=='满减'" style="color: blue">元(RMB)</label>
-                        <label ng-if="cont.type=='折扣'" style="color: red">折 (如 8：八折 8.7：八七折)</label>
+                        <label ng-if="cont.type=='折扣'" style="color: red">折 (如 0.8:八折 0.87:八七折)</label>
                         <label ng-if="cont.type=='返现'" style="color: blue">元(RMB)</label>
                     </div>
-                    <div >
+                    <div>
                         <div style="height:40px;">
                             <label>优惠条件：</label>
-                            <button class="btn" ng-click="add_condition(cont.conditions)">添加优惠内容</button>
+                            <button class="btn" ng-click="add_condition(cont)">添加条件</button>
                         </div>
                         <div ng-repeat="cond in cont.conditions" style="height:40px;">
                             <select class="selectpicker" data-ng-model="cond.attr" style="height: 30px;width:80px;">
@@ -75,6 +79,6 @@
     </div>
     <div>
         <button style="float: right" class="btn" ng-click="closeThisDialog()">取消</button>
-        <button style="float: right" type="submit" class="btn btn-success" ng-click="submitAddVoucher()">添加优惠券</button>
+        <button style="float: right" type="submit" class="btn btn-success" ng-click="submitAddVoucher()">保存优惠券</button>
     </div>
 </div>
