@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="cn.jpush.phonegap.JPushPlugin"
@@ -152,7 +152,7 @@
             <receiver android:name="cn.jpush.android.service.AlarmReceiver"/>
             <!-- Required  . Enable it you can get statistics data with channel -->
             <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-            <meta-data android:name="JPUSH_APPKEY" android:value="4526243fd867a43d2ab4d1a4"/>
+            <meta-data android:name="JPUSH_APPKEY" android:value="237e05c8cba3040186207c17"/>
         </config-file>
         <source-file src="src/android/jpush-sdk-release1.7.5.jar" target-dir="libs"/>
         <source-file src="src/android/armeabi/libjpush175.so" target-dir="libs/armeabi"/>

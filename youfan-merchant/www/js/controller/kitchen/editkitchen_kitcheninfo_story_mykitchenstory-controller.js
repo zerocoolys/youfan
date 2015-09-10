@@ -10,7 +10,7 @@
     ;
 
 
-    function kitchenInfo_story_myKitchenStory($scope, $filter, $state, $http, $rootScope, $ionicPopup, $location) {
+    function kitchenInfo_story_myKitchenStory($scope, $filter, $state, $http, $rootScope, $ionicPopup, $location, YF_MERCHANT_HOST) {
         $scope.story = {
             title: "",
             content: ""
@@ -20,7 +20,7 @@
             content: ""
         };
         $http.post(
-            "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload != null) {
                         $scope.story = {
@@ -75,7 +75,7 @@
                 kitchenStoryContent: $scope.story.content
             };
             $http.post(
-                "http://192.168.1.110:8080/user/saveMerchantKitchenStoryInfo", JSON.stringify(story_template), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                YF_MERCHANT_HOST + "/user/saveMerchantKitchenStoryInfo", JSON.stringify(story_template), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     var options;
                     if (Number(data.code) == 0) {
                         if (data.payload == null || data.payload == "") {

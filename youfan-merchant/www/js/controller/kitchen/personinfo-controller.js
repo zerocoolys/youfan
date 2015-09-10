@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker, $stateParams, $state) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker, $stateParams, $state, YF_MERCHANT_HOST) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -72,7 +72,7 @@
         };
 
         $http.post(
-            "http://192.168.1.110:8080/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload == null) {
                         $rootScope.Province = "";
@@ -208,7 +208,7 @@
                     sex: $scope.sex
                 };
                 $http.post(
-                    "http://192.168.1.110:8080/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    YF_MERCHANT_HOST + "/user/saveMerchantUserInfo", JSON.stringify(userInfo), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                         var options;
                         if (Number(data.code) != 0) {
                             options = {

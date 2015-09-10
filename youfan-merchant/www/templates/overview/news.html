@@ -66,6 +66,40 @@
                         <div class="text-center padding"></div>
                     </ion-slide>
                 </ion-slide-box>
+        <div class="padding">
+            <button class="button button-block button-positive" ng-click="init()">启动推送服务</button>
+            <button class="button button-block button-energized" ng-click="stopPush()">停止推送服务</button>
+            <button class="button button-block button-royal" ng-click="resumePush()">重启推送服务</button>
+
+            <div class="list">
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="text" placeholder="设置tag,多个tag用逗号分隔" required ng-trim="true" ng-model="options.tags" />
+                    </label>
+
+                    <input type="submit" class="button button-small button-positive" value="设置" ng-click="setTags()" />
+                    <!-- <button class="button button-small button-positive" ng-click="setTags()">
+                      设置
+                    </button>-->
+                </div>
+
+
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="text" placeholder="设置alias" required ng-trim="true" ng-model="options.alias" />
+                    </label>
+                    <input type="submit" class="button button-small button-positive" value="设置" ng-click="setAlias()" />
+                    <!-- <button class="button button-small button-positive" ng-click="setAlias()">
+                      设置
+                    </button> -->
+                </div>
+            </div>
+
+            <button class="button button-block button-royal" ng-click="cleanTagAndAlias()">清空设置</button>
+
+            <span class="error" ng-show="jPushForm.input.$error.required">要求输入设置值</span>
+
+        </div>
 
     </ion-scroll>
 </ion-view>

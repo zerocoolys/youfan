@@ -9,11 +9,11 @@
         .controller('kitcheninfo_story_myhobby', kitchenInfo_story_myHobby)
     ;
 
-    function kitchenInfo_story_myHobby($scope, $filter, $state, $ionicPopup, $location, $rootScope, $http) {
+    function kitchenInfo_story_myHobby($scope, $filter, $state, $ionicPopup, $location, $rootScope, $http, YF_MERCHANT_HOST) {
         $scope.text = "";
         var textTemplate = "";
         $http.post(
-            "http://192.168.1.110:8080/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (Number(data.code) == 0) {
                     if (data.payload != null) {
                         $scope.text = data.payload.hobby;
@@ -59,7 +59,7 @@
         $scope.isSaveText = function () {
             textTemplate = $scope.text;
             $http.post(
-                "http://192.168.1.110:8080/user/saveMyHobby", {
+                YF_MERCHANT_HOST + "/user/saveMyHobby", {
                     "id": $rootScope.user.id,
                     "hobby": $scope.text
                 }, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
