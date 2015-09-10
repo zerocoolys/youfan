@@ -7,7 +7,7 @@
     angular
         .module('yf_merchant')
         .controller('merchant_login', merchant_login);
-    function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup, YF_MERCHANT_HOST) {
+    function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup) {
         $scope.user = {
             phoneNumber: "18328725827",
             verificationCode: ""
@@ -65,10 +65,16 @@
                             }]
                         };
                     }
-                    $ionicPopup.alert(options)
-                        .then(function () {
-
-                        });
+                    $ionicPopup.alert(options);
+                }).error(function (data, status, headers, config) {
+                    var options = {
+                        "title": "服务器连接失败！",
+                        "buttons": [{
+                            text: "关闭",
+                            type: "button-positive clam"
+                        }]
+                    };
+                    $ionicPopup.alert(options);
                 });
             }
         };
@@ -89,7 +95,7 @@
                 userName: user.phoneNumber
             };
             $http.post(
-                YF_MERCHANT_HOST + "/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                 "http://192.168.1.110:8080/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     if (Number(data.code) == 0) {
                         $rootScope.user = {
                             id: data.payload.id
@@ -106,17 +112,15 @@
                         $ionicPopup.alert(options);
                     }
 
-                }, function (error) {
+                }).error(function (data, status, headers, config) {
                     var options = {
-                        "title": "系统繁忙！",
+                        "title": "服务器连接失败！",
                         "buttons": [{
                             text: "关闭",
                             type: "button-positive clam"
                         }]
                     };
-                    $ionicPopup.alert(options)
-                        .then(function () {
-                        });
+                    $ionicPopup.alert(options);
                 });
 
             //}else{
@@ -134,66 +138,66 @@
             //}
             //}
         };
-        $scope.register = function (user) {
-            $http.post(
-                YF_MERCHANT_HOST + "/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-
-                    var options;
-                    switch (data.registerStatus) {
-
-                        case "1":
-                            options = {
-                                "title": "注册成功！",
-                                "buttons": [{
-                                    text: "确定",
-                                    type: "button-positive clam"
-                                }]
-                            };
-                            $ionicPopup.alert(options)
-                                .then(function () {
-                                    $scope.user = data;
-                                    $rootScope.user = $scope.user;
-                                    $location.path("tutorial")
-                                });
-                            break;
-                        case "0":
-                            options = {
-                                "title": "注册失败！",
-                                "buttons": [{
-                                    text: "关闭",
-                                    type: "button-positive clam"
-                                }]
-                            };
-                            $ionicPopup.alert(options)
-                                .then(function () {
-                                });
-                            break;
-                        case "-1":
-                            options = {
-                                "title": "系统繁忙！",
-                                "buttons": [{
-                                    text: "关闭",
-                                    type: "button-positive clam"
-                                }]
-                            };
-                            $ionicPopup.alert(options)
-                                .then(function () {
-                                });
-                            break;
-                    }
-                }, function (error) {
-                    var options = {
-                        "title": "系统繁忙！",
-                        "buttons": [{
-                            text: "关闭",
-                            type: "button-positive clam"
-                        }]
-                    };
-                    $ionicPopup.alert(options)
-                        .then(function () {
-                        });
-                });
-
-        };
+        //$scope.register = function (user) {
+        //    $http.post(
+        //        "http://192.168.1.110:8080/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+        //
+        //            var options;
+        //            switch (data.registerStatus) {
+        //
+        //                case "1":
+        //                    options = {
+        //                        "title": "注册成功！",
+        //                        "buttons": [{
+        //                            text: "确定",
+        //                            type: "button-positive clam"
+        //                        }]
+        //                    };
+        //                    $ionicPopup.alert(options)
+        //                        .then(function () {
+        //                            $scope.user = data;
+        //                            $rootScope.user = $scope.user;
+        //                            $location.path("tutorial")
+        //                        });
+        //                    break;
+        //                case "0":
+        //                    options = {
+        //                        "title": "注册失败！",
+        //                        "buttons": [{
+        //                            text: "关闭",
+        //                            type: "button-positive clam"
+        //                        }]
+        //                    };
+        //                    $ionicPopup.alert(options)
+        //                        .then(function () {
+        //                        });
+        //                    break;
+        //                case "-1":
+        //                    options = {
+        //                        "title": "系统繁忙！",
+        //                        "buttons": [{
+        //                            text: "关闭",
+        //                            type: "button-positive clam"
+        //                        }]
+        //                    };
+        //                    $ionicPopup.alert(options)
+        //                        .then(function () {
+        //                        });
+        //                    break;
+        //            }
+        //        }, function (error) {
+        //            var options = {
+        //                "title": "系统繁忙！",
+        //                "buttons": [{
+        //                    text: "关闭",
+        //                    type: "button-positive clam"
+        //                }]
+        //            };
+        //            $ionicPopup.alert(options)
+        //                .then(function () {
+        //                });
+        //        });
+        //
+        //};
     }
 })();

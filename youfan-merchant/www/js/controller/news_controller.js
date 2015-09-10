@@ -56,8 +56,18 @@
             return jpushServiceFactory;
         }]);
 
-    function news($scope, $filter, $state, $ionicSlideBoxDelegate, jpushService, $ionicPopup) {
-        console.log()
+    function news($scope, $filter, $state, $ionicSlideBoxDelegate, jpushService, $ionicPopup, $window) {
+        var getMessage = function () {
+            $window.plugins.jPushPlugin.receiveMessageIniOSCallback = function (data) {
+                console.log("abc");
+                try {
+                    console.log("receiveMessageIniOSCallback " + data);
+                    alert(JSON.stringify(data))
+                } catch (exception) {
+                    console.log("receiveMessageIniOSCallback " + exception);
+                }
+            }
+        };
 
         $scope.newsIndex = 0;
         $scope.activenews = function (newsIndex) {
@@ -70,7 +80,6 @@
         $scope.activeSlide = function (slideIndex) {
             $scope.slideIndex = slideIndex;
             $ionicSlideBoxDelegate.enableSlide([false])
-            console.log($ionicSlideBoxDelegate)
 
         };
 
@@ -95,11 +104,12 @@
         };
 
         $scope.stopPush = function () {
-            jpushService.stopPush();
-            $ionicPopup.alert({
-                title: '提示',
-                template: '停止服务成功'
-            });
+            //jpushService.stopPush();
+            //$ionicPopup.alert({
+            //    title: '提示',
+            //    template: '停止服务成功'
+            //});
+            getMessage();
         };
 
         $scope.resumePush = function () {

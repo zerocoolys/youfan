@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.plugin.notification" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>com-plugin-notification</name>
+    <js-module name="com-plugin-notification" src="www/com-plugin-notification.js">
+        <clobbers target="cordova.plugins.com-plugin-notification" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="NotificationPlugin">
+                <param name="android-package" value="com.plugin.NotificationPlugin"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/NotificationPlugin.java" target-dir="src/com/plugin"/>
+    </platform>
+</plugin>

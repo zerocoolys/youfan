@@ -1,105 +1,112 @@
 <!-- 帮助 -->
-<ion-view view-title="" hide-nav-bar="true" cache-view="false"   >
+<ion-view view-title="" hide-nav-bar="true" cache-view="false">
 
     <ion-header-bar class="item-input-inset light-bg indexbar">
         <a class="button button-clear icon ion-ios-arrow-back" href="#/overview"></a>
+
         <h1 class="title ">消息通知</h1>
         <button class="button button-clear button-calm">
-           全部已阅
+            全部已阅
         </button>
 
     </ion-header-bar>
 
-    <ion-scroll class="stable-bg" style="height:100%; " cache-view="false" >
+    <ion-scroll class="stable-bg" style="height:100%; " cache-view="false">
 
-                <div class="  button-bar light-bg dishes">
-                    <a class="button button-clear   " ng-class="slideIndex == 0 ? 'current':''"
-                       ng-click="activeSlide(0)">订单通知<i
-                            class="calm"> 2</i> </a>
-                    <a class="button button-clear   " ng-class="slideIndex == 1 ? 'current':''"
-                       ng-click="activeSlide(1)">系统通知 <i
-                            class="calm">0</i> </a>
-                </div>
-
-                <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false">
-                    <ion-slide  class="order">
-                        <ion-list  >
-                            <ion-item >
-                                <span>订单编号：135268549</span>
-
-                                <p class="item-note mainColor">待付款</p>
-                            </ion-item>
-                            <ion-item class="item-thumbnail-left item-avatar" style="margin-bottom: 10px;" href="#/order_Details">
-                                <img src="../img/1.jpeg">
-
-                                <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
-
-                                <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
-
-                                <h2>￥98.00
-                                    <button class="fr button button-calm button-small" style="padding: 0 20px;">查看</button>
-                                </h2>
-                            </ion-item>
-
-                        </ion-list>
-                        <ion-list >
-                            <ion-item>
-                                <span>订单编号：135268549</span>
-
-                                <p class="item-note mainColor">待付款</p>
-                            </ion-item>
-                            <ion-item class="item-thumbnail-left item-avatar" href="#/order_Details">
-                                <img src="../img/ifzk.jpeg">
-
-                                <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
-
-                                <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
-
-                                <h2>￥98.00
-                                    <button class="fr button button-calm button-small" style="padding: 0 20px;">查看</button>
-                                </h2>
-                            </ion-item>
-
-                        </ion-list>
-                    </ion-slide>
-                    <ion-slide>
-                        <div class="text-center padding"></div>
-                    </ion-slide>
-                </ion-slide-box>
-        <div class="padding">
-            <button class="button button-block button-positive" ng-click="init()">启动推送服务</button>
-            <button class="button button-block button-energized" ng-click="stopPush()">停止推送服务</button>
-            <button class="button button-block button-royal" ng-click="resumePush()">重启推送服务</button>
-
-            <div class="list">
-                <div class="item item-input-inset">
-                    <label class="item-input-wrapper">
-                        <input type="text" placeholder="设置tag,多个tag用逗号分隔" required ng-trim="true" ng-model="options.tags" />
-                    </label>
-
-                    <input type="submit" class="button button-small button-positive" value="设置" ng-click="setTags()" />
-                    <!-- <button class="button button-small button-positive" ng-click="setTags()">
-                      设置
-                    </button>-->
-                </div>
-
-
-                <div class="item item-input-inset">
-                    <label class="item-input-wrapper">
-                        <input type="text" placeholder="设置alias" required ng-trim="true" ng-model="options.alias" />
-                    </label>
-                    <input type="submit" class="button button-small button-positive" value="设置" ng-click="setAlias()" />
-                    <!-- <button class="button button-small button-positive" ng-click="setAlias()">
-                      设置
-                    </button> -->
-                </div>
-            </div>
-
-            <button class="button button-block button-royal" ng-click="cleanTagAndAlias()">清空设置</button>
-
-            <span class="error" ng-show="jPushForm.input.$error.required">要求输入设置值</span>
-
+        <div class="  button-bar light-bg dishes">
+            <a class="button button-clear   " ng-class="slideIndex == 0 ? 'current':''"
+               ng-click="activeSlide(0)">订单通知<i
+                class="calm"> 2</i> </a>
+            <a class="button button-clear   " ng-class="slideIndex == 1 ? 'current':''"
+               ng-click="activeSlide(1)">系统通知 <i
+                class="calm">0</i> </a>
         </div>
+
+        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" show-pager="false">
+            <ion-slide class="order">
+                <ion-list>
+                    <ion-item>
+                        <span>订单编号：135268549</span>
+
+                        <p class="item-note mainColor">待付款</p>
+                    </ion-item>
+                    <ion-item class="item-thumbnail-left item-avatar" style="margin-bottom: 10px;"
+                              href="#/order_Details">
+                        <img src="../img/1.jpeg">
+
+                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+.
+                        <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
+
+                        <h2>￥98.00
+                            <button class="fr button button-calm button-small" style="padding: 0 20px;">查看</button>
+                        </h2>
+                    </ion-item>
+
+                </ion-list>
+                <ion-list>
+                    <ion-item>
+                        <span>订单编号：135268549</span>
+
+                        <p class="item-note mainColor">待付款</p>
+                    </ion-item>
+                    <ion-item class="item-thumbnail-left item-avatar" href="#/order_Details">
+                        <img src="../img/ifzk.jpeg">
+
+                        <h2>河马堂药膳厨房 <i class="fr icon ion-chevron-right icon-accessory"></i></h2>
+
+                        <p style="margin: 10px 0 10px 0">2014.11.08 下午13:00</p>
+
+                        <h2>￥98.00
+                            <button class="fr button button-calm button-small" style="padding: 0 20px;">查看</button>
+                        </h2>
+                    </ion-item>
+
+                </ion-list>
+            </ion-slide>
+            <ion-slide>
+                <div class="text-center padding"></div>
+                <div class="padding">
+                    <button class="button button-block button-positive" ng-click="init()">启动推送服务</button>
+                    <button class="button button-block button-energized" ng-click="stopPush()">停止推送服务</button>
+                    <button class="button button-block button-royal" ng-click="resumePush()">重启推送服务</button>
+
+                    <div class="list">
+                        <div class="item item-input-inset">
+                            <label class="item-input-wrapper">
+                                <input type="text" placeholder="设置tag,多个tag用逗号分隔" required ng-trim="true"
+                                       ng-model="options.tags"/>
+                            </label>
+
+                            <input type="submit" class="button button-small button-positive" value="设置"
+                                   ng-click="setTags()"/>
+                            <!-- <button class="button button-small button-positive" ng-click="setTags()">
+                              设置
+                            </button>-->
+                        </div>
+
+
+                        <div class="item item-input-inset">
+                            <label class="item-input-wrapper">
+                                <input type="text" placeholder="设置alias" required ng-trim="true"
+                                       ng-model="options.alias"/>
+                            </label>
+                            <input type="submit" class="button button-small button-positive" value="设置"
+                                   ng-click="setAlias()"/>
+                            <!-- <button class="button button-small button-positive" ng-click="setAlias()">
+                              设置
+                            </button> -->
+                        </div>
+                    </div>
+
+                    <button class="button button-block button-royal" ng-click="cleanTagAndAlias()">清空设置</button>
+
+                    <span class="error" ng-show="jPushForm.input.$error.required">要求输入设置值</span>
+
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+
 
     </ion-scroll>
 </ion-view>
