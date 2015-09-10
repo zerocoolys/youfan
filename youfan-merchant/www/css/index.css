@@ -1,0 +1,61 @@
+.index_course {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.6);
+    transition: .1s opacity linear;
+    z-index: 99;
+}
+
+.index_course .button-outline.button-outline {
+    border-color: #fff;
+    color: #fff;
+    position: absolute;
+    bottom: 120px;
+    left: 39%;
+    padding: 0 20px;
+    border-radius: 50%;
+}
+.guide_first{
+    width:100%;
+    text-align: center;
+    margin-top:20px;
+}
+.guide_circle
+{
+    text-align: center;
+}
+
+.guide_first img{
+
+}
+.course_none {
+    display: none;
+}
+.guide_second{
+    position:absolute;
+    width:100%;
+    top:64%;
+}
+.guide_third_content .guide_second{
+    top:60%;
+}
+.guide_second .guide_circle{
+    text-align: center;
+}
+.guide_second_top{
+    position:absolute;
+    top:20px;
+}
+.guide_second_top{
+    width:100%;
+}
+.guide_second_top a{
+    float:left;
+    margin-left:20px;
+}
+.guide_second_top span{
+    float:right;
+    margin-right:20px;
+}

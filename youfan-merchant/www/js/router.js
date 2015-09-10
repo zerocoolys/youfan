@@ -80,7 +80,7 @@
             $stateProvider
                 .state('order_Details', {
                     url: '/order_Details',
-                    params: {'orderNo': null},
+                    params: {'orderNo': null,'orderStatus':null},
                     templateUrl: 'templates/order/order_Details.html',
                     controller: 'orderDetails'
 

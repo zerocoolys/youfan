@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_nsc_controllers', [])
 
-    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO, YF_MERCHANT_MUSIC) {
+    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO, YF_MERCHANT_MUSIC,  $ionicModal) {
 
         console.log("ManageDishesNscCtrl");
 
@@ -43,10 +43,12 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $ionicLoading.hide();
         });
 
+
+
     })
 
 
-    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO) {
+    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO,$ionicModal) {
 
         console.log("ManageDishesNscAddCtrl");
 
@@ -70,6 +72,20 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
 
         $scope.removePic = function (_index) {
             $scope.imgs.splice(_index, 1);
+        };
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+           $ionicLoading.show({
+               template:"设置成功"
+           });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
         };
 
         $scope.addNscPic = function () {
@@ -150,10 +166,15 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $ionicLoading.hide();
             $scope.isActive = false;
         });
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
 
     })
 
-    .controller('ManageDishesNscEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller('ManageDishesNscEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker,$ionicModal) {
 
         console.log("ManageDishesNscEditCtrl");
         // 初始化参数
@@ -280,7 +301,25 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $ionicLoading.hide();
             $scope.isActive = false;
         });
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
 
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
     })
 
 ;

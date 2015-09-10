@@ -7,7 +7,7 @@
                 <i class="icon ion-ios-chatbubble-outline calm"></i></a>
         </i>
     </ion-header-bar>
-    <ion-content  overflow-scroll="false" style="height: 100%;  " class="home_class">
+    <ion-content overflow-scroll="false" style="height: 100%;  " class="home_class">
         <div class="row  light nima" id="dish" style="text-align: center;    text-decoration: none; height:22%;">
             <div class="col calm-bg light-border light padding " style="position: relative" href="#"
                  ng-click="goToDishes('dishes')">
@@ -126,11 +126,56 @@
         <!--</div>-->
         <!--</div>-->
 
-
     </ion-content>
 </ion-view>
 <!--</ion-nav-view>-->
 <div class="bar bar-footer bar-light light-border">
+
     <a href="tel:400-087-7000" class="title">客服电话：400-087-7000</a>
 </div>
+<div class="index_course" ng-hide="CourseNone">
+    <div ng-hide="GuideFirst">
+        <div class="guide_circle">
+            <img src="img/circle.png ">
+        </div>
+        <div class="guide_first">
+            <img src="img/guidefirst.png ">
+        </div>
+        <a class="button-small button bar-balanced button-outline" ng-click="CourseClose()">关闭页面</a>
+    </div>
+    <div class="guide_second_content" ng-hide="GuideSecond">
+        <div class="guide_second_top">
+            <a href="#/shop-course" ng-click="GuideBack()"> <img src="img/guideback.png "></a>
+            <span> <img src="img/guideclose.png " ng-click="GuideClose()"></span>
 
+        </div>
+        <div class="guide_second ">
+            <div style="margin-left:30%;">
+                <img src="img/guidesecond.png ">
+            </div>
+            <div class="row">
+                <div class="guide_circle col" ng-click="GuideSecondCircle()">
+                    <img src="img/circlesecond.png ">
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+    <div class="guide_second_content guide_third_content" ng-hide="GuideThird">
+        <div class="guide_second_top">
+            <a href="#/shop-course" ng-click="GuideBack()"> <img src="img/guideback.png "></a>
+            <span> <img src="img/guideclose.png " ng-click="GuideClose()"></span>
+        </div>
+        <div class="guide_second ">
+            <div style="text-align: center">
+                <img src="img/guidethird.png ">
+            </div>
+            <div class="row">
+                <div class="col"></div>
+                <div class=" guide_circle col" ng-click="GuideThirdCircle()"><img src="img/circlesecond.png "></div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+</div>

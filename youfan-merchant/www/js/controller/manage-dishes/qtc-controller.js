@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_qtc_controllers', [])
 
-    .controller('ManageDishesQtcCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_INFO) {
+    .controller('ManageDishesQtcCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_INFO, $ionicModal) {
 
         console.log("ManageDishesQtcCtrl");
 
@@ -41,10 +41,29 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             //隐藏载入指示器
             $ionicLoading.hide();
         });
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
 
     })
 
-    .controller('ManageDishesQtcAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO) {
+    .controller('ManageDishesQtcAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO, $ionicModal) {
 
         console.log("ManageDishesQtcAddCtrl");
 
@@ -148,11 +167,30 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             $ionicLoading.hide();
             $scope.isActive = false;
         });
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
 
 
     })
 
-    .controller('ManageDishesQtcEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller('ManageDishesQtcEditCtrl', function ($scope, $state, $stateParams, $ionicPopup, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker,$ionicModal) {
 
         console.log("ManageDishesQtcEditCtrl");
         // 初始化参数
@@ -280,5 +318,24 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             $scope.isActive = false;
         });
 
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
     })
 ;

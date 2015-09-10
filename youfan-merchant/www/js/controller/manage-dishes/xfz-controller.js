@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_xfz_controllers', [])
 
-    .controller('ManageDishesXfzCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicActionSheet, ManageDishesService, YF_MERCHANT_INFO) {
+    .controller('ManageDishesXfzCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicActionSheet, ManageDishesService, YF_MERCHANT_INFO,$ionicModal) {
 
         console.log("ManageDishesXfzCtrl");
 
@@ -53,10 +53,48 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             //隐藏载入指示器
             $ionicLoading.hide();
         });
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
 
     })
 
-    .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $stateParams, $ionicLoading, $ionicModal, $timeout, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO) {
+    .controller('ManageDishesXfzAddCtrl', function ($scope, $state, $ionicActionSheet, $stateParams, $ionicLoading, $ionicModal, $timeout, PhotoService, ManageDishesService, $cordovaCamera,  $cordovaImagePicker, YF_MERCHANT_INFO) {
         console.log("ManageDishesXfzAddCtrl");
 
         $scope.xfzNum = $stateParams.xfzNum;
@@ -154,9 +192,28 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             $ionicLoading.hide();
             $scope.isActive = false;
         });
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
     })
 
-    .controller("ManageDishesXfzEditCtrl", function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicActionSheet, $timeout, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker) {
+    .controller("ManageDishesXfzEditCtrl", function ($scope, $state, $stateParams, $ionicLoading, $ionicPopup, $ionicActionSheet, $timeout, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, $ionicModal) {
         console.log("ManageDishesXfzEditCtrl");
 
         $scope.paramObj.backType = "xfz";
@@ -250,6 +307,25 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             $scope.$emit("youfan-merchant-show-msg", "远程连接出错");
             $state.go("m_dishes.xfz");
         });
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
     })
 
 ;

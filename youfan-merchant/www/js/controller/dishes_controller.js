@@ -39,7 +39,30 @@
             $scope.loadOrderOrDishData();
         };
 
+        $scope.loadSummaryData = function () {
+            var url = "http://127.0.0.1:8080/orders/merchant/summary?";
+            var merchant = {};
+            merchant.sellerId = "888888888"; //获取商家用户ID
 
+            url = url+"sellerId="+merchant.sellerId;
+            console.log(url);
+
+            $http.get(url).success
+            (function (res) {
+
+                if(res == null) {
+                    alert("网络链接异常，请检查!");
+                    return;
+                }
+                if(res.code == 1) {
+                    alert("数据异常，请稍等!");
+                    return;
+                }
+                console.log(res);
+            });
+
+
+        }
         /**处理加载后的数据*/
         $scope.disposeOrderOrDishData = function (datas) {
             if(datas == null) {
@@ -87,11 +110,12 @@
             });
         }
 
+        $scope.loadSummaryData();
         $scope.loadOrderOrDishData();
 
 
         $scope.goToDetail = function (orderNo) {
-            $state.go('order_Details',{ 'orderNo':orderNo});
+            $state.go('order_Details',{ 'orderNo':orderNo,'orderStatus':$scope.statusIndex});
         }
 
     }
