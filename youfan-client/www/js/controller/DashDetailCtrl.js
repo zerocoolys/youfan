@@ -39,11 +39,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     $scope.onContentScroll = function () {
         if ($ionicScrollDelegate.getScrollPosition().top > 200) {
             $scope.AddColor = true;
-        }
-        else {
+        } else {
             $scope.AddColor = false;
         }
-    }
+    };
     $scope.share = function () {
 
         $ionicActionSheet.show({
@@ -138,6 +137,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         var menu = $scope.menuItemMap.get(menuId);
 
         if (menu.restNum > 0) {
+            if ($scope.orderCartMap.isEmpty()) {
+                $scope.orderCartMap.put($scope.rice.id, $scope.rice);
+            }
+
             if ($scope.orderCartMap.containsKey(menuId)) {
                 var item = $scope.orderCartMap.get(menuId);
                 if (item.name == "米饭" && item.count == 0) {
@@ -319,15 +322,15 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
 
     /*====================XiaoWei==================*/
-    $scope.merchantObj = {}
+    $scope.merchantObj = {};
     $scope.getMerchantKitchen = function () {
         var merchantId = Merchant.mki;
         if (merchantId) {
             $http.get(REST_URL + "/mr/getMrOne/" + merchantId).success(function (result) {
-                console.log(result);
+                //console.log(result);
                 if (result.payload != null) {
                     var _tmpData = result.payload;
-                    _tmpData["lg"] =_tmpData.location;
+                    _tmpData["lg"] = _tmpData.location;
                     if (!_tmpData.distribution) {
                         _tmpData["distribution"] = "暂无说明";
                     }

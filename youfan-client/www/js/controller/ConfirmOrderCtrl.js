@@ -2,7 +2,9 @@
  * Created by ss on 2015/8/17.
  */
 ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal, $ionicPopup,
-                                                          $timeout, Merchant, Order, REST_URL) {
+                                                          $timeout, User, Merchant, Order, REST_URL) {
+
+    $scope.IsShowBar = true;
     /*底部就餐时间选择*/
     $scope.diningScroll;
     $scope.timeSroll;
@@ -10,94 +12,102 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
     $scope.closeTime = "20:00";
     $scope.closeHourse = $scope.closeTime.split(":")[0];
     $scope.closeMinutes = $scope.closeTime.split(":")[1];
-    $scope.eatTime = "请选择";/*获取的就餐时间*/
-    $scope.currentMonth = parseInt(new Date().getMonth()+"")+1+'月'+new Date().getDate()+'日';
-    function loaded(){
-        setTimeout(function(){
-            $scope.diningScroll=new iScroll("dining",{
-                snap:"li",
-                hScrollbar:false,
-                vScrollbar:false,
-                onScrollEnd:function () {//滚动结束后执行的函数
-                    console.log(this.y)
+    $scope.eatTime = "请选择";
+    /*获取的就餐时间*/
+    $scope.currentMonth = parseInt(new Date().getMonth() + "") + 1 + '月' + new Date().getDate() + '日';
+    function loaded() {
+        setTimeout(function () {
+            $scope.diningScroll = new iScroll("dining", {
+                snap: "li",
+                hScrollbar: false,
+                vScrollbar: false,
+                onScrollEnd: function () {//滚动结束后执行的函数
+                    //console.log(this.y)
                 }
             });
-            if(parseInt(new Date().getHours()) >= 15){
-                $scope.diningScroll.scrollTo(0 , 36, 500, true);
+            if (parseInt(new Date().getHours()) >= 15) {
+                $scope.diningScroll.scrollTo(0, 36, 500, true);
             }
             $scope.diningScroll.refresh()
-        },100 );
-        setTimeout(function(){
-            $scope.timeSroll=new iScroll("time",{
-                snap:"li",
-                hScrollbar:false,
-                vScrollbar:false,
-                onScrollEnd:function () {//滚动结束后执行的函数
-                    $scope.eatTime = $scope.choiceTimes[-this.y/36];
-                    console.log($scope.eatTime)
+        }, 100);
+        setTimeout(function () {
+            $scope.timeSroll = new iScroll("time", {
+                snap: "li",
+                hScrollbar: false,
+                vScrollbar: false,
+                onScrollEnd: function () {//滚动结束后执行的函数
+                    $scope.eatTime = $scope.choiceTimes[-this.y / 36];
+                    //console.log($scope.eatTime)
                 }
             });
-            $scope.timeSroll.scrollTo(0 , 0, 500, true);
-            setTimeout(function () { $scope.timeSroll.refresh(); }, 0);
-        },200 );
-        $scope.currentHours=parseInt(new Date().getHours());
-        if(parseInt(new Date().getHours()) >= 17){
+            $scope.timeSroll.scrollTo(0, 0, 500, true);
+            setTimeout(function () {
+                $scope.timeSroll.refresh();
+            }, 0);
+        }, 200);
+        $scope.currentHours = parseInt(new Date().getHours());
+        //console.log(new Date().getHours());
+        if (parseInt(new Date().getHours()) >= 17) {
             $scope.isShowDing = false;
+        } else {
+            $scope.isShowDing = true;
         }
-        $scope.currentMinutes=parseInt(new Date().getMinutes());
+        $scope.currentMinutes = parseInt(new Date().getMinutes());
         $scope.cookTime = $scope.currentMinutes + 45;
-        if($scope.cookTime > 60) {
-            $scope.currentHours+=1;
+        if ($scope.cookTime > 60) {
+            $scope.currentHours += 1;
             $scope.earliestTime = $scope.cookTime - 60;
-            $scope.choiceTimes.push($scope.currentHours+':'+ $scope.earliestTime+'(最早)');
-            if($scope.earliestTime > 30){
-                $scope.currentHours+=1;
+            $scope.choiceTimes.push($scope.currentHours + ':' + $scope.earliestTime + '(最早)');
+            if ($scope.earliestTime > 30) {
+                $scope.currentHours += 1;
             }
-        }else{
-            $scope.choiceTimes.push($scope.currentHours+':'+$scope.cookTime+'(最早)');
-            if($scope.earliestTime > 30){
-                $scope.currentHours+=1;
-            }else{
-                $scope.choiceTimes.push($scope.currentHours +':'+'30');
+        } else {
+            $scope.choiceTimes.push($scope.currentHours + ':' + $scope.cookTime + '(最早)');
+            if ($scope.earliestTime > 30) {
+                $scope.currentHours += 1;
+            } else {
+                $scope.choiceTimes.push($scope.currentHours + ':' + '30');
             }
         }
-//            比如厨房20:00关门；
-        for($scope.currentHours;$scope.currentHours <= $scope.closeHourse; $scope.currentHours++){
-            if($scope.currentHours == $scope.closeHourse) {
-                if($scope.closeMinutes >= 30){
-                    $scope.choiceTimes.push($scope.currentHours +':'+'00');
-                    $scope.choiceTimes.push($scope.currentHours +':'+'30');
-                }else{
-                    $scope.choiceTimes.push($scope.currentHours +':'+'00');
+        // 比如厨房20:00关门;
+        for ($scope.currentHours; $scope.currentHours <= $scope.closeHourse; $scope.currentHours++) {
+            if ($scope.currentHours == $scope.closeHourse) {
+                if ($scope.closeMinutes >= 30) {
+                    $scope.choiceTimes.push($scope.currentHours + ':' + '00');
+                    $scope.choiceTimes.push($scope.currentHours + ':' + '30');
+                } else {
+                    $scope.choiceTimes.push($scope.currentHours + ':' + '00');
                 }
-            }else{
-                $scope.choiceTimes.push($scope.currentHours +':'+'00');
-                $scope.choiceTimes.push($scope.currentHours +':'+'30');
+            } else {
+                $scope.choiceTimes.push($scope.currentHours + ':' + '00');
+                $scope.choiceTimes.push($scope.currentHours + ':' + '30');
             }
         }
     }
+
     /*点击选择订餐时间*/
-    $scope.diningTime = function() {
+    $scope.diningTime = function () {
         $scope.choiceTimes.length = 0;
-        loaded();/*就餐时间选择初始化*/
-        console.log($scope.choiceTimes);
+        loaded();
+        /*就餐时间选择初始化*/
+        //console.log($scope.choiceTimes);
         $scope.IsShowBar = false;
         $scope.showDiningTime = true;
-    }
-//    取消订餐时间
-    $scope.cancelDiningTime = function() {
+    };
+    // 取消订餐时间
+    $scope.cancelDiningTime = function () {
         $scope.IsShowBar = true;
         $scope.showDiningTime = false;
-//        $scope.eatTime = "请选择";
-    }
-    $scope.finishDiningTime = function() {
-        if($scope.eatTime == "请选择"){
+        //scope.eatTime = "请选择";
+    };
+    $scope.finishDiningTime = function () {
+        if ($scope.eatTime == "请选择") {
             $scope.eatTime = $scope.choiceTimes[0];
         }
         $scope.IsShowBar = true;
         $scope.showDiningTime = false;
-    }
-/*订餐时间滚动*/
+    };
+    /*订餐时间滚动*/
 
     $ionicModal.fromTemplateUrl('templates/remarks.html', {
         scope: $scope
@@ -141,8 +151,10 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             menusJsonObj[item.id] = [item.count, item.restNum];
         });
 
+        // TODO handle repastTime
+
         var orderData = {
-            buyerId: 22305304567,
+            buyerId: User.id,
             sellerId: Merchant.sellerId,
             itemMap: menusJsonObj,
             comments: $scope.comments.trim().replace(" ", ","),
@@ -157,7 +169,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
 
         // ========= TEST CODE ==========
         // ===== 支付价格设置为0.01￥ =====
-        orderData.discountPrice = 1;
+        //orderData.discountPrice = 1;
         // ==============================
 
         // 创建订单
@@ -166,8 +178,8 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
                 //console.log(JSON.stringify(response));
                 // 跳转到支付页面
                 $state.go('tab.pay-page', {
-                    order_no: response.data.payload.orderNo,
-                    discountPrice: orderData.discountPrice
+                    orderNo: response.data.payload.orderNo,
+                    discountPrice: parseFloat(orderData.discountPrice) * 100
                 });
             }, function (error) {
                 //console.log(error);
