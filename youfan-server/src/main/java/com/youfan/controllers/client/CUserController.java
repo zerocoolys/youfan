@@ -40,9 +40,11 @@ public class CUserController {
         ObjectMapper mapper = new ObjectMapper();
         ClientUserParams userParams = null;
         String userId = null;
+        String userTel = null;
         try {
             userParams = mapper.readValue(clientUserParamsStr, ClientUserParams.class);
-            userId = userService.getUserIdByToken(userParams.getToken());
+            userTel = userParams.getTel();
+            userId = userService.getUserByTel(userTel).getId();
         } catch (Exception e) {
             return Responses.FAILED();
         }

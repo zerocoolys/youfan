@@ -2,6 +2,7 @@ package com.youfan.controllers.client;
 
 import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.controllers.params.ClientUserParams;
+import com.youfan.controllers.params.LocalStorage;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.ClientUserService;
@@ -107,6 +108,7 @@ public class LoginController {
 
         try {
             userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getPassword());
+            System.out.println(userClientVO);
 
 //			/////////////// MrDeng添加活动参加功能 请此处完善代码时
 //			/////////////// 把这段代码移动到成功登录判定下/////////////////////////
@@ -133,12 +135,11 @@ public class LoginController {
             double r = Math.random() * 100000;
             String tmp = t + time + r;
             String token = DigestUtils.md5DigestAsHex(tmp.getBytes());
-            System.out.println("login==================================="+token);
             jedis.setex(token, (int) TimeUnit.DAYS.toSeconds(1), userClientVO.getId());
 
-            ClientUserParams p = new ClientUserParams();
+            LocalStorage p = new LocalStorage();
             p.setToken(token);
-            p.setUid(userClientVO.getId());
+            p.setClientUserVO(userClientVO);
             //登陆成功
             return Responses.SUCCESS().setPayload(p);
         } else {
