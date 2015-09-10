@@ -146,6 +146,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         controller: 'ChatsCtrl',
                         access: {requiredAuthentication: true}
                     }
+                },
+                params: {
+                    userobj: null
                 }
             })
             .state('tab.chat-detail', {
@@ -320,6 +323,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         templateUrl: 'templates/login/reset-pwd-two.html',
                         controller: 'ResetPwdTwoCtrl'
                     }
+                },
+                params: {
+                    telNo: null
                 }
             })
             //设置密码

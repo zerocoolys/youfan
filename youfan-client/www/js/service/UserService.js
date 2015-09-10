@@ -6,6 +6,13 @@ var api = {
     base_url: "http://localhost:8080"
 };
 
+var sms = {
+    codes: function () {
+
+        return code;
+    }
+};
+
 
 ServiceModule
     .factory('AuthenticationService', function () {
@@ -51,14 +58,15 @@ ServiceModule
     })
     .factory('SMSService', function ($http) {
         var code = "";
-        var codeLength = "";
+        var codeLength = 6;
         //生成 6 位随机数验证码
         for (var i = 0; i < codeLength; i++) {
             code += parseInt(Math.random() * 9).toString();
         }
         return {
             sendSMS: function (tel) {
-                return $http.get('http://07zhywjh.6655.la:19982/platform/sendSMS/1/' + code + '/' + tel);
+                var smsUrl = "http://192.168.1.107:8080/platform/sendSMS/1/" + code + "/" + tel;
+                return $http.get(smsUrl);
             },
             /**************************************************/
             /*****************客户端--注册***********************/
@@ -94,8 +102,8 @@ ServiceModule
             signOut: function () {
                 return $http.post(api.base_url + '/client/logout', {});
             },
-            resetPassword: function (password) {
-                return $http.post(api.base_url + '/cuser/pinfo', {password: password});
+            resetPassword: function (tel, password) {
+                return $http.post(api.base_url + '/cuser/pinfo', {tel: tel, password: password});
             },
             updateInfo: function (post) {
                 return $http.post(api.base_url + '/cuser/binfo', post);
@@ -109,5 +117,16 @@ ServiceModule
             praise: function () {
                 return $http.post(api.base_url + '/cuser/praise', {});
             }
+        }
+    })
+    .factory('ResponseUser', function(){
+        return {
+            id: null,
+            name: null,
+            age: null,
+            tel: null,
+            sex: null,
+            jobs: null
+
         }
     });

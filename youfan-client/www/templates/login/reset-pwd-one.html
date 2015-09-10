@@ -16,7 +16,7 @@
                         style="margin-right: 20px" ng-click="sendMessage(1, user.tel)">{{validCode}}
                 </button>
             </div>
-            <a class="button button-block bar-balanced" ng-click="verifyCaptcha()">下一步</a>
+            <a class="button button-block bar-balanced" ng-click="verifyCaptcha(user.tel, user.captcha)">下一步</a>
 
             <p class="existingAccount">已有密码？&nbsp;&nbsp;<a ui-sref="tab.pwd-login" style="color: #0c63ee">立即登陆</a></p>
         </div>
