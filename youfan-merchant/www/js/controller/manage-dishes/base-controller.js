@@ -21,7 +21,9 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             console.log("downsale");
 
             $ionicLoading.show({
+
                 templateUrl: YF_MERCHANT_LOADING_COMMENT
+
             });
 
             $timeout(function () {

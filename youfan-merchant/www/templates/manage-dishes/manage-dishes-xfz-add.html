@@ -9,21 +9,35 @@
         </button>
     </ion-nav-buttons>
     <ion-content class="">
-        <div class="item item-divider " style="padding-top: 20px;">
-            <span class="icon" style="color: #e6b400">*</span>
-            <span style="color: #a1a1a1">{{xfzNum}}人餐小饭桌图片</span>
-            <ion-list>
-                <ion-item ng-repeat="item in imgs">
-                    <img ng-src="{{item.url}}" style="width: 128px; height: 64px">
-                    <i class="icon ion-android-remove-circle" data-ng-click="removePic($index)"></i>
-                </ion-item>
-            </ion-list>
-            <a ng-click="addXfzPic()" class="tab-item calm-bg light"
-               style=" height: 60px; width: 60px;margin-top: 10px;padding: 13px 5px 5px 5px; ">
-                <i class="icon ion-plus "></i>
-            </a>
-        </div>
+        <!--<div class="item item-divider " style="padding-top: 20px;">-->
+            <!--<span class="icon" style="color: #e6b400">*</span>-->
+            <!--<span style="color: #a1a1a1">{{xfzNum}}人餐小饭桌图片</span>-->
+            <!--<ion-list>-->
+                <!--<ion-item ng-repeat="item in imgs">-->
+                    <!--<img ng-src="{{item.url}}" style="width: 128px; height: 64px">-->
+                    <!--<i class="icon ion-android-remove-circle" data-ng-click="removePic($index)"></i>-->
+                <!--</ion-item>-->
+            <!--</ion-list>-->
+            <!--<a ng-click="addXfzPic()" class="tab-item calm-bg light"-->
+               <!--style=" height: 60px; width: 60px;margin-top: 10px;padding: 13px 5px 5px 5px; ">-->
+                <!--<i class="icon ion-plus "></i>-->
+            <!--</a>-->
+        <!--</div>-->
+        <ion-item class="item item-divider stable-bg item-borderless" style="padding-top: 20px">
+            <div><span style="color: red;width: 3%">*</span>{{dishes.xfzNum}}人餐小饭桌图片</div>
 
+                    <span style="position: relative;margin-right: 10px;" class="" ng-repeat="item in imgs">
+
+                        <i style="position: absolute;margin: 10px 0  0 60px" class="assertive
+                          icon ion-close-circled  " data-ng-click="removePic($index)"></i>
+                         <img data-ng-click="dishPic.show()" ng-src="{{item.url}}" style="width: 68px; height: 59px;margin-top: 20px;">
+                    </span>
+
+
+            <button data-ng-if="imgs.length < 4" class="button button-calm button-large p "
+                    style="margin-top: 20px;" data-ng-click="addXfzPic()"><i
+                class="icon ion-plus "></i></button>
+        </ion-item>
         <div class="item item-input padding ">
 
             <i class="icon" style="color: #e6b400">*</i>
@@ -41,4 +55,28 @@
         <div class="calm " style="margin: 3px 8px">注：小饭桌就餐人数有多少人，则免费送几份主食。续加则按1元/份收费</div>
 
     </ion-content>
+    <script id="templates/dishPic.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar bar-header stable-bg">
+                <button class="button button-clear icon ion-ios-arrow-back button-calm"
+                        ng-click="dishPic.hide()"></button>
+                <div class="h1 title " align-text="center">菜品照片</div>
+            </ion-header-bar>
+            <ion-content>
+                <ion-item style=" margin-bottom: 15px;"  ng-repeat="item in imgs" >
+                    <div> <img ng-src="{{item.url}}"  style="width: 100%;" ng-click="dishPic.show()"></div>
+
+                    <button style="padding: 3px 15px  "  class="button button-energized light button-small item-note energized-border"
+                            data-ng-click="removePic($index)">删除
+                    </button>
+
+                    <button style="padding: 3px 15px ;margin-right: 10px; " class="button button-assertive button-small light item-note assertive-border "
+                            data-ng-click="replacePic($index)">设置为封面
+                    </button>
+
+                </ion-item>
+            </ion-content>
+
+        </ion-modal-view>
+    </script>
 </ion-view>

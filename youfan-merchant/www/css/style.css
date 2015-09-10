@@ -156,7 +156,7 @@ a{
     height: 100%;
 }
 .slider-slide {
-    text-align: center;
+    /*text-align: center;*/
     font-weight: 300;
 }
 
@@ -191,4 +191,8 @@ a{
 
 .selected {
     background-color: #d2dced;
+}
+.point input{
+    text-align: center;
+
 }
