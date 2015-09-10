@@ -123,18 +123,18 @@ public class OrderController {
             orderParams.setOrderStatus(orderStatus);
             orderParams.setRepastMode(repastMode);
             List<Integer> orderStatusList = null;
-            if(orderParams.getOrderStatus() == Constants.ORDER_STATUS_REFUND) {
-            	orderStatusList = new ArrayList<Integer>();
-            	orderStatusList.add(OrderStatus.ORDER_STEP2_CLIENT_WITHDRAW_PAYED.value());
-            	orderStatusList.add(OrderStatus.ORDER_STEP2_MERCHANT_WITHDRAW_PAYED.value());
-            	orderStatusList.add(OrderStatus.ORDER_STEP3_CLIENT_WITHDRAW_PAYED.value());
-            	orderStatusList.add(OrderStatus.ORDER_STEP3_MERCHANT_WITHDRAW_PAYED.value());
-            	orderParams.setOrderStatusList(orderStatusList);
-            } else if(orderParams.getOrderStatus() == Constants.ORDER_STATUS_COMPLETE_REFUND) {
-            	orderStatusList = new ArrayList<Integer>();
-            	orderStatusList.add(OrderStatus.ORDER_WITHDRAW_PAYED.value());
-            	orderStatusList.add(OrderStatus.ORDER_WITHDRAW_COD.value());
-            	orderParams.setOrderStatusList(orderStatusList);
+            if (orderParams.getOrderStatus() == Constants.ORDER_STATUS_REFUND) {
+                orderStatusList = new ArrayList<Integer>();
+                orderStatusList.add(OrderStatus.ORDER_STEP2_CLIENT_WITHDRAW_PAYED.value());
+                orderStatusList.add(OrderStatus.ORDER_STEP2_MERCHANT_WITHDRAW_PAYED.value());
+                orderStatusList.add(OrderStatus.ORDER_STEP3_CLIENT_WITHDRAW_PAYED.value());
+                orderStatusList.add(OrderStatus.ORDER_STEP3_MERCHANT_WITHDRAW_PAYED.value());
+                orderParams.setOrderStatusList(orderStatusList);
+            } else if (orderParams.getOrderStatus() == Constants.ORDER_STATUS_COMPLETE_REFUND) {
+                orderStatusList = new ArrayList<Integer>();
+                orderStatusList.add(OrderStatus.ORDER_WITHDRAW_PAYED.value());
+                orderStatusList.add(OrderStatus.ORDER_WITHDRAW_COD.value());
+                orderParams.setOrderStatusList(orderStatusList);
             }
 
 
@@ -150,15 +150,28 @@ public class OrderController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "/{orderNo}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET, path = "/{orderNo}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response findDishByOrderNo(@PathVariable String orderNo) {
         List<DishVO> result = new ArrayList<>();
 
         List<OrderDishRelVO> orderDishRelVOList = orderService.findDishByOrderNo(orderNo);
 
+        Map<String, Integer> orderDishMap = orderDishRelVOList.stream()
+                .collect(Collectors.toMap(OrderDishRelVO::getItemId, OrderDishRelVO::getCount));
+
         List<MenuVO> menuVOList = menuService.findByIds(orderDishRelVOList.stream().map(OrderDishRelVO::getItemId).collect(Collectors.toList()));
 
-        // TODO DishVO
+        menuVOList.forEach(o -> {
+            if (orderDishMap.containsKey(o.getId())) {
+                DishVO dishVO = new DishVO();
+                dishVO.setId(o.getId());
+                dishVO.setName(o.getName());
+                dishVO.setUnitPrice(o.getPrice());
+                dishVO.setCount(orderDishMap.get(o.getId()));
+
+                result.add(dishVO);
+            }
+        });
 
         return Responses.SUCCESS().setPayload(result);
     }
@@ -175,8 +188,6 @@ public class OrderController {
         pageParamsMap.put("start", pagination.getStart());
         pageParamsMap.put("end", pagination.getEnd());
         pageParamsMap.put("userId", userId);
-        pageParamsMap.put("orderBy", orderParams.getOrderBy());
-        pageParamsMap.put("sort", orderParams.getAsc());
         pagination.setParams(pageParamsMap);
 
         List<OrderVO> result = orderService.findByUserId(userId, pagination);
@@ -234,7 +245,8 @@ public class OrderController {
             response = Responses.SUCCESS().setPayload(result);
 
             // 修改商家菜品余量
-            menuService.conversionRestNum(menuVOList);
+            // TODO 米饭问题
+//            menuService.conversionRestNum(menuVOList);
             // TODO 若使用优惠券元需要修改优惠券状态
         }
 
@@ -251,12 +263,12 @@ public class OrderController {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/merchant/summary")
-    public Response listByMerchantSummary( @RequestParam("sellerId") String sellerId) {
+    public Response listByMerchantSummary(@RequestParam("sellerId") String sellerId) {
         Response response = null;
         OrderParams orderParams = new OrderParams();
         try {
             orderParams.setSellerId(sellerId);
-            Map<String,Long> summary =  orderService.findOrdersByMerchantSummary(orderParams);
+            Map<String, Long> summary = orderService.findOrdersByMerchantSummary(orderParams);
             response = Responses.SUCCESS().setPayload(summary);
         } catch (Exception e) {
             response = Responses.FAILED();

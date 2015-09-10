@@ -259,7 +259,7 @@
 				#{status}
 			</foreach>
 		)
-		ORDER BY #{orderBy} #{sort} LIMIT #{start}, #{end}
+		ORDER BY ORDER_TIME DESC LIMIT #{start}, #{end}
 	</select>
 
     <select id="findDishByOrderNo" parameterType="java.lang.String" resultMap="OrderDishEntityMap">
