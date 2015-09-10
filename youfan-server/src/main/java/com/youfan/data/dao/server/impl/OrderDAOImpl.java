@@ -96,7 +96,8 @@ public class OrderDAOImpl implements OrderDAO {
 		orderEntity.setSellerId(order.getSellerId());
 		orderEntity.setOrgPrice(BigDecimal.valueOf(order.getOrgPrice()));
 		orderEntity.setDiscountPrice(BigDecimal.valueOf(order
-				.getDiscountPrice()));
+                .getDiscountPrice()));
+        orderEntity.setDataStatus(order.getDataStatus());
 		orderEntity.setOrderStatus(order.getOrderStatus());
 
 		orderEntity.setOrderTime(Timestamp.from(Instant.now()));
@@ -194,7 +195,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 
 	public List<Map<String, Object>> findOrdersByMerchantSummary(OrderParams order) {
-	
+
 		return sqlSession.selectList("findOrderSummary", order);
 
 	}
