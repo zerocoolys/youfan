@@ -37,17 +37,19 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     //};
     $scope.merChantData = [];
     $scope.initMerchant = function (cp) {
-        mapTools.getUserLngLat($scope, $scope.mapObj, function (data) {
+        mapTools.getUserLngLat($scope.mapObj, function (data) {
             var per = {};
             var p = {}
             if (Merchant.localRange) {
-                per["lng"] = 104.069624;//Merchant.localRange.split(",")[0];
-                per["lat"] = 30.522269;//Merchant.localRange.split(",")[1];
+                per["lng"] = Merchant.localRange.split(",")[0];//104.069624;//
+                per["lat"] = Merchant.localRange.split(",")[1];//30.522269;//
+                per["scope"] = 300;
                 p["params"] = per
                 Merchant.localRange = undefined;
             } else {
-                per["lng"] = 104.070091;//data.split(",")[0];
-                per["lat"] = 30.510871;//data.split(",")[1];
+                per["lng"] = data.split(",")[0];//104.070091;//
+                per["lat"] = data.split(",")[1];//30.510871;//
+                per["scope"] = 300;
                 p["params"] = per
             }
             $http.post(REST_URL + "/mr/getGeographical", p).success(function (result) {
@@ -115,7 +117,10 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     $scope.inputText = {value: ""};
 
     $scope.tab_keydown = function (data) {
-        if (data.trim() == "" || data == undefined) {
+        if (data == undefined) {
+            return
+        }else if(data == ""){
+            $scope.initMerchant();
             return
         }
         $http.get(REST_URL + "/mr/getKitchenByName/" + data).success(function (result) {
