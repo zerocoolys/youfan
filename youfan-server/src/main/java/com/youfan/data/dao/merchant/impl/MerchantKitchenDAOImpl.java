@@ -110,7 +110,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         Criteria c = Criteria.where(Constants.CONPONS_STATUS).is(0);
         if (p.getParams() != null && p.getParams().size() > 0) {
             p.getParams().forEach((k, v) -> {
-                if ("lnglat".indexOf(k) == -1) {
+                if ("lnglatscope".indexOf(k) == -1) {
                     c.and(k).is(v);
                 }
             });
@@ -127,7 +127,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
         Point point = new Point(Double.valueOf(p.getParams().get("lng").toString()), Double.valueOf(p.getParams().get("lat").toString()));
 
-        NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(2).query(query);
+        NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(Double.valueOf(p.getParams().get("scope").toString())).query(query);
 
         TypedAggregation<MerchantKitchenInfoEntity> aggs = newAggregation(MerchantKitchenInfoEntity.class, geoNear(geoNear, MERCHANTKITCHEN_LOCATION), sort(Sort.Direction.ASC, MERCHANTKITCHEN_LOCATION));
 
