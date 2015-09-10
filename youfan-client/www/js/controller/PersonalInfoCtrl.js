@@ -1,16 +1,15 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading,$ionicPopup, $timeout, $http,UserService) {
+ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $ionicPopup, $timeout, $http, UserService, ResponseUser) {
 
-    $scope.sex = "待完善";
-    $scope.age = "待完善";
-    $scope.user = {
-        name: "优饭1343",
-        jobs: "待完善"
+
+    $scope.post = {
+        name: ResponseUser.name,
+        sex: ResponseUser.sex,
+        age: ResponseUser.age,
+        jobs: ResponseUser.jobs
     };
-
-    $scope.post = {};
 
     $scope.showActionSexSheet = function (id) {
         if (id == 1) {
@@ -88,10 +87,10 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
             }
 
         })
-        .error(function (status, data) {
-            console.log(status);
-            console.log(data);
-        });
+            .error(function (status, data) {
+                console.log(status);
+                console.log(data);
+            });
 
 
         $ionicLoading.show({
