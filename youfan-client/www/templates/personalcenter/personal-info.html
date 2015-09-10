@@ -1,9 +1,9 @@
 <ion-view hide-tabs hide-nav-bar="true" class="personal_info">
     <ion-header-bar>
         <!--<a class="button button-icon icon-left ion-chevron-left button-clear"></a>-->
-        <button class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.chats"></button>
+        <button class="button ion-ios-arrow-left button-clear" ui-sref="tab.chats"></button>
         <h2 class="title">我的资料</h2>
-        <button class="button button-clear mainColor" ng-click="show(post)">保存</button>
+        <button class="button button-clear" ng-click="show(post)">保存</button>
     </ion-header-bar>
     <ion-content>
         <ion-list>
@@ -15,7 +15,7 @@
             <ion-item>
                 昵称
                 <span class="item-note">
-                    <input type="text" ng-model="post.name" value={{post.name}}>
+                    <input style="width: 70px" type="text" ng-model="post.name" value={{post.name}}>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right" ng-click="showActionSexSheet(1)">
@@ -33,7 +33,7 @@
             <ion-item>
                 职业
                  <span class="item-note">
-                  <input type="text" ng-model="post.jobs" value={{post.jobs}} placeholder="待完善">
+                  <input style="width: 70px" type="text" ng-model="post.jobs" value={{post.jobs}} placeholder="待完善">
                 </span>
             </ion-item>
         </ion-list>
