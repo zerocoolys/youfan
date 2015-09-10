@@ -4,6 +4,8 @@ import com.youfan.commons.Constants;
 import com.youfan.commons.Pagination;
 import com.youfan.data.support.IdGenerator;
 import com.youfan.system.mongo.MongoPool;
+import com.youfan.utils.JSONUtils;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -138,13 +140,26 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
 	default Query buildAndEqualQuery(Map<String, Object> map) {
 		Query query = new Query();
+		if(map==null||map.isEmpty())
+			return query;
 		if (map != null && !map.isEmpty()){
 			for (String key : map.keySet()) {
 				if (map.get(key) != null) {
-					System.out.println(key+" -->"+map.get(key));
 					query.addCriteria(where(key).is(map.get(key)));
 				}
 			}
+		}
+		return query;
+	}
+	
+	default Query buildAndEqualQuery(Object vo) {
+		Query query = new Query();
+		if(vo==null)
+			return query;
+		try {
+			query = buildAndEqualQuery(JSONUtils.obj2map(vo));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return query;
 	}

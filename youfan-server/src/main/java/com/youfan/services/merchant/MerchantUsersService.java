@@ -1,7 +1,9 @@
 package com.youfan.services.merchant;
 
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.merchant.*;
+import com.youfan.controllers.params.merchant.MerchantUserParams;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
@@ -71,31 +73,11 @@ public interface MerchantUsersService {
      */
     public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize);
 
-    /**
-     * 根据厨房信息的status来查询所有信息并分页
-     *
-     * @param page     　第几页，大于等于1
-     * @param pageSize 　每一页的大小
-     * @param status   　状态：0为未审核，1为审核，-1为删除
-     * @return total为数据总条数，pageData每一页的数据
-     */
-    CollectionVO merchantKitchenInfoPageListByStatus(Integer page, Integer pageSize, Integer status);
-
-    /**
-     * 根据商家用户信息的status来查询所有信息并分页
-     *
-     * @param page     　第几页，大于等于1
-     * @param pageSize 　每一页的大小
-     * @param status   　状态：0为未审核，1为审核，-1为删除
-     * @return total为数据总条数，pageData每一页的数据
-     */
-    CollectionVO merchantUserInfoPageListByStatus(Integer page, Integer pageSize, Integer status);
 
     public List<MerchantUserEntity> getMerchantByStatus(Integer status) throws UserException;
 
     public void checkMerchant(String parameter, Integer status);
 
-    ;
 
     public long count(Query query);
 
@@ -174,4 +156,40 @@ public interface MerchantUsersService {
      * @return
      */
     List<MerchantKitchenInfoVO> conditionalSearch(String merchantName);
+    
+    
+    /**
+     * 
+     * @param muParams
+     * @param pager
+     * @return
+     * @description 商家信息分页 多条件与查询
+     * @version 1.0
+     * @author QinghaiDeng
+     * @update 2015年9月10日 下午4:12:02
+     */
+    List<MerchantUserVO> getPagerByParams(MerchantUserParams muParams,Pagination pager);
+    
+    /**
+     * 
+     * @param muParams
+     * @return
+     * @description 非删除数据中 查询条件下记录条数 参数中不设置时count所有
+     * @version 1.0
+     * @author QinghaiDeng
+     * @update 2015年9月10日 下午4:20:39
+     */
+    long count(MerchantUserParams muParams);
+    
+    /**
+     * 根据商家用户ID 修改商家信息
+     * @param id
+     * @param muParams
+     * @return
+     * @description TODO
+     * @version 1.0
+     * @author QinghaiDeng
+     * @update 2015年9月10日 下午5:16:53
+     */
+    int updateById(String id,MerchantUserParams muParams);
 }

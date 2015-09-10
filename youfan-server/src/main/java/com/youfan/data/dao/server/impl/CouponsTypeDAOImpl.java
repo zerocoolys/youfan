@@ -126,7 +126,11 @@ public class CouponsTypeDAOImpl implements CouponsTypeDAO{
 	public int updateById(String id, CouponsTypeVO vo) {
 		Update update;
 		try {
-			update = buildUpdate(JSONUtils.obj2map(vo));
+			Map<String, Object> paramsMap = JSONUtils.obj2map(vo);
+			if(paramsMap==null||paramsMap.isEmpty()){
+				return 0;
+			}
+			update = buildUpdate(paramsMap);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			update =  new Update();

@@ -25,19 +25,20 @@ import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.controllers.params.ActiveParams;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
+import com.youfan.controllers.params.merchant.MerchantUserParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.CouponsContentEntity;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
-import com.youfan.exceptions.UserException;
 import com.youfan.services.merchant.CommentService;
 import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.merchant.MerchantUsersService;
@@ -48,6 +49,8 @@ import com.youfan.services.server.OrderService;
 import com.youfan.services.server.PayWayService;
 import com.youfan.utils.JSONUtils;
 import com.youfan.utils.StringUtil;
+import com.youfan.commons.Constants.PAGER;
+import static com.youfan.commons.Constants.MONGO_STATUS;
 
 /**
  * 
@@ -690,54 +693,43 @@ public class PlatFormBusinessController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getByStatus")
-
-	public List<MerchantUserEntity> getByStatus(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getPagerByParams")
+	public Response getPagerByParams(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Integer status = 0;
-			if (request.getParameter("status") != null) {
-				status = Integer.valueOf(request.getParameter("status"));
-			}
-			return merchantUsersService.getMerchantByStatus(status);
-		} catch (UserException e) {
-			// TODO Auto-generated catch block
+			MerchantUserParams muParams = new MerchantUserParams();
+			muParams.setPhone(request.getParameter("phone"));
+			muParams.setRealName(request.getParameter("realName"));
+			muParams.setUserName(request.getParameter("userName"));
+			muParams.setStatus(request.getParameter(MONGO_STATUS)==null?null:Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			Pagination pager = new Pagination();
+			long recordCnt =  merchantUsersService.count(muParams);
+			//分页信息
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO)==null?0:Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE)==null?recordCnt:Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
+			pager.setAsc(request.getParameter(PAGER.ASC)==null?false:Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			List<MerchantUserVO> list = merchantUsersService.getPagerByParams(muParams, pager);
+			CollectionVO<MerchantUserVO> payload = new CollectionVO<>(list, (int)recordCnt, pager.getPageSize());
+			return Responses.SUCCESS().setCode(0).setPayload(payload).setMsg("获取商家信息成功");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ArrayList<MerchantUserEntity>();
+		return Responses.FAILED().setCode(0).setMsg("获取商家信息失败");
 	}
-
-	/**
-	 * 获取分页 商家信息
-	 *
-	 * @param
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getMerchant/{pageNo}/{pageSize}")
-	public CollectionVO<MerchantUserEntity> getMerchant(@PathVariable Integer pageNo, @PathVariable Integer pageSize,
-			HttpServletRequest request, HttpServletResponse response) {
-		CollectionVO<MerchantUserEntity> result = null;
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/updateMerchant/{id}")
+	public Response updateMerchantById(@PathVariable String id,HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Query query = new Query();
-			if (request.getParameter("status") != null) {
-				query.addCriteria(Criteria.where("status").is(Integer.valueOf(request.getParameter("status"))));
+			MerchantUserParams muParams=new MerchantUserParams();
+			muParams.setStatus(request.getParameter(MONGO_STATUS)==null?null:Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			muParams.setUserName(request.getParameter("userName"));
+			int rn = merchantUsersService.updateById(id, muParams);
+			if(rn==1){
+				return Responses.SUCCESS().setCode(0).setMsg("获取商家信息成功");
 			}
-			if (request.getParameter("userName") != null) {
-				query.addCriteria(Criteria.where("userName").is(request.getParameter("userName")));
-			}
-
-			if (request.getParameter("realName") != null) {
-				query.addCriteria(Criteria.where("realName").is(request.getParameter("realName")));
-			}
-
-			long count = merchantUsersService.count(query);
-			query.skip((pageNo - 1) * pageSize);
-			query.limit(pageSize);
-			List<MerchantUserEntity> msa = merchantUsersService.find(query);
-			result = new CollectionVO<MerchantUserEntity>(msa, (int) count, pageSize);
 		} catch (Exception e) {
-			logger.error(e.getMessage());
+			e.printStackTrace();
 		}
-		return result;
+		return Responses.FAILED().setCode(0).setMsg("获取商家信息失败");
 	}
 
 	/**

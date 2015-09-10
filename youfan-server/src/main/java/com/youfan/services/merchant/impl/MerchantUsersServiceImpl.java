@@ -1,25 +1,24 @@
 package com.youfan.services.merchant.impl;
 
-import com.youfan.commons.vo.CollectionVO;
-import com.youfan.commons.vo.merchant.*;
-import com.youfan.data.dao.merchant.MerchantKitchenDAO;
-import com.youfan.data.dao.merchant.MerchantUserDAO;
-import com.youfan.data.models.MerchantUserEntity;
-import com.youfan.exceptions.KitchenInfoException;
-import com.youfan.exceptions.UserException;
-import com.youfan.services.merchant.MerchantUsersService;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
+import javax.annotation.Resource;
+
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+
+import com.youfan.commons.Pagination;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
+import com.youfan.commons.vo.merchant.MerchantUserVO;
+import com.youfan.controllers.params.merchant.MerchantUserParams;
+import com.youfan.data.dao.merchant.MerchantKitchenDAO;
+import com.youfan.data.dao.merchant.MerchantUserDAO;
+import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.exceptions.UserException;
+import com.youfan.services.merchant.MerchantUsersService;
 
 /**
  * Created by perfection on 15-8-19.
@@ -139,26 +138,20 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         return merchantKitchenInfoVOs;
     }
 
-    @Override
-    public CollectionVO merchantKitchenInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
-        Long count = merchantKitchenDAO.getPageTotal(status);
-        CollectionVO collectionVO = new CollectionVO();
-        collectionVO.setPageSize(pageSize);
-        collectionVO.setRecordCnt(Integer.parseInt(count.toString()));
-        collectionVO.setPageCnt(Integer.parseInt(count.toString()) % pageSize > 0 ? Integer.parseInt(count.toString()) / pageSize + 1 : Integer.parseInt(count.toString()) / pageSize);
+	@Override
+	public List<MerchantUserVO> getPagerByParams(MerchantUserParams muParams, Pagination pager) {
+		return merchantUserDao.findPagerByParams(muParams, pager);
+	}
 
-        collectionVO.addAll(merchantKitchenDAO.pageListByStatus(page, pageSize, query(where("status").is(status))));
-        return collectionVO;
-    }
+	@Override
+	public long count(MerchantUserParams muParams) {
+		return merchantUserDao.count(muParams);
+	}
 
-    @Override
-    public CollectionVO merchantUserInfoPageListByStatus(Integer page, Integer pageSize, Integer status) {
-        Long count = merchantUserDao.getPageTotal(status);
-        CollectionVO collectionVO = new CollectionVO();
-        collectionVO.setPageSize(pageSize);
-        collectionVO.setRecordCnt(Integer.parseInt(count.toString()));
-        collectionVO.setPageCnt(Integer.parseInt(count.toString()) % pageSize > 0 ? Integer.parseInt(count.toString()) / pageSize + 1 : Integer.parseInt(count.toString()) / pageSize);
-        collectionVO.addAll(merchantUserDao.pageListByStatus(page, pageSize, query(where("status").is(status))));
-        return collectionVO;
-    }
+	@Override
+	public int updateById(String id, MerchantUserParams muParams) {
+		// TODO Auto-generated method stub
+		return merchantUserDao.updateById( id, muParams);
+	}
+
 }
