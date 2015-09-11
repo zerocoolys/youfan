@@ -1,0 +1,106 @@
+package com.youfan.data.dao.impl;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+
+import com.mongodb.WriteResult;
+import com.youfan.commons.Pagination;
+import com.youfan.controllers.params.MongoParams;
+import com.youfan.data.dao.NewMongoBaseDAO;
+import com.youfan.utils.JSONUtils;
+
+public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongoBaseDAO<E, T, ID> {
+
+	@Override
+	public T findOne(Serializable id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insert(Object t) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void delete(Serializable id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void update(Object t) {
+		Update update = new Update();
+		System.out.println(update);
+	}
+
+	@Override
+	public Class<E> getEntityClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Class<T> getVOClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<T> findPagerByParams(MongoParams params, Pagination pager) {
+		Query query = buildAndEqualQuery(params);
+		if(params.getDataStatus() == null){
+			query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
+		}else if (params.getStatus() == null) {
+			query.addCriteria(where(MONGO_STATUS).ne(-1));
+		}
+		if (pager != null) {
+			query.skip((pager.getPageNo() - 1) * pager.getPageSize());
+			query.limit(pager.getPageSize());
+			if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
+				query.with(new Sort(pager.getAsc(), pager.getSortBy()));
+
+			}
+		}
+		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
+	}
+
+	@Override
+	public long count(MongoParams params) {
+		Query query = buildAndEqualQuery(params);
+		if(params.getDataStatus() == null){
+			query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
+		}else if (params.getStatus() == null) {
+			query.addCriteria(where(MONGO_STATUS).ne(-1));
+		}
+		return mongoTemplate.count(query, getEntityClass());
+	}
+
+	@Override
+	public int updateById(String id, MongoParams params) {
+		Update update = new Update();
+		try {
+			Map<String, Object> paramsMap = JSONUtils.obj2map(params);
+			if(paramsMap==null||paramsMap.isEmpty()){
+				return 0;
+			}
+			update = buildUpdate(paramsMap);
+		} catch (Exception e) {
+			update = new Update();
+		}
+		System.out.println(update);
+		WriteResult re = mongoTemplate.updateFirst(query(where(ID).is(id)).addCriteria(where(MONGO_STATUS).ne(-1)), update, getEntityClass());
+		return re.getN();
+	}
+
+}

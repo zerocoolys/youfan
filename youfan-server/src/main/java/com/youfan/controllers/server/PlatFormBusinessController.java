@@ -32,6 +32,7 @@ import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.controllers.params.ActiveParams;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
+import com.youfan.controllers.params.merchant.MerchantParams;
 import com.youfan.controllers.params.merchant.MerchantUserParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
@@ -41,6 +42,7 @@ import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.services.merchant.CommentService;
 import com.youfan.services.merchant.MerchantKitchenService;
+import com.youfan.services.merchant.MerchantService;
 import com.youfan.services.merchant.MerchantUsersService;
 import com.youfan.services.server.ActiveService;
 import com.youfan.services.server.ActiveSupportService;
@@ -84,6 +86,8 @@ public class PlatFormBusinessController {
 	CommentService commentService;
 	@Resource
 	UserDao userDAO;
+	@Resource
+	MerchantService merchantService;
 	///////////////////////////////// 系统//////////////////////////////////////////
 
 	/**
@@ -696,19 +700,19 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getPagerByParams")
 	public Response getPagerByParams(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			MerchantUserParams muParams = new MerchantUserParams();
+			MerchantParams muParams = new MerchantParams();
 			muParams.setPhone(request.getParameter("phone"));
 			muParams.setRealName(request.getParameter("realName"));
 			muParams.setUserName(request.getParameter("userName"));
 			muParams.setStatus(request.getParameter(MONGO_STATUS)==null?null:Integer.valueOf(request.getParameter(MONGO_STATUS)));
 			Pagination pager = new Pagination();
-			long recordCnt =  merchantUsersService.count(muParams);
+			long recordCnt =  10;
 			//分页信息
 			pager.setPageNo(request.getParameter(PAGER.PAGE_NO)==null?0:Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
 			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE)==null?recordCnt:Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
 			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
 			pager.setAsc(request.getParameter(PAGER.ASC)==null?false:Boolean.valueOf(request.getParameter(PAGER.ASC)));
-			List<MerchantUserVO> list = merchantUsersService.getPagerByParams(muParams, pager);
+			List<MerchantUserVO> list = merchantService.getPagerByParams(muParams, pager);
 			CollectionVO<MerchantUserVO> payload = new CollectionVO<>(list, (int)recordCnt, pager.getPageSize());
 			return Responses.SUCCESS().setCode(0).setPayload(payload).setMsg("获取商家信息成功");
 		} catch (Exception e) {
