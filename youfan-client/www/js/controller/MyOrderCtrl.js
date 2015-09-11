@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('MyOrderCtrl', function ($scope, $state, Order, $ionicSlideBoxDelegate, $http, /*localStorageService, */REST_URL) {
+ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $http, User, Order, REST_URL) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
     $scope.slideChanged = function (index) {
@@ -204,18 +204,26 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, Order, $ion
             var _order = order;
             _order.orderTime = (new Date(_order.orderTime)).Format("yyyy-MM-dd hh:mm:ss");
 
-            //var _paymentWay = _order.paymentWay;
-            //if (_paymentWay == "alipay") {
-            //    _order.paymentWay = "支付宝";
-            //} else if (_paymentWay == "wx") {
-            //    _order.paymentWay = "微信";
-            //}
+            var _paymentWay = _order.paymentWay;
+            if (_paymentWay == "alipay") {
+                _order.paymentWay = "支付宝";
+            } else if (_paymentWay == "wx") {
+                _order.paymentWay = "微信";
+            } else {
+                _order.paymentWay = "无";
+            }
+
+            if (_order.orderStatus == "等待支付") {
+                _order.paymentStatus = "待付款";
+            } else {
+                _order.paymentStatus = "已付款";
+            }
 
             $state.go('tab.order-detail', {order: _order, userInfo: $scope.userInfo, dishes: data.payload});
         }).error(function (err) {
             console.log(err);
         });
-    }
+    };
 
     $scope.goTo = function (orderObj) {
         if (orderObj instanceof Object) {
