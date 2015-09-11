@@ -24,9 +24,14 @@ import com.youfan.system.mongo.MongoPool;
 import com.youfan.utils.JSONUtils;
 
 /**
- * Created on 2015-08-18.
- *
- * @author dolphineor
+ * 
+ * @title NewMongoBaseDAO.java
+ * @package com.youfan.data.dao
+ * @description mongo DAO层新接口
+ * @author QinghaiDeng   
+ * @update 2015年9月11日 下午2:14:05
+ * @version V1.0  
+ * Copyright (c)2012 chantsoft-版权所有
  */
 public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
@@ -78,7 +83,7 @@ public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constant
 	 * @update 2015年9月11日 上午10:30:46
 	 */
 	int updateById(String id, MongoParams params);
-	
+	int updateById(String id, T t);
 	/**
 	 * 
 	 * @param key
@@ -208,10 +213,13 @@ public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constant
 		if(vo==null)
 			return query;
 		try {
-			query = buildAndEqualQuery(JSONUtils.obj2map(vo));
+			Map<String, Object> map = JSONUtils.obj2map(vo);
+			query = buildAndEqualQuery(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return query;
 	}
+
+
 }

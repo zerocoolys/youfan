@@ -1,13 +1,12 @@
 package com.youfan.services.server.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.data.dao.server.PayWayDAO;
+import com.youfan.data.models.PayWayEntity;
+import com.youfan.services.impl.MongoServiceImpl;
 import com.youfan.services.server.PayWayService;
 
 /**
@@ -21,26 +20,10 @@ import com.youfan.services.server.PayWayService;
  * Copyright (c)2012 chantsoft-版权所有
  */
 @Service("payWayService")
-public class PayWayServiceImpl implements PayWayService {
-
-	@Resource
-	PayWayDAO payWayDAO;
-	@Override
-	public void save(PayWayVO payWayVo) {
-		payWayDAO.insert(payWayVo);		
-	}
-	@Override
-	public List<PayWayVO> getAll() {
-		return payWayDAO.getAll();
-	}
-	@Override
-	public void updatePayWayStatus(String id, Integer status) {
-		payWayDAO.updateStatus(id, status);		
-	}
-	@Override
-	public PayWayVO getById(String id) {
-		// TODO Auto-generated method stub
-		return payWayDAO.findOne(id);
+public class PayWayServiceImpl extends MongoServiceImpl<PayWayEntity, PayWayVO> implements PayWayService {
+	@Autowired
+	public PayWayServiceImpl(PayWayDAO payWayDAO) {
+		super(payWayDAO);
 	}
 
 }

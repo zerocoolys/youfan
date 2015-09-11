@@ -1,5 +1,7 @@
 package com.youfan.commons.vo.merchant;
 
+import static com.youfan.commons.Constants.MONGO_NORMAL_DATA;
+
 /**
  * Created by perfection on 15-8-21.
  */
@@ -16,7 +18,7 @@ public class MerchantUserVO {
     private String idCardPicUrl;    //身份证照片
     private String healthCertificatePicUrl; //健康证照片
 
-
+    private int dataStatus = MONGO_NORMAL_DATA;
     public Integer getStatus() {
         return status;
     }
@@ -104,4 +106,13 @@ public class MerchantUserVO {
     public void setHealthCertificatePicUrl(String healthCertificatePicUrl) {
         this.healthCertificatePicUrl = healthCertificatePicUrl;
     }
+
+	public int getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(int dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+    
 }

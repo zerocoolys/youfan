@@ -51,7 +51,7 @@ public class CouponsVO {
 	 * 使用状态 (-1删除,0未使用,1已使用,)
 	 */
 	private Integer status;
-	private Integer dataStatus;
+	private Integer dataStatus=1;
 	public String getId() {
 		return id;
 	}

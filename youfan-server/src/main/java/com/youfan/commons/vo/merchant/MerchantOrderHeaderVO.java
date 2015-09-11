@@ -1,5 +1,7 @@
 package com.youfan.commons.vo.merchant;
 
+import static com.youfan.commons.Constants.MONGO_NORMAL_DATA;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class MerchantOrderHeaderVO {
 	private Timestamp repastTime;
 	private String repastAddress;
 	private int dishesCount;
-
+	   private int dataStatus = MONGO_NORMAL_DATA;
 	/**
 	 * 购买者头像
 	 */
@@ -122,4 +124,13 @@ public class MerchantOrderHeaderVO {
 	public void setDishesCount(int dishesCount) {
 		this.dishesCount = dishesCount;
 	}
+
+	public int getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(int dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	
 }

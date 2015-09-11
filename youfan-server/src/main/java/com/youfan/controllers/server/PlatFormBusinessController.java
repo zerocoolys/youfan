@@ -25,6 +25,7 @@ import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.commons.vo.server.OrderVO;
@@ -32,8 +33,10 @@ import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.controllers.params.ActiveParams;
 import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
+import com.youfan.controllers.params.merchant.KitchenParams;
 import com.youfan.controllers.params.merchant.MerchantParams;
 import com.youfan.controllers.params.merchant.MerchantUserParams;
+import com.youfan.controllers.params.server.PayWayParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.client.UserDao;
@@ -41,6 +44,7 @@ import com.youfan.data.models.CouponsContentEntity;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.services.merchant.CommentService;
+import com.youfan.services.merchant.KitchenService;
 import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.merchant.MerchantService;
 import com.youfan.services.merchant.MerchantUsersService;
@@ -88,6 +92,8 @@ public class PlatFormBusinessController {
 	UserDao userDAO;
 	@Resource
 	MerchantService merchantService;
+	@Resource
+	KitchenService kitchenService;
 	///////////////////////////////// 系统//////////////////////////////////////////
 
 	/**
@@ -283,33 +289,32 @@ public class PlatFormBusinessController {
 	public Response getCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-			CouponsParams couponsParams = new CouponsParams();
+			CouponsParams params = new CouponsParams();
 			if (request.getParameter("port") != null) {
-				couponsParams.setPort(Integer.valueOf(request.getParameter("port")));
+				params.setPort(Integer.valueOf(request.getParameter("port")));
 			}
 			if (request.getParameter("timeLine") != null) {
-				couponsParams.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
+				params.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
 			}
 
 			if (request.getParameter("kitchenId") != null) {
-				couponsParams.setKitchenId(request.getParameter("kitchenId"));
+				params.setKitchenId(request.getParameter("kitchenId"));
 			}
 			if (request.getParameter("status") != null) {
-				couponsParams.setStatus(Integer.valueOf(request.getParameter("status")));
+				params.setStatus(Integer.valueOf(request.getParameter("status")));
 			}
-			long recordCnt = couponsTypeService.count(couponsParams);
-			if (request.getParameter("pageSize") != null && request.getParameter("pageNo") != null) {
-				couponsParams.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
-				couponsParams.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
-			} else {
-				couponsParams.setPageSize((int) recordCnt);
-				couponsParams.setPageNo(0);
-			}
-			CollectionVO<CouponsTypeVO> payload = new CollectionVO<>(new ArrayList<CouponsTypeVO>(), (int) recordCnt,
-					couponsParams.getPageSize() < 1 ? (int) recordCnt : couponsParams.getPageSize());
-			List<CouponsTypeVO> list = couponsTypeService.getByCondition(couponsParams);
-			payload.addAll(list);
-			res = Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
+			Pagination pager = new Pagination();
+			long recordCnt = couponsTypeService.count(params);
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE) == null ? recordCnt
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
+			pager.setAsc(
+					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			CollectionVO<CouponsTypeVO> payload = new CollectionVO<>(couponsTypeService.getPagerByParams(params, pager),
+					(int) recordCnt, pager.getPageSize() < 1 ? (int) recordCnt : pager.getPageSize());
+			return Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			res = Responses.FAILED().setCode(0).setMsg("数据获取失败");
@@ -334,9 +339,9 @@ public class PlatFormBusinessController {
 	public Response updateCouponsTypeStatus(@PathVariable String id, @PathVariable int status,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Map<String, Object> updateParams = new HashMap<>();
-			updateParams.put("status", status);
-			int un = couponsTypeService.updateById(id, updateParams);
+			CouponsParams params = new CouponsParams();
+			params.setStatus(status);
+			int un = couponsTypeService.updateById(id, params);
 			if (un == 1) {
 				return Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型更新成功");
 			} else {
@@ -353,14 +358,16 @@ public class PlatFormBusinessController {
 	public Response updateCouponsTypeById(@PathVariable String id, HttpServletRequest request) {
 		try {
 			CouponsTypeVO coupons = new CouponsTypeVO();
-			coupons.setPort(request.getParameter("port")==null?null:Integer.valueOf(request.getParameter("port")));
+			coupons.setPort(
+					request.getParameter("port") == null ? null : Integer.valueOf(request.getParameter("port")));
 			coupons.setTitle(request.getParameter("title"));
-			coupons.setTimeLine(request.getParameter("timeLine")==null?null:Integer.valueOf(request.getParameter("timeLine")));
+			coupons.setTimeLine(request.getParameter("timeLine") == null ? null
+					: Integer.valueOf(request.getParameter("timeLine")));
 			coupons.setDesc(request.getParameter("desc"));
-			coupons.setContent(request.getParameter("content")==null?null:
-					JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
+			coupons.setContent(request.getParameter("content") == null ? null
+					: JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
 			// 状态默认为1 表示开启使用状态
-			int un=couponsTypeService.updateById(id, coupons);
+			int un = couponsTypeService.updateById(id, coupons);
 			if (un == 1) {
 				return Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型更新成功");
 			} else {
@@ -371,13 +378,12 @@ public class PlatFormBusinessController {
 			return Responses.FAILED().setCode(0).setMsg("优惠券类型更新失败");
 		}
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/deleteCouponsType/{id}")
 	public Response deleteCouponsType(@PathVariable String id) {
 		try {
-			
 			// 状态默认为1 表示开启使用状态
-			int dn=couponsTypeService.deleteById(id);
+			int dn = couponsTypeService.logicDelete(id);
 			if (dn == 1) {
 				return Responses.SUCCESS().setPayload(null).setCode(1).setMsg("优惠券类型删除成功");
 			} else {
@@ -385,8 +391,8 @@ public class PlatFormBusinessController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Responses.FAILED().setCode(0).setMsg("优惠券类型删除失败");
 		}
+		return Responses.FAILED().setCode(0).setMsg("优惠券类型删除失败");
 	}
 
 	/**
@@ -451,38 +457,30 @@ public class PlatFormBusinessController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/getActive")
 	public Response getActive(HttpServletRequest request, HttpServletResponse response) {
-		Response res = null;
 		try {
-			ActiveParams activeParams = new ActiveParams();
-//			if (request.getParameter("event") != null) {
-//				activeParams.setEvent(request.getParameter("event"));
-//			}
-//			if (request.getParameter("status") != null) {
-//				activeParams.setStatus(Integer.valueOf(request.getParameter("status")));
-//			}
-//
-//			if (request.getParameter("title") != null) {
-//				activeParams.setTitle(request.getParameter("title"));
-//			}
-//			long recordCnt = activeService.count(activeParams);
-//			if (request.getParameter("pageSize") != null && request.getParameter("pageNo") != null) {
-//				activeParams.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
-//				activeParams.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
-//			} else {
-//				activeParams.setPageSize((int) recordCnt);
-//				activeParams.setPageNo(0);
-//			}
-//
-//			CollectionVO<ActiveVO> payload = new CollectionVO<>(new ArrayList<ActiveVO>(), (int) recordCnt,
-//					activeParams.getPageSize() < 1 ? (int) recordCnt : activeParams.getPageSize());
-//			List<ActiveVO> list = activeService.getByCondition(activeParams);
-//			payload.addAll(list);
-//			res = Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
+			ActiveParams params = new ActiveParams();
+			params.setEvent(request.getParameter("event"));
+			params.setStatus(
+					request.getParameter("status") == null ? null : Integer.valueOf(request.getParameter("status")));
+			params.setTitle(request.getParameter("title"));
+
+			Pagination pager = new Pagination();
+			long recordCnt = activeService.count(params);
+			// 分页信息
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE) == null ? recordCnt
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
+			pager.setAsc(
+					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			CollectionVO<ActiveVO> payload = new CollectionVO<>(activeService.getPagerByParams(params, pager),
+					(int) recordCnt, pager.getPageSize() < 1 ? (int) recordCnt : pager.getPageSize());
+			return Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
 		}
-		return res;
+		return Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
 	}
 
 	/**
@@ -496,18 +494,59 @@ public class PlatFormBusinessController {
 	 * @author QinghaiDeng
 	 * @update 2015年9月8日 下午2:28:12
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateActive")
-	public Response updateActive(HttpServletRequest request, HttpServletResponse response) {
-		Response res = null;
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateActive/{id}")
+	public Response updateActive(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			String id = request.getParameter("id");
-//			activeService.updateById(id, JSONUtils.json2map(request.getParameter("updateMap")));
-			res = Responses.SUCCESS().setPayload(null).setCode(1).setMsg("活动更新成功");
+			ActiveVO activeVo = new ActiveVO();
+			activeVo.setPort(StringUtil.isNumber(request.getParameter("port"))
+					? Integer.valueOf(request.getParameter("port")) : null);
+			activeVo.setEvent(request.getParameter("event"));
+			activeVo.setActiveType(StringUtil.isNumber(request.getParameter("activeType"))
+					? Integer.valueOf(request.getParameter("activeType")) : null);
+			activeVo.setUserConditions(request.getParameter("userCondition") == null ? null
+					: JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
+			activeVo.setOrderConditions(request.getParameter("orderCondition") == null ? null
+					: JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
+			activeVo.setAllowTimes(0);
+			activeVo.setDesc(request.getParameter("desc"));
+			activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));
+			activeVo.setCouponsType(StringUtil.isNumber(request.getParameter("couponsType"))
+					? Integer.valueOf(request.getParameter("couponsType")) : null);
+			// 创建时间为保存时当前时间
+			activeVo.setCreateTime(new Date().getTime());
+			activeVo.setValidityTime(StringUtil.isNumber(request.getParameter("validityTime"))
+					? Long.valueOf(request.getParameter("validityTime")) : null);
+			activeVo.setStartTime(StringUtil.isNumber(request.getParameter("startTime"))
+					? Long.valueOf(request.getParameter("startTime")) : null);
+			activeVo.setEndTime(StringUtil.isNumber(request.getParameter("endTime"))
+					? Long.valueOf(request.getParameter("endTime")) : null);
+			activeVo.setTitle(request.getParameter("title"));
+			activeVo.setPort(StringUtil.isNumber(request.getParameter("port"))
+					? Integer.valueOf(request.getParameter("port")) : null);
+			int un = activeService.updateById(id, activeVo);
+			if (un == 1) {
+				return Responses.SUCCESS().setCode(1).setMsg("数据更新成功");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = Responses.SUCCESS().setCode(0).setMsg("活动更新失败");
 		}
-		return res;
+		return Responses.SUCCESS().setCode(0).setMsg("活动更新失败");
+	}
+
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateActive/{id}/{status}")
+	public Response updateActive(@PathVariable String id, @PathVariable Integer status, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			ActiveVO activeVo = new ActiveVO();
+			activeVo.setStatus(status);
+			int un = activeService.updateById(id, activeVo);
+			if (un == 1) {
+				return Responses.SUCCESS().setCode(1).setMsg("数据更新成功");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Responses.SUCCESS().setCode(0).setMsg("活动更新失败");
 	}
 
 	/**
@@ -557,8 +596,21 @@ public class PlatFormBusinessController {
 		Response res = null;
 		try {
 
-			List<PayWayVO> list = payWayService.getAll();
-			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(list);
+			PayWayParams params = new PayWayParams();
+
+			Pagination pager = new Pagination();
+			int recordCnt = (int) payWayService.count(params);
+			// 分页信息
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE) == null ? recordCnt
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
+			pager.setAsc(
+					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			CollectionVO<PayWayVO> payload = new CollectionVO<>(payWayService.getPagerByParams(params, pager),
+					(int) recordCnt, pager.getPageSize() < 1 ? (int) recordCnt : pager.getPageSize());
+			return Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			res = Responses.FAILED().setMsg("数据获取异常：数据库异常");
@@ -578,13 +630,11 @@ public class PlatFormBusinessController {
 	 * @author QinghaiDeng
 	 * @update 2015年9月6日 上午11:45:59
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/sys/getPayWayById")
-	public Response getPayWayById(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/getPayWay/{id}")
+	public Response getPayWay(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-
-			PayWayVO vo = request.getParameter("id") == null ? null
-					: (PayWayVO) payWayService.getById(request.getParameter("id"));
+			PayWayVO vo = request.getParameter("id") == null ? null : (PayWayVO) payWayService.get(id);
 			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -595,30 +645,30 @@ public class PlatFormBusinessController {
 	}
 
 	/**
-	 * 更改支付渠道状态
 	 * 
 	 * @param request
 	 * @param response
 	 * @return
-	 * @description TODO
+	 * @description 更新指定ID的更改支付渠道
 	 * @version 1.0
 	 * @author QinghaiDeng
 	 * @update 2015年9月6日 上午11:46:10
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/sys/updatePayWayStatus")
-	public Response updatePayWayStatus(HttpServletRequest request, HttpServletResponse response) {
-		Response res = null;
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updatePayWay/{id}")
+	public Response updatePayWay(HttpServletRequest request, HttpServletResponse response) {
 		try {
-
-			payWayService.updatePayWayStatus(request.getParameter("id"),
-					Integer.valueOf(request.getParameter("status")));
-			res = Responses.SUCCESS().setMsg("数据更新成功");
+			PayWayVO payWayVo = new PayWayVO();
+			payWayVo.setCode(request.getParameter("code"));
+			payWayVo.setName(request.getParameter("name"));
+			payWayVo.setIconUrl(request.getParameter("iconUrl"));
+			int un = payWayService.updateById(request.getParameter("id"), payWayVo);
+			if (un == 1) {
+				return Responses.SUCCESS().setMsg("数据更新成功");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = Responses.FAILED().setMsg("数据更新异常：数据库异常");
 		}
-
-		return res;
+		return Responses.FAILED().setMsg("数据更新异常：数据库异常");
 	}
 
 	////////////////////////////////////// 评论//////////////////////////////////////////////
@@ -694,34 +744,40 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getPagerByParams")
 	public Response getPagerByParams(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			MerchantParams muParams = new MerchantParams();
-			muParams.setPhone(request.getParameter("phone"));
-			muParams.setRealName(request.getParameter("realName"));
-			muParams.setUserName(request.getParameter("userName"));
-			muParams.setStatus(request.getParameter(MONGO_STATUS)==null?null:Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			MerchantParams params = new MerchantParams();
+			params.setPhone(request.getParameter("phone"));
+			params.setRealName(request.getParameter("realName"));
+			params.setUserName(request.getParameter("userName"));
+			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
+					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
 			Pagination pager = new Pagination();
-			long recordCnt =  10;
-			//分页信息
-			pager.setPageNo(request.getParameter(PAGER.PAGE_NO)==null?0:Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
-			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE)==null?recordCnt:Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			long recordCnt = merchantService.count(params);
+			// 分页信息
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE) == null ? recordCnt
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
 			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
-			pager.setAsc(request.getParameter(PAGER.ASC)==null?false:Boolean.valueOf(request.getParameter(PAGER.ASC)));
-			List<MerchantUserVO> list = merchantService.getPagerByParams(muParams, pager);
-			CollectionVO<MerchantUserVO> payload = new CollectionVO<>(list, (int)recordCnt, pager.getPageSize());
+			pager.setAsc(
+					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			CollectionVO<MerchantUserVO> payload = new CollectionVO<>( merchantService.getPagerByParams(params, pager), (int) recordCnt, pager.getPageSize());
 			return Responses.SUCCESS().setCode(0).setPayload(payload).setMsg("获取商家信息成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return Responses.FAILED().setCode(0).setMsg("获取商家信息失败");
 	}
+
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/updateMerchant/{id}")
-	public Response updateMerchantById(@PathVariable String id,HttpServletRequest request, HttpServletResponse response) {
+	public Response updateMerchantById(@PathVariable String id, HttpServletRequest request,
+			HttpServletResponse response) {
 		try {
-			MerchantUserParams muParams=new MerchantUserParams();
-			muParams.setStatus(request.getParameter(MONGO_STATUS)==null?null:Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			MerchantUserParams muParams = new MerchantUserParams();
+			muParams.setStatus(request.getParameter(MONGO_STATUS) == null ? null
+					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
 			muParams.setUserName(request.getParameter("userName"));
 			int rn = merchantUsersService.updateById(id, muParams);
-			if(rn==1){
+			if (rn == 1) {
 				return Responses.SUCCESS().setCode(0).setMsg("获取商家信息成功");
 			}
 		} catch (Exception e) {
@@ -736,32 +792,29 @@ public class PlatFormBusinessController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getKitchen/{pageNo}/{pageSize}")
-	public CollectionVO<MerchantKitchenInfoEntity> getKitchen(@PathVariable Integer pageNo,
-			@PathVariable Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
-		CollectionVO<MerchantKitchenInfoEntity> result = null;
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getKitchens")
+	public Response getKitchens(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			Query query = new Query();
-			if (request.getParameter("status") != null) {
-				query.addCriteria(Criteria.where("status").is(Integer.valueOf(request.getParameter("status"))));
-			}
-			if (request.getParameter("userName") != null) {
-				query.addCriteria(Criteria.where("userName").is(request.getParameter("userName")));
-			}
-
-			if (request.getParameter("realName") != null) {
-				query.addCriteria(Criteria.where("realName").is(request.getParameter("realName")));
-			}
-
-			long count = merchantUsersService.count(query);
-			query.skip((pageNo - 1) * pageSize);
-			query.limit(pageSize);
-			List<MerchantKitchenInfoEntity> msa = merchantKitchenService.find(query);
-			result = new CollectionVO<MerchantKitchenInfoEntity>(msa, (int) count, pageSize);
+			KitchenParams params = new KitchenParams();
+			params.setPhoneNumber(request.getParameter("phone"));
+			params.setKitchenName(request.getParameter("name"));
+			Pagination pager = new Pagination();
+			long recordCnt = kitchenService.count(params);
+			// 分页信息
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE) == null ? recordCnt
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
+			pager.setAsc(
+					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			CollectionVO<MerchantKitchenInfoVO> payload = new CollectionVO<>( kitchenService.getPagerByParams(params, pager), (int) recordCnt, pager.getPageSize());
+			return Responses.SUCCESS().setCode(1).setPayload(payload).setMsg("获取商家厨房信息成功");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
+			e.printStackTrace();
 		}
-		return result;
+		return Responses.FAILED().setCode(0).setMsg("获取商家厨房信息失败");
 	}
 
 	/**

@@ -1,7 +1,5 @@
 package com.youfan.services.server.impl;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +13,8 @@ import com.youfan.services.server.ActiveService;
 public class ActiveServiceImpl extends MongoServiceImpl<ActiveEntity, ActiveVO>implements ActiveService{
 
 
-	@Resource
-	ActiveDAO activeDAO;
+//	@Resource
+//	ActiveDAO activeDAO;
 	
 	@Autowired
 	public ActiveServiceImpl(ActiveDAO mongoDao) {

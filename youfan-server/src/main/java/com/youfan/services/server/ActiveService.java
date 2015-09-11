@@ -18,7 +18,7 @@ import com.youfan.services.MongoService;
 public interface ActiveService extends MongoService<ActiveEntity, ActiveVO>{
 
 	void saveActive(ActiveVO activeVo);
-	
+
 //	public long count(ActiveParams activeParams);
 //
 //	public List<ActiveVO> getByCondition(ActiveParams activeParams);

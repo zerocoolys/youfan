@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
@@ -21,8 +22,7 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 
 	@Override
 	public T findOne(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		return convertToVO(mongoTemplate.findOne(query(where(ID).is(id)), getEntityClass()));
 	}
 
 	@Override
@@ -56,12 +56,11 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 	@Override
 	public List<T> findPagerByParams(MongoParams params, Pagination pager) {
 		Query query = buildAndEqualQuery(params);
-		query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
 		if (pager != null) {
 			query.skip((pager.getPageNo() - 1) * pager.getPageSize());
 			query.limit(pager.getPageSize());
 			if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
-				query.with(new Sort(pager.getAsc(), pager.getSortBy()));
+				query.with(new Sort(pager.isAsc()?Direction.ASC:Direction.DESC,pager.getSortBy()));
 
 			}
 		}
@@ -71,32 +70,41 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 	@Override
 	public long count(MongoParams params) {
 		Query query = buildAndEqualQuery(params);
-		query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
 		return mongoTemplate.count(query, getEntityClass());
 	}
 
 	@Override
 	public int updateById(String id, MongoParams params) {
-		Update update = new Update();
 		try {
 			Map<String, Object> paramsMap = JSONUtils.obj2map(params);
-			if (paramsMap == null || paramsMap.isEmpty()) {
-				return 0;
+			if (paramsMap != null && !paramsMap.isEmpty()) {
+				WriteResult re = mongoTemplate.updateFirst(
+						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
+				return re.getN();
 			}
-			update = buildUpdate(paramsMap);
 		} catch (Exception e) {
-			update = new Update();
 		}
-		System.out.println(update);
-		WriteResult re = mongoTemplate.updateFirst(query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).ne(-1)),
-				update, getEntityClass());
-		return re.getN();
+		return 0;
 	}
 
 	@Override
 	public T findUniqueOne(String key, Object value) {
-		return (T) mongoTemplate.findOne(query(where(key).is(value)).addCriteria(where(MONGO_DATA_STATUS).ne(-1)),
+		return (T) mongoTemplate.findOne(query(where(key).is(value)).addCriteria(where(MONGO_DATA_STATUS).is(1)),
 				getEntityClass());
+	}
+
+	@Override
+	public int updateById(String id, T t) {
+		try {
+			Map<String, Object> paramsMap = JSONUtils.obj2map(t);
+			if (paramsMap != null && !paramsMap.isEmpty()) {
+				WriteResult re = mongoTemplate.updateFirst(
+						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
+				return re.getN();
+			}
+		} catch (Exception e) {
+		}
+		return 0;
 	}
 
 }

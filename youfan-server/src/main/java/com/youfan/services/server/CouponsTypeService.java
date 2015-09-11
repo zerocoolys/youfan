@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.youfan.commons.vo.server.CouponsTypeVO;
 import com.youfan.controllers.params.CouponsParams;
+import com.youfan.data.models.CouponsTypeEntity;
+import com.youfan.services.MongoService;
 
 /**
  * 
@@ -16,16 +18,16 @@ import com.youfan.controllers.params.CouponsParams;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public interface CouponsTypeService {
-	public void save(CouponsTypeVO coupons);
-
-	public Long count(CouponsParams couponsParams);
-
-	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams);
-	
-	public int updateById(String id, Map<String, Object> updateMap);
-
-	public int updateById(String id, CouponsTypeVO vo);
-
-	public int deleteById(String id);
+public interface CouponsTypeService extends MongoService<CouponsTypeEntity, CouponsTypeVO> {
+//	public void save(CouponsTypeVO coupons);
+//
+//	public Long count(CouponsParams couponsParams);
+//
+//	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams);
+//	
+//	public int updateById(String id, Map<String, Object> updateMap);
+//
+//	public int updateById(String id, CouponsTypeVO vo);
+//
+//	public int deleteById(String id);
 }

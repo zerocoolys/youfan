@@ -1,8 +1,6 @@
 package com.youfan.controllers.params;
 
-import com.youfan.commons.Pagination;
-
-public class CouponsParams extends Pagination{
+public class CouponsParams extends MongoParams{
 	private Integer port;
 	private Integer timeLine;
 	private String kitchenId;

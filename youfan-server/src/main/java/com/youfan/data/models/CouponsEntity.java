@@ -65,7 +65,7 @@ public class CouponsEntity {
 	private Long updateTime;
 	private Integer status;
 	@Field("ds")
-	private Integer dataStatus;
+	private Integer dataStatus=1;
 	
 	public Integer getDataStatus() {
 		return dataStatus;

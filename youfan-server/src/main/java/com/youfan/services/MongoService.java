@@ -16,20 +16,27 @@ import com.youfan.controllers.params.MongoParams;
  * Copyright (c)2012 chantsoft-版权所有
  */
 public interface MongoService<E,T> {
-
-	public void save(T t);
 	/**
 	 * 
-	 * @param params
-	 * @param pager
+	 * @param id
 	 * @return
-	 * @description 条件分页查询
-	 * 				
+	 * @description 通过ID做逻辑删除
 	 * @version 1.0
 	 * @author QinghaiDeng
-	 * @update 2015年9月11日 上午10:29:56
+	 * @update 2015年9月11日 下午3:49:44
 	 */
-	List<T> getPagerByParams(MongoParams params,Pagination pager);
+	public int logicDelete(String id);
+
+	/**
+	 * 
+	 * @param t
+	 * @description 保存
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 下午3:49:16
+	 */
+	public void save(T t);
+
 	/**
 	 * 
 	 * @param muParams
@@ -53,6 +60,18 @@ public interface MongoService<E,T> {
 	 */
 	int updateById(String id, MongoParams params);
 	
+	int updateById(String id, T t);
+	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @description 根据ID查询
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 下午2:35:23
+	 */
+	T get(String id );
 	/**
 	 * 
 	 * @param key
@@ -64,5 +83,16 @@ public interface MongoService<E,T> {
 	 * @update 2015年9月11日 上午11:05:50
 	 */
 	T getUniqueOne(String key,Object value);
-
+	/**
+	 * 
+	 * @param params
+	 * @param pager
+	 * @return
+	 * @description 条件分页查询
+	 * 				
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午10:29:56
+	 */
+	List<T> getPagerByParams(MongoParams params,Pagination pager);
 }

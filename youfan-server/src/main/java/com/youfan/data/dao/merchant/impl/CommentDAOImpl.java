@@ -67,10 +67,10 @@ public class CommentDAOImpl implements CommentDAO {
         long totalCount = this.mongoTemplate.count(query, this.getEntityClass());
         query.skip((p.getPageNo() - 1) * p.getPageSize());
         query.limit(p.getPageSize());
-        if (!p.getAsc().equals("") && p.getSortBy() != null) {
-            Sort sort = new Sort(new Sort.Order(p.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, p.getSortBy()));
-            query.with(sort);
-        }
+//        if (!p.getAsc().equals("") && p.getSortBy() != null) {
+//            Sort sort = new Sort(new Sort.Order(p.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, p.getSortBy()));
+//            query.with(sort);
+//        }
         List<CommentEntity> entities = this.mongoTemplate.find(query, getEntityClass());
         List<CommentVO> rows = convertToVOList(entities);
         CollectionVO<CommentVO> collectionVO = new CollectionVO<>(rows, (int) totalCount, p.getPageSize());
@@ -116,10 +116,10 @@ public class CommentDAOImpl implements CommentDAO {
 		// TODO 组合查询条件
 		query .skip((pager.getPageNo() - 1) * pager.getPageSize());
 		query.limit(pager.getPageSize());
-		if (pager.getAsc()!=null&&!pager.getAsc().equals("") && pager.getSortBy() != null) {
-            Sort sort = new Sort(new Sort.Order(pager.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, pager.getSortBy()));
-            query.with(sort);
-        }
+//		if (pager.getAsc()!=null&&!pager.getAsc().equals("") && pager.getSortBy() != null) {
+//            Sort sort = new Sort(new Sort.Order(pager.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, pager.getSortBy()));
+//            query.with(sort);
+//        }
 		System.out.println(query);
 		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
 	}

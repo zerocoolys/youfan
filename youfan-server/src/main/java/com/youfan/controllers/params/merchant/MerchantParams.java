@@ -12,7 +12,7 @@ import com.youfan.controllers.params.MongoParams;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public class MerchantParams implements MongoParams{
+public class MerchantParams extends MongoParams{
 
 	private String userName;
 	private String realName;
