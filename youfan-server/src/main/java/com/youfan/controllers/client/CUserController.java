@@ -64,15 +64,15 @@ public class CUserController {
      * @return
      */
     @RequestMapping(path = "/binfo", method = RequestMethod.POST, produces = "application/json")
-    public Response updateUserInfo(@RequestBody String clientUserParamsStr, HttpServletRequest request) {
+    public Response updateUserInfo(@RequestBody String clientUserParamsStr) {
 
-        String token = request.getHeader("Authorization");
+        //String token = request.getHeader("Authorization");
         ObjectMapper mapper = new ObjectMapper();
         ClientUserParams userParams = null;
         String userId = null;
         try {
             userParams = mapper.readValue(clientUserParamsStr, ClientUserParams.class);
-            userId = userService.getUserIdByToken(token);
+            userId = userParams.getUid();
         } catch (Exception e) {
             return Responses.FAILED();
         }
