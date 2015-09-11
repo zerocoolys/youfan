@@ -26,9 +26,8 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 	}
 
 	@Override
-	public void insert(Object t) {
-		// TODO Auto-generated method stub
-
+	public void insert(T t) {
+		mongoTemplate.insert(convertToEntity(t));
 	}
 
 	@Override
@@ -40,7 +39,6 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 	@Override
 	public void update(Object t) {
 		Update update = new Update();
-		System.out.println(update);
 	}
 
 	@Override
@@ -55,15 +53,10 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 		return null;
 	}
 
-
 	@Override
 	public List<T> findPagerByParams(MongoParams params, Pagination pager) {
 		Query query = buildAndEqualQuery(params);
-		if(params.getDataStatus() == null){
-			query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
-		}else if (params.getStatus() == null) {
-			query.addCriteria(where(MONGO_STATUS).ne(-1));
-		}
+		query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
 		if (pager != null) {
 			query.skip((pager.getPageNo() - 1) * pager.getPageSize());
 			query.limit(pager.getPageSize());
@@ -78,11 +71,7 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 	@Override
 	public long count(MongoParams params) {
 		Query query = buildAndEqualQuery(params);
-		if(params.getDataStatus() == null){
-			query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
-		}else if (params.getStatus() == null) {
-			query.addCriteria(where(MONGO_STATUS).ne(-1));
-		}
+		query.addCriteria(where(MONGO_DATA_STATUS).ne(-1));
 		return mongoTemplate.count(query, getEntityClass());
 	}
 
@@ -91,7 +80,7 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 		Update update = new Update();
 		try {
 			Map<String, Object> paramsMap = JSONUtils.obj2map(params);
-			if(paramsMap==null||paramsMap.isEmpty()){
+			if (paramsMap == null || paramsMap.isEmpty()) {
 				return 0;
 			}
 			update = buildUpdate(paramsMap);
@@ -99,8 +88,15 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 			update = new Update();
 		}
 		System.out.println(update);
-		WriteResult re = mongoTemplate.updateFirst(query(where(ID).is(id)).addCriteria(where(MONGO_STATUS).ne(-1)), update, getEntityClass());
+		WriteResult re = mongoTemplate.updateFirst(query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).ne(-1)),
+				update, getEntityClass());
 		return re.getN();
+	}
+
+	@Override
+	public T findUniqueOne(String key, Object value) {
+		return (T) mongoTemplate.findOne(query(where(key).is(value)).addCriteria(where(MONGO_DATA_STATUS).ne(-1)),
+				getEntityClass());
 	}
 
 }

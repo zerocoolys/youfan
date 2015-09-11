@@ -11,12 +11,10 @@ import com.youfan.data.models.MerchantUserEntity;
 public class MerchantDAOImpl extends MongoBaseDAOImpl<MerchantUserEntity, MerchantUserVO, Long> implements MerchantDAO{
 
 	public Class<MerchantUserEntity> getEntityClass() {
-		// TODO Auto-generated method stub
 		return MerchantUserEntity.class;
 	}
 
 	public Class<MerchantUserVO> getVOClass() {
-		// TODO Auto-generated method stub
 		return MerchantUserVO.class;
 	}
 	

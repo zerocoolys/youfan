@@ -88,6 +88,8 @@ public class ActiveVO {
 	 * 活动描述
 	 */
 	private String desc;
+	
+	private Integer dataStatus;
 
 	public String getId() {
 		return id;
@@ -256,6 +258,14 @@ public class ActiveVO {
 
 	public void setAllowTimes(Integer allowTimes) {
 		this.allowTimes = allowTimes;
+	}
+
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
 	}
 
 

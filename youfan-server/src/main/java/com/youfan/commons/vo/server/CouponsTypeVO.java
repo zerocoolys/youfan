@@ -113,5 +113,12 @@ public class CouponsTypeVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	private Integer dataStatus;
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
 
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
 }

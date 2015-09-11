@@ -411,9 +411,6 @@ public class PlatFormBusinessController {
 				activeVo.setPort(Integer.valueOf(request.getParameter("port")));
 				activeVo.setEvent(request.getParameter("event"));
 				activeVo.setActiveType(Integer.valueOf(request.getParameter("activeType")));
-				// activeVo.setActiveDetailClazz(request.getParameter("activeDetailClazz"));
-
-				// System.out.println(request.getParameter("userCondition"));
 				activeVo.setUserConditions(request.getParameter("userCondition") == null ? null
 						: JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
 				activeVo.setOrderConditions(request.getParameter("orderCondition") == null ? null
@@ -428,9 +425,6 @@ public class PlatFormBusinessController {
 				activeVo.setStartTime(Long.valueOf(request.getParameter("startTime")));
 				activeVo.setEndTime(Long.valueOf(request.getParameter("endTime")));
 				activeVo.setTitle(request.getParameter("title"));
-				// 状态默认为1 表示开启使用状态
-				activeVo.setStatus(1);
-				System.out.println(activeVo.toString());
 				activeService.save(activeVo);
 				res = Responses.SUCCESS().setMsg("数据保存成功");
 			} else {
@@ -460,30 +454,30 @@ public class PlatFormBusinessController {
 		Response res = null;
 		try {
 			ActiveParams activeParams = new ActiveParams();
-			if (request.getParameter("event") != null) {
-				activeParams.setEvent(request.getParameter("event"));
-			}
-			if (request.getParameter("status") != null) {
-				activeParams.setStatus(Integer.valueOf(request.getParameter("status")));
-			}
-
-			if (request.getParameter("title") != null) {
-				activeParams.setTitle(request.getParameter("title"));
-			}
-			long recordCnt = activeService.count(activeParams);
-			if (request.getParameter("pageSize") != null && request.getParameter("pageNo") != null) {
-				activeParams.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
-				activeParams.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
-			} else {
-				activeParams.setPageSize((int) recordCnt);
-				activeParams.setPageNo(0);
-			}
-
-			CollectionVO<ActiveVO> payload = new CollectionVO<>(new ArrayList<ActiveVO>(), (int) recordCnt,
-					activeParams.getPageSize() < 1 ? (int) recordCnt : activeParams.getPageSize());
-			List<ActiveVO> list = activeService.getByCondition(activeParams);
-			payload.addAll(list);
-			res = Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
+//			if (request.getParameter("event") != null) {
+//				activeParams.setEvent(request.getParameter("event"));
+//			}
+//			if (request.getParameter("status") != null) {
+//				activeParams.setStatus(Integer.valueOf(request.getParameter("status")));
+//			}
+//
+//			if (request.getParameter("title") != null) {
+//				activeParams.setTitle(request.getParameter("title"));
+//			}
+//			long recordCnt = activeService.count(activeParams);
+//			if (request.getParameter("pageSize") != null && request.getParameter("pageNo") != null) {
+//				activeParams.setPageSize(Integer.valueOf(request.getParameter("pageSize")));
+//				activeParams.setPageNo(Integer.valueOf(request.getParameter("pageNo")));
+//			} else {
+//				activeParams.setPageSize((int) recordCnt);
+//				activeParams.setPageNo(0);
+//			}
+//
+//			CollectionVO<ActiveVO> payload = new CollectionVO<>(new ArrayList<ActiveVO>(), (int) recordCnt,
+//					activeParams.getPageSize() < 1 ? (int) recordCnt : activeParams.getPageSize());
+//			List<ActiveVO> list = activeService.getByCondition(activeParams);
+//			payload.addAll(list);
+//			res = Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			res = Responses.SUCCESS().setCode(0).setMsg("数据获取失败");
@@ -507,7 +501,7 @@ public class PlatFormBusinessController {
 		Response res = null;
 		try {
 			String id = request.getParameter("id");
-			activeService.updateById(id, JSONUtils.json2map(request.getParameter("updateMap")));
+//			activeService.updateById(id, JSONUtils.json2map(request.getParameter("updateMap")));
 			res = Responses.SUCCESS().setPayload(null).setCode(1).setMsg("活动更新成功");
 		} catch (Exception e) {
 			e.printStackTrace();

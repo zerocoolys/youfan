@@ -42,9 +42,4 @@ public class MerchantParams implements MongoParams{
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	@Override
-	public Integer getDataStatus() {
-		return this.status;
-	}
-	
 }

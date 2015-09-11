@@ -78,6 +78,18 @@ public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constant
 	 * @update 2015年9月11日 上午10:30:46
 	 */
 	int updateById(String id, MongoParams params);
+	
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 * @description 通过Unique字段查询
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午11:05:50
+	 */
+	T findUniqueOne(String key,Object value);
 
 	/**
 	 * <p>

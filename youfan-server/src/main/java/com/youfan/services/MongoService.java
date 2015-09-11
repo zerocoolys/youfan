@@ -1,0 +1,68 @@
+package com.youfan.services;
+
+import java.util.List;
+
+import com.youfan.commons.Pagination;
+import com.youfan.controllers.params.MongoParams;
+
+/**
+ * 
+ * @title MongoService.java
+ * @package com.youfan.services
+ * @description mongo业务层接口
+ * @author QinghaiDeng   
+ * @update 2015年9月11日 上午11:37:29
+ * @version V1.0  
+ * Copyright (c)2012 chantsoft-版权所有
+ */
+public interface MongoService<E,T> {
+
+	public void save(T t);
+	/**
+	 * 
+	 * @param params
+	 * @param pager
+	 * @return
+	 * @description 条件分页查询
+	 * 				
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午10:29:56
+	 */
+	List<T> getPagerByParams(MongoParams params,Pagination pager);
+	/**
+	 * 
+	 * @param muParams
+	 * @return
+	 * @description 使用条件 获取记录条数
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午10:30:31
+	 */
+	long count(MongoParams params);
+
+	/**
+	 * 
+	 * @param id
+	 * @param muParams
+	 * @return
+	 * @description ID查询更新记录
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午10:30:46
+	 */
+	int updateById(String id, MongoParams params);
+	
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 * @description 通过Unique字段查询
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午11:05:50
+	 */
+	T getUniqueOne(String key,Object value);
+
+}
