@@ -8,7 +8,6 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
      */
     $scope.user = {};
 
-    $scope.isShow = true;
     /**
      * 登陆
      */
@@ -62,9 +61,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                             ResponseUser.sex = data.payload.clientUserVO.sex;
                             ResponseUser.jobs = data.payload.clientUserVO.jobs;
 
-
                             $state.go('tab.chats', {userobj: data.payload.clientUserVO});
-                            $scope.isShowxxxxx = true;
 
                         } else {
                             var loginDied = $ionicPopup.show({
