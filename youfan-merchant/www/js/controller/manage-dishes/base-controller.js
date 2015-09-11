@@ -1,3 +1,6 @@
+/**
+ * Created by Fzk lwek on 2015/9/11.
+ */
 angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_controllers', 'yf_merchant.m_d_xfz_controllers', 'yf_merchant.m_d_nsc_controllers', 'yf_merchant.manage_dishes_service'])
 
     .controller('ManageDishesCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT) {
