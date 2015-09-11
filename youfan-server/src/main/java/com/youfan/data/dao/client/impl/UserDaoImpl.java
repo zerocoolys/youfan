@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
         update.set("age", clientUserVO.getAge());
         update.set("jobs", clientUserVO.getJobs());
 
-        convertToVO(mongoTemplate.findAndModify(buildQueryByid(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
+        convertToVO(mongoTemplate.findAndModify(buildQueryById(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
         Update update = new Update();
         update.set("password", pwd);
 
-        convertToVO(mongoTemplate.findAndModify(buildQueryByid(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
+        convertToVO(mongoTemplate.findAndModify(buildQueryById(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
     }
 
     @Override
@@ -83,14 +83,8 @@ public class UserDaoImpl implements UserDao {
     @Override
     public ClientUserVO findByid(String id) {
 
-        ClientUserVO userVO = mongoTemplate.findOne(buildQueryByid(id),
+        ClientUserVO userVO = mongoTemplate.findOne(buildQueryById(id),
                 ClientUserVO.class, COLLECTION_CLIENT_USER);
         return userVO;
-    }
-
-    public Query buildQueryByid(String id) {
-        Criteria criteria = Criteria.where("id").is(id);
-
-        return Query.query(criteria);
     }
 }
