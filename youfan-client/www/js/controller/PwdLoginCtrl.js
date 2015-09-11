@@ -2,16 +2,12 @@
  * Created by ss on 2015/8/28.
  */
 //密码登录
-ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state, $window,AuthenticationService, UserService, localStorageService) {
+ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state, $window,AuthenticationService, UserService, localStorageService, User, ResponseUser) {
     /**
      * 密码验证登陆
      */
-    $scope.user = {
-        tel: "",
-        password: ""
-    };
+    $scope.user = {};
 
-    $scope.isShow = false;
     /**
      * 登陆
      */
@@ -35,7 +31,6 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                 }, 2000);
             } else {
                 UserService.signIn(tel, password).success(function(data){
-                    console.log(data);
                     if (data.code == 0) {
                         //console.log(data.payload.token);
                         if (data.payload.token != "") {
@@ -55,8 +50,18 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                             $window.sessionStorage.token = data.payload.token;
                             $window.sessionStorage.uid = data.payload.uid;
 
-                            $state.go('tab.chats');
-                            $scope.isShowxxxxx = true;
+                            User.id = data.payload.clientUserVO.id;
+                            User.name = data.payload.clientUserVO.name;
+                            User.telNo = data.payload.clientUserVO.tel;
+                            User.token = data.payload.token;
+
+                            ResponseUser.name = data.payload.clientUserVO.name;
+                            ResponseUser.tel = data.payload.clientUserVO.tel;
+                            ResponseUser.age = data.payload.clientUserVO.age;
+                            ResponseUser.sex = data.payload.clientUserVO.sex;
+                            ResponseUser.jobs = data.payload.clientUserVO.jobs;
+
+                            $state.go('tab.chats', {userobj: data.payload.clientUserVO});
 
                         } else {
                             var loginDied = $ionicPopup.show({

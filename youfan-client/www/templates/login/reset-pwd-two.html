@@ -12,7 +12,7 @@
             <div class="item item-input">
                 <input type="password" id="confirmPwd" name="confirmPwd" ng-model="user.confirmPwd" placeholder="再次输入密码" required>
             </div>
-            <button class="button button-block bar-balanced" ng-click="resetPwd(user.pwd)">完 成</button>
+            <button class="button button-block bar-balanced" ng-click="resetPwd(user.pwd, user.confirmPwd)">完 成</button>
             <p class="existingAccount">已有密码？&nbsp;&nbsp;<a  ui-sref="tab.pwd-login"
                                                             style="color: #0c63ee">立即登陆</a></p>
         </div>

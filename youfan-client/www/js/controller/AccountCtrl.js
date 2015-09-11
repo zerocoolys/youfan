@@ -3,5 +3,4 @@ ControllerModule.controller('AccountCtrl', function ($scope, $cordovaCamera, Cam
     $scope.settings = {
         enableFriends: true
     };
-    CameraService.initCameraService($scope, $cordovaCamera);
 });

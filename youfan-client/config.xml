@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.youfan" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+<widget id="com.youfan" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>优饭</name>
     <description>
         Youfan user client, an Ionic Framework and Cordova project.
@@ -16,8 +16,10 @@
     <preference name="BackupWebStorage" value="none"/>
     <preference name="SplashScreen" value="screen"/>
     <preference name="SplashScreenDelay" value="3000"/>
-    <preference name="AndroidPersistentFileLocation" value="Internal" />
-    <access origin="tel:*" launch-external="yes" />
+    <preference name="AndroidPersistentFileLocation" value="Internal"/>
+    <gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.6.4"/>
+    <gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1"/>
+    <access origin="tel:*" launch-external="yes"/>
     <feature name="StatusBar">
         <param name="ios-package" value="CDVStatusBar" onload="true"/>
     </feature>

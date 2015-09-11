@@ -6,13 +6,19 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerModule', 'ServiceModule', 'ngCordova', 'LocalStorageModule'])
-    .run(function ($ionicPlatform, $rootScope, $location, $window, AuthenticationService) {
+    .run(function ($ionicPlatform, $rootScope, $location, NotificationService, $window, AuthenticationService) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
-            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                cordova.plugins.Keyboard.disableScroll(true);
+            if (window.cordova && window.cordova.plugins) {
+                if (window.cordova.plugins.Keyboard) {
+                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                    cordova.plugins.Keyboard.disableScroll(true);
+                }
+
+                if (window.cordova.plugins.backgroundMode) {
+                    cordova.plugins.backgroundMode.enable();
+                }
 
             }
             if (window.StatusBar) {
@@ -21,6 +27,13 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             }
 
         });
+
+        // Notification
+        NotificationService.ready.then(function (device) {
+            console.log(device)
+        });
+
+
         //$rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
         //    if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
         //            && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
@@ -146,6 +159,10 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         controller: 'ChatsCtrl',
                         access: {requiredAuthentication: true}
                     }
+                },
+                params: {
+                    userobj: null,
+                    isshow: null
                 }
             })
             .state('tab.chat-detail', {
@@ -227,7 +244,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 },
                 params: {
-                    order: null
+                    order: null,
+                    userInfo: null,
+                    dishes: null
                 }
             })
             //个人中心-我的订单-订单详情-支付成功
@@ -318,6 +337,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         templateUrl: 'templates/login/reset-pwd-two.html',
                         controller: 'ResetPwdTwoCtrl'
                     }
+                },
+                params: {
+                    telNo: null
                 }
             })
             //设置密码
@@ -351,12 +373,16 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
 //            支付页面
             .state('tab.pay-page', {
-                url: '/pay-page/:order_no/:discountPrice',
+                url: '/pay-page/',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/pay-page.html',
                         controller: 'OrderPayCtrl'
                     }
+                },
+                params: {
+                    discountPrice: 0,
+                    orderNo: null
                 }
             })
 //            就餐方式页

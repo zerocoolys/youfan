@@ -30,8 +30,6 @@ ControllerModule.controller('SmsCaptchaCtrl', function ($scope, $ionicPopup, $in
     $scope.sendMessage = function (obj, tel) {
 
         var re = /(^1[3|5|8][0-9]{9}$)/;
-        var codeLength = 6;             //验证码长度
-        var code = "";               //验证码
 
         if (tel.trim() != "") {
             if (!re.test(tel.trim())) {

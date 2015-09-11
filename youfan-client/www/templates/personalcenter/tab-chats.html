@@ -4,7 +4,7 @@
         <a class="button button-clear icon-right ion-ios-gear-outline " ui-sref="tab.set"></a>
     </ion-header-bar>
     <ion-content>
-        <div class="list photo_bg" ng-controller="PwdLoginCtrl" ui-sref="tab.personal-info">
+        <div class="list photo_bg" ui-sref="tab.personal-info" ng-show="isShow">
             <ion-item class="profile-item">
                 <div class="profile-picture big-profile-picture">
                     <img src="img/person.png">
@@ -19,7 +19,7 @@
                 <!--<button class="button  button-small bar-balanced " ui-sref="tab.pwd-login">登录</button>-->
             </ion-item>
         </div>
-        <div class="list photo_bg" ng-controller="PwdLoginCtrl" ng-hide="isShow()">
+        <div class="list photo_bg" ng-hide="isShow">
             <ion-item class="profile-item">
                 <div class="profile-picture big-profile-picture">
                     <img src="img/person.png">

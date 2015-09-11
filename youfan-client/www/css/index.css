@@ -130,10 +130,10 @@
     padding: 5px;
     font-size: 12px;
     color: #fff;
-    /*background: -webkit-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
-    background: -moz-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
-    background: -ms-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
-    background: -o-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));*/
+    /*    background: -webkit-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
+        background: -moz-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
+        background: -ms-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
+        background: -o-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));*/
 }
 
 .home_item .person_img h2 {
@@ -815,7 +815,65 @@ ul.rating li i {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.message_text.add_text{
+
+.message_text.add_text {
     white-space: normal;
     text-overflow: clip;
+}
+
+.transparent {
+    background: transparent !important;
+}
+
+.image-modal {
+    width: 100% !important;
+    height: 100%;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.fullscreen-image {
+    max-width: 100%;
+    max-height: 100%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.image-modal .slider {
+    width: 100%;
+    height: 100%;
+}
+
+p.info {
+    position: absolute;
+    bottom: 55px;
+    margin: 0 auto;
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 28px;
+    color: #ffffff;
+}
+
+/* Fix modal backdrop for smaller devices */
+@media (max-width: 679px) {
+    .active .modal-backdrop-bg {
+        opacity: .5;
+    }
+
+    .modal-backdrop-bg {
+        -webkit-transition: opacity 300ms ease-in-out;
+        transition: opacity 300ms ease-in-out;
+        background-color: #000;
+        opacity: 0;
+    }
+}
+
+.mode_img.modal {
+    background: rgba(0, 0, 0, 0.8);
 }

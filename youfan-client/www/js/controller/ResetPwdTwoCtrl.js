@@ -1,23 +1,24 @@
 /**
  * Created by ss on 2015/9/6.
  */
-ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $interval, $ionicPopup, $timeout, $http, $state, $window, UserService) {
+ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $interval, $ionicPopup, $timeout, $http,$state, $stateParams, $window, UserService) {
+
+
+    $scope.telNo = $stateParams.telNo;
 
     $scope.user = {
         pwd: "",
         confirmPwd: ""
     };
 
-    $scope.resetPwd = function (password) {
-        var pwd = $scope.user.pwd;
-        var confirmPwd = $scope.user.confirmPwd;
+    $scope.resetPwd = function (password, confirmPwd) {
         var re = /[0-9 | A-Z | a-z]{6,16}/;
 
-        if (pwd.trim() != "") {
-            if (re.test(pwd)) {
+        if (password.trim() != "") {
+            if (re.test(password)) {
                 if (confirmPwd.trim() != "") {
-                    if (pwd.trim() == confirmPwd.trim()) {
-                        UserService.resetPassword(password).success(function (data) {
+                    if (password.trim() == confirmPwd.trim()) {
+                        UserService.resetPassword($scope.telNo, password).success(function (data) {
                             console.log(data);
                             if (data.code == 0) {
                                 $state.go('tab.chats');

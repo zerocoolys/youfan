@@ -118,7 +118,7 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
     $scope.tab_keydown = function (data) {
         if (data == undefined) {
             return
-        }else if(data == ""){
+        } else if (data == "") {
             $scope.initMerchant();
             return
         }

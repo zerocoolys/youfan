@@ -12,8 +12,7 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
     /**
      * 重置密码
      */
-    $scope.verifyCaptcha = function (tel) {
-        var captcha = $scope.user.captcha;
+    $scope.verifyCaptcha = function (tel, captcha) {
         var re = /(^1[3|5|8][0-9]{9}$)/;
 
         if (tel.trim() != "") {
@@ -29,7 +28,7 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
                 if (captcha.trim() != "") {
                     SMSService.forgetPasswordCaptchaVerify(tel).success(function (data) {
                         if (data.payload != null && data.payload == captcha) {
-                            $state.go('tab.reset-pwd-two');
+                            $state.go('tab.reset-pwd-two', {telNo: tel});
                         } else if (data.payload != null && data.payload != captcha) {
                             var captchaError = $ionicPopup.show({
                                 title: '验证码错误',

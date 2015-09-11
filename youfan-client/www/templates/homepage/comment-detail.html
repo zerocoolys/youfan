@@ -1,6 +1,6 @@
 <ion-view hide-nav-bar="true" hide-tabs class="order">
     <ion-header-bar class="bar" align-title="center">
-        <a class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.dash"></a>
+        <a class="button icon ion-ios-arrow-left button-clear" ng-click="back()"></a>
 
         <h1 class="title">评价晒单</h1>
     </ion-header-bar>
@@ -65,10 +65,8 @@
                 </ion-item>
                 <div class="photo_img">
                     <ul>
-                        <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
-                        <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
-                        <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
-                        <li><img ng-src="{{cImg||'img/1.jpg'}}"/></li>
+                        <li ng-repeat='oImage in aImages'><img ng-src='{{oImage.src}}' ng-click='goToSlide($index)'/>
+                        </li>
                     </ul>
                 </div>
                 <button class="button icon-left button-small ion-star bar-balanced button-outline"
@@ -80,6 +78,19 @@
         <label class="checkbox">
             <input type="checkbox" class="alleft" ng-model="formData.is_hide_name"><span class="alleft">匿名评价</span>
         </label>
+        <script id="image-modal.html" type="text/ng-template">
+            <div class="modal image-modal transparent"
+                 ng-click="closeModal()">
+                <ion-slide-box on-slide-changed="slideChanged(index)"
+                               show-pager="false">
+                    <ion-slide ng-repeat="oImage in aImages">
+                        <img ng-src="{{oImage.src}}" class="fullscreen-image"/>
+
+                        <p class="info">{{oImage.msg}}</p>
+                    </ion-slide>
+                </ion-slide-box>
+            </div>
+        </script>
 
 
     </ion-content>

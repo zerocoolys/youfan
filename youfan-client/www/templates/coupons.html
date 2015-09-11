@@ -1,6 +1,6 @@
 <ion-view view-title="" hide-nav-bar="true" hide-tabs cache-view="false">
     <ion-header-bar class="bar bar-header">
-        <button class="button icon ion-ios-arrow-left button-clear" ui-sref="tab.wallet"></button>
+        <a class="button ion-ios-arrow-left button-clear" onclick="history.back()"></a>
         <h2 class="title">优惠券</h2>
         <a class="button button-clear mainColor" href="#/tab/recommended-awards">推荐奖励</a>
     </ion-header-bar>
@@ -22,7 +22,7 @@
             </ion-item>
         </ion-list>
     </ion-content>
-    <div class="bar bar-footer bar-balanced">
+    <div class="bar bar-footer bar-balanced" ng-show="isShowFooterBar">
         <h2 class="title">
             本次不适用优惠券
         </h2>

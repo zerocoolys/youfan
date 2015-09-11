@@ -10,8 +10,8 @@ ControllerModule.controller('OrderPayCtrl', function ($scope, $stateParams, $htt
     $scope.chargeParams = {
         subject: "youfan order subject",
         body: "youfan order body",
-        amount: $stateParams.discountPrice,
-        orderNo: $stateParams.order_no,
+        amount: parseInt($stateParams.discountPrice),
+        orderNo: $stateParams.orderNo,
         channel: "",
         currency: "cny",
         clientIp: ""

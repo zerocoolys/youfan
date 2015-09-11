@@ -39,11 +39,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     $scope.onContentScroll = function () {
         if ($ionicScrollDelegate.getScrollPosition().top > 200) {
             $scope.AddColor = true;
-        }
-        else {
+        } else {
             $scope.AddColor = false;
         }
-    }
+    };
     $scope.share = function () {
 
         $ionicActionSheet.show({
@@ -138,6 +137,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         var menu = $scope.menuItemMap.get(menuId);
 
         if (menu.restNum > 0) {
+            if ($scope.orderCartMap.isEmpty()) {
+                $scope.orderCartMap.put($scope.rice.id, $scope.rice);
+            }
+
             if ($scope.orderCartMap.containsKey(menuId)) {
                 var item = $scope.orderCartMap.get(menuId);
                 if (item.name == "米饭" && item.count == 0) {
@@ -319,15 +322,14 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
 
     /*====================XiaoWei==================*/
-    $scope.merchantObj = {}
+    $scope.merchantObj = {};
     $scope.getMerchantKitchen = function () {
         var merchantId = Merchant.mki;
         if (merchantId) {
             $http.get(REST_URL + "/mr/getMrOne/" + merchantId).success(function (result) {
-                console.log(result);
-                if (result.payload != null) {
-                    var _tmpData = result.payload;
-                    _tmpData["lg"] =_tmpData.location;
+                if (result.payload.mk != null) {
+                    var _tmpData = result.payload.mk;
+                    _tmpData["lg"] = _tmpData.location;
                     if (!_tmpData.distribution) {
                         _tmpData["distribution"] = "暂无说明";
                     }
@@ -351,25 +353,33 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;
                 }
-            });
-        }
-    }
-    $scope.merchantUser = {};
-    $scope.getMerchantUser = function () {
-        var merchantId = Merchant.mki;
-        if (merchantId) {
-            $http.get(REST_URL + "/mr/getMuOne/" + merchantId).success(function (result) {
-                if (result.payload != null) {
-                    var _tmpData = result.payload;
+                if (result.payload.mu != null) {
+                    var _tmpData = result.payload.mu;
                     _tmpData["realName"] = _tmpData.realName.substring(0, 1) + "先生";
                     _tmpData["address"] = _tmpData.address ? _tmpData.address.replace(/市|省|自治|区/g, '') + "人" : "暂无";
                     $scope.merchantUser = _tmpData;
                     Merchant.userInfo = _tmpData;
                 }
+                $scope.cc = result.payload.cc;
             });
         }
     }
+    //$scope.merchantUser = {};
+
+    //$scope.getMerchantUser = function () {
+    //    var merchantId = Merchant.mki;
+    //    if (merchantId) {
+    //        $http.get(REST_URL + "/mr/getMuOne/" + merchantId).success(function (result) {
+    //            if (result.payload != null) {
+    //                var _tmpData = result.payload;
+    //                _tmpData["realName"] = _tmpData.realName.substring(0, 1) + "先生";
+    //                _tmpData["address"] = _tmpData.address ? _tmpData.address.replace(/市|省|自治|区/g, '') + "人" : "暂无";
+    //                $scope.merchantUser = _tmpData;
+    //                Merchant.userInfo = _tmpData;
+    //            }
+    //        });
+    //    }
+    //}
     $scope.getMerchantKitchen();
-    $scope.getMerchantUser();
 
 });
