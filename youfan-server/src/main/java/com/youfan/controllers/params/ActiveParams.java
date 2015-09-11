@@ -1,6 +1,6 @@
 package com.youfan.controllers.params;
 
-public class ActiveParams implements MongoParams{
+public class ActiveParams extends MongoParams{
 	
 	private String event;
 	private String title;

@@ -1,15 +1,14 @@
 package com.youfan.services.server.impl;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.youfan.commons.vo.server.CouponsTypeVO;
-import com.youfan.controllers.params.CouponsParams;
 import com.youfan.data.dao.server.CouponsTypeDAO;
+import com.youfan.data.models.CouponsTypeEntity;
+import com.youfan.services.impl.MongoServiceImpl;
 import com.youfan.services.server.CouponsTypeService;
 
 /**
@@ -23,41 +22,9 @@ import com.youfan.services.server.CouponsTypeService;
  * Copyright (c)2012 chantsoft-版权所有
  */
 @Service("couponsTypeService")
-public class CouponsTypeServiceImpl implements CouponsTypeService{
-
-	@Resource
-	CouponsTypeDAO couponsTypeDAO;
-	@Override
-	public void save(CouponsTypeVO couponsTypeVO) {
-		// TODO Auto-generated method stub
-		couponsTypeDAO.insert(couponsTypeVO);
+public class CouponsTypeServiceImpl extends MongoServiceImpl<CouponsTypeEntity, CouponsTypeVO>implements CouponsTypeService{
+	@Autowired
+	public CouponsTypeServiceImpl(CouponsTypeDAO couponsTypeDAO) {
+		super(couponsTypeDAO);
 	}
-	@Override
-	public Long count(CouponsParams couponsParams) {
-		// TODO Auto-generated method stub
-		return couponsTypeDAO.count(couponsParams);
-	}
-	@Override
-	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams) {
-		// TODO Auto-generated method stub
-		return couponsTypeDAO.getByCondition(couponsParams);
-	}
-	@Override
-	public int updateById(String id, Map<String, Object> updateMap) {
-		// TODO Auto-generated method stub
-		return couponsTypeDAO.updateById(id, updateMap);
-	}
-	@Override
-	public int updateById(String id, CouponsTypeVO vo) {
-		// TODO Auto-generated method stub
-		return couponsTypeDAO.updateById(id, vo);
-	}
-	@Override
-	public int deleteById(String id) {
-		CouponsTypeVO vo = new CouponsTypeVO();
-		vo.setStatus(-1);
-		return couponsTypeDAO.updateById(id, vo);
-		
-	}
-
 }

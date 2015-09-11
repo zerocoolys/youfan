@@ -7,6 +7,7 @@ import com.youfan.controllers.params.MongoParams;
 import com.youfan.data.dao.NewMongoBaseDAO;
 import com.youfan.services.MongoService;
 
+import static com.youfan.commons.Constants.MONGO_DELETED_DATA;
 /**
  * 
  * @title MongoServiceImpl.java
@@ -35,18 +36,34 @@ public class MongoServiceImpl<E, T> implements MongoService<E, T>{
 	}
 
 	@Override
-	public List<T> getPagerByParams(MongoParams params, Pagination pager) {
-		return mongoDao.findPagerByParams(params, pager);
-	}
-
-	@Override
 	public int updateById(String id, MongoParams params) {
 		return mongoDao.updateById(id, params);
 	}
 
 	@Override
+	public int updateById(String id, T t) {
+		return mongoDao.updateById(id, t);
+	}
+	
+	@Override
+	public int logicDelete(String id) {
+		MongoParams params=new MongoParams();
+		params.setDataStatus(MONGO_DELETED_DATA);
+		return mongoDao.updateById(id, params);
+	}
+
+	@Override
+	public T get(String id) {
+		return mongoDao.findOne(id);
+	}
+	@Override
 	public T getUniqueOne(String key, Object value) {
 		return mongoDao.findUniqueOne(key, value);
+	}
+
+	@Override
+	public List<T> getPagerByParams(MongoParams params, Pagination pager) {
+		return mongoDao.findPagerByParams(params, pager);
 	}
 
 	

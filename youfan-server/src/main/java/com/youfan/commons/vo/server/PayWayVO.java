@@ -18,7 +18,7 @@ public class PayWayVO {
 	 */
 	private Integer status;
 
-	private Integer dataStatus;
+	private Integer dataStatus=1;
 	public String getId() {
 		return id;
 	}

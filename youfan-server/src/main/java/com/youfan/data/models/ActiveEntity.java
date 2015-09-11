@@ -116,7 +116,7 @@ public class ActiveEntity {
 	 */
 	private Integer status;
 	@Field("ds")
-	private Integer dataStatus;
+	private Integer dataStatus=1;
 
 	public String getId() {
 		return id;

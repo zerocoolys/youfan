@@ -36,6 +36,14 @@ public interface Constants {
 	 */
 	String MONGO_STATUS = "status";
 	String MONGO_DATA_STATUS = "dataStatus";
+	
+	String MONGO_FIELD_DATA_STATUS = "dataStatus";
+	/**
+	 * MrDeng mongo中删除的数据-1
+	 */
+	int MONGO_DELETED_DATA = -1;
+	int MONGO_NORMAL_DATA = 1;
+	
 	String ID = "id";
 	String TYPE = "type";
 	String NAME = "name";

@@ -113,7 +113,7 @@ public class CouponsTypeVO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	private Integer dataStatus;
+	private Integer dataStatus=1;
 	public Integer getDataStatus() {
 		return dataStatus;
 	}

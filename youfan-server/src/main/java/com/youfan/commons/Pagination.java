@@ -61,16 +61,18 @@ public class Pagination {
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
+    
+    public boolean isAsc() {
+		return asc;
+	}
 
-    public String getAsc() {
-        return (asc) ? "ASC" : "DESC";
-    }
 
-    public void setAsc(boolean asc) {
-        this.asc = asc;
-    }
+	public void setAsc(boolean asc) {
+		this.asc = asc;
+	}
 
-    public String getSortBy() {
+
+	public String getSortBy() {
         return sortBy;
     }
 

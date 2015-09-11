@@ -215,7 +215,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 			query.skip((pager.getPageNo() - 1) * pager.getPageSize());
 			query.limit(pager.getPageSize());
 			if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
-				query.with(new Sort(pager.getAsc(), pager.getSortBy()));
+				query.with(new Sort(pager.isAsc()?Sort.Direction.ASC:Sort.Direction.DESC, pager.getSortBy()));
 
 			}
 		}

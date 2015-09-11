@@ -1,5 +1,7 @@
 package com.youfan.commons.vo.merchant;
 
+import static com.youfan.commons.Constants.MONGO_NORMAL_DATA;
+
 /**
  * @author xiaowei
  * @title MerchantResultVO
@@ -11,7 +13,7 @@ public class MerchantResultVO {
     MerchantUserVO mu;
     MerchantKitchenInfoVO mk;
     long cc;
-
+    private int dataStatus = MONGO_NORMAL_DATA;
     public MerchantResultVO(MerchantUserVO mu, MerchantKitchenInfoVO mk,long cc) {
         this.mu = mu;
         this.mk = mk;
@@ -41,4 +43,13 @@ public class MerchantResultVO {
     public void setCc(long cc) {
         this.cc = cc;
     }
+
+	public int getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(int dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+    
 }

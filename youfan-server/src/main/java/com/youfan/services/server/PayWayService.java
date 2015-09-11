@@ -1,8 +1,8 @@
 package com.youfan.services.server;
 
-import java.util.List;
-
 import com.youfan.commons.vo.server.PayWayVO;
+import com.youfan.data.models.PayWayEntity;
+import com.youfan.services.MongoService;
 
 /**
  * 
@@ -14,14 +14,5 @@ import com.youfan.commons.vo.server.PayWayVO;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public interface PayWayService {
-
-	void save(PayWayVO payWayVo);
-
-	List<PayWayVO> getAll();
-
-	void updatePayWayStatus(String valueOf, Integer valueOf2);
-
-	PayWayVO getById(String parameter);
-
+public interface PayWayService extends MongoService<PayWayEntity, PayWayVO>{
 }

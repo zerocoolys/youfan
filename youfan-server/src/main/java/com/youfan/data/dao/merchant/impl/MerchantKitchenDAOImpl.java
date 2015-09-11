@@ -120,10 +120,10 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         query.skip((p.getPageNo() - 1) * p.getPageSize());
         query.limit(p.getPageSize());
         Sort sort = null;
-        if (!p.getAsc().equals("") && p.getSortBy() != null) {
-            sort = new Sort(new Sort.Order(p.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, p.getSortBy()));
-//            query.with(sort);
-        }
+//        if (!p.getAsc().equals("") && p.getSortBy() != null) {
+//            sort = new Sort(new Sort.Order(p.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, p.getSortBy()));
+////            query.with(sort);
+//        }
 
         Point point = new Point(Double.valueOf(p.getParams().get("lng").toString()), Double.valueOf(p.getParams().get("lat").toString()));
 
