@@ -38,7 +38,7 @@ public enum OrderStatus {
 	/**
 	 * 完成退款
 	 */
-	ORDER__COMPELETE_WITHDRAW(-2, "-2"),
+	ORDER_COMPELETE_WITHDRAW(-2, "-2"),
 
 	/**
 	 * 在线支付订单的退款完成标识
@@ -53,7 +53,7 @@ public enum OrderStatus {
 	/**
 	 * 退款中
 	 */
-	ORDER__WITHDRAW(-1, "-1"),
+	ORDER_WITHDRAW(-1, "-1"),
 
 	/**
 	 * 买家在已支付状态下的退款审核标识

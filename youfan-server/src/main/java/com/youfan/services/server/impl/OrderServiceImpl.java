@@ -175,25 +175,25 @@ public class OrderServiceImpl implements OrderService {
 					|| orderStatus == OrderStatus.ORDER_STEP3_MERCHANT_WITHDRAW_PAYED
 							.value()) {
 
-				Long number = summary.get(OrderStatus.ORDER__WITHDRAW.value());
+				Long number = summary.get(OrderStatus.ORDER_WITHDRAW.value());
 
 				if (number != null && number != 0)
-					summary.put(OrderStatus.ORDER__WITHDRAW.name(), amout
+					summary.put(OrderStatus.ORDER_WITHDRAW.name(), amout
 							+ number);
 				else
-					summary.put(OrderStatus.ORDER__WITHDRAW.name(), amout);
+					summary.put(OrderStatus.ORDER_WITHDRAW.name(), amout);
 
 			} else if (orderStatus == OrderStatus.ORDER_WITHDRAW_COD.value()
 					|| orderStatus == OrderStatus.ORDER_WITHDRAW_PAYED.value()) {
 
-				Long number = summary.get(OrderStatus.ORDER__COMPELETE_WITHDRAW
+				Long number = summary.get(OrderStatus.ORDER_COMPELETE_WITHDRAW
 						.value());
 
 				if (number != null && number != 0)
-					summary.put(OrderStatus.ORDER__COMPELETE_WITHDRAW.name(),
+					summary.put(OrderStatus.ORDER_COMPELETE_WITHDRAW.name(),
 							amout + number);
 				else
-					summary.put(OrderStatus.ORDER__COMPELETE_WITHDRAW.name(),
+					summary.put(OrderStatus.ORDER_COMPELETE_WITHDRAW.name(),
 							amout);
 
 			}
