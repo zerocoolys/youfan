@@ -6,14 +6,6 @@ var api = {
     base_url: "http://localhost:8080"
 };
 
-var sms = {
-    codes: function () {
-
-        return code;
-    }
-};
-
-
 ServiceModule
     .factory('AuthenticationService', function () {
         var auth = {

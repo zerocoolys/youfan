@@ -148,7 +148,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 },
                 params: {
-                    userobj: null
+                    userobj: null,
+                    isshow: null
                 }
             })
             .state('tab.chat-detail', {
