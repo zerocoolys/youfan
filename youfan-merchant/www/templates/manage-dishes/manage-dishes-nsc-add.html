@@ -1,8 +1,6 @@
 <ion-view view-title="" hide-nav-bar="true" cache-view="false">
-
-
     <ion-header-bar class="item-input-inset light-bg indexbar">
-        <a class="button button-clear icon ion-ios-arrow-back" ui-sref="m_dishes.nsc"></a>
+        <a class="button button-clear icon ion-ios-arrow-back button-calm" data-ng-click="sureCanel()"></a>
         <h1 class="title ">添加拿手菜</h1>
         <button class="button button-clear button-calm  " data-ng-click="doCheckDishes()" data-ng-disabled="isActive">
             保存
@@ -95,12 +93,15 @@
                <ion-item style=" margin-bottom: 15px;"  ng-repeat="item in imgs" >
                 <div> <img ng-src="{{item.url}}"  style="width: 100%;" ng-click="dishPic.show()"></div>
 
-                   <button style="padding: 3px 15px  "  class="button button-energized light button-small item-note energized-border"
+                   <button style="padding: 3px 15px  "  class="button button-assertive light button-small item-note assertive-border"
                            data-ng-click="removePic($index)">删除
                    </button>
 
-                   <button style="padding: 3px 15px ;margin-right: 10px; " class="button button-assertive button-small light item-note assertive-border "
+                   <button    ng-show="$index!==0" style="padding: 3px 15px ;margin-right: 10px; " class="button button-energized button-small light item-note energized-border "
                           data-ng-click="replacePic($index)">设置为封面
+                   </button>
+                   <button style="padding: 3px 15px ;margin-right: 10px; " class="button button-calm button-small light item-note "
+                         ng-show="$index==0">已设置为封面
                    </button>
 
                     </ion-item>

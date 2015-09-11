@@ -3,21 +3,27 @@
  */
 angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_controllers', 'yf_merchant.m_d_xfz_controllers', 'yf_merchant.m_d_nsc_controllers', 'yf_merchant.manage_dishes_service'])
 
-    .controller('ManageDishesCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT) {
+    .controller('ManageDishesCtrl', function ($scope, $ionicPopup, $rootScope, $ionicHistory, $state, $ionicLoading, $timeout, ManageDishesService, $ionicModal,
+                                              YF_MERCHANT_LOADING_COMMENT) {
         console.log("ManageDishesCtrl");
         $scope.upSale = function (obj) {
             console.log("upSale");
 
             $ionicLoading.show({
-                templateUrl: YF_MERCHANT_LOADING_COMMENT
+                template: "正在上架,请稍后..."
+
             });
 
             $timeout(function () {
+                $ionicLoading.show({
+                    template: "上架成功"
+
+                });
                 ManageDishesService.conversionSale({
                     id: obj.id,
                     sale: true
                 });
-            }, 1000);
+            }, 2000);
         };
 
         $scope.downSale = function (obj) {
@@ -25,18 +31,66 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
 
             $ionicLoading.show({
 
-                templateUrl: YF_MERCHANT_LOADING_COMMENT
+                templateUrl: "正在上架,请稍后..."
 
             });
 
             $timeout(function () {
+                $ionicLoading.show({
+                    template: "已下架"
+
+                });
                 ManageDishesService.conversionSale({
                     id: obj.id,
                     sale: false
                 });
-            }, 1000);
+            }, 2000);
 
         };
+
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index + 1, 1);
+            $ionicLoading.show({
+                template: "设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
+        };
+        $rootScope.sureCanel = function () {
+            var myPopup = $ionicPopup.show({
+                template: '你确定撤销您的编辑的内容吗？',
+                title: '提示',
+                buttons: [
+                    { text: '<b>返回<b>' ,
+                        type:'button-light'
+
+                    },
+                    {
+                        text: '<b>确认</b>',
+                        type: 'button-calm',
+                        onTap: function() {
+                         history.back();
+                        }
+                    }
+                ]
+            });
+
+            // 一个确认
+
+
+        }
+
 
     })
 

@@ -1,48 +1,56 @@
-<ion-view view-title="" hide-nav-bar="true" cache-view="false">
-    <ion-header-bar align-title="center" class="stable-bg" style="height: 43px;">
-        <a class="title calm" href="#/shop-course" style="text-decoration: none;">开店教程</a>
-        <i class="buttons content button-clear" style="width: 80px; margin-top: 5px; ">
-            <a href="#/news" class="tab-item has-badge">
-                <div class="badge badge-assertive" style="">2</div>
-                <i class="icon ion-ios-chatbubble-outline calm"></i></a>
-        </i>
+<ion-view view-title="" hide-nav-bar="true" cache-view="false" >
+    <ion-header-bar  align-title="center" class="" >
+        <a class="title calm   " href="#/shop-course"><div class="overview_title">开店教程</div></a>
     </ion-header-bar>
-    <ion-content overflow-scroll="false" style="height: 100%;  " class="home_class">
-        <div class="row  light nima" id="dish" style="text-align: center;    text-decoration: none; height:22%;">
-            <div class="col calm-bg light-border light padding " style="position: relative" href="#"
-                 ng-click="goToDishes('dishes')">
-                <div class="overview_dish_a">
-                    <p class="padding">要做的菜</p>
 
+    <!--<ion-view view-title="开店教程"  class="calm" cache-view="false">-->
+        <!--<ion-header-bar  align-title="center">-->
+            <!--<h1 class="title">发现</h1>-->
+        <!--</ion-header-bar>-->
+
+        <!--<ion-nav-buttons side="right">-->
+            <!--<a class=" button button-clear button-calm " ui-sref="m_dishes_jr_stock({backType: 'nsc'})">-->
+                <!--菜品库存-->
+            <!--</a>-->
+        <!--</ion-nav-buttons>-->
+    <ion-content overflow-scroll="false" style="height: 100%;  " class="home_class">
+        <div class="row  light " id="dish" style="text-align: center;    text-decoration: none; height:22%;">
+            <div class="col calm-bg light-border light  " style="position: relative" href="#"
+                 ng-click="goToDishes('dishes')">
+                <div class="overview_dish_a ">
+                    <div class="overview_bage"  ></div>
+                    <p class="padding"  style="top:20%">要做的菜</p>
                     <p style="font-size: 40px; ">0</p>
                 </div>
             </div>
 
-            <div class=" col  calm-bg light-border light padding " style="position: relative" href="#"
+            <div class=" col  calm-bg light-border light  " style="position: relative" href="#"
                  ng-click="goToDishes('today_order')">
                 <div class="overview_dish_a">
-                    <p class="padding">今日订单</p>
+                    <div class="overview_bage"  ></div>
+                    <p class="padding" style="">今日订单</p>
 
                     <p class="" style="font-size: 40px">0</p>
                 </div>
             </div>
-            <div class="col  calm-bg light padding" href="#" style="position: relative"
+            <div class="col  calm-bg light " href="#" style="position: relative"
                  ng-click="goToDishes('tomorrow_order')">
                 <div class="overview_dish_a">
-                    <p class="padding">明日订单</p>
+                    <div class="overview_bage"  ></div>
+                    <p class="padding"  style="top: 20%;">明日订单</p>
 
                     <p class="" style="font-size: 40px">0</p>
                 </div>
             </div>
 
         </div>
-        <div class="  " style="height:25% ;position: relative">
+        <div class="  " style="height:22% ;position: relative">
             <div class="overview_dish_b row">
                 <a class="col  calm " style="" href="#/money">
-                    <p style="padding: 10px 0 0 10px;">今日营业额</p>
+                    <p style="padding: 10px 0 1% 10px; font-size: 25px;">今日营业额</p>
 
-                    <p class="" style="font-size: 20px; padding:5px 0 10px 10px; ">¥<i
-                        style="font-size: 40px;    margin: 0 0 0 5px">0</i></p>
+                    <p class="" style="font-size: 20px; padding:5px 0 30px 10px; ">¥<i
+                        style="font-size: 30px;    margin: 5px 0 0 5px">0</i></p>
                 </a>
 
                 <div class="col-20 " style="padding-top: 20px;">
@@ -59,46 +67,50 @@
 
         <div class="row  bar-stable stable-bg " style="text-align: center;height:20% ">
 
-            <a href="#/all_order" class="col  bar-stable item  stable-bg item-icon padding"
+            <a href="#/all_order" class="col  bar-stable item  stable-bg item-icon  "
                style="position:relative;">
-                <div class="overview_dish">
-                    <i class=" button button-clear button-calm  icon ion-android-apps"></i>
-
+                <div class="overview_dish ">
+                    <i data-icon="&#xe0cd;" class="  calm "></i>
                     <p>全部订单</p>
                 </div>
             </a>
-            <a href="#/my_income" class="col  row-center  bar-stable stable-bg item  item-icon padding">
+            <a href="#/my_income" class="col  row-center  bar-stable stable-bg item  item-icon ">
                 <div class="overview_dish">
-                    <i class=" button button-clear  button-calm icon ion-social-usd"></i>
+                    <i class="calm icon icon-pig-money"></i>
 
                     <p>我的收入</p></div>
             </a>
-            <a href="#/customer_comment" class="col  item bar-stable stable-bg  item-icon padding">
+            <a href="#/customer_comment" class="col  item bar-stable stable-bg  item-icon ">
                 <div class="overview_dish">
-                    <i class=" button button-clear button-calm  icon ion-chatbox-working"></i>
+                    <i data-icon="&#xe086;" class=" calm  "></i>
 
                     <p>饭友评价</p></div>
             </a>
         </div>
         <div class="row  bar-stable stable-bg " style="text-align: center;height:20% ">
 
-            <div href="#/editkitchen" class="col  bar-stable item  stable-bg item-icon padding"
-                 style="position:relative;">
-                <div class="overview_dish">
-                    <a class=" button button-clear button-calm  icon ion-ios-compose" href="#/editkitchen"></a>
+            <!--<a href="#/editkitchen" class="col  bar-stable item  stable-bg item-icon padding" >-->
+                <!--<div class="overview_dish">-->
+                    <!--<a class=" button button-clear button-calm  icon ion-ios-compose" href="#/editkitchen"></a>-->
 
-                    <p>编辑厨房</p>
-                </div>
-            </div>
-            <a ui-sref="m_dishes.nsc" class="col  row-center  bar-stable stable-bg item  item-icon padding">
+                    <!--<p>编辑厨房</p>-->
+                <!--</div>-->
+            <!--</a>-->
+            <a href="#/editkitchen" class="col  item bar-stable stable-bg  item-icon ">
                 <div class="overview_dish">
-                    <i class=" button button-clear  button-calm icon ion-cube"></i>
+                    <i data-icon="&#xe0ee;"  class="calm " ></i>
+
+                    <p>编辑厨房</p></div>
+            </a>
+            <a ui-sref="m_dishes.nsc" class="col  row-center  bar-stable stable-bg item  item-icon ">
+                <div class="overview_dish">
+                    <i data-icon="&#xe01b;" class="calm "></i>
 
                     <p>管理菜品</p></div>
             </a>
-            <a ui-sref="settings.index" class="col  item bar-stable stable-bg  item-icon padding">
+            <a ui-sref="settings.index" class="col  item bar-stable stable-bg  item-icon ">
                 <div class="overview_dish">
-                    <i class=" button button-clear  button-calm icon ion-gear-a"></i>
+                    <i data-icon="&#xe051; " class=" calm"></i>
 
                     <p>设置</p></div>
             </a>
@@ -130,6 +142,7 @@
 </ion-view>
 <!--</ion-nav-view>-->
 <div class="bar bar-footer bar-light light-border">
+
 
     <a href="tel:400-087-7000" class="title">客服电话：400-087-7000</a>
 </div>
@@ -179,3 +192,4 @@
         </div>
     </div>
 </div>
+

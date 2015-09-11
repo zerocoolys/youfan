@@ -25,7 +25,7 @@
                     "title": "手机号码格式不正确!",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam",
+                        type: "button-light",
                         onTap: function () {
 
                         }
@@ -43,6 +43,7 @@
                 $http.get($scope.url).success(function (data) {
 
                     if (data.statusCode == "000000") {
+
                         $http.post(YF_MERCHANT_HOST + "/captcha/alive", JSON.stringify({
                             captchaKey: "merchant_login" + user.phoneNumber,
                             captcha: $scope.verificationCode
@@ -52,7 +53,7 @@
                                     "title": "验证码发送成功!",
                                     "buttons": [{
                                         text: "确定",
-                                        type: "button-positive clam",
+                                        type: "button-clam light",
                                         onTap: function () {
                                             $scope.user = {
                                                 phoneNumber: user.phoneNumber
@@ -66,7 +67,7 @@
                                     "title": "验证码发送失败!",
                                     "buttons": [{
                                         text: "关闭",
-                                        type: "button-positive clam"
+                                        type: "button-clam light"
                                     }]
                                 };
                                 $ionicPopup.alert(options);
@@ -76,18 +77,32 @@
                                 "title": "验证码发送失败!",
                                 "buttons": [{
                                     text: "关闭",
-                                    type: "button-positive clam"
+                                    type: "button-clam light"
                                 }]
                             };
                             $ionicPopup.alert(options);
                         });
+
+                        options = {
+                            "title": "验证码发送成功!",
+                            "buttons": [{
+                                text: "确定",
+                                type: "button-light",
+                                onTap: function () {
+                                    $scope.user = {
+                                        phoneNumber: user.phoneNumber,
+                                        verificationCode: $scope.verificationCode
+                                    };
+                                }
+                            }]
+                        };
 
                     } else {
                         options = {
                             "title": "验证码发送失败!",
                             "buttons": [{
                                 text: "关闭",
-                                type: "button-positive clam"
+                                type: "button-light"
                             }]
                         };
                         $ionicPopup.alert(options);
@@ -98,7 +113,7 @@
                         "title": "服务器连接失败！",
                         "buttons": [{
                             text: "关闭",
-                            type: "button-positive clam"
+                            type: "button-clam light"
                         }]
                     };
                     $ionicPopup.alert(options);
@@ -112,7 +127,7 @@
             //        "title": "验证码不能为空！",
             //        "buttons": [{
             //            text: "关闭",
-            //            type: "button-positive clam"
+            //            type: "button-light"
             //        }]
             //    };
             //    $ionicPopup.alert(options);
@@ -139,7 +154,7 @@
                             "title": "系统繁忙！",
                             "buttons": [{
                                 text: "关闭",
-                                type: "button-positive clam"
+                                type: "button-light"
                             }]
                         };
                         $ionicPopup.alert(option);
@@ -150,7 +165,7 @@
                         "title": "服务器连接失败！",
                         "buttons": [{
                             text: "关闭",
-                            type: "button-positive clam"
+                            type: "button-light"
                         }]
                     };
                     $ionicPopup.alert(option);
@@ -160,7 +175,7 @@
             //                "title": "验证码错误！",
             //                "buttons": [{
             //                    text: "关闭",
-            //                    type: "button-positive clam"
+            //                    type: "button-clam light"
             //                }]
             //            };
             //            $ionicPopup.alert(options);
@@ -170,7 +185,7 @@
             //            "title": "验证码失效！",
             //            "buttons": [{
             //                text: "关闭",
-            //                type: "button-positive clam"
+            //                type: "button-clam light"
             //            }]
             //        };
             //        $ionicPopup.alert(options);
@@ -180,13 +195,14 @@
             //        "title": "服务器连接失败！",
             //        "buttons": [{
             //            text: "关闭",
-            //            type: "button-positive clam"
+            //            type: "button-light"
             //        }]
             //    };
             //    $ionicPopup.alert(options);
             //});
             //}
         };
+
         //$scope.register = function (user) {
         //    $http.post(
         //        "http://192.168.1.110:8080/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
@@ -199,7 +215,7 @@
         //                        "title": "注册成功！",
         //                        "buttons": [{
         //                            text: "确定",
-        //                            type: "button-positive clam"
+        //                            type: "button-clam light"
         //                        }]
         //                    };
         //                    $ionicPopup.alert(options)
@@ -214,7 +230,7 @@
         //                        "title": "注册失败！",
         //                        "buttons": [{
         //                            text: "关闭",
-        //                            type: "button-positive clam"
+        //                            type: "button-clam light"
         //                        }]
         //                    };
         //                    $ionicPopup.alert(options)
@@ -226,7 +242,7 @@
         //                        "title": "系统繁忙！",
         //                        "buttons": [{
         //                            text: "关闭",
-        //                            type: "button-positive clam"
+        //                            type: "button-clam light"
         //                        }]
         //                    };
         //                    $ionicPopup.alert(options)
@@ -239,7 +255,7 @@
         //                "title": "系统繁忙！",
         //                "buttons": [{
         //                    text: "关闭",
-        //                    type: "button-positive clam"
+        //                    type: "button-clam light"
         //                }]
         //            };
         //            $ionicPopup.alert(options)
@@ -248,5 +264,68 @@
         //        });
         //
         //};
+
+        $scope.register = function (user) {
+            $http.post(
+                YF_MERCHANT_HOST + "/user/register", JSON.stringify(user), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+
+                    var options;
+                    switch (data.registerStatus) {
+
+                        case "1":
+                            options = {
+                                "title": "注册成功！",
+                                "buttons": [{
+                                    text: "确定",
+                                    type: "button-light"
+                                }]
+                            };
+                            $ionicPopup.alert(options)
+                                .then(function () {
+                                    $scope.user = data;
+                                    $rootScope.user = $scope.user;
+                                    $location.path("tutorial")
+                                });
+                            break;
+                        case "0":
+                            options = {
+                                "title": "注册失败！",
+                                "buttons": [{
+                                    text: "关闭",
+                                    type: "button-light"
+                                }]
+                            };
+                            $ionicPopup.alert(options)
+                                .then(function () {
+                                });
+                            break;
+                        case "-1":
+                            options = {
+                                "title": "系统繁忙！",
+                                "buttons": [{
+                                    text: "关闭",
+                                    type: "button-light"
+                                }]
+                            };
+                            $ionicPopup.alert(options)
+                                .then(function () {
+                                });
+                            break;
+                    }
+                }, function (error) {
+                    var options = {
+                        "title": "系统繁忙！",
+                        "buttons": [{
+                            text: "关闭",
+                            type: "button-light"
+                        }]
+                    };
+                    $ionicPopup.alert(options)
+                        .then(function () {
+                        });
+                });
+
+        };
+
     }
 })();

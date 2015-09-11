@@ -1,6 +1,6 @@
 <ion-view view-title="编辑拿手菜" cache-view="false" data-ng-init="load()">
     <ion-nav-buttons side="left">
-        <button class="button button-clear button-calm" ui-sref="m_dishes.nsc"><i
+        <button class="button button-clear button-calm" data-ng-click="sureCanel()"><i
             class="icon ion-ios-arrow-back"></i></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
@@ -91,7 +91,7 @@
 
 
                 <button data-ng-if="imgs.length < 4" class="button button-calm button-large p "
-                        style="margin-top: 20px;" data-ng-click="addQtcPic()"><i
+                        style="margin-top: 20px;" data-ng-click="addNscPic()"><i
                     class="icon ion-plus "></i></button>
             </ion-item>
 
@@ -165,12 +165,15 @@
                 <ion-item style=" margin-bottom: 15px;"  ng-repeat="item in imgs" >
                     <div> <img ng-src="{{item.url}}"  style="width: 100%;" ng-click="dishPic.show()"></div>
 
-                    <button style="padding: 3px 15px  "  class="button button-energized light button-small item-note energized-border"
+                    <button style="padding: 3px 15px  "  class="button button-assertive light button-small item-note energized-border"
                             data-ng-click="removePic($index)">删除
                     </button>
 
-                    <button style="padding: 3px 15px ;margin-right: 10px; " class="button button-assertive button-small light item-note assertive-border "
+                    <button ng-show="$index!==0"  style="padding: 3px 15px ;margin-right: 10px; " class="button button-calm button-small light item-note assertive-border "
                             data-ng-click="replacePic($index)">设置为封面
+                    </button>
+                    <button ng-show="$index==0" style="padding: 3px 15px ;margin-right: 10px; " class="button button-energized button-small light item-note assertive-border "
+                            >已设置为封面
                     </button>
 
                 </ion-item>

@@ -5,6 +5,7 @@
     'use strict';
 
     angular.module('yf_merchant').controller('shop', shop);
+
     function shop($scope  , $rootScope, $location) {
         $rootScope.Reretain = function () {
             $location.path("/overview");
@@ -12,6 +13,7 @@
             $rootScope.GuideFirst = true;
             $rootScope.GuideSecond = false;
             $rootScope.GuideThird = true;
+
 
         };
         $rootScope.ReretainTwo = function () {

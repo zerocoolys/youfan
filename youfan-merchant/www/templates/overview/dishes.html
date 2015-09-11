@@ -1,23 +1,21 @@
 <!-- 帮助 -->
 <ion-view view-title="" hide-nav-bar="true" cache-view="false">
 
-    <ion-header-bar class="item-input-inset light-bg indexbar">
+    <ion-header-bar  align-title="center" class="" >
         <div class="bar bar-header bar-light dishes-p ">
-            <a class="button button-clear button-calm icon ion-ios-arrow-back" href="#/overview"
-               style="padding: 0 15px 0 12px;"></a>
-
-            <div class="button-bar  calm">
+            <a class="button button-clear   button-calm icon ion-ios-arrow-back" href="#/overview" ></a>
+            <div class="button-bar  calm" style="padding:2px 5px 0 5px ;">
                 <a class="button calm-border " ng-repeat="way in ways" ng-class="headerIndex ==way.code? 'button-calm':''"
                    ng-click="selectedHeader(way.code)">{{way.name}}</a>
             </div>
-            <a class=" button button-clear button-calm " style="padding: 0 3px 0 10px; line-height: 38px; "
-               href="#/query_order">
+            <a class=" button button-clear button-calm "
+               href="#/query_order" >
                 查询
             </a>
         </div>
-        </ion-header-bar>
+    </ion-header-bar>
 
-        <ion-scroll class="stable-bg" style="height:100%; " cache-view="false">
+        <ion-content class="stable-bg" style="height:100%; " cache-view="false">
 
             <div class="button-bar light-bg dishes" ng-if=" headerIndex != 'YZDC' ">
                 <a class="button button-clear" ng-repeat="status in status_list"
@@ -57,6 +55,6 @@
 
                             </ion-item>
                         </ion-list>
-    </ion-scroll>
+    </ion-content>
 
 </ion-view>
