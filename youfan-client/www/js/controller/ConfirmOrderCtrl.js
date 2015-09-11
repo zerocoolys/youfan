@@ -1,8 +1,8 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal, $ionicPopup,
-                                                          $timeout, User, Merchant, Order, REST_URL) {
+ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal,
+                                                          $ionicPopup, $timeout, User, Merchant, Order, REST_URL) {
 
     $scope.IsShowBar = true;
     /*底部就餐时间选择*/
@@ -151,7 +151,12 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             menusJsonObj[item.id] = [item.count, item.restNum];
         });
 
-        // TODO handle repastTime
+        var _date = new Date();
+        var _hours = parseInt($scope.eatTime.split(":")[0]);
+        var _minutes = parseInt($scope.eatTime.split(":")[1]);
+        _date.setHours(_hours);
+        _date.setMinutes(_minutes);
+        _date.setSeconds(0);
 
         var orderData = {
             buyerId: User.id,
@@ -161,7 +166,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             originalPrice: $scope.totalPrice,
             discountPrice: $scope.remainPayedPrice,
             repastMode: $rootScope.userDiningWay.pickUp == true ? "zq" : "ps",
-            repastTime: new Date(),
+            repastTime: _date,
             repastAddress: $rootScope.userDiningWay.address.name + "," + $rootScope.userDiningWay.address.telNo + "," + $rootScope.userDiningWay.address.address,
             couponId: null,
             activeId: null

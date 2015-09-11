@@ -37,14 +37,13 @@
                     <i class="icon ion-card"></i>
                     <span>付款状态</span>
 
-                    <p class="item-note mainColor">待付款</p>
+                    <p class="item-note mainColor">{{order.paymentStatus}}</p>
                 </ion-item>
                 <ion-item class="order_Details">
                     <ul>
                         <li><b>订 单 号&nbsp;&nbsp; :</b>{{order.orderNo}}</li>
                         <li><b>下单时间 :</b>{{order.orderTime}}</li>
-                        <!--<li><b>支付方式 :</b>{{order.paymentWay}}</li>-->
-                        <li><b>支付方式 :</b>支付宝</li>
+                        <li><b>支付方式 :</b>{{order.paymentWay}}</li>
                         <li><b>联 系 人&nbsp;&nbsp; :</b>{{userInfo.name}}</li>
                         <li><b>手机号码 :</b>{{userInfo.telNo}}</li>
                         <li><b>收货地址 :</b>{{order.repastAddress}}</li>
