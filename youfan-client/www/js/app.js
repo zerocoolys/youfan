@@ -21,13 +21,6 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             }
 
         });
-        //$rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
-        //    if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
-        //            && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
-        //
-        //        $location.path("tab.dash");
-        //    }
-        //});
         $rootScope.$on("$routeChangeStart", function (event, nextRoute, currentRoute) {
             if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
                 && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
@@ -42,10 +35,10 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
         $ionicConfigProvider.tabs.style('standard');
         $ionicConfigProvider.navBar.alignTitle('center');
         localStorageServiceProvider.setPrefix('youfan');
-        localStorageServiceProvider.setStorageType('sessionStorage');
-        localStorageServiceProvider.setStorageCookie(45, 'tab.chats');
-        localStorageServiceProvider.setStorageCookieDomain('');
-        localStorageServiceProvider.setNotify(true, true);
+        //localStorageServiceProvider.setStorageType('sessionStorage');
+        //localStorageServiceProvider.setStorageCookie(45, 'tab.chats');
+        //localStorageServiceProvider.setStorageCookieDomain('');
+        //localStorageServiceProvider.setNotify(true, true);
 
         $httpProvider.interceptors.push('TokenInterceptor');
 

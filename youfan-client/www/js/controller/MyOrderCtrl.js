@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('MyOrderCtrl', function ($scope, $state, Order, $ionicSlideBoxDelegate, $http, /*localStorageService, */REST_URL) {
+ControllerModule.controller('MyOrderCtrl', function ($scope, $state, Order, $ionicSlideBoxDelegate,User, $http, /*localStorageService, */REST_URL) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
     $scope.slideChanged = function (index) {

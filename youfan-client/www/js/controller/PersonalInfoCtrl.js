@@ -1,15 +1,19 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $ionicPopup, $timeout, $http, UserService, ResponseUser) {
+ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams,localStorageService, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $ionicPopup, $timeout, $http, UserService) {
 
+    if(localStorageService.get("token") != null){
+        $scope.post = {
+            uid: localStorageService.get("userid"),
+            name: localStorageService.get("username"),
+            sex: localStorageService.get("usersex"),
+            age: localStorageService.get("userage"),
+            jobs: localStorageService.get("userjobs")
+        };
+    }
 
-    $scope.post = {
-        name: ResponseUser.name,
-        sex: ResponseUser.sex,
-        age: ResponseUser.age,
-        jobs: ResponseUser.jobs
-    };
+    //$scope.post={}
 
     $scope.showActionSexSheet = function (id) {
         if (id == 1) {
@@ -74,6 +78,9 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
 
     $scope.show = function (post) {
         UserService.updateInfo(post).success(function (data) {
+
+            //console.log(data);
+
             if (data.code == 0) {
                 $state.go('tab.chats');
             } else {
