@@ -63,6 +63,7 @@ ControllerModule.controller('DetailAddressCtrl', function ($scope, $http, REST_U
         });
         $scope.selectGEO = function (index) {
             Merchant.localRange = $scope.datas[index].lngLat;
+            $rootScope.mapCity = $scope.datas[index].addr;
             $state.go('tab.dash');
         }
     });

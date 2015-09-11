@@ -79,5 +79,37 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "org.apache.cordova.device": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.device"
+        },
+        "is_top_level": false,
+        "variables": {}
+    },
+    "de.appplant.cordova.plugin.background-mode": {
+        "source": {
+            "type": "registry",
+            "id": "de.appplant.cordova.plugin.background-mode@0.6.4"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "de.appplant.cordova.plugin.local-notification": {
+        "source": {
+            "type": "local",
+            "path": "/home/dolphineor/develop/cordova-plugin-local-notifications"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-android-support-v4": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-android-support-v4"
+        },
+        "is_top_level": false,
+        "variables": {}
     }
 }

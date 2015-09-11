@@ -23,6 +23,8 @@
     margin-top: -15px;
     position: absolute;
     z-index: 10000;
+    /*margin-left: -25px;*/
+    left: 50%;
     margin-left: -25px;
 }
 .how_delivery{
@@ -156,12 +158,17 @@
 }
 /*icon的背景颜色*/
 .icon_bg{
+    display: inline-block;
     width: 25px;
     height: 25px !important;
     background-color: #1dbeaf;
     text-align: center;
     line-height: 25px;
     border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -webkit-border-radius: 25px;
     color: #fff !important;
 }
 /**/
@@ -211,12 +218,59 @@
 /*进度条样式*/
 .process_bar{
     padding: 0 20px;
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
 }
-.step_bar{
-    height: 10px;
-    background-color: #ccc;
-    margin-top: 50px;
+.process_bar .step_bar{
+    width: 100%;
+    height: 34px;
 }
+.process_bar ul li{
+    display: inline-block;
+    width: 50%;
+    height: 34px;
+    float: left;
+}
+.process_bar ul .step_end{
+    width: 34px;
+    height: 34px;
+    float: right;
+    margin-top: -34px;
+}
+.process_bar ul .step_second{
+    margin-left: -17px;
+}
+.process_bar ul li .step_no{
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    border: 1px solid #1dbeaf;
+    border-radius: 34px;
+    background-color: #fff;
+    color: #1dbeaf;
+    margin-top: -20px;
+}
+.process_bar ul li .step_status{
+    display: block;
+    height: 4px;
+    margin-top: 30px;
+    background-color: #1dbeaf;
+    margin-left: 5px;
+}
+.process_bar ul li .step_name{
+    white-space: nowrap;
+    position: absolute;
+    top: 46px;
+}
+/*----------------------------------------------我的分割线-----------------------------------------*/
+/*.step_bar{
+     height: 10px;
+     background-color: #ccc;
+     margin-top: 50px;
+ }
 .step_bar li{
     display: inline-block;
     width: 50%;
@@ -254,7 +308,7 @@
     margin-top: -30px;
     margin-left: -25px;
     white-space: nowrap;
-}
+}*/
 /*我的资料*/
 .personal_info input{
     height: auto;

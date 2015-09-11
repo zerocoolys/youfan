@@ -1,22 +1,22 @@
 <ion-view hide-nav-bar="true" hide-tabs>
     <ion-header-bar class="bar" align-title="center">
-        <a class="button ion-ios-arrow-left button-clear" onclick="history.back()"></a>
+        <a class="button icon ion-ios-arrow-left button-clear" onclick="history.back()"></a>
 
         <h1 class="title">订单详情</h1>
     </ion-header-bar>
     <ion-content>
         <ion-scroll>
             <ion-item>
-                <div class="item item-divider">
-                    <span>菜品</span>
+                <!--<div class="item item-divider"> -->
+                <span>菜品</span>
 
-                    <p class="item-note mainColor">单价</p>
+                <p class="item-note mainColor">单价</p>
 
-                    <p class="item-note mainColor" style="margin-right: 50px;">数量</p>
-                </div>
+                <p class="item-note mainColor" style="margin-right: 50px;">数量</p>
+                <!--</div>-->
             </ion-item>
             <ion-item ng-repeat="dish in dishes">
-                <div class="item item-text-wrap">
+                <div class="item-text-wrap">
                     <span ng-bind="dish.name"></span>
 
                     <p class="item-note mainColor" ng-bind="'￥' + dish.unitPrice"></p>
@@ -24,27 +24,26 @@
                     <p class="item-note mainColor" style="margin-right: 50px;" ng-bind="dish.count + '份'"></p>
                 </div>
             </ion-item>
-            <ion-item>
-                <div class="item item-divider">
-                    <span>合计</span>
+            <ion-item class="item-divider">
+                <!--<div class="">-->
+                <span>合计</span>
 
-                    <p class="item-note mainColor" ng-bind="order.orgPrice"></p>
+                <p class="item-note mainColor" ng-bind="order.orgPrice"></p>
 
-                </div>
+                <!--</div>-->
             </ion-item>
             <ion-list>
                 <ion-item class="item item-icon-left">
                     <i class="icon ion-card"></i>
                     <span>付款状态</span>
 
-                    <p class="item-note mainColor">待付款</p>
+                    <p class="item-note mainColor">{{order.paymentStatus}}</p>
                 </ion-item>
                 <ion-item class="order_Details">
                     <ul>
                         <li><b>订 单 号&nbsp;&nbsp; :</b>{{order.orderNo}}</li>
                         <li><b>下单时间 :</b>{{order.orderTime}}</li>
-                        <!--<li><b>支付方式 :</b>{{order.paymentWay}}</li>-->
-                        <li><b>支付方式 :</b>支付宝</li>
+                        <li><b>支付方式 :</b>{{order.paymentWay}}</li>
                         <li><b>联 系 人&nbsp;&nbsp; :</b>{{userInfo.name}}</li>
                         <li><b>手机号码 :</b>{{userInfo.telNo}}</li>
                         <li><b>收货地址 :</b>{{order.repastAddress}}</li>
