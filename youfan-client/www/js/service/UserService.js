@@ -13,13 +13,13 @@ ServiceModule
         }
         return auth;
     })
-    .factory('TokenInterceptor', function ($q, $window, $location, AuthenticationService) {
+    .factory('TokenInterceptor', function ($q, $window, $location, AuthenticationService, localStorageService) {
         return {
             request: function (config) {
 
                 config.headers = config.headers || {};
-                if ($window.sessionStorage.token) {
-                    config.headers.Authorization = $window.sessionStorage.token;
+                if (localStorageService.get("token")) {
+                    config.headers.Authorization = localStorageService.get("token");
                 }
                 return config;
             },
@@ -30,7 +30,7 @@ ServiceModule
 
             /* 如果返回 200 通过身份验证 */
             response: function (response) {
-                if (response != null && response.status == 200 && $window.sessionStorage.token && !AuthenticationService.isAuthenticated) {
+                if (response != null && response.status == 200 && localStorageService.get("token") && !AuthenticationService.isAuthenticated) {
                     AuthenticationService.isAuthenticated = true;
                 }
                 return response || $q.when(response);
@@ -38,8 +38,8 @@ ServiceModule
 
             /* 如果返回 401 撤销客户端身份验证 */
             responseError: function (rejection) {
-                if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || AuthenticationService.isAuthenticated)) {
-                    delete $window.sessionStorage.token;
+                if (rejection != null && rejection.status === 401 && (localStorageService.get("token") || AuthenticationService.isAuthenticated)) {
+                    localStorageService.remove("token");
                     AuthenticationService.isAuthenticated = false;
                     $location.path("tab.pwd-login");
                 }
@@ -111,7 +111,7 @@ ServiceModule
             }
         }
     })
-    .factory('ResponseUser', function(){
+    .factory('ResponseUser', function () {
         return {
             id: null,
             name: null,

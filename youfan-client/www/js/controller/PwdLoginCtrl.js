@@ -2,7 +2,7 @@
  * Created by ss on 2015/8/28.
  */
 //密码登录
-ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state, $window,AuthenticationService, UserService, localStorageService, User, ResponseUser) {
+ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state, $window, AuthenticationService, UserService, localStorageService, User, ResponseUser) {
     /**
      * 密码验证登陆
      */
@@ -30,36 +30,58 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                     popupCodeNull.close(); //由于某种原因2秒后关闭弹出
                 }, 2000);
             } else {
-                UserService.signIn(tel, password).success(function(data){
+                UserService.signIn(tel, password).success(function (data) {
+                    console.log(data);
                     if (data.code == 0) {
                         //console.log(data.payload.token);
                         if (data.payload.token != "") {
+
                             //angular 本地存储
-                            localStorageService.set(data.payload.token, data.payload.uid);
-                            localStorageService.set(data.payload.uid, data.payload.token);
-                            $rootScope.token = localStorageService.get(data.payload.uid)
-                            $rootScope.uid = localStorageService.get(data.payload.token)
+                            $scope.$watch('token', function () {
+                                localStorageService.set('token', data.payload.token);
+                                $scope.tokenValue = localStorageService.get('token');
+                            });
 
-                            //$rootScope共享
-                            $rootScope.user = {
-                                token: data.payload.token
-                            };
+                            $scope.storageType = 'Local storage';
 
-                            //session 存储
+                            if (localStorageService.getStorageType().indexOf('session') >= 0) {
+                                $scope.storageType = 'Session storage';
+                            }
+
+                            if (!localStorageService.isSupported) {
+                                $scope.storageType = 'Cookie';
+                            }
+
+                            $scope.$watch(function () {
+                                return localStorageService.get('token');
+                            }, function () {
+                                $scope.token = data.payload.token;
+                            });
+
+
                             AuthenticationService.isLogged = true;
-                            $window.sessionStorage.token = data.payload.token;
-                            $window.sessionStorage.uid = data.payload.uid;
 
                             User.id = data.payload.clientUserVO.id;
                             User.name = data.payload.clientUserVO.name;
                             User.telNo = data.payload.clientUserVO.tel;
                             User.token = data.payload.token;
 
+                            ResponseUser.id = data.payload.clientUserVO.id;
                             ResponseUser.name = data.payload.clientUserVO.name;
                             ResponseUser.tel = data.payload.clientUserVO.tel;
                             ResponseUser.age = data.payload.clientUserVO.age;
                             ResponseUser.sex = data.payload.clientUserVO.sex;
                             ResponseUser.jobs = data.payload.clientUserVO.jobs;
+
+
+                            localStorageService.set("userid", ResponseUser.id);
+                            localStorageService.set("username", ResponseUser.name);
+                            localStorageService.set("usertel", ResponseUser.tel);
+                            localStorageService.set("userage", ResponseUser.age);
+                            localStorageService.set("usersex", ResponseUser.sex);
+                            localStorageService.set("userjobs", ResponseUser.jobs);
+
+                            //localStorageService.set("user", data.payload.clientUserVO);
 
                             $state.go('tab.chats', {userobj: data.payload.clientUserVO});
 
@@ -82,7 +104,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                             dataNull.close(); //由于某种原因2秒后关闭弹出
                         }, 2000);
                     }
-                }).error(function(status, data) {
+                }).error(function (status, data) {
                     console.log(status);
                     console.log(data);
 
@@ -103,16 +125,19 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
      */
     $scope.signOut = function () {
 
-        localStorageService.remove($rootScope.token);
-        localStorageService.remove($rootScope.uid);
+        //$scope.clearAll = localStorageService.clearAll;
 
         if (AuthenticationService.isLogged) {
-            UserService.signOut().success(function(data) {
+            UserService.signOut().success(function (data) {
                 AuthenticationService.isLogged = false;
-                delete $window.sessionStorage.token;
-                delete $window.sessionStorage.uid;
+                localStorageService.remove("token")
+                localStorageService.remove("username");
+                localStorageService.remove("usertel");
+                localStorageService.remove("userage");
+                localStorageService.remove("usersex");
+                localStorageService.remove("userjobs");
                 $state.go('tab.dash');
-            }).error(function(status, data) {
+            }).error(function (status, data) {
                 console.log(status);
                 console.log(data);
             });
