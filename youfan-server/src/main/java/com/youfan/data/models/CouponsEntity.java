@@ -64,6 +64,15 @@ public class CouponsEntity {
 	@Field("ut")
 	private Long updateTime;
 	private Integer status;
+	@Field("ds")
+	private Integer dataStatus;
+	
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
 	public String getId() {
 		return id;
 	}

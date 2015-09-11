@@ -35,6 +35,7 @@ public interface Constants {
 	 * 该字段为-1时为删除
 	 */
 	String MONGO_STATUS = "status";
+	String MONGO_DATA_STATUS = "dataStatus";
 	String ID = "id";
 	String TYPE = "type";
 	String NAME = "name";

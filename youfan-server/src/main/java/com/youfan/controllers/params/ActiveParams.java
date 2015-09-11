@@ -1,8 +1,6 @@
 package com.youfan.controllers.params;
 
-import com.youfan.commons.Pagination;
-
-public class ActiveParams extends Pagination{
+public class ActiveParams implements MongoParams{
 	
 	private String event;
 	private String title;

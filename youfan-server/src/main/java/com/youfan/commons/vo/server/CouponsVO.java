@@ -51,7 +51,7 @@ public class CouponsVO {
 	 * 使用状态 (-1删除,0未使用,1已使用,)
 	 */
 	private Integer status;
-
+	private Integer dataStatus;
 	public String getId() {
 		return id;
 	}
@@ -133,11 +133,13 @@ public class CouponsVO {
 		this.title = title;
 	}
 
-	@Override
-	public String toString() {
-		return "CouponsVO [id=" + id + ", userId=" + userId + ", ifAll=" + ifAll + ", kitchenId=" + kitchenId
-				+ ", couponsTypeId=" + couponsTypeId + ", validityTime=" + validityTime + ", createTime=" + createTime
-				+ ", updateTime=" + updateTime + ", status=" + status + "]";
+	public Integer getDataStatus() {
+		return dataStatus;
 	}
+
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+
 
 }

@@ -27,7 +27,6 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 
 	@Resource
 	ActiveDAO activeDAO;
-
 	@Resource
 	CouponsTypeDAO couponsTypeDao;
 	@Resource
@@ -41,7 +40,7 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 
 	@Override
 	public Response joinActive(String event, ClientUserVO userVo) {
-		ActiveVO activeVo = activeDAO.getByEvent(event);
+		ActiveVO activeVo = activeDAO.findUniqueOne("event", event);
 		if(activeVo.getStatus()!=1){//活动未开启
 			return Responses.FAILED().setCode(0).setMsg("该活动未开启");
 		}
@@ -108,7 +107,7 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 
 	@Override
 	public Response joinActive(String event, ClientUserVO userVo, OrderVO orderVo) {
-		ActiveVO activeVo = activeDAO.getByEvent(event);
+		ActiveVO activeVo = activeDAO.findUniqueOne("event", event);
 		if(activeVo.getStatus()!=1){//活动未开启
 			return Responses.FAILED().setCode(0).setMsg("该活动未开启");
 		}

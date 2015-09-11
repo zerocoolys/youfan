@@ -18,6 +18,7 @@ public class PayWayVO {
 	 */
 	private Integer status;
 
+	private Integer dataStatus;
 	public String getId() {
 		return id;
 	}
@@ -57,4 +58,13 @@ public class PayWayVO {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	
 }

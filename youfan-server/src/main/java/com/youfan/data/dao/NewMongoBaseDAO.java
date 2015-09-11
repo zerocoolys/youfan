@@ -1,31 +1,34 @@
 package com.youfan.data.dao;
 
-import com.mysql.fabric.xmlrpc.base.Params;
-import com.youfan.commons.Constants;
-import com.youfan.commons.Pagination;
-import com.youfan.data.support.IdGenerator;
-import com.youfan.system.mongo.MongoPool;
-import com.youfan.utils.JSONUtils;
-
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
-
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
+
+import com.youfan.commons.Constants;
+import com.youfan.commons.Pagination;
+import com.youfan.controllers.params.MongoParams;
+import com.youfan.system.mongo.MongoPool;
+import com.youfan.utils.JSONUtils;
 
 /**
  * Created on 2015-08-18.
  *
  * @author dolphineor
  */
-public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
+public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
 	MongoTemplate mongoTemplate = MongoPool.getMongoTemplate(MONGO_YOUFAN);
 
@@ -41,6 +44,52 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
 	Class<T> getVOClass();
 	
+	/**
+	 * 
+	 * @param params
+	 * @param pager
+	 * @return
+	 * @description 条件分页查询
+	 * 				
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午10:29:56
+	 */
+	List<T> findPagerByParams(MongoParams params,Pagination pager);
+	/**
+	 * 
+	 * @param muParams
+	 * @return
+	 * @description 使用条件 获取记录条数
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午10:30:31
+	 */
+	long count(MongoParams params);
+
+	/**
+	 * 
+	 * @param id
+	 * @param muParams
+	 * @return
+	 * @description ID查询更新记录
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午10:30:46
+	 */
+	int updateById(String id, MongoParams params);
+	
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 * @return
+	 * @description 通过Unique字段查询
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 上午11:05:50
+	 */
+	T findUniqueOne(String key,Object value);
 
 	/**
 	 * <p>
@@ -87,7 +136,7 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 
 	/**
 	 * <p>
-	 * 该方法用于将Entity转换为VO, 注意事项同{@link MongoBaseDAO#convertToEntity(Object)}
+	 * 该方法用于将Entity转换为VO, 注意事项同{@link NewMongoBaseDAO#convertToEntity(Object)}
 	 *
 	 * @param entity
 	 * @return
@@ -154,7 +203,7 @@ public interface MongoBaseDAO<E, T, ID extends Serializable> extends Constants {
 		return query;
 	}
 	
-	default Query buildAndEqualQuery(Object vo) {
+	default Query buildAndEqualQuery(MongoParams vo) {
 		Query query = new Query();
 		if(vo==null)
 			return query;

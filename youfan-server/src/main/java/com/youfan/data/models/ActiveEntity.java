@@ -115,6 +115,8 @@ public class ActiveEntity {
 	 * 活动状态 -1:删除 0:待开启 1:开启 2:暂定
 	 */
 	private Integer status;
+	@Field("ds")
+	private Integer dataStatus;
 
 	public String getId() {
 		return id;
@@ -284,5 +286,14 @@ public class ActiveEntity {
 	public Integer getAllowTimes() {
 		return allowTimes;
 	}
+
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
+
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	
 
 }
