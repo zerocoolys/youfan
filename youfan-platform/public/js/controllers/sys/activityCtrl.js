@@ -3,7 +3,6 @@
  */
 define(["./module"], function (ctrs) {
     ctrs.controller('activityCtrl', function ($scope, $rootScope, $q, $state, $http, $location, ngDialog) {
-
         $scope.active_model={
             event:"",
             title:"",
@@ -62,7 +61,7 @@ define(["./module"], function (ctrs) {
             },
         ];
         $scope.activeOper = function (entity) {
-            $scope.dialog_msg = "确认"+(entity.status == 1 ? '开启':'关闭' )+" 活动 "+entity.title+"?";
+            $scope.dialog_msg = "确认"+(entity.status == 1 ? '关闭':'开启' )+" 活动 "+entity.title+"?";
             $scope.dialog = ngDialog.open({
                 template: './sys/dialog/sys_msg_dialog.html',
                 className: 'ngdialog-theme-default admin_ngdialog',
@@ -73,7 +72,7 @@ define(["./module"], function (ctrs) {
                 $scope.dialog.close();
                 $http({
                     method: 'GET',
-                    url: 'sys/updateActive?id='+entity.id+"&updateMap="+JSON.stringify({status:entity.status})
+                    url: 'sys/updateActive/'+entity.id+"/"+entity.status
                 }).success(function (result, status) {
                     entity.status == 1 ? '关闭':'开启'
                 });
@@ -109,11 +108,9 @@ define(["./module"], function (ctrs) {
                 condition += "&event=" + $scope.event
             if ($scope.title != null && $scope.title.trim() != "")
                 condition += "&title=" + $scope.title
-            //if ($scope.status != null && $scope.status.trim() != "")
-            //    condition += "&status=" + $scope.status
             $http({
                 method: 'GET',
-                url: 'sys/getActive?orderBy=createTime&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
+                url: 'sys/getActive?sortBy=ct&asc=true&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
             }).success(function (result, status) {
                 if( result.payload.list!=null){
                     $rootScope.gridOptions.data = result.payload.list;

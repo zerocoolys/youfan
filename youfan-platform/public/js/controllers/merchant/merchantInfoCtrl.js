@@ -3,21 +3,10 @@
  */
 define(["./module"], function (ctrs) {
     ctrs.controller('merchantInfoCtrl', function ($scope, $rootScope, $q, $state, $http, $location, ngDialog) {
-        console.log("merchantInfoCtrl")
-
-        //分页信息
-        $rootScope.pageNo = 1;
-        $rootScope.pageSize = 20;
-        $rootScope.recordCount = 0;
-        $rootScope.pageCount = 0;
-        $rootScope.pages = [];
-
         //筛选条件
         $scope.userName = "";
         $scope.realName = "";
         $scope.status = null;
-
-
         $scope.statusDesc = {
             "-1":"删除",
             "0":"待审核",
@@ -84,10 +73,18 @@ define(["./module"], function (ctrs) {
             }
         }
 
-
         //指定数据查询方法
-        $rootScope.searchData = function(){
+        $rootScope.searchData = function () {
             $scope.search();
+        }
+        $rootScope.initSearchData = function () {
+            $rootScope.pageNo = 1;
+            $scope.search();
+        }
+        $scope.clareSearchConditon = function () {
+            $scope.port = null;
+            $scope.timeLine = null;
+            $scope.status = null;
         }
         $scope.search = function () {
             var condition = "";
@@ -99,15 +96,16 @@ define(["./module"], function (ctrs) {
             //    condition += "&status=" + $scope.status
             $http({
                 method: 'GET',
-                url: 'merchant/getMerchant/' + $scope.pageNo + '/' + $scope.pageSize + "?" + condition
+                url: 'merchant/getPagerByParams?pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
             }).success(function (result, status) {
-                $rootScope.gridOptions.data = result.list;
-                $rootScope.pageCount = result.pageCnt;
-                $rootScope.recordCount = result.recordCnt;
-                $rootScope.gridOptions.data.forEach(function(item){
-                    item.status =$scope.statusDesc[item.status+""]
-                    console.log(item.status)
-                })
+                if(result.payload.list!=undefined){
+                    $rootScope.gridOptions.data = result.payload.list;
+                    $rootScope.gridOptions.data.forEach(function(item){
+                        item.status =$scope.statusDesc[item.status+""]
+                    })
+                }
+                $rootScope.pageCount = result.payload.pageCnt;
+                $rootScope.recordCount = result.payload.recordCnt;
                 //设置分页样式
                 $rootScope.setPagerBar();
             })

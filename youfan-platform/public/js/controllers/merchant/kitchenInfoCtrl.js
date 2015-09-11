@@ -3,15 +3,6 @@
  */
 define(["./module"], function (ctrs) {
     ctrs.controller('kitchenInfoCtrl',function ($scope, $rootScope, $q,$state,$http,$location,ngDialog) {
-        console.log("kitchenInfoCtrl")
-        //分页信息
-        $rootScope.pageNo = 1;
-        $rootScope.pageSize = 20;
-        $rootScope.recordCount = 0;
-        $rootScope.pageCount = 0;
-        $rootScope.pages = [];
-
-
         $scope.statusDesc = {
             "-1":"删除",
             "0":"待审核",
@@ -19,8 +10,8 @@ define(["./module"], function (ctrs) {
             "2":"冻结",
         }
         //筛选条件
-        $scope.kitchenName = "";
-        $scope.phoneNumber = "";
+        $scope.name = "";
+        $scope.phone = "";
         $scope.status = null;
         $rootScope.gridTitleArray = [
             {name: '厨房名称', field: "kitchenName"},
@@ -69,30 +60,41 @@ define(["./module"], function (ctrs) {
             }
         }
         //指定数据查询方法
-        $rootScope.searchData = function(){
+        $rootScope.searchData = function () {
             $scope.search();
+        }
+        $rootScope.initSearchData = function () {
+            $rootScope.pageNo = 1;
+            $scope.search();
+        }
+        $scope.clareSearchConditon = function () {
+            $scope.name = "";
+            $scope.phone = "";
+            $scope.status = null;
         }
         $scope.search = function () {
             var condition = "";
-            if ($scope.kitchenName.trim() != "")
-                condition += "&kitchenName=" + $scope.kitchenName
-            if ($scope.phoneNumber.trim() != "")
-                condition += "&phoneNumber=" + $scope.phoneNumber
+            if ($scope.name.trim() != "")
+                condition += "&name=" + $scope.name
+            if ($scope.phone.trim() != "")
+                condition += "&phone=" + $scope.phone
             if ($scope.status != null)
                 condition += "&status=" + $scope.status
             $http({
                 method: 'GET',
-                url: 'merchant/getKitchen/' + $scope.pageNo + '/' + $scope.pageSize + "?" + condition
+                url: 'merchant/getKitchens?pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
             }).success(function (result, status) {
-                $rootScope.gridOptions.data = result.list;
-                $rootScope.pageCount = result.pageCnt;
-                $rootScope.recordCount = result.recordCnt;
-                $rootScope.gridOptions.data.forEach(function(item){
-                    item.status =$scope.statusDesc[item.status+""]
-                    console.log(item.status)
-                })
-                //设置分页样式
-                $rootScope.setPagerBar();
+                if(result.code==1&&result.payload.list!=undefined){
+                    $rootScope.gridOptions.data = result.payload.list;
+                    $rootScope.gridOptions.data.forEach(function(item){
+                        item.status =$scope.statusDesc[item.status+""]
+                    })
+                    $rootScope.pageCount = result.payload.pageCnt;
+                    $rootScope.recordCount = result.payload.recordCnt;
+                    //设置分页样式
+                    $rootScope.setPagerBar();
+                }
+
             })
         }
     })

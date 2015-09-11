@@ -53,7 +53,7 @@ define(["./module"], function (ctrs) {
 
                 $http({
                     method: 'GET',
-                    url: 'sys/updateCouponsTypeStatus/' + entity.id + "/" +  (entity.status == 1 ? 0 : 1)
+                    url: 'sys/updateCouponsTypeStatus/' + entity.id + "/" + (entity.status == 1 ? 0 : 1)
                 }).success(function (result, status) {
                     entity.status = entity.status == 1 ? 0 : 1;
                     entity.statusDes = $scope.statusDesc[entity.status + ""]
@@ -73,7 +73,7 @@ define(["./module"], function (ctrs) {
         $scope.clareSearchConditon = function () {
             $scope.port = null;
             $scope.timeLine = null;
-            $scope.status=null;
+            $scope.status = null;
         }
         $scope.search = function () {
             var conditions = "";
@@ -85,7 +85,7 @@ define(["./module"], function (ctrs) {
                 conditions += "&status=" + $scope.statusDesc[$scope.status]
             $http({
                 method: 'GET',
-                url: 'sys/getCouponsType?orderBy=createTime&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + conditions
+                url: 'sys/getCouponsType?sortBy=ct&true=false&pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + conditions
             }).success(function (result, status) {
                 if (result.code == 1) {
                     $rootScope.gridOptions.data = result.payload.list;
@@ -105,27 +105,28 @@ define(["./module"], function (ctrs) {
         }
         $scope.formatContent = function (content) {
             var cdesc = "";
-            for (var index = 0; index < content.length; index++) {
-                var item = content[index];
-                if (item.conditions == null) {
-                    if (item.type == "-") {
-                        cdesc += (index + 1) + "." + item.value + "元代金券;"
-                    } else if (item.type == "*") {
-                        cdesc += (index + 1) + "." + (item.value * 10) + "折优惠券"
-                    }
-                } else {
-                    if (item.conditions.oper == ">") {
-                        cdesc += (index + 1) + "." + $scope.attr_desc[item.conditions.attr] + "满" + item.conditions.value
+            if (content != null)
+                for (var index = 0; index < content.length; index++) {
+                    var item = content[index];
+                    if (item.conditions == null) {
+                        if (item.type == "-") {
+                            cdesc += (index + 1) + "." + item.value + "元代金券;"
+                        } else if (item.type == "*") {
+                            cdesc += (index + 1) + "." + (item.value * 10) + "折优惠券"
+                        }
                     } else {
-                        cdesc += (index + 1) + ".";
-                    }
-                    if (item.type == "-") {
-                        cdesc += "减" + item.value + "元;"
-                    } else if (item.type == "*") {
-                        cdesc += "打" + (item.value * 10) + "折"
+                        if (item.conditions.oper == ">") {
+                            cdesc += (index + 1) + "." + $scope.attr_desc[item.conditions.attr] + "满" + item.conditions.value
+                        } else {
+                            cdesc += (index + 1) + ".";
+                        }
+                        if (item.type == "-") {
+                            cdesc += "减" + item.value + "元;"
+                        } else if (item.type == "*") {
+                            cdesc += "打" + (item.value * 10) + "折"
+                        }
                     }
                 }
-            }
             return cdesc
         }
 
@@ -159,6 +160,8 @@ define(["./module"], function (ctrs) {
         }
 
         $scope.add_content = function () {
+            if($scope.add_voucher.content==null)
+                $scope.add_voucher.content=[]
             $scope.add_voucher.content.push({
                 type: "减免",
                 value: null,
@@ -173,8 +176,8 @@ define(["./module"], function (ctrs) {
             $scope.add_voucher.content.splice(index, 1);
         }
         $scope.add_condition = function (cont) {
-            if(cont.conditions==undefined||cont.conditions==null){
-                cont.conditions=[];
+            if (cont.conditions == undefined || cont.conditions == null) {
+                cont.conditions = [];
             }
             cont.conditions.push({
                 attr: "价格",
@@ -220,7 +223,7 @@ define(["./module"], function (ctrs) {
                     type: $scope.type_desc[cont.type],
                     value: cont.value
                 }
-                if (cont.conditions != null &&cont.conditions.length>0) {
+                if (cont.conditions != null && cont.conditions.length > 0) {
                     var t_conditions = []
                     for (var i = 0; i < cont.conditions.length; i++) {
                         var t_cond = cont.conditions[i];
@@ -247,36 +250,36 @@ define(["./module"], function (ctrs) {
                 "&ifAll=" + true +
                 "&content=" + JSON.stringify(entity_content) +
                 "&desc=" + $scope.add_voucher.desc
-            if($scope.add_voucher.id==null){
+            if ($scope.add_voucher.id == null) {
                 $http({
                     method: 'GET',
-                    url:  'sys/saveCouponsType?entity=' + entity
+                    url: 'sys/saveCouponsType?entity=' + entity
                 }).success(function (result, status) {
                     $scope.dialog.close();
                 })
-            }else{
+            } else {
                 $http({
                     method: 'GET',
-                    url:  'sys/updateCouponsType/'+$scope.add_voucher.id+'?' + entity
+                    url: 'sys/updateCouponsType/' + $scope.add_voucher.id + '?' + entity
                 }).success(function (result, status) {
-                    if(result.code==1){
+                    if (result.code == 1) {
                         $scope.search();
                     }
                     $scope.dialog.close();
                 })
             }
         }
-        $scope.openEditVoucherDialog = function(entity){
+        $scope.openEditVoucherDialog = function (entity) {
             $scope.dialog_title = "编辑优惠券类型";
             $scope.add_voucher = angular.copy(entity);
-            $scope.add_voucher.port=$scope.portDesc[$scope.add_voucher.port]
-            for (var index = 0; index < $scope.add_voucher.content.length; index++) {
+            $scope.add_voucher.port = $scope.portDesc[$scope.add_voucher.port]
+            for (var index = 0;  $scope.add_voucher.content!=null&&index < $scope.add_voucher.content.length; index++) {
                 var cont = $scope.add_voucher.content[index];
                 cont.type = $scope.type_desc[cont.type]
-                if (cont.conditions != null && cont.conditions.length>0) {
+                if (cont.conditions != null && cont.conditions.length > 0) {
                     for (var i = 0; i < cont.conditions.length; i++) {
-                        cont.conditions[i].attr = $scope.attr_desc[ cont.conditions[i].attr]
-                        cont.conditions[i].oper = $scope.oper_desc[ cont.conditions[i].oper]
+                        cont.conditions[i].attr = $scope.attr_desc[cont.conditions[i].attr]
+                        cont.conditions[i].oper = $scope.oper_desc[cont.conditions[i].oper]
                     }
                 }
             }
@@ -287,7 +290,7 @@ define(["./module"], function (ctrs) {
             });
         }
         $scope.deleteVoucher = function (entity) {
-            $scope.dialog_msg = "确认 删除 优惠券类型："+entity.title+"?";
+            $scope.dialog_msg = "确认 删除 优惠券类型：" + entity.title + "?";
             $scope.dialog = ngDialog.open({
                 template: './sys/dialog/sys_msg_dialog.html',
                 className: 'ngdialog-theme-default admin_ngdialog',
@@ -298,9 +301,9 @@ define(["./module"], function (ctrs) {
                 $scope.dialog.close();
                 $http({
                     method: 'GET',
-                    url: 'sys/deleteCouponsType/'+entity.id
+                    url: 'sys/deleteCouponsType/' + entity.id
                 }).success(function (result, status) {
-                    if(result.code==1){
+                    if (result.code == 1) {
                         $scope.search();
                     }
                 });
