@@ -10,15 +10,18 @@
 
     function dishes($scope, $filter, $state, $ionicSlideBoxDelegate,$stateParams,$http,$rootScope) {
 
-
+       //订单
         $scope.orders = [];
+        //订单汇总
+        $scope.orderSummary = {};
+
         $scope.ways = [{name: "配送", code: 'PS'}, {name: "上门", code: 'SM'}, {name: "要做的菜", code: 'YZDC'}];
 
-        $scope.status_list = [{name: "新订单", id: 2, number: 0},
-            {name: "已接单", id: 3, number: 0},
-            {name: "已完成", id: 4, number: 0},
-            {name: "退款中", id: -1, number: 0},
-            {name: "已退款", id: -2, number: 0}];
+        $scope.status_list = [{name: "新订单", id: 2, code:"ORDER_PAYED",number: 0},
+            {name: "已接单", id: 3,code:"ORDER_MERCHANT_CONFIRM", number: 0},
+            {name: "已完成", id: 4, code:"ORDER_DISH_FINISHED", number: 0},
+            {name: "退款中", id: -1,code:"ORDER_WITHDRAW", number: 0},
+            {name: "已退款", id: -2,code:"ORDER_COMPELETE_WITHDRAW", number: 0}];
 
 
         $scope.headerIndex = 'PS';
@@ -39,6 +42,24 @@
             $scope.loadOrderOrDishData();
         };
 
+
+        /**处理加载后的数据*/
+        $scope.disposeSummaryData = function (datas) {
+            if(datas == null) {
+                return;
+            }
+            $scope.orderSummary = datas;
+            $scope.status_list [0].number = datas.ORDER_PAYED;
+            $scope.status_list [1].number = datas.ORDER_MERCHANT_CONFIRM;
+            $scope.status_list [2].number = datas.ORDER_DISH_FINISHED;
+            $scope.status_list [3].number = datas.ORDER_WITHDRAW;
+            $scope.status_list [4].number = datas.ORDER_COMPELETE_WITHDRAW;
+
+
+
+        }
+
+
         $scope.loadSummaryData = function () {
             var url = "http://127.0.0.1:8080/orders/merchant/summary?";
             var merchant = {};
@@ -58,10 +79,8 @@
                     alert("数据异常，请稍等!");
                     return;
                 }
-                console.log(res);
+                $scope.disposeSummaryData(res.payload);
             });
-
-
         }
         /**处理加载后的数据*/
         $scope.disposeOrderOrDishData = function (datas) {

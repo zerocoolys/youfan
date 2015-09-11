@@ -23,11 +23,11 @@
                 <a class="button button-clear" ng-repeat="status in status_list"
                    ng-class="statusIndex == status.id ? 'current':''"
                    ng-click="selectedStatus(status.id)">{{status.name}}<i class="calm">{{status.number}}</i> </a>
-            </div>
+                                </div>
 
-                        <ion-list ng-repeat="order in orders" style="margin-bottom: 20px">
-                            <ion-item>
-                                <span>订单编号：{{order.orderNo}}</span>
+                                        <ion-list ng-repeat="order in orders" style="margin-bottom: 20px">
+                                            <ion-item>
+                                                <span>订单编号：{{order.orderNo}}</span>
                                 <!--
                                 <p ng-class=" headerIndex=='YZDC' ? 'display_none':''" class="item-note mainColor">待付款</p>
                                 -->
