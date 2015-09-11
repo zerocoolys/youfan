@@ -6,7 +6,7 @@
 var mapTools = {
     /**
      * 地图城市定位,并返回城市名称
-     * 返回名称调用请直接调用  $scope.mapCity
+     * 返回名称调用请直接调用  $rootScope.mapCity
      * 参数 mapObj 为地图初始化参数
      */
     cityLocation: function ($scope, $rootScope, mapObj) {
@@ -29,7 +29,7 @@ var mapTools = {
                     MGeocoder.getAddress(lnglatXY, function (status, result) {
                         if (status === 'complete' && result.info === 'OK') {
                             $scope.$apply(function () {
-                                $scope.mapCity = result.regeocode.addressComponent.city;
+                                $rootScope.mapCity = result.regeocode.addressComponent.city;
                             });
                         } else {
                             alert("获取失败");
@@ -46,10 +46,10 @@ var mapTools = {
     },
     /**
      * 地图城市定位,并返回用户所在详细地址
-     * 返回名称调用请直接调用  $scope.mapAddr
+     * 返回名称调用请直接调用
      * 参数 mapObj 为地图初始化参数
      */
-    cityLocationAddr: function ($scope, $rootScope, mapObj) {
+    cityLocationAddr: function ($scope, $rootScope, mapObj,cb) {
         mapObj.plugin('AMap.Geolocation', function () {
             $scope.geolocation = new AMap.Geolocation({
                 enableHighAccuracy: true,//是否使用高精度定位，默认:true
@@ -69,10 +69,14 @@ var mapTools = {
                     MGeocoder.getAddress(lnglatXY, function (status, result) {
                         if (status === 'complete' && result.info === 'OK') {
                             $scope.$apply(function () {
-                                $scope.mapAddr = result.regeocode.formattedAddress;
+                                removeData = {
+                                    addr:result.regeocode.formattedAddress,
+                                    laglat:data.position.getLng() + "," + data.position.getLat()
+                                }
+                                cb(removeData);
                             });
                         } else {
-                            alert("获取失败");
+                            cb(false);
                         }
                     });
                 });
@@ -162,7 +166,6 @@ var mapTools = {
             });
             //返回定位成功处理
             AMap.event.addListener(geolocation, 'complete', function (data) {
-                alert(0)
                 var Lnglat = data.position.getLng() + "," + data.position.getLat();
                 cb(Lnglat);
             });

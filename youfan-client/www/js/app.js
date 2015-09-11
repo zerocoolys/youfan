@@ -66,7 +66,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
 
             .state('tab.dash', {
                 url: '/dash',
-                cache: false,
+                //cache: false,
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/homepage/tab-dash.html',

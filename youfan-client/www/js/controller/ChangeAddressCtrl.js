@@ -71,6 +71,7 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
             return
         }
         Merchant.localRange=$scope.autoData[index].location.lng + "," + $scope.autoData[index].location.lat;
+        $rootScope.mapCity = $scope.autoData[index].district;
         $state.go('tab.dash');
         $scope.inputText.value = (document.getElementById("divid" + (index + 1)).innerHTML.replace(/<[^>].*?>.*<\/[^>].*?>/g, "")).trim();
         $scope.items = [];
@@ -78,11 +79,16 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
     };
     /**
      * 获取用户地理位置
-     * 获取数据保存在 $rootScope.mapAddr 中
      */
     $rootScope.mapAddr = "我的就餐地址";
+    $scope.maplnglat = "";
     $scope.getMapCity = function () {
-        mapTools.cityLocationAddr($scope, $rootScope, $scope.mapObj);
+        mapTools.cityLocationAddr($scope, $rootScope, $scope.mapObj,function(data){
+            $rootScope.mapAddr = data.addr;
+            $rootScope.mapCity = data.addr;
+            $scope.maplnglat = data.lngLat;
+        });
+
     };
 
 
@@ -98,6 +104,15 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
             alertPopup.close();
         }, 1000);
     };
+
+
+    $scope.goAddr = function(){
+        console.log($scope.maplnglat)
+        if($scope.maplnglat != ""){
+            Merchant.localRange=$scope.maplnglat;
+            $state.go('tab.dash');
+        }
+    }
     /**-------------------------------------------------------------------------**/
 });
 

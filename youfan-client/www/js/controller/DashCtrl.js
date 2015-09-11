@@ -53,7 +53,6 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
                 p["params"] = per
             }
             $http.post(REST_URL + "/mr/getGeographical", p).success(function (result) {
-                console.log(result);
                 if (result.payload.list.length) {
                     result.payload.list.forEach(function (item) {
                         item["src"] = "img/1.jpg";
