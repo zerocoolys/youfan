@@ -6,13 +6,19 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerModule', 'ServiceModule', 'ngCordova', 'LocalStorageModule'])
-    .run(function ($ionicPlatform, $rootScope, $location, $window, AuthenticationService) {
+    .run(function ($ionicPlatform, $rootScope, $location, NotificationService, $window, AuthenticationService) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
-            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                cordova.plugins.Keyboard.disableScroll(true);
+            if (window.cordova && window.cordova.plugins) {
+                if (window.cordova.plugins.Keyboard) {
+                    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                    cordova.plugins.Keyboard.disableScroll(true);
+                }
+
+                if (window.cordova.plugins.backgroundMode) {
+                    cordova.plugins.backgroundMode.enable();
+                }
 
             }
             if (window.StatusBar) {
@@ -21,6 +27,13 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             }
 
         });
+
+        // Notification
+        NotificationService.ready.then(function (device) {
+            console.log(device)
+        });
+
+
         //$rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
         //    if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
         //            && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
