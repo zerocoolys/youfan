@@ -1,4 +1,4 @@
-<ion-view hide-nav-bar="true">
+<ion-view hide-nav-bar="true" cache-view="false">
 
     <ion-header-bar class="bar" align-title="center">
         <a class="button button-clear button-calm icon ion-ios-arrow-back" href="#/overview"></a>
@@ -7,7 +7,7 @@
     </ion-header-bar>
 
     <ion-content>
-        <div class="button-bar light-bg ">
+        <div class="button-bar light-bg  dishes">
             <a class="button button-clear" ng-class="statusIndex == 0 ? 'current':''"
                ng-click="activeStats(0)">待回复 <i class="calm">10</i> </a>
             <a class="button button-clear    " ng-class="statusIndex == 1 ? 'current':''"
@@ -19,28 +19,33 @@
                ng-click="activeStats(3)">差评 <i class="calm">30</i> </a>
         </div>
 
-        <ion-item class="item   item-avatar" class="list" ng-repeat="comment in comments ">
-            <img ng-src="{{comment.img}}">
+        <ion-item class="item   " class="list" ng-repeat="comment in comments ">
             <h2> {{comment.userName}}  <span class="alright">
-                      <i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-outline"></i><i
-                class="ion-ios-star-outline"></i><i class="ion-ios-star-half"></i>
+                      <i class="ion-ios-star calm"></i><i class="ion-ios-star calm"></i><i
+                class="ion-ios-star calm"></i><i
+                class="ion-ios-star-half calm"></i><i class="ion-ios-star-outline"></i>
                         </span>
-                <span class="time item-note">{{comment.ctime}}</span></h2>
+                <button class="button button-calm button-small item-note" ng-click="replyComments()">添加回复</button>
+            </h2>
 
-                    <p style="margin-top: 10px; white-space: normal;">{{comment.content}}      </p>
+            <p style="margin-top: 10px; white-space: normal;">{{comment.content}} </p>
+
+            <div><img src="{{dishesimg}}" ng-repeat="dishesimg in dishesimgs" alt=""
+                      style="margin: 0 5px;width: 60px;height: 50px;"/>
+            </div>
 
             <div class="care_text item-note" ng-if="comment.replyComments==''">
-            <button class="button button-calm button-small" style="height:" ng-click="replyComments()">添加回复</button>
+                <span class="time item-note">{{comment.ctime}}</span>
             </div>
 
 
-            <div class="care_text"  ng-if="comment.replyComments!=''">
+            <div class="care_text" style="margin-top: 5px;" ng-if="comment.replyComments!=''">
                         <span>
                             [家厨回复] :
                         </span>
                 <span>{{comment.replyComments}}</span>
 
-                <p class="time">{{comment.mtime}}</p>
+             <div> <p class="time item-note">{{comment.mtime}}</p></div>
             </div>
 
 
