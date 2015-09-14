@@ -10,7 +10,6 @@ import java.util.Map;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 
 import com.mongodb.WriteResult;
 import com.youfan.commons.Pagination;
@@ -30,26 +29,28 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 		mongoTemplate.insert(convertToEntity(t));
 	}
 
-	@Override
-	public void delete(Serializable id) {
-		// TODO Auto-generated method stub
+//	@Override
+//	public void delete(Serializable id) {
+//	}
 
+	@Override
+	public void update(T t) {
 	}
 
 	@Override
-	public void update(Object t) {
-		Update update = new Update();
+	public int logicDelete(ID id) {
+		MongoParams params=new MongoParams();
+		params.setDataStatus(MONGO_DELETED_DATA);
+		return updateById(id, params);
 	}
-
+	
 	@Override
 	public Class<E> getEntityClass() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Class<T> getVOClass() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -67,14 +68,23 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
 	}
 
+	
+	@Override
+	public List<T> findByParams(MongoParams params) {
+		return convertToVOList(mongoTemplate.find(buildAndEqualQuery(params), getEntityClass()));
+	}
+	@Override
+	public List<T> findAll() {
+		return findByParams(new MongoParams());
+	}
+
 	@Override
 	public long count(MongoParams params) {
 		Query query = buildAndEqualQuery(params);
 		return mongoTemplate.count(query, getEntityClass());
 	}
-
 	@Override
-	public int updateById(String id, MongoParams params) {
+	public int updateById(ID id, MongoParams params) {
 		try {
 			Map<String, Object> paramsMap = JSONUtils.obj2map(params);
 			if (paramsMap != null && !paramsMap.isEmpty()) {
@@ -94,7 +104,7 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 	}
 
 	@Override
-	public int updateById(String id, T t) {
+	public int updateById(ID id, T t) {
 		try {
 			Map<String, Object> paramsMap = JSONUtils.obj2map(t);
 			if (paramsMap != null && !paramsMap.isEmpty()) {
@@ -106,5 +116,8 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 		}
 		return 0;
 	}
+
+	
+
 
 }

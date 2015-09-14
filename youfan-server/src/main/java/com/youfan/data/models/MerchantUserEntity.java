@@ -1,11 +1,15 @@
 package com.youfan.data.models;
 
+import static com.youfan.commons.Constants.COLLECTION_HEADPORTRAITPICURL;
+import static com.youfan.commons.Constants.COLLECTION_HEALTHCERTIFICATEPICURL;
+import static com.youfan.commons.Constants.COLLECTION_IDCARDPICURL;
+import static com.youfan.commons.Constants.COLLECTION_USER;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import static com.youfan.commons.Constants.*;
-
 /**
  * Created by perfection on 15-8-24.
  */
