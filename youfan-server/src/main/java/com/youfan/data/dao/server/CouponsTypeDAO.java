@@ -1,14 +1,7 @@
 package com.youfan.data.dao.server;
 
-import java.util.List;
-import java.util.Map;
-
-import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.server.CouponsTypeVO;
-import com.youfan.controllers.params.CouponsParams;
-import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.dao.NewMongoBaseDAO;
-import com.youfan.data.models.ActiveEntity;
 import com.youfan.data.models.CouponsTypeEntity;
 
 public interface CouponsTypeDAO extends  NewMongoBaseDAO<CouponsTypeEntity, CouponsTypeVO, String>{
