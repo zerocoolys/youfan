@@ -9,7 +9,7 @@
         .controller('personinfo', personInfo);
 
 
-    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker, $stateParams, $state, YF_MERCHANT_HOST) {
+    function personInfo($scope, $ionicModal, $ionicActionSheet, $ionicPopup, $rootScope, $timeout, $http, $cordovaCamera, $ionicLoading, $cordovaImagePicker, $stateParams, $state, YF_MERCHANT_HOST, YF_MERCHANT_INFO) {
         $scope.sex = "男";
         $scope.user = {
             realName: ""
@@ -72,7 +72,7 @@
         };
 
         $http.post(
-            YF_MERCHANT_HOST + "/user/getMerchantUserInfo", {"id": $rootScope.user.id}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantUserInfo", {"id": YF_MERCHANT_INFO.mID}, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload == null) {
                         $rootScope.Province = "";
@@ -211,7 +211,7 @@
                     headPortraitPicUrl: $scope.imageData.headPortraitPicUrl,
                     healthCertificatePicUrl: $scope.imageData.healthCertificatePicUrl,
                     idCardPicUrl: $scope.imageData.idCardPicUrl,
-                    id: $rootScope.user.id,
+                    id: YF_MERCHANT_INFO.mID,
                     sex: $scope.sex
                 };
                 $http.post(

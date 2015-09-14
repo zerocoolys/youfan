@@ -13,7 +13,7 @@ function getLocation(data) {
         .controller('kitcheninfo', kitchenInfo);
 
 
-    function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicModal, $ionicPopup, YF_MERCHANT_HOST) {
+    function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicModal, $ionicPopup, YF_MERCHANT_HOST, YF_MERCHANT_INFO) {
 
         $scope.kitchenInfo = {
             kitchenName: "",
@@ -37,8 +37,7 @@ function getLocation(data) {
         };
         $scope.addressTemplate = "";
         $http.post(
-            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
-                console.log(data)
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": YF_MERCHANT_INFO.mID}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (Number(data.code) == 0) {
                     if (data.payload != null) {
                         var add_tem = function () {
@@ -70,7 +69,7 @@ function getLocation(data) {
                         $scope.kitchenInfoTemplate = {
                             kitchenName: data.payload.kitchenName,
                             phoneNumber: data.payload.phoneNumber,
-                            characteristic: data.payload.cuisine,
+                            characteristicq: data.payload.cuisine,
                             kitchenAddress: add_tem()
                         };
                     }
@@ -101,12 +100,12 @@ function getLocation(data) {
             var isChange_kitchenName = $scope.kitchenInfoTemplate.kitchenName == $scope.kitchenInfo.kitchenName;
             var isChange_phoneNumber = $scope.kitchenInfo.phoneNumber == $scope.kitchenInfoTemplate.phoneNumber;
             var isChange_characteristic = true;
+            console.log($scope.kitchenInfo.characteristic);
+            console.log($scope.kitchenInfoTemplate.characteristicq);
             for (var i = 0; i < Number($scope.kitchenInfo.characteristic.length); i++) {
-                for (var k = 0; k < Number($scope.kitchenInfoTemplate.characteristic.length); k++) {
-                    if ($scope.kitchenInfo.characteristic[i] != $scope.kitchenInfoTemplate.characteristic[k]) {
-                        isChange_characteristic = false;
-                        break;
-                    }
+                if ($scope.kitchenInfo.characteristic[i] != $scope.kitchenInfoTemplate.characteristicq[i]) {
+                    isChange_characteristic = false;
+                    break;
                 }
             }
             if (isChange_kitchenAddress && isChange_kitchenName && isChange_phoneNumber && isChange_characteristic) {
@@ -167,7 +166,7 @@ function getLocation(data) {
                     MGeocoder.getLocation(kitchenAddressTemplate, function (status, result) {
                         if (status === 'complete' && result.info === 'OK') {
                             var merchantKitchenInfoVO = {
-                                id: $rootScope.user.id, //厨房id与商家用户id匹配
+                                id: YF_MERCHANT_INFO.mID, //厨房id与商家用户id匹配
                                 kitchenName: $scope.kitchenInfo.kitchenName, //厨房名称
                                 phoneNumber: $scope.kitchenInfo.phoneNumber, //手机号码
                                 cuisine: [$scope.kitchenInfo.characteristic[0], $scope.kitchenInfo.characteristic[1]],   //厨房特色，菜系
@@ -216,8 +215,8 @@ function getLocation(data) {
                                                     $scope.kitchenInfo.kitchenName = $scope.kitchenInfoTemplate.kitchenName;
                                                     $scope.kitchenInfoTemplate.phoneNumber = $scope.kitchenInfo.phoneNumber;
                                                     for (var i = 0; i < Number($scope.kitchenInfo.characteristic.length); i++) {
-                                                        for (var k = 0; k < Number($scope.kitchenInfoTemplate.characteristic.length); k++) {
-                                                            $scope.kitchenInfoTemplate.characteristic[k] = $scope.kitchenInfo.characteristic[i];
+                                                        for (var k = 0; k < Number($scope.kitchenInfoTemplate.characteristicq.length); k++) {
+                                                            $scope.kitchenInfoTemplate.characteristicq[k] = $scope.kitchenInfo.characteristic[i];
                                                         }
                                                     }
                                                     $state.go("editkitchen")
