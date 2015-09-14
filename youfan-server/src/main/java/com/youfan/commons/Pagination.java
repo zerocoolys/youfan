@@ -7,85 +7,85 @@ import java.util.Map;
  */
 public class Pagination {
 
-    private int pageSize = 10;
+	private int pageSize = 10;
 
-    private int pageNo = 1;
+	private int pageNo = 1;
 
-    private int skip;
+	private int skip;
 
-    private String orderBy;
+	private String orderBy;
 
-    private boolean asc;
+	private boolean asc;
 
-    private String sortBy;
+	private String sortBy;
 
-    private Map<String, Object> params;
+	private Map<String, Object> params;
 
-    public int getStart() {
-        return pageSize * pageNo;
-    }
+	public int getStart() {
+		return pageSize * pageNo;
+	}
 
-    public int getEnd() {
-        return pageSize * (pageNo + 1);
-    }
+	public int getEnd() {
+		return pageSize * (pageNo + 1);
+	}
 
-    public int getPageSize() {
-        return pageSize;
-    }
+	public int getPageSize() {
+		return pageSize;
+	}
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
 
-    public int getPageNo() {
-        return pageNo;
-    }
+	public int getPageNo() {
+		return pageNo;
+	}
 
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
-    }
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
 
-    public int getSkip() {
-        return skip;
-    }
+	public int getSkip() {
+		return skip;
+	}
 
-    public void setSkip(int skip) {
-        this.skip = skip;
-    }
+	public void setSkip(int skip) {
+		this.skip = skip;
+	}
 
-    public String getOrderBy() {
-        return orderBy;
-    }
+	public String getOrderBy() {
+		return orderBy;
+	}
 
-    public void setOrderBy(String orderBy) {
-        this.orderBy = orderBy;
-    }
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
 
-    public boolean getIsAsc() {
-        return asc;
-    }
+	public boolean getIsAsc() {
+		return asc;
+	}
 
-    public void setAsc(boolean asc) {
-        this.asc = asc;
-    }
+	public void setAsc(boolean asc) {
+		this.asc = asc;
+	}
 
-    public String getAsc() {
-        return (asc) ? "ASC" : "DESC";
-    }
+	public String getAsc() {
+		return (asc) ? "ASC" : "DESC";
+	}
 
-    public String getSortBy() {
-        return sortBy;
-    }
+	public String getSortBy() {
+		return sortBy;
+	}
 
-    public void setSortBy(String sortBy) {
-        this.sortBy = sortBy;
-    }
+	public void setSortBy(String sortBy) {
+		this.sortBy = sortBy;
+	}
 
-    public Map<String, Object> getParams() {
-        return params;
-    }
+	public Map<String, Object> getParams() {
+		return params;
+	}
 
-    public void setParams(Map<String, Object> params) {
-        this.params = params;
-    }
+	public void setParams(Map<String, Object> params) {
+		this.params = params;
+	}
 }
