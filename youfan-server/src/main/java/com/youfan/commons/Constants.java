@@ -14,6 +14,7 @@ public interface Constants {
     String COLLECTION_MENU = "menu";
     // 存储客户端用户信息的集合名称
     String COLLECTION_CLIENT_USER = "client_user";
+    String COLLECTION_CLIENT_MEALS_ADDRESS = "client_ma";
     //
     String COLLECTION_SERVER_COUPONS_TYPE = "coupons_type";
     String COLLECTION_SERVER_ACTIVE = "active";
@@ -124,7 +125,7 @@ public interface Constants {
     String IDENTITY_NUMBER = "inum";
 
     /**
-     * 
+     *
      * @title Constants.java
      * @package com.youfan.commons
      * @description MrDeng 分页常量
@@ -142,5 +143,4 @@ public interface Constants {
         String ASC = "asc";
         String SKIP = "skip";
     }
-
 }

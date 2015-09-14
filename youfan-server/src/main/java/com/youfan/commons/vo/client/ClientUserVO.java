@@ -1,5 +1,9 @@
 package com.youfan.commons.vo.client;
 
+import com.youfan.data.models.AttentionEntity;
+
+import java.util.List;
+
 /**
  * Created by icepros on 15-8-25.
  */
@@ -20,6 +24,10 @@ public class ClientUserVO {
     private String jobs;
     //注册时间
     private String registerDate;
+    //送餐地址
+    private List<MealsAddressVO> mealsAddress;
+    //关注
+    private List<AttentionEntity> attention;
 
 
     public ClientUserVO() {
@@ -87,5 +95,21 @@ public class ClientUserVO {
 
     public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public List<MealsAddressVO> getMealsAddress() {
+        return mealsAddress;
+    }
+
+    public void setMealsAddress(List<MealsAddressVO> mealsAddress) {
+        this.mealsAddress = mealsAddress;
+    }
+
+    public List<AttentionEntity> getAttention() {
+        return attention;
+    }
+
+    public void setAttention(List<AttentionEntity> attention) {
+        this.attention = attention;
     }
 }

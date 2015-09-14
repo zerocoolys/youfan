@@ -1,11 +1,12 @@
 package com.youfan.data.dao.client;
 
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.client.MealsAddressVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.ClientUserEntity;
+import com.youfan.data.models.MealsAddressEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 
 /**
  * Created by icepros on 15-8-25.
@@ -41,8 +42,11 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, ClientUserVO, St
      */
     void update(String id, ClientUserVO clientUserVO);
 
+    void updateMealsAddress(String id, ClientUserVO clientUserVO);
+
     void updateUserPwd(String id, String pwd);
 
+    void insertMealsAddress(MealsAddressVO mealsAddressVO);
 
     @Override
     default Class<ClientUserEntity> getEntityClass() {
