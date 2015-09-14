@@ -83,6 +83,7 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     public void saveMerchantUserInfo(MerchantUserVO merchantUser) {
         Update update = new Update();
         update.set("status", merchantUser.getStatus());
+        update.set("dataStatus", merchantUser.getDataStatus());
         update.set("id", merchantUser.getId());
         update.set("address", merchantUser.getAddress());
         update.set("ageRange", merchantUser.getAgeRange());
@@ -132,9 +133,7 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     @Override
     public MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
         Update update = new Update();
-//        query(where("id").is(merchantKitchenInfo.getId()).
-//                andOperator(where("status").nin("-1"))), update,
-//                update.set("id", merchantKitchenInfo.getId());
+
         update.set("cuisine", merchantKitchenInfo.getCuisine());
         update.set("desc", merchantKitchenInfo.getDesc());
         update.set("disPrice", merchantKitchenInfo.getDisPrice());
@@ -149,9 +148,10 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         update.set("isCanteen", merchantKitchenInfo.isCanteen());
         update.set("isDelivery", merchantKitchenInfo.isDelivery());
         update.set("isTakeSelf", merchantKitchenInfo.isTakeSelf());
-//        update.set("lat", merchantKitchenInfo.getLat());
-//        update.set("lng", merchantKitchenInfo.getLng());
         update.set("location", merchantKitchenInfo.getLocation());
+        update.set("status", merchantKitchenInfo.getStatus());
+        update.set("dataStatus", merchantKitchenInfo.getDataStatus());
+
         List<MerchantKitchenInfoEntity> merchantKitchenInfoEntityList = merchantKitchenDAO.find(query(where("id").
                 is(merchantKitchenInfo.getId())));
         if (merchantKitchenInfoEntityList.size() == 0) {
@@ -170,7 +170,7 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
             } else {
                 MerchantKitchenInfoVO merchantKitchenInfoRes = merchantKitchenDAO.
                         saveMerchantKitchenInfo(query(where("id").
-                                is(merchantKitchenInfo.getId()).andOperator(where("status").nin("-1"))), update);
+                                is(merchantKitchenInfo.getId()).andOperator(where("dataStatus").nin("-1"))), update);
                 if (merchantKitchenInfoRes == null) {
                     return null;
                 } else {
@@ -191,12 +191,19 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         Update update = new Update();
 
         update.set("kitchenPicUrl", merchantKitchenInfo.getKitchenPicUrl());
+        update.set("status", merchantKitchenInfo.getStatus());
+        update.set("dataStatus", merchantKitchenInfo.getDataStatus());
         MerchantKitchenInfoVO merchantKitchenInfoVO = merchantKitchenDAO.saveMerchantKitchenPicInfo(query(where("id").
                 is(merchantKitchenInfo.getId()).andOperator(where("dataStatus").nin("-1"))), update);
         if (merchantKitchenInfoVO == null) {
             merchantKitchenDAO.insert(merchantKitchenInfo);
-            return merchantKitchenDAO.convertToVO(merchantKitchenDAO.find(query(where("id").
-                    is(merchantKitchenInfo.getId()).andOperator(where("dataStatus").nin("-1")))).get(0));
+            List<MerchantKitchenInfoEntity> merchantKitchenInfoEntityList = merchantKitchenDAO.find(query(where("id").
+                    is(merchantKitchenInfo.getId()).andOperator(where("dataStatus").nin("-1"))));
+            if (merchantKitchenInfoEntityList.size() == 0) {
+                return null;
+            } else {
+                return merchantKitchenDAO.convertToVO(merchantKitchenInfoEntityList.get(0));
+            }
         } else {
             return merchantKitchenInfoVO;
         }
@@ -209,6 +216,8 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
 
         update.set("kitchenStoryName", merchantKitchenInfo.getKitchenStoryName());
         update.set("kitchenStoryContent", merchantKitchenInfo.getKitchenStoryContent());
+        update.set("status", merchantKitchenInfo.getStatus());
+        update.set("dataStatus", merchantKitchenInfo.getDataStatus());
         MerchantKitchenInfoVO merchantKitchenInfoVO = merchantKitchenDAO.
                 saveMerchantKitchenStoryInfo(query(where("id").is(merchantKitchenInfo.getId()).
                         andOperator(where("dataStatus").nin("-1"))), update);
@@ -251,6 +260,8 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO) {
         Update update = new Update();
         update.set("hobby", merchantKitchenInfoVO.getHobby());
+        update.set("status", merchantKitchenInfoVO.getStatus());
+        update.set("dataStatus", merchantKitchenInfoVO.getDataStatus());
         MerchantKitchenInfoVO merchantKitchenInfo = merchantKitchenDAO.
                 saveMyHobby(query(where("id").is(merchantKitchenInfoVO.getId()).
                         andOperator(where("dataStatus").nin("-1"))), update);
@@ -307,4 +318,38 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         // TODO Auto-generated method stub
         return merchantUserDao.updateById(id, muParams);
     }
+
+    @Override
+    public boolean approveMerchantUserInfo(String id, Integer status) {
+        Update update = new Update();
+        update.set("status", status);
+        boolean isChangeMerchantUserId = merchantUserDao.approveAllInfo(query(where("id").is(id).andOperator(where("dataStatus").nin("-1"))), update);
+        if (!isChangeMerchantUserId) {
+            MerchantUserVO merchantUserVO = new MerchantUserVO();
+            merchantUserVO.setId(id);
+            merchantUserVO.setStatus(0);
+            merchantUserDao.insert(merchantUserVO);
+            return true;
+        } else {
+            return true;
+        }
+
+    }
+
+    @Override
+    public boolean approveMerchantKitchenInfo(String id, Integer status) {
+        Update update = new Update();
+        update.set("status", status);
+        boolean isChangeMerchantKitchenId = merchantKitchenDAO.approveAllInfo(query(where("id").is(id).andOperator(where("dataStatus").nin("-1"))), update);
+        if (!isChangeMerchantKitchenId) {
+            MerchantKitchenInfoVO merchantKitchenInfoVO = new MerchantKitchenInfoVO();
+            merchantKitchenInfoVO.setId(id);
+            merchantKitchenInfoVO.setStatus(0);
+            merchantKitchenDAO.insert(merchantKitchenInfoVO);
+            return true;
+        } else {
+            return true;
+        }
+    }
+
 }

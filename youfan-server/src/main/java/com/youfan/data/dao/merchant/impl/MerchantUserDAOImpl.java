@@ -202,4 +202,14 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
             return convertToVO(merchantUserEntity);
         }
     }
+
+    @Override
+    public boolean approveAllInfo(Query query,Update update) {
+        MerchantUserEntity merchantUserEntity = mongoTemplate.findAndModify(query, update, getEntityClass());
+        if(merchantUserEntity==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

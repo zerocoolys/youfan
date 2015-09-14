@@ -196,4 +196,22 @@ public interface MerchantUsersService {
      * @update 2015年9月10日 下午4:20:39
      */
     long count(MerchantUserParams muParams);
+
+    /**
+     * 个人信息申请审核
+     *
+     * @param id     个人信息id
+     * @param status 审核状态
+     * @return
+     */
+    boolean approveMerchantUserInfo(String id, Integer status);
+
+    /**
+     * 商家端厨房申请审核
+     *
+     * @param id     商家信息id
+     * @param status 审核状态
+     * @return
+     */
+    boolean approveMerchantKitchenInfo(String id, Integer status);
 }

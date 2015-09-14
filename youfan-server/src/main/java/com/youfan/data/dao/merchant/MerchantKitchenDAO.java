@@ -117,4 +117,11 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
     default Class<MerchantKitchenInfoVO> getVOClass() {
         return MerchantKitchenInfoVO.class;
     }
+
+    /**
+     * 商家端厨房和个人信息申请审核
+     *
+     * @return
+     */
+    boolean approveAllInfo(Query query, Update update);
 }

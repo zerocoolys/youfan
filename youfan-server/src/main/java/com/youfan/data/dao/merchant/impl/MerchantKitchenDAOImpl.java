@@ -202,4 +202,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
             return null;
         }
     }
+
+    @Override
+    public boolean approveAllInfo(Query query, Update update) {
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query, update, getEntityClass());
+        if (merchantKitchenInfoEntity == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
