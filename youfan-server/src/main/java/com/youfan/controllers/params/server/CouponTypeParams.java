@@ -1,6 +1,8 @@
-package com.youfan.controllers.params;
+package com.youfan.controllers.params.server;
 
-public class CouponsParams extends MongoParams{
+import com.youfan.controllers.params.MongoParams;
+
+public class CouponTypeParams extends MongoParams{
 	private Integer port;
 	private Integer timeLine;
 	private String kitchenId;

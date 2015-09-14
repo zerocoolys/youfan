@@ -113,6 +113,7 @@ public abstract class MongoBaseDAOImpl<E, T, ID extends Serializable> implements
 				return re.getN();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}

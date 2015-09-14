@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.client.ClientUserVO;
-import com.youfan.commons.vo.server.CouponsTypeVO;
-import com.youfan.commons.vo.server.CouponsVO;
+import com.youfan.commons.vo.server.CouponTypeVO;
+import com.youfan.commons.vo.server.CouponVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.server.ActiveDAO;
-import com.youfan.data.dao.server.CouponsDAO;
-import com.youfan.data.dao.server.CouponsTypeDAO;
-import com.youfan.data.models.CouponsContentEntity;
+import com.youfan.data.dao.server.CouponDAO;
+import com.youfan.data.dao.server.CouponTypeDAO;
+import com.youfan.data.models.CouponContentEntity;
 import com.youfan.services.server.ActiveSupportService;
 
 @Service("activeSupportService")
@@ -28,9 +28,9 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 	@Resource
 	ActiveDAO activeDAO;
 	@Resource
-	CouponsTypeDAO couponsTypeDao;
+	CouponTypeDAO couponTypeDao;
 	@Resource
-	CouponsDAO couponsDAO;
+	CouponDAO couponDAO;
 
 	@Override
 	public Response joinActive(Integer activeType, ClientUserVO userVo) {
@@ -71,13 +71,13 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 				return Responses.FAILED().setCode(6).setMsg("活动优惠类型未设置");
 			}
 			System.out.println("优惠券类型：" + activeVo.getCouponsTypeId());
-			CouponsTypeVO cType = couponsTypeDao.findOne(activeVo.getCouponsTypeId());
+			CouponTypeVO cType = couponTypeDao.findOne(activeVo.getCouponsTypeId());
 			System.out.println(cType);
 			if (cType == null) {
 				return Responses.FAILED().setCode(6).setMsg("活动优惠类型  不存在");
 			}
 			// 发优惠券
-			CouponsVO couponsVo = new CouponsVO();
+			CouponVO couponsVo = new CouponVO();
 			couponsVo.setCreateTime(nowTime);
 			couponsVo.setCouponsTypeId(activeVo.getCouponsTypeId());
 			couponsVo.setUserId(userVo.getId());
@@ -89,7 +89,7 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 			couponsVo.setTitle(activeVo.getTitle() + "|" + cType.getTitle());
 			couponsVo.setValidityTime(activeVo.getValidityTime());
 			couponsVo.setUpdateTime(null);
-			couponsDAO.insert(couponsVo);
+			couponDAO.insert(couponsVo);
 			return Responses.SUCCESS().setMsg("发放优惠券").setPayload(couponsVo).setCode(1);
 		} else if (activeVo.getCouponsType() == 2) {
 			// 修改订单 活动类型为1XX不会出现修改订单
@@ -135,8 +135,8 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 		if (!(activeVo.getOrderConditions()==null||checkConditions(activeVo.getOrderConditions(), orderVo))) {
 			return Responses.FAILED().setCode(6).setMsg("订单参数不匹配");
 		}
-		CouponsTypeVO cType = couponsTypeDao.findOne(activeVo.getCouponsTypeId());
-		if (couponsTypeDao.findOne(activeVo.getCouponsTypeId()) == null) {
+		CouponTypeVO cType = couponTypeDao.findOne(activeVo.getCouponsTypeId());
+		if (couponTypeDao.findOne(activeVo.getCouponsTypeId()) == null) {
 			return Responses.FAILED().setCode(8).setMsg("活动优惠类型  不存在");
 		}
 		if (activeVo.getCouponsType() == 1) {
@@ -146,7 +146,7 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 			}
 
 			// 发优惠券
-			CouponsVO couponsVo = new CouponsVO();
+			CouponVO couponsVo = new CouponVO();
 			couponsVo.setCreateTime(nowTime);
 			couponsVo.setCouponsTypeId(activeVo.getCouponsTypeId());
 			couponsVo.setUserId(userVo.getId());
@@ -158,13 +158,13 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 			couponsVo.setTitle(activeVo.getTitle() + "|" + cType.getTitle());
 			couponsVo.setValidityTime(activeVo.getValidityTime());
 
-			couponsDAO.insert(couponsVo);
+			couponDAO.insert(couponsVo);
 			return Responses.SUCCESS().setMsg("发放优惠券").setPayload(couponsVo).setCode(1);
 		} else if (activeVo.getCouponsType() == 2) {
 			// 修改订单操作
-			List<CouponsContentEntity> clist = cType.getContent();
+			List<CouponContentEntity> clist = cType.getContent();
 			if (clist != null) {
-				for (CouponsContentEntity cce : clist) {
+				for (CouponContentEntity cce : clist) {
 					// cce.getCondition()==null时 无条件进行优惠处理
 					if(cce.getConditions() != null&&cce.getConditions().size()!=0){
 						boolean flag = false;

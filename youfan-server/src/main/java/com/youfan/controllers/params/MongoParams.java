@@ -2,12 +2,12 @@ package com.youfan.controllers.params;
 
 public class MongoParams {
 
-	private int dataStatus=1;
+	private Integer dataStatus=1;
 
-	public int getDataStatus() {
+	public Integer getDataStatus() {
 		return dataStatus;
 	}
-	public void setDataStatus(int dataStatus) {
+	public void setDataStatus(Integer dataStatus) {
 		this.dataStatus = dataStatus;
 	}
 	

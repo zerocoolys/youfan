@@ -5,14 +5,14 @@ import java.util.Map;
 
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.client.ClientUserVO;
-import com.youfan.commons.vo.server.CouponsVO;
-import com.youfan.data.dao.server.CouponsDAO;
+import com.youfan.commons.vo.server.CouponVO;
+import com.youfan.data.dao.server.CouponDAO;
 import com.youfan.services.active.ActiveDetail;
 
 public class RegisterActiveDetail implements ActiveDetail {
 
 	@Override
-	public Object active(ActiveVO active, Map<String, Object> pramsMap, CouponsDAO couponsDAO) {
+	public Object active(ActiveVO active, Map<String, Object> pramsMap, CouponDAO couponsDAO) {
 		// TODO Auto-generated method stub
 		//得到用户
 		ClientUserVO user  = (ClientUserVO) pramsMap.get("userVO");
@@ -37,7 +37,7 @@ public class RegisterActiveDetail implements ActiveDetail {
 		}
 		if (active.getCouponsType() == 1) {// 发放优惠券
 			// 调用优惠券方法接口完成
-			CouponsVO cv = new CouponsVO();
+			CouponVO cv = new CouponVO();
 
 			cv.setUserId(user.getId());
 			cv.setCreateTime(new Date().getTime());
