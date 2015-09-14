@@ -1,6 +1,8 @@
 package com.youfan.services.client;
 
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.client.MealsAddressVO;
+import com.youfan.data.models.MealsAddressEntity;
 import com.youfan.exceptions.UserException;
 
 /**
@@ -22,6 +24,7 @@ public interface ClientUserService {
      */
     void update(ClientUserVO uc);
 
+    void updateMealsAddress(String id, ClientUserVO clientUserVO);
     /**
      * 根据用户电话号码查询用户信息
      *
@@ -30,6 +33,10 @@ public interface ClientUserService {
      * @throws UserException
      */
     ClientUserVO getUserByTel(String tel);
+
+    ClientUserVO findUserById(String id);
+
+    void insertMealsAddress(MealsAddressVO mealsAddressVO);
 
     /**
      * 根据用户电话号码和密码 进行登陆

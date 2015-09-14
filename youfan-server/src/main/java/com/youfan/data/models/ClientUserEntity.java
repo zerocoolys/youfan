@@ -1,16 +1,17 @@
 package com.youfan.data.models;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import static com.youfan.commons.Constants.COLLECTION_CLIENT_USER;
+import java.util.List;
+
+import static com.youfan.commons.Constants.COLLECTION_CLIENT_MEALS_ADDRESS;
 
 /**
  * Created by icepros on 15-8-25.
  * <p>用户端用户实体类
  */
-@Document(collection = COLLECTION_CLIENT_USER)
+@Document(collection = COLLECTION_CLIENT_MEALS_ADDRESS)
 public class ClientUserEntity {
 
     @Id
@@ -29,6 +30,11 @@ public class ClientUserEntity {
     private String jobs;
     //注册时间
     private String registerDate;
+    //送餐地址
+    private List<MealsAddressEntity> mealsAddress;
+    //关注
+    private List<AttentionEntity> attention;
+
 
     public ClientUserEntity() {
     }
@@ -96,5 +102,21 @@ public class ClientUserEntity {
 
     public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public List<MealsAddressEntity> getMealsAddress() {
+        return mealsAddress;
+    }
+
+    public void setMealsAddress(List<MealsAddressEntity> mealsAddress) {
+        this.mealsAddress = mealsAddress;
+    }
+
+    public List<AttentionEntity> getAttention() {
+        return attention;
+    }
+
+    public void setAttention(List<AttentionEntity> attention) {
+        this.attention = attention;
     }
 }
