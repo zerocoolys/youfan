@@ -17,7 +17,7 @@ import com.youfan.controllers.params.MongoParams;
 import com.youfan.data.dao.NewMongoBaseDAO;
 import com.youfan.utils.JSONUtils;
 
-public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongoBaseDAO<E, T, ID> {
+public abstract class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongoBaseDAO<E, T, ID> {
 
 	@Override
 	public T findOne(Serializable id) {
@@ -61,7 +61,7 @@ public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongo
 			query.skip((pager.getPageNo() - 1) * pager.getPageSize());
 			query.limit(pager.getPageSize());
 			if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
-				query.with(new Sort(pager.isAsc()?Direction.ASC:Direction.DESC,pager.getSortBy()));
+				query.with(new Sort(pager.getIsAsc()?Direction.ASC:Direction.DESC,pager.getSortBy()));
 
 			}
 		}

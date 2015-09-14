@@ -320,7 +320,7 @@
 		<if test="orderStatus != null"> and ORDER_STATUS = #{orderStatus} </if>
 		AND DATA_STATUS = 1
 		<!-- 排序分页 -->
-		<if test="orderBy!=null">ORDER BY #{orderBy} #{asc}</if>
+		<if test="orderBy!=null and orderBy!=''">ORDER BY #{orderBy} #{asc}</if>
 		<if test="start!=null and end!=null">
 			LIMIT #{start}, #{pageSize}
 		</if>
