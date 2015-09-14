@@ -36,7 +36,7 @@
 .home_item .item {
     overflow: inherit;
     padding: 0;
-    margin: 5px 0 0 0;
+    margin: 0;
     border: none;
 }
 
@@ -87,16 +87,14 @@
 }
 
 .img_text {
-    position: absolute;
+    float: right;
+    margin-right: 10px;
     /*height: 30px;*/
     /*padding: 0 5px;*/
     /*line-height: 30px;*/
-    bottom: 0;
-    right: 8px;
     /* background-color: rgba(0, 0, 0, 0.5);
      filter: Alpha(opacity=50);  *//*只支持IE6、7、8、9 */
     *zoom: 1;
-    color: #fff;
 }
 
 .img_text span {
@@ -106,12 +104,14 @@
 .home_item .item-avatar {
     position: relative;
     min-height: 50px;
+
 }
 
 .home_item .person_img {
     width: 100%;
     position: absolute;
     bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
     /* background-color: rgba(0, 0, 0, 0.5);
      filter: Alpha(opacity=50); */
     /*只支持IE6、7、8、9 */
@@ -122,14 +122,12 @@
 }
 
 .person_img h2, .person_img span {
-    color: #e4c615;
     font-family: "微软雅黑", "黑体";
 }
 
 .home_item .address p {
-    padding: 5px;
     font-size: 12px;
-    color: #fff;
+    padding: 0 5px 0 0;
     /*    background: -webkit-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
         background: -moz-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
         background: -ms-linear-gradient( top, rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.02));
@@ -138,14 +136,15 @@
 
 .home_item .person_img h2 {
     /*line-height: 50px;*/
-    /*margin-top: 10px;*/
-    position: absolute;
-    top: 3px;
+    margin-top: 5px;
     font-size: 14px;
 }
 
 .home_item .item-avatar > img:first-child {
-    top: 5px;
+    top: -18px;
+    max-height: 50px;
+    max-width: 50px;
+    border: 2px solid #fff;
 
 }
 
@@ -165,6 +164,24 @@
 
 .home_item .item_box .row {
     padding: 0 0 0 70px;
+}
+
+.home_cation {
+    position: absolute;
+    top: 10px;
+    text-align: right;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.home_cation_name {
+    display: inline-block;
+    background: #97c715;
+    color: #fff;
+    border-radius: 10px;
+    padding: 0 5px;
+    font-size: 12px;
+
 }
 
 /***商家详情页****/
@@ -756,6 +773,7 @@ ul.rating li i {
     -moz-background-size: 100% 100%;
     background-size: 100% 100%;
     margin: 0px;
+    padding-top: 20px;
     overflow: hidden;
 
 }
@@ -876,4 +894,34 @@ p.info {
 
 .mode_img.modal {
     background: rgba(0, 0, 0, 0.8);
+}
+
+.dash_top {
+    position: fixed;
+    width: 100%;
+    top: 25px;
+    z-index: 1000;
+    color: #fff;
+    font-size: 26px;
+    padding: 0 10px;
+}
+
+.dash_top a {
+    color: #fff;
+}
+
+.dash_top i {
+    margin-left: 5px;
+}
+
+.item-input-inset span {
+    color: #fff;
+}
+
+input[type="text"].myFocus {
+    background-color: yellow;
+}
+
+input[type="text"].myBlur {
+    background-color: red;
 }

@@ -1,25 +1,36 @@
-<ion-view view-title="" hide-nav-bar="true"  class="home_item" overflow-scroll="false">
-    <div class="bar bar-header item-input-inset">
-
+<ion-view view-title="" hide-nav-bar="true" class="home_item" overflow-scroll="false">
+    <div class="bar bar-header">
+        <h1 class="title" ui-sref="tab.change-address"><i class="ion-ios-location"></i>&nbsp;<span
+                ng-bind="mapCity"></span></h1>
+        <button class="button button-icon ion-ios-search" style="color:#fff;" ng-click="SearchIcon()"></button>
+    </div>
+    <div class="bar bar-header item-input-inset" ng-hide="SearchShow" ng-animate="'swing'">
         <label class="item-input-wrapper">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" ng-model="inputText.value" ng-change="tab_keydown(inputText.value)" placeholder="搜索"/>
+            <input type="search" ng-model="inputText.value" ng-change="tab_keydown(inputText.value)" placeholder="搜索"
+                   ng-blur="blur()"/>
         </label>
-<!--
-        <a class="button button-clear button-balanced" ui-sref="tab.pwd-login">
-            登录
-        </a>-->
+    </div>
+    <!--  <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" ng-model="inputText.value" ng-change="tab_keydown(inputText.value)" placeholder="搜索"/>
+            </label>
+    &lt;!&ndash;
+            <a class="button button-clear button-balanced" ui-sref="tab.pwd-login">
+                登录
+            </a>&ndash;&gt;
 
-    </div>
-    <div class="bar bar-subheader bar-light" style="height:30px;">
-        <div class="index_loction" ui-sref="tab.change-address">
-            <i class="ion-ios-location"></i>&nbsp;<span ng-bind="mapCity"></span>
-               <span class="item-note">
-                       <i class="icon ion-chevron-right icon-accessory"></i>
-               </span>
         </div>
-    </div>
-    <ion-content style="top:75px;" overflow-scroll="false">
+        <div class="bar bar-subheader bar-light" style="height:30px;">
+            <div class="index_loction" ui-sref="tab.change-address">
+                <i class="ion-ios-location"></i>&nbsp;<span ng-bind="mapCity"></span>
+                   <span class="item-note">
+                           <i class="icon ion-chevron-right icon-accessory"></i>
+                   </span>
+            </div>
+        </div>-->
+    <ion-content style="top:44px;" overflow-scroll="false">
         <ion-refresher pulling-text="下拉刷新..." on-refresh="doRefresh()">
         </ion-refresher>
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
@@ -36,23 +47,35 @@
         </ion-slide-box>
         <ion-list>
             <ion-item class="item" ng-repeat="mc in merChantData">
-                <div class="list img_box"  ng-click="goTo(mc.id)"  style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 200px;color: #fff">
-                    <div class="address" style="padding: 5px">
-                        <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}&nbsp;<span ng-bind="mc.loc">342m</span></p>
-                        <!--<img class="full-image" src="{{mc.src}}"></a>-->
-                        <!--<div class="img_text">
-                            111{{mc.cang}}<span>品尝过</span>
-                        </div>-->
+                <div class="list img_box" ng-click="goTo(mc.id)"
+                     style="background-image: url({{mc.src}});background-size: 100% 100%;min-height: 220px;">
+                    <!--        <img class="full-image" src="{{mc.src}}">-->
+                    <!--               <div class="address" style="padding: 5px">
+                                       <p><i class="ion-ios-location"></i> {{mc.kitchenAddress||'暂无'}}&nbsp;<span ng-bind="mc.loc">342m</span></p>
+                                       &lt;!&ndash;<img class="full-image" src="{{mc.src}}"></a>&ndash;&gt;
+                                       &lt;!&ndash;<div class="img_text">
+                                           111{{mc.cang}}<span>品尝过</span>
+                                       </div>&ndash;&gt;
+                                   </div>-->
+                    <div class="home_cation">
+                        <span class="home_cation_name">内蒙古人</span>
+                        <span class="home_cation_name" style="background: #e4c615">已认证</span>
                     </div>
                     <div class="item-avatar person_img item-icon-left">
                         <img src="{{mc.headImg}}" ng-click="person('{{mc.id}}')">
-                        <h2 style="color: #fff">{{mc.kitchenName}}</h2>
-                        <span class="badge badge-assertive ng-binding">内蒙古人</span>
-                        <i class="icon ion-ribbon-b icon-accessory mainColor" style="top: 15px;left: 37px;"></i>
 
-                        <div class="img_text fr">
-                            111{{mc.cang}}<span>品尝过</span>
-                        </div>
+                        <h2>{{mc.kitchenName}}
+                            <div class="img_text fr">
+                                111{{mc.cang}}<span>人品尝过</span>
+                            </div>
+                        </h2>
+                        <div class="address">
+                            <p><i class="ion-ios-location"></i> <span ng-bind="mc.loc">342m</span>
+                                {{mc.kitchenAddress||'暂无'}}&nbsp;</p></div>
+                        <!--       <span class="badge badge-assertive ng-binding">内蒙古人</span>-->
+                        <!--           <i class="icon ion-ribbon-b icon-accessory mainColor" style="top: 15px;left: 37px;"></i>-->
+
+
                         <!--<span class="badge badge-assertive ng-binding">内蒙古人</span>
                         <div class="row" href="#/tab/dash/{{mc.id}}">
                             <div class="col-90">
@@ -66,64 +89,10 @@
                     </div>
                 </div>
             </ion-item>
-            <!--<ion-item class="item">-->
-            <!--<div class="list">-->
-            <!--<div class="item item-body img_box">-->
-            <!--<img class="full-image" src="img/2.jpeg">-->
-
-            <!--<div class="img_text">-->
-            <!--2000人<span>品尝过</span>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="item item-avatar item_box">-->
-            <!--<img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">-->
-            <!--&lt;!&ndash;<img src="posts/avatars/avatar1.jpg" ng-click="scanQRCode()">&ndash;&gt;-->
-            <!--&lt;!&ndash;<h2>Marty McFly</h2>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<p>November 05, 1955</p>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a class="button button-icon icon ion-arrow-down-b" style="padding: 0px;"></a>&ndash;&gt;-->
-
-            <!--<div class="row">-->
-            <!--<div class="col-90">-->
-            <!--<h2>恋家厨房</h2>-->
-
-            <!--<p><i class="ion-ios-location"></i> 成都市高新区英郡12栋2204</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</ion-item>-->
-            <!--<ion-item class="item">-->
-            <!--<div class="list">-->
-            <!--<div class="item item-body img_box">-->
-            <!--<img class="full-image" src="img/2.jpeg">-->
-
-            <!--<div class="img_text">-->
-            <!--2000人<span>品尝过</span>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="item item-avatar item_box">-->
-            <!--<img src="img/avatar1.jpg" ng-click="person(1)" class="person_img">-->
-            <!--&lt;!&ndash;<img src="posts/avatars/avatar1.jpg" ng-click="scanQRCode()">&ndash;&gt;-->
-            <!--&lt;!&ndash;<h2>Marty McFly</h2>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<p>November 05, 1955</p>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a class="button button-icon icon ion-arrow-down-b" style="padding: 0px;"></a>&ndash;&gt;-->
-
-            <!--<div class="row">-->
-            <!--<div class="col-90">-->
-            <!--<h2>恋家厨房</h2>-->
-
-            <!--<p><i class="ion-ios-location"></i> 成都市高新区英郡12栋2204</p>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</ion-item>-->
         </ion-list>
         <!--<ion-infinite-scroll-->
-                <!--on-infinite="loadMore()"-->
-                <!--distance=" 1%">-->
+        <!--on-infinite="loadMore()"-->
+        <!--distance=" 1%">-->
         <!--</ion-infinite-scroll>-->
 
     </ion-content>
