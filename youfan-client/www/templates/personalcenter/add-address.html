@@ -2,40 +2,40 @@
     <ion-header-bar>
         <button class="button button-clear" ng-click="modal.hide()">取消</button>
         <h1 class="title" ng-click="addAddress()">新增就餐地址</h1>
-        <button class="button button-clear mainColor" ng-click="modal.hide()">保存</button>
+        <button class="button button-clear mainColor" ng-click="modifyMa(post);modal.hide()">保存</button>
     </ion-header-bar>
     <ion-content>
         <ion-list>
             <ion-item>
                 联系人
                     <span class="item-note">
-                        <input type="text" placeholder="收餐人姓名">
+                        <input type="text" ng-model="post.contact" placeholder="收餐人姓名">
                     </span>
             </ion-item>
             <ion-item>
                 手机号码
                     <span class="item-note">
-                        <input type="text" placeholder="收餐人电话">
+                        <input type="text" ng-model="post.tel" placeholder="收餐人电话">
                     </span>
             </ion-item>
             <ion-item class="item-icon-right">
                 地址
-                    <span class="item-note" >
+                    <span class="item-note">
                       小区/大厦/学校/街道<i class="icon ion-chevron-right icon-accessory"></i>
                     </span>
             </ion-item>
             <ion-item>
-                <input type="text" style="width: 100%" placeholder="楼号/门牌号等详细信息">
+                <input type="text" ng-model="post.houseNumber" style="width: 100%" placeholder="楼号/门牌号等详细信息">
             </ion-item>
         </ion-list>
         <div class="padding">
             <p class="text-center mainColor">
                 给地址加个标签，下次选地址更加方便哦~
             </p>
-            <button class="button button-light">
+            <button class="button button-light" ng-click="labelHome()">
                 家里
             </button>
-            <button class="button button-light">
+            <button class="button button-light" ng-click="labelCompany()">
                 公司
             </button>
         </div>

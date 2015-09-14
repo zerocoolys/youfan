@@ -7,16 +7,18 @@
     <ion-content>
         <div class="list">
             <div class="item item-input">
-                <input type="text" id="oldPwd" name="oldPwd" ng-model="formValue.oldPwd" placeholder="旧密码" required>
+                <input type="password" id="oldPwd" name="oldPwd" ng-model="formValue.oldPwd" placeholder="旧密码" required>
             </div>
             <div class="item item-input">
-                <input type="text" id="newPwd" name="newPwd" ng-model="formValue.newPwd" placeholder="新密码" required>
+                <input type="password" id="newPwd" name="newPwd" ng-model="formValue.newPwd" placeholder="新密码" required>
             </div>
             <div class="item item-input">
-                <input type="password" id="confirmPwd" name="confirmPwd" ng-model="formValue.confirmPwd"
+                <input type="password" id="confirmPwd" name="formValue.confirmPwd" ng-model="formValue.confirmPwd"
                        placeholder="再次输入密码" required>
             </div>
-            <button class="button button-block bar-balanced">完 成</button>
+            <button class="button button-block bar-balanced"
+                    ng-click="resetPwd(formValue.oldPwd, formValue.newPwd, formValue.confirmPwd)">完 成
+            </button>
         </div>
     </ion-content>
 </ion-view>
