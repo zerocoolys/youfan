@@ -1,0 +1,27 @@
+<table width="100%">
+    <tr>
+        <td class="calm " style="padding: 5px 0 0 5px">{{item.name}}</td>
+        <td style="text-align: right" rowspan="2">
+            <div ng-switch="item.reviewStatus">
+                <button style="padding: 3px 15px" class="button button-calm button-small"
+                        data-ng-click="editDishes(item.type,item.id)">编辑
+                </button>
+                <button ng-switch-when="0" style="padding: 3px 15px" class="button button-energized button-small">审核中
+                </button>
+                <button style="padding: 3px 15px" ng-switch-when="1" data-ng-if="!item.sale"
+                        class="button button-energized button-small"
+                        data-ng-click="upSale(item)">上架
+                </button>
+                <button style="padding: 3px 15px" ng-switch-when="1" data-ng-if="item.sale"
+                        class="button button-assertive button-small"
+                        data-ng-click="downSale(item)">下架
+                </button>
+                <button ng-switch-when="2" style="padding: 3px 15px" class="button button-energized button-small">审核失败
+                </button>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td><p style="font-size: 18px; margin-left: 5px; ">￥{{item.price}}</p></td>
+    </tr>
+</table>

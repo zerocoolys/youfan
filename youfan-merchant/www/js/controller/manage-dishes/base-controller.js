@@ -72,15 +72,16 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 template: '你确定撤销您的编辑的内容吗？',
                 title: '提示',
                 buttons: [
-                    { text: '<b>返回<b>' ,
-                        type:'button-light'
+                    {
+                        text: '<b>返回<b>',
+                        type: 'button-light'
 
                     },
                     {
                         text: '<b>确认</b>',
                         type: 'button-calm',
-                        onTap: function() {
-                         history.back();
+                        onTap: function () {
+                            history.back();
                         }
                     }
                 ]
@@ -137,6 +138,29 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 ManageDishesService.removeDishes($scope.paramObj.menuId);
             }, 1000);
         };
+
+        $scope.sureCanel = function () {
+            var myPopup = $ionicPopup.show({
+                template: '你确定撤销您的编辑的内容吗？',
+                title: '提示',
+                buttons: [
+                    {
+                        text: '<b>返回<b>',
+                        type: 'button-light'
+
+                    }, {
+                        text: '<b>确认</b>',
+                        type: 'button-calm',
+                        onTap: function () {
+                            history.back();
+                        }
+                    }
+                ]
+            });
+
+            // 一个确认
+
+        }
 
         $scope.$on("yf-merchant-renewal-dishes-success", function () {
             $state.go("m_dishes." + $scope.paramObj.backType);
@@ -465,18 +489,18 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
         return {
             restrict: 'EA',
             require: '?ngModel',
-            link: function (scope, element, attrs, ngModel) {
+            link: function (scope, element, attrs, ctrl) {
 
                 element.on("keyup", function (e) {
 
                     element[0].value = element[0].value.replace(/\D/g, '');
-                    ngModel.$setViewValue(element[0].value);
+                    ctrl.$setViewValue(element[0].value);
 
                 });
 
                 element.on("paste", function (e) {
                     element[0].value = element[0].value.replace(/\D/g, '');
-                    ngModel.$setViewValue(element[0].value);
+                    ctrl.$setViewValue(element[0].value);
                 });
             }
         };
@@ -488,6 +512,39 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
             require: '?ngModel',
             link: function (scope, element, attrs, ngModel) {
                 element.attr({"maxLength": attrs["youFanSize"], "ngMaxLength": attrs["youFanSize"]});
+            }
+        };
+    })
+
+    .directive('youFanMerchantDishesImg', function () {
+        return {
+            restrict: 'EA',
+            replace: true,
+            require: '?ngModel',
+            templateUrl: 'templates/comment/dishes_img_comment.html',
+            link: function (scope, elem, attrs, ctrl) {
+            }
+        };
+    })
+
+    .directive('youFanMerchantDishesInfo', function ($state) {
+        return {
+            restrict: 'EA',
+            replace: true,
+            require: '?ngModel',
+            templateUrl: 'templates/comment/dishes_info_comment.html',
+            link: function (scope, elem, attrs, ctrl) {
+                scope.editDishes = function (d_type, d_id) {
+                    if ("nsc" == d_type) {
+                        $state.go("m_dishes_edit.nsc", {menuId: d_id});
+                    } else if ("xfz" == d_type) {
+                        $state.go("m_dishes_edit.xfz", {menuId: d_id});
+                    } else if ("qtc" == d_type) {
+                        $state.go("m_dishes_edit.qtc", {menuId: d_id});
+                    } else {
+
+                    }
+                };
             }
         };
     })
