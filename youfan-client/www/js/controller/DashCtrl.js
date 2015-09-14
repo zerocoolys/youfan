@@ -1,6 +1,13 @@
 ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merchant, $state, $ionicModal, $rootScope) {
     //console.log(Merchant.localRange + "<<<<<<<<")
     $rootScope.hideTabs = false;
+    $scope.SearchShow = true;
+    $scope.SearchIcon = function () {
+        $scope.SearchShow = false;
+    };
+    $scope.blur = function () {
+        $scope.SearchShow = true;
+    }
     //下拉刷新
     $scope.doRefresh = function () {
         /*   $scope.todos.unshift({name: 'Incoming todo ' + Date.now()})*/
@@ -57,7 +64,7 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
                     result.payload.list.forEach(function (item) {
                         item["src"] = "img/1.jpg";
                         item["headImg"] = "img/avatar1.jpg";
-                        item["loc"]=parseFloat(item['location']).toFixed(1)+"km";
+                        item["loc"] = parseFloat(item['location']).toFixed(1) + "km";
                         $scope.merChantData.push(item);
                     });
                     if (cp) {
