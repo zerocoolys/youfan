@@ -71,7 +71,6 @@
         };
         //文本框限制输入字数50-1000
         $scope.checkText = function (content) {
-            console.log(content)
             if (content == null) {
                 return;
             }

@@ -39,8 +39,6 @@
             }
         };
         $scope.isChange = function () {
-            console.log(textTemplate);
-            console.log($scope.text);
             var isChange = textTemplate == $scope.text;
             if (!isChange) {
                 var options = {

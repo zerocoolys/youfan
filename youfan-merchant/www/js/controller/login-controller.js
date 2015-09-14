@@ -7,7 +7,7 @@
     angular
         .module('yf_merchant')
         .controller('merchant_login', merchant_login);
-    function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup, YF_MERCHANT_HOST, $window, YF_MERCHANT_INFO) {
+    function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup, YF_MERCHANT_HOST, $window, YF_MERCHANT_INFO, $ionicLoading) {
         $scope.user = {
             phoneNumber: "18328725827",
             verificationCode: ""
@@ -171,11 +171,17 @@
                 userName: user.phoneNumber,
                 dataStatus: 1
             };
+            $ionicLoading.show({
+                template: '登陆中...',
+                duration: 10000
+            });
             $http.post(
                 YF_MERCHANT_HOST + "/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+                    $ionicLoading.hide();
+                    var option;
                     if (Number(data.code) == 0) {
                         if (data.payload == null || data.payload == "") {
-                            var option = {
+                            option = {
                                 "title": "账户被冻结！",
                                 "buttons": [{
                                     text: "关闭",
@@ -191,11 +197,12 @@
                             //$rootScope.uid = localStorageService.get(data.payload.token)
 
                             //$rootScope共享
+
                             YF_MERCHANT_INFO.mID = data.payload.user.id;
-                            $rootScope.user = {
-                                id: data.payload.user.id,
-                                token: data.payload.token
-                            };
+                            //$rootScope.user = {
+                            //    id: data.payload.user.id,
+                            //    token: data.payload.token
+                            //};
 
                             //session 存储
                             $window.sessionStorage.token = data.payload.token;
@@ -203,7 +210,7 @@
                             $location.path("overview")
                         }
                     } else {
-                        var option = {
+                        option = {
                             "title": "系统繁忙！",
                             "buttons": [{
                                 text: "关闭",
@@ -214,6 +221,7 @@
                     }
 
                 }).error(function (data, status, headers, config) {
+                    $ionicLoading.hide();
                     var option = {
                         "title": "服务器连接失败！",
                         "buttons": [{

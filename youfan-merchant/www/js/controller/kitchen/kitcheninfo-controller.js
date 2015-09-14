@@ -100,8 +100,6 @@ function getLocation(data) {
             var isChange_kitchenName = $scope.kitchenInfoTemplate.kitchenName == $scope.kitchenInfo.kitchenName;
             var isChange_phoneNumber = $scope.kitchenInfo.phoneNumber == $scope.kitchenInfoTemplate.phoneNumber;
             var isChange_characteristic = true;
-            console.log($scope.kitchenInfo.characteristic);
-            console.log($scope.kitchenInfoTemplate.characteristicq);
             for (var i = 0; i < Number($scope.kitchenInfo.characteristic.length); i++) {
                 if ($scope.kitchenInfo.characteristic[i] != $scope.kitchenInfoTemplate.characteristicq[i]) {
                     isChange_characteristic = false;
