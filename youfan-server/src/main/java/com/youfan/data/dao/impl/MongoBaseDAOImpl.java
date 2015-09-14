@@ -17,107 +17,107 @@ import com.youfan.controllers.params.MongoParams;
 import com.youfan.data.dao.NewMongoBaseDAO;
 import com.youfan.utils.JSONUtils;
 
-public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongoBaseDAO<E, T, ID> {
+public abstract class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongoBaseDAO<E, T, ID> {
 
-	@Override
-	public T findOne(Serializable id) {
-		return convertToVO(mongoTemplate.findOne(query(where(ID).is(id)), getEntityClass()));
-	}
+    @Override
+    public T findOne(Serializable id) {
+        return convertToVO(mongoTemplate.findOne(query(where(ID).is(id)), getEntityClass()));
+    }
 
-	@Override
-	public void insert(T t) {
-		mongoTemplate.insert(convertToEntity(t));
-	}
+    @Override
+    public void insert(T t) {
+        mongoTemplate.insert(convertToEntity(t));
+    }
 
 //	@Override
 //	public void delete(Serializable id) {
 //	}
 
-	@Override
-	public void update(T t) {
-	}
+    @Override
+    public void update(T t) {
+    }
 
-	@Override
-	public int logicDelete(ID id) {
-		MongoParams params=new MongoParams();
-		params.setDataStatus(MONGO_DELETED_DATA);
-		return updateById(id, params);
-	}
-	
-	@Override
-	public Class<E> getEntityClass() {
-		return null;
-	}
+    @Override
+    public int logicDelete(ID id) {
+        MongoParams params = new MongoParams();
+        params.setDataStatus(MONGO_DELETED_DATA);
+        return updateById(id, params);
+    }
 
-	@Override
-	public Class<T> getVOClass() {
-		return null;
-	}
+    @Override
+    public Class<E> getEntityClass() {
+        return null;
+    }
 
-	@Override
-	public List<T> findPagerByParams(MongoParams params, Pagination pager) {
-		Query query = buildAndEqualQuery(params);
-		if (pager != null) {
-			query.skip((pager.getPageNo() - 1) * pager.getPageSize());
-			query.limit(pager.getPageSize());
-			if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
-				query.with(new Sort(pager.isAsc()?Direction.ASC:Direction.DESC,pager.getSortBy()));
+    @Override
+    public Class<T> getVOClass() {
+        return null;
+    }
 
-			}
-		}
-		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
-	}
+    @Override
+    public List<T> findPagerByParams(MongoParams params, Pagination pager) {
+        Query query = buildAndEqualQuery(params);
+        if (pager != null) {
+            query.skip((pager.getPageNo() - 1) * pager.getPageSize());
+            query.limit(pager.getPageSize());
+            if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
+                query.with(new Sort(pager.getIsAsc() ? Direction.ASC : Direction.DESC, pager.getSortBy()));
 
-	
-	@Override
-	public List<T> findByParams(MongoParams params) {
-		return convertToVOList(mongoTemplate.find(buildAndEqualQuery(params), getEntityClass()));
-	}
-	@Override
-	public List<T> findAll() {
-		return findByParams(new MongoParams());
-	}
+            }
+        }
+        return convertToVOList(mongoTemplate.find(query, getEntityClass()));
+    }
 
-	@Override
-	public long count(MongoParams params) {
-		Query query = buildAndEqualQuery(params);
-		return mongoTemplate.count(query, getEntityClass());
-	}
-	@Override
-	public int updateById(ID id, MongoParams params) {
-		try {
-			Map<String, Object> paramsMap = JSONUtils.obj2map(params);
-			if (paramsMap != null && !paramsMap.isEmpty()) {
-				WriteResult re = mongoTemplate.updateFirst(
-						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
-				return re.getN();
-			}
-		} catch (Exception e) {
-		}
-		return 0;
-	}
 
-	@Override
-	public T findUniqueOne(String key, Object value) {
-		return (T) mongoTemplate.findOne(query(where(key).is(value)).addCriteria(where(MONGO_DATA_STATUS).is(1)),
-				getEntityClass());
-	}
+    @Override
+    public List<T> findByParams(MongoParams params) {
+        return convertToVOList(mongoTemplate.find(buildAndEqualQuery(params), getEntityClass()));
+    }
 
-	@Override
-	public int updateById(ID id, T t) {
-		try {
-			Map<String, Object> paramsMap = JSONUtils.obj2map(t);
-			if (paramsMap != null && !paramsMap.isEmpty()) {
-				WriteResult re = mongoTemplate.updateFirst(
-						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
-				return re.getN();
-			}
-		} catch (Exception e) {
-		}
-		return 0;
-	}
+    @Override
+    public List<T> findAll() {
+        return findByParams(new MongoParams());
+    }
 
-	
+    @Override
+    public long count(MongoParams params) {
+        Query query = buildAndEqualQuery(params);
+        return mongoTemplate.count(query, getEntityClass());
+    }
+
+    @Override
+    public int updateById(ID id, MongoParams params) {
+        try {
+            Map<String, Object> paramsMap = JSONUtils.obj2map(params);
+            if (paramsMap != null && !paramsMap.isEmpty()) {
+                WriteResult re = mongoTemplate.updateFirst(
+                        query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
+                return re.getN();
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+
+    @Override
+    public T findUniqueOne(String key, Object value) {
+        return (T) mongoTemplate.findOne(query(where(key).is(value)).addCriteria(where(MONGO_DATA_STATUS).is(1)),
+                getEntityClass());
+    }
+
+    @Override
+    public int updateById(ID id, T t) {
+        try {
+            Map<String, Object> paramsMap = JSONUtils.obj2map(t);
+            if (paramsMap != null && !paramsMap.isEmpty()) {
+                WriteResult re = mongoTemplate.updateFirst(
+                        query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
+                return re.getN();
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
 
 
 }

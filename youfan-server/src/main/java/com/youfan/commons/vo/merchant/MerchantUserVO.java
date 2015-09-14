@@ -19,6 +19,10 @@ public class MerchantUserVO {
     private String healthCertificatePicUrl; //健康证照片
     private Integer dataStatus = MONGO_NORMAL_DATA;
 
+    public Integer getDataStatus() {
+        return dataStatus;
+    }
+
     public void setDataStatus(Integer dataStatus) {
         this.dataStatus = dataStatus;
     }
@@ -109,14 +113,6 @@ public class MerchantUserVO {
 
     public void setHealthCertificatePicUrl(String healthCertificatePicUrl) {
         this.healthCertificatePicUrl = healthCertificatePicUrl;
-    }
-
-    public int getDataStatus() {
-        return dataStatus;
-    }
-
-    public void setDataStatus(int dataStatus) {
-        this.dataStatus = dataStatus;
     }
 
 }

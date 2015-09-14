@@ -1,7 +1,9 @@
 package com.youfan.data.dao.merchant;
 
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
+import com.youfan.controllers.params.merchant.MerchantUserParams;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantUserEntity;
 
@@ -105,5 +107,11 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
     Long getPageTotal(Integer status);
 
     MerchantUserVO findById(String id);
+
+    List<MerchantUserVO> findPagerByParams(MerchantUserParams muParams, Pagination pager);
+
+    long count(MerchantUserParams muParams);
+
+    int updateById(String id, MerchantUserParams muParams);
 
 }

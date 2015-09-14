@@ -7,9 +7,9 @@ import java.util.Map;
  */
 public class Pagination {
 
-    private int pageSize=10;
+    private int pageSize = 10;
 
-    private int pageNo=1;
+    private int pageNo = 1;
 
     private int skip;
 
@@ -24,7 +24,6 @@ public class Pagination {
     public int getStart() {
         return pageSize * pageNo;
     }
-
 
     public int getEnd() {
         return pageSize * (pageNo + 1);
@@ -61,18 +60,20 @@ public class Pagination {
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
     }
-    
-    public boolean isAsc() {
-		return asc;
-	}
 
+    public boolean getIsAsc() {
+        return asc;
+    }
 
-	public void setAsc(boolean asc) {
-		this.asc = asc;
-	}
+    public void setAsc(boolean asc) {
+        this.asc = asc;
+    }
 
+    public String getAsc() {
+        return (asc) ? "ASC" : "DESC";
+    }
 
-	public String getSortBy() {
+    public String getSortBy() {
         return sortBy;
     }
 
