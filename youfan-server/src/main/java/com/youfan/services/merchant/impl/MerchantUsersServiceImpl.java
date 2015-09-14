@@ -91,7 +91,10 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         update.set(COLLECTION_IDCARDPICURL, merchantUser.getIdCardPicUrl());
         update.set("realName", merchantUser.getRealName());
         update.set("sex", merchantUser.getSex());
-        merchantUserDao.saveMerchantUserInfo(merchantUser);
+        MerchantUserVO merchantUserVO = merchantUserDao.findAndModify(query(where("id").is(merchantUser.getId()).andOperator(where("dataStatus").nin("-1"))), update);
+        if (merchantUserVO == null) {
+            merchantUserDao.insert(merchantUser);
+        }
     }
 
     public MerchantUserVO register(String userName) {
@@ -185,12 +188,37 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
 
     @Override
     public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
-        return merchantKitchenDAO.saveMerchantKitchenPicInfo(merchantKitchenInfo);
+        Update update = new Update();
+
+        update.set("kitchenPicUrl", merchantKitchenInfo.getKitchenPicUrl());
+        MerchantKitchenInfoVO merchantKitchenInfoVO = merchantKitchenDAO.saveMerchantKitchenPicInfo(query(where("id").
+                is(merchantKitchenInfo.getId()).andOperator(where("dataStatus").nin("-1"))), update);
+        if (merchantKitchenInfoVO == null) {
+            merchantKitchenDAO.insert(merchantKitchenInfo);
+            return merchantKitchenDAO.convertToVO(merchantKitchenDAO.find(query(where("id").
+                    is(merchantKitchenInfo.getId()).andOperator(where("dataStatus").nin("-1")))).get(0));
+        } else {
+            return merchantKitchenInfoVO;
+        }
     }
 
     @Override
     public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
-        return merchantKitchenDAO.saveMerchantKitchenStoryInfo(merchantKitchenInfo);
+
+        Update update = new Update();
+
+        update.set("kitchenStoryName", merchantKitchenInfo.getKitchenStoryName());
+        update.set("kitchenStoryContent", merchantKitchenInfo.getKitchenStoryContent());
+        MerchantKitchenInfoVO merchantKitchenInfoVO = merchantKitchenDAO.
+                saveMerchantKitchenStoryInfo(query(where("id").is(merchantKitchenInfo.getId()).
+                        andOperator(where("dataStatus").nin("-1"))), update);
+        if (merchantKitchenInfoVO == null) {
+            merchantKitchenDAO.insert(merchantKitchenInfo);
+            return merchantKitchenDAO.convertToVO(merchantKitchenDAO.find(query(where("id").
+                    is(merchantKitchenInfo.getId()).andOperator(where("dataStatus").nin("-1")))).get(0));
+        } else {
+            return merchantKitchenInfoVO;
+        }
     }
 
     @Override
@@ -221,7 +249,18 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
 
     @Override
     public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO) {
-        return merchantKitchenDAO.saveMyHobby(merchantKitchenInfoVO);
+        Update update = new Update();
+        update.set("hobby", merchantKitchenInfoVO.getHobby());
+        MerchantKitchenInfoVO merchantKitchenInfo = merchantKitchenDAO.
+                saveMyHobby(query(where("id").is(merchantKitchenInfoVO.getId()).
+                        andOperator(where("dataStatus").nin("-1"))), update);
+        if (merchantKitchenInfo == null) {
+            merchantKitchenDAO.insert(merchantKitchenInfoVO);
+            return merchantKitchenDAO.convertToVO(merchantKitchenDAO.find(query(where("id").
+                    is(merchantKitchenInfoVO.getId()).andOperator(where("dataStatus").nin("-1")))).get(0));
+        } else {
+            return merchantKitchenInfo;
+        }
     }
 
     @Override
@@ -252,6 +291,7 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         collectionVO.addAll(merchantUserDao.pageListByStatus(page, pageSize, query(where("status").is(status))));
         return collectionVO;
     }
+
     @Override
     public List<MerchantUserVO> getPagerByParams(MerchantUserParams muParams, Pagination pager) {
         return merchantUserDao.findPagerByParams(muParams, pager);
@@ -265,6 +305,6 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
     @Override
     public int updateById(String id, MerchantUserParams muParams) {
         // TODO Auto-generated method stub
-        return merchantUserDao.updateById( id, muParams);
+        return merchantUserDao.updateById(id, muParams);
     }
 }
