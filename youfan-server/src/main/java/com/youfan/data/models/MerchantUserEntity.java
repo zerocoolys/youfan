@@ -16,7 +16,7 @@ import static com.youfan.commons.Constants.*;
 @Document(collection = COLLECTION_USER)
 public class MerchantUserEntity {
 
-    private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    private Integer status = -1; //审核状态 0为未审核，1为审核，-1为删除
     private Integer dataStatus = MONGO_NORMAL_DATA;
     @Id
     private String id;    //商家个人信息id

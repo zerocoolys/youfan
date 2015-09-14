@@ -24,7 +24,9 @@ public class MenuVO {
 
     private double price; // 价格
 
-    private Integer dataStatus = 1;
+    private Integer dataStatus = 1;// 标记删除
+
+    private Integer reviewStatus = 0;// 评审状态。0未评审。1评审成功。2评审失败
 
     private Integer restNum; // 剩余份数
 
@@ -102,12 +104,12 @@ public class MenuVO {
         this.dataStatus = dataStatus;
     }
 
-    public Integer getnRestNum() {
-        return nRestNum;
+    public Integer getReviewStatus() {
+        return reviewStatus;
     }
 
-    public void setnRestNum(Integer nRestNum) {
-        this.nRestNum = nRestNum;
+    public void setReviewStatus(Integer reviewStatus) {
+        this.reviewStatus = reviewStatus;
     }
 
     public Integer getRestNum() {
@@ -116,6 +118,14 @@ public class MenuVO {
 
     public void setRestNum(Integer restNum) {
         this.restNum = restNum;
+    }
+
+    public Integer getnRestNum() {
+        return nRestNum;
+    }
+
+    public void setnRestNum(Integer nRestNum) {
+        this.nRestNum = nRestNum;
     }
 
     public Integer getTasteNum() {

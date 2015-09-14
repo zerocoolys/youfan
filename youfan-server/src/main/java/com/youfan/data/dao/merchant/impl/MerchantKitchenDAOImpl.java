@@ -48,7 +48,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public void delete(Long aLong) {
-        mongoTemplate.updateFirst(query(where("id").is(aLong)), Update.update("status", -1), getEntityClass());
+        mongoTemplate.updateFirst(query(where("id").is(aLong)), Update.update("dataStatus", -1), getEntityClass());
     }
 
     @Override
@@ -59,17 +59,12 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
 
     @Override
-    public MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO) {
-        Update update = new Update();
-        update.set("hobby", merchantKitchenInfoVO.getHobby());
-        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.
-                findAndModify(query(where("id").is(merchantKitchenInfoVO.getId()).
-                        andOperator(where("dataStatus").nin("-1"))), update, getEntityClass());
-        if (merchantKitchenInfoEntity != null) {
-            return convertToVO(merchantKitchenInfoEntity);
+    public MerchantKitchenInfoVO saveMyHobby(Query query, Update update) {
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query, update, getEntityClass());
+        if (merchantKitchenInfoEntity == null) {
+            return null;
         } else {
-            mongoTemplate.insert(convertToEntity(merchantKitchenInfoVO));
-            return merchantKitchenInfoVO;
+            return convertToVO(merchantKitchenInfoEntity);
         }
     }
 
@@ -133,9 +128,9 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenInfo(Query query,Update update) {
+    public MerchantKitchenInfoVO saveMerchantKitchenInfo(Query query, Update update) {
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.
-                findAndModify(query,update,getEntityClass());
+                findAndModify(query, update, getEntityClass());
         if (merchantKitchenInfoEntity == null) {
             return null;
         } else {
@@ -145,17 +140,9 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
-        createCollection(merchantKitchenInfo);
-
-        Update update = new Update();
-
-        update.set("kitchenPicUrl", merchantKitchenInfo.getKitchenPicUrl());
-
+    public MerchantKitchenInfoVO saveMerchantKitchenPicInfo(Query query, Update update) {
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.
-                findAndModify(query(where(COLLECTION_MERCHANTKITCHENINFOID).
-                        is(merchantKitchenInfo.getId()).
-                        andOperator(where("dataStatus").nin("-1"))), update, getEntityClass());
+                findAndModify(query, update, getEntityClass());
         if (merchantKitchenInfoEntity != null) {
             return convertToVO(merchantKitchenInfoEntity);
         } else {
@@ -164,16 +151,9 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     }
 
     @Override
-    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo) {
-        createCollection(merchantKitchenInfo);
-
-        Update update = new Update();
-
-        update.set("kitchenStoryName", merchantKitchenInfo.getKitchenStoryName());
-        update.set("kitchenStoryContent", merchantKitchenInfo.getKitchenStoryContent());
+    public MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(Query query, Update update) {
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.
-                findAndModify(query(where("id").is(merchantKitchenInfo.getId()).
-                        andOperator(where("dataStatus").nin("-1"))), update, getEntityClass());
+                findAndModify(query, update, getEntityClass());
         if (merchantKitchenInfoEntity != null) {
             return convertToVO(merchantKitchenInfoEntity);
         } else {
@@ -220,6 +200,16 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
             return convertToVO(merchantKitchenInfoEntity);
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public boolean approveAllInfo(Query query, Update update) {
+        MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findAndModify(query, update, getEntityClass());
+        if (merchantKitchenInfoEntity == null) {
+            return false;
+        } else {
+            return true;
         }
     }
 }

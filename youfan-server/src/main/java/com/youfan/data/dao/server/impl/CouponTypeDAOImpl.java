@@ -2,25 +2,25 @@ package com.youfan.data.dao.server.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.commons.vo.server.CouponTypeVO;
 import com.youfan.data.dao.impl.MongoBaseDAOImpl;
-import com.youfan.data.dao.server.CouponsTypeDAO;
-import com.youfan.data.models.CouponsTypeEntity;
+import com.youfan.data.dao.server.CouponTypeDAO;
+import com.youfan.data.models.CouponTypeEntity;
 
 @Repository("couponsTypeDAO")
-public class CouponsTypeDAOImpl extends MongoBaseDAOImpl<CouponsTypeEntity, CouponsTypeVO, String>implements CouponsTypeDAO{
+public class CouponTypeDAOImpl extends MongoBaseDAOImpl<CouponTypeEntity, CouponTypeVO, String>implements CouponTypeDAO{
 
 
 	@Override
-	public Class<CouponsTypeEntity> getEntityClass() {
+	public Class<CouponTypeEntity> getEntityClass() {
 		// TODO Auto-generated method stub
-		return CouponsTypeEntity.class;
+		return CouponTypeEntity.class;
 	}
 
 	@Override
-	public Class<CouponsTypeVO> getVOClass() {
+	public Class<CouponTypeVO> getVOClass() {
 		// TODO Auto-generated method stub
-		return CouponsTypeVO.class;
+		return CouponTypeVO.class;
 	}
 //
 //	@Override

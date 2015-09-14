@@ -142,11 +142,23 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public void conversionNRestNum(List<MenuVO> menus) {
+        lock.lock();
+
+        try {
+            menuDAO.conversionNRestNum(menus);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    @Override
     public void updateMenu(String menuId, MenuVO menu) {
         Map<String, Object> map = new HashMap<>();
         map.put(NAME, menu.getName());
         map.put(PRICE, menu.getPrice());
         map.put(STOCK, menu.getStock());
+        // TODO:编辑后是否需要再次审核
         map.put(PIC_URLS, menu.getPicUrls());
         map.put(DESCRIPTION, menu.getDescription());
         map.put(TASTE, menu.getTaste());

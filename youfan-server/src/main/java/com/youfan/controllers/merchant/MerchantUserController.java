@@ -135,4 +135,21 @@ public class MerchantUserController {
         MerchantKitchenInfoVO merchantKitchenInfoVORes = merchantUsersService.getMerchantKitchenBaseInfo(merchantKitchenInfoVO.getId());
         return Responses.SUCCESS().setCode(0).setPayload(merchantKitchenInfoVORes);
     }
+
+    @RequestMapping(path = "/approveAllInfo", method = RequestMethod.POST, produces = "application/json")
+    public Response approveAllInfo(@RequestBody String id) {
+
+        boolean isChangeUser = merchantUsersService.approveMerchantUserInfo(id, 0);
+        if (isChangeUser) {
+            boolean isChangeKitchen = merchantUsersService.approveMerchantKitchenInfo(id, 0);
+            if (isChangeKitchen) {
+                return Responses.SUCCESS();
+            } else {
+                merchantUsersService.approveMerchantUserInfo(id, 1);
+                return Responses.FAILED();
+            }
+        } else {
+            return Responses.FAILED();
+        }
+    }
 }

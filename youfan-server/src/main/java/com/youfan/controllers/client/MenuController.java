@@ -83,6 +83,12 @@ public class MenuController {
         menuService.conversionRestNum(menus);
     }
 
+    // 改变明日余量
+    @RequestMapping(path = "/conversion/nRestNum", method = RequestMethod.POST, produces = "application/json")
+    public void conversionNRestNum(@RequestBody List<MenuVO> menus) {
+        menuService.conversionNRestNum(menus);
+    }
+
     // 改变每日固定库存
     @RequestMapping(path = "/conversion/stock", method = RequestMethod.POST, produces = "application/json")
     public void conversionStock(@RequestBody List<MenuVO> menus) {

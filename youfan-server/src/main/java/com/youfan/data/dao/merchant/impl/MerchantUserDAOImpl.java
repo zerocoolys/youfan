@@ -46,28 +46,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     }
 
     @Override
-    public MerchantUserVO saveMerchantUserInfo(MerchantUserVO merchantUser) {
-        boolean test = mongoTemplate.collectionExists(getEntityClass());
-        if (test) {
-            Update update = new Update();
-            update.set("status", merchantUser.getStatus());
-            update.set("id", merchantUser.getId());
-            update.set("address", merchantUser.getAddress());
-            update.set("ageRange", merchantUser.getAgeRange());
-            update.set(COLLECTION_HEADPORTRAITPICURL, merchantUser.getHeadPortraitPicUrl());
-            update.set(COLLECTION_HEALTHCERTIFICATEPICURL, merchantUser.getHealthCertificatePicUrl());
-            update.set(COLLECTION_IDCARDPICURL, merchantUser.getIdCardPicUrl());
-            update.set("realName", merchantUser.getRealName());
-            update.set("sex", merchantUser.getSex());
-            return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantUser.getId()).andOperator(where("dataStatus").nin("-1"))), update, getEntityClass()));
-        } else {
-            mongoTemplate.insert(convertToEntity(merchantUser));
-            return merchantUser;
-        }
-
-    }
-
-    @Override
     public MerchantUserVO findOne(Long id) {
         return null;
     }
@@ -77,32 +55,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         mongoTemplate.insert(convertToEntity(merchantUser));
     }
 
-    @Override
-    public MerchantUserVO login(String userName) {
-        MerchantUserVO merchantUser = new MerchantUserVO();
-        merchantUser.setUserName(userName);
-        if (!mongoTemplate.collectionExists(getEntityClass())) {
-            mongoTemplate.createCollection(getEntityClass());
-            mongoTemplate.insert(convertToEntity(merchantUser));
-        } else {
-            MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where("userName").is(userName)), getEntityClass());
-            if (merchantUserEntity == null) {
-                mongoTemplate.insert(convertToEntity(merchantUser));
-            } else {
-                if (merchantUserEntity.getStatus() == -1) {
-                    return null;
-                }
-            }
-
-        }
-        MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where("userName").is(userName).andOperator(where("status").nin("-1"))), getEntityClass());
-        if (merchantUserEntity == null) {
-            return null;
-        } else {
-            merchantUser.setId(merchantUserEntity.getId());
-            return merchantUser;
-        }
-    }
 
     @Override
     public MerchantUserVO login(Query query) {
@@ -113,11 +65,6 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         } else {
             return convertToVO(merchantUserEntity);
         }
-    }
-
-    @Override
-    public Map<String, String> register(String userName, String passWord) {
-        return null;
     }
 
     @Override
@@ -244,5 +191,25 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
         System.out.println(update);
         WriteResult re = mongoTemplate.updateFirst(query(where(ID).is(id)).addCriteria(where(MONGO_STATUS).ne(-1)), update, getEntityClass());
         return re.getN();
+    }
+
+    @Override
+    public MerchantUserVO findAndModify(Query query, Update update) {
+        MerchantUserEntity merchantUserEntity = mongoTemplate.findAndModify(query, update, getEntityClass());
+        if(merchantUserEntity==null){
+            return null;
+        }else{
+            return convertToVO(merchantUserEntity);
+        }
+    }
+
+    @Override
+    public boolean approveAllInfo(Query query,Update update) {
+        MerchantUserEntity merchantUserEntity = mongoTemplate.findAndModify(query, update, getEntityClass());
+        if(merchantUserEntity==null){
+            return false;
+        }else{
+            return true;
+        }
     }
 }
