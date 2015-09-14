@@ -26,16 +26,20 @@ public class MenuEntity {
 
     private String name; // 菜品名称
 
-    private List<String> picUrls = new ArrayList<>();   // 菜品图片
+    private List<String> picUrls = new ArrayList<>(); // 菜品图片
 
     @Field(DESCRIPTION)
     private String description; // 描述
 
     private BigDecimal price; // 价格
 
-    private Integer dataStatus = 1;
+    private Integer dataStatus = 1;// 标记删除
+
+    private Integer reviewStatus = 0;// 评审状态。0未评审。1评审成功。2评审失败
 
     private Integer restNum = 20; // 今日余量
+
+    private Integer nRestNum = 20; // 明日剩余份数
 
     private Integer tasteNum = 0; // 品尝人数
 
@@ -109,12 +113,28 @@ public class MenuEntity {
         this.dataStatus = dataStatus;
     }
 
+    public Integer getReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(Integer reviewStatus) {
+        this.reviewStatus = reviewStatus;
+    }
+
     public Integer getRestNum() {
         return restNum;
     }
 
     public void setRestNum(Integer restNum) {
         this.restNum = restNum;
+    }
+
+    public Integer getnRestNum() {
+        return nRestNum;
+    }
+
+    public void setnRestNum(Integer nRestNum) {
+        this.nRestNum = nRestNum;
     }
 
     public Integer getTasteNum() {
