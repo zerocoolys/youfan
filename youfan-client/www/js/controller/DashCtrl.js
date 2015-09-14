@@ -57,7 +57,7 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
                     result.payload.list.forEach(function (item) {
                         item["src"] = "img/1.jpg";
                         item["headImg"] = "img/avatar1.jpg";
-                        item["loc"]=parseInt(item['location']*1000)+"m";
+                        item["loc"]=parseFloat(item['location']).toFixed(1)+"km";
                         $scope.merChantData.push(item);
                     });
                     if (cp) {
