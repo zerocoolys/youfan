@@ -1,16 +1,21 @@
-ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $stateParams,localStorageService, $http, $state, REST_URL, AuthenticationService) {
+ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $stateParams, UserService, localStorageService, $http, $state, REST_URL, AuthenticationService) {
     $rootScope.hideTabs = false;
     $scope.chats = Chats.all();
     $scope.remove = function (chat) {
         Chats.remove(chat);
     };
 
-    if(localStorageService.get("token") != null){
-        AuthenticationService.isLogged = true;
-        $scope.user = {
-            id: localStorageService.get("userid"),
-            name: localStorageService.get("username")
-        };
+    if (AuthenticationService.isLogged) {
+        UserService.userInfo(localStorageService.get("userid")).success(function (data) {
+            //console.log(data);
+            $scope.user = {
+                id: data.payload.id,
+                name: data.payload.name
+            };
+        }).error(function (status, data) {
+            console.log(status);
+            console.log(data);
+        });
     }
     $scope.isShow = AuthenticationService.isLogged;
 

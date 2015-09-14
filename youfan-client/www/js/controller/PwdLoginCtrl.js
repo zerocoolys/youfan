@@ -31,7 +31,6 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                 }, 2000);
             } else {
                 UserService.signIn(tel, password).success(function (data) {
-                    console.log(data);
                     if (data.code == 0) {
                         //console.log(data.payload.token);
                         if (data.payload.token != "") {
@@ -75,11 +74,11 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
 
 
                             localStorageService.set("userid", ResponseUser.id);
-                            localStorageService.set("username", ResponseUser.name);
-                            localStorageService.set("usertel", ResponseUser.tel);
-                            localStorageService.set("userage", ResponseUser.age);
-                            localStorageService.set("usersex", ResponseUser.sex);
-                            localStorageService.set("userjobs", ResponseUser.jobs);
+                            //localStorageService.set("username", ResponseUser.name);
+                            //localStorageService.set("usertel", ResponseUser.tel);
+                            //localStorageService.set("userage", ResponseUser.age);
+                            //localStorageService.set("usersex", ResponseUser.sex);
+                            //localStorageService.set("userjobs", ResponseUser.jobs);
 
                             //localStorageService.set("user", data.payload.clientUserVO);
 
