@@ -7,6 +7,7 @@ import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -17,12 +18,10 @@ import java.util.Map;
 public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEntity, MerchantKitchenInfoVO, Long> {
     /**
      * 保存商家厨房信息
-     *
-     * @param merchantKitchenInfo 　厨房信息对象VO
      * @return
      * @throws KitchenInfoException
      */
-    MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo);
+    MerchantKitchenInfoVO saveMerchantKitchenInfo(Query query,Update update);
 
     /**
      * 保存厨房照片

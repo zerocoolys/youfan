@@ -41,7 +41,9 @@ public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constant
 
 	void insert(T t);
 
-	void delete(ID id);
+//	void delete(ID id);
+	
+	int logicDelete(ID id);
 
 	void update(T t);
 
@@ -63,6 +65,26 @@ public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constant
 	List<T> findPagerByParams(MongoParams params,Pagination pager);
 	/**
 	 * 
+	 * @param params
+	 * @return
+	 * @description 按条件查询
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 下午6:00:22
+	 */
+	List<T> findByParams(MongoParams params);
+	
+	/**
+	 * 
+	 * @return
+	 * @description 查询所有的
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月11日 下午6:01:10
+	 */
+	List<T> findAll();
+	/**
+	 * 
 	 * @param muParams
 	 * @return
 	 * @description 使用条件 获取记录条数
@@ -82,8 +104,8 @@ public interface NewMongoBaseDAO<E, T, ID extends Serializable> extends Constant
 	 * @author QinghaiDeng
 	 * @update 2015年9月11日 上午10:30:46
 	 */
-	int updateById(String id, MongoParams params);
-	int updateById(String id, T t);
+	int updateById(ID id, MongoParams params);
+	int updateById(ID id, T t);
 	/**
 	 * 
 	 * @param key

@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * Created on 2015-08-21.
- * <p>菜单VO.
+ * <p>
+ * 菜单VO.
  *
  * @author dolphineor
  */
@@ -13,35 +14,37 @@ public class MenuVO {
 
     private String id;
 
-    private String sellerId;  // 商家id
+    private String sellerId; // 商家id
 
-    private String name;    // 菜品名称
+    private String name; // 菜品名称
 
-    private List<String> picUrls = new ArrayList<>();   // 菜品图片
+    private List<String> picUrls = new ArrayList<>(); // 菜品图片
 
     private String description; // 描述
 
-    private double price;   // 价格
+    private double price; // 价格
 
     private Integer dataStatus = 1;
 
-    private Integer restNum;    // 剩余份数
+    private Integer restNum; // 剩余份数
 
-    private Integer tasteNum;   // 品尝人数
+    private Integer nRestNum; // 明日剩余份数
 
-    private String type;    // 菜品类型
+    private Integer tasteNum; // 品尝人数
+
+    private String type; // 菜品类型
 
     private Integer xfzNum; // 用于小饭桌
 
     private boolean staple = false; // 是否主食
 
-    private boolean sale = false;   // 是否上架
+    private boolean sale = false; // 是否上架
 
-    private Integer stock;  // 菜品库存
+    private Integer stock; // 菜品库存
 
-    private String taste;   // 菜品口味
+    private String taste; // 菜品口味
 
-    private List<String> features = new ArrayList<>();  // 菜品特色
+    private List<String> features = new ArrayList<>(); // 菜品特色
 
     public String getId() {
         return id;
@@ -97,6 +100,14 @@ public class MenuVO {
 
     public void setDataStatus(Integer dataStatus) {
         this.dataStatus = dataStatus;
+    }
+
+    public Integer getnRestNum() {
+        return nRestNum;
+    }
+
+    public void setnRestNum(Integer nRestNum) {
+        this.nRestNum = nRestNum;
     }
 
     public Integer getRestNum() {

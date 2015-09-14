@@ -25,6 +25,14 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
     MerchantUserVO login(String userName);
 
     /**
+     * 登陆
+     *
+     * @param query query查询语句
+     * @return
+     */
+    MerchantUserVO login(Query query);
+
+    /**
      * 注册
      *
      * @param userName
@@ -40,6 +48,16 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
      * @return
      */
     MerchantUserVO saveMerchantUserInfo(MerchantUserVO merchantUser);
+
+    /**
+     * 保存注册信息
+     *
+     * @param merchantUserVO 用户信息
+     * @return
+     */
+    void saveRegisterInfo(MerchantUserVO merchantUserVO);
+
+    MerchantUserVO findOne(String userName);
 
     List<MerchantUserEntity> getMerchantByStatus(Integer status);
 
@@ -89,12 +107,11 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
     Long getPageTotal(Integer status);
 
     MerchantUserVO findById(String id);
-    
-    List<MerchantUserVO> findPagerByParams(MerchantUserParams muParams,Pagination pager);
 
-	long count(MerchantUserParams muParams);
+    List<MerchantUserVO> findPagerByParams(MerchantUserParams muParams, Pagination pager);
 
-	int updateById(String id, MerchantUserParams muParams);
-	
+    long count(MerchantUserParams muParams);
+
+    int updateById(String id, MerchantUserParams muParams);
 
 }
