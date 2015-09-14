@@ -3,11 +3,10 @@ package com.youfan.data.dao.server.impl;
 import org.springframework.stereotype.Repository;
 
 import com.youfan.commons.vo.ActiveVO;
-import com.youfan.data.dao.impl.AbstractMongoDAO;
 import com.youfan.data.dao.server.ActiveDAO;
 import com.youfan.data.models.ActiveEntity;
 @Repository("activeDAO")
-public class ActiveDAOImpl extends AbstractMongoDAO<ActiveEntity, ActiveVO, String> implements ActiveDAO{
+public class ActiveDAOImpl  implements ActiveDAO{
 	
 
 	public Class<ActiveEntity> getEntityClass() {
@@ -16,6 +15,13 @@ public class ActiveDAOImpl extends AbstractMongoDAO<ActiveEntity, ActiveVO, Stri
 
 	public Class<ActiveVO> getVOClass() {
 		return ActiveVO.class;
+	}
+
+	@Override
+	@Deprecated
+	public void update(ActiveVO v) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

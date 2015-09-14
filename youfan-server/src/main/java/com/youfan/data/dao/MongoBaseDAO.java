@@ -1,8 +1,14 @@
 package com.youfan.data.dao;
 
+import com.mongodb.WriteResult;
 import com.youfan.commons.Constants;
+import com.youfan.commons.Pagination;
+import com.youfan.controllers.params.MongoParams;
 import com.youfan.system.mongo.MongoPool;
 import com.youfan.utils.JSONUtils;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -16,6 +22,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 /**
  * Created on 2015-08-18.
@@ -181,4 +188,56 @@ public interface MongoBaseDAO<E, V, ID extends Serializable> extends Constants {
         }
         return query;
     }
+    
+    //////////////以下为Mongo基础方法实现/////////////
+	default public List<V> findPagerByParams(MongoParams params, Pagination pager) {
+		Query query = buildAndEqualQuery(params);
+		if (pager != null) {
+			query.skip((pager.getPageNo() - 1) * pager.getPageSize());
+			query.limit(pager.getPageSize());
+			if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
+				query.with(new Sort(pager.isAsc()?Direction.ASC:Direction.DESC,pager.getSortBy()));
+
+			}
+		}
+		System.out.println(query);
+		return convertToVOList(mongoTemplate.find(query, getEntityClass()));
+	}
+
+	default long count(MongoParams params) {
+		Query query = buildAndEqualQuery(params);
+		System.out.println(query);
+		return mongoTemplate.count(query, getEntityClass());
+	}
+
+	default int updateById(String id, MongoParams params) {
+		try {
+			Map<String, Object> paramsMap = JSONUtils.obj2map(params);
+			if (paramsMap != null && !paramsMap.isEmpty()) {
+				WriteResult re = mongoTemplate.updateFirst(
+						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
+				return re.getN();
+			}
+		} catch (Exception e) {
+		}
+		return 0;
+	}
+
+	default V findUniqueOne(String key, Object value) {
+		return convertToVO( mongoTemplate.findOne(query(where(key).is(value)).addCriteria(where(MONGO_DATA_STATUS).is(1)),
+				getEntityClass()));
+	}
+
+	default int updateById(String id, V t) {
+		try {
+			Map<String, Object> paramsMap = JSONUtils.obj2map(t);
+			if (paramsMap != null && !paramsMap.isEmpty()) {
+				WriteResult re = mongoTemplate.updateFirst(
+						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap), getEntityClass());
+				return re.getN();
+			}
+		} catch (Exception e) {
+		}
+		return 0;
+	}
 }

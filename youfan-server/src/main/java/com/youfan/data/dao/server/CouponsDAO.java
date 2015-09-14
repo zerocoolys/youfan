@@ -1,7 +1,5 @@
 package com.youfan.data.dao.server;
 
-import java.util.List;
-
 import com.youfan.commons.vo.server.CouponsVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.CouponsEntity;
@@ -19,7 +17,7 @@ public interface CouponsDAO extends MongoBaseDAO<CouponsEntity, CouponsVO, Strin
         return CouponsVO.class;
     }
 
-	List<CouponsVO> findUserId(Long userId);
-
-	boolean updateStatus(Long couponsid);
+//	List<CouponsVO> findUserId(Long userId);
+//
+//	boolean updateStatus(Long couponsid);
 }

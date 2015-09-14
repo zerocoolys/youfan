@@ -42,21 +42,21 @@ public class CouponsDAOImpl implements CouponsDAO{
 
 
 
-    @Override
-    public List<CouponsVO> findUserId(Long userId) {
-        Query query = Query.query(Criteria.where(CONPONS_USERID).is(userId).and(CONPONS_DATASTATUS).is(1));
-        List<CouponsEntity> entities = mongoTemplate.find(query, getEntityClass());
-        return convertToVOList(entities);
-    }
-
-    @Override
-    public boolean updateStatus(Long couponsid) {
-        Query query = Query.query(Criteria.where(CONPONS_ID).is(couponsid).and(CONPONS_DATASTATUS).is(1));
-        Update update = new Update();
-        update.set(CONPONS_STATUS,1);
-        WriteResult result = mongoTemplate.updateFirst(query, update, getEntityClass());
-        return result.isUpdateOfExisting();
-    }
+//    @Override
+//    public List<CouponsVO> findUserId(Long userId) {
+//        Query query = Query.query(Criteria.where(CONPONS_USERID).is(userId).and(CONPONS_DATASTATUS).is(1));
+//        List<CouponsEntity> entities = mongoTemplate.find(query, getEntityClass());
+//        return convertToVOList(entities);
+//    }
+//
+//    @Override
+//    public boolean updateStatus(Long couponsid) {
+//        Query query = Query.query(Criteria.where(CONPONS_ID).is(couponsid).and(CONPONS_DATASTATUS).is(1));
+//        Update update = new Update();
+//        update.set(CONPONS_STATUS,1);
+//        WriteResult result = mongoTemplate.updateFirst(query, update, getEntityClass());
+//        return result.isUpdateOfExisting();
+//    }
 
 	@Override
 	public Class<CouponsEntity> getEntityClass() {

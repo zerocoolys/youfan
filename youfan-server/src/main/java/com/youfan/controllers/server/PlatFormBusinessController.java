@@ -1,8 +1,8 @@
 package com.youfan.controllers.server;
 
-import java.util.ArrayList;
+import static com.youfan.commons.Constants.MONGO_STATUS;
+
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.youfan.commons.Constants.PAGER;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
@@ -41,8 +40,6 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.CouponsContentEntity;
-import com.youfan.data.models.MerchantKitchenInfoEntity;
-import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.services.merchant.CommentService;
 import com.youfan.services.merchant.KitchenService;
 import com.youfan.services.merchant.MerchantKitchenService;
@@ -55,8 +52,6 @@ import com.youfan.services.server.OrderService;
 import com.youfan.services.server.PayWayService;
 import com.youfan.utils.JSONUtils;
 import com.youfan.utils.StringUtil;
-import com.youfan.commons.Constants.PAGER;
-import static com.youfan.commons.Constants.MONGO_STATUS;
 
 /**
  * 
@@ -741,8 +736,8 @@ public class PlatFormBusinessController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getPagerByParams")
-	public Response getPagerByParams(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getMerchants")
+	public Response getMerchants(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			MerchantParams params = new MerchantParams();
 			params.setPhone(request.getParameter("phone"));

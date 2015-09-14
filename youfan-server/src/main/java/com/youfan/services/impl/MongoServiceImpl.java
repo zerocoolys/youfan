@@ -1,13 +1,13 @@
 package com.youfan.services.impl;
 
+import static com.youfan.commons.Constants.MONGO_DELETED_DATA;
+
 import java.util.List;
 
 import com.youfan.commons.Pagination;
 import com.youfan.controllers.params.MongoParams;
-import com.youfan.data.dao.NewMongoBaseDAO;
+import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.services.MongoService;
-
-import static com.youfan.commons.Constants.MONGO_DELETED_DATA;
 /**
  * 
  * @title MongoServiceImpl.java
@@ -20,8 +20,8 @@ import static com.youfan.commons.Constants.MONGO_DELETED_DATA;
  */
 public class MongoServiceImpl<E, T> implements MongoService<E, T>{
 	
-	private NewMongoBaseDAO<E, T, String> mongoDao;
-	public MongoServiceImpl( NewMongoBaseDAO<E, T, String> mongoDao){
+	private MongoBaseDAO<E, T, String> mongoDao;
+	public MongoServiceImpl( MongoBaseDAO<E, T, String> mongoDao){
 		this.mongoDao=mongoDao;
 	}
 

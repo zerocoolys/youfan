@@ -3,7 +3,6 @@ package com.youfan.data.dao.merchant.impl;
 import org.springframework.stereotype.Repository;
 
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
-import com.youfan.data.dao.impl.AbstractMongoDAO;
 import com.youfan.data.dao.merchant.KitchenDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 
@@ -18,7 +17,7 @@ import com.youfan.data.models.MerchantKitchenInfoEntity;
  * Copyright (c)2012 chantsoft-版权所有
  */
 @Repository("kitchenDAO")
-public class KitchenDAOImpl extends AbstractMongoDAO<MerchantKitchenInfoEntity, MerchantKitchenInfoVO, String> implements KitchenDAO{
+public class KitchenDAOImpl  implements KitchenDAO{
 
 	public Class<MerchantKitchenInfoEntity> getEntityClass() {
 		return MerchantKitchenInfoEntity.class;
@@ -26,6 +25,13 @@ public class KitchenDAOImpl extends AbstractMongoDAO<MerchantKitchenInfoEntity, 
 
 	public Class<MerchantKitchenInfoVO> getVOClass() {
 		return MerchantKitchenInfoVO.class;
+	}
+
+	@Override
+	@Deprecated
+	public void update(MerchantKitchenInfoVO v) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
