@@ -267,7 +267,7 @@ public class ActiveSupportServiceImpl implements ActiveSupportService {
 		try {
 			return vo.getClass()
 					.getMethod("get" + attr.substring(0, 1).toUpperCase() + attr.substring(1, attr.length()))
-					.invoke(vo, null);
+					.invoke(vo);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {

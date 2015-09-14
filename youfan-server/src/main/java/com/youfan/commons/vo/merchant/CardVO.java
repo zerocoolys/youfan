@@ -4,9 +4,8 @@ package com.youfan.commons.vo.merchant;
  * Created on 2015-09-01.
  * <p>
  * 商家银行卡VO.
- * 
- * @author hydm
  *
+ * @author hydm
  */
 public class CardVO {
     private String id;

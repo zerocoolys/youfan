@@ -18,7 +18,8 @@ import com.youfan.controllers.params.MongoParams;
 import com.youfan.data.dao.NewMongoBaseDAO;
 import com.youfan.utils.JSONUtils;
 
-public class MongoBaseDAOImpl<E, T, ID extends Serializable> implements NewMongoBaseDAO<E, T, ID> {
+public class AbstractMongoDAO<E, T, ID extends Serializable> implements NewMongoBaseDAO<E, T, ID> {
+
 
 	@Override
 	public T findOne(Serializable id) {
