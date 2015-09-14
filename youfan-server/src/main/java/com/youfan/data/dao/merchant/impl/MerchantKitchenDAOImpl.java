@@ -64,7 +64,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("hobby", merchantKitchenInfoVO.getHobby());
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.
                 findAndModify(query(where("id").is(merchantKitchenInfoVO.getId()).
-                        andOperator(where("status").nin("-1"))), update, getEntityClass());
+                        andOperator(where("dataStatus").nin("-1"))), update, getEntityClass());
         if (merchantKitchenInfoEntity != null) {
             return convertToVO(merchantKitchenInfoEntity);
         } else {
@@ -75,7 +75,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
     @Override
     public List<MerchantKitchenInfoVO> pageList(Integer page, Integer pageSize) {
-        return convertToVOList(mongoTemplate.find(query(where("status").is(0)).skip((page - 1) * pageSize).limit(pageSize), getEntityClass()));
+        return convertToVOList(mongoTemplate.find(query(where("status").is(0)).addCriteria(where("dataStatus").nin(-1)).skip((page - 1) * pageSize).limit(pageSize), getEntityClass()));
     }
 
     @Override
@@ -155,7 +155,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.
                 findAndModify(query(where(COLLECTION_MERCHANTKITCHENINFOID).
                         is(merchantKitchenInfo.getId()).
-                        andOperator(where("status").nin("-1"))), update, getEntityClass());
+                        andOperator(where("dataStatus").nin("-1"))), update, getEntityClass());
         if (merchantKitchenInfoEntity != null) {
             return convertToVO(merchantKitchenInfoEntity);
         } else {
@@ -173,7 +173,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         update.set("kitchenStoryContent", merchantKitchenInfo.getKitchenStoryContent());
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.
                 findAndModify(query(where("id").is(merchantKitchenInfo.getId()).
-                        andOperator(where("status").nin("-1"))), update, getEntityClass());
+                        andOperator(where("dataStatus").nin("-1"))), update, getEntityClass());
         if (merchantKitchenInfoEntity != null) {
             return convertToVO(merchantKitchenInfoEntity);
         } else {
@@ -184,14 +184,14 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     @Override
     public List<MerchantKitchenInfoVO> pageListByStatus(Integer page, Integer pageSize, Query query) {
         return convertToVOList(mongoTemplate.
-                find(query.addCriteria(where("status").nin("-1")).
+                find(query.addCriteria(where("dataStatus").nin("-1")).
                         skip((page - 1) * pageSize).limit(pageSize), getEntityClass()));
     }
 
     @Override
     public Long getPageTotal(Integer status) {
         return mongoTemplate.count(query(where("status").
-                is(status).andOperator(where("status").
+                is(status).andOperator(where("dataStatus").
                 nin("-1"))), getEntityClass());
     }
 
@@ -215,7 +215,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     @Override
     public MerchantKitchenInfoVO getMerchantKitchenBaseInfo(String id) {
         MerchantKitchenInfoEntity merchantKitchenInfoEntity = mongoTemplate.findOne(query(where("id").
-                is(id).andOperator(where("status").nin("-1"))), getEntityClass());
+                is(id).andOperator(where("dataStatus").nin("-1"))), getEntityClass());
         if (merchantKitchenInfoEntity != null) {
             return convertToVO(merchantKitchenInfoEntity);
         } else {

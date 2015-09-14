@@ -37,7 +37,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
     @Override
     public MerchantUserVO getMerchantUserInfo(String id) {
-        MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where(COLLECTION_MERCHANTUSERID).is(id).andOperator(where("status").nin("-1"))), getEntityClass());
+        MerchantUserEntity merchantUserEntity = mongoTemplate.findOne(query(where(COLLECTION_MERCHANTUSERID).is(id).andOperator(where("dataStatus").nin("-1"))), getEntityClass());
         if (merchantUserEntity != null) {
             return convertToVO(merchantUserEntity);
         } else {
@@ -59,7 +59,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
             update.set(COLLECTION_IDCARDPICURL, merchantUser.getIdCardPicUrl());
             update.set("realName", merchantUser.getRealName());
             update.set("sex", merchantUser.getSex());
-            return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantUser.getId()).andOperator(where("status").nin("-1"))), update, getEntityClass()));
+            return convertToVO(mongoTemplate.findAndModify(query(where("id").is(merchantUser.getId()).andOperator(where("dataStatus").nin("-1"))), update, getEntityClass()));
         } else {
             mongoTemplate.insert(convertToEntity(merchantUser));
             return merchantUser;
@@ -138,7 +138,7 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
 
     @Override
     public List<MerchantUserEntity> getMerchantByStatus(Integer status) {
-        return mongoTemplate.find(query(where("status").is(status).andOperator(where("status").nin("-1"))), getEntityClass());
+        return mongoTemplate.find(query(where("status").is(status).andOperator(where("dataStatus").nin("-1"))), getEntityClass());
     }
 
     @Override
