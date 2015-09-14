@@ -9,7 +9,7 @@ import static com.youfan.commons.Constants.MONGO_NORMAL_DATA;
  * Created by perfection on 15-8-25.
  */
 public class MerchantKitchenInfoVO {
-    private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    private Integer status = -1; //审核状态 0为未审核，1为审核，-1为删除
     private String id; //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码

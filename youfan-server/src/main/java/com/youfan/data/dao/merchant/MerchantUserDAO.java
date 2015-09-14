@@ -93,4 +93,11 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
 
     MerchantUserVO findAndModify(Query query, Update update);
 
+    /**
+     * 商家端厨房和个人信息申请审核
+     *
+     * @return
+     */
+    boolean approveAllInfo(Query query, Update update);
+
 }

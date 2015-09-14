@@ -16,7 +16,7 @@ import static com.youfan.commons.Constants.MONGO_NORMAL_DATA;
  */
 @Document(collection = COLLECTION_KITCHENINFO)
 public class MerchantKitchenInfoEntity {
-    private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    private Integer status = -1; //审核状态 0为申请审核状态，1为审核通过状态，-1为待审核状态
     private Integer dataStatus = MONGO_NORMAL_DATA;
     @Id
     private String id; //厨房id与商家用户id匹配
