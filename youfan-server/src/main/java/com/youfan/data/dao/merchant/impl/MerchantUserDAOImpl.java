@@ -3,11 +3,16 @@ package com.youfan.data.dao.merchant.impl;
 //import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 import com.youfan.commons.vo.merchant.MerchantUserVO;
+import com.youfan.controllers.params.merchant.MerchantUserParams;
+import com.mongodb.WriteResult;
 import com.youfan.commons.Constants;
+import com.youfan.commons.Pagination;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.data.support.IdGenerator;
+import com.youfan.utils.JSONUtils;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -196,5 +201,48 @@ public class MerchantUserDAOImpl implements MerchantUserDAO {
     @Override
     public Long getPageTotal(Integer status) {
         return mongoTemplate.count(query(where("status").is(status)), getEntityClass());
+    }
+
+    @Override
+    public List<MerchantUserVO> findPagerByParams(MerchantUserParams muParams, Pagination pager) {
+        Query query = buildAndEqualQuery(muParams);
+        if (muParams.getStatus() == null) {
+            query.addCriteria(where(MONGO_STATUS).ne(-1));
+        }
+        if (pager != null) {
+            query.skip((pager.getPageNo() - 1) * pager.getPageSize());
+            query.limit(pager.getPageSize());
+            if (pager.getSortBy() != null && !pager.getSortBy().isEmpty()) {
+                query.with(new Sort(pager.getIsAsc() ? Sort.Direction.ASC : Sort.Direction.DESC, pager.getSortBy()));
+
+            }
+        }
+        return convertToVOList(mongoTemplate.find(query, getEntityClass()));
+    }
+
+    @Override
+    public long count(MerchantUserParams muParams) {
+        Query query = buildAndEqualQuery(muParams);
+        if (muParams.getStatus() == null) {
+            query.addCriteria(where(MONGO_STATUS).ne(-1));
+        }
+        return mongoTemplate.count(query, getEntityClass());
+    }
+
+    @Override
+    public int updateById(String id, MerchantUserParams muParams) {
+        Update update = new Update();
+        try {
+            Map<String, Object> paramsMap = JSONUtils.obj2map(muParams);
+            if (paramsMap == null || paramsMap.isEmpty()) {
+                return 0;
+            }
+            update = buildUpdate(paramsMap);
+        } catch (Exception e) {
+            update = new Update();
+        }
+        System.out.println(update);
+        WriteResult re = mongoTemplate.updateFirst(query(where(ID).is(id)).addCriteria(where(MONGO_STATUS).ne(-1)), update, getEntityClass());
+        return re.getN();
     }
 }

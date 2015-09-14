@@ -1,7 +1,9 @@
 package com.youfan.services.merchant;
 
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.merchant.*;
+import com.youfan.controllers.params.merchant.MerchantUserParams;
 import com.youfan.data.models.MerchantUserEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import com.youfan.exceptions.UserException;
@@ -160,4 +162,38 @@ public interface MerchantUsersService {
      * @return
      */
     List<MerchantKitchenInfoVO> conditionalSearch(String merchantName);
+
+    /**
+     * 根据商家用户ID 修改商家信息
+     *
+     * @param id
+     * @param muParams
+     * @return
+     * @description TODO
+     * @version 1.0
+     * @author QinghaiDeng
+     * @update 2015年9月10日 下午5:16:53
+     */
+    int updateById(String id, MerchantUserParams muParams);
+
+    /**
+     * @param muParams
+     * @param pager
+     * @return
+     * @description 商家信息分页 多条件与查询
+     * @version 1.0
+     * @author QinghaiDeng
+     * @update 2015年9月10日 下午4:12:02
+     */
+    List<MerchantUserVO> getPagerByParams(MerchantUserParams muParams, Pagination pager);
+
+    /**
+     * @param muParams
+     * @return
+     * @description 非删除数据中 查询条件下记录条数 参数中不设置时count所有
+     * @version 1.0
+     * @author QinghaiDeng
+     * @update 2015年9月10日 下午4:20:39
+     */
+    long count(MerchantUserParams muParams);
 }

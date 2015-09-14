@@ -1,8 +1,10 @@
 package com.youfan.services.merchant.impl;
 
 import com.youfan.commons.Constants;
+import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.merchant.*;
+import com.youfan.controllers.params.merchant.MerchantUserParams;
 import com.youfan.data.dao.merchant.MerchantKitchenDAO;
 import com.youfan.data.dao.merchant.MerchantUserDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
@@ -249,5 +251,20 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
         collectionVO.setPageCnt(Integer.parseInt(count.toString()) % pageSize > 0 ? Integer.parseInt(count.toString()) / pageSize + 1 : Integer.parseInt(count.toString()) / pageSize);
         collectionVO.addAll(merchantUserDao.pageListByStatus(page, pageSize, query(where("status").is(status))));
         return collectionVO;
+    }
+    @Override
+    public List<MerchantUserVO> getPagerByParams(MerchantUserParams muParams, Pagination pager) {
+        return merchantUserDao.findPagerByParams(muParams, pager);
+    }
+
+    @Override
+    public long count(MerchantUserParams muParams) {
+        return merchantUserDao.count(muParams);
+    }
+
+    @Override
+    public int updateById(String id, MerchantUserParams muParams) {
+        // TODO Auto-generated method stub
+        return merchantUserDao.updateById( id, muParams);
     }
 }
