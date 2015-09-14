@@ -69,4 +69,7 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $rootScope, $ht
     $rootScope.slideChanged = function (index) {
         $scope.slideIndex = index;
     };
+    $scope.imgToggle = function (img) {
+        console.log(img);
+    }
 });
