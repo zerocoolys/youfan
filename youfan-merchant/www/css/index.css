@@ -36,10 +36,10 @@
 .guide_second{
     position:absolute;
     width:100%;
-    top:64%;
+    bottom:10%;
 }
 .guide_third_content .guide_second{
-    top:60%;
+
 }
 .guide_second .guide_circle{
     text-align: center;
