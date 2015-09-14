@@ -9,11 +9,11 @@
         .controller('kitcheninfo_pic', kitchenInfo_pic)
     ;
 
-    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location, $cordovaImagePicker, $ionicPopup, YF_MERCHANT_HOST) {
+    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location, $cordovaImagePicker, $ionicPopup, YF_MERCHANT_HOST, YF_MERCHANT_INFO) {
         $scope.imgs = [];
         $scope.imgsTemplate = [];
         $http.post(
-            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": YF_MERCHANT_INFO.mID}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload != null) {
                         data.payload.kitchenPicUrl.forEach(function (value) {
@@ -99,7 +99,7 @@
                     urls.push($scope.imgsTemplate[k].url);
                 }
                 var kitchenPic = {
-                    id: $rootScope.user.id,
+                    id: YF_MERCHANT_INFO.mID,
                     kitchenPicUrl: urls
                 };
                 $http.post(

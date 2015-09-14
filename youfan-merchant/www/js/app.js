@@ -23,7 +23,10 @@ angular.module('yf_merchant', ['ionic', 'ionic-datepicker', 'ngCordova', 'yf_mer
                 // org.apache.cordova.statusbar required
                 StatusBar.styleLightContent();
             }
-
+            console.log(window)
+            //if (window.sessionStorage) {
+            //    alert($window.sessionStorage.token);
+            //}
             if (window.plugins) {
                 //启动极光推送服务
                 window.plugins.jPushPlugin.init();

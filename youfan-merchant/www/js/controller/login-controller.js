@@ -7,7 +7,7 @@
     angular
         .module('yf_merchant')
         .controller('merchant_login', merchant_login);
-    function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup, YF_MERCHANT_HOST) {
+    function merchant_login($scope, $filter, $state, $rootScope, $http, $location, $ionicPopup, YF_MERCHANT_HOST, $window, YF_MERCHANT_INFO) {
         $scope.user = {
             phoneNumber: "18328725827",
             verificationCode: ""
@@ -105,6 +105,34 @@
                 });
             }
         };
+        //$http.post(
+        //    YF_MERCHANT_HOST + "/user/verifyToken", "sadjfgsjakdf", {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+        //        if (Number(data.code) == 0) {
+        //            //$rootScope.user = {
+        //            //    id: data.payload.id
+        //            //};
+        //            //$location.path("overview")
+        //        } else {
+        //            var option = {
+        //                "title": "系统繁忙！",
+        //                "buttons": [{
+        //                    text: "关闭",
+        //                    type: "button-positive clam"
+        //                }]
+        //            };
+        //            $ionicPopup.alert(option);
+        //        }
+        //
+        //    }).error(function (data, status, headers, config) {
+        //        var option = {
+        //            "title": "服务器连接失败！",
+        //            "buttons": [{
+        //                text: "关闭",
+        //                type: "button-positive clam"
+        //            }]
+        //        };
+        //        $ionicPopup.alert(option);
+        //    });
         $scope.signIn = function (user) {
             //验证码不能为空
             //if (user.verificationCode.toString() == null || user.verificationCode.toString().trim() == "") {
@@ -125,15 +153,40 @@
             //        if (Number(captcha.code) == 0) {
             //            if (captcha.payload.trim() == user.verificationCode.trim()) {
             var merchantUser = {
-                userName: user.phoneNumber
+                userName: user.phoneNumber,
+                dataStatus: 1
             };
             $http.post(
                 YF_MERCHANT_HOST + "/user/login", JSON.stringify(merchantUser), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     if (Number(data.code) == 0) {
-                        $rootScope.user = {
-                            id: data.payload.id
-                        };
-                        $location.path("overview")
+                        if (data.payload == null || data.payload == "") {
+                            var option = {
+                                "title": "账户被冻结！",
+                                "buttons": [{
+                                    text: "关闭",
+                                    type: "button-positive clam"
+                                }]
+                            };
+                            $ionicPopup.alert(option);
+                        } else {
+                            //angular 本地存储
+                            //localStorageService.set(data.payload.token, data.payload.user.id);
+                            //localStorageService.set(data.payload.user.id, data.payload.token);
+                            //$rootScope.token = localStorageService.get(data.payload.uid)
+                            //$rootScope.uid = localStorageService.get(data.payload.token)
+
+                            //$rootScope共享
+                            YF_MERCHANT_INFO.mID = data.payload.user.id;
+                            $rootScope.user = {
+                                id: data.payload.user.id,
+                                token: data.payload.token
+                            };
+
+                            //session 存储
+                            $window.sessionStorage.token = data.payload.token;
+                            $window.sessionStorage.uid = data.payload.user.id;
+                            $location.path("overview")
+                        }
                     } else {
                         var option = {
                             "title": "系统繁忙！",
