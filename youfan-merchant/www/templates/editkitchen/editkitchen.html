@@ -1,33 +1,34 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar" align-title="center">
         <a class="button button-clear icon ion-ios-arrow-back button-calm" href="#/overview"></a>
+
         <h1 class="title ">编辑厨房</h1>
 
-        <button class="button button-clear button-calm">
-            分享我的厨房
+        <button class="button button-clear button-calm" ng-click="approve()">
+            提交审核
         </button>
     </ion-header-bar>
     <ion-content class="">
 
 
-            <ion-list class="stable-bg">
-                <ion-item class="item  item-icon-right" style="margin: 15px 0" href="#/personinfo">
+        <ion-list class="stable-bg">
+            <ion-item class="item  item-icon-right" style="margin: 15px 0" href="#/personinfo">
 
 
-                    <a class="dark" >编辑个人信息</a>
+                <a class="dark">编辑个人信息</a>
 
 
-                    <i class="icon icon-accessory  ion-ios-arrow-right"></i>
-                    </ion-item>
-                     <ion-item class="item  item-icon-right" style="margin: 15px 0" href="#/kitcheninfo">
+                <i class="icon icon-accessory  ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item  item-icon-right" style="margin: 15px 0" href="#/kitcheninfo">
 
 
-                    <a class="dark" >编辑厨房信息</a>
+                <a class="dark">编辑厨房信息</a>
 
 
-                    <i class="icon  icon-accessory ion-ios-arrow-right"></i>
-                </ion-item>
-            </ion-list>
+                <i class="icon  icon-accessory ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
 
     </ion-content>
 </ion-view>
