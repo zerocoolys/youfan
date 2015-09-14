@@ -17,8 +17,12 @@ public class MerchantUserVO {
     private String address; //地址
     private String idCardPicUrl;    //身份证照片
     private String healthCertificatePicUrl; //健康证照片
+    private Integer dataStatus = MONGO_NORMAL_DATA;
 
-    private int dataStatus = MONGO_NORMAL_DATA;
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -107,12 +111,12 @@ public class MerchantUserVO {
         this.healthCertificatePicUrl = healthCertificatePicUrl;
     }
 
-	public int getDataStatus() {
-		return dataStatus;
-	}
+    public int getDataStatus() {
+        return dataStatus;
+    }
 
-	public void setDataStatus(int dataStatus) {
-		this.dataStatus = dataStatus;
-	}
-    
+    public void setDataStatus(int dataStatus) {
+        this.dataStatus = dataStatus;
+    }
+
 }
