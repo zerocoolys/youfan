@@ -25,15 +25,12 @@ public interface CommentDAO extends MongoBaseDAO<CommentEntity, CommentVO, Long>
 
     long commentCount(String muId);
 
-    default long getGenerator(long no) {
+    long count(Map<String, Object> paramMap);
 
-        return Instant.now().getEpochSecond() + no;
-    }
+    List<CommentVO> getComments(Pagination pager);
 
-	long count(Map<String, Object> paramMap);
-	
-	List<CommentVO> getComments(Pagination pager);
-	
-	int updateStatus(String id,Integer status);
+    int updateStatus(String id, Integer status);
+
+    int update(String cid, String content);
 
 }

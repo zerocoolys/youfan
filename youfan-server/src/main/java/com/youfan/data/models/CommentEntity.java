@@ -18,18 +18,26 @@ public class CommentEntity {
     String id;
 
     @Field(Constants.COMMENT_MERCHANT_ID)
-    String merchant_id;
+    String merchant_id;//商家店铺id
     long order_id;
 
     @Field(Constants.COMMENT_USER)
     String comment_user;
 
     @Field(Constants.SELLER_ID)
-    String seller_id;
+    String seller_id;//商家id
 
     String pid;//父评论
 
     String content;
+
+    boolean replayed;
+
+    @Field(Constants.COMMENT_REPLAY_COMMENT)
+    String replay_comment;
+
+    @Field(Constants.COMMENT_REPLAY_DATE)
+    Date replay_date;
 
     Integer star;
     @Field(Constants.COMMENT_TIME)
@@ -138,5 +146,29 @@ public class CommentEntity {
 
     public void setSeller_id(String seller_id) {
         this.seller_id = seller_id;
+    }
+
+    public boolean isReplayed() {
+        return replayed;
+    }
+
+    public void setReplayed(boolean replayed) {
+        this.replayed = replayed;
+    }
+
+    public String getReplay_comment() {
+        return replay_comment;
+    }
+
+    public void setReplay_comment(String replay_comment) {
+        this.replay_comment = replay_comment;
+    }
+
+    public Date getReplay_date() {
+        return replay_date;
+    }
+
+    public void setReplay_date(Date replay_date) {
+        this.replay_date = replay_date;
     }
 }

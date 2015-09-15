@@ -31,14 +31,13 @@ public class OrderParams extends Pagination {
 
 	Integer orderStatus;
 
-	String repastMode;
+	Integer sourceOrderStatus;
 
+	String repastMode;
 
 	String repastAddress;
 
-    Date repastTime;
-
-
+	Date repastTime;
 
 	private String couponId;
 
@@ -108,21 +107,17 @@ public class OrderParams extends Pagination {
 		this.repastMode = repastMode;
 	}
 
+	public Date getRepastTime() {
+		return repastTime;
+	}
 
+	public void setRepastTime(Date repastTime) {
+		this.repastTime = repastTime;
+	}
 
-
-    public Date getRepastTime() {
-        return repastTime;
-    }
-
-    public void setRepastTime(Date repastTime) {
-        this.repastTime = repastTime;
-    }
-
-    public Integer getOrderStatus() {
-        return orderStatus;
-    }
-
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
 
 	public void setOrderStatus(Integer orderStatus) {
 		this.orderStatus = orderStatus;
@@ -150,5 +145,13 @@ public class OrderParams extends Pagination {
 
 	public void setOrderStatusList(List<Integer> orderStatusList) {
 		this.orderStatusList = orderStatusList;
+	}
+
+	public Integer getSourceOrderStatus() {
+		return sourceOrderStatus;
+	}
+
+	public void setSourceOrderStatus(Integer sourceOrderStatus) {
+		this.sourceOrderStatus = sourceOrderStatus;
 	}
 }

@@ -8,6 +8,8 @@ import com.youfan.data.models.ClientUserEntity;
 import com.youfan.data.models.MealsAddressEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
@@ -53,6 +55,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public ClientUserVO findOne(String id) {
+        ClientUserEntity clientUserEntity = mongoTemplate.findOne(new Query(Criteria.where(ID).is(id)), getEntityClass());
+        if (clientUserEntity != null)
+            return convertToVO(clientUserEntity);
+
         return null;
     }
 
@@ -71,7 +77,6 @@ public class UserDaoImpl implements UserDao {
     public void update(ClientUserVO userVO) {
 
     }
-
 
 
     @Override

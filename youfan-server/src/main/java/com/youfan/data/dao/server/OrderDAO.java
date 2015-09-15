@@ -2,6 +2,7 @@ package com.youfan.data.dao.server;
 
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
+import com.youfan.commons.vo.merchant.MerchantIncomeVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
@@ -136,6 +137,9 @@ public interface OrderDAO {
 	
 	
 	public MerchantOrderOverviewVO findOrdersByMerchantOverview(OrderParams order);
+
+	MerchantIncomeVO findMyIncome(OrderParams order);
+
 
 
 

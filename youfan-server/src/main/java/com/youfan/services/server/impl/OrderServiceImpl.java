@@ -17,6 +17,7 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.merchant.MerchantIncomeVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
@@ -89,34 +90,12 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int updateOrderStatus(OrderParams order) {
-
-
-
-		if(order.getOrderStatus() == OrderStatus.ORDER_PAYED.value()) {
-
-			order.setOrderStatus(OrderStatus.ORDER_MERCHANT_CONFIRM.value());
-		} else if (order.getOrderStatus() == OrderStatus.ORDER_MERCHANT_CONFIRM
-				.value()) {
-			order.setOrderStatus(OrderStatus.ORDER_DISH_FINISHED.value());
-		} else {
-			return 0;
-		}
 		return orderDAO.updateOrderStatus(order);
 	}
 
 	@Override
 	public List<OrderDishRelVO> findDishByOrderNo(String orderNo) {
 		return orderDAO.findDishByOrderNo(orderNo);
-	}
-
-	@Override
-	public OrderVO cancelOrder(OrderVO order) {
-		return null;
-	}
-
-	@Override
-	public OrderVO refundOrder(OrderVO order) {
-		return null;
 	}
 
 	@Override
@@ -219,7 +198,7 @@ public class OrderServiceImpl implements OrderService {
 				if (order != null) {
 					// 加载头像
 					order.setImg("http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg");
-			
+
 					// 加载菜品列表
 					if (StringUtils.isBlank(parameter.getRepastMode())) {
 						List<MechantMenuVO> dishes = menuDao
@@ -228,7 +207,7 @@ public class OrderServiceImpl implements OrderService {
 								.map(menu -> menu.getName())
 								.collect(Collectors.toList());
 						order.setDishNames(dishNames);
-				    
+
 					}
 
 				} else {
@@ -294,8 +273,17 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public MerchantOrderOverviewVO findOrdersByMerchantOverview(
 			OrderParams order) {
-		
+
 		return orderDAO.findOrdersByMerchantOverview(order);
 	}
+	
+	@Override
+	public MerchantIncomeVO findMyIncome(
+			OrderParams order) {
+		
+		return orderDAO.findMyIncome(order);
+	}
+
+
 
 }
