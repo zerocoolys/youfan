@@ -39,7 +39,7 @@
                     <i class="icon ion-card"></i>
                     <span>付款状态</span>
 
-                    <p class="item-note mainColor">{{order.paymentStatus}}</p>
+                    <p class="item-note mainColor">{{order.orderStatusStr}}</p>
                 </ion-item>
                 <ion-item class="order_Details">
                     <ul>
@@ -62,5 +62,14 @@
                ui-sref="tab.pay-page({orderNo: order.orderNo, discountPrice: order.discountPrice})">去支付</a>
         </div>
     </div>
-    <!-- TODO 在未完成栏目下, 进入订单详情时需要加入退款和确认收货按钮 -->
+    <div class="bar bar-footer bar-calm" ng-hide="refundClass">
+        <div class="button-bar">
+            <a class="button button-clear" ng-click="refund()">退款</a>
+        </div>
+    </div>
+    <div class="bar bar-footer bar-calm" ng-hide="receivingConfirmationClass">
+        <div class="button-bar">
+            <a class="button button-clear" ng-click="receivingConfirmation()">确认收货</a>
+        </div>
+    </div>
 </ion-view>
