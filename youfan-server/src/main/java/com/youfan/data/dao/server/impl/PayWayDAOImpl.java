@@ -3,7 +3,6 @@ package com.youfan.data.dao.server.impl;
 import org.springframework.stereotype.Repository;
 
 import com.youfan.commons.vo.server.PayWayVO;
-import com.youfan.data.dao.impl.MongoBaseDAOImpl;
 import com.youfan.data.dao.server.PayWayDAO;
 import com.youfan.data.models.PayWayEntity;
 
@@ -18,7 +17,7 @@ import com.youfan.data.models.PayWayEntity;
  * Copyright (c)2012 chantsoft-版权所有
  */
 @Repository("payWayDAO")
-public class PayWayDAOImpl extends MongoBaseDAOImpl<PayWayEntity, PayWayVO, String>implements PayWayDAO{
+public class PayWayDAOImpl implements PayWayDAO{
 
 
 
@@ -30,6 +29,12 @@ public class PayWayDAOImpl extends MongoBaseDAOImpl<PayWayEntity, PayWayVO, Stri
 	@Override
 	public Class<PayWayVO> getVOClass() {
 		return PayWayVO.class;
+	}
+
+	@Override
+	public void update(PayWayVO v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 //	@Override

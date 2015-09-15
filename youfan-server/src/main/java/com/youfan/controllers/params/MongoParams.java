@@ -2,7 +2,7 @@ package com.youfan.controllers.params;
 
 public class MongoParams {
 
-	private Integer dataStatus=1;
+	private Integer dataStatus;
 
 	public Integer getDataStatus() {
 		return dataStatus;

@@ -6,6 +6,7 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.DishVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
 import com.youfan.commons.vo.server.OrderVO;
@@ -14,12 +15,14 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.MenuService;
 import com.youfan.services.server.OrderService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -278,6 +281,28 @@ public class OrderController {
         return response;
 
     }
+    
+    @RequestMapping(method = RequestMethod.GET, path = "/overview/merchant")
+    public Response listByMerchant( @RequestParam("sellerId") String sellerId
+          ) {
+        Response response = null;
+        OrderParams orderParams = new OrderParams();
+        try {
+            orderParams.setSellerId(sellerId);
+        
+            MerchantOrderOverviewVO order = orderService
+                    .findOrdersByMerchantOverview(orderParams);
+            
+            response = Responses.SUCCESS().setPayload(order);
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
+        }
+
+        return response;
+
+    }
+    
 
 
 }

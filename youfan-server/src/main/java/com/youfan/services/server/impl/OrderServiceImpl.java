@@ -18,6 +18,7 @@ import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.params.OrderParams;
@@ -218,16 +219,16 @@ public class OrderServiceImpl implements OrderService {
 				if (order != null) {
 					// 加载头像
 					order.setImg("http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg");
+			
 					// 加载菜品列表
 					if (StringUtils.isBlank(parameter.getRepastMode())) {
 						List<MechantMenuVO> dishes = menuDao
 								.findByMenuIds(order.longDishesId());
-
 						List<String> dishNames = dishes.stream()
 								.map(menu -> menu.getName())
 								.collect(Collectors.toList());
 						order.setDishNames(dishNames);
-
+				    
 					}
 
 				} else {
@@ -288,6 +289,13 @@ public class OrderServiceImpl implements OrderService {
 	public void updateOrder(OrderVO order) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public MerchantOrderOverviewVO findOrdersByMerchantOverview(
+			OrderParams order) {
+		
+		return orderDAO.findOrdersByMerchantOverview(order);
 	}
 
 }

@@ -2,7 +2,6 @@ package com.youfan.data.dao.server;
 
 import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.data.dao.MongoBaseDAO;
-import com.youfan.data.dao.NewMongoBaseDAO;
 import com.youfan.data.models.PayWayEntity;
 
 /**
@@ -15,7 +14,7 @@ import com.youfan.data.models.PayWayEntity;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public interface PayWayDAO  extends NewMongoBaseDAO<PayWayEntity, PayWayVO, String>{
+public interface PayWayDAO  extends MongoBaseDAO<PayWayEntity, PayWayVO, String>{
 
 	@Override
     default Class<PayWayEntity> getEntityClass() {

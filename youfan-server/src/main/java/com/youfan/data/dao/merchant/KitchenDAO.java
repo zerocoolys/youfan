@@ -1,7 +1,7 @@
 package com.youfan.data.dao.merchant;
 
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
-import com.youfan.data.dao.NewMongoBaseDAO;
+import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 
 /**
@@ -14,6 +14,6 @@ import com.youfan.data.models.MerchantKitchenInfoEntity;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public interface KitchenDAO extends NewMongoBaseDAO<MerchantKitchenInfoEntity, MerchantKitchenInfoVO, String>{
+public interface KitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEntity, MerchantKitchenInfoVO, String>{
 
 }

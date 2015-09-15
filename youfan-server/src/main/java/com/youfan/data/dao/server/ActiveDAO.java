@@ -1,10 +1,10 @@
 package com.youfan.data.dao.server;
 
 import com.youfan.commons.vo.ActiveVO;
-import com.youfan.data.dao.NewMongoBaseDAO;
+import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.ActiveEntity;
 
-public interface ActiveDAO extends NewMongoBaseDAO<ActiveEntity, ActiveVO, String>{
+public interface ActiveDAO extends MongoBaseDAO<ActiveEntity, ActiveVO, String>{
 
 //	public void insert(CouponsTypeVO couponsTypeVO);
 	
