@@ -1,15 +1,19 @@
 <ion-view view-title="" hide-nav-bar="true" class="shop_detail" hide-tabs>
-    <ion-header-bar class="bar-header bar-light dash_detail ">
-        <a ui-sref="tab.dash-detail"><i class="ion-ios-arrow-left"></i></a>
+    <div class="dash_top" ng-class="{'addcolor': AddColor}">
+        <a ui-sref="tab.dash-detail" class="button icon ion-ios-arrow-left button-clear"></a>
 
         <div class="top_share ">
-            <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
+            <i class="button icon button-clear ion-ios-heart-outline" on-icon="ion-ios-heart-outline"
+               off-icon="ion-ios-heart" icon-switcher
                popupsure="点赞成功" popupcancel="取消点赞"></i>
-            <i class="ion-ios-star-outline" on-icon="ion-ios-star-outline" off-icon="ion-ios-star" icon-switcher
+            <i class="button icon button-clear ion-ios-star-outline" on-icon="ion-ios-star-outline"
+               off-icon="ion-ios-star" icon-switcher
                popupsure="关注成功" popupcancel="取消关注"></i>
-            <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher></i>
+            <i class="button icon button-clear ion-ios-redo-outline" on-icon="ion-ios-redo-outline"
+               off-icon="ion-ios-redo" icon-switcher
+               ng-click="share()"></i>
         </div>
-    </ion-header-bar>
+    </div>
     <ion-content class="seller_content">
         <div class="seller_img">
             <img src="img/2.jpeg" alt=""/>
@@ -37,7 +41,8 @@
                 <h2 class="padding"><i class="icon ion-ios-albums-outline"></i>实名认证</h2>
             </ion-item>
             <ion-item>
-                <h2 class="padding"><i class="icon ion-ios-location"></i><span ng-bind="kin.kitchenStoryName">全部菜品请提前一天预定</span></h2>
+                <h2 class="padding"><i class="icon ion-ios-location"></i><span ng-bind="kin.kitchenStoryName">全部菜品请提前一天预定</span>
+                </h2>
 
                 <div class="row">
                     <div class="col">
@@ -52,7 +57,7 @@
             <ion-item>
                 <h2 class="padding"><i class="icon ion-ios-albums-outline"></i> 评论 <span>26条</span></h2>
             </ion-item>
-            <div class="list comment" >
+            <div class="list comment">
                 <a class="item item-avatar" href="#">
                     <img src="img/2.jpeg">
 
@@ -61,7 +66,8 @@
                             Record album
                         </span>
                         <span class="alright">
-                      <i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-half"></i><i class="ion-ios-star-outline"></i><i
+                      <i class="ion-ios-star"></i><i class="ion-ios-star"></i><i class="ion-ios-star-half"></i><i
+                                class="ion-ios-star-outline"></i><i
                                 class="ion-ios-star-outline"></i>
                         </span>
 

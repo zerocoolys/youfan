@@ -34,7 +34,25 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
         $scope.slideIndex = index;
     };
     $scope.activeSlide = function (index) {
-        $ionicSlideBoxDelegate.slide(index);
+//        $ionicSlideBoxDelegate.slide(index);
+
+        if(index == 0){
+            $scope.slideIndex = 0;
+            angular.element(document.querySelector('#todayDining'))
+                .removeClass('hide')
+                .addClass('show');
+            angular.element(document.querySelector('#yesterdayDining'))
+                .removeClass('show')
+                .addClass('hide');
+        }else if(index == 1){
+            $scope.slideIndex = 1;
+            angular.element(document.querySelector('#yesterdayDining'))
+                .removeClass('hide')
+                .addClass('show');
+            angular.element(document.querySelector('#todayDining'))
+                .removeClass('show')
+                .addClass('hide');
+        }
     };
     $scope.onContentScroll = function () {
         if ($ionicScrollDelegate.getScrollPosition().top > 200) {

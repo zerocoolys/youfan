@@ -210,14 +210,8 @@
     position: relative;
 }
 
-.shop_detail .top_share {
-    position: absolute;
-    right: 15px;
-
-}
-
 .shop_detail .slider {
-    height: 300px;
+    /*   height: 300px;*/
 }
 
 .shop_detail .home_item .item-avatar > img:first-child {
@@ -419,7 +413,7 @@ Alpha(opacity = 100);
 .cart_box {
     position: absolute;
     top: 0px;
-    height: 94%;
+    height: 90%;
     width: 100%;
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.2);
@@ -695,13 +689,14 @@ ul.rating li i {
     top: 93px;
 }
 
-.dash_detail.addcolor .bar-header i {
-    color: #1dbeaf;
-}
-
-.dash_detail.addcolor .bar.bar-light {
+.dash_top.addcolor {
     background-color: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid #1dbeaf;
+    top: 0px;
+}
+
+.dash_top.addcolor .button-clear.button-clear {
+    color: #1dbeaf;
 }
 
 .item-input-wrapper {
@@ -899,29 +894,25 @@ p.info {
 .dash_top {
     position: fixed;
     width: 100%;
-    top: 25px;
+    top: 8px;
     z-index: 1000;
     color: #fff;
     font-size: 26px;
-    padding: 0 10px;
 }
 
-.dash_top a {
+.dash_top .button-clear.button-clear {
     color: #fff;
+    font-size: 26px;
 }
 
-.dash_top i {
-    margin-left: 5px;
+.dash_top .button {
+    min-width: 30px;
 }
 
 .item-input-inset span {
     color: #fff;
 }
 
-input[type="text"].myFocus {
-    background-color: yellow;
-}
-
-input[type="text"].myBlur {
-    background-color: red;
+.main_menu {
+    padding-bottom: 44px;
 }

@@ -1,29 +1,21 @@
 <ion-view view-title="" hide-nav-bar="true" hide-tabs class="dash_detail">
-    <!--    <ion-header-bar class="bar-header bar-light">
-            <a ui-sref="tab.dash"><i class="ion-ios-arrow-left"></i></a>
+    <div class="dash_top" ng-class="{'addcolor': AddColor}">
+        <a ui-sref="tab.dash" class="button icon ion-ios-arrow-left button-clear"></a>
 
-            <div class="top_share ">
-                <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
-                   popupsure="点赞成功" popupcancel="取消点赞"></i>
-                <i class="ion-ios-star-outline" on-icon="ion-ios-star-outline" off-icon="ion-ios-star" icon-switcher
-                   popupsure="关注成功" popupcancel="取消关注"></i>
-                <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher
-                   ng-click="share()"></i>
-            </div>
-        </ion-header-bar>-->
-    <ion-content style="background-color: #fff" on-scroll="onContentScroll()">
-        <div class="dash_top" ng-class="{'addcolor': AddColor}">
-            <a ui-sref="tab.dash"><i class="ion-ios-arrow-left"></i></a>
-
-            <div class="top_share ">
-                <i class="ion-ios-heart-outline" on-icon="ion-ios-heart-outline" off-icon="ion-ios-heart" icon-switcher
-                   popupsure="点赞成功" popupcancel="取消点赞"></i>
-                <i class="ion-ios-star-outline" on-icon="ion-ios-star-outline" off-icon="ion-ios-star" icon-switcher
-                   popupsure="关注成功" popupcancel="取消关注"></i>
-                <i class="ion-ios-redo-outline" on-icon="ion-ios-redo-outline" off-icon="ion-ios-redo" icon-switcher
-                   ng-click="share()"></i>
-            </div>
+        <div class="top_share ">
+            <i class="button icon button-clear ion-ios-heart-outline" on-icon="ion-ios-heart-outline"
+               off-icon="ion-ios-heart" icon-switcher
+               popupsure="点赞成功" popupcancel="取消点赞"></i>
+            <i class="button icon button-clear ion-ios-star-outline" on-icon="ion-ios-star-outline"
+               off-icon="ion-ios-star" icon-switcher
+               popupsure="关注成功" popupcancel="取消关注"></i>
+            <i class="button icon button-clear ion-ios-redo-outline" on-icon="ion-ios-redo-outline"
+               off-icon="ion-ios-redo" icon-switcher
+               ng-click="share()"></i>
         </div>
+    </div>
+    <ion-content style="background-color: #fff" on-scroll="onContentScroll()">
+
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
                        slide-interval="2000" style="height:200px;">
             <ion-slide>
@@ -37,7 +29,7 @@
             </ion-slide>
         </ion-slide-box>
         <div class="list_detail_person_img">
-            <img ng-src="{{merchantUser.headPortraitPicUrl}}">
+            <img ng-src="{{merchantUser.headPortraitPicUrl||'img/person.png'}}">
         </div>
         <div class="how_delivery text-right">
             <span ng-class="{'active':merchantObj.delivery}">送</span>
@@ -100,8 +92,9 @@
                 <li ng-class="slideIndex == 1 ? 'current':''"><a href="#" ng-click="activeSlide(1)">明日预定</a></li>
             </ul>
         </div>
-        <ion-slide-box on-slide-changed="slideChanged(index)" active-slide="slideIndex" class="main_menu">
-            <ion-slide>
+
+        <div id="choice_dining">
+            <div id="todayDining" class="main_menu">
                 <ion-list>
                     <ion-item class="item-body list-borderless item-borderless" style="padding: 5px;"
                               ng-repeat="menu in menuItemArr"
@@ -120,7 +113,7 @@
 
                             <i class="icon ion-ios-arrow-right icon-accessory"></i>
                         </ion-item>
-                        <ion-item class="menu_line" style="padding: 5px 16px 5px 54px;">
+                        <ion-item class="menu_line" style="padding: 5px 16px 5px 54px;height: 70px;">
                             <p ng-bind="'￥' + menu.price"></p>
 
                             <span ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"
@@ -128,9 +121,11 @@
                             <span class="item-note">
                                 <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
                                     <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
-                                       ng-click="minusItem(menu.id)"></i>
+                                       ng-click="minusItem(menu.id)"
+                                       style="  position: absolute;left: 0;width: 25px;"></i>
                                     <span ng-show="menu.shopAccount">&nbsp;{{menu.count}}&nbsp;</span>
-                                    <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"></i>
+                                    <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"
+                                       style="  position: absolute;right: 0;width: 25px;"></i>
                                 </span>
                             </span>
                         </ion-item>
@@ -149,8 +144,19 @@
                         <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"></i>
                     </ion-item>
                 </ion-list>
-            </ion-slide>
-        </ion-slide-box>
+            </div>
+
+            <div id="yesterdayDining" class="main_menu hide">
+                <ion-list>
+                    <ion-item class="item-body list-borderless item-borderless" style="padding: 5px;" ng-repeat-end="1">
+                        <!--<img class="full-image" ng-src="{{menu.picUrl}}" ng-click="showDishDetail()">-->
+                        <img class="full-image" ng-src="http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg"
+                             ng-click="showDishDetail()">
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+
     </ion-content>
     <div class="bar bar-footer bar-balanced">
         <div class="button-bar">

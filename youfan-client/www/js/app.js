@@ -240,7 +240,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 params: {
                     order: null,
                     userInfo: null,
-                    dishes: null
+                    dishes: null,
+                    refundClass: null,
+                    receivingConfirmationClass: null
                 }
             })
             //个人中心-我的订单-订单详情-支付成功
