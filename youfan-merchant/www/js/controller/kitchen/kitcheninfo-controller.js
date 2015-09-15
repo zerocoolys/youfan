@@ -14,7 +14,7 @@ function getLocation(data) {
 
 
     function kitchenInfo($scope, $filter, $state, $rootScope, $http, $ionicModal, $ionicPopup, YF_MERCHANT_HOST, YF_MERCHANT_INFO) {
-
+           console.log(222);
         $scope.kitchenInfo = {
             kitchenName: "",
             phoneNumber: "",
@@ -79,13 +79,13 @@ function getLocation(data) {
                     "title": "服务器连接失败！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
                 $ionicPopup.alert(options);
             });
         $scope.isChange = function () {
-            var kitchenAddressTemplate = ""
+            var kitchenAddressTemplate = "";
             if ($rootScope.Province_s != "" && $rootScope.Province_s != null && $rootScope.Province_s != undefined) {
                 kitchenAddressTemplate += $rootScope.Province_s;
             }
@@ -113,13 +113,13 @@ function getLocation(data) {
                     "title": "是否保存当前修改内容！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $state.go("editkitchen")
                         }
                     }, {
                         text: "确定",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $scope.saveKitchenInfo();
                         }
@@ -190,7 +190,7 @@ function getLocation(data) {
                                         "title": "手机号码格式不正确!",
                                         "buttons": [{
                                             text: "关闭",
-                                            type: "button-positive clam",
+                                            type: "button-calm",
                                             onTap: function () {
 
                                             }
@@ -207,7 +207,7 @@ function getLocation(data) {
                                             "title": "保存成功!",
                                             "buttons": [{
                                                 text: "确定",
-                                                type: "button-positive clam",
+                                                type: "button-calm",
                                                 onTap: function () {
                                                     $scope.addressTemplate = kitchenAddressTemplate;
                                                     $scope.kitchenInfo.kitchenName = $scope.kitchenInfoTemplate.kitchenName;
@@ -226,7 +226,7 @@ function getLocation(data) {
                                             "title": "系统繁忙!",
                                             "buttons": [{
                                                 text: "关闭",
-                                                type: "button-positive clam"
+                                                type: "button-calm"
                                             }]
                                         };
                                     }
@@ -236,7 +236,7 @@ function getLocation(data) {
                                         "title": "服务器连接失败！",
                                         "buttons": [{
                                             text: "关闭",
-                                            type: "button-positive clam"
+                                            type: "button-calm"
                                         }]
                                     };
                                     $ionicPopup.alert(options);
@@ -246,7 +246,7 @@ function getLocation(data) {
                                 "title": "地址信息错误！",
                                 "buttons": [{
                                     text: "关闭",
-                                    type: "button-positive clam"
+                                    type: "button-calm"
                                 }]
                             };
                             $ionicPopup.alert(option);
@@ -258,7 +258,7 @@ function getLocation(data) {
                     "title": "信息不完整!",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
             }

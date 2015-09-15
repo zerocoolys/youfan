@@ -9,9 +9,9 @@
     </ion-header-bar>
     <ion-content>
 
-        <ion-item class="item-input">
+        <ion-item class="item-text-wrap ">
             <textarea ng-model="text"
-                      placeholder="编辑我的兴趣爱好....." style="overflow-y: hidden;margin-top: 20px;" rows="10" ng-change="checkText(text)"></textarea>
+                      placeholder="编辑我的兴趣爱好....." style="overflow-y: hidden;width: 100%;resize: none" rows="10" ng-change="checkText(text)" maxlength="1000" minlength="50"></textarea>
 
         </ion-item>
         <label style="color: #ffc900; ">

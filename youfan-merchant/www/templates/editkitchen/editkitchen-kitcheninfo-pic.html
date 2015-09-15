@@ -1,24 +1,71 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar" align-title="center">
-        <a class="button button-clear icon ion-ios-arrow-back" ng-click="isChange()"></a>
+        <a class="button button-clear button-calm icon ion-ios-arrow-back" ng-click="isChange()"></a>
+
         <h1 class="title calm">厨房照片</h1>
         <button ng-click="savePicPath()" class="button button-clear button-calm ">
             保存
         </button>
     </ion-header-bar>
-    <ion-content>
-        <ion-item class="padding" >
-            <span  style="margin: 10px 0">添加图片（最多四张）</span>
-            <ion-list>
-                <ion-item ng-repeat="item in imgs">
-                    <img ng-src="{{item.url}}" style="width: 128px; height: 64px">
-                    <i class="icon ion-android-remove-circle" data-ng-click="removePic($index)"></i>
-                </ion-item>
-            </ion-list>
-            <a ng-click="addPic()" class="tab-item calm-bg light"
-               style=" height: 60px; width: 60px;padding: 13px 5px 5px 5px; ">
-                <i class="icon ion-plus "></i>
-            </a>
-        </ion-item>
+    <ion-content class="stable-bg">
+        <!--<ion-item class="padding">-->
+        <!--<span style="margin: 10px 0">添加图片（最多四张）</span>-->
+        <!--<ion-list>-->
+        <!--<ion-item ng-repeat="item in imgs">-->
+        <!--<img ng-src="{{item.url}}" style="width: 128px; height: 64px">-->
+        <!--<i class="icon ion-android-remove-circle" data-ng-click="removePic($index)"></i>-->
+        <!--</ion-item>-->
+        <!--</ion-list>-->
+        <!--<a ng-click="addPic()" class="tab-item calm-bg light"-->
+        <!--style=" height: 60px; width: 60px;padding: 13px 5px 5px 5px; ">-->
+        <!--<i class="icon ion-plus "></i>-->
+        <!--</a>-->
+        <!--</ion-item>-->
+        <ion-list class="list ">
+            <ion-item class="item item-divider stable-bg item-borderless" style="padding-top: 20px">
+                <div><span style="color: red;width: 3%">*</span>添加菜品图片(最多四张)</div>
+
+                    <span style="position: relative;margin-right: 10px;" class="" ng-repeat="item in imgs">
+
+                        <i style="position: absolute;margin: 10px 0  0 60px" class="assertive
+                          icon ion-close-circled  " data-ng-click="removePic($index)"></i>
+                         <img ng-src="{{item.url}}" style="width: 68px; height: 59px;margin-top: 20px;"
+                              ng-click="dishPic.show()">
+                    </span>
+                <button data-ng-if="imgs.length < 4" class="button button-calm button-large p "
+                        style="margin-top: 20px;" data-ng-click="addPic()"><i
+                    class="icon ion-plus "></i></button>
+            </ion-item>
+
     </ion-content>
 </ion-view>
+<script id="templates/dishPic.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar bar-header stable-bg">
+            <button class="button button-clear icon ion-ios-arrow-back button-calm"
+                    ng-click="dishPic.hide()"></button>
+            <div class="h1 title " align-text="center">菜品照片</div>
+        </ion-header-bar>
+        <ion-content>
+            <ion-item style=" margin-bottom: 15px;" ng-repeat="item in imgs">
+                <div><img ng-src="{{item.url}}" style="width: 100%;" ng-click="dishPic.show()"></div>
+
+                <button style="padding: 3px 15px  "
+                        class="button button-assertive light button-small item-note assertive-border"
+                        data-ng-click="removePic($index)">删除
+                </button>
+
+                <button ng-show="$index!==0" style="padding: 3px 15px ;margin-right: 10px; "
+                        class="button button-energized button-small light item-note energized-border "
+                        data-ng-click="replacePic($index)">设置为封面
+                </button>
+                <button style="padding: 3px 15px ;margin-right: 10px; "
+                        class="button button-calm button-small light item-note "
+                        ng-show="$index==0">已设置为封面
+                </button>
+
+            </ion-item>
+        </ion-content>
+
+    </ion-modal-view>
+</script>

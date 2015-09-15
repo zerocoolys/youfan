@@ -9,7 +9,7 @@
         .controller('kitcheninfo_pic', kitchenInfo_pic)
     ;
 
-    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location, $cordovaImagePicker, $ionicPopup, YF_MERCHANT_HOST, YF_MERCHANT_INFO) {
+    function kitchenInfo_pic($scope, $filter, $state, $http, $ionicActionSheet, $cordovaCamera, $rootScope, $ionicLoading, $location, $cordovaImagePicker, $ionicPopup, YF_MERCHANT_HOST, YF_MERCHANT_INFO,$ionicModal) {
         $scope.imgs = [];
         $scope.imgsTemplate = [];
         $http.post(
@@ -34,7 +34,7 @@
                     "title": "服务器连接失败！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
                 $ionicPopup.alert(options);
@@ -67,13 +67,13 @@
                     "title": "是否保存当前修改内容！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $state.go("kitcheninfo")
                         }
                     }, {
                         text: "确定",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $scope.savePicPath();
                         }
@@ -89,7 +89,7 @@
                     "title": "请添加图片！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
                 $ionicPopup.alert(options);
@@ -111,7 +111,7 @@
                                     "title": "系统繁忙！",
                                     "buttons": [{
                                         text: "关闭",
-                                        type: "button-positive clam"
+                                        type: "button-calm"
                                     }]
                                 };
                             } else {
@@ -119,7 +119,7 @@
                                     "title": "保存成功！",
                                     "buttons": [{
                                         text: "确定",
-                                        type: "button-positive clam",
+                                        type: "button-calm",
                                         onTap: function () {
                                             for (var k = 0; k < Number($scope.imgsTemplate.length); k++) {
                                                 $scope.imgs.push({
@@ -138,7 +138,7 @@
                                 "title": "系统繁忙！",
                                 "buttons": [{
                                     text: "关闭",
-                                    type: "button-positive clam"
+                                    type: "button-calm"
                                 }]
                             };
                             $ionicPopup.alert(options);
@@ -148,7 +148,7 @@
                             "title": "服务器连接失败！",
                             "buttons": [{
                                 text: "关闭",
-                                type: "button-positive clam"
+                                type: "button-calm"
                             }]
                         };
                         $ionicPopup.alert(options);
@@ -182,11 +182,30 @@
                     "title": "图片最多4张！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
                 $ionicPopup.alert(options);
             }
+        };
+        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
+            scope: $scope
+        }).then(function (modal) {
+            $scope.dishPic = modal;
+        });
+        $scope.replacePic = function (_index) {
+
+            $scope.imgs.unshift($scope.imgs[_index]);
+            $scope.imgs.splice(_index+1,1);
+            $ionicLoading.show({
+                template:"设置成功"
+            });
+            $timeout(function () {
+                $ionicLoading.hide();
+            }, 1000);
+            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
+
+
         };
     }
 })();

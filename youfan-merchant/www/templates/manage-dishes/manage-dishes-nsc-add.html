@@ -1,6 +1,7 @@
 <ion-view view-title="" hide-nav-bar="true" cache-view="false">
     <ion-header-bar class="item-input-inset light-bg indexbar">
         <a class="button button-clear icon ion-ios-arrow-back button-calm" data-ng-click="sureCanel()"></a>
+
         <h1 class="title ">添加拿手菜</h1>
         <button class="button button-clear button-calm  " data-ng-click="doCheckDishes()" data-ng-disabled="isActive">
             保存
@@ -9,30 +10,27 @@
     </ion-header-bar>
 
     <ion-content style="">
-        <ion-list class="list " >
+        <ion-list class="list ">
             <ion-item class="item item-divider stable-bg item-borderless" style="padding-top: 20px">
-               <div> <span style="color: red;width: 3%">*</span>添加菜品图片(最多四张)</div>
+                <div><span style="color: red;width: 3%">*</span>添加菜品图片(最多四张)</div>
 
-                    <span style="position: relative;margin-right: 10px;" class="" ng-repeat="item in imgs" >
+                    <span style="position: relative;margin-right: 10px;" class="" ng-repeat="item in imgs">
 
                         <i style="position: absolute;margin: 10px 0  0 60px" class="assertive
                           icon ion-close-circled  " data-ng-click="removePic($index)"></i>
-                         <img ng-src="{{item.url}}"  style="width: 68px; height: 59px;margin-top: 20px;" ng-click="dishPic.show()">
+                         <img ng-src="{{item.url}}" style="width: 68px; height: 59px;margin-top: 20px;"
+                              ng-click="dishPic.show()">
                     </span>
-                <!--<a class="tab-item has-badge">-->
-                    <!--<div class="badge badge-positive">12</div>-->
-                    <!--<i class="icon ion-images"></i>-->
-                <!--</a>-->
-
-
-                <button data-ng-if="imgs.length < 4" class="button button-calm button-large p " style="margin-top: 20px;" data-ng-click="addNscPic()"><i
-                        class="icon ion-plus "></i></button>
+                <button data-ng-if="imgs.length < 4" class="button button-calm button-large p "
+                        style="margin-top: 20px;" data-ng-click="addNscPic()"><i
+                    class="icon ion-plus "></i></button>
             </ion-item>
 
             <ion-item class="item item-toggle stable-bg item-borderless">
                 <span style="color: red;width: 3%">*</span>是否是主食：
                 <label class="toggle toggle-calm" ng-model="dishes.staple">
-                    <input type="checkbox"  >
+                    <input type="checkbox">
+
                     <div class="track">
                         <div class="handle"></div>
                     </div>
@@ -45,37 +43,42 @@
             <ion-item class="item item-input">
                 <span style="color: red;width: 3%">*</span>
                 <input type="text" data-ng-model="dishes.price" you-fan-number you-fan-size="4" placeholder="输入价格">
+
                 <p style="color:#1dbeaf; margin-right: 10px;">元/份</p>
             </ion-item>
             <ion-item class="item item-input">
                 <span style="color: red;width: 3%">*</span>
                 <input type="text" data-ng-model="dishes.stock" you-fan-number you-fan-size="4" placeholder="请输入菜品库存">
+
                 <p style="color:#1dbeaf; margin-right: 10px;">份</p>
             </ion-item>
             <ion-item class="item item-input">
-                <textarea rows="5" data-ng-model="dishes.description" placeholder="请输入菜品描述,方便饭友购买。例：主要食材 菜品介绍等"></textarea>
+                <textarea rows="5" data-ng-model="dishes.description"
+                          placeholder="请输入菜品描述,方便饭友购买。例：主要食材 菜品介绍等"></textarea>
             </ion-item>
 
             <ion-item class="item item-divider">特色（每条最多10个字）</ion-item>
             <ion-item class="item item-input item-stacked-label row padding point ">
 
-                <input class="col-50" type="text" style="text-align: center"  data-ng-model="dishes.features[0]" you-fan-size="10" placeholder="土豆">
+                <input class="col-50" type="text" style="text-align: center" data-ng-model="dishes.features[0]"
+                       you-fan-size="10" placeholder="土豆">
                 <input class="col-50" type="text" data-ng-model="dishes.features[1]" you-fan-size="10" placeholder="白菜">
-                </ion-item>
-                <ion-item class="item item-input item-stacked-label row padding point">
-                <input  class="col-50" type="text" data-ng-model="dishes.features[2]" you-fan-size="10" placeholder="">
-                <input  class="col-50" type="text" data-ng-model="dishes.features[3]" you-fan-size="10" placeholder="">
+            </ion-item>
+            <ion-item class="item item-input item-stacked-label row padding point">
+                <input class="col-50" type="text" data-ng-model="dishes.features[2]" you-fan-size="10" placeholder="">
+                <input class="col-50" type="text" data-ng-model="dishes.features[3]" you-fan-size="10" placeholder="">
             </ion-item>
 
             <div class="item item-divider">口味</div>
             <!--<ion-radio class=" " ng-repeat="item in kwItems"-->
-                       <!--ng-model="dishes.taste" ng-value="item.kw">-->
-                <!--{{item.text}}-->
+            <!--ng-model="dishes.taste" ng-value="item.kw">-->
+            <!--{{item.text}}-->
             <!--</ion-radio>-->
             <label class="item item-radio" ng-repeat="item in kwItems"
-                 >
+                >
                 <input type="radio" name="group">
-                <div class="item-content "   ng-model="dishes.taste" ng-value="item.kw" >
+
+                <div class="item-content " ng-model="dishes.taste" ng-value="item.kw">
                     {{item.text}}
                 </div>
                 <i class="radio-icon ion-checkmark calm"></i>
@@ -90,21 +93,24 @@
                 <div class="h1 title " align-text="center">菜品照片</div>
             </ion-header-bar>
             <ion-content>
-               <ion-item style=" margin-bottom: 15px;"  ng-repeat="item in imgs" >
-                <div> <img ng-src="{{item.url}}"  style="width: 100%;" ng-click="dishPic.show()"></div>
+                <ion-item style=" margin-bottom: 15px;" ng-repeat="item in imgs">
+                    <div><img ng-src="{{item.url}}" style="width: 100%;" ng-click="dishPic.show()"></div>
 
-                   <button style="padding: 3px 15px  "  class="button button-assertive light button-small item-note assertive-border"
-                           data-ng-click="removePic($index)">删除
-                   </button>
+                    <button style="padding: 3px 15px  "
+                            class="button button-assertive light button-small item-note assertive-border"
+                            data-ng-click="removePic($index)">删除
+                    </button>
 
-                   <button    ng-show="$index!==0" style="padding: 3px 15px ;margin-right: 10px; " class="button button-energized button-small light item-note energized-border "
-                          data-ng-click="replacePic($index)">设置为封面
-                   </button>
-                   <button style="padding: 3px 15px ;margin-right: 10px; " class="button button-calm button-small light item-note "
-                         ng-show="$index==0">已设置为封面
-                   </button>
+                    <button ng-show="$index!==0" style="padding: 3px 15px ;margin-right: 10px; "
+                            class="button button-energized button-small light item-note energized-border "
+                            data-ng-click="replacePic($index)">设置为封面
+                    </button>
+                    <button style="padding: 3px 15px ;margin-right: 10px; "
+                            class="button button-calm button-small light item-note "
+                            ng-show="$index==0">已设置为封面
+                    </button>
 
-                    </ion-item>
+                </ion-item>
             </ion-content>
 
         </ion-modal-view>

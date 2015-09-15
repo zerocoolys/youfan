@@ -120,6 +120,7 @@
             $stateProvider
                 .state('editkitchen', {
                     url: '/editkitchen',
+                    cache:false,
                     templateUrl: 'templates/editkitchen/editkitchen.html',
                     controller: "approve_editkitchen"
                 })

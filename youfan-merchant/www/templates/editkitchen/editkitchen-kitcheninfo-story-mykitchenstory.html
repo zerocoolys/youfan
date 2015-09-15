@@ -1,6 +1,6 @@
 <ion-view hide-nav-bar="true">
     <ion-header-bar class="bar" align-title="center">
-        <a class="button button-clear icon ion-ios-arrow-back" ng-click="isChange()"></a>
+        <a class="button button-clear button-calm icon ion-ios-arrow-back" ng-click="isChange()"></a>
 
         <h1 class="title calm">编辑厨房故事</h1>
         <button ng-click="saveStory()" class="button button-clear button-calm ">
@@ -11,13 +11,13 @@
         <ion-item class="item-input light-bg" style="margin: 20px 0;">
             <input type="text" ng-model="story.title" placeholder="给自己的故事起个题目"/>
         </ion-item>
-        <ion-item class="item-input">
-            <textarea data-ng-model="story.content" placeholder="说说您与美食的故事?让吃货们感受到美味中的情感点滴..  ."
-                      style="overflow-y: hidden" rows="10" ng-click="checkText(story.content)"></textarea>
+        <ion-item class="item-text-wrap" >
+            <textarea data-ng-model="story.content"  placeholder="说说您与美食的故事?让吃货们感受到美味中的情感点滴..  ."
+                      style="overflow: hidden;width: 100%;resize: none;" rows="10"   ng-click="checkText(story.content)" maxlength="1000"  wrap="wrap"></textarea>
 
         </ion-item>
         <label style="color: #ffc900; ">
-            说明:字数在1000以内
+            说明:字数在{{story.content.length}}/1000以内
         </label>
     </ion-content>
 </ion-view>

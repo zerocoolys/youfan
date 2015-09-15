@@ -38,7 +38,7 @@
                     "title": "服务器连接失败！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
                 $ionicPopup.alert(options);
@@ -51,13 +51,13 @@
                     "title": "是否保存当前修改内容！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $state.go("kitcheninfo-story");
                         }
                     }, {
                         text: "确定",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $scope.saveStory();
                         }
@@ -95,7 +95,7 @@
                                 "title": "系统繁忙！",
                                 "buttons": [{
                                     text: "关闭",
-                                    type: "button-positive clam"
+                                    type: "button-calm"
                                 }]
                             };
                         } else {
@@ -103,7 +103,7 @@
                                 "title": "保存成功！",
                                 "buttons": [{
                                     text: "确定",
-                                    type: "button-positive clam",
+                                    type: "button-calm",
                                     onTap: function () {
                                         $scope.storyTemplate.title = $scope.story.title;
                                         $scope.storyTemplate.content = $scope.story.content;
@@ -118,7 +118,7 @@
                             "title": "系统繁忙！",
                             "buttons": [{
                                 text: "关闭",
-                                type: "button-positive clam"
+                                type: "button-calm"
                             }]
                         };
                         $ionicPopup.alert(options);
@@ -128,7 +128,7 @@
                         "title": "服务器连接失败！",
                         "buttons": [{
                             text: "关闭",
-                            type: "button-positive clam"
+                            type: "button-calm"
                         }]
                     };
                     $ionicPopup.alert(options);

@@ -134,13 +134,14 @@
                     "title": "服务器连接失败！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
                 $ionicPopup.alert(options);
             });
 
         $scope.isChange = function () {
+            console.log("sdjfkhsdj");
             var all_tem = "";
             if ($rootScope.Province != null || $rootScope.Province != "" || $rootScope.Province != undefined) {
                 all_tem += $rootScope.Province;
@@ -158,13 +159,13 @@
                     "title": "是否保存当前修改内容！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $state.go("editkitchen")
                         }
                     }, {
                         text: "确定",
-                        type: "button-positive clam",
+                        type: "button-calm",
                         onTap: function () {
                             $scope.saveUserInfo();
                         }
@@ -199,7 +200,7 @@
                     "title": "信息不完整！",
                     "buttons": [{
                         text: "关闭",
-                        type: "button-positive clam"
+                        type: "button-calm"
                     }]
                 };
                 $ionicPopup.alert(options);
@@ -222,13 +223,13 @@
                                 "title": "系统繁忙！",
                                 "buttons": [{
                                     text: "重试",
-                                    type: "button-positive clam",
+                                    type: "button-calm",
                                     onTap: function () {
                                         $scope.saveUserInfo();
                                     }
                                 }, {
                                     text: "关闭",
-                                    type: "button-positive clam"
+                                    type: "button-calm"
                                 }]
                             };
                         } else {
@@ -236,7 +237,7 @@
                                 "title": "保存成功！",
                                 "buttons": [{
                                     text: "确定",
-                                    type: "button-positive clam",
+                                    type: "button-calm",
                                     onTap: function () {
                                         $state.go("editkitchen");
                                     }
@@ -249,7 +250,7 @@
                             "title": "服务器连接失败！",
                             "buttons": [{
                                 text: "关闭",
-                                type: "button-positive clam"
+                                type: "button-calm"
                             }]
                         };
                         $ionicPopup.alert(options);

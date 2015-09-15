@@ -2,10 +2,11 @@
 <ion-view view-title="" hide-nav-bar="true" cache-view="false">
 
     <ion-header-bar  align-title="center"  class="dishes-p" >
-            <a class="button button-clear   button-calm icon ion-ios-arrow-back" href="#/overview" ></a>
+            <a class="button button-clear   button-calm icon ion-ios-arrow-back" style="  padding: 0 5px;
+  margin-top: -2px;" href="#/overview" ></a>
             <div class="button-bar  calm" >
                 <a class="button  calm-border calm " style="padding: 0;" ng-repeat="way in ways" ng-class="headerIndex ==way.code? 'button-calm':''"
-                   ng-click="selectedHeader(way.code)">{{way.name}}</a>
+                                                                               ng-click="selectedHeader(way.code)">{{way.name}}</a>
             </div>
             <a class=" button button-clear button-calm "
                href="#/query_order" >

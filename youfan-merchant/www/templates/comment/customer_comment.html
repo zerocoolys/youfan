@@ -20,6 +20,7 @@
         </div>
 
         <ion-item class="item   " class="list" ng-repeat="comment in comments ">
+
             <h2>
                 <span ng-if="!comment.is_hide_name">{{comment.comment_user}}</span>
                 <span ng-if="comment.is_hide_name">匿名饭友</span>
@@ -33,6 +34,14 @@
                 <button ng-if="!comment.replayed" class="button button-calm button-small item-note"
                         ng-click="replyComments(comment.id)">添加回复
                 </button>
+
+            <!--<h2> {{comment.userName}}  <span class="alright">-->
+                      <!--<i class="ion-ios-star calm"></i><i class="ion-ios-star calm"></i><i-->
+                <!--class="ion-ios-star calm"></i><i-->
+                <!--class="ion-ios-star-half calm"></i><i class="ion-ios-star-outline calm"></i>-->
+                        <!--</span>-->
+                <!--<button ng-show="!comment.replyComments" class="button button-calm button-small item-note" ng-click="replyComments()">添加回复</button>-->
+
             </h2>
 
             <p style="margin-top: 10px; white-space: normal;">{{comment.content}} </p>

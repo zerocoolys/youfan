@@ -89,7 +89,6 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
         };
 
         $scope.addNscPic = function () {
-            console.log("addNscPic");
             if (!navigator.camera) {
                 $scope.$emit("youfan-merchant-show-msg", "请在真机环境中使用相册功能。现在只是模拟一张图片");
                 $scope.imgs.push({

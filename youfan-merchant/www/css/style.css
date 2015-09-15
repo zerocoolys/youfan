@@ -1,210 +1,267 @@
 /* Empty. Add your own CSS if you like */
-a{
+a {
     text-decoration: none;
 }
-.fr{
+
+.fr {
     float: right;
 }
-.fl{
+
+.fl {
     float: left;
 }
-.dishes a{
+
+.dishes a {
     font-size: 14px;
     text-decoration: none;
 }
-.white{
-  color: #fff;
+
+.white {
+    color: #fff;
 }
-.calm{
+
+.calm {
     color: #1dbeaf;
 }
-.calm-bg{
-    background-color:#1dbeaf;
+
+.calm-bg {
+    background-color: #1dbeaf;
 }
-.calm-bg{
+
+.calm-bg {
     border: #1dbeaf;
 }
 
-.dishes  > .button{
+.dishes > .button {
     padding: 0;
 }
 
-.shop-course-title{
+.shop-course-title {
     text-align: center;
-    line-height:10px ;
-    height : 0px;
-    font-weight:100;
+    line-height: 10px;
+    height: 0px;
+    font-weight: 100;
     font-size: 14px;
 }
-.shop-course-tishi{
+
+.shop-course-tishi {
     text-align: center;
-    height:40px;
-    line-height:70px;
-    font-weight:100;
+    height: 40px;
+    line-height: 70px;
+    font-weight: 100;
     font-size: 12px;
 }
-.shop-course li{
+
+.shop-course li {
     margin-top: 50px;
 }
-.shop-number{
+
+.shop-number {
     float: left;
     margin-right: 20px;
     text-align: center;
     padding: 2.5% 0;
     width: 10%;
 }
-.item-radio .item-content{
 
-     padding-right: 20px;
+.item-radio .item-content {
+
+    padding-right: 20px;
 
 }
 
-.title{
+.title {
     padding-top: 3px;
 }
+
 .dishes-p {
 
-
-
 }
+
 .dishes-p .button-bar > .button:first-child {
     border-radius: 10px 0px 0px 10px;
 }
+
 .dishes-p .button-bar > .button:last-child {
     border-radius: 0px 10px 10px 0px;
 }
 
-.button-bar .current{
+.button-bar .current {
     color: #1dbeaf;
     background: #f1f1f1;
     border-bottom: 2px solid #1dbeaf;
 }
-.dishes{
+
+.dishes {
 
 }
-.dishes-p .current{
+
+.dishes-p .current {
     background-color: #1dbeaf;
     color: white;
     border-bottom: 2px solid #1dbeaf;
 }
-.order .item-complex .item-content{
+
+.order .item-complex .item-content {
     padding-right: 16px;
 }
-.order_Details ul{
+
+.order_Details ul {
     margin-top: -20px;
 }
 
-.order_Details ul li{
+.order_Details ul li {
     width: 100%;
     margin-top: 18px;
 }
-.order_Details  b{
+
+.order_Details b {
     width: 100px;
     text-align: right;
 }
-.display_none{
+
+.display_none {
     display: none;
 }
-.per_input input{
-    margin:0 5px 0 10px;
+
+.per_input input {
+    margin: 0 5px 0 10px;
 }
-.height{
+
+.height {
     height: 50px;
 
 }
-.popup-head{
+
+.popup-head {
     padding: 0 10px;
     margin-top: 10px;
 
 }
-.home_class .scroll{
-    height: 100%; width:100%;
+
+.home_class .scroll {
+    height: 100%;
+    width: 100%;
 }
-.overview_title{
+
+.overview_title {
     border-color: #1dbeaf;
 
     background: transparent;
 }
-.overview_dish{
+
+.overview_dish {
     padding: 15%;
     vertical-align: middle;
-   text-align: center;
+    text-align: center;
 }
-.overview_dish i{
-    font-weight: 100;
-    margin-bottom: 5px;
-    font-size: 50px;
+
+.overview_dish .icon:before{
+    font-size: 30px;
+    line-height: 50px;
 
 }
-.overview_dish p{
+
+.overview_dish .button {
+    min-width: 52px;
+    min-height: 52px;
+
+
+}
+
+.icon_index {
+    vertical-align: middle;
+    border-radius: 100%;
+
+}
+
+.overview_dish .button.button-calm {
+    border-color: #1dbeaf;
+    background-color: #f8f8f8;
+    color: #1dbeaf;
+}
+
+.overview_dish p {
     margin-top: 10px;
 }
-.overview_dish_a{
+
+.overview_dish_a {
     padding: 10% 0;
 
-   /* margin-top: -35px;*/
+    /* margin-top: -35px;*/
 }
-.overview_dish_b{
+
+.overview_dish_b {
     margin-top: 3%;
     width: 100%;
     height: 100%;
 }
-.overview_bage{
+
+.overview_bage {
     position: absolute;
-    top:20%;left: 75%;
+    top: 20%;
+    left: 75%;
     width: 8px;
     height: 8px;
     border-radius: 100%;
     background-color: #ef473a;
 }
-.taskbar{
+
+.taskbar {
     padding: 15%;
 }
+
 .slider {
     height: 100%;
 }
+
 .slider-slide {
     /*text-align: center;*/
     font-weight: 300;
 }
 
-.box  {
+.box {
     height: 100%;
 }
-.box h1  {
+
+.box h1 {
     color: #fff;
 }
 
 .blue {
     background-color: #4a87ee;
 }
+
 .yellow {
     background-color: #f0b840;
 }
+
 .pink {
     background-color: #8a6de9;
 }
 
 .pink a {
-    right:0;
+    right: 0;
 }
 
 .btn-start {
     top: initial;
-    bottom : 40px;
+    bottom: 40px;
     width: 100px;
-    margin:0 auto;
-    display:block;
+    margin: 0 auto;
+    display: block;
 }
 
 .selected {
     background-color: #d2dced;
 }
-.point input{
+
+.point input {
     text-align: center;
 
 }
-.dishesPic{
+
+.dishesPic {
     position: absolute;
     background: rgba(0, 0, 0, 0.6);
     transition: .1s opacity linear;
@@ -212,21 +269,27 @@ a{
     width: 100%;
     height: 99%;
 }
-.dishesPic a{
+
+.dishesPic a {
     position: absolute;
-    top:39%;
-    left:39%;
+    top: 39%;
+    left: 39%;
     font-weight: 700;
 }
-.button-padding{
+
+.button-padding {
     padding: 0;
 }
-.row{
+
+.row {
     padding: 0;
 }
-.button-bar > .button{
+
+.button-bar > .button {
     padding: 0;
 }
-.tool:before{
+
+.tool:before {
     clear: both;
 }
+

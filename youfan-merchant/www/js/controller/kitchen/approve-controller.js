@@ -10,7 +10,7 @@
     ;
 
     function approve_editkitchen($scope, $http, YF_MERCHANT_HOST, $ionicPopup, YF_MERCHANT_INFO) {
-
+           console.log(123);
         $scope.approve = function () {
 
             $http.post(
