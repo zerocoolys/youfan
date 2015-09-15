@@ -1,7 +1,5 @@
 package com.youfan.services.impl;
 
-import static com.youfan.commons.Constants.MONGO_DELETED_DATA;
-
 import java.util.List;
 
 import com.youfan.commons.Pagination;
@@ -18,15 +16,18 @@ import com.youfan.services.MongoService;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public class MongoServiceImpl<E, T> implements MongoService<E, T>{
+public class MongoServiceImpl<E, V> implements MongoService<E, V>{
 	
-	private MongoBaseDAO<E, T, String> mongoDao;
-	public MongoServiceImpl(MongoBaseDAO<E, T, String> mongoDao){
+	private MongoBaseDAO<E, V, String> mongoDao;
+	public MongoServiceImpl(MongoBaseDAO<E, V, String> mongoDao){
 		this.mongoDao=mongoDao;
 	}
 
+	protected MongoBaseDAO<E, V, String> getMongoDAO() {
+		return mongoDao;
+	}
 	@Override
-	public void save(T t) {
+	public void save(V t) {
 		mongoDao.insert(t);
 	}
 
@@ -41,7 +42,7 @@ public class MongoServiceImpl<E, T> implements MongoService<E, T>{
 	}
 
 	@Override
-	public int updateById(String id, T t) {
+	public int updateById(String id, V t) {
 		return mongoDao.updateById(id, t);
 	}
 	
@@ -53,18 +54,24 @@ public class MongoServiceImpl<E, T> implements MongoService<E, T>{
 	}
 
 	@Override
-	public T get(String id) {
+	public V get(String id) {
 		return mongoDao.findOne(id);
 	}
 	@Override
-	public T getUniqueOne(String key, Object value) {
+	public V getUniqueOne(String key, Object value) {
 		return mongoDao.findUniqueOne(key, value);
 	}
 
 	@Override
-	public List<T> getPagerByParams(MongoParams params, Pagination pager) {
+	public List<V> getPagerByParams(MongoParams params, Pagination pager) {
+		params.setDataStatus(MONGO_NORMAL_DATA);
 		return mongoDao.findPagerByParams(params, pager);
 	}
 
+	@Override
+	public List<V> getByParams(MongoParams params) {
+		params.setDataStatus(MONGO_NORMAL_DATA);
+		return mongoDao.findPagerByParams(params, null);
+	}
 	
 }

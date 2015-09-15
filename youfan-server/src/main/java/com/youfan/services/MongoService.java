@@ -2,6 +2,7 @@ package com.youfan.services;
 
 import java.util.List;
 
+import com.youfan.commons.Constants;
 import com.youfan.commons.Pagination;
 import com.youfan.controllers.params.MongoParams;
 
@@ -15,7 +16,7 @@ import com.youfan.controllers.params.MongoParams;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public interface MongoService<E,T> {
+public interface MongoService<E,T> extends Constants{
 	/**
 	 * 
 	 * @param id
@@ -95,4 +96,6 @@ public interface MongoService<E,T> {
 	 * @update 2015年9月11日 上午10:29:56
 	 */
 	List<T> getPagerByParams(MongoParams params,Pagination pager);
+	
+	List<T> getByParams(MongoParams params);
 }
