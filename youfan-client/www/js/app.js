@@ -236,6 +236,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         controller: 'OrderDetailCtrl'
                     }
                 },
+                cache: false,
                 params: {
                     order: null,
                     userInfo: null,

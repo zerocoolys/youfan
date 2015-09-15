@@ -14,6 +14,7 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $rootScope, $ht
                     item["img"] = "img/2.jpeg";
                     var dateTime = new Date(item["commentTime"]);
                     item["commentTime"] = dateTime.toLocaleDateString() + "  " + dateTime.toLocaleTimeString();
+                    item["replay_date"]=item.replay_date?new Date(item["replay_date"]).toLocaleDateString()+" "+new Date(item["replay_date"]).toLocaleTimeString():'';
                     $scope.comments.push(item)
                 });
             }
