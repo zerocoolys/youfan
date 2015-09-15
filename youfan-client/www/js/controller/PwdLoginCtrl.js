@@ -66,21 +66,8 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                             User.token = data.payload.token;
 
                             ResponseUser.id = data.payload.clientUserVO.id;
-                            ResponseUser.name = data.payload.clientUserVO.name;
-                            ResponseUser.tel = data.payload.clientUserVO.tel;
-                            ResponseUser.age = data.payload.clientUserVO.age;
-                            ResponseUser.sex = data.payload.clientUserVO.sex;
-                            ResponseUser.jobs = data.payload.clientUserVO.jobs;
 
-
-                            localStorageService.set("userid", ResponseUser.id);
-                            //localStorageService.set("username", ResponseUser.name);
-                            //localStorageService.set("usertel", ResponseUser.tel);
-                            //localStorageService.set("userage", ResponseUser.age);
-                            //localStorageService.set("usersex", ResponseUser.sex);
-                            //localStorageService.set("userjobs", ResponseUser.jobs);
-
-                            //localStorageService.set("user", data.payload.clientUserVO);
+                            localStorageService.set("userid", data.payload.clientUserVO.id);
 
                             $state.go('tab.chats', {userobj: data.payload.clientUserVO});
 
@@ -135,7 +122,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                 localStorageService.remove("userage");
                 localStorageService.remove("usersex");
                 localStorageService.remove("userjobs");
-                $state.go('tab.dash');
+                $state.go('tab.chats');
             }).error(function (status, data) {
                 console.log(status);
                 console.log(data);
