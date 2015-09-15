@@ -16,14 +16,12 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.MenuService;
 import com.youfan.services.server.OrderService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -180,6 +178,46 @@ public class OrderController {
         return Responses.SUCCESS().setPayload(result);
     }
 
+    // 退款申请
+    @RequestMapping(method = RequestMethod.POST, path = "/refund", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response drawBack(@RequestBody OrderParams orderParams) {
+        int sourceOrderStatus = orderParams.getSourceOrderStatus();
+        switch (sourceOrderStatus) {
+            case 2:
+                orderParams.setOrderStatus(OrderStatus.ORDER_STEP2_CLIENT_WITHDRAW_PAYED.value());
+                break;
+            case 3:
+                orderParams.setOrderStatus(OrderStatus.ORDER_STEP3_CLIENT_WITHDRAW_PAYED.value());
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            default:
+                break;
+        }
+
+        if (orderParams.getOrderStatus() != null) {
+            orderService.updateOrderStatus(orderParams);
+            return Responses.SUCCESS().setMsg("申请成功, 正在审核");
+        }
+
+        return Responses.FAILED().setMsg("不合法的操作");
+    }
+
+    // 确认收货
+    @RequestMapping(method = RequestMethod.POST, path = "/receivingConfirmation", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response receivingConfirmation(@RequestBody OrderParams orderParams) {
+        if (orderParams.getSourceOrderStatus() == OrderStatus.ORDER_DELIVERY.value()) {
+            orderParams.setOrderStatus(OrderStatus.ORDER_RECEIVED.value());
+            orderService.updateOrderStatus(orderParams);
+            return Responses.SUCCESS().setMsg("Ok");
+        }
+
+        return Responses.FAILED().setMsg("不合法的操作");
+    }
+
+    // 用户订单查询
     @RequestMapping(method = RequestMethod.POST, path = "/users/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Response listByUserId(@PathVariable String userId, @RequestBody OrderParams orderParams) {
         Pagination pagination = new Pagination();
@@ -282,18 +320,17 @@ public class OrderController {
         return response;
 
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, path = "/overview/merchant")
-    public Response overviewMerchant( @RequestParam("sellerId") String sellerId
-          ) {
+    public Response overviewMerchant(@RequestParam("sellerId") String sellerId) {
         Response response = null;
         OrderParams orderParams = new OrderParams();
         try {
             orderParams.setSellerId(sellerId);
-        
+
             MerchantOrderOverviewVO order = orderService
                     .findOrdersByMerchantOverview(orderParams);
-            
+
             response = Responses.SUCCESS().setPayload(order);
         } catch (Exception e) {
             response = Responses.FAILED();
@@ -303,18 +340,17 @@ public class OrderController {
         return response;
 
     }
-    
-    
+
+
     @RequestMapping(method = RequestMethod.GET, path = "/myincome/merchant")
-    public Response myincomeMerchant( @RequestParam("sellerId") String sellerId
-          ) {
+    public Response myincomeMerchant(@RequestParam("sellerId") String sellerId) {
         Response response = null;
         OrderParams orderParams = new OrderParams();
         try {
             orderParams.setSellerId(sellerId);
-        
+
             MerchantIncomeVO order = orderService.findMyIncome(orderParams);
-            
+
             response = Responses.SUCCESS().setPayload(order);
         } catch (Exception e) {
             response = Responses.FAILED();
@@ -324,5 +360,5 @@ public class OrderController {
         return response;
 
     }
-    
+
 }

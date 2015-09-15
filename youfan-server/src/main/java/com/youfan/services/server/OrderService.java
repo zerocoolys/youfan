@@ -32,10 +32,6 @@ public interface OrderService {
 
 	void updateOrder(OrderVO order);
 
-	OrderVO cancelOrder(OrderVO order);
-
-	OrderVO refundOrder(OrderVO order);
-
 	void saveOrderDishes(List<OrderDishRelVO> dishRelVOs);
 
 	List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderParams order);
