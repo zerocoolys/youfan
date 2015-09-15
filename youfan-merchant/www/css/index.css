@@ -59,3 +59,19 @@
     float:right;
     margin-right:20px;
 }
+@media (max-width: 679px) {
+    .active .modal-backdrop-bg {
+        opacity: .5;
+    }
+
+    .modal-backdrop-bg {
+        -webkit-transition: opacity 300ms ease-in-out;
+        transition: opacity 300ms ease-in-out;
+        background-color: #000;
+        opacity: 0;
+    }
+}
+
+.mode_img.modal {
+    background: rgba(0, 0, 0, 0.8);
+}
