@@ -8,6 +8,7 @@ import com.youfan.utils.XXTEAUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 
@@ -18,6 +19,9 @@ import javax.annotation.Resource;
 public class CaptchaServiceImpl implements CaptchaService {
 
     private static Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
+
+    @Resource
+    private Jedis jedis;
 
     /**
      * 验证码缓存时长
@@ -36,25 +40,16 @@ public class CaptchaServiceImpl implements CaptchaService {
         }
     }
 
-
-//    @Override
-//    public void insert(String captchaKey, String captcha) {
-//        RedisPool redisPool = new RedisPool();
-//        redisPool.getJedis().set(captchaKey, captcha);
-//    }
-
     @Override
     public void setAlive(String captchaKey, int aliveSeconds, String captcha) {
-        RedisPool redisPool = new RedisPool();
-        redisPool.getJedis().setex(captchaKey, aliveSeconds, captcha);
+        jedis.setex(captchaKey, aliveSeconds, captcha);
     }
 
     @Override
     public String getCaptcha(String captchaKey) {
-        RedisPool redisPool = new RedisPool();
         String result = new String();
         try {
-            result = redisPool.getJedis().get(captchaKey);
+            result = jedis.get(captchaKey);
         } catch (Exception e){
             logger.info(e.getMessage());
         }
