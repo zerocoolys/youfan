@@ -125,7 +125,10 @@ public class CUserController {
             maVO.setHouseNumber(params.getHouseNumber());
             maVO.setLabel(params.getLabel());
 
+            list = userService.findUserById(params.getId()).getMealsAddress();
+
             list.add(maVO);
+
             cuVO.setMealsAddress(list);
             userService.updateMealsAddress(params.getId(), cuVO);
             userService.insertMealsAddress(maVO);
@@ -139,11 +142,11 @@ public class CUserController {
     /**
      * 送餐地址列表
      *
-     * @param ucVO
+     * @param mealsAddressStr
      * @return
      */
-    @RequestMapping(path = "/mealsaddresslist", method = RequestMethod.POST, produces = "application/json")
-    public Response mealsAddressList(@RequestBody ClientUserVO ucVO) {
+    @RequestMapping(path = "/maddresslist", method = RequestMethod.GET, produces = "application/json")
+    public Response mealsAddressList(@RequestBody String mealsAddressStr) {
 
         return null;
     }
