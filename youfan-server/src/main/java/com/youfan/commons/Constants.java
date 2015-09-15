@@ -93,13 +93,9 @@ public interface Constants {
     String MESSAGE_DATE = "date";
     String MESSAGE_STATUS = "status";
 
-    /* 优惠卷 subDong */
+    /* 优惠卷 subDong (coupons)*/
     String CONPONS_ID = "id";
-    String CONPONS_COUPONSID = "cid";
-    String CONPONS_CREATEDATE = "cd";
-    String CONPONS_MODIFYDATE = "md";
     String CONPONS_STATUS = "status";
-    String CONPONS_DATASTATUS = "ds";
     String CONPONS_USERID = "userid";
 
     /* MrDeng */

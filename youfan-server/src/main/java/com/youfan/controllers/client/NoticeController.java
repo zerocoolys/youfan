@@ -28,25 +28,19 @@ public class NoticeController {
 
 
     @RequestMapping(value = "/getNotice/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Response getNotice(HttpServletResponse response, HttpServletRequest request,
-                                  @PathVariable Long userId) {
-        AbstractView jsonView = new MappingJackson2JsonView();
+    public Response getNotice(@PathVariable Long userId) {
         List<MessageVO> entities = messageService.findMsgList(userId, 2);
         return Responses.SUCCESS().setCode(1).setPayload(entities);
     }
 
     @RequestMapping(value = "/getCount/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Response getCount(HttpServletResponse response, HttpServletRequest request,
-                                 @PathVariable Long userId) {
-        AbstractView jsonView = new MappingJackson2JsonView();
+    public Response getCount(@PathVariable Long userId) {
         Long entities = messageService.countUnreadMsg(userId, 2);
         return Responses.SUCCESS().setCode(1).setPayload(entities);
     }
 
     @RequestMapping(value = "/modifyMsg/{id}", method = RequestMethod.GET, produces = "application/json")
-    public Response modifyMsg(HttpServletResponse response, HttpServletRequest request,
-                                  @PathVariable String id) {
-        AbstractView jsonView = new MappingJackson2JsonView();
+    public Response modifyMsg(@PathVariable String id) {
         boolean entities = messageService.updateMsg(id, 1);
         return Responses.SUCCESS().setCode(1).setPayload(entities);
     }

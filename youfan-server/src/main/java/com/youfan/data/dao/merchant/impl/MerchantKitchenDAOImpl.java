@@ -95,7 +95,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         Criteria c = Criteria.where(Constants.CONPONS_STATUS).is(0);
         if (p.getParams() != null && p.getParams().size() > 0) {
             p.getParams().forEach((k, v) -> {
-                if ("lnglat".indexOf(k) == -1) {
+                if ("lnglatscope".indexOf(k) == -1) {
                     c.and(k).is(v);
                 }
             });
@@ -104,7 +104,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
         long totalCount = this.mongoTemplate.count(query, this.getEntityClass());
         query.skip((p.getPageNo() - 1) * p.getPageSize());
         query.limit(p.getPageSize());
-        Sort sort = null;
+//        Sort sort = null;
 //        if (!p.getAsc().equals("") && p.getSortBy() != null) {
 //            sort = new Sort(new Sort.Order(p.getAsc().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, p.getSortBy()));
 //            query.with(sort);
@@ -112,7 +112,7 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
 
         Point point = new Point(Double.valueOf(p.getParams().get("lng").toString()), Double.valueOf(p.getParams().get("lat").toString()));
 
-        NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(2).query(query);
+        NearQuery geoNear = NearQuery.near(point, Metrics.KILOMETERS).minDistance(0.01).maxDistance(Double.valueOf(p.getParams().get("scope").toString())).query(query);
 
         TypedAggregation<MerchantKitchenInfoEntity> aggs = newAggregation(MerchantKitchenInfoEntity.class, geoNear(geoNear, MERCHANTKITCHEN_LOCATION), sort(Sort.Direction.ASC, MERCHANTKITCHEN_LOCATION));
 
