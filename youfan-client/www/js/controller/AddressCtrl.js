@@ -16,25 +16,25 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
     };
 
 
-    //if (AuthenticationService.isLogged) {
-    //    UserService.userInfo(localStorageService.get("userid")).success(function (data) {
-    //        console.log(data);
-    //        //$scope.post = {
-    //        //    uid: data.payload.id,
-    //        //    contact: "",
-    //        //    tel: "",
-    //        //    address: "",
-    //        //    houseNumber: "",
-    //        //    label: {
-    //        //        home: "",
-    //        //        company: ""
-    //        //    }
-    //        //};
-    //    }).error(function (status, data) {
-    //        console.log(status);
-    //        console.log(data);
-    //    });
-    //}
+    if (AuthenticationService.isLogged) {
+        UserService.userInfo(localStorageService.get("userid")).success(function (data) {
+            console.log(data);
+            $scope.post = {
+                uid: data.payload.id,
+                contact: "",
+                tel: "",
+                address: "",
+                houseNumber: "",
+                label: {
+                    home: "",
+                    company: ""
+                }
+            };
+        }).error(function (status, data) {
+            console.log(status);
+            console.log(data);
+        });
+    }
 
     $scope.post = {
         id: localStorageService.get("userid"),

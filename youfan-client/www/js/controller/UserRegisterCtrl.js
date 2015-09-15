@@ -1,7 +1,7 @@
 /**
  * Created by icepros on 15-8-19.
  */
-ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $ionicPopup, $timeout, $location, $state, SMSService, UserService, $interval) {
+ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $ionicPopup, $timeout, User, AuthenticationService, localStorageService, $location, $state, SMSService, UserService, $interval) {
 
     /**
      * 用户协议
@@ -50,49 +50,111 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
                     telVerify.close(); //由于某种原因2秒后关闭弹出
                 }, 2000);
             } else {
+
+
                 if (captcha.trim() != "") {
                     if (password.trim() != "") {
                         if (rePassword.trim() != "") {
                             if (password.trim() == rePassword.trim()) {
-                                SMSService.registerCaptchaVerify(tel).success(function (data) {
-                                    if (data.payload != null && data.payload == captcha) {
-                                        UserService.register(tel, password).success(function (data) {
+                                /*SMSService.registerCaptchaVerify(tel).success(function (data) {
+                                 if (data.payload != null && data.payload == captcha) {*/
+
+                                UserService.register(tel, password).success(function (data) {
+                                    if (data.code == 0) {
+                                        UserService.signIn(tel, password).success(function (data) {
                                             if (data.code == 0) {
-                                                $state.go('tab.chats');
-                                            }
-                                            if (data.code == 1) {
-                                                var telReg = $ionicPopup.show({
-                                                    title: '该手机号已注册',
+                                                //console.log(data.payload.token);
+                                                if (data.payload.token != "") {
+
+                                                    //angular 本地存储
+                                                    $scope.$watch('token', function () {
+                                                        localStorageService.set('token', data.payload.token);
+                                                        $scope.tokenValue = localStorageService.get('token');
+                                                    });
+
+                                                    $scope.storageType = 'Local storage';
+
+                                                    if (localStorageService.getStorageType().indexOf('session') >= 0) {
+                                                        $scope.storageType = 'Session storage';
+                                                    }
+
+                                                    if (!localStorageService.isSupported) {
+                                                        $scope.storageType = 'Cookie';
+                                                    }
+
+                                                    $scope.$watch(function () {
+                                                        return localStorageService.get('token');
+                                                    }, function () {
+                                                        $scope.token = data.payload.token;
+                                                    });
+
+
+                                                    AuthenticationService.isLogged = true;
+
+                                                    User.id = data.payload.clientUserVO.id;
+                                                    User.name = data.payload.clientUserVO.name;
+                                                    User.telNo = data.payload.clientUserVO.tel;
+                                                    User.token = data.payload.token;
+
+                                                    localStorageService.set("userid", data.payload.clientUserVO.id);
+
+                                                    $state.go('tab.chats', {userobj: data.payload.clientUserVO});
+
+                                                } else {
+                                                    var loginDied = $ionicPopup.show({
+                                                        title: '链接超时',
+                                                        scope: $scope
+                                                    });
+                                                    $timeout(function () {
+                                                        loginDied.close(); //由于某种原因2秒后关闭弹出
+                                                    }, 2000);
+                                                    $state.go('tab.dash');
+                                                }
+                                            } else {
+                                                var dataNull = $ionicPopup.show({
+                                                    title: '手机号和密码不对',
                                                     scope: $scope
                                                 });
                                                 $timeout(function () {
-                                                    telReg.close(); //由于某种原因2秒后关闭弹出
+                                                    dataNull.close(); //由于某种原因2秒后关闭弹出
                                                 }, 2000);
                                             }
-                                        }).error(function (data) {
-                                            console.log(data);
-                                        });
-                                    } else if (data.payload != null && data.payload != captcha) {
-                                        var captchaError = $ionicPopup.show({
-                                            title: '验证码错误',
+                                        })
+                                    }
+                                    if (data.code == 1) {
+                                        var telReg = $ionicPopup.show({
+                                            title: '该手机号已注册',
                                             scope: $scope
                                         });
                                         $timeout(function () {
-                                            captchaError.close(); //由于某种原因2秒后关闭弹出
-                                        }, 2000);
-                                    } else {
-                                        var captchaDied = $ionicPopup.show({
-                                            title: '验证码失效',
-                                            scope: $scope
-                                        });
-                                        $timeout(function () {
-                                            captchaDied.close(); //由于某种原因2秒后关闭弹出
+                                            telReg.close(); //由于某种原因2秒后关闭弹出
                                         }, 2000);
                                     }
-                                })
-                                    .error(function () {
+                                }).error(function (data) {
+                                    console.log(data);
+                                });
 
-                                    });
+                                /* } else if (data.payload != null && data.payload != captcha) {
+                                 var captchaError = $ionicPopup.show({
+                                 title: '验证码错误',
+                                 scope: $scope
+                                 });
+                                 $timeout(function () {
+                                 captchaError.close(); //由于某种原因2秒后关闭弹出
+                                 }, 2000);
+                                 } else {
+                                 var captchaDied = $ionicPopup.show({
+                                 title: '验证码失效',
+                                 scope: $scope
+                                 });
+                                 $timeout(function () {
+                                 captchaDied.close(); //由于某种原因2秒后关闭弹出
+                                 }, 2000);
+                                 }
+                                 })
+                                 .error(function () {
+
+                                 });*/
                             } else {
                                 var passwordEquals = $ionicPopup.show({
                                     title: '请确保两次输入的密码一致i',
