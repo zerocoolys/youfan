@@ -100,14 +100,17 @@ ServiceModule
             updateInfo: function (post) {
                 return $http.post(api.base_url + '/cuser/binfo', post);
             },
-            mealsAddress: function () {
-                return $http.post(api.base_url + '/cuser/mealsaddress', {});
+            mealsAddress: function (post) {
+                return $http.post(api.base_url + '/cuser/mealsaddress', post);
             },
             attention: function () {
                 return $http.post(api.base_url + '/cuser/attention', {});
             },
             praise: function () {
                 return $http.post(api.base_url + '/cuser/praise', {});
+            },
+            userInfo: function (id) {
+                return $http.get(api.base_url + '/cuser/' + id);
             }
         }
     })

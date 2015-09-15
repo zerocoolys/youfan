@@ -236,6 +236,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         controller: 'OrderDetailCtrl'
                     }
                 },
+                cache: false,
                 params: {
                     order: null,
                     userInfo: null,
@@ -343,6 +344,9 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                         templateUrl: 'templates/login/set-pwd.html',
                         controller: 'SetPwdCtrl'
                     }
+                },
+                params: {
+                    telNo: null
                 }
             })
             //免责协议

@@ -1,16 +1,22 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams,localStorageService, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $ionicPopup, $timeout, $http, UserService) {
+ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams, AuthenticationService, localStorageService, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $ionicPopup, $timeout, $http, UserService) {
 
-    if(localStorageService.get("token") != null){
-        $scope.post = {
-            uid: localStorageService.get("userid"),
-            name: localStorageService.get("username"),
-            sex: localStorageService.get("usersex"),
-            age: localStorageService.get("userage"),
-            jobs: localStorageService.get("userjobs")
-        };
+    if (AuthenticationService.isLogged) {
+        UserService.userInfo(localStorageService.get("userid")).success(function (data) {
+            //console.log(data);
+            $scope.post = {
+                uid: data.payload.id,
+                name: data.payload.name,
+                sex: data.payload.sex,
+                age: data.payload.age,
+                jobs: data.payload.jobs
+            };
+        }).error(function (status, data) {
+            console.log(status);
+            console.log(data);
+        });
     }
 
     //$scope.post={}

@@ -1,22 +1,27 @@
 /*公用样式*/
-.fl{
+.fl {
     float: left;
 }
-.fr{
+
+.fr {
     float: right;
 }
-.mainColor{
+
+.mainColor {
     color: #1dbeaf !important;
 }
-.existingAccount{
+
+.existingAccount {
     margin-top: 90px;
     text-align: center;
 }
-.list_detail_person_img{
+
+.list_detail_person_img {
     width: 100%;
     text-align: center;
 }
-.list_detail_person_img img{
+
+.list_detail_person_img img {
     width: 50px;
     height: 50px;
     border-radius: 50px;
@@ -27,11 +32,13 @@
     left: 50%;
     margin-left: -25px;
 }
-.how_delivery{
+
+.how_delivery {
     background-color: #fff;
     margin: 8px 12px 0 0;
 }
-.how_delivery span{
+
+.how_delivery span {
     text-align: center;
     line-height: 20px;
     display: inline-block;
@@ -43,16 +50,19 @@
     border: 1px solid #ddd;
     border-radius: 3px;
 }
-.how_delivery span.active{
+
+.how_delivery span.active {
     background-color: #e4e400;
     color: #fff;
 }
+
 /*购物车背景*/
-.cart_bg{
+.cart_bg {
     background-color: #fff;
     border-radius: 9px;
     padding: 0 6px;
 }
+
 /*dash-detail中分享的icon*/
 .dash_detail .bar.bar-light {
     background: none;
@@ -72,7 +82,6 @@
 .dash_detail .bar-header i {
     font-size: 24px;
     color: #fff;
-    margin-right: 10px;
 }
 
 .dash_detail .bar-header {
@@ -80,13 +89,13 @@
 }
 
 .dash_detail .top_share {
-    position: absolute;
-    right: 15px;
-    min-width:100px;
+    float: right;
+    margin-right: 10px;
 
 }
+
 /*添加商品数量*/
-.add_shop_account{
+.add_shop_account {
     display: inline-block;
     width: 25px;
     height: 25px;
@@ -101,13 +110,16 @@
     -o-transition: all 0.5s;
     transition: all 0.5s;
 }
-.dash_detail .chang_width{
+
+.dash_detail .chang_width {
     width: 65px;
     padding: 0 8px;
 }
-.dash_detail .chang_width .ion-plus{
+
+.dash_detail .chang_width .ion-plus {
     float: right;
 }
+
 .dash_detail .main_menu .slider-pager {
     display: none;
 
@@ -116,48 +128,58 @@
 .dash_detail .main_menu.slider {
     height: auto;
 }
-.dash_detail .main_menu .item-body{
+
+.dash_detail .main_menu .item-body {
     background-color: #eee;
     /*padding-bottom:48px;*/
 }
-.dash_detail .main_menu .item-body .menu_line{
+
+.dash_detail .main_menu .item-body .menu_line {
     border-top-width: 1px;
 }
-.dash_detail .main_menu .item-body .full-image{
+
+.dash_detail .main_menu .item-body .full-image {
     height: 180px;
     margin-bottom: -2px;
 }
-.dash_detail .main_menu .item-body h2,.dash_detail .main_menu .item-body p{
+
+.dash_detail .main_menu .item-body h2, .dash_detail .main_menu .item-body p {
     margin: 5px 0;
 }
+
 /*附菜单的处理*/
 .tip_menu_list .item-thumbnail-left .item-content .item-image,
-.tip_menu_list .item-thumbnail-left .item-content>img:first-child,.tip_menu_list .item-thumbnail-left .item-image,.tip_menu_list .item-thumbnail-left>img:first-child {
+.tip_menu_list .item-thumbnail-left .item-content > img:first-child, .tip_menu_list .item-thumbnail-left .item-image, .tip_menu_list .item-thumbnail-left > img:first-child {
     top: 0;
     left: 0;
     max-width: 100px;
     max-height: 100px;
 }
-.tip_menu_list .tip_menu_list_name{
+
+.tip_menu_list .tip_menu_list_name {
     border-bottom: 1px solid #f4f4f4;
     padding: 5px 0 10px 0;
     margin-bottom: 5px;
     margin-top: 0;
 }
-.tip_menu_list .mainColor{
+
+.tip_menu_list .mainColor {
     font-size: 12px;
 }
-.tip_menu_list .price{
+
+.tip_menu_list .price {
     margin-top: 8px;
     font-size: 14px;
 }
-.tip_menu_list .item-thumbnail-left,.tip_menu_list .item-thumbnail-left .item-content {
+
+.tip_menu_list .item-thumbnail-left, .tip_menu_list .item-thumbnail-left .item-content {
     padding-top: 0;
     padding-bottom: 0;
     height: 100px;
 }
+
 /*icon的背景颜色*/
-.icon_bg{
+.icon_bg {
     display: inline-block;
     width: 25px;
     height: 25px !important;
@@ -171,77 +193,92 @@
     -webkit-border-radius: 25px;
     color: #fff !important;
 }
+
 /**/
-.tip_menu{
+.tip_menu {
     line-height: 30px;
 }
-.address_detail_info label{
+
+.address_detail_info label {
     display: block;
     color: #ccc;
     line-height: 30px;
 }
+
 /*就餐方式*/
-.delivery_address{
+.delivery_address {
     margin-left: 20px;
     color: #ccc;
 }
-.delivery_address p{
+
+.delivery_address p {
     color: #ccc;
 }
+
 /*我的订单中的样式*/
-.order .item-complex .item-content{
+.order .item-complex .item-content {
     padding-right: 16px;
 }
-.order .list{
+
+.order .list {
     padding-left: 1px;
     padding-right: 1px;
 }
-.order .order_list{
+
+.order .order_list {
     margin-top: 10px;
 }
+
 /*订单详情样式*/
-.order_Details ul{
+.order_Details ul {
     margin-top: -20px;
 }
 
-.order_Details ul li{
+.order_Details ul li {
     margin-top: 18px;
 }
-.order_Details  b{
+
+.order_Details b {
     margin-right: 18px;
 }
+
 /*确认订单样式*/
-.confirm_order .order_list{
+.confirm_order .order_list {
     margin-top: 10px;
 }
 
 /*进度条样式*/
-.process_bar{
+.process_bar {
     padding: 0 20px;
     width: 100%;
     height: 34px;
     line-height: 34px;
 }
-.process_bar .step_bar{
+
+.process_bar .step_bar {
     width: 100%;
     height: 34px;
 }
-.process_bar ul li{
+
+.process_bar ul li {
     display: inline-block;
     width: 50%;
     height: 34px;
     float: left;
 }
-.process_bar ul .step_end{
+
+.process_bar ul .step_end {
     width: 34px;
     height: 34px;
     float: right;
     margin-top: -34px;
 }
-.process_bar ul .step_second{
+
+.process_bar ul .step_second {
     margin-left: -17px;
 }
-.process_bar ul li .step_no{
+
+.process_bar ul li .step_no {
     display: block;
     width: 34px;
     height: 34px;
@@ -253,18 +290,21 @@
     color: #1dbeaf;
     margin-top: -20px;
 }
-.process_bar ul li .step_status{
+
+.process_bar ul li .step_status {
     display: block;
     height: 4px;
     margin-top: 30px;
     background-color: #1dbeaf;
     margin-left: 5px;
 }
-.process_bar ul li .step_name{
+
+.process_bar ul li .step_name {
     white-space: nowrap;
     position: absolute;
     top: 46px;
 }
+
 /*----------------------------------------------我的分割线-----------------------------------------*/
 /*.step_bar{
      height: 10px;
@@ -310,7 +350,7 @@
     white-space: nowrap;
 }*/
 /*我的资料*/
-.personal_info input{
+.personal_info input {
     height: auto;
 }
 
@@ -322,7 +362,9 @@
     width: 100%;
     background-color: rgba(0, 0, 0, 0.2);
 }
-.modal_bottom{/*底部wrap*/
+
+.modal_bottom {
+    /*底部wrap*/
     position: absolute;
     width: 100%;
     height: 221px;
@@ -331,35 +373,42 @@
     background-color: #fff;
     color: #ccc;
 }
-.modal_bottom .time_header{
+
+.modal_bottom .time_header {
     background-color: #fff;
     position: relative;
     border-bottom: 1px solid #1dbeaf;
 }
-#dining , #time{
+
+#dining, #time {
     position: absolute;
     height: 180px;
     overflow: hidden;
     width: 50%;
     line-height: 36px;
 }
-#time{
+
+#time {
     left: 50%;
 }
-.myDiv{
+
+.myDiv {
     text-align: center;
     position: relative;
     width: 100%;
     height: 180px;
-    background: -webkit-gradient(linear,left bottom,left top,from(#f5f5f5),color-stop(0.52, rgba(245,245,245,0)),color-stop(0.48, rgba(245,245,245,0)),to(#f5f5f5));
+    background: -webkit-gradient(linear, left bottom, left top, from(#f5f5f5), color-stop(0.52, rgba(245, 245, 245, 0)), color-stop(0.48, rgba(245, 245, 245, 0)), to(#f5f5f5));
 }
-#dining ul li{
+
+#dining ul li {
     height: 36px;
 }
-#time ul li{
+
+#time ul li {
     height: 36px;
 }
-.time_line{
+
+.time_line {
     width: 100%;
     position: absolute;
     top: 50%;

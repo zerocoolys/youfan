@@ -25,12 +25,14 @@
                 </div>
             </ion-item>
             <ion-item class="item-divider">
-                <!--<div class="">-->
                 <span>合计</span>
 
                 <p class="item-note mainColor" ng-bind="order.orgPrice"></p>
+            </ion-item>
+            <ion-item class="item-divider">
+                <span>惠后价格</span>
 
-                <!--</div>-->
+                <p class="item-note mainColor" ng-bind="order.discountPrice"></p>
             </ion-item>
             <ion-list>
                 <ion-item class="item item-icon-left">
@@ -53,9 +55,12 @@
             </ion-list>
         </ion-scroll>
     </ion-content>
-    <div class="bar bar-footer bar-calm">
+    <div class="bar bar-footer bar-calm" ng-hide="hasPaid">
         <div class="button-bar">
-            <a class="button button-clear" href="#/tab/pay-success">去支付</a>
+            <!--<a class="button button-clear" href="#/tab/pay-success">去支付</a>-->
+            <a class="button button-clear"
+               ui-sref="tab.pay-page({orderNo: order.orderNo, discountPrice: order.discountPrice})">去支付</a>
         </div>
     </div>
+    <!-- TODO 在未完成栏目下, 进入订单详情时需要加入退款和确认收货按钮 -->
 </ion-view>
