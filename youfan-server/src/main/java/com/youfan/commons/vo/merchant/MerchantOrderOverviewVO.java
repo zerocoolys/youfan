@@ -5,34 +5,44 @@ package com.youfan.commons.vo.merchant;
  */
 public class MerchantOrderOverviewVO {
 
-	public int todayOrder;
+	public double todayOrder;
 
-	public int tomorrowOrder;
+	public double tomorrowOrder;
 
-	public int dishes;
+	public double dishes;
 
-	public int getTodayOrder() {
+	public double turnover;
+
+	public double getTodayOrder() {
 		return todayOrder;
 	}
 
-	public void setTodayOrder(int todayOrder) {
+	public void setTodayOrder(double todayOrder) {
 		this.todayOrder = todayOrder;
 	}
 
-	public int getTomorrowOrder() {
+	public double getTomorrowOrder() {
 		return tomorrowOrder;
 	}
 
-	public void setTomorrowOrder(int tomorrowOrder) {
+	public void setTomorrowOrder(double tomorrowOrder) {
 		this.tomorrowOrder = tomorrowOrder;
 	}
 
-	public int getDishes() {
+	public double getDishes() {
 		return dishes;
 	}
 
-	public void setDishes(int dishes) {
+	public void setDishes(double dishes) {
 		this.dishes = dishes;
+	}
+
+	public double getTurnover() {
+		return turnover;
+	}
+
+	public void setTurnover(double turnover) {
+		this.turnover = turnover;
 	}
 
 }

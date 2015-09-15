@@ -2,13 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youfan.data.mappers.OrderMapper">
 
+
+ <resultMap id="income"
+		type="com.youfan.commons.vo.merchant.MerchantIncomeVO">
+
+		<result column="REFUND" property="refund" />
+		<result column="RECEIVED" property="received" />
+		
+		
+	</resultMap>
+
  <resultMap id="overviewOrders"
 		type="com.youfan.commons.vo.merchant.MerchantOrderOverviewVO">
 
-		<result column="today_order" property="todayOrder" />
-		<result column="tomorrow_order" property="tomorrowOrder" />
-		<result column="dishes" property="dishes" />
+		<result column="TODAY_ORDER" property="todayOrder" />
+		<result column="TOMORROW_ORDER" property="tomorrowOrder" />
+		<result column="DISHES" property="dishes" />
+		<result column="TURNOVER" property="turnover" />
+		
 	</resultMap>
+
 
 	<resultMap id="MerchantOrderHeader"
 		type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
@@ -391,55 +404,130 @@ WHERE
 	
 	
 	<select id="overviewData" parameterType="java.util.Map"
-		resultType="java.util.Map">
+		resultMap="overviewOrders">
 
 SELECT
-	todayOrders.today_order,
-	tomorrowOrders.tomorrow_order,
-   dishes.dishes
+	TODAYORDERS.TODAY_ORDER,
+	TOMORROWORDERS.TOMORROW_ORDER,
+    DISHES.DISHES,
+    TURNOVER.TURNOVER
 FROM
 	(
 		SELECT
-			count(o.ORDER_NO) AS today_order
+			COUNT(O.ORDER_NO) AS TODAY_ORDER
 		FROM
-			TBL_ORDERS o
+			TBL_ORDERS O
 		WHERE
-		o.ORDER_TIME >= CURDATE()
+		O.ORDER_TIME >= CURDATE()
 		
-		AND o.ORDER_TIME &lt; date_add(CURDATE(), interval 1 day)
+		AND O.ORDER_TIME &lt; date_add(CURDATE(), interval 1 day)
 		
-	) todayOrders
+		<if test="sellerId != null and sellerId != ''">
+			and O.SELLER_ID = #{sellerId}
+	   </if>
+		
+		
+	) TODAYORDERS
 JOIN (
 	SELECT
-		count(o.ORDER_NO) AS tomorrow_order
+		count(O.ORDER_NO) AS TOMORROW_ORDER
 	FROM
-		TBL_ORDERS o
+		TBL_ORDERS O
 	WHERE
-		o.ORDER_TIME >= date_add(CURDATE(), interval 1 day)
+		O.ORDER_TIME >= date_add(CURDATE(), interval 1 day)
 		
-		AND o.ORDER_TIME &lt; date_add(CURDATE(), interval 2 day)
-) tomorrowOrders
+		AND O.ORDER_TIME &lt; date_add(CURDATE(), interval 2 day)
+		
+		<if test="sellerId != null and sellerId != ''">
+			and O.SELLER_ID = #{sellerId}
+	</if>
+		
+) TOMORROWORDERS
 
 JOIN (
 
 SELECT
-	count(d.DISH_ID) AS dishes
+	COUNT(D.DISH_ID) AS DISHES
 FROM
-	TBL_ORDERS o
-JOIN TBL_REL_ODR_DISH d ON o.ORDER_NO = d.ORDER_NO
+	TBL_ORDERS O
+JOIN TBL_REL_ODR_DISH D ON O.ORDER_NO = D.ORDER_NO
 WHERE
 
-	o.ORDER_TIME >= CURDATE()
+	O.ORDER_TIME >= CURDATE()
 		
-	AND o.ORDER_TIME &lt; date_add(CURDATE(), interval 1 day)
+	AND O.ORDER_TIME &lt; date_add(CURDATE(), interval 1 day)
 
+   <if test="sellerId != null and sellerId != ''">
+			and O.SELLER_ID = #{sellerId}
+	</if>
 
-AND o.ORDER_STATUS = 2
+AND O.ORDER_STATUS = 2
 
-) dishes 
+) DISHES 
+
+JOIN (
+	SELECT
+	SUM(O.ORIGINAL_PRICE) TURNOVER
+FROM
+	TBL_ORDERS O
+WHERE
+	O.ORDER_TIME = CURRENT_DATE
+	
+		<if test="sellerId != null and sellerId != ''">
+			and O.SELLER_ID = #{sellerId}
+		</if>
+
+) TURNOVER
 
 
 		
 	</select>
 	
+	
+		
+	<select id="myIncome" parameterType="com.youfan.controllers.params.OrderParams"
+		resultMap="income">
+	
+	SELECT 
+REFUND.REFUND,
+RECEIVED.RECEIVED
+ FROM 
+(
+SELECT
+
+COUNT(O.ORIGINAL_PRICE) REFUND
+
+FROM
+	TBL_ORDERS O
+WHERE
+  O.ORDER_STATUS = 201  OR O.ORDER_STATUS = 202 OR O.ORDER_STATUS = 301  OR O.ORDER_STATUS = 302
+
+  
+  
+		<if test="sellerId != null and sellerId != ''">
+			and O.SELLER_ID = #{sellerId}
+		</if>
+  
+) REFUND
+JOIN
+(
+SELECT
+
+COUNT(O.ORIGINAL_PRICE) RECEIVED
+
+FROM
+	TBL_ORDERS O
+WHERE
+  O.ORDER_STATUS = 100  
+
+
+		<if test="sellerId != null and sellerId != ''">
+			and O.SELLER_ID = #{sellerId}
+		</if>
+
+
+)RECEIVED
+
+	
+	</select>
 </mapper>

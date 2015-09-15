@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
+import com.youfan.commons.vo.merchant.MerchantIncomeVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
@@ -40,7 +41,7 @@ public interface OrderService {
 	List<MerchantOrderHeaderVO> findOrdersByMerchant(OrderParams order);
 
 	MerchantOrderOverviewVO findOrdersByMerchantOverview(OrderParams order);
-	
+
 	Map<String, Long> findOrdersByMerchantSummary(OrderParams order);
 
 	MerchantOrderDetailVO findOrderDetailByOrderNo(String orderNo);
@@ -54,5 +55,7 @@ public interface OrderService {
 	int updateOrderStatus(OrderParams order);
 
 	List<OrderDishRelVO> findDishByOrderNo(String orderNo);
+
+	MerchantIncomeVO findMyIncome(OrderParams order);
 
 }

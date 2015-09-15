@@ -5,6 +5,7 @@ import com.youfan.commons.OrderStatus;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.MenuVO;
+import com.youfan.commons.vo.merchant.MerchantIncomeVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.DishVO;
@@ -283,7 +284,7 @@ public class OrderController {
     }
     
     @RequestMapping(method = RequestMethod.GET, path = "/overview/merchant")
-    public Response listByMerchant( @RequestParam("sellerId") String sellerId
+    public Response overviewMerchant( @RequestParam("sellerId") String sellerId
           ) {
         Response response = null;
         OrderParams orderParams = new OrderParams();
@@ -303,6 +304,25 @@ public class OrderController {
 
     }
     
+    
+    @RequestMapping(method = RequestMethod.GET, path = "/myincome/merchant")
+    public Response myincomeMerchant( @RequestParam("sellerId") String sellerId
+          ) {
+        Response response = null;
+        OrderParams orderParams = new OrderParams();
+        try {
+            orderParams.setSellerId(sellerId);
+        
+            MerchantIncomeVO order = orderService.findMyIncome(orderParams);
+            
+            response = Responses.SUCCESS().setPayload(order);
+        } catch (Exception e) {
+            response = Responses.FAILED();
+            logger.error(e.getMessage());
+        }
 
+        return response;
 
+    }
+    
 }

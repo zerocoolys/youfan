@@ -17,6 +17,7 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MechantMenuVO;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.merchant.MerchantIncomeVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
@@ -297,5 +298,14 @@ public class OrderServiceImpl implements OrderService {
 		
 		return orderDAO.findOrdersByMerchantOverview(order);
 	}
+	
+	@Override
+	public MerchantIncomeVO findMyIncome(
+			OrderParams order) {
+		
+		return orderDAO.findMyIncome(order);
+	}
+
+
 
 }

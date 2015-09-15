@@ -2,12 +2,8 @@ package com.youfan.data.dao.server.impl;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
+import com.youfan.commons.vo.merchant.MerchantIncomeVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
 import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
@@ -75,7 +72,6 @@ public class OrderDAOImpl implements OrderDAO {
 		return null;
 	}
 
-
 	@Override
 	public List<OrderVO> findAll(Pagination pagination) {
 		List<OrderVO> list = sqlSession.selectList("findAllByPagination",
@@ -83,7 +79,6 @@ public class OrderDAOImpl implements OrderDAO {
 
 		return list;
 	}
-
 
 	@Override
 	public List<OrderVO> findBySellerId(String sellerId, Pagination pagination) {
@@ -101,8 +96,8 @@ public class OrderDAOImpl implements OrderDAO {
 		orderEntity.setSellerId(order.getSellerId());
 		orderEntity.setOrgPrice(BigDecimal.valueOf(order.getOrgPrice()));
 		orderEntity.setDiscountPrice(BigDecimal.valueOf(order
-                .getDiscountPrice()));
-        orderEntity.setDataStatus(order.getDataStatus());
+				.getDiscountPrice()));
+		orderEntity.setDataStatus(order.getDataStatus());
 		orderEntity.setOrderStatus(order.getOrderStatus());
 
 		orderEntity.setOrderTime(Timestamp.from(Instant.now()));
@@ -198,44 +193,53 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
-
-	public List<Map<String, Object>> findOrdersByMerchantSummary(OrderParams order) {
+	public List<Map<String, Object>> findOrdersByMerchantSummary(
+			OrderParams order) {
 
 		return sqlSession.selectList("findOrderSummary", order);
 
 	}
-    public List<OrderDishRelVO> findDishByOrderNo(String orderNo) {
-        List<OrderDishRelEntity> dishRelEntities = sqlSession.selectList("findDishByOrderNo", orderNo);
-        return convertToVOList(dishRelEntities, OrderDishRelEntity.class, OrderDishRelVO.class);
-    }
 
+	public List<OrderDishRelVO> findDishByOrderNo(String orderNo) {
+		List<OrderDishRelEntity> dishRelEntities = sqlSession.selectList(
+				"findDishByOrderNo", orderNo);
+		return convertToVOList(dishRelEntities, OrderDishRelEntity.class,
+				OrderDishRelVO.class);
+	}
 
-    @Override
-    public OrderVO findOrderById(Long id) {
-        OrderEntity entity = sqlSession.selectOne("findOrderById", id);
-        return convertToVO(entity, OrderEntity.class, OrderVO.class);
-    }
+	@Override
+	public OrderVO findOrderById(Long id) {
+		OrderEntity entity = sqlSession.selectOne("findOrderById", id);
+		return convertToVO(entity, OrderEntity.class, OrderVO.class);
+	}
 
-    @Override
-    public List<OrderVO> findByBuyerId(String buyerId, Pagination pagination) {
-        List<OrderEntity> orderEntityList = sqlSession.selectList("findByBuyerId", pagination.getParams());
-        if (orderEntityList == null)
-            return Collections.emptyList();
+	@Override
+	public List<OrderVO> findByBuyerId(String buyerId, Pagination pagination) {
+		List<OrderEntity> orderEntityList = sqlSession.selectList(
+				"findByBuyerId", pagination.getParams());
+		if (orderEntityList == null)
+			return Collections.emptyList();
 
-        return convertToVOList(orderEntityList, OrderEntity.class, OrderVO.class);
-    }
+		return convertToVOList(orderEntityList, OrderEntity.class,
+				OrderVO.class);
+	}
 
 	@Override
 	public MerchantOrderOverviewVO findOrdersByMerchantOverview(
 			OrderParams order) {
-		
-		 
-		
-		
-		Map<String,Integer> data = sqlSession.selectOne("overviewData",order);
-		
-		
-		return null;
+
+		MerchantOrderOverviewVO data = sqlSession.selectOne("overviewData",
+				order);
+
+		return data;
 	}
 
+	@Override
+	public MerchantIncomeVO findMyIncome(OrderParams order) {
+		
+		MerchantIncomeVO data = sqlSession.selectOne("myIncome",
+				order);
+
+		return data;
+	}
 }
