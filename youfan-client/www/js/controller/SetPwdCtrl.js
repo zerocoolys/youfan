@@ -1,15 +1,16 @@
 /**
  * Created by ss on 2015/9/1.
  */
-ControllerModule.controller('SetPwdCtrl', function ($scope, $ionicModal, $ionicPopup, $timeout, $location, $http, UserService, $state, localStorageService) {
+ControllerModule.controller('SetPwdCtrl', function ($scope, $ionicModal, $ionicPopup, $timeout,AuthenticationService, $location, $http, UserService, $state, localStorageService) {
 
     $scope.formValue = {};
 
-    if (localStorageService.get("token") != null) {
+    if (AuthenticationService.isLogged) {
         $scope.telNo = localStorageService.get("usertel");
     }
 
-    $scope.resetPwd = function (oldPwd, newPwd, confirmPwd) {
+    $scope.setPwd = function (oldPwd, newPwd, confirmPwd) {
+
         var re = /[0-9 | A-Z | a-z]{6,16}/;
         if (oldPwd != "") {
             if (newPwd.trim() != "") {
@@ -19,7 +20,6 @@ ControllerModule.controller('SetPwdCtrl', function ($scope, $ionicModal, $ionicP
                             UserService.signIn($scope.telNo, oldPwd).success(function (data) {
                                 if (data.code == 0) {
                                     UserService.resetPassword($scope.telNo, newPwd).success(function (data) {
-                                        console.log(data);
                                         if (data.code == 0) {
                                             $state.go('tab.chats');
                                         } else {

@@ -97,6 +97,7 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
                                                     User.token = data.payload.token;
 
                                                     localStorageService.set("userid", data.payload.clientUserVO.id);
+                                                    localStorageService.set("usertel", data.payload.clientUserVO.tel);
 
                                                     $state.go('tab.chats', {userobj: data.payload.clientUserVO});
 

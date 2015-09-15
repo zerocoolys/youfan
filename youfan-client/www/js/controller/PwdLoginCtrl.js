@@ -68,6 +68,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                             ResponseUser.id = data.payload.clientUserVO.id;
 
                             localStorageService.set("userid", data.payload.clientUserVO.id);
+                            localStorageService.set("usertel", data.payload.clientUserVO.tel);
 
                             $state.go('tab.chats', {userobj: data.payload.clientUserVO});
 
@@ -116,12 +117,8 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
         if (AuthenticationService.isLogged) {
             UserService.signOut().success(function (data) {
                 AuthenticationService.isLogged = false;
-                localStorageService.remove("token")
-                localStorageService.remove("username");
-                localStorageService.remove("usertel");
-                localStorageService.remove("userage");
-                localStorageService.remove("usersex");
-                localStorageService.remove("userjobs");
+                localStorageService.remove("token");
+                localStorageService.remove("userid");
                 $state.go('tab.chats');
             }).error(function (status, data) {
                 console.log(status);
