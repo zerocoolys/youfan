@@ -99,18 +99,20 @@
     </logger>
 
 
-    <!--<logger name="org.mongodb" level="ERROR" /> -->
-    <!--<logger name="org.springframework" level="ERROR" /> -->
-    <!--<logger name="org.apache.ibatis" level="ERROR" /> -->
-    <!--<logger name="org.mybatis.spring" level="ERROR" /> -->
-    <!--<logger name="org.apache.http" level="ERROR" /> -->
+    <logger name="org.mongodb" level="ERROR" /> 
+    <logger name="org.springframework" level="info" /> 
+    <logger name="org.apache.ibatis" level="info" />
+    <logger name="org.mybatis.spring" level="info" />
+    <logger name="org.apache.http" level="info" /> 
     <!--&lt;!&ndash; sql语句打印 &ndash;&gt; -->
-    <!--<logger name="java.sql" level="ERROR" /> -->
+    <logger name="java.sql" level="info" /> 
 
-    <logger name="org.springframework" level="info"/>
+    <logger name="org.springframework" level="debug"/>
+
+    <logger name="com.youfan.data.dao" level="debug"/>
 
 
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="STDOUT"/>
         <!-- <appender-ref ref="file" /> -->
     </root>

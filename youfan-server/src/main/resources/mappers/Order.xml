@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youfan.data.mappers.OrderMapper">
 
+ <resultMap id="overviewOrders"
+		type="com.youfan.commons.vo.merchant.MerchantOrderOverviewVO">
+
+		<result column="today_order" property="todayOrder" />
+		<result column="tomorrow_order" property="tomorrowOrder" />
+		<result column="dishes" property="dishes" />
+	</resultMap>
+
 	<resultMap id="MerchantOrderHeader"
 		type="com.youfan.commons.vo.merchant.MerchantOrderHeaderVO">
 
@@ -11,7 +19,7 @@
 		<result column="repast_Time" property="repastTime" />
 		<result column="repast_Address" property="repastAddress" />
 		<result column="dishes_Id" property="dishesId" />
-
+		<result column="ORIGINAL_PRICE" property="price" />
 
 	</resultMap>
 	<resultMap id="MerchantOrderDetail" type="com.youfan.commons.vo.MerchantOrderDetailVO">
@@ -382,6 +390,56 @@ WHERE
 	
 	
 	
-	
+	<select id="overviewData" parameterType="java.util.Map"
+		resultType="java.util.Map">
+
+SELECT
+	todayOrders.today_order,
+	tomorrowOrders.tomorrow_order,
+   dishes.dishes
+FROM
+	(
+		SELECT
+			count(o.ORDER_NO) AS today_order
+		FROM
+			TBL_ORDERS o
+		WHERE
+		o.ORDER_TIME >= CURDATE()
+		
+		AND o.ORDER_TIME &lt; date_add(CURDATE(), interval 1 day)
+		
+	) todayOrders
+JOIN (
+	SELECT
+		count(o.ORDER_NO) AS tomorrow_order
+	FROM
+		TBL_ORDERS o
+	WHERE
+		o.ORDER_TIME >= date_add(CURDATE(), interval 1 day)
+		
+		AND o.ORDER_TIME &lt; date_add(CURDATE(), interval 2 day)
+) tomorrowOrders
+
+JOIN (
+
+SELECT
+	count(d.DISH_ID) AS dishes
+FROM
+	TBL_ORDERS o
+JOIN TBL_REL_ODR_DISH d ON o.ORDER_NO = d.ORDER_NO
+WHERE
+
+	o.ORDER_TIME >= CURDATE()
+		
+	AND o.ORDER_TIME &lt; date_add(CURDATE(), interval 1 day)
+
+
+AND o.ORDER_STATUS = 2
+
+) dishes 
+
+
+		
+	</select>
 	
 </mapper>

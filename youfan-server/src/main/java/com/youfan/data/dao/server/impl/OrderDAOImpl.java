@@ -2,8 +2,12 @@ package com.youfan.data.dao.server.impl;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +21,7 @@ import com.youfan.commons.OrderNoGenerator;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.MerchantOrderDetailVO;
 import com.youfan.commons.vo.merchant.MerchantOrderHeaderVO;
+import com.youfan.commons.vo.merchant.MerchantOrderOverviewVO;
 import com.youfan.commons.vo.server.OrderDishRelVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.controllers.params.OrderParams;
@@ -219,5 +224,18 @@ public class OrderDAOImpl implements OrderDAO {
 
         return convertToVOList(orderEntityList, OrderEntity.class, OrderVO.class);
     }
+
+	@Override
+	public MerchantOrderOverviewVO findOrdersByMerchantOverview(
+			OrderParams order) {
+		
+		 
+		
+		
+		Map<String,Integer> data = sqlSession.selectOne("overviewData",order);
+		
+		
+		return null;
+	}
 
 }

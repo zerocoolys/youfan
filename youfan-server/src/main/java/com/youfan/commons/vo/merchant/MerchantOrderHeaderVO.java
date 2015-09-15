@@ -18,7 +18,7 @@ public class MerchantOrderHeaderVO {
 	private Timestamp repastTime;
 	private String repastAddress;
 	private int dishesCount;
-	   private int dataStatus = MONGO_NORMAL_DATA;
+	private int dataStatus = MONGO_NORMAL_DATA;
 	/**
 	 * 购买者头像
 	 */
