@@ -355,7 +355,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                 }
                 if (result.payload.mu != null) {
                     var _tmpData = result.payload.mu;
-                    _tmpData["realName"] = _tmpData.realName.substring(0, 1) + "先生";
+                    _tmpData["realName"] = _tmpData.realName ? _tmpData.realName.substring(0, 1) + "先生" : '暂无';
                     _tmpData["address"] = _tmpData.address ? _tmpData.address.replace(/市|省|自治|区/g, '') + "人" : "暂无";
                     $scope.merchantUser = _tmpData;
                     Merchant.userInfo = _tmpData;
