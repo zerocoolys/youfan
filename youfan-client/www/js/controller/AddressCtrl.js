@@ -19,16 +19,29 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
     if (AuthenticationService.isLogged) {
         UserService.userInfo(localStorageService.get("userid")).success(function (data) {
             console.log(data);
-            $scope.post = {
-                uid: data.payload.id,
-                contact: "",
-                tel: "",
-                address: "",
-                houseNumber: "",
-                label: {
-                    home: "",
-                    company: ""
+
+
+            $scope.po = function () {
+                var results = [];
+                for (var i = 0; i < data.payload.mealsAddress.length; i++) {
+
+                    results.push({
+                        id: data.payload.id,
+                        mealsAddress: data.payload.mealsAddress[i]
+                    })
                 }
+                return results;
+            };
+
+            $scope.arry = $scope.po();
+
+            $scope.post = {
+                id: data.payload.id,
+                contact: data.payload.mealsAddress.contact,
+                tel: data.payload.mealsAddress.tel,
+                address: data.payload.mealsAddress.address,
+                houseNumber: data.payload.mealsAddress.houseNumber,
+                label: data.payload.mealsAddress.label
             };
         }).error(function (status, data) {
             console.log(status);
@@ -36,14 +49,14 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
         });
     }
 
-    $scope.post = {
-        id: localStorageService.get("userid"),
-        contact: "",
-        tel: "",
-        address: "",
-        houseNumber: "",
-        label: ""
-    };
+    //$scope.post = {
+    //    id: localStorageService.get("userid"),
+    //    contact: "",
+    //    tel: "",
+    //    address: "",
+    //    houseNumber: "",
+    //    label: ""
+    //};
 
     $scope.labelHome = function () {
         $scope.post.label = "家";

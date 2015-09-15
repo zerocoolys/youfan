@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/17.
  */
-ControllerModule.controller('SetCtrl', function ($scope, $ionicModal, Order, REST_URL, $ionicPopup, $ionicBackdrop, $timeout) {
+ControllerModule.controller('SetCtrl', function ($scope, $ionicModal, Order, AuthenticationService, $state, REST_URL, $ionicPopup, $ionicBackdrop, $timeout) {
 
     $ionicModal.fromTemplateUrl('templates/opinion.html', {
         scope: $scope
@@ -18,5 +18,19 @@ ControllerModule.controller('SetCtrl', function ($scope, $ionicModal, Order, RES
         $timeout(function () {
             myPopup.close(); //close the popup after 3 seconds for some reason
         }, 1000);
-    }
+    };
+    $scope.updatePwd = function () {
+        if (AuthenticationService.isLogged) {
+            $state.go('tab.set-pwd');
+        } else {
+            $state.go('tab.pwd-login');
+        }
+    };
+    $scope.feedback = function () {
+        if (AuthenticationService.isLogged) {
+            $scope.modal.show();
+        } else {
+            $state.go('tab.pwd-login');
+        }
+    };
 });

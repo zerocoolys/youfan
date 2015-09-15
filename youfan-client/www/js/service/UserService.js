@@ -50,7 +50,7 @@ ServiceModule
     })
     .factory('SMSService', function ($http) {
         var code = "";
-        var codeLength = 6;
+        var codeLength = 4;
         //生成 6 位随机数验证码
         for (var i = 0; i < codeLength; i++) {
             code += parseInt(Math.random() * 9).toString();
@@ -102,6 +102,9 @@ ServiceModule
             },
             mealsAddress: function (post) {
                 return $http.post(api.base_url + '/cuser/mealsaddress', post);
+            },
+            mealsAddressList: function (id) {
+                return $http.get(api.base_url + '/cuser/maddresslist' + id);
             },
             attention: function () {
                 return $http.post(api.base_url + '/cuser/attention', {});

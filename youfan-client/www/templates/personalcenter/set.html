@@ -6,7 +6,7 @@
 
     </ion-header-bar>
     <ion-content>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ui-sref="tab.set-pwd">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ng-click="updatePwd()">
             <h2>修改密码</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
@@ -19,7 +19,7 @@
             <h2>清除缓存</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
-        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ng-click="modal.show()">
+        <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ng-click="feedback()">
             <h2>意见反馈</h2>
             <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>

@@ -5,43 +5,17 @@
         <h1 class="title">送餐地址</h1>
     </ion-header-bar>
     <ion-content>
-        <div class="list">
+        <div class="list" ng-repeat="item in arry">
             <a class="item item-avatar" href="#">
                 <div class="item_left">
-                    地址1<br>
-                    <button class="button button-outline button-balanced little-button">公司</button>
+                    {{item.mealsAddress.address}}<br>
+                    <button class="button button-outline button-balanced little-button">{{item.mealsAddress.label}}</button>
                 </div>
-                <span>果果</span>
+                <span>{{item.mealsAddress.contact}}</span>
 
-                <h2>V13032866980</h2>
+                <h2>{{item.mealsAddress.tel}}</h2>
 
-                <p>成都市高新区天府大道南段</p>
-            </a>
-        </div>
-        <div class="list">
-            <a class="item item-avatar" href="#">
-                <div class="item_left">
-                    地址1<br>
-                    <button class="button button-outline button-balanced little-button">公司</button>
-                </div>
-                <span>果果</span>
-
-                <h2>V13032866980</h2>
-
-                <p>成都市高新区天府大道南段</p>
-            </a>
-        </div>
-        <div class="list">
-            <a class="item item-avatar" href="#">
-                <div class="item_left">
-                    地址1<br>
-                    <button class="button button-outline button-balanced little-button">公司</button>
-                </div>
-                <span>果果</span>
-
-                <h2>V13032866980</h2>
-
-                <p>成都市高新区天府大道南段</p>
+                <p>{{item.mealsAddress.address}}</p>
             </a>
         </div>
     </ion-content>
