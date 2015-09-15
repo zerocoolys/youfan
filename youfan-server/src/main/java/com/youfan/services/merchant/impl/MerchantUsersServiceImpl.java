@@ -315,7 +315,6 @@ public class MerchantUsersServiceImpl implements MerchantUsersService {
 
     @Override
     public int updateById(String id, MerchantUserParams muParams) {
-        // TODO Auto-generated method stub
         return merchantUserDao.updateById(id, muParams);
     }
 

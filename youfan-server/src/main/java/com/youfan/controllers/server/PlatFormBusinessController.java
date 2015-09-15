@@ -31,10 +31,10 @@ import com.youfan.commons.vo.server.CouponVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.controllers.params.ActiveParams;
+import com.youfan.controllers.params.MenuParams;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.params.merchant.KitchenParams;
 import com.youfan.controllers.params.merchant.MerchantParams;
-import com.youfan.controllers.params.merchant.MerchantUserParams;
 import com.youfan.controllers.params.server.CouponParams;
 import com.youfan.controllers.params.server.CouponTypeParams;
 import com.youfan.controllers.params.server.PayWayParams;
@@ -42,6 +42,7 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.CouponContentEntity;
+import com.youfan.services.client.MenuService;
 import com.youfan.services.merchant.CommentService;
 import com.youfan.services.merchant.KitchenService;
 import com.youfan.services.merchant.MerchantKitchenService;
@@ -94,6 +95,8 @@ public class PlatFormBusinessController {
 	MerchantService merchantService;
 	@Resource
 	KitchenService kitchenService;
+	@Resource
+	MenuService menuService;
 	///////////////////////////////// 系统//////////////////////////////////////////
 
 	/**
@@ -831,22 +834,32 @@ public class PlatFormBusinessController {
 		return Responses.FAILED().setCode(0).setMsg("获取商家信息失败");
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description  按照ID更新 商家信息
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月15日 上午11:36:01
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/updateMerchant/{id}")
 	public Response updateMerchantById(@PathVariable String id, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			MerchantUserParams muParams = new MerchantUserParams();
-			muParams.setStatus(request.getParameter(MONGO_STATUS) == null ? null
+			MerchantParams params = new MerchantParams();
+			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
 					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
-			muParams.setUserName(request.getParameter("userName"));
-			int rn = merchantUsersService.updateById(id, muParams);
+			int rn = merchantService.updateById(id, params);
 			if (rn == 1) {
-				return Responses.SUCCESS().setCode(0).setMsg("获取商家信息成功");
+				return Responses.SUCCESS().setCode(1).setMsg("更新商家信息成功");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Responses.FAILED().setCode(0).setMsg("获取商家信息失败");
+		return Responses.FAILED().setCode(0).setMsg("更新商家信息失败");
 	}
 
 	/**
@@ -861,6 +874,8 @@ public class PlatFormBusinessController {
 			KitchenParams params = new KitchenParams();
 			params.setPhoneNumber(request.getParameter("phone"));
 			params.setKitchenName(request.getParameter("name"));
+			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
+					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
 			Pagination pager = new Pagination();
 			long recordCnt = kitchenService.count(params);
 			// 分页信息
@@ -881,23 +896,21 @@ public class PlatFormBusinessController {
 		return Responses.FAILED().setCode(0).setMsg("获取商家厨房信息失败");
 	}
 
-	/**
-	 * 商家 审核接口
-	 *
-	 * @param request
-	 * @param response
-	 * @description TODO
-	 * @version 1.0
-	 * @author QinghaiDeng
-	 * @update 2015年8月26日 下午5:50:28
-	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/merchant/checkMerchant")
-	public void checkMerchant(HttpServletRequest request, HttpServletResponse response) {
-		Integer status = 0;
-		if (request.getParameter("id") != null && request.getParameter("status") != null) {
-			status = Integer.valueOf(request.getParameter("status"));
-			merchantUsersService.checkMerchant(request.getParameter("id"), status);
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/updateKitchen/{id}")
+	public Response updateKitchen(@PathVariable String id, HttpServletRequest request,
+			HttpServletResponse response) {
+		try {
+			KitchenParams params = new KitchenParams();
+			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
+					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			int rn = kitchenService.updateById(id, params);
+			if (rn == 1) {
+				return Responses.SUCCESS().setCode(1).setMsg("更新商家厨房信息成功");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return Responses.FAILED().setCode(0).setMsg("更新商家厨房信息失败");
 	}
 
 	/**
@@ -914,14 +927,14 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getMenus")
 	public Response getMenus(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			MerchantParams params = new MerchantParams();
-			params.setPhone(request.getParameter("phone"));
-			params.setRealName(request.getParameter("realName"));
-			params.setUserName(request.getParameter("userName"));
-			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
-					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			MenuParams params = new MenuParams();
+//			params.setPhone(request.getParameter("phone"));
+//			params.setRealName(request.getParameter("realName"));
+//			params.setUserName(request.getParameter("userName"));
+//			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
+//					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
 			Pagination pager = new Pagination();
-			long recordCnt = merchantService.count(params);
+			long recordCnt = menuService.count(params);
 			// 分页信息
 			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
 					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
@@ -932,7 +945,7 @@ public class PlatFormBusinessController {
 					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
 			CollectionVO<MerchantUserVO> payload = new CollectionVO<>(merchantService.getPagerByParams(params, pager),
 					(int) recordCnt, pager.getPageSize());
-			return Responses.SUCCESS().setCode(0).setPayload(payload).setMsg("获取商家信息成功");
+			return Responses.SUCCESS().setCode(1).setPayload(payload).setMsg("获取商家信息成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
