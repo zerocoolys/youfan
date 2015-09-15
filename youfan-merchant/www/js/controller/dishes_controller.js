@@ -8,7 +8,7 @@
         .module('yf_merchant')
         .controller('dishes', dishes);
 
-    function dishes($scope, $filter, $state, $ionicSlideBoxDelegate,$stateParams,$http,$rootScope) {
+    function dishes($scope, $filter, $state, $ionicSlideBoxDelegate,$stateParams,$http,$rootScope,YF_MERCHANT_HOST,YF_MERCHANT_INFO) {
 
        //订单
         $scope.orders = [];
@@ -61,11 +61,10 @@
 
 
         $scope.loadSummaryData = function () {
-            var url = "http://127.0.0.1:8080/orders/merchant/summary?";
+            var url = YF_MERCHANT_HOST+"/orders/merchant/summary?";
             var merchant = {};
-            merchant.sellerId = "888888888"; //获取商家用户ID
 
-            url = url+"sellerId="+merchant.sellerId;
+            url = url+"sellerId="+YF_MERCHANT_INFO.mID;
             console.log(url);
 
             $http.get(url).success
@@ -95,8 +94,7 @@
             var url = "";
             var merchant = {};
 
-            url = "http://127.0.0.1:8080/orders/merchant?";
-            merchant.sellerId = "888888888"; //获取商家用户ID
+            url = YF_MERCHANT_HOST+"/orders/merchant?";
             merchant.orderStatus = $scope.statusIndex; //获取状态选择
 
             //订单（配送或上门）
@@ -109,7 +107,7 @@
                 merchant.orderStatus = 3;
             }
 
-            url = url+"orderStatus="+merchant.orderStatus+"&sellerId="+merchant.sellerId+"&repastMode="+merchant.repastMode;
+            url = url+"orderStatus="+merchant.orderStatus+"&sellerId="+YF_MERCHANT_INFO.mID+"&repastMode="+merchant.repastMode;
             console.log(url);
 
 
