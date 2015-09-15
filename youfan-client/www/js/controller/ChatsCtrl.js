@@ -30,11 +30,12 @@ ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $s
     });
 
     $scope.order = function () {
-        if (AuthenticationService.isLogged) {
-            $state.go('tab.order');
-        } else {
-            $state.go('tab.pwd-login');
-        }
+        $state.go('tab.order');
+        //if (AuthenticationService.isLogged) {
+        //    $state.go('tab.order');
+        //} else {
+        //    $state.go('tab.pwd-login');
+        //}
     };
     $scope.wallet = function () {
         if (AuthenticationService.isLogged) {

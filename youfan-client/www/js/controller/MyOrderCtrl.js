@@ -155,34 +155,34 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
                             var _status = parseInt(result[i].orderStatus);
 
                             if (_status == 1) {
-                                result[i].orderStatus = "等待支付";
+                                result[i].orderStatusStr = "等待支付";
                             } else if (_status == 2) {
-                                result[i].orderStatus = "等待商家确认";
+                                result[i].orderStatusStr = "等待商家确认";
                             } else if (_status == 3) {
-                                result[i].orderStatus = "等待商家做菜";
+                                result[i].orderStatusStr = "等待商家做菜";
                             } else if (_status == 4) {
-                                result[i].orderStatus = "等待商家发货";
+                                result[i].orderStatusStr = "等待商家发货";
                             } else if (_status == 5) {
-                                result[i].orderStatus = "确认收货";
+                                result[i].orderStatusStr = "确认收货";
                             }
                         }
                         $scope.unfinishedOrders = result;
                         break;
                     case 2:
                         for (var j = 0, m = result.length; j < m; j++) {
-                            result[j].orderStatus = "已完成";
+                            result[j].orderStatusStr = "已完成";
                         }
                         $scope.finishedOrders = result;
                         break;
                     case 3:
                         for (var k = 0, n = result.length; k < n; k++) {
-                            result[k].orderStatus = "退款中";
+                            result[k].orderStatusStr = "退款中";
                         }
                         $scope.refundingOrders = result;
                         break;
                     case 4:
                         for (var q = 0, s = result.length; q < s; q++) {
-                            result[q].orderStatus = "等待评价";
+                            result[q].orderStatusStr = "等待评价";
                         }
                         $scope.notCommentedOrders = result;
                         break;
@@ -215,13 +215,31 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
                 _order.paymentWay = "无";
             }
 
-            if (_order.orderStatus == "等待支付") {
+            var _status = _order.orderStatus;
+
+            if (_status == 1) {
                 _order.paymentStatus = "待付款";
             } else {
                 _order.paymentStatus = "已付款";
             }
 
-            $state.go('tab.order-detail', {order: _order, userInfo: $scope.userInfo, dishes: data.payload});
+            var refundClass = true;
+            var receivingConfirmationClass = true;
+
+            if (_status == 2 || _status == 3 || _status == 4 || _status == 5) {
+                if (_status == 5) {
+                    receivingConfirmationClass = false;
+                }
+                refundClass = false;
+            }
+
+            $state.go('tab.order-detail', {
+                order: _order,
+                userInfo: $scope.userInfo,
+                dishes: data.payload,
+                refundClass: refundClass,
+                receivingConfirmationClass: receivingConfirmationClass
+            });
         }).error(function (err) {
             console.log(err);
         });
