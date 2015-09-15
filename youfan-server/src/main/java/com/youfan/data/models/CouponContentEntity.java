@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.youfan.commons.vo.ConditionVO;
 
-public class CouponsContentEntity implements Serializable{
+public class CouponContentEntity implements Serializable{
 	
 	 /**serialVersionUID TODO*/ 
 	

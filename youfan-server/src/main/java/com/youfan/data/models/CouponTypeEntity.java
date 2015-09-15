@@ -19,7 +19,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @version V1.0 Copyright (c)2012 chantsoft-版权所有
  */
 @Document(collection = COLLECTION_SERVER_COUPONS_TYPE)
-public class CouponsTypeEntity {
+public class CouponTypeEntity {
 	@Id
 	private String id;
 
@@ -49,7 +49,7 @@ public class CouponsTypeEntity {
 	/**
 	 * 优惠券内容
 	 */
-	private List<CouponsContentEntity> content;
+	private List<CouponContentEntity> content;
 
 	/**
 	 * 优惠券描述
@@ -90,11 +90,11 @@ public class CouponsTypeEntity {
 		this.timeLine = timeLine;
 	}
 
-	public List<CouponsContentEntity> getContent() {
+	public List<CouponContentEntity> getContent() {
 		return content;
 	}
 
-	public void setContent(List<CouponsContentEntity> content) {
+	public void setContent(List<CouponContentEntity> content) {
 		this.content = content;
 	}
 

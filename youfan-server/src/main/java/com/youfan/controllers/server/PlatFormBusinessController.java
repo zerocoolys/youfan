@@ -1,8 +1,8 @@
 package com.youfan.controllers.server;
 
-import java.util.ArrayList;
+import static com.youfan.commons.Constants.MONGO_STATUS;
+
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.youfan.commons.Constants.PAGER;
 import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.ActiveVO;
 import com.youfan.commons.vo.CollectionVO;
@@ -27,22 +26,22 @@ import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
-import com.youfan.commons.vo.server.CouponsTypeVO;
+import com.youfan.commons.vo.server.CouponTypeVO;
+import com.youfan.commons.vo.server.CouponVO;
 import com.youfan.commons.vo.server.OrderVO;
 import com.youfan.commons.vo.server.PayWayVO;
 import com.youfan.controllers.params.ActiveParams;
-import com.youfan.controllers.params.CouponsParams;
 import com.youfan.controllers.params.OrderParams;
 import com.youfan.controllers.params.merchant.KitchenParams;
 import com.youfan.controllers.params.merchant.MerchantParams;
 import com.youfan.controllers.params.merchant.MerchantUserParams;
+import com.youfan.controllers.params.server.CouponParams;
+import com.youfan.controllers.params.server.CouponTypeParams;
 import com.youfan.controllers.params.server.PayWayParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.client.UserDao;
-import com.youfan.data.models.CouponsContentEntity;
-import com.youfan.data.models.MerchantKitchenInfoEntity;
-import com.youfan.data.models.MerchantUserEntity;
+import com.youfan.data.models.CouponContentEntity;
 import com.youfan.services.merchant.CommentService;
 import com.youfan.services.merchant.KitchenService;
 import com.youfan.services.merchant.MerchantKitchenService;
@@ -50,13 +49,12 @@ import com.youfan.services.merchant.MerchantService;
 import com.youfan.services.merchant.MerchantUsersService;
 import com.youfan.services.server.ActiveService;
 import com.youfan.services.server.ActiveSupportService;
-import com.youfan.services.server.CouponsTypeService;
+import com.youfan.services.server.CouponService;
+import com.youfan.services.server.CouponTypeService;
 import com.youfan.services.server.OrderService;
 import com.youfan.services.server.PayWayService;
 import com.youfan.utils.JSONUtils;
 import com.youfan.utils.StringUtil;
-import com.youfan.commons.Constants.PAGER;
-import static com.youfan.commons.Constants.MONGO_STATUS;
 
 /**
  * 
@@ -83,7 +81,9 @@ public class PlatFormBusinessController {
 	@Resource
 	ActiveSupportService activeSupportService;
 	@Resource
-	CouponsTypeService couponsTypeService;
+	CouponTypeService couponsTypeService;
+	@Resource
+	CouponService couponService;
 	@Resource
 	PayWayService payWayService;
 	@Resource
@@ -185,7 +185,7 @@ public class PlatFormBusinessController {
 
 			List<OrderVO> list = orderService.getOrdersByParams(op);
 			CollectionVO<OrderVO> payload = new CollectionVO<OrderVO>(list, recordCnt, op.getPageSize());
-			res = Responses.SUCCESS().setMsg("数据获取成功").setPayload(payload);
+			res = Responses.SUCCESS().setCode(1).setMsg("数据获取成功").setPayload(payload);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -250,13 +250,13 @@ public class PlatFormBusinessController {
 		try {
 			if (request.getParameter("port") != null && request.getParameter("timeLine") != null
 					&& request.getParameter("title") != null) {
-				CouponsTypeVO coupons = new CouponsTypeVO();
+				CouponTypeVO coupons = new CouponTypeVO();
 				coupons.setPort(Integer.valueOf(request.getParameter("port")));
 				coupons.setTitle(request.getParameter("title"));
 				coupons.setTimeLine(Integer.valueOf(request.getParameter("timeLine")));
 				coupons.setDesc(request.getParameter("desc"));
 				coupons.setContent(
-						JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
+						JSONUtils.getObjectListByJson(request.getParameter("content"), CouponContentEntity.class));
 				// 创建时间为保存时当前时间
 				coupons.setCreateTime(new Date().getTime());
 				// 状态默认为1 表示开启使用状态
@@ -289,7 +289,7 @@ public class PlatFormBusinessController {
 	public Response getCouponsType(HttpServletRequest request, HttpServletResponse response) {
 		Response res = null;
 		try {
-			CouponsParams params = new CouponsParams();
+			CouponTypeParams params = new CouponTypeParams();
 			if (request.getParameter("port") != null) {
 				params.setPort(Integer.valueOf(request.getParameter("port")));
 			}
@@ -312,7 +312,7 @@ public class PlatFormBusinessController {
 			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
 			pager.setAsc(
 					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
-			CollectionVO<CouponsTypeVO> payload = new CollectionVO<>(couponsTypeService.getPagerByParams(params, pager),
+			CollectionVO<CouponTypeVO> payload = new CollectionVO<>(couponsTypeService.getPagerByParams(params, pager),
 					(int) recordCnt, pager.getPageSize() < 1 ? (int) recordCnt : pager.getPageSize());
 			return Responses.SUCCESS().setPayload(payload).setCode(1).setMsg("数据获取成功");
 		} catch (Exception e) {
@@ -339,7 +339,7 @@ public class PlatFormBusinessController {
 	public Response updateCouponsTypeStatus(@PathVariable String id, @PathVariable int status,
 			HttpServletRequest request, HttpServletResponse response) {
 		try {
-			CouponsParams params = new CouponsParams();
+			CouponTypeParams params = new CouponTypeParams();
 			params.setStatus(status);
 			int un = couponsTypeService.updateById(id, params);
 			if (un == 1) {
@@ -357,7 +357,7 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCouponsType/{id}")
 	public Response updateCouponsTypeById(@PathVariable String id, HttpServletRequest request) {
 		try {
-			CouponsTypeVO coupons = new CouponsTypeVO();
+			CouponTypeVO coupons = new CouponTypeVO();
 			coupons.setPort(
 					request.getParameter("port") == null ? null : Integer.valueOf(request.getParameter("port")));
 			coupons.setTitle(request.getParameter("title"));
@@ -365,7 +365,7 @@ public class PlatFormBusinessController {
 					: Integer.valueOf(request.getParameter("timeLine")));
 			coupons.setDesc(request.getParameter("desc"));
 			coupons.setContent(request.getParameter("content") == null ? null
-					: JSONUtils.getObjectListByJson(request.getParameter("content"), CouponsContentEntity.class));
+					: JSONUtils.getObjectListByJson(request.getParameter("content"), CouponContentEntity.class));
 			// 状态默认为1 表示开启使用状态
 			int un = couponsTypeService.updateById(id, coupons);
 			if (un == 1) {
@@ -393,6 +393,68 @@ public class PlatFormBusinessController {
 			e.printStackTrace();
 		}
 		return Responses.FAILED().setCode(0).setMsg("优惠券类型删除失败");
+	}
+
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description 分页查询条件优惠券内容 分页信息不传递则查询所有
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月14日 上午11:38:34
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/getCoupons")
+	public Response getCoupons(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			CouponParams params = new CouponParams();
+			params.setDataStatus(null);
+			Pagination pager = new Pagination();
+			long recordCnt = couponService.count(params);
+			// 分页信息
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE) == null ? recordCnt
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
+			pager.setAsc(
+					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			CollectionVO<CouponVO> payload = new CollectionVO<>(couponService.getPagerByParams(params, pager),
+					(int) recordCnt, pager.getPageSize());
+			return Responses.SUCCESS().setCode(0).setPayload(payload).setMsg("获取优惠券成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Responses.FAILED().setCode(0).setMsg("获取优惠券息失败");
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description 更新优惠券内容
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月14日 上午11:38:17
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCoupon/{id}")
+	public Response updateCoupon(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
+		try {
+//			CouponParams params = new CouponParams();
+			CouponVO vo = new CouponVO();
+			vo.setId(id);
+			vo.setDataStatus(1);
+			int rn = couponService.updateById(id, vo);
+			if (rn == 1) {
+				return Responses.SUCCESS().setCode(0).setMsg("获取优惠券信息成功");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Responses.FAILED().setCode(0).setMsg("获取优惠券信息失败");
 	}
 
 	/**
@@ -741,8 +803,8 @@ public class PlatFormBusinessController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getPagerByParams")
-	public Response getPagerByParams(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getMerchants")
+	public Response getMerchants(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			MerchantParams params = new MerchantParams();
 			params.setPhone(request.getParameter("phone"));
@@ -760,7 +822,8 @@ public class PlatFormBusinessController {
 			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
 			pager.setAsc(
 					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
-			CollectionVO<MerchantUserVO> payload = new CollectionVO<>( merchantService.getPagerByParams(params, pager), (int) recordCnt, pager.getPageSize());
+			CollectionVO<MerchantUserVO> payload = new CollectionVO<>(merchantService.getPagerByParams(params, pager),
+					(int) recordCnt, pager.getPageSize());
 			return Responses.SUCCESS().setCode(0).setPayload(payload).setMsg("获取商家信息成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -808,7 +871,8 @@ public class PlatFormBusinessController {
 			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
 			pager.setAsc(
 					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
-			CollectionVO<MerchantKitchenInfoVO> payload = new CollectionVO<>( kitchenService.getPagerByParams(params, pager), (int) recordCnt, pager.getPageSize());
+			CollectionVO<MerchantKitchenInfoVO> payload = new CollectionVO<>(
+					kitchenService.getPagerByParams(params, pager), (int) recordCnt, pager.getPageSize());
 			return Responses.SUCCESS().setCode(1).setPayload(payload).setMsg("获取商家厨房信息成功");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -834,6 +898,45 @@ public class PlatFormBusinessController {
 			status = Integer.valueOf(request.getParameter("status"));
 			merchantUsersService.checkMerchant(request.getParameter("id"), status);
 		}
+	}
+
+	/**
+	 * 获取菜单信息
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月14日 上午10:39:18
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/getMenus")
+	public Response getMenus(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			MerchantParams params = new MerchantParams();
+			params.setPhone(request.getParameter("phone"));
+			params.setRealName(request.getParameter("realName"));
+			params.setUserName(request.getParameter("userName"));
+			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
+					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			Pagination pager = new Pagination();
+			long recordCnt = merchantService.count(params);
+			// 分页信息
+			pager.setPageNo(request.getParameter(PAGER.PAGE_NO) == null ? 0
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_NO)));
+			pager.setPageSize((int) (request.getParameter(PAGER.PAGE_SIZE) == null ? recordCnt
+					: Integer.valueOf(request.getParameter(PAGER.PAGE_SIZE))));
+			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
+			pager.setAsc(
+					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
+			CollectionVO<MerchantUserVO> payload = new CollectionVO<>(merchantService.getPagerByParams(params, pager),
+					(int) recordCnt, pager.getPageSize());
+			return Responses.SUCCESS().setCode(0).setPayload(payload).setMsg("获取商家信息成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Responses.FAILED().setCode(0).setMsg("获取商家信息失败");
 	}
 
 }

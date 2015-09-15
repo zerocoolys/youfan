@@ -1,14 +1,13 @@
 package com.youfan.data.dao.client.impl;
 
-import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.client.MealsAddressVO;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.ClientUserEntity;
 
+import com.youfan.data.models.MealsAddressEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
@@ -32,11 +31,24 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void updateMealsAddress(String id, ClientUserVO clientUserVO) {
+        Update update = new Update();
+        update.set("mealsAddress", clientUserVO.getMealsAddress());
+
+        convertToVO(mongoTemplate.findAndModify(buildQueryById(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
+    }
+
+    @Override
     public void updateUserPwd(String id, String pwd) {
         Update update = new Update();
         update.set("password", pwd);
 
         convertToVO(mongoTemplate.findAndModify(buildQueryById(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
+    }
+
+    @Override
+    public void insertMealsAddress(MealsAddressVO mealsAddressVO) {
+        mongoTemplate.insert(mealsAddressVO, COLLECTION_CLIENT_MEALS_ADDRESS);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantKitchenInfoEntity;
 import com.youfan.exceptions.KitchenInfoException;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -18,29 +19,28 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
     /**
      * 保存商家厨房信息
      *
-     * @param merchantKitchenInfo 　厨房信息对象VO
      * @return
      * @throws KitchenInfoException
      */
-    MerchantKitchenInfoVO saveMerchantKitchenInfo(MerchantKitchenInfoVO merchantKitchenInfo);
+    MerchantKitchenInfoVO saveMerchantKitchenInfo(Query query, Update update);
 
     /**
      * 保存厨房照片
      *
-     * @param merchantKitchenInfo 　厨房信息对象VO
+     * @param query  查询条件
+     * @param update 　更新语句
      * @return
-     * @throws KitchenInfoException
      */
-    MerchantKitchenInfoVO saveMerchantKitchenPicInfo(MerchantKitchenInfoVO merchantKitchenInfo);
+    MerchantKitchenInfoVO saveMerchantKitchenPicInfo(Query query, Update update);
 
     /**
      * 保存厨房故事
      *
-     * @param merchantKitchenInfo 　厨房故事对象VO
+     * @param query  查询条件
+     * @param update 　更新语句
      * @return
-     * @throws KitchenInfoException
      */
-    MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(MerchantKitchenInfoVO merchantKitchenInfo);
+    MerchantKitchenInfoVO saveMerchantKitchenStoryInfo(Query query, Update update);
 
     /**
      * 根据商家用户id获取对应的厨房信息
@@ -81,10 +81,11 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
     /**
      * 保存商家用户的兴趣爱好
      *
-     * @param merchantKitchenInfoVO 含有兴趣爱好信息
+     * @param query  查询条件
+     * @param update 　更新语句
      * @return
      */
-    MerchantKitchenInfoVO saveMyHobby(MerchantKitchenInfoVO merchantKitchenInfoVO);
+    MerchantKitchenInfoVO saveMyHobby(Query query, Update update);
 
     long count(Query query);
 
@@ -94,6 +95,7 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
 
     /**
      * 通过店铺名称模糊查询
+     *
      * @param merchantName
      * @return
      */
@@ -101,6 +103,7 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
 
     /**
      * 更具用户的当前位置查询商家3公里以内的所有店铺
+     *
      * @return
      */
     CollectionVO<MerchantKitchenInfoVO> getGeographicalSearch(Pagination pagination);
@@ -114,4 +117,11 @@ public interface MerchantKitchenDAO extends MongoBaseDAO<MerchantKitchenInfoEnti
     default Class<MerchantKitchenInfoVO> getVOClass() {
         return MerchantKitchenInfoVO.class;
     }
+
+    /**
+     * 商家端厨房和个人信息申请审核
+     *
+     * @return
+     */
+    boolean approveAllInfo(Query query, Update update);
 }

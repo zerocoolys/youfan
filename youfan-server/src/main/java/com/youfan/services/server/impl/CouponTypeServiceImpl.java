@@ -5,11 +5,11 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.youfan.commons.vo.server.CouponsTypeVO;
-import com.youfan.data.dao.server.CouponsTypeDAO;
-import com.youfan.data.models.CouponsTypeEntity;
+import com.youfan.commons.vo.server.CouponTypeVO;
+import com.youfan.data.dao.server.CouponTypeDAO;
+import com.youfan.data.models.CouponTypeEntity;
 import com.youfan.services.impl.MongoServiceImpl;
-import com.youfan.services.server.CouponsTypeService;
+import com.youfan.services.server.CouponTypeService;
 
 /**
  * 
@@ -22,9 +22,9 @@ import com.youfan.services.server.CouponsTypeService;
  * Copyright (c)2012 chantsoft-版权所有
  */
 @Service("couponsTypeService")
-public class CouponsTypeServiceImpl extends MongoServiceImpl<CouponsTypeEntity, CouponsTypeVO>implements CouponsTypeService{
+public class CouponTypeServiceImpl extends MongoServiceImpl<CouponTypeEntity, CouponTypeVO>implements CouponTypeService{
 	@Autowired
-	public CouponsTypeServiceImpl(CouponsTypeDAO couponsTypeDAO) {
+	public CouponTypeServiceImpl(CouponTypeDAO couponsTypeDAO) {
 		super(couponsTypeDAO);
 	}
 }

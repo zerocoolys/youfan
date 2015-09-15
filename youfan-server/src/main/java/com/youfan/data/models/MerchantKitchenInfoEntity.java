@@ -9,13 +9,15 @@ import java.util.List;
 
 import static com.youfan.commons.Constants.COLLECTION_KITCHENINFO;
 import static com.youfan.commons.Constants.COLLECTION_MERCHANTKITCHENINFOID;
+import static com.youfan.commons.Constants.MONGO_NORMAL_DATA;
 
 /**
  * Created by perfection on 15-8-25.
  */
 @Document(collection = COLLECTION_KITCHENINFO)
 public class MerchantKitchenInfoEntity {
-    private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    private Integer status = -1; //审核状态 0为申请审核状态，1为审核通过状态，-1为待审核状态
+    private Integer dataStatus = MONGO_NORMAL_DATA;
     @Id
     private String id; //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
@@ -37,6 +39,14 @@ public class MerchantKitchenInfoEntity {
     private String endTime;   //关店时间
     private String desc;    //厨房备注
     private List<Double> location = new ArrayList<>();  //经纬度
+
+    public Integer getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
+    }
 
     public List<Double> getLocation() {
         return location;

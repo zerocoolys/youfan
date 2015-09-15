@@ -1,22 +1,23 @@
 package com.youfan.data.models;
 
+import static com.youfan.commons.Constants.COLLECTION_HEADPORTRAITPICURL;
+import static com.youfan.commons.Constants.COLLECTION_HEALTHCERTIFICATEPICURL;
+import static com.youfan.commons.Constants.COLLECTION_IDCARDPICURL;
+import static com.youfan.commons.Constants.COLLECTION_USER;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import static com.youfan.commons.Constants.COLLECTION_USER;
-import static com.youfan.commons.Constants.COLLECTION_HEADPORTRAITPICURL;
-import static com.youfan.commons.Constants.COLLECTION_IDCARDPICURL;
-import static com.youfan.commons.Constants.COLLECTION_HEALTHCERTIFICATEPICURL;
-import static com.youfan.commons.Constants.COLLECTION_MERCHANTUSERID;
-
+import static com.youfan.commons.Constants.*;
 /**
  * Created by perfection on 15-8-24.
  */
 @Document(collection = COLLECTION_USER)
 public class MerchantUserEntity {
 
-    private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    private Integer status = -1; //审核状态 0为未审核，1为审核，-1为删除
+    private Integer dataStatus = MONGO_NORMAL_DATA;
     @Id
     private String id;    //商家个人信息id
     private String userName;    //商家用户名
@@ -31,6 +32,14 @@ public class MerchantUserEntity {
     private String idCardPicUrl;    //身份证照片
     @Field(COLLECTION_HEALTHCERTIFICATEPICURL)
     private String healthCertificatePicUrl; //健康证照片
+
+    public Integer getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
+    }
 
     public Integer getStatus() {
         return status;

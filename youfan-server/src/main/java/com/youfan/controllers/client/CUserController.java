@@ -1,21 +1,21 @@
 package com.youfan.controllers.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.client.MealsAddressVO;
 import com.youfan.controllers.params.ClientUserParams;
+import com.youfan.controllers.params.MealsAddressParams;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
+import com.youfan.data.models.MealsAddressEntity;
 import com.youfan.services.client.ClientUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by icepros on 15-9-2.
@@ -64,15 +64,15 @@ public class CUserController {
      * @return
      */
     @RequestMapping(path = "/binfo", method = RequestMethod.POST, produces = "application/json")
-    public Response updateUserInfo(@RequestBody String clientUserParamsStr, HttpServletRequest request) {
+    public Response updateUserInfo(@RequestBody String clientUserParamsStr) {
 
-        String token = request.getHeader("Authorization");
+        //String token = request.getHeader("Authorization");
         ObjectMapper mapper = new ObjectMapper();
         ClientUserParams userParams = null;
         String userId = null;
         try {
             userParams = mapper.readValue(clientUserParamsStr, ClientUserParams.class);
-            userId = userService.getUserIdByToken(token);
+            userId = userParams.getUid();
         } catch (Exception e) {
             return Responses.FAILED();
         }
@@ -94,49 +94,46 @@ public class CUserController {
     /**
      * 查询用户信息
      *
-     * @param ucVO
+     * @param
      * @return
      */
-    @RequestMapping(path = "/info", method = RequestMethod.GET, produces = "application/json")
-    public Response getUserInfo(@RequestBody ClientUserVO ucVO) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    public Response getUserInfo(@PathVariable String id) {
 
-        return null;
-    }
-
-    /**
-     * 忘记密码
-     *
-     * @param ucVO
-     * @return
-     */
-    @RequestMapping(path = "/forgetpwd", method = RequestMethod.POST, produces = "application/json")
-    public Response forgetPwd(@RequestBody ClientUserVO ucVO) {
-
-        return null;
-    }
-
-    /**
-     * 重置密码
-     *
-     * @param ucVO
-     * @return
-     */
-    @RequestMapping(path = "/resetpwd", method = RequestMethod.POST, produces = "application/json")
-    public Response resetPwd(@RequestBody ClientUserVO ucVO) {
-
-        return null;
+        ClientUserVO clientUserVO = userService.findUserById(id);
+        return Responses.SUCCESS().setPayload(clientUserVO);
     }
 
     /**
      * 送餐地址
      *
-     * @param ucVO
+     * @param mealsAddressStr
      * @return
      */
     @RequestMapping(path = "/mealsaddress", method = RequestMethod.POST, produces = "application/json")
-    public Response mealsAddress(@RequestBody ClientUserVO ucVO) {
+    public Response mealsAddress(@RequestBody String mealsAddressStr) {
+        ObjectMapper mapper = new ObjectMapper();
+        MealsAddressParams params = null;
+        ClientUserVO cuVO = new ClientUserVO();
+        MealsAddressVO maVO = new MealsAddressVO();
+        List<MealsAddressVO> list = new ArrayList<MealsAddressVO>();
+        try {
+            params = mapper.readValue(mealsAddressStr, MealsAddressParams.class);
+            maVO.setContact(params.getContact());
+            maVO.setTel(params.getTel());
+            maVO.setAddress(params.getAddress());
+            maVO.setHouseNumber(params.getHouseNumber());
+            maVO.setLabel(params.getLabel());
 
-        return null;
+            list.add(maVO);
+            cuVO.setMealsAddress(list);
+            userService.updateMealsAddress(params.getId(), cuVO);
+            userService.insertMealsAddress(maVO);
+            return Responses.SUCCESS();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return Responses.FAILED();
+        }
     }
 
     /**

@@ -108,7 +108,6 @@ public class LoginController {
 
         try {
             userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getPassword());
-            System.out.println(userClientVO);
 
 //			/////////////// MrDeng添加活动参加功能 请此处完善代码时
 //			/////////////// 把这段代码移动到成功登录判定下/////////////////////////

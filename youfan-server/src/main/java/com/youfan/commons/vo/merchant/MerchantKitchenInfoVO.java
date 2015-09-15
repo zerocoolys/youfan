@@ -2,13 +2,14 @@ package com.youfan.commons.vo.merchant;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.youfan.commons.Constants.MONGO_NORMAL_DATA;
 
 /**
  * Created by perfection on 15-8-25.
  */
 public class MerchantKitchenInfoVO {
-    private Integer status = 0; //审核状态 0为未审核，1为审核，-1为删除
+    private Integer status = -1; //审核状态 0为未审核，1为审核，-1为删除
     private String id; //厨房id与商家用户id匹配
     private String kitchenName; //厨房名称
     private String phoneNumber; //手机号码
@@ -30,7 +31,16 @@ public class MerchantKitchenInfoVO {
     private String kitchenStoryContent; //厨房故事内容
     private List<Double> location = new ArrayList<>();  //经纬度
 
-    private int dataStatus = MONGO_NORMAL_DATA;
+    private Integer dataStatus = MONGO_NORMAL_DATA;
+
+    public Integer getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
+    }
+
     public List<Double> getLocation() {
         return location;
     }
@@ -49,6 +59,10 @@ public class MerchantKitchenInfoVO {
 
     public boolean isDelivery() {
         return isDelivery;
+    }
+
+    public void setDelivery(boolean isDelivery) {
+        this.isDelivery = isDelivery;
     }
 
     public void setIsDelivery(boolean isDelivery) {
@@ -78,7 +92,6 @@ public class MerchantKitchenInfoVO {
     public void setStatus(Integer status) {
         this.status = status;
     }
-
 
     public String getKitchenStoryName() {
         return kitchenStoryName;
@@ -140,12 +153,20 @@ public class MerchantKitchenInfoVO {
         return isTakeSelf;
     }
 
+    public void setTakeSelf(boolean isTakeSelf) {
+        this.isTakeSelf = isTakeSelf;
+    }
+
     public void setIsTakeSelf(boolean isTakeSelf) {
         this.isTakeSelf = isTakeSelf;
     }
 
     public boolean isCanteen() {
         return isCanteen;
+    }
+
+    public void setCanteen(boolean isCanteen) {
+        this.isCanteen = isCanteen;
     }
 
     public void setIsCanteen(boolean isCanteen) {
@@ -200,24 +221,4 @@ public class MerchantKitchenInfoVO {
         this.desc = desc;
     }
 
-	public int getDataStatus() {
-		return dataStatus;
-	}
-
-	public void setDataStatus(int dataStatus) {
-		this.dataStatus = dataStatus;
-	}
-
-	public void setTakeSelf(boolean isTakeSelf) {
-		this.isTakeSelf = isTakeSelf;
-	}
-
-	public void setCanteen(boolean isCanteen) {
-		this.isCanteen = isCanteen;
-	}
-
-	public void setDelivery(boolean isDelivery) {
-		this.isDelivery = isDelivery;
-	}
-    
 }

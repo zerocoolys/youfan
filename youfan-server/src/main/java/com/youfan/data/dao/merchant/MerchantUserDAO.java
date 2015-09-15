@@ -8,6 +8,7 @@ import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MerchantUserEntity;
 
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -16,30 +17,24 @@ import java.util.Map;
  * Created by perfection on 15-8-19.
  */
 public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, MerchantUserVO, Long> {
+
     /**
      * 登陆
      *
-     * @param userName 用户名手机号码
+     * @param query query查询语句
      * @return
      */
-    MerchantUserVO login(String userName);
+    MerchantUserVO login(Query query);
 
     /**
-     * 注册
+     * 保存注册信息
      *
-     * @param userName
-     * @param passWord
+     * @param merchantUserVO 用户信息
      * @return
      */
-    Map<String, String> register(String userName, String passWord);
+    void saveRegisterInfo(MerchantUserVO merchantUserVO);
 
-    /**
-     * 保存商家用户个人信息
-     *
-     * @param merchantUser
-     * @return
-     */
-    MerchantUserVO saveMerchantUserInfo(MerchantUserVO merchantUser);
+    MerchantUserVO findOne(String userName);
 
     List<MerchantUserEntity> getMerchantByStatus(Integer status);
 
@@ -89,12 +84,20 @@ public interface MerchantUserDAO extends MongoBaseDAO<MerchantUserEntity, Mercha
     Long getPageTotal(Integer status);
 
     MerchantUserVO findById(String id);
-    
-    List<MerchantUserVO> findPagerByParams(MerchantUserParams muParams,Pagination pager);
 
-	long count(MerchantUserParams muParams);
+    List<MerchantUserVO> findPagerByParams(MerchantUserParams muParams, Pagination pager);
 
-	int updateById(String id, MerchantUserParams muParams);
-	
+    long count(MerchantUserParams muParams);
+
+    int updateById(String id, MerchantUserParams muParams);
+
+    MerchantUserVO findAndModify(Query query, Update update);
+
+    /**
+     * 商家端厨房和个人信息申请审核
+     *
+     * @return
+     */
+    boolean approveAllInfo(Query query, Update update);
 
 }

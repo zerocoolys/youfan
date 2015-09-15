@@ -1,7 +1,9 @@
 package com.youfan.services.client.impl;
 
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.client.MealsAddressVO;
 import com.youfan.data.dao.client.UserDao;
+import com.youfan.data.models.MealsAddressEntity;
 import com.youfan.services.client.ClientUserService;
 import com.youfan.system.redis.RedisPool;
 import org.slf4j.Logger;
@@ -33,10 +35,27 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     }
 
+    @Override
+    public void updateMealsAddress(String id, ClientUserVO clientUserVO) {
+        ucDAO.updateMealsAddress(id, clientUserVO);
+    }
+
 
     @Override
     public ClientUserVO getUserByTel(String tel) {
         return ucDAO.getUserByTel(tel);
+    }
+
+    @Override
+    public ClientUserVO findUserById(String id) {
+        return ucDAO.findByid(id);
+    }
+
+    @Override
+    public void insertMealsAddress(MealsAddressVO mealsAddressVO) {
+        if(mealsAddressVO != null){
+            ucDAO.insertMealsAddress(mealsAddressVO);
+        }
     }
 
     @Override

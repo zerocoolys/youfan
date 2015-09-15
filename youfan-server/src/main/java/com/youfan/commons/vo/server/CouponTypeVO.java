@@ -2,9 +2,9 @@ package com.youfan.commons.vo.server;
 
 import java.util.List;
 
-import com.youfan.data.models.CouponsContentEntity;
+import com.youfan.data.models.CouponContentEntity;
 
-public class CouponsTypeVO {
+public class CouponTypeVO {
 	private String id;
 
 	/**
@@ -30,7 +30,7 @@ public class CouponsTypeVO {
 	/**
 	 * 优惠券内容
 	 */
-	private List<CouponsContentEntity> content;
+	private List<CouponContentEntity> content;
 
 	/**
 	 * 优惠券描述
@@ -63,11 +63,11 @@ public class CouponsTypeVO {
 		this.timeLine = timeLine;
 	}
 
-	public List<CouponsContentEntity> getContent() {
+	public List<CouponContentEntity> getContent() {
 		return content;
 	}
 
-	public void setContent(List<CouponsContentEntity> content) {
+	public void setContent(List<CouponContentEntity> content) {
 		this.content = content;
 	}
 

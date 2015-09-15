@@ -44,6 +44,8 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
 
     void conversionRestNum(List<MenuVO> menus);
 
+    void conversionNRestNum(List<MenuVO> menus);
+
     List<MenuVO> findByIds(List<String> menuIds);
 
     @Override
@@ -78,7 +80,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
     }
 
     default Query buildMerchantQuery(String sellerId, String type,
-                                     boolean isValid) {
+            boolean isValid) {
         Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
         if (sellerId != null) {
