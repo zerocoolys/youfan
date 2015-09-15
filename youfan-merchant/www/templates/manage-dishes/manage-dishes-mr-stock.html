@@ -1,5 +1,4 @@
 <ion-view view-title="菜品库存" class="calm" cache-view="false" data-ng-init="load()">
-
     <ion-nav-buttons side="left">
         <button class="button button-clear button-calm" data-ng-click="goState('m_dishes.' + backType)"><i
             class="icon ion-ios-arrow-back"></i></button>
@@ -8,7 +7,7 @@
         <a class="button button-clear button-calm" data-ng-disabled="isActive" data-ng-click="doCheckStock()">保存</a>
     </ion-nav-buttons>
 
-    <ion-content style="padding-top: 5px;">
+    <ion-content>
         <div class="button-bar light-bg dishes">
             <a class="button button-clear" ui-sref="m_dishes_jr_stock({backType: backType})">今日余量</a>
             <a class="button button-clear current">每日固定库存</a>

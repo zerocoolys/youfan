@@ -20,32 +20,40 @@
         </div>
 
         <ion-item class="item   " class="list" ng-repeat="comment in comments ">
-            <h2> {{comment.userName}}  <span class="alright">
-                      <i class="ion-ios-star calm"></i><i class="ion-ios-star calm"></i><i
-                class="ion-ios-star calm"></i><i
-                class="ion-ios-star-half calm"></i><i class="ion-ios-star-outline"></i>
+            <h2>
+                <span ng-if="!comment.is_hide_name">{{comment.comment_user}}</span>
+                <span ng-if="comment.is_hide_name">匿名饭友</span>
+                <span class="alright" ng-bind-html="takeStar(comment.star)">
+                      <!--<i class="ion-ios-star calm"></i>-->
+                    <!--<i class="ion-ios-star calm"></i>-->
+                    <!--<i class="ion-ios-star calm"></i>-->
+                    <!--<i class="ion-ios-star-half calm"></i>-->
+                    <!--<i class="ion-ios-star-outline"></i>-->
                         </span>
-                <button class="button button-calm button-small item-note" ng-click="replyComments()">添加回复</button>
+                <button ng-if="!comment.replayed" class="button button-calm button-small item-note"
+                        ng-click="replyComments(comment.id)">添加回复
+                </button>
             </h2>
 
             <p style="margin-top: 10px; white-space: normal;">{{comment.content}} </p>
 
-            <div><img src="{{dishesimg}}" ng-repeat="dishesimg in dishesimgs" alt=""
+            <div><img ng-src="http://youfan-merchant-img.b0.upaiyun.com/{{dishesimg}}"
+                      ng-repeat="dishesimg in comment.img_url" alt="" ng-click='goToSlide($index,comment.img_url)'
                       style="margin: 0 5px;width: 60px;height: 50px;"/>
             </div>
 
-            <div class="care_text item-note" ng-if="comment.replyComments==''">
-                <span class="time item-note">{{comment.ctime}}</span>
+            <div class="care_text item-note">
+               <span>饭友评论时间：</span> <span class="time item-note">{{comment.commentTime}}</span>
             </div>
 
 
-            <div class="care_text" style="margin-top: 5px;" ng-if="comment.replyComments!=''">
+            <div class="care_text" style="margin-top: 5px;" ng-if="comment.replayed">
                         <span>
                             [家厨回复] :
                         </span>
-                <span>{{comment.replyComments}}</span>
+                <span>{{comment.replay_comment}}</span>
 
-             <div> <p class="time item-note">{{comment.mtime}}</p></div>
+                <div><span>卖家回复：</span> <p class="time item-note">{{comment.replay_date}}</p></div>
             </div>
 
 

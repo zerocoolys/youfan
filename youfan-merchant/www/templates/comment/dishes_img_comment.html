@@ -1,0 +1,18 @@
+<div style="position: relative">
+
+    <div ng-switch="item.reviewStatus">
+        <div class="dishesPic" ng-switch-when="0">
+            <a class="light button button-outline">审核中</a>
+        </div>
+        <div ng-switch-when="1">
+            <div class="dishesPic" data-ng-if="!item.sale">
+                <a class="light button button-outline">待上架</a>
+            </div>
+        </div>
+        <div class="dishesPic" ng-switch-when="2">
+            <a class="light button button-outline">审核失败</a>
+        </div>
+    </div>
+
+    <img ng-src="{{item.picUrls[0]}}" style="width: 100%; height: 50%">
+</div>

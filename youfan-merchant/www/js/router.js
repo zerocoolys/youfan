@@ -80,7 +80,7 @@
             $stateProvider
                 .state('order_Details', {
                     url: '/order_Details',
-                    params: {'orderNo': null,'orderStatus':null},
+                    params: {'orderNo': null, 'orderStatus': null},
                     templateUrl: 'templates/order/order_Details.html',
                     controller: 'orderDetails'
 
@@ -120,7 +120,8 @@
             $stateProvider
                 .state('editkitchen', {
                     url: '/editkitchen',
-                    templateUrl: 'templates/editkitchen/editkitchen.html'
+                    templateUrl: 'templates/editkitchen/editkitchen.html',
+                    controller: "approve_editkitchen"
                 })
                 .state('kitcheninfo', {
                     url: '/kitcheninfo',

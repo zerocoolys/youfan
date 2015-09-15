@@ -10,7 +10,7 @@
     ;
 
 
-    function kitchenInfo_story_myKitchenStory($scope, $filter, $state, $http, $rootScope, $ionicPopup, $location, YF_MERCHANT_HOST) {
+    function kitchenInfo_story_myKitchenStory($scope, $filter, $state, $http, $rootScope, $ionicPopup, $location, YF_MERCHANT_HOST, YF_MERCHANT_INFO) {
         $scope.story = {
             title: "",
             content: ""
@@ -20,7 +20,7 @@
             content: ""
         };
         $http.post(
-            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": YF_MERCHANT_INFO.mID}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (data.code == "0") {
                     if (data.payload != null) {
                         $scope.story = {
@@ -71,6 +71,9 @@
         };
         //文本框限制输入字数50-1000
         $scope.checkText = function (content) {
+            if (content == null) {
+                return;
+            }
             if (Number(content.length) > 1000) {
                 $scope.story.content = content.substr(0, 1000);
             } else {
@@ -79,7 +82,7 @@
         };
         $scope.saveStory = function () {
             var story_template = {
-                id: $rootScope.user.id,
+                id: YF_MERCHANT_INFO.mID,
                 kitchenStoryName: $scope.story.title,
                 kitchenStoryContent: $scope.story.content
             };

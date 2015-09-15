@@ -9,11 +9,11 @@
         .controller('kitcheninfo_story_myhobby', kitchenInfo_story_myHobby)
     ;
 
-    function kitchenInfo_story_myHobby($scope, $filter, $state, $ionicPopup, $location, $rootScope, $http, YF_MERCHANT_HOST) {
+    function kitchenInfo_story_myHobby($scope, $filter, $state, $ionicPopup, $location, $rootScope, $http, YF_MERCHANT_HOST, YF_MERCHANT_INFO) {
         $scope.text = "";
         var textTemplate = "";
         $http.post(
-            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": $rootScope.user.id}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
+            YF_MERCHANT_HOST + "/user/getMerchantKitchenInfo", JSON.stringify({"id": YF_MERCHANT_INFO.mID}), {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                 if (Number(data.code) == 0) {
                     if (data.payload != null) {
                         $scope.text = data.payload.hobby;
@@ -39,8 +39,6 @@
             }
         };
         $scope.isChange = function () {
-            console.log(textTemplate);
-            console.log($scope.text);
             var isChange = textTemplate == $scope.text;
             if (!isChange) {
                 var options = {
@@ -69,7 +67,7 @@
             textTemplate = $scope.text;
             $http.post(
                 YF_MERCHANT_HOST + "/user/saveMyHobby", {
-                    "id": $rootScope.user.id,
+                    "id": YF_MERCHANT_INFO.mID,
                     "hobby": $scope.text
                 }, {"Content-Type": "application/json;charset=utf-8"}).success(function (data) {
                     var option;

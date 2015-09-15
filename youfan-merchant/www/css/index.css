@@ -36,10 +36,10 @@
 .guide_second{
     position:absolute;
     width:100%;
-    top:64%;
+    bottom:10%;
 }
 .guide_third_content .guide_second{
-    top:60%;
+
 }
 .guide_second .guide_circle{
     text-align: center;
@@ -58,4 +58,20 @@
 .guide_second_top span{
     float:right;
     margin-right:20px;
+}
+@media (max-width: 679px) {
+    .active .modal-backdrop-bg {
+        opacity: .5;
+    }
+
+    .modal-backdrop-bg {
+        -webkit-transition: opacity 300ms ease-in-out;
+        transition: opacity 300ms ease-in-out;
+        background-color: #000;
+        opacity: 0;
+    }
+}
+
+.mode_img.modal {
+    background: rgba(0, 0, 0, 0.8);
 }
