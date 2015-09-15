@@ -1,13 +1,19 @@
-<ion-view view-title="" hide-nav-bar="true" class="shop_detail " hide-tabs>
-    <ion-header-bar class="bar-header bar-light dash_detail  ">
-        <a ui-sref="tab.dash-detail"><i class="ion-ios-arrow-left"></i></a>
+<ion-view view-title="" hide-nav-bar="true" class="shop_detail dash_detail " hide-tabs>
+    <div class="dash_top" ng-class="{'addcolor': AddColor}">
+        <a ui-sref="tab.dash-detail" class="button icon ion-ios-arrow-left button-clear"></a>
 
-        <div class="top_share">
-            <i class="ion-ios-heart-outline"></i>
-            <i class="ion-ios-star-outline"></i>
-            <i class="ion-ios-redo-outline"></i>
+        <div class="top_share ">
+            <i class="button icon button-clear ion-ios-heart-outline" on-icon="ion-ios-heart-outline"
+               off-icon="ion-ios-heart" icon-switcher
+               popupsure="点赞成功" popupcancel="取消点赞"></i>
+            <i class="button icon button-clear ion-ios-star-outline" on-icon="ion-ios-star-outline"
+               off-icon="ion-ios-star" icon-switcher
+               popupsure="关注成功" popupcancel="取消关注"></i>
+            <i class="button icon button-clear ion-ios-redo-outline" on-icon="ion-ios-redo-outline"
+               off-icon="ion-ios-redo" icon-switcher
+               ng-click="share()"></i>
         </div>
-    </ion-header-bar>
+    </div>
     <ion-content style="background:#fff;">
         <ion-slide-box on-slide-changed="slideHasChanged($index)" does-continue="true" auto-play="true"
                        slide-interval="2000">
@@ -21,23 +27,107 @@
                 <div class="box pink"><img src="img/2.jpeg" alt=""/></div>
             </ion-slide>
         </ion-slide-box>
-        <ion-list>
-            <ion-item class="item-icon-left item-button-right item-toggle item-icon-right">
-                <i class="icon ion-ios-albums-outline"></i>
+        <div id="choice_dining">
+            <div id="todayDining" class="main_menu">
+                <ion-list>
+                    <ion-item class="item-body list-borderless item-borderless" style="padding: 5px;"
+                              ng-repeat="menu in menuItemArr"
+                              ng-repeat-end="1">
+                        <!--<img class="full-image" ng-src="{{menu.picUrl}}" ng-click="showDishDetail()">-->
+                        <ion-item class="item-icon-right item-icon-left" style="padding: 5px 54px 5px 54px;">
+                            <span class="icon">
+                                <i class="icon_bg ion-coffee icon-accessory"></i>
+                            </span>
 
-                <h2 class="padding" ng-bind="dishDetail.description"></h2>
-            </ion-item>
-            <ion-item class="item-button-right item-toggle item-icon-right">
-                <h2 class="padding" ng-bind="dishDetail.name"></h2>
-                <i class="icon ion-plus-circled" style="right: 15px;"></i>
+                            <h2 ng-bind="menu.name"></h2>
 
-                <p ng-bind="'还有' + dishDetail.restNum + '份 | ' + dishDetail.tasteNum + '人品尝过'"></p>
-            </ion-item>
-        </ion-list>
+                            <p ng-bind="menu.description"></p>
+                        </ion-item>
+                        <ion-item class="menu_line" style="padding: 5px 16px 5px 54px;height: 70px;">
+                            <p ng-bind="'￥' + menu.price"></p>
+
+                            <span ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"
+                                  class="mainColor"></span>
+                            <span class="item-note">
+                                <span class="add_shop_account" ng-class="menu.changWidth ? 'chang_width':''">
+                                    <i class="icon ion-minus icon-accessory fl" ng-show="menu.shopAccount"
+                                       ng-click="minusItem(menu.id)"
+                                       style="  position: absolute;left: 0;width: 25px;"></i>
+                                    <span ng-show="menu.shopAccount">&nbsp;{{menu.count}}&nbsp;</span>
+                                    <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"
+                                       style="  position: absolute;right: 0;width: 25px;"></i>
+                                </span>
+                            </span>
+                        </ion-item>
+                    </ion-item>
+                </ion-list>
+                <ion-list class="tip_menu">
+                    <ion-item class="item-thumbnail-left item-icon-right" ng-repeat="menu in menuItemArr"
+                              ng-repeat-start="2">
+                        <img ng-src="{{menu.picUrl}}"/>
+
+                        <h2 ng-bind="menu.description"></h2>
+
+                        <p ng-bind="'还有' + menu.restNum + '份 | ' + menu.tasteNum + '人品尝过'"></p>
+
+                        <p ng-bind="'￥' + menu.price"></p>
+                        <i class="icon ion-plus icon-accessory" ng-click="plusItem(menu.id)"></i>
+                    </ion-item>
+                </ion-list>
+            </div>
+
+            <div id="yesterdayDining" class="main_menu hide">
+                <ion-list>
+                    <ion-item class="item-body list-borderless item-borderless" style="padding: 5px;" ng-repeat-end="1">
+                        <!--<img class="full-image" ng-src="{{menu.picUrl}}" ng-click="showDishDetail()">-->
+                        <img class="full-image" ng-src="http://www.touxiang.cn/uploads/20140218/18-074928_617.jpg"
+                             ng-click="showDishDetail()">
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+        <!--        <ion-item class="item-icon-left item-button-right item-toggle item-icon-right">
+                    <i class="icon ion-ios-albums-outline"></i>
+
+                    <h2 class="padding" ng-bind="dishDetail.description"></h2>
+                </ion-item>
+                <ion-item class="item-button-right item-toggle item-icon-right">
+                    <h2 class="padding" ng-bind="dishDetail.name"></h2>
+                    <i class="icon ion-plus-circled" style="right: 15px;"></i>
+
+                    <p ng-bind="'还有' + dishDetail.restNum + '份 | ' + dishDetail.tasteNum + '人品尝过'"></p>
+                </ion-item>-->
     </ion-content>
     <div class="bar bar-footer bar-balanced">
-        <button class="button button-clear"><i class="icon ion-ios-list-outline"></i> ￥{{dishDetail.price}}</button>
-        <div class="title">|</div>
-        <button class="button button-clear">选好了</button>
+        <div class="button-bar">
+            <!--<a class="button button-clear icon ion-android-cart" style="border-right: 1px solid #fff;"-->
+            <!--ng-bind="'￥' + subtotal" ng-click="toggleMenu()"></a>-->
+            <a class="button button-clear" style="border-right: 1px solid #fff;" ng-click="toggleMenu()">
+                <span class="cart_bg mainColor"><i
+                        class="ion-android-cart icon-accessory"></i>&nbsp;&nbsp;{{count}}</span>
+                <span>￥{{subtotal}}</span>
+            </a>
+            <a class="button button-clear" ng-click="confirmOrder()">选好了</a>
+        </div>
+    </div>
+    <div ng-show='menuState.show'>
+        <div class="cart_box" ng-click="ShopClose()"></div>
+        <ion-scroll zooming="true" direction="y" class="shop_cart" ng-mouseleave="ShopCart()">
+            <div class="list">
+                <ul>
+                    <li ng-repeat="item in items.data" class="row">
+                        <span class="col col-50">{{item.name}}</span>
+                        <span class="col ">{{item.totalPrice}}</span>
+                        <span class="col">
+                            <i class="ion-minus-round"
+                               ng-click="minusItem(item.id)" ng-init="count = item.count"></i>
+                            <span class="food_price" ng-bind="item.count">{{count}}</span>
+                        <i class="ion-plus-round" ng-click="plusItem(item.id)" ng-init="count = item.count"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+        </ion-scroll>
     </div>
 </ion-view>

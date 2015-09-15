@@ -4,8 +4,8 @@
             <div class="list">
                 <ion-item class="item-icon-right" href="#/tab/dining-way">
                     就餐方式
-                <span class="item-note">
-                    <span ng-if="userDiningWay.address.name == null">请选择</span>
+                <span class="">
+                    <span ng-if="userDiningWay.address.name == null" class="alright">请选择</span>
                     <span ng-if="userDiningWay.address.name != null">
                         <p>{{userDiningWay.address.name}}</p>
                         <p>{{userDiningWay.address.telNo}}</p>
