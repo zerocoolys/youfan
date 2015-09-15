@@ -33,7 +33,7 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $rootScope, $
         star: 1,
         pid: 0,
         is_hide_name: false,
-        img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg", "12dbba0b845a3372ef6510d7fdb3240b.jpg"]
+        img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg", "12dbba0b845a3372ef6510d7fdb3240b.jpg"],
         //img_url: ["8e6a57b84b087c0e5fe754c0192a3910.jpg", "12dbba0b845a3372ef6510d7fdb3240b.jpg"]
     };
     $scope.comment = function () {
@@ -55,7 +55,6 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $rootScope, $
                 }, function () {
                     $scope.back();
                 });
-                //$location.path('/order')
             }
         });
     };

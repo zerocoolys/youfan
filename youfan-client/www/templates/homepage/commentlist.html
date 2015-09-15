@@ -16,7 +16,6 @@
                         </span>
 
                     <p>{{comment.content}}</p>
-                    <img ng-src="http://youfan-merchant-img.b0.upaiyun.com/{{cimg}}" ng-click="imgToggle(cimg)" ng-repeat="cimg in comment.img_url" ng-style="imgStyle" >
 
                     <div class='photo_img'>
                         <ul>
@@ -27,13 +26,13 @@
                     </div>
                     <p class="time">{{comment.commentTime}}</p>
                 </div>
-                <div class="care_text2" ng-class="{'hide':2>1}">
+                <div class="care_text2" ng-if="comment.replayed">
                     <p> 【家厨回复】
                         <span>
-                            {{comment.reply}}
+                            {{comment.replay_comment}}
                         </span></p>
 
-                    <p class="time">{{comment.commentTime}}</p>
+                    <p class="time">{{comment.replay_date}}</p>
                 </div>
             </div>
         </div>
