@@ -84,4 +84,15 @@ public class ClientUserServiceImpl implements ClientUserService {
     public void updateUserPwd(String id, String pwd) {
         ucDAO.updateUserPwd(id, pwd);
     }
+
+    @Override
+    public ClientUserVO findById(String id) {
+        ClientUserVO cv = ucDAO.findOne(id);
+        if (cv != null) {
+            cv.setPassword("****");
+            return cv;
+        } else {
+            return null;
+        }
+    }
 }

@@ -49,4 +49,6 @@ public interface CommentService {
     int deleteById(String id);
 
     long commentCount(String sellerId);
+
+    Integer replayComment(String cid,String content);
 }

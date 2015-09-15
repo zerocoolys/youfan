@@ -19,6 +19,12 @@ public class CommentVO {
 
     String content;
 
+    String replay_comment;
+
+    boolean replayed;
+
+    Date replay_date;
+
     Integer star;
     Date commentTime;
 
@@ -125,5 +131,29 @@ public class CommentVO {
 
     public void setSeller_id(String seller_id) {
         this.seller_id = seller_id;
+    }
+
+    public boolean isReplayed() {
+        return replayed;
+    }
+
+    public void setReplayed(boolean replayed) {
+        this.replayed = replayed;
+    }
+
+    public String getReplay_comment() {
+        return replay_comment;
+    }
+
+    public void setReplay_comment(String replay_comment) {
+        this.replay_comment = replay_comment;
+    }
+
+    public Date getReplay_date() {
+        return replay_date;
+    }
+
+    public void setReplay_date(Date replay_date) {
+        this.replay_date = replay_date;
     }
 }

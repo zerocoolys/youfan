@@ -4,6 +4,7 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.controllers.params.CommentParams;
+import com.youfan.controllers.params.MongoParams;
 import com.youfan.data.dao.merchant.CommentDAO;
 import com.youfan.services.merchant.CommentService;
 import org.springframework.stereotype.Service;
@@ -67,5 +68,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public long commentCount(String sellerId) {
         return commentDAO.commentCount(sellerId);
+    }
+
+    @Override
+    public Integer replayComment(String cid, String content) {
+        return commentDAO.update(cid, content);
     }
 }

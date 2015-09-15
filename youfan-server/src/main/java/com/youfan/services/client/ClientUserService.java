@@ -65,4 +65,11 @@ public interface ClientUserService {
     void update(String id, ClientUserVO clientUserVO);
 
     void updateUserPwd(String id, String pwd);
+
+    /**
+     *  根据用户id查询用户信息
+     * @param id
+     * @return
+     */
+    ClientUserVO findById(String id);
 }
