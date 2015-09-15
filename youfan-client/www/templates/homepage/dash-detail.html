@@ -29,7 +29,7 @@
             </ion-slide>
         </ion-slide-box>
         <div class="list_detail_person_img">
-            <img ng-src="{{merchantUser.headPortraitPicUrl}}">
+            <img ng-src="{{merchantUser.headPortraitPicUrl||'img/person.png'}}">
         </div>
         <div class="how_delivery text-right">
             <span ng-class="{'active':merchantObj.delivery}">送</span>

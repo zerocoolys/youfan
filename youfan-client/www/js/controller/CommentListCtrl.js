@@ -12,9 +12,9 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $rootScope, $ht
             if (result.payload.list.length) {
                 result.payload.list.forEach(function (item) {
                     item["img"] = "img/2.jpeg";
-                    var dateTime = new Date(item["commentTime"]);
-                    item["commentTime"] = dateTime.toLocaleDateString() + "  " + dateTime.toLocaleTimeString();
-                    item["replay_date"]=item.replay_date?new Date(item["replay_date"]).toLocaleDateString()+" "+new Date(item["replay_date"]).toLocaleTimeString():'';
+                    var dateTime = new Date(item["commentTime"]).Format("yyyy-M-d hh:mm:ss");
+                    item["commentTime"] = dateTime;
+                    item["replay_date"]=item.replay_date?new Date(item["replay_date"]).Format("yyyy-M-d hh:mm:ss"):'';
                     $scope.comments.push(item)
                 });
             }
