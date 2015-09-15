@@ -35,7 +35,7 @@
 
 .how_delivery {
     background-color: #fff;
-    margin: 8px 12px 0 0;
+    margin: 8px 12px 1px 0;
 }
 
 .how_delivery span {
@@ -84,9 +84,6 @@
     color: #fff;
 }
 
-.dash_detail .bar-header {
-    position: relative;
-}
 
 .dash_detail .top_share {
     float: right;
@@ -95,7 +92,8 @@
 }
 
 /*添加商品数量*/
-.add_shop_account {
+.add_shop_account{
+    position: relative;
     display: inline-block;
     width: 25px;
     height: 25px;
