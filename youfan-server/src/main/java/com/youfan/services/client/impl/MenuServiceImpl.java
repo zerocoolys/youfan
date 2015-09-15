@@ -1,10 +1,14 @@
 package com.youfan.services.client.impl;
 
 import com.youfan.commons.vo.client.MenuVO;
+import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.dao.client.MenuDAO;
+import com.youfan.data.models.MenuEntity;
 import com.youfan.exceptions.MenuNameExistsException;
 import com.youfan.services.client.MenuService;
+import com.youfan.services.impl.MongoServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,9 +25,15 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author dolphineor
  */
 @Service("menuService")
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl extends MongoServiceImpl<MenuEntity, MenuVO> implements MenuService {
 
-    private final ReentrantLock lock = new ReentrantLock();
+	@Autowired
+    public MenuServiceImpl(MongoBaseDAO<MenuEntity, MenuVO, String> mongoDao) {
+		super(mongoDao);
+		// TODO Auto-generated constructor stub
+	}
+
+	private final ReentrantLock lock = new ReentrantLock();
 
     @Resource
     private MenuDAO menuDAO;

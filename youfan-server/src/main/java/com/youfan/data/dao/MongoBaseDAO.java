@@ -155,16 +155,17 @@ public interface MongoBaseDAO<E, V, ID extends Serializable> extends Constants {
 	 * @author QinghaiDeng
 	 * @update 2015年9月11日 上午10:30:46
 	 */
-	default int updateById(String id, MongoParams params) {
+	default int updateById(ID id, MongoParams params) {
 		try {
 			Map<String, Object> paramsMap = JSONUtils.obj2map(params);
 			if (paramsMap != null && !paramsMap.isEmpty()) {
 				WriteResult re = mongoTemplate.updateFirst(
-						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap),
+						idQuery(id), buildUpdate(paramsMap),
 						getEntityClass());
 				return re.getN();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}
@@ -172,19 +173,19 @@ public interface MongoBaseDAO<E, V, ID extends Serializable> extends Constants {
 	/**
 	 * 
 	 * @param id
-	 * @param t
+	 * @param v
 	 * @return
 	 * @description TODO
 	 * @version 1.0
 	 * @author QinghaiDeng
 	 * @update 2015年9月15日 上午9:50:42
 	 */
-	default int updateById(String id, V t) {
+	default int updateById(ID id, V v) {
 		try {
-			Map<String, Object> paramsMap = JSONUtils.obj2map(t);
+			Map<String, Object> paramsMap = JSONUtils.obj2map(v);
 			if (paramsMap != null && !paramsMap.isEmpty()) {
 				WriteResult re = mongoTemplate.updateFirst(
-						query(where(ID).is(id)).addCriteria(where(MONGO_DATA_STATUS).is(1)), buildUpdate(paramsMap),
+						idQuery(id), buildUpdate(paramsMap),
 						getEntityClass());
 				return re.getN();
 			}
@@ -205,7 +206,7 @@ public interface MongoBaseDAO<E, V, ID extends Serializable> extends Constants {
 	 */
 	default V findUniqueOne(String key, Object value) {
 		return convertToVO(mongoTemplate
-				.findOne(query(where(key).is(value)).addCriteria(where(MONGO_DATA_STATUS).is(1)), getEntityClass()));
+				.findOne(query(where(key).is(value)), getEntityClass()));
 	}
 	
 	
