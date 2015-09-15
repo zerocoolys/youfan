@@ -1,7 +1,7 @@
 package com.youfan.data.dao.server;
 
 import com.youfan.commons.vo.server.CouponTypeVO;
-import com.youfan.data.dao.NewMongoBaseDAO;
+import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.CouponTypeEntity;
 
 /**
@@ -14,7 +14,7 @@ import com.youfan.data.models.CouponTypeEntity;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public interface CouponTypeDAO extends  NewMongoBaseDAO<CouponTypeEntity, CouponTypeVO, String>{
+public interface CouponTypeDAO extends  MongoBaseDAO<CouponTypeEntity, CouponTypeVO, String>{
 
 	public void insert(CouponTypeVO couponsTypeVO);
 	
@@ -28,11 +28,4 @@ public interface CouponTypeDAO extends  NewMongoBaseDAO<CouponTypeEntity, Coupon
         return CouponTypeVO.class;
     }
 
-//	public Long count(CouponsParams couponsParams);
-//
-//	public List<CouponsTypeVO> getByCondition(CouponsParams couponsParams);
-//	
-//	public int updateById(String id, Map<String, Object> updateMap);
-//
-//	public int updateById(String id, CouponsTypeVO vo);
 }

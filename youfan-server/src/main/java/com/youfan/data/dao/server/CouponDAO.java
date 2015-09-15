@@ -1,7 +1,7 @@
 package com.youfan.data.dao.server;
 
 import com.youfan.commons.vo.server.CouponVO;
-import com.youfan.data.dao.NewMongoBaseDAO;
+import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.CouponEntity;
 
 /**
@@ -14,7 +14,7 @@ import com.youfan.data.models.CouponEntity;
  * @version V1.0  
  * Copyright (c)2012 chantsoft-版权所有
  */
-public interface CouponDAO extends  NewMongoBaseDAO<CouponEntity, CouponVO, String>{
+public interface CouponDAO extends  MongoBaseDAO<CouponEntity, CouponVO, String>{
 
 	
 	@Override
