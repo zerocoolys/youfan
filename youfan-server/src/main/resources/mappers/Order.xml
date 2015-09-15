@@ -369,11 +369,15 @@
 
 	<update id="updateOrder" parameterType="com.youfan.controllers.params.OrderParams">
 
-		update TBL_ORDERS orders
-		set orders.order_status = #{orderStatus}
+		UPDATE TBL_ORDERS ORDERS
+		SET ORDERS.ORDER_STATUS = #{orderStatus}
 
-		where orders.order_no =
+		WHERE ORDERS.ORDER_NO =
 		#{orderNo} AND DATA_STATUS = 1
+		
+		<if test="sourceOrderStatus != null and sourceOrderStatus != ''">
+			AND ORDERS.ORDER_STATUS = #{sourceOrderStatus}
+		</if>
 
 	</update>
 	
