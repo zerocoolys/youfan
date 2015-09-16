@@ -30,6 +30,8 @@ public interface OrderService {
 
 	OrderVO createOrder(OrderVO order);
 
+	int updateCommentStatus(Integer orderNo);
+
 	void updateOrder(OrderVO order);
 
 	void saveOrderDishes(List<OrderDishRelVO> dishRelVOs);

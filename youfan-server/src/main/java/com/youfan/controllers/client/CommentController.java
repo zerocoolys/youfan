@@ -8,6 +8,7 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.ClientUserService;
 import com.youfan.services.merchant.CommentService;
+import com.youfan.services.server.OrderService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,15 +34,19 @@ public class CommentController {
     @Resource
     private ClientUserService clientUserService;
 
+    @Resource
+    private OrderService orderService;
+
 
     @RequestMapping(value = "/save")
     public Response createComment(@RequestBody CommentVO cm) {
-        ClientUserVO commentUser = clientUserService.findById(cm.getComment_user());
+        ClientUserVO commentUser = clientUserService.findById(cm.getUser_id());
         if (commentUser != null)
             cm.setComment_user(commentUser.getName());
 
         Integer result = commentService.createCm(cm);
         if (result != 0) {
+            orderService.updateCommentStatus((int) cm.getOrder_id());
             return Responses.SUCCESS();
         } else {
             return Responses.FAILED();

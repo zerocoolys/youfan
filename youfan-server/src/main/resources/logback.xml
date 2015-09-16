@@ -107,12 +107,12 @@
     <!--&lt;!&ndash; sql语句打印 &ndash;&gt; -->
     <logger name="java.sql" level="info" /> 
 
-    <logger name="org.springframework" level="debug"/>
+    <logger name="org.springframework" level="info"/>
 
-    <logger name="com.youfan.data.dao" level="debug"/>
+    <logger name="com.youfan.data.dao" level="info"/>
 
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="STDOUT"/>
         <!-- <appender-ref ref="file" /> -->
     </root>

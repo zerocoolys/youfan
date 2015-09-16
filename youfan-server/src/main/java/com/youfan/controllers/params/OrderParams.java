@@ -25,6 +25,8 @@ public class OrderParams extends Pagination {
 
 	String comments;
 
+	Integer commentStatus;
+
 	double originalPrice;
 
 	double discountPrice;
@@ -153,5 +155,13 @@ public class OrderParams extends Pagination {
 
 	public void setSourceOrderStatus(Integer sourceOrderStatus) {
 		this.sourceOrderStatus = sourceOrderStatus;
+	}
+
+	public Integer getCommentStatus() {
+		return commentStatus;
+	}
+
+	public void setCommentStatus(Integer commentStatus) {
+		this.commentStatus = commentStatus;
 	}
 }

@@ -68,6 +68,7 @@ public interface Constants {
 	String COMMENT_IS_HIDE_NAME = "ihn";
 	String COMMENT_REPLAY_COMMENT = "rc";
 	String COMMENT_REPLAY_DATE = "rd";
+	String COMMENT_USER_ID="uid";
 
 	/*
 	 * 商家段字段与collection值

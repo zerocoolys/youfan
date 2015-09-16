@@ -60,7 +60,7 @@ public class CommentDAOImpl implements CommentDAO {
     //    @Override
     public CollectionVO<CommentVO> findPager(Pagination p) {
         Query query = new Query();
-        Criteria c = Criteria.where(Constants.DATA_STATUS).is(0);
+        Criteria c = Criteria.where(Constants.DATA_STATUS).is(1);
         if (p.getParams() != null && p.getParams().size() > 0) {
             p.getParams().forEach((k, v) -> c.and(k).is(v));
         }
@@ -80,7 +80,9 @@ public class CommentDAOImpl implements CommentDAO {
 
     @Override
     public long commentCount(String sellerId) {
-        long count = mongoTemplate.count(new Query().addCriteria(Criteria.where(Constants.SELLER_ID).is(sellerId)), getEntityClass());
+        Query q = new Query();
+        q.addCriteria(Criteria.where(DATA_STATUS).is(1).and(Constants.SELLER_ID).is(sellerId));
+        long count = mongoTemplate.count(q, getEntityClass());
         return count;
     }
 

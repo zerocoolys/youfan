@@ -193,6 +193,11 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 
 	@Override
+	public int updateCommentStatus(Integer orderNo) {
+		return sqlSession.update("commentUpdateStatus", orderNo);
+	}
+
+	@Override
 	public List<Map<String, Object>> findOrdersByMerchantSummary(
 			OrderParams order) {
 

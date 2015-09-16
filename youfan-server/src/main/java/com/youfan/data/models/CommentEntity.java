@@ -24,6 +24,9 @@ public class CommentEntity {
     @Field(Constants.COMMENT_USER)
     String comment_user;
 
+    @Field(Constants.COMMENT_USER_ID)
+    String user_id;
+
     @Field(Constants.SELLER_ID)
     String seller_id;//商家id
 
@@ -44,7 +47,7 @@ public class CommentEntity {
     Date commentTime;
 
     @Field(Constants.DATA_STATUS)
-    Integer dataStatus = 0;
+    Integer dataStatus = 1;
 
     List<String> img_url;
 
@@ -170,5 +173,13 @@ public class CommentEntity {
 
     public void setReplay_date(Date replay_date) {
         this.replay_date = replay_date;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

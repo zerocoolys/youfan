@@ -89,6 +89,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public int updateCommentStatus(Integer orderNo) {
+		return orderDAO.updateCommentStatus(orderNo);
+	}
+
+	@Override
 	public int updateOrderStatus(OrderParams order) {
 		return orderDAO.updateOrderStatus(order);
 	}

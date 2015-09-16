@@ -534,4 +534,14 @@ WHERE
 
 	
 	</select>
+
+	<update id="commentUpdateStatus" parameterType="java.lang.Integer">
+
+		UPDATE TBL_ORDERS
+		SET
+		COMMENT_STATUS = 1
+		WHERE
+		ORDER_ID = #{orderNo}
+
+	</update>
 </mapper>
