@@ -119,18 +119,19 @@ public class CUserController {
         List<MealsAddressVO> list = new ArrayList<MealsAddressVO>();
         try {
             params = mapper.readValue(mealsAddressStr, MealsAddressParams.class);
+            maVO.setUid(params.getUid());
             maVO.setContact(params.getContact());
             maVO.setTel(params.getTel());
             maVO.setAddress(params.getAddress());
             maVO.setHouseNumber(params.getHouseNumber());
             maVO.setLabel(params.getLabel());
 
-            list = userService.findUserById(params.getId()).getMealsAddress();
+            //list = userService.findUserById(params.getId()).getMealsAddress();
 
             list.add(maVO);
 
-            cuVO.setMealsAddress(list);
-            userService.updateMealsAddress(params.getId(), cuVO);
+            //cuVO.setMealsAddress(list);
+            //userService.updateMealsAddress(params.getId(), cuVO);
             userService.insertMealsAddress(maVO);
             return Responses.SUCCESS();
         } catch (Exception e) {
@@ -142,13 +143,19 @@ public class CUserController {
     /**
      * 送餐地址列表
      *
-     * @param mealsAddressStr
+     * @param uid
      * @return
      */
-    @RequestMapping(path = "/maddresslist", method = RequestMethod.GET, produces = "application/json")
-    public Response mealsAddressList(@RequestBody String mealsAddressStr) {
-
-        return null;
+    @RequestMapping(path = "/maddresslist/{uid}", method = RequestMethod.GET, produces = "application/json")
+    public Response mealsAddressList(@PathVariable String uid) {
+        MealsAddressVO result = new MealsAddressVO();
+        try {
+            result = userService.findMAddressByUid(uid);
+            return Responses.SUCCESS().setPayload(result);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return Responses.FAILED();
+        }
     }
 
 

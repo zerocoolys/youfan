@@ -24,7 +24,7 @@ public interface ClientUserService {
      */
     void update(ClientUserVO uc);
 
-    void updateMealsAddress(String id, ClientUserVO clientUserVO);
+
     /**
      * 根据用户电话号码查询用户信息
      *
@@ -36,7 +36,6 @@ public interface ClientUserService {
 
     ClientUserVO findUserById(String id);
 
-    void insertMealsAddress(MealsAddressVO mealsAddressVO);
 
     /**
      * 根据用户电话号码和密码 进行登陆
@@ -67,9 +66,14 @@ public interface ClientUserService {
     void updateUserPwd(String id, String pwd);
 
     /**
-     *  根据用户id查询用户信息
+     * 根据用户id查询用户信息
+     *
      * @param id
      * @return
      */
     ClientUserVO findById(String id);
+
+    void insertMealsAddress(MealsAddressVO mealsAddressVO);
+
+    MealsAddressVO findMAddressByUid(String uid);
 }
