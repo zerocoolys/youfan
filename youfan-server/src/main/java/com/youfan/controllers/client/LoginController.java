@@ -32,7 +32,11 @@ import redis.clients.jedis.Jedis;
 @RequestMapping("/client")
 public class LoginController {
 
-    Logger logger = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+    private final String TOKEN_PREFIX = "access_token:";
+
+    private int DAY_SECONDS = 86_400;
 
     @Resource
     private ClientUserService ucService;
@@ -134,7 +138,7 @@ public class LoginController {
             double r = Math.random() * 100000;
             String tmp = t + time + r;
             String token = DigestUtils.md5DigestAsHex(tmp.getBytes());
-            jedis.setex(token, (int) TimeUnit.DAYS.toSeconds(1), userClientVO.getId());
+            jedis.setex(TOKEN_PREFIX + token, DAY_SECONDS, userClientVO.getId());
 
             LocalStorage p = new LocalStorage();
             p.setToken(token);
