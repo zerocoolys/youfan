@@ -23,6 +23,7 @@ ControllerModule.controller('OrderDetailCtrl', function ($scope, $state, $stateP
 
     $scope.orderParams = {
         buyerId: $scope.order.buyerId,
+        orderNo: $scope.order.orderNo,
         sourceOrderStatus: $scope.order.orderStatus
     };
 
@@ -41,7 +42,8 @@ ControllerModule.controller('OrderDetailCtrl', function ($scope, $state, $stateP
         $http.post(orderRequestUrl, $scope.orderParams).then(
             function (response) {
                 PopupService.showAlert($scope, response.data.msg);
-                console.log(JSON.stringify(response));
+                //console.log(JSON.stringify(response));
+                $state.go('tab.order');
             }, function (error) {
                 console.log(error);
             });

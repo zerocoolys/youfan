@@ -144,7 +144,7 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
     };
 
     $scope.loadOrdersData = function (type) {
-        $http.post(REST_URL + '/orders/users/' + '22305304567', $scope.pagination)
+        $http.post(REST_URL + '/orders/users/' + User.id, $scope.pagination)
             .then(function (response) {
                 //console.log(JSON.stringify(response));
                 var result = response.data.payload;
@@ -248,21 +248,21 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
     $scope.goTo = function (orderObj) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
-            $state.go('tab.comment-details');
+            $state.go('comment-details');
         }
     }
 
     $scope.goTo = function (orderObj) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
-            $state.go('tab.comment-details');
+            $state.go('comment-details');
         }
     }
 
     $scope.goTo = function (orderObj) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
-            $state.go('tab.comment-details');
+            $state.go('comment-details');
         }
     }
 

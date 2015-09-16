@@ -1,8 +1,8 @@
-<ion-modal-view>
+<ion-view hide-nav-bar="true" hide-tabs>
     <ion-header-bar>
-        <button class="button button-clear" ng-click="modal.hide()">取消</button>
+        <button class="button icon ion-ios-arrow-left button-clear" onclick="history.back()"></button>
         <h1 class="title" ng-click="addAddress()">新增就餐地址</h1>
-        <button class="button button-clear mainColor" ng-click="modifyMa(post);modal.hide()">保存</button>
+        <button class="button button-clear mainColor" ng-click="modifyMa(post);">保存</button>
     </ion-header-bar>
     <ion-content>
         <ion-list>
@@ -18,7 +18,7 @@
                         <input type="text" ng-model="post.tel" placeholder="收餐人电话">
                     </span>
             </ion-item>
-            <ion-item class="item-icon-right">
+            <ion-item class="item-icon-right" ui-sref="detail-address">
                 地址
                     <span class="item-note">
                       小区/大厦/学校/街道<i class="icon ion-chevron-right icon-accessory"></i>
@@ -40,4 +40,4 @@
             </button>
         </div>
     </ion-content>
-</ion-modal-view>
+</ion-view>
