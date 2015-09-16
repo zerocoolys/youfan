@@ -1,11 +1,6 @@
 /**
  * Created by icepros on 15-9-8.
  */
-
-var api = {
-    base_url: "http://localhost:8080"
-};
-
 ServiceModule
     .factory('AuthenticationService', function () {
         var auth = {
@@ -48,7 +43,7 @@ ServiceModule
             }
         };
     })
-    .factory('SMSService', function ($http) {
+    .factory('SMSService', function ($http, REST_URL) {
         var code = "";
         var codeLength = 4;
         //生成 6 位随机数验证码
@@ -64,16 +59,16 @@ ServiceModule
             /*****************客户端--注册***********************/
             /**************************************************/
             registerCaptchaAlive: function (tel) {
-                return $http.post(api.base_url + '/captcha/alive', {captchaKey: "client_reg" + tel, captcha: code});
+                return $http.post(REST_URL + '/captcha/alive', {captchaKey: "client_reg" + tel, captcha: code});
             },
             registerCaptchaVerify: function (tel) {
-                return $http.post(api.base_url + '/captcha/verify', {captchaKey: "client_reg" + tel});
+                return $http.post(REST_URL + '/captcha/verify', {captchaKey: "client_reg" + tel});
             },
             /**************************************************/
             /*****************客户端--忘记密码********************/
             /**************************************************/
             forgetPasswordCaptchaAlive: function (tel) {
-                return $http.post(api.base_url + '/captcha/alive', {
+                return $http.post(REST_URL + '/captcha/alive', {
                     captchaKey: "client_forgetpwd" + tel,
                     captcha: code
                 });
@@ -83,47 +78,47 @@ ServiceModule
             }
         }
     })
-    .factory('UserService', function ($http) {
+    .factory('UserService', function ($http, REST_URL) {
         return {
             register: function (tel, password) {
-                return $http.post(api.base_url + '/client/register', {tel: tel, password: password});
+                return $http.post(REST_URL + '/client/register', {tel: tel, password: password});
             },
             signIn: function (tel, password) {
-                return $http.post(api.base_url + '/client/login', {tel: tel, password: password});
+                return $http.post(REST_URL + '/client/login', {tel: tel, password: password});
             },
             signOut: function () {
-                return $http.post(api.base_url + '/client/logout', {});
+                return $http.post(REST_URL + '/client/logout', {});
             },
             resetPassword: function (tel, password) {
-                return $http.post(api.base_url + '/cuser/pinfo', {tel: tel, password: password});
+                return $http.post(REST_URL + '/cuser/pinfo', {tel: tel, password: password});
             },
             updateInfo: function (post) {
-                return $http.post(api.base_url + '/cuser/binfo', post);
+                return $http.post(REST_URL + '/cuser/binfo', post);
             },
             attention: function () {
-                return $http.post(api.base_url + '/cuser/attention', {});
+                return $http.post(REST_URL + '/cuser/attention', {});
             },
             praise: function () {
-                return $http.post(api.base_url + '/cuser/praise', {});
+                return $http.post(REST_URL + '/cuser/praise', {});
             },
             userInfo: function (id) {
-                return $http.get(api.base_url + '/cuser/' + id);
+                return $http.get(REST_URL + '/cuser/' + id);
             }
         }
     })
-    .factory('MealsAddressService', function($http){
+    .factory('MealsAddressService', function ($http, REST_URL) {
         return {
             add: function (post) {
-                return $http.post(api.base_url + '/address/a_info', post);
+                return $http.post(REST_URL + '/address/a_info', post);
             },
             query: function (uid) {
-                return $http.get(api.base_url + '/address/info/' + uid);
+                return $http.get(REST_URL + '/address/info/' + uid);
             },
-            update: function(post){
-                return $http.post(api.base_url + '/address/u_info/' + post);
+            update: function (post) {
+                return $http.post(REST_URL + '/address/u_info/' + post);
             },
-            remove: function(id, dataStatus){
-                return $http.get(api.base_url + '/address/r_info/' + {id: id, dataStatus: dataStatus});
+            remove: function (id, dataStatus) {
+                return $http.get(REST_URL + '/address/r_info/' + {id: id, dataStatus: dataStatus});
             }
         }
     })
