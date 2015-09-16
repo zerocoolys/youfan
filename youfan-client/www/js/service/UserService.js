@@ -100,12 +100,6 @@ ServiceModule
             updateInfo: function (post) {
                 return $http.post(api.base_url + '/cuser/binfo', post);
             },
-            mealsAddress: function (post) {
-                return $http.post(api.base_url + '/cuser/mealsaddress', post);
-            },
-            mealsAddressList: function (id) {
-                return $http.get(api.base_url + '/cuser/maddresslist' + id);
-            },
             attention: function () {
                 return $http.post(api.base_url + '/cuser/attention', {});
             },
@@ -114,6 +108,22 @@ ServiceModule
             },
             userInfo: function (id) {
                 return $http.get(api.base_url + '/cuser/' + id);
+            }
+        }
+    })
+    .factory('MealsAddressService', function($http){
+        return {
+            add: function (post) {
+                return $http.post(api.base_url + '/address/a_info', post);
+            },
+            query: function (uid) {
+                return $http.get(api.base_url + '/address/info/' + uid);
+            },
+            update: function(post){
+                return $http.post(api.base_url + '/address/u_info/' + post);
+            },
+            remove: function(id, dataStatus){
+                return $http.get(api.base_url + '/address/r_info/' + {id: id, dataStatus: dataStatus});
             }
         }
     })
