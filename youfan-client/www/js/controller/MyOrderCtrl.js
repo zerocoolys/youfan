@@ -144,7 +144,7 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
     };
 
     $scope.loadOrdersData = function (type) {
-        $http.post(REST_URL + '/orders/users/' + '22305304567', $scope.pagination)
+        $http.post(REST_URL + '/orders/users/' + User.id, $scope.pagination)
             .then(function (response) {
                 //console.log(JSON.stringify(response));
                 var result = response.data.payload;

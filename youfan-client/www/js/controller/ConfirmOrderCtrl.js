@@ -2,7 +2,7 @@
  * Created by ss on 2015/8/17.
  */
 ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal,
-                                                          $ionicPopup, $timeout, User, Merchant, Order, REST_URL) {
+                                                          $ionicPopup, $timeout, localStorageService, User, Merchant, Order, REST_URL) {
 
     $scope.IsShowBar = true;
     /*底部就餐时间选择*/
@@ -178,7 +178,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         // ==============================
 
         // 创建订单
-        $http.post(REST_URL + '/orders', orderData)
+        $http.post(REST_URL + '/orders?access_token=' + localStorageService.get('token'), orderData)
             .then(function (response) {
                 //console.log(JSON.stringify(response));
                 // 跳转到支付页面
