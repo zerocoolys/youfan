@@ -343,7 +343,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
 //            确认订单页
             .state('tab.confirm-order', {
-                url: '/confirm-order/:orderId',
+                url: '/confirm-order',
                 views: {
                     'tab-dash': {
                         templateUrl: 'templates/confirm-order.html',

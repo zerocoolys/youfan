@@ -158,13 +158,16 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         _date.setMinutes(_minutes);
         _date.setSeconds(0);
 
+        var discountPrice = parseFloat($scope.remainPayedPrice);
+
         var orderData = {
             buyerId: User.id,
             sellerId: Merchant.sellerId,
             itemMap: menusJsonObj,
+            orderType: Order.orderType,
             comments: $scope.comments.trim().replace(" ", ","),
             originalPrice: $scope.totalPrice,
-            discountPrice: $scope.remainPayedPrice,
+            discountPrice: discountPrice,
             repastMode: $rootScope.userDiningWay.pickUp == true ? "zq" : "ps",
             repastTime: _date,
             repastAddress: $rootScope.userDiningWay.address.name + "," + $rootScope.userDiningWay.address.telNo + "," + $rootScope.userDiningWay.address.address,
@@ -180,11 +183,16 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         // 创建订单
         $http.post(REST_URL + '/orders?access_token=' + localStorageService.get('token'), orderData)
             .then(function (response) {
+                // clear
+                Order.orderType = 0;
+                Order.cart = [];
+                Order.details = {};
+
                 //console.log(JSON.stringify(response));
                 // 跳转到支付页面
                 $state.go('tab.pay-page', {
                     orderNo: response.data.payload.orderNo,
-                    discountPrice: parseFloat(orderData.discountPrice) * 100
+                    discountPrice: discountPrice
                 });
             }, function (error) {
                 //console.log(error);
