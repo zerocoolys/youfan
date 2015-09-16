@@ -19,7 +19,7 @@
         <ion-refresher pulling-text="下拉可以刷新" on-refresh="load()"></ion-refresher>
 
         <div class="item" style="padding: 10px; text-align: center;">
-            <button class="button button-calm" data-ng-click="addQtc()">亲 赶快添加你的其他菜吧</button>
+            <button class="button button-calm" ui-sref="m_dishes_add.qtc">亲 赶快添加你的其他菜吧</button>
         </div>
         <ion-list>
             <ion-item ng-repeat="item in items" style="margin-top: 10px;">

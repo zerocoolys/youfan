@@ -3,8 +3,7 @@
  */
 angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_controllers', 'yf_merchant.m_d_xfz_controllers', 'yf_merchant.m_d_nsc_controllers', 'yf_merchant.manage_dishes_service'])
 
-    .controller('ManageDishesCtrl', function ($scope, $ionicPopup, $rootScope, $ionicHistory, $state, $ionicLoading, $timeout, ManageDishesService, $ionicModal,
-                                              YF_MERCHANT_LOADING_COMMENT) {
+    .controller('ManageDishesCtrl', function ($scope, $ionicPopup, $rootScope, $ionicHistory, $state, $ionicLoading, $timeout, ManageDishesService) {
         console.log("ManageDishesCtrl");
         $scope.upSale = function (obj) {
             console.log("upSale");
@@ -48,25 +47,6 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
 
         };
 
-        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.dishPic = modal;
-        });
-        $scope.replacePic = function (_index) {
-
-            $scope.imgs.unshift($scope.imgs[_index]);
-            $scope.imgs.splice(_index + 1, 1);
-            $ionicLoading.show({
-                template: "设置成功"
-            });
-            $timeout(function () {
-                $ionicLoading.hide();
-            }, 1000);
-            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
-
-
-        };
         $rootScope.sureCanel = function () {
             var myPopup = $ionicPopup.show({
                 template: '你确定撤销您的编辑的内容吗？',
@@ -89,9 +69,36 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
 
             // 一个确认
 
+        };
 
-        }
+    })
 
+    .controller('ManageDishesAddCtrl', function ($scope, $state, $ionicLoading, $ionicPopup) {
+        console.log("ManageDishesAddCtrl");
+
+        $scope.sureCanel = function () {
+            var myPopup = $ionicPopup.show({
+                template: '你确定撤销您的编辑的内容吗？',
+                title: '提示',
+                buttons: [
+                    {
+                        text: '<b>返回<b>',
+                        type: 'button-light'
+
+                    },
+                    {
+                        text: '<b>确认</b>',
+                        type: 'button-calm',
+                        onTap: function () {
+                            history.back();
+                        }
+                    }
+                ]
+            });
+
+            // 一个确认
+
+        };
 
     })
 
@@ -160,7 +167,7 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
 
             // 一个确认
 
-        }
+        };
 
         $scope.$on("yf-merchant-renewal-dishes-success", function () {
             $state.go("m_dishes." + $scope.paramObj.backType);
@@ -435,14 +442,20 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 controller: 'ManageDishesQtcCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-qtc.html'
             })
+            .state("m_dishes_add", {
+                url: '/manage/dishes',
+                abstract: true,
+                controller: 'ManageDishesAddCtrl',
+                templateUrl: 'templates/manage-dishes/manage-dishes-add-entrance.html'
+            })
             .state("m_dishes_edit", {
                 url: '/manage/dishes',
                 abstract: true,
                 controller: 'ManageDishesEditCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-edit-entrance.html'
             })
-            .state('m_dishes_nsc_add', {
-                url: '/manage/dishes/nsc/add',
+            .state('m_dishes_add.nsc', {
+                url: '/nsc/add',
                 controller: 'ManageDishesNscAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-nsc-add.html'
             })
@@ -451,8 +464,8 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 controller: 'ManageDishesNscEditCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-nsc-edit.html'
             })
-            .state('m_dishes_qtc_add', {
-                url: '/manage/dishes/qtc/add',
+            .state('m_dishes_add.qtc', {
+                url: '/qtc/add',
                 controller: 'ManageDishesQtcAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-qtc-add.html'
             })
@@ -461,8 +474,8 @@ angular.module('yf_merchant.manage_dishes_controllers', ['yf_merchant.m_d_qtc_co
                 controller: 'ManageDishesQtcEditCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-qtc-edit.html'
             })
-            .state('m_dishes_xfz_add', {
-                url: '/manage/dishes/xfz/add/:xfzNum',
+            .state('m_dishes_add.xfz', {
+                url: '/xfz/add/:xfzNum',
                 controller: 'ManageDishesXfzAddCtrl',
                 templateUrl: 'templates/manage-dishes/manage-dishes-xfz-add.html'
             })

@@ -1,6 +1,6 @@
 angular.module('yf_merchant.m_d_xfz_controllers', [])
 
-    .controller('ManageDishesXfzCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicActionSheet, ManageDishesService, YF_MERCHANT_INFO,$ionicModal) {
+    .controller('ManageDishesXfzCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicActionSheet, ManageDishesService, YF_MERCHANT_INFO) {
 
         console.log("ManageDishesXfzCtrl");
 
@@ -13,7 +13,7 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
                 ],
                 buttonClicked: function (index) {
                     var temp = [2, 3, 5];
-                    $state.go("m_dishes_xfz_add", {xfzNum: temp[index]});
+                    $state.go("m_dishes_add.xfz", {xfzNum: temp[index]});
                 },
                 cancelText: "<p class='calm'>取消</p>",
                 cancel: function () {
@@ -53,44 +53,6 @@ angular.module('yf_merchant.m_d_xfz_controllers', [])
             //隐藏载入指示器
             $ionicLoading.hide();
         });
-        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.dishPic = modal;
-        });
-        $scope.replacePic = function (_index) {
-
-            $scope.imgs.unshift($scope.imgs[_index]);
-            $scope.imgs.splice(_index+1,1);
-            $ionicLoading.show({
-                template:"设置成功"
-            });
-            $timeout(function () {
-                $ionicLoading.hide();
-            }, 1000);
-            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
-
-
-        };
-        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.dishPic = modal;
-        });
-        $scope.replacePic = function (_index) {
-
-            $scope.imgs.unshift($scope.imgs[_index]);
-            $scope.imgs.splice(_index+1,1);
-            $ionicLoading.show({
-                template:"设置成功"
-            });
-            $timeout(function () {
-                $ionicLoading.hide();
-            }, 1000);
-            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
-
-
-        };
 
     })
 

@@ -1,14 +1,10 @@
 angular.module('yf_merchant.m_d_nsc_controllers', [])
 
-    .controller('ManageDishesNscCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO, YF_MERCHANT_MUSIC,  $ionicModal) {
+    .controller('ManageDishesNscCtrl', function ($scope, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_LOADING_COMMENT, YF_MERCHANT_INFO, YF_MERCHANT_MUSIC) {
 
         console.log("ManageDishesNscCtrl");
 
         $scope.items = [];
-
-        $scope.addNsc = function () {
-            $state.go("m_dishes_nsc_add");
-        };
 
         $scope.load = function () {
             $ionicLoading.show({
@@ -43,12 +39,10 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $ionicLoading.hide();
         });
 
-
-
     })
 
 
-    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO,$ionicModal) {
+    .controller('ManageDishesNscAddCtrl', function ($scope, $state, $ionicActionSheet, $ionicLoading, $ionicPopup, $timeout, KwService, PhotoService, ManageDishesService, $cordovaCamera, $cordovaImagePicker, YF_MERCHANT_INFO,$ionicModal) {
 
         console.log("ManageDishesNscAddCtrl");
 
@@ -153,6 +147,29 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $timeout(function () {
                 ManageDishesService.saveDishes($scope.dishes);
             }, 1000);
+
+        };
+
+        $scope.sureCanel = function () {
+            var myPopup = $ionicPopup.show({
+                template: '你确定撤销您的编辑的内容吗？',
+                title: '提示',
+                buttons: [
+                    {
+                        text: '<b>返回<b>',
+                        type: 'button-light'
+
+                    }, {
+                        text: '<b>确认</b>',
+                        type: 'button-calm',
+                        onTap: function () {
+                            history.back();
+                        }
+                    }
+                ]
+            });
+
+            // 一个确认
 
         };
 

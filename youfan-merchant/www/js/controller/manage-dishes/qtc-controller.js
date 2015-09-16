@@ -1,14 +1,10 @@
 angular.module('yf_merchant.m_d_qtc_controllers', [])
 
-    .controller('ManageDishesQtcCtrl', function ($scope, $state, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_INFO, $ionicModal) {
+    .controller('ManageDishesQtcCtrl', function ($scope, $ionicLoading, $timeout, ManageDishesService, YF_MERCHANT_INFO) {
 
         console.log("ManageDishesQtcCtrl");
 
         $scope.items = [];
-
-        $scope.addQtc = function () {
-            $state.go("m_dishes_qtc_add");
-        };
 
         $scope.load = function () {
             $ionicLoading.show({
@@ -41,25 +37,6 @@ angular.module('yf_merchant.m_d_qtc_controllers', [])
             //隐藏载入指示器
             $ionicLoading.hide();
         });
-        $ionicModal.fromTemplateUrl('templates/dishPic.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.dishPic = modal;
-        });
-        $scope.replacePic = function (_index) {
-
-            $scope.imgs.unshift($scope.imgs[_index]);
-            $scope.imgs.splice(_index+1,1);
-            $ionicLoading.show({
-                template:"设置成功"
-            });
-            $timeout(function () {
-                $ionicLoading.hide();
-            }, 1000);
-            //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
-
-
-        };
 
     })
 
