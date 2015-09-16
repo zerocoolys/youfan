@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by icepros on 15-8-25.
@@ -97,7 +98,7 @@ public class ClientUserServiceImpl implements ClientUserService {
     }
 
     @Override
-    public MealsAddressVO findMAddressByUid(String uid) {
+    public List<MealsAddressVO> findMAddressByUid(String uid) {
         return maDAO.findByUid(uid);
     }
 }

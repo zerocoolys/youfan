@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by icepros on 15-9-16.
  */
@@ -20,12 +22,9 @@ public class MealsAddressDaoImpl implements MealsAddressDao {
     }
 
     @Override
-    public MealsAddressVO findByUid(String uid) {
-        MealsAddressEntity maEntity = mongoTemplate.findOne(queryByUid(uid), getEntityClass(), COLLECTION_CLIENT_MEALS_ADDRESS);
-        if (maEntity != null)
-            return convertToVO(maEntity);
-
-        return null;
+    public List<MealsAddressVO> findByUid(String uid) {
+        List<MealsAddressVO> list = mongoTemplate.find(queryByUid(uid), getVOClass(), COLLECTION_CLIENT_MEALS_ADDRESS);
+        return list;
     }
 
 

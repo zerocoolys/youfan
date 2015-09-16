@@ -10,6 +10,7 @@ import static com.youfan.commons.Constants.COLLECTION_CLIENT_MEALS_ADDRESS;
  */
 @Document(collection = COLLECTION_CLIENT_MEALS_ADDRESS)
 public class MealsAddressEntity {
+    //用户id
     private String uid;
     @Id
     private String id;
@@ -23,6 +24,8 @@ public class MealsAddressEntity {
     private String houseNumber;
     //标签 家or公司
     private String label;
+    //数据状态 0：已删 1：未删
+    private Integer dataStatus = 1;
 
     public String getUid() {
         return uid;
@@ -78,5 +81,13 @@ public class MealsAddressEntity {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Integer getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
     }
 }
