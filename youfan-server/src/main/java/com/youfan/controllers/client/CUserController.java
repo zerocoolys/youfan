@@ -104,60 +104,6 @@ public class CUserController {
         return Responses.SUCCESS().setPayload(clientUserVO);
     }
 
-    /**
-     * 送餐地址
-     *
-     * @param mealsAddressStr
-     * @return
-     */
-    @RequestMapping(path = "/mealsaddress", method = RequestMethod.POST, produces = "application/json")
-    public Response mealsAddress(@RequestBody String mealsAddressStr) {
-        ObjectMapper mapper = new ObjectMapper();
-        MealsAddressParams params = null;
-        ClientUserVO cuVO = new ClientUserVO();
-        MealsAddressVO maVO = new MealsAddressVO();
-        List<MealsAddressVO> list = new ArrayList<MealsAddressVO>();
-        try {
-            params = mapper.readValue(mealsAddressStr, MealsAddressParams.class);
-            maVO.setUid(params.getUid());
-            maVO.setContact(params.getContact());
-            maVO.setTel(params.getTel());
-            maVO.setAddress(params.getAddress());
-            maVO.setHouseNumber(params.getHouseNumber());
-            maVO.setLabel(params.getLabel());
-
-            //list = userService.findUserById(params.getId()).getMealsAddress();
-
-            list.add(maVO);
-
-            //cuVO.setMealsAddress(list);
-            //userService.updateMealsAddress(params.getId(), cuVO);
-            userService.insertMealsAddress(maVO);
-            return Responses.SUCCESS();
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return Responses.FAILED();
-        }
-    }
-
-    /**
-     * 送餐地址列表
-     *
-     * @param uid
-     * @return
-     */
-    @RequestMapping(path = "/maddresslist/{uid}", method = RequestMethod.GET, produces = "application/json")
-    public Response mealsAddressList(@PathVariable String uid) {
-        List<MealsAddressVO> result = new ArrayList<>();
-        try {
-            result = userService.findMAddressByUid(uid);
-            return Responses.SUCCESS().setPayload(result);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return Responses.FAILED();
-        }
-    }
-
 
     /**
      * 我的关注 存 商家店铺地址

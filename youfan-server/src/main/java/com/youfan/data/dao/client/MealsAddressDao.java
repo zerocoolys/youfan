@@ -17,15 +17,25 @@ public interface MealsAddressDao extends MongoBaseDAO<MealsAddressEntity, MealsA
 
     List<MealsAddressVO> findByUid(String uid);
 
+    void update(String id, MealsAddressVO mealsAddressVO);
+
+    void delete(String id, String dataStatus);
+
     default Class<MealsAddressEntity> getEntityClass() {
         return MealsAddressEntity.class;
     }
+
     default Class<MealsAddressVO> getVOClass() {
         return MealsAddressVO.class;
     }
 
-    default Query queryByUid(String uid){
+    default Query queryByUid(String uid) {
         Criteria criteria = Criteria.where("uid").is(uid);
+        return Query.query(criteria);
+    }
+
+    default Query queryById(String id) {
+        Criteria criteria = Criteria.where("id").is(id);
         return Query.query(criteria);
     }
 }
