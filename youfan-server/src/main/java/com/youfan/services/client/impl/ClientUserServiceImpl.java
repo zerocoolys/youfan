@@ -10,6 +10,7 @@ import com.youfan.system.redis.RedisPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,6 +27,8 @@ public class ClientUserServiceImpl implements ClientUserService {
     private UserDao ucDAO;
     @Resource
     private MealsAddressDao maDAO;
+    @Resource
+    private Jedis jedis;
 
     @Override
     public void insert(ClientUserVO uc) {
@@ -36,10 +39,7 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     @Override
     public void update(ClientUserVO uc) {
-
     }
-
-
 
     @Override
     public ClientUserVO getUserByTel(String tel) {
@@ -59,10 +59,9 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     @Override
     public String getUserIdByToken(String token) {
-        RedisPool redisPool = new RedisPool();
         String result = new String();
         try {
-            result = redisPool.getJedis().get(token);
+            result = jedis.get(token);
         } catch (Exception e) {
             logger.info(e.getMessage());
         }
@@ -90,6 +89,10 @@ public class ClientUserServiceImpl implements ClientUserService {
         }
     }
 
+    /***************************************************************/
+    /**********************送餐地址**×××××××××************************/
+    /***************************************************************/
+
     @Override
     public void insertMealsAddress(MealsAddressVO mealsAddressVO) {
         if (mealsAddressVO != null) {
@@ -100,5 +103,15 @@ public class ClientUserServiceImpl implements ClientUserService {
     @Override
     public List<MealsAddressVO> findMAddressByUid(String uid) {
         return maDAO.findByUid(uid);
+    }
+
+    @Override
+    public void updateMealsAddress(String id, MealsAddressVO mealsAddressVO) {
+        maDAO.update(id, mealsAddressVO);
+    }
+
+    @Override
+    public void deleteMealsAddress(String id, String dataStatus) {
+        maDAO.delete(id, dataStatus);
     }
 }

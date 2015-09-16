@@ -5,7 +5,7 @@ package com.youfan.controllers.params;
  */
 public class MealsAddressParams {
 
-    private  String uid;
+    private String uid;
     private String id;
     //联系人
     private String contact;
@@ -17,6 +17,8 @@ public class MealsAddressParams {
     private String houseNumber;
     //标签 家or公司
     private String label;
+    //数据状态
+    private Integer dataStatus;
 
     public String getUid() {
         return uid;
@@ -72,5 +74,13 @@ public class MealsAddressParams {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Integer getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
     }
 }
