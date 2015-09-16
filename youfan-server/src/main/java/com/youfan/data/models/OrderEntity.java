@@ -25,6 +25,13 @@ public class OrderEntity {
     // 订单状态
     private int orderStatus;
 
+    /**
+     * 订单类型
+     * 0 -> 当日订单
+     * 1 -> 明日预订
+     */
+    private int orderType;
+
     // 订单原始价格
     private BigDecimal orgPrice;
 
@@ -63,7 +70,7 @@ public class OrderEntity {
 
     // 活动id
     private String activeId;
-    
+
     private List<Integer> orderStatusList;
 
     // 订单的评论状态(0 -> 待评论, 1 -> 已评论)
@@ -71,14 +78,14 @@ public class OrderEntity {
 
 
     public List<Integer> getOrderStatusList() {
-		return orderStatusList;
-	}
+        return orderStatusList;
+    }
 
-	public void setOrderStatusList(List<Integer> orderStatusList) {
-		this.orderStatusList = orderStatusList;
-	}
+    public void setOrderStatusList(List<Integer> orderStatusList) {
+        this.orderStatusList = orderStatusList;
+    }
 
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -108,6 +115,14 @@ public class OrderEntity {
 
     public void setOrderStatus(int orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public int getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(int orderType) {
+        this.orderType = orderType;
     }
 
     public BigDecimal getOrgPrice() {

@@ -13,6 +13,7 @@ public class OrderVO {
     private String buyerId;
     private int orderStatus;
     private int dataStatus = 1;
+    private int orderType;
     private double orgPrice;
     private double discountPrice;
     private Date orderTime;
@@ -121,6 +122,14 @@ public class OrderVO {
 
     public void setDataStatus(int dataStatus) {
         this.dataStatus = dataStatus;
+    }
+
+    public int getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(int orderType) {
+        this.orderType = orderType;
     }
 
     public String getOrderNo() {

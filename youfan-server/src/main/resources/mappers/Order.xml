@@ -74,6 +74,7 @@
 		<result column="ACTIVE_ID" property="activeId" />
 		<result column="COMMENT_STATUS" property="commentStatus" />
 		<result column="PAYMENT_WAY" property="paymentWay"/>
+		<result column="ORDER_TYPE" property="orderType"/>
 	</resultMap>
 
     <resultMap id="OrderDishEntityMap" type="com.youfan.data.models.OrderDishRelEntity">
@@ -227,8 +228,8 @@
 
 	<insert id="createOrder" parameterType="com.youfan.data.models.OrderEntity">
 		INSERT INTO
-		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY,CHARGE_ID,ACTIVE_ID,COMMENT_STATUS)
-		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay},#{chargeId},#{activeId},#{commentStatus})
+		TBL_ORDERS(ORDER_NO,SELLER_ID,BUYER_ID,ORIGINAL_PRICE,DISCOUNT_PRICE,ORDER_STATUS,COMMENTS,DATA_STATUS,ORDER_TYPE,REPAST_TIME,ORDER_TIME,REPAST_MODE,REPAST_ADDRESS,COUPON_ID,PAYMENT_WAY,CHARGE_ID,ACTIVE_ID,COMMENT_STATUS)
+		VALUES(#{orderNo},#{sellerId},#{buyerId},#{orgPrice},#{discountPrice},#{orderStatus},#{comments},#{dataStatus},#{orderType},#{repastTime},#{orderTime},#{repastMode},#{repastAddress},#{couponId},#{paymentWay},#{chargeId},#{activeId},#{commentStatus})
 	</insert>
 
 	<insert id="saveOrderDishes" useGeneratedKeys="true"

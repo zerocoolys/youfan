@@ -99,6 +99,7 @@ public class OrderDAOImpl implements OrderDAO {
 				.getDiscountPrice()));
 		orderEntity.setDataStatus(order.getDataStatus());
 		orderEntity.setOrderStatus(order.getOrderStatus());
+        orderEntity.setOrderType(order.getOrderType());
 
 		orderEntity.setOrderTime(Timestamp.from(Instant.now()));
 		orderEntity.setRepastTime(Timestamp.from(order.getRepastTime()
@@ -118,6 +119,7 @@ public class OrderDAOImpl implements OrderDAO {
 		order.setOrderNo(orderEntity.getOrderNo());
 		order.setBuyerId(orderEntity.getBuyerId());
 		order.setSellerId(orderEntity.getSellerId());
+		order.setOrderType(orderEntity.getOrderType());
 
 		order.setComments(orderEntity.getComments());
 		order.setOrderStatus(orderEntity.getOrderStatus());
@@ -241,7 +243,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 	@Override
 	public MerchantIncomeVO findMyIncome(OrderParams order) {
-		
+
 		MerchantIncomeVO data = sqlSession.selectOne("myIncome",
 				order);
 
