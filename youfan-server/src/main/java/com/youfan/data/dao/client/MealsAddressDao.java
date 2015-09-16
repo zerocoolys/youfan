@@ -6,6 +6,8 @@ import com.youfan.data.models.MealsAddressEntity;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import java.util.List;
+
 /**
  * Created by icepros on 15-9-16.
  */
@@ -13,7 +15,7 @@ public interface MealsAddressDao extends MongoBaseDAO<MealsAddressEntity, MealsA
 
     void insert(MealsAddressVO mealsAddressVO);
 
-    MealsAddressVO findByUid(String uid);
+    List<MealsAddressVO> findByUid(String uid);
 
     default Class<MealsAddressEntity> getEntityClass() {
         return MealsAddressEntity.class;

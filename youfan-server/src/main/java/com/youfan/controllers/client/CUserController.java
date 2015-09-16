@@ -148,7 +148,7 @@ public class CUserController {
      */
     @RequestMapping(path = "/maddresslist/{uid}", method = RequestMethod.GET, produces = "application/json")
     public Response mealsAddressList(@PathVariable String uid) {
-        MealsAddressVO result = new MealsAddressVO();
+        List<MealsAddressVO> result = new ArrayList<>();
         try {
             result = userService.findMAddressByUid(uid);
             return Responses.SUCCESS().setPayload(result);

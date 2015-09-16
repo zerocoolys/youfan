@@ -5,6 +5,8 @@ import com.youfan.commons.vo.client.MealsAddressVO;
 import com.youfan.data.models.MealsAddressEntity;
 import com.youfan.exceptions.UserException;
 
+import java.util.List;
+
 /**
  * Created by icepros on 15-8-25.
  */
@@ -75,5 +77,5 @@ public interface ClientUserService {
 
     void insertMealsAddress(MealsAddressVO mealsAddressVO);
 
-    MealsAddressVO findMAddressByUid(String uid);
+    List<MealsAddressVO> findMAddressByUid(String uid);
 }
