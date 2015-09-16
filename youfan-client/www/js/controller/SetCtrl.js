@@ -21,16 +21,16 @@ ControllerModule.controller('SetCtrl', function ($scope, $ionicModal, Order, Aut
     };
     $scope.updatePwd = function () {
         if (AuthenticationService.isLogged) {
-            $state.go('tab.set-pwd');
+            $state.go('set-pwd');
         } else {
-            $state.go('tab.pwd-login');
+            $state.go('pwd-login');
         }
     };
     $scope.feedback = function () {
         if (AuthenticationService.isLogged) {
             $scope.modal.show();
         } else {
-            $state.go('tab.pwd-login');
+            $state.go('pwd-login');
         }
     };
 });

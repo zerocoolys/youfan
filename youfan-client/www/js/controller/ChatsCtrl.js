@@ -30,39 +30,38 @@ ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $s
     });
 
     $scope.order = function () {
-        $state.go('tab.order');
-        //if (AuthenticationService.isLogged) {
-        //    $state.go('tab.order');
-        //} else {
-        //    $state.go('tab.pwd-login');
-        //}
+        if (AuthenticationService.isLogged) {
+            $state.go('order');
+        } else {
+            $state.go('pwd-login');
+        }
     };
     $scope.wallet = function () {
         if (AuthenticationService.isLogged) {
             $state.go('tab.wallet');
         } else {
-            $state.go('tab.pwd-login');
+            $state.go('pwd-login');
         }
     };
     $scope.care = function () {
         if (AuthenticationService.isLogged) {
             $state.go('tab.care');
         } else {
-            $state.go('tab.pwd-login');
+            $state.go('pwd-login');
         }
     };
     $scope.messages = function () {
         if (AuthenticationService.isLogged) {
             $state.go('tab.message');
         } else {
-            $state.go('tab.pwd-login');
+            $state.go('pwd-login');
         }
     };
     $scope.mealsAddress = function () {
         if (AuthenticationService.isLogged) {
             $state.go('tab.address');
         } else {
-            $state.go('tab.pwd-login');
+            $state.go('pwd-login');
         }
     };
 
@@ -74,4 +73,5 @@ ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $s
     //        $state.go('tab.pwd-login');
     //    }
     //};
+
 });

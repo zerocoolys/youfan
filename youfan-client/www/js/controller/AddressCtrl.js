@@ -1,11 +1,6 @@
 ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, AuthenticationService, localStorageService, $ionicModal, $ionicPopup, $timeout, MealsAddressService, $state) {
-    $ionicModal.fromTemplateUrl('templates/personalcenter/add-address.html', {
-        scope: $scope
-    }).then(function (modal) {
-        $scope.modal = modal;
-    });
-
     $scope.slideIndex = 0;
+
     // Called each time the slide changes
     $scope.slideChanged = function (index) {
         $scope.slideIndex = index;
@@ -54,7 +49,7 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
                     if ($scope.post.label != "") {
                         MealsAddressService.add(post).success(function (data) {
                             //console.log(data);
-                            if(data.code == 0){
+                            if (data.code == 0) {
                                 MealsAddressService.query(localStorageService.get("userid")).success(function (data) {
                                     //console.log(data);
                                     if (data.payload != null) {
@@ -67,7 +62,7 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
                                     console.log(data);
                                 });
                                 $state.go("tab.address");
-                            } else{
+                            } else {
                                 var err = $ionicPopup.show({
                                     title: '网络异常',
                                     scope: $scope
@@ -126,6 +121,4 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
             }, 2000);
         }
     };
-
-
 });

@@ -36,7 +36,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     $scope.activeSlide = function (index) {
 //        $ionicSlideBoxDelegate.slide(index);
 
-        if(index == 0){
+        if (index == 0) {
             $scope.slideIndex = 0;
             angular.element(document.querySelector('#todayDining'))
                 .removeClass('hide')
@@ -44,7 +44,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             angular.element(document.querySelector('#yesterdayDining'))
                 .removeClass('show')
                 .addClass('hide');
-        }else if(index == 1){
+        } else if (index == 1) {
             $scope.slideIndex = 1;
             angular.element(document.querySelector('#yesterdayDining'))
                 .removeClass('hide')
@@ -271,12 +271,21 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             jsonArr[i].changWidth = false;
             jsonArr[i].shopAccount = false;
             jsonArr[i].price = parseFloat(jsonArr[i].price).toFixed(2);
+
+            if (jsonArr[i].name == "米饭") {
+                $scope.rice.id = jsonArr[i].id;
+                $scope.rice.name = jsonArr[i].name;
+                $scope.rice.restNum = jsonArr[i].restNum;
+                $scope.rice.unitPrice = jsonArr[i].price;
+                continue;
+            }
+
             $scope.menuItemMap.put(jsonArr[i].id, jsonArr[i]);
         }
 
         $scope.menuItemMap.put($scope.rice.id, $scope.rice);
 
-        $scope.menuItemArr = jsonArr;
+        $scope.menuItemArr = $scope.menuItemMap.values();
     });
 
     // 计算订单总计
@@ -368,8 +377,14 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     } else {
                         _tmpData["canteenText"] = "不支持堂食";
                     }
+                    console.log(_tmpData);
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;
+                    Merchant.sellerId=merchantId;
+                    Merchant.address=_tmpData["kitchenAddress"];
+                    Merchant.name=_tmpData["kitchenName"];
+                    Merchant.telNo=_tmpData["phoneNumber"];
+                    //Merchant.telNo=_tmpData[]
                 }
                 if (result.payload.mu != null) {
                     var _tmpData = result.payload.mu;
