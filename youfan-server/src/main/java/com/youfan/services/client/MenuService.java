@@ -1,11 +1,11 @@
 package com.youfan.services.client;
 
-import java.util.List;
-
 import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.models.MenuEntity;
 import com.youfan.exceptions.MenuNameExistsException;
 import com.youfan.services.MongoService;
+
+import java.util.List;
 
 /**
  * Created on 2015-08-18.
@@ -47,4 +47,9 @@ public interface MenuService extends MongoService<MenuEntity, MenuVO> {
     List<MenuVO> findByIds(List<String> menuIds);
 
     void conversionNRestNum(List<MenuVO> menus);
+
+    /**
+     * <p>菜品余量管理</p>
+     */
+    void restNumManage();
 }

@@ -29,7 +29,7 @@ public class DishesManageScheduler {
     @Scheduled(cron = "* * 1 */1 * ?")
     public void start() {
         logger.info("DishesManage Task Start...");
-        // do something
+        menuService.restNumManage();
         logger.info("DishesManage Task End...");
     }
 }
