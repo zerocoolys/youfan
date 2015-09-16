@@ -73,6 +73,7 @@
 		<result column="CHARGE_ID" property="chargeId" />
 		<result column="ACTIVE_ID" property="activeId" />
 		<result column="COMMENT_STATUS" property="commentStatus" />
+		<result column="PAYMENT_WAY" property="paymentWay"/>
 	</resultMap>
 
     <resultMap id="OrderDishEntityMap" type="com.youfan.data.models.OrderDishRelEntity">
