@@ -1,13 +1,11 @@
 package com.youfan.controllers.client;
 
 import com.youfan.commons.vo.client.ClientUserVO;
-import com.youfan.controllers.params.ClientUserParams;
 import com.youfan.controllers.params.LocalStorage;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.ClientUserService;
 import com.youfan.services.server.ActiveSupportService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.DigestUtils;
@@ -15,15 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import redis.clients.jedis.Jedis;
 
 /**
  * 客户端用户登陆控制器 Created by yousheng on 15/8/14.
@@ -66,7 +62,10 @@ public class LoginController {
         String tel = uc.getTel();
 
         userVO.setTel(tel);
-        userVO.setPassword(uc.getPassword());
+
+        String secret = DigestUtils.md5DigestAsHex((uc.getPassword() + uc.getTel()).getBytes());
+
+        userVO.setPassword(secret);
         userVO.setName("优饭" + tel.substring(tel.length() - 4, tel.length()));
         userVO.setSex("待完善");
         userVO.setAge("待完善");
@@ -111,7 +110,8 @@ public class LoginController {
 
 
         try {
-            userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), ucVO.getPassword());
+            String secret = DigestUtils.md5DigestAsHex((ucVO.getPassword() + ucVO.getTel()).getBytes());
+            userClientVO = ucService.findUserByTelAndPwd(ucVO.getTel(), secret);
 
 //			/////////////// MrDeng添加活动参加功能 请此处完善代码时
 //			/////////////// 把这段代码移动到成功登录判定下/////////////////////////
@@ -160,7 +160,7 @@ public class LoginController {
         String token = request.getHeader("Authorization");
 
         if (token != null) {
-            jedis.del(token);
+            jedis.del(TOKEN_PREFIX + token);
             return Responses.SUCCESS();
         } else {
             return Responses.FAILED();
