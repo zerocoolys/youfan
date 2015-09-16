@@ -1,6 +1,6 @@
 ControllerModule.controller('CommentDetailCtrl', function ($scope, $rootScope, $http, REST_URL, $state, Order, Merchant, $location, $stateParams, $ionicSlideBoxDelegate, $ionicPopup, $timeout, $ionicBackdrop, $ionicActionSheet, $ionicModal, CameraService) {
     $scope.back = function () {
-        $state.go('tab.order');
+        $state.go('order');
     }
     if (Order.comment.orderNo) {
         console.log(Order.comment);
@@ -9,7 +9,7 @@ ControllerModule.controller('CommentDetailCtrl', function ($scope, $rootScope, $
             scope: $scope,
             template: '你还没有选择订单！'
         });
-        $state.go('tab.order');
+        $state.go('order');
     }
     $scope.cImg = "";
     CameraService.createCameraPath($scope, function (result) {

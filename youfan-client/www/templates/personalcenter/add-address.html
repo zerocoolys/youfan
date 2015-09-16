@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-view view-title="个人中心" hide-nav-bar="true">
     <ion-header-bar>
         <button class="button button-clear" ng-click="modal.hide()">取消</button>
         <h1 class="title" ng-click="addAddress()">新增就餐地址</h1>
@@ -18,7 +18,7 @@
                         <input type="text" ng-model="post.tel" placeholder="收餐人电话">
                     </span>
             </ion-item>
-            <ion-item class="item-icon-right">
+            <ion-item class="item-icon-right" ui-sref="tab.change-address">
                 地址
                     <span class="item-note">
                       小区/大厦/学校/街道<i class="icon ion-chevron-right icon-accessory"></i>
@@ -40,4 +40,4 @@
             </button>
         </div>
     </ion-content>
-</ion-modal-view>
+</ion-view>

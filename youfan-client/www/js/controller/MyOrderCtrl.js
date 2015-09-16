@@ -248,21 +248,21 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
     $scope.goTo = function (orderObj) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
-            $state.go('tab.comment-details');
+            $state.go('comment-details');
         }
     }
 
     $scope.goTo = function (orderObj) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
-            $state.go('tab.comment-details');
+            $state.go('comment-details');
         }
     }
 
     $scope.goTo = function (orderObj) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
-            $state.go('tab.comment-details');
+            $state.go('comment-details');
         }
     }
 

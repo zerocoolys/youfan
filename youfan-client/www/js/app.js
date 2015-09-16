@@ -67,7 +67,42 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 abstract: true,
                 templateUrl: 'templates/tabs.html'
             })
-
+            //密码登陆
+            .state('pwd-login', {
+                url: '/pwd-login',
+                templateUrl: 'templates/login/pwd-login.html',
+                controller: 'PwdLoginCtrl'
+            })
+            //注册
+            .state('user-register', {
+                url: '/user-register',
+                templateUrl: 'templates/login/user-register.html',
+                controller: 'UserRegisterCtrl'
+            })
+            //重置密码--获取验证码
+            .state('reset-pwd-one', {
+                url: '/reset-pwd-one',
+                templateUrl: 'templates/login/reset-pwd-one.html',
+                controller: 'ResetPwdOneCtrl'
+            })
+            //重置密码--重置密码
+            .state('reset-pwd-two', {
+                url: '/reset-pwd-two',
+                templateUrl: 'templates/login/reset-pwd-two.html',
+                controller: 'ResetPwdTwoCtrl',
+                params: {
+                    telNo: null
+                }
+            })
+            //设置密码
+            .state('set-pwd', {
+                url: '/set-pwd',
+                templateUrl: 'templates/login/set-pwd.html',
+                controller: 'SetPwdCtrl',
+                params: {
+                    telNo: null
+                }
+            })
             // Each tab has its own nav history stack:
 
             .state('tab.dash', {
@@ -218,14 +253,11 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                 }
             })
             //个人中心-我的订单
-            .state('tab.order', {
+            .state('order', {
                 url: "/order",
-                views: {
-                    'tab-chats': {
-                        templateUrl: "templates/personalcenter/order.html",
-                        controller: 'MyOrderCtrl'
-                    }
-                }
+                templateUrl: "templates/personalcenter/order.html",
+                controller: 'MyOrderCtrl'
+
             })
             //个人中心-我的订单-订单详情
             .state('tab.order-detail', {
@@ -295,67 +327,12 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            //密码登陆
-            .state('tab.pwd-login', {
-                url: '/pwd-login',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/login/pwd-login.html',
-                        controller: 'PwdLoginCtrl'
-                    }
-                }
-            })
-            //注册
-            .state('tab.user-register', {
-                url: '/user-register',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/login/user-register.html',
-                        controller: 'UserRegisterCtrl'
-                    }
-                }
-            })
-            //重置密码--获取验证码
-            .state('tab.reset-pwd-one', {
-                url: '/reset-pwd-one',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/login/reset-pwd-one.html',
-                        controller: 'ResetPwdOneCtrl'
-                    }
-                }
-            })
-            //重置密码--重置密码
-            .state('tab.reset-pwd-two', {
-                url: '/reset-pwd-two',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/login/reset-pwd-two.html',
-                        controller: 'ResetPwdTwoCtrl'
-                    }
-                },
-                params: {
-                    telNo: null
-                }
-            })
-            //设置密码
-            .state('tab.set-pwd', {
-                url: '/set-pwd',
-                views: {
-                    'tab-chats': {
-                        templateUrl: 'templates/login/set-pwd.html',
-                        controller: 'SetPwdCtrl'
-                    }
-                },
-                params: {
-                    telNo: null
-                }
-            })
+
             //免责协议
             .state('tab.user-agreement', {
                 url: '/user-agreement',
                 views: {
-                    'tab-dash': {
+                    'tab-chats': {
                         templateUrl: 'templates/user-agreement.html'
                     }
                 }
@@ -414,23 +391,15 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     }
                 }
             })
-            .state('tab.comment-details', {
+            .state('comment-details', {
                 url: '/comment-details',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/homepage/comment-detail.html',
-                        controller: 'CommentDetailCtrl'
-                    }
-                }
+                templateUrl: 'templates/homepage/comment-detail.html',
+                controller: 'CommentDetailCtrl'
             })
-            .state('tab.detail-address', {
+            .state('detail-address', {
                 url: '/detail-address',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/homepage/detail-address.html',
-                        controller: 'DetailAddressCtrl'
-                    }
-                }
+                templateUrl: 'templates/homepage/detail-address.html',
+                controller: 'DetailAddressCtrl'
             });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tab/dash');
