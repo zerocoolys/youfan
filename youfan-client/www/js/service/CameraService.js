@@ -1,7 +1,7 @@
 /**
  * Created by xiaowei on 15-8-17.
  */
-ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicLoading, $cordovaCamera, $cordovaImagePicker) {
+ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicPopup,$ionicLoading, $cordovaCamera, $cordovaImagePicker) {
     return {
         createCameraPath: function ($scope, func) {
             $scope.createActionSheet = function () {
@@ -12,7 +12,10 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicLoadin
                             text: '拍照',
                             onclick: function () {
                                 if (!navigator.camera) {
-                                    alert('请在真机环境中使用拍照功能。');
+                                    popup.alert($ionicPopup, {
+                                        scope: $scope,
+                                        template: '请在真机环境中使用拍照功能！'
+                                    });
                                     return;
                                 }
                                 var options = {
@@ -29,11 +32,12 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicLoadin
                                 };
 
                                 $cordovaCamera.getPicture(options).then(function (imageURI) {
+                                    alert(imageURI);
                                     if (func) {
                                         func({getType: 0, pathData: imageURI})
                                     }
                                 }, function (err) {
-                                    alert(err);
+                                    console.log(err);
                                 });
                             }
                         },
@@ -41,7 +45,10 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicLoadin
                             text: '从相册选择',
                             onclick: function () {
                                 if (!window.imagePicker) {
-                                    alert('目前您的环境不支持相册上传。');
+                                    popup.alert($ionicPopup, {
+                                        scope: $scope,
+                                        template: '目前您的环境不支持相册上传！'
+                                    });
                                     return;
                                 }
                                 var options = {
@@ -50,13 +57,26 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicLoadin
                                     height: 600,
                                     quality: 80
                                 };
+                                //var options = {
+                                //    quality: 100,
+                                //    destinationType: Camera.DestinationType.FILE_URI,
+                                //    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                                //    allowEdit: false,
+                                //    encodingType: Camera.EncodingType.JPEG,
+                                //    targetWidth: 323,
+                                //    targetHeight: 600,
+                                //    popoverOptions: CameraPopoverOptions,
+                                //    correctOrientation: true,
+                                //    saveToPhotoAlbum: false
+                                //};
 
                                 $cordovaImagePicker.getPictures(options).then(function (results) {
+                                //$cordovaCamera.getPictures(options).then(function (results) {
                                     if (func) {
                                         func({getType: 1, pathData: results})
                                     }
                                 }, function (error) {
-                                    alert(error);
+                                    console.log(error);
                                 });
                             }
                         }
@@ -71,7 +91,10 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicLoadin
         },
         upImg: function (fileUrl, cb) {
             if (!fileUrl) {
-                alert("请添加图片！");
+                popup.alert($ionicPopup, {
+                    scope: $scope,
+                    template: '请添加图片！'
+                });
                 return;
             }
             var options = new FileUploadOptions();
@@ -92,7 +115,7 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicLoadin
                 //expiration: 1438876740,
                 //'save-key': "/test/{filename}{.suffix}",
                 policy: policy,
-                signature: signature,
+                signature: signature
             }
 
             options.params = params;

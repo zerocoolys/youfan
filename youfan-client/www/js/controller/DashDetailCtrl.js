@@ -368,8 +368,14 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     } else {
                         _tmpData["canteenText"] = "不支持堂食";
                     }
+                    console.log(_tmpData);
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;
+                    Merchant.sellerId=merchantId;
+                    Merchant.address=_tmpData["kitchenAddress"];
+                    Merchant.name=_tmpData["kitchenName"];
+                    Merchant.telNo=_tmpData["phoneNumber"];
+                    //Merchant.telNo=_tmpData[]
                 }
                 if (result.payload.mu != null) {
                     var _tmpData = result.payload.mu;
