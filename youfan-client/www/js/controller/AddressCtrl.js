@@ -1,4 +1,4 @@
-ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, AuthenticationService, localStorageService, $ionicModal, $ionicPopup, $timeout, UserService, $state) {
+ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ionicSlideBoxDelegate, AuthenticationService, localStorageService, $ionicModal, $ionicPopup, $timeout, MealsAddressService, $state) {
     $ionicModal.fromTemplateUrl('templates/personalcenter/add-address.html', {
         scope: $scope
     }).then(function (modal) {
@@ -17,46 +17,27 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
 
 
     if (AuthenticationService.isLogged) {
-        UserService.userInfo(localStorageService.get("userid")).success(function (data) {
-            console.log(data);
+        MealsAddressService.query(localStorageService.get("userid")).success(function (data) {
+            //console.log(data);
+            if (data.payload != null) {
+                $scope.list = data.payload;
+            } else {
 
-
-            $scope.po = function () {
-                var results = [];
-                for (var i = 0; i < data.payload.mealsAddress.length; i++) {
-
-                    results.push({
-                        id: data.payload.id,
-                        mealsAddress: data.payload.mealsAddress[i]
-                    })
-                }
-                return results;
-            };
-
-            $scope.arry = $scope.po();
-
-            $scope.post = {
-                id: data.payload.id,
-                contact: data.payload.mealsAddress.contact,
-                tel: data.payload.mealsAddress.tel,
-                address: data.payload.mealsAddress.address,
-                houseNumber: data.payload.mealsAddress.houseNumber,
-                label: data.payload.mealsAddress.label
-            };
+            }
         }).error(function (status, data) {
             console.log(status);
             console.log(data);
         });
     }
 
-    //$scope.post = {
-    //    id: localStorageService.get("userid"),
-    //    contact: "",
-    //    tel: "",
-    //    address: "",
-    //    houseNumber: "",
-    //    label: ""
-    //};
+    $scope.post = {
+        uid: localStorageService.get("userid"),
+        contact: "",
+        tel: "",
+        address: "",
+        houseNumber: "",
+        label: ""
+    };
 
     $scope.labelHome = function () {
         $scope.post.label = "家";
@@ -71,8 +52,31 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
                 //if ($scope.post.address != "") {
                 if ($scope.post.houseNumber != "") {
                     if ($scope.post.label != "") {
-                        UserService.mealsAddress(post).success(function (data) {
-                            console.log(data);
+                        MealsAddressService.add(post).success(function (data) {
+                            //console.log(data);
+                            if(data.code == 0){
+                                MealsAddressService.query(localStorageService.get("userid")).success(function (data) {
+                                    //console.log(data);
+                                    if (data.payload != null) {
+                                        $scope.list = data.payload;
+                                    } else {
+
+                                    }
+                                }).error(function (status, data) {
+                                    console.log(status);
+                                    console.log(data);
+                                });
+                                $state.go("tab.address");
+                            } else{
+                                var err = $ionicPopup.show({
+                                    title: '网络异常',
+                                    scope: $scope
+                                });
+                                $timeout(function () {
+                                    err.close(); //由于某种原因2秒后关闭弹出
+                                }, 2000);
+                                $state.go("tab.add-address");
+                            }
                         }).error(function (status, data) {
 
                         });

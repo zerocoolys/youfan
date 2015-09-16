@@ -32,56 +32,44 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
             } else {
                 UserService.signIn(tel, password).success(function (data) {
                     if (data.code == 0) {
-                        //console.log(data.payload.token);
-                        if (data.payload.token != "") {
-
-                            //angular 本地存储
-                            $scope.$watch('token', function () {
-                                localStorageService.set('token', data.payload.token);
-                                $scope.tokenValue = localStorageService.get('token');
-                            });
-
-                            $scope.storageType = 'Local storage';
-
-                            if (localStorageService.getStorageType().indexOf('session') >= 0) {
-                                $scope.storageType = 'Session storage';
-                            }
-
-                            if (!localStorageService.isSupported) {
-                                $scope.storageType = 'Cookie';
-                            }
-
-                            $scope.$watch(function () {
-                                return localStorageService.get('token');
-                            }, function () {
-                                $scope.token = data.payload.token;
-                            });
+                        //angular 本地存储
+                        //$scope.$watch('token', function () {
+                        //    localStorageService.set('token', data.payload.token);
+                        //    $scope.tokenValue = localStorageService.get('token');
+                        //});
+                        //
+                        //$scope.storageType = 'Local storage';
+                        //
+                        //if (localStorageService.getStorageType().indexOf('session') >= 0) {
+                        //    $scope.storageType = 'Session storage';
+                        //}
+                        //
+                        //if (!localStorageService.isSupported) {
+                        //    $scope.storageType = 'Cookie';
+                        //}
+                        //
+                        //$scope.$watch(function () {
+                        //    return localStorageService.get('token');
+                        //}, function () {
+                        //    $scope.token = data.payload.token;
+                        //});
 
 
-                            AuthenticationService.isLogged = true;
+                        AuthenticationService.isLogged = true;
 
-                            User.id = data.payload.clientUserVO.id;
-                            User.name = data.payload.clientUserVO.name;
-                            User.telNo = data.payload.clientUserVO.tel;
-                            User.token = data.payload.token;
+                        User.id = data.payload.clientUserVO.id;
+                        User.name = data.payload.clientUserVO.name;
+                        User.telNo = data.payload.clientUserVO.tel;
+                        User.token = data.payload.token;
 
-                            ResponseUser.id = data.payload.clientUserVO.id;
+                        ResponseUser.id = data.payload.clientUserVO.id;
 
-                            localStorageService.set("userid", data.payload.clientUserVO.id);
-                            localStorageService.set("usertel", data.payload.clientUserVO.tel);
+                        localStorageService.set('token', data.payload.token);
+                        localStorageService.set("userid", data.payload.clientUserVO.id);
+                        localStorageService.set("usertel", data.payload.clientUserVO.tel);
 
-                            $state.go('tab.chats', {userobj: data.payload.clientUserVO});
+                        $state.go('tab.chats', {userobj: data.payload.clientUserVO});
 
-                        } else {
-                            var loginDied = $ionicPopup.show({
-                                title: '链接超时',
-                                scope: $scope
-                            });
-                            $timeout(function () {
-                                loginDied.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
-                            $state.go('tab.dash');
-                        }
                     } else {
                         var dataNull = $ionicPopup.show({
                             title: '手机号和密码不对',
@@ -119,6 +107,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                 AuthenticationService.isLogged = false;
                 localStorageService.remove("token");
                 localStorageService.remove("userid");
+                localStorageService.remove("usertel");
                 $state.go('tab.chats');
             }).error(function (status, data) {
                 console.log(status);

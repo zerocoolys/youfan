@@ -58,7 +58,7 @@ ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $s
             $state.go('tab.pwd-login');
         }
     };
-    $scope.address = function () {
+    $scope.mealsAddress = function () {
         if (AuthenticationService.isLogged) {
             $state.go('tab.address');
         } else {
@@ -66,12 +66,12 @@ ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $s
         }
     };
 
-    //href="#/tab/chats/{{chat.id}}"
-    $scope.chats = function () {
-        if (AuthenticationService.isLogged) {
-            $state.go('tab.chats/' + Chats.get($stateParams.chatId));
-        } else {
-            $state.go('tab.pwd-login');
-        }
-    };
+    ////href="#/tab/chats/{{chat.id}}"
+    //$scope.chats = function () {
+    //    if (AuthenticationService.isLogged) {
+    //        $state.go('tab.chats/' + Chats.get($stateParams.chatId));
+    //    } else {
+    //        $state.go('tab.pwd-login');
+    //    }
+    //};
 });
