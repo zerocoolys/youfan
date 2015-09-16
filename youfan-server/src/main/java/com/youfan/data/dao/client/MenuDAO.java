@@ -20,6 +20,19 @@ import java.util.Map;
  */
 public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
 
+    String RICE = "米饭";
+
+    /**
+     * <p>菜品默认份数</p>
+     */
+    int DISH_DEFAULT_COPIES = 20;
+
+    /**
+     * <p>米饭默认份数</p>
+     */
+    int RICE_DEFAULT_COPIES = 100;
+
+
     void insertMenu(MenuVO menu) throws MenuNameExistsException;
 
     List<MenuVO> findBySellerId(String sellerId);
@@ -80,7 +93,7 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
     }
 
     default Query buildMerchantQuery(String sellerId, String type,
-            boolean isValid) {
+                                     boolean isValid) {
         Criteria criteria = Criteria.where(DATA_STATUS).is(isValid ? 1 : 0);
 
         if (sellerId != null) {
@@ -106,4 +119,5 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
 
     List<MechantMenuVO> findByMenuIds(List<String> menuIds);
 
+    void restNumManage();
 }

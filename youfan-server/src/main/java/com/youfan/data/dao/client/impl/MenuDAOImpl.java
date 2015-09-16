@@ -5,19 +5,21 @@ import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.client.MenuDAO;
 import com.youfan.data.models.MenuEntity;
 import com.youfan.exceptions.MenuNameExistsException;
-
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOptions;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 /**
  * Created on 2015-08-18.
@@ -213,8 +215,32 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
-    public List<MechantMenuVO> findByMenuIds(List<String> menuIds,
-            String orderNo) {
+    public void restNumManage() {
+        // 菜品余量调整
+        Aggregation aggregation = newAggregation(
+                match(Criteria.where(NAME).ne(RICE)),
+                project(MONGO_ID, REST_NUM, N_REST_NUM)
+        ).withOptions(new AggregationOptions.Builder().allowDiskUse(true).build());
+
+
+        mongoTemplate.aggregate(aggregation, COLLECTION_MENU, DishAggDTO.class)
+                .getMappedResults()
+                .stream()
+                .forEach(o -> {
+                    Update update = Update.update(REST_NUM, o.getnRestNum());
+                    update.set(N_REST_NUM, DISH_DEFAULT_COPIES);
+                    mongoTemplate.updateFirst(Query.query(Criteria.where(MONGO_ID).is(o.getId())), update, getEntityClass());
+                });
+
+
+        // 米饭余量调整
+        Update update = Update.update(REST_NUM, RICE_DEFAULT_COPIES);
+        update.set(N_REST_NUM, RICE_DEFAULT_COPIES);
+        mongoTemplate.updateMulti(Query.query(Criteria.where(NAME).is(RICE)), update, getEntityClass());
+    }
+
+    @Override
+    public List<MechantMenuVO> findByMenuIds(List<String> menuIds, String orderNo) {
 
         // 菜品基本信息
         List<MechantMenuVO> menuList = mongoTemplate
@@ -263,6 +289,39 @@ public class MenuDAOImpl implements MenuDAO {
         }
 
         mongoTemplate.insert(convertToEntity(menu));
+    }
+
+    /**
+     * <p>菜品余量管理数据传输对象, 仅在聚合时用到</p>
+     */
+    class DishAggDTO {
+        private String id;
+        private Integer restNum;
+        private Integer nRestNum;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public Integer getRestNum() {
+            return restNum;
+        }
+
+        public void setRestNum(Integer restNum) {
+            this.restNum = restNum;
+        }
+
+        public Integer getnRestNum() {
+            return nRestNum;
+        }
+
+        public void setnRestNum(Integer nRestNum) {
+            this.nRestNum = nRestNum;
+        }
     }
 
 }

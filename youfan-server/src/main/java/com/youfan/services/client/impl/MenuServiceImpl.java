@@ -163,6 +163,11 @@ public class MenuServiceImpl extends MongoServiceImpl<MenuEntity, MenuVO> implem
     }
 
     @Override
+    public void restNumManage() {
+        menuDAO.restNumManage();
+    }
+
+    @Override
     public void updateMenu(String menuId, MenuVO menu) {
         Map<String, Object> map = new HashMap<>();
         map.put(NAME, menu.getName());
