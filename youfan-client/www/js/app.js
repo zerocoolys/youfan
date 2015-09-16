@@ -103,7 +103,11 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
                     telNo: null
                 }
             })
-            // Each tab has its own nav history stack:
+            //新增就餐地址
+            .state('add-address', {
+                url: '/add_address',
+                templateUrl: 'templates/personalcenter/add-address.html'
+            })
 
             .state('tab.dash', {
                 url: '/dash',

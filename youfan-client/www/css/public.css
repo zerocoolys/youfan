@@ -99,6 +99,11 @@ body {
 .bar.bar-stable .title {
     color: #fff;
 }
-.dash_detail .bar .title{
-    background:none;
+
+.dash_detail .bar .title {
+    background: none;
+}
+
+.tabs-striped .tab-item.tab-item-active, .tabs-striped .tab-item.activated {
+    border-color: #1dbeaf;
 }
