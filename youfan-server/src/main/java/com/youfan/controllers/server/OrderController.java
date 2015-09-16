@@ -245,6 +245,7 @@ public class OrderController {
         order.setBuyerId(orderParams.getBuyerId());
         order.setSellerId(orderParams.getSellerId());
         order.setOrderStatus(ORDER_WAIT_FOR_PAY.value());
+        order.setOrderType(orderParams.getOrderType());
         order.setOrgPrice(orderParams.getOriginalPrice());
         order.setDiscountPrice(orderParams.getDiscountPrice());
         order.setOrderTime(new Date());

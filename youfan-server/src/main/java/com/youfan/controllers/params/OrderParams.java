@@ -12,146 +12,161 @@ import java.util.Map;
  */
 public class OrderParams extends Pagination {
 
-	String orderNo;
+    private String orderNo;
 
-	String buyerId;
+    private String buyerId;
 
-	String sellerId;
+    private String sellerId;
 
-	/**
-	 * KEY: 菜品ID VALUE[0]: 订购的菜品份数 VALUE[1]: 菜品今日余量
-	 */
-	Map<String, Integer[]> itemMap = new HashMap<>();
+    /**
+     * KEY: 菜品ID VALUE[0]: 订购的菜品份数 VALUE[1]: 菜品今日余量
+     */
+    private Map<String, Integer[]> itemMap = new HashMap<>();
 
-	String comments;
+    private String comments;
 
-	double originalPrice;
+    private double originalPrice;
 
-	double discountPrice;
+    private double discountPrice;
 
-	Integer orderStatus;
+    private Integer orderStatus;
 
-	Integer sourceOrderStatus;
+    private Integer sourceOrderStatus;
 
-	String repastMode;
+    private String repastMode;
 
-	String repastAddress;
+    private String repastAddress;
 
-	Date repastTime;
+    private Date repastTime;
 
-	private String couponId;
+    /**
+     * 订单类型
+     * 0 -> 当日订单
+     * 1 -> 明日预订
+     */
+    private Integer orderType;
 
-	private List<Integer> orderStatusList;
+    private String couponId;
 
-	public String getOrderNo() {
-		return orderNo;
-	}
+    private List<Integer> orderStatusList;
 
-	public void setOrderNo(String orderNo) {
-		this.orderNo = orderNo;
-	}
+    public String getOrderNo() {
+        return orderNo;
+    }
 
-	public String getBuyerId() {
-		return buyerId;
-	}
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
 
-	public void setBuyerId(String buyerId) {
-		this.buyerId = buyerId;
-	}
+    public String getBuyerId() {
+        return buyerId;
+    }
 
-	public String getSellerId() {
-		return sellerId;
-	}
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+    }
 
-	public void setSellerId(String sellerId) {
-		this.sellerId = sellerId;
-	}
+    public String getSellerId() {
+        return sellerId;
+    }
 
-	public Map<String, Integer[]> getItemMap() {
-		return itemMap;
-	}
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
 
-	public void setItemMap(Map<String, Integer[]> itemMap) {
-		this.itemMap = itemMap;
-	}
+    public Map<String, Integer[]> getItemMap() {
+        return itemMap;
+    }
 
-	public String getComments() {
-		return comments;
-	}
+    public void setItemMap(Map<String, Integer[]> itemMap) {
+        this.itemMap = itemMap;
+    }
 
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
+    public String getComments() {
+        return comments;
+    }
 
-	public double getOriginalPrice() {
-		return originalPrice;
-	}
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
-	public void setOriginalPrice(double originalPrice) {
-		this.originalPrice = originalPrice;
-	}
+    public double getOriginalPrice() {
+        return originalPrice;
+    }
 
-	public double getDiscountPrice() {
-		return discountPrice;
-	}
+    public void setOriginalPrice(double originalPrice) {
+        this.originalPrice = originalPrice;
+    }
 
-	public void setDiscountPrice(double discountPrice) {
-		this.discountPrice = discountPrice;
-	}
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
 
-	public String getRepastMode() {
-		return repastMode;
-	}
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
 
-	public void setRepastMode(String repastMode) {
-		this.repastMode = repastMode;
-	}
+    public String getRepastMode() {
+        return repastMode;
+    }
 
-	public Date getRepastTime() {
-		return repastTime;
-	}
+    public void setRepastMode(String repastMode) {
+        this.repastMode = repastMode;
+    }
 
-	public void setRepastTime(Date repastTime) {
-		this.repastTime = repastTime;
-	}
+    public Date getRepastTime() {
+        return repastTime;
+    }
 
-	public Integer getOrderStatus() {
-		return orderStatus;
-	}
+    public void setRepastTime(Date repastTime) {
+        this.repastTime = repastTime;
+    }
 
-	public void setOrderStatus(Integer orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    public Integer getOrderType() {
+        return orderType;
+    }
 
-	public String getRepastAddress() {
-		return repastAddress;
-	}
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
 
-	public void setRepastAddress(String repastAddress) {
-		this.repastAddress = repastAddress;
-	}
+    public Integer getOrderStatus() {
+        return orderStatus;
+    }
 
-	public String getCouponId() {
-		return couponId;
-	}
+    public void setOrderStatus(Integer orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
-	public void setCouponId(String couponId) {
-		this.couponId = couponId;
-	}
+    public String getRepastAddress() {
+        return repastAddress;
+    }
 
-	public List<Integer> getOrderStatusList() {
-		return orderStatusList;
-	}
+    public void setRepastAddress(String repastAddress) {
+        this.repastAddress = repastAddress;
+    }
 
-	public void setOrderStatusList(List<Integer> orderStatusList) {
-		this.orderStatusList = orderStatusList;
-	}
+    public String getCouponId() {
+        return couponId;
+    }
 
-	public Integer getSourceOrderStatus() {
-		return sourceOrderStatus;
-	}
+    public void setCouponId(String couponId) {
+        this.couponId = couponId;
+    }
 
-	public void setSourceOrderStatus(Integer sourceOrderStatus) {
-		this.sourceOrderStatus = sourceOrderStatus;
-	}
+    public List<Integer> getOrderStatusList() {
+        return orderStatusList;
+    }
+
+    public void setOrderStatusList(List<Integer> orderStatusList) {
+        this.orderStatusList = orderStatusList;
+    }
+
+    public Integer getSourceOrderStatus() {
+        return sourceOrderStatus;
+    }
+
+    public void setSourceOrderStatus(Integer sourceOrderStatus) {
+        this.sourceOrderStatus = sourceOrderStatus;
+    }
 }
