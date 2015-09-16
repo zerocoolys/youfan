@@ -42,11 +42,7 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, ClientUserVO, St
      */
     void update(String id, ClientUserVO clientUserVO);
 
-    void updateMealsAddress(String id, ClientUserVO clientUserVO);
-
     void updateUserPwd(String id, String pwd);
-
-    void insertMealsAddress(MealsAddressVO mealsAddressVO);
 
     @Override
     default Class<ClientUserEntity> getEntityClass() {
@@ -94,6 +90,10 @@ public interface UserDao extends MongoBaseDAO<ClientUserEntity, ClientUserVO, St
      */
     default Query buildQueryById(String id) {
         Criteria criteria = Criteria.where("id").is(id);
+        return Query.query(criteria);
+    }
+    default Query buildQueryByUid(String uid) {
+        Criteria criteria = Criteria.where("uid").is(uid);
         return Query.query(criteria);
     }
 

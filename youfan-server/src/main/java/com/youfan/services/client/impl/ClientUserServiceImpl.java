@@ -2,6 +2,7 @@ package com.youfan.services.client.impl;
 
 import com.youfan.commons.vo.client.ClientUserVO;
 import com.youfan.commons.vo.client.MealsAddressVO;
+import com.youfan.data.dao.client.MealsAddressDao;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.MealsAddressEntity;
 import com.youfan.services.client.ClientUserService;
@@ -22,6 +23,8 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     @Resource
     private UserDao ucDAO;
+    @Resource
+    private MealsAddressDao maDAO;
 
     @Override
     public void insert(ClientUserVO uc) {
@@ -35,10 +38,6 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     }
 
-    @Override
-    public void updateMealsAddress(String id, ClientUserVO clientUserVO) {
-        ucDAO.updateMealsAddress(id, clientUserVO);
-    }
 
 
     @Override
@@ -51,12 +50,6 @@ public class ClientUserServiceImpl implements ClientUserService {
         return ucDAO.findByid(id);
     }
 
-    @Override
-    public void insertMealsAddress(MealsAddressVO mealsAddressVO) {
-        if(mealsAddressVO != null){
-            ucDAO.insertMealsAddress(mealsAddressVO);
-        }
-    }
 
     @Override
     public ClientUserVO findUserByTelAndPwd(String tel, String password) {
@@ -94,5 +87,17 @@ public class ClientUserServiceImpl implements ClientUserService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public void insertMealsAddress(MealsAddressVO mealsAddressVO) {
+        if (mealsAddressVO != null) {
+            maDAO.insert(mealsAddressVO);
+        }
+    }
+
+    @Override
+    public MealsAddressVO findMAddressByUid(String uid) {
+        return maDAO.findByUid(uid);
     }
 }

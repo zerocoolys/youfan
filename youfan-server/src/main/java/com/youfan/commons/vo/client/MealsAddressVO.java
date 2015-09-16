@@ -4,6 +4,8 @@ package com.youfan.commons.vo.client;
  * Created by icepros on 15-9-14.
  */
 public class MealsAddressVO {
+    private String uid;
+
     private String id;
     //联系人
     private String contact;
@@ -15,6 +17,14 @@ public class MealsAddressVO {
     private String houseNumber;
     //标签 家or公司
     private String label;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getContact() {
         return contact;

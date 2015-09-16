@@ -3,13 +3,14 @@ package com.youfan.data.models;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 
-import static com.youfan.commons.Constants.COLLECTION_CLIENT_USER;
+import static com.youfan.commons.Constants.COLLECTION_CLIENT_MEALS_ADDRESS;
 
 /**
  * Created by icepros on 15-9-14.
  */
-@Document(collection = COLLECTION_CLIENT_USER)
+@Document(collection = COLLECTION_CLIENT_MEALS_ADDRESS)
 public class MealsAddressEntity {
+    private String uid;
     @Id
     private String id;
     //联系人
@@ -23,6 +24,13 @@ public class MealsAddressEntity {
     //标签 家or公司
     private String label;
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getId() {
         return id;

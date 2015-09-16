@@ -32,13 +32,6 @@ public class UserDaoImpl implements UserDao {
         convertToVO(mongoTemplate.findAndModify(buildQueryById(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
     }
 
-    @Override
-    public void updateMealsAddress(String id, ClientUserVO clientUserVO) {
-        Update update = new Update();
-        update.set("mealsAddress", clientUserVO.getMealsAddress());
-
-        convertToVO(mongoTemplate.findAndModify(buildQueryById(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
-    }
 
     @Override
     public void updateUserPwd(String id, String pwd) {
@@ -46,11 +39,6 @@ public class UserDaoImpl implements UserDao {
         update.set("password", pwd);
 
         convertToVO(mongoTemplate.findAndModify(buildQueryById(id), update, getEntityClass(), COLLECTION_CLIENT_USER));
-    }
-
-    @Override
-    public void insertMealsAddress(MealsAddressVO mealsAddressVO) {
-        mongoTemplate.insert(mealsAddressVO, COLLECTION_CLIENT_MEALS_ADDRESS);
     }
 
     @Override
