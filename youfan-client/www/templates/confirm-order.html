@@ -120,10 +120,10 @@
         <ion-content class="padding">
             <ion-list>
                 <ion-item class="item-input">
-                    <textarea placeholder="给厨房捎句话~" style="height: 120px" ng-bind="comments"></textarea>
+                    <textarea placeholder="给厨房捎句话~" style="height: 120px" ng-model="formData.comments" maxlength="140" ng-change="textChange()"></textarea>
                 </ion-item>
-                <button class="button-clear fr">140字</button>
-                <div class="confirm_list" style="margin-top: 10px">
+                <button class="button-clear"><span ng-bind="formData.comments.length"></span>/140字</button>
+                <div  class="confirm_list" style="margin-top: 10px">
                     <button class="col col-25 col-offset-25 button-small button button-calm button-outline"
                             ng-bind="t.name" ng-click="addTasteComment(t)" ng-repeat="t in tastes"></button>
                 </div>

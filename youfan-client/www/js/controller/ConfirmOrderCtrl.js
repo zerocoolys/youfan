@@ -124,7 +124,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
 
     // ========================= dolphineor =========================
     // 口味
-    $scope.tastes = [{id: 1, name: "不吃辣"}, {id: 2, name: "微辣"}, {id: 3, name: "多放辣椒"}, {id: 4, name: "不放蒜"},
+    $scope.tastes = [{id: 1, name: "不吃辣"}, {id: 1, name: "微辣"}, {id: 1, name: "多放辣椒"}, {id: 4, name: "不放蒜"},
         {id: 5, name: "不放香菜"}, {id: 6, name: "少放盐"}, {id: 7, name: "米饭多点"}, {id: 8, name: "菜量多点"}];
 
     // 就餐方式
@@ -194,23 +194,30 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
     };
 
     // 给商家的留言
+    $scope.formData={};
     $scope.commentMap = new Map();
-    $scope.comments = "";
+    $scope.formData.comments = "";
 
     // 添加口味喜好
     $scope.addTasteComment = function (t) {
-        $scope.comments = "";
-
+        $scope.formData.comments = "";
         if ($scope.commentMap.containsKey(t.id)) {
-            $scope.commentMap.remove(t.id);
+            $scope.commentMap.remove(t.id, t);
+            $scope.commentMap.put(t.id, t);
         } else {
             $scope.commentMap.put(t.id, t);
         }
 
         $scope.commentMap.values().forEach(function (item) {
-            $scope.comments += " " + item.name;
+            $scope.formData.comments += " " + item.name;
         });
     };
+//    捎句话中字数控制
+    $scope.textChange = function () {
+        if ($scope.formData.comments.length > 140) {
+            $scope.formData.comments = $scope.formData.comments.substring(0, 140);
+        }
+    }
 
     // 加载购物车信息
     $scope.loadCart = function () {

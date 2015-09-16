@@ -414,3 +414,32 @@
     border-bottom: 1px solid #ccc;
     display: block;
 }
+
+/*个人信息中默认头像*/
+.default-picture{
+    width: 68px;
+    height: 68px;
+    border: 1px solid #1dbeaf;
+    border-radius: 68px;
+    -webkit-border-radius: 68px;
+    margin: 0 auto;
+    position: relative;
+}
+.default-picture img{
+    position: relative;
+}
+.add-camera{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #1dbeaf;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #1dbeaf;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    background-color: #fff;
+}

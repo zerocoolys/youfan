@@ -6,16 +6,17 @@
         <button class="button button-clear" ng-click="show(post)">保存</button>
     </ion-header-bar>
     <ion-content>
-        <ion-list>
-            <ion-item class="item-image">
-                <img src="img/2.jpeg">
+            <ion-item  ng-click="showActionSexSheet(3)">
+                <div class="default-picture">
+                    <img src="img/person.png">
+                    <span class="icon ion-camera add-camera"></span>
+                </div>
             </ion-item>
-        </ion-list>
         <ion-list>
             <ion-item>
                 昵称
                 <span class="item-note">
-                    <input style="width: 70px" type="text" ng-model="post.name" value={{post.name}}>
+                    <input style="width: 70px;text-align: right" type="text" ng-model="post.name" value={{post.name}}>
                 </span>
             </ion-item>
             <ion-item class="item-icon-right" ng-click="showActionSexSheet(1)">

@@ -245,24 +245,27 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
         });
     };
 
-    $scope.goTo = function (orderObj) {
+    $scope.goTo = function (orderObj,$event) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
             $state.go('comment-details');
+            $event.stopPropagation();
         }
     }
 
-    $scope.goTo = function (orderObj) {
+    $scope.goTo = function (orderObj,$event) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
             $state.go('comment-details');
+            $event.stopPropagation();
         }
     }
 
-    $scope.goTo = function (orderObj) {
+    $scope.goTo = function (orderObj,$event) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
             $state.go('comment-details');
+            $event.stopPropagation();
         }
     }
 
