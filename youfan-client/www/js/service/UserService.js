@@ -74,7 +74,7 @@ ServiceModule
                 });
             },
             forgetPasswordCaptchaVerify: function (tel) {
-                return $http.post(api.base_url + '/captcha/verify', {captchaKey: "client_forgetpwd" + tel});
+                return $http.post(REST_URL + '/captcha/verify', {captchaKey: "client_forgetpwd" + tel});
             }
         }
     })
