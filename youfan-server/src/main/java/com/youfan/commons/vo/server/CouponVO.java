@@ -1,5 +1,7 @@
 package com.youfan.commons.vo.server;
 
+import java.util.List;
+
 /**
  * Created on 2015-08-21.
  * <p>
@@ -30,10 +32,6 @@ public class CouponVO {
 	private String kitchenId;
 
 	/**
-	 *  优惠卷类型ID
-	 */
-	private String couponsTypeId;
-	/**
 	 * 有效期
 	 * 具体日期
 	 */
@@ -47,6 +45,19 @@ public class CouponVO {
 	 */
 	private Long updateTime;
 
+	private String activeId;
+	
+	/**
+	 * 优惠方式
+	 */
+	private String type;
+	
+	
+	/**
+	 * 活动优惠详情
+	 */
+	private List<CouponDetailVO> details;
+	
 	/**
 	 * 使用状态 (-1删除,0未使用,1已使用,)
 	 */
@@ -82,14 +93,6 @@ public class CouponVO {
 
 	public void setKitchenId(String kitchenId) {
 		this.kitchenId = kitchenId;
-	}
-
-	public String getCouponsTypeId() {
-		return couponsTypeId;
-	}
-
-	public void setCouponsTypeId(String couponsTypeId) {
-		this.couponsTypeId = couponsTypeId;
 	}
 
 	public Long getCreateTime() {
@@ -139,6 +142,30 @@ public class CouponVO {
 
 	public void setDataStatus(Integer dataStatus) {
 		this.dataStatus = dataStatus;
+	}
+
+	public String getActiveId() {
+		return activeId;
+	}
+
+	public void setActiveId(String activeId) {
+		this.activeId = activeId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<CouponDetailVO> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<CouponDetailVO> details) {
+		this.details = details;
 	}
 
 

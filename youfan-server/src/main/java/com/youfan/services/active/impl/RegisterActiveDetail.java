@@ -19,7 +19,7 @@ public class RegisterActiveDetail implements ActiveDetail {
 		//判定用户是否满足活动条件
 
 		//
-		if (active.getActiveType() != 1) {
+		if (active.getPointcut() != 1) {
 			// 非注册是活动
 		}
 
@@ -35,7 +35,7 @@ public class RegisterActiveDetail implements ActiveDetail {
 		default:
 			break;
 		}
-		if (active.getCouponsType() == 1) {// 发放优惠券
+		if (active.getType() == 1) {// 发放优惠券
 			// 调用优惠券方法接口完成
 			CouponVO cv = new CouponVO();
 
@@ -44,11 +44,10 @@ public class RegisterActiveDetail implements ActiveDetail {
 			cv.setIfAll(active.isIfAll());
 			cv.setStatus(0);
 			cv.setValidityTime(active.getValidityTime());
-			cv.setCouponsTypeId(active.getCouponsTypeId());
 			cv.setUpdateTime(new Date().getTime());
 			cv.setKitchenId("");
 			couponsDAO.insert(cv);
-		} else if (active.getCouponsType() == 2) {// 减免返现 不符合注册时逻辑
+		} else if (active.getType() == 2) {// 减免返现 不符合注册时逻辑
 
 		}
 		return null;

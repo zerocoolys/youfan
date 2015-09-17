@@ -30,7 +30,6 @@ public class MenuServiceImpl extends MongoServiceImpl<MenuEntity, MenuVO> implem
 	@Autowired
     public MenuServiceImpl(MongoBaseDAO<MenuEntity, MenuVO, String> mongoDao) {
 		super(mongoDao);
-		// TODO Auto-generated constructor stub
 	}
 
 	private final ReentrantLock lock = new ReentrantLock();
