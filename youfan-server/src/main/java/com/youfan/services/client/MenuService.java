@@ -49,7 +49,16 @@ public interface MenuService extends MongoService<MenuEntity, MenuVO> {
     void conversionNRestNum(List<MenuVO> menus);
 
     /**
-     * <p>菜品余量管理</p>
+     * <p>
+     * 菜品余量管理
+     * </p>
      */
     void restNumManage();
+
+    /**
+     * 添加米饭，在商家创建时调用
+     * 
+     * @param sellerId
+     */
+    void addRiceToMenu(String sellerId);
 }
