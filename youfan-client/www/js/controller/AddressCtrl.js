@@ -121,7 +121,12 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
         }
     };
     /**删除***/
-    $scope.deleteItem = function (item) {
+    $scope.deleteItem = function (item, id) {
+        MealsAddressService.remove(id).success(function(data){
+            console.log(data);
+        }).error(function(data){
+            console.log(data);
+        });
         $scope.list.splice($scope.list.indexOf(item), 1);
     };
 });
