@@ -895,7 +895,7 @@ p.info {
     position: fixed;
     width: 100%;
     top: 8px;
-    z-index: 1000;
+    z-index: 10;
     color: #fff;
     font-size: 26px;
 }
@@ -915,4 +915,11 @@ p.info {
 
 .main_menu {
     padding-bottom: 44px;
+}
+.order_Details.item{
+    word-break: normal;
+    white-space:inherit;
+}
+.address .item-complex .item-content{
+    padding:0px;
 }
