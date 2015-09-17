@@ -43,6 +43,7 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         securiteUrl.add("/users");
         securiteUrl.add("/orders");
+        securiteUrl.add("/platform/pay");
     }
 
     @Override
