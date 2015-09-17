@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/28.
  */
-ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $ionicPopup, $interval, $timeout, $location, $state, SMSService) {
+ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, PopupService, $location, $state, SMSService) {
 
     $scope.user = {
         tel: "",
@@ -15,64 +15,29 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
     $scope.verifyCaptcha = function (tel, captcha) {
         var re = /(^1[3|5|8][0-9]{9}$)/;
 
-        if (tel.trim() != "") {
-            if (!re.test(tel.trim())) {
-                var telVerify = $ionicPopup.show({
-                    cssClass: 'zan_popup',
-                    template: '请输入正确的手机号',
-                    scope: $scope
-                });
-                $timeout(function () {
-                    telVerify.close(); //由于某种原因2秒后关闭弹出
-                }, 2000);
+        if (tel != "") {
+            if (!re.test(tel)) {
+                PopupService.showAlert($scope, '请输入正确的手机号');
             } else {
-                if (captcha.trim() != "") {
+                if (captcha != "") {
                     SMSService.forgetPasswordCaptchaVerify(tel).success(function (data) {
                         if (data.payload != null && data.payload == captcha) {
                             $state.go('tab.reset-pwd-two', {telNo: tel});
                         } else if (data.payload != null && data.payload != captcha) {
-                            var captchaError = $ionicPopup.show({
-                                cssClass: 'zan_popup',
-                                template: '验证码错误',
-                                scope: $scope
-                            });
-                            $timeout(function () {
-                                captchaError.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
+                            PopupService.showAlert($scope, '验证码错误');
                         } else {
-                            var captchaDied = $ionicPopup.show({
-                                cssClass: 'zan_popup',
-                                template: '验证码失效',
-                                scope: $scope
-                            });
-                            $timeout(function () {
-                                captchaDied.close(); //由于某种原因2秒后关闭弹出
-                            }, 2000);
+                            PopupService.showAlert($scope, '验证码失效');
                         }
                     })
                         .error(function () {
 
                         });
                 } else {
-                    var captchaNull = $ionicPopup.show({
-                        cssClass: 'zan_popup',
-                        template: '请输入验证码',
-                        scope: $scope
-                    });
-                    $timeout(function () {
-                        captchaNull.close(); //由于某种原因2秒后关闭弹出
-                    }, 2000);
+                    PopupService.showAlert($scope, '请输入验证码');
                 }
             }
         } else {
-            var telNull = $ionicPopup.show({
-                cssClass: 'zan_popup',
-                template: '请输入手机号',
-                scope: $scope
-            });
-            $timeout(function () {
-                telNull.close(); //由于某种原因2秒后关闭弹出
-            }, 2000);
+            PopupService.showAlert($scope, '请输入手机号');
         }
     };
 });
