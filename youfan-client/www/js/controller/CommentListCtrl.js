@@ -1,11 +1,21 @@
-ControllerModule.controller('CommentListCtrl', function ($scope, $rootScope, $http, REST_URL, $stateParams, $ionicSlideBoxDelegate, $ionicModal) {
+ControllerModule.controller('CommentListCtrl', function ($scope, $state, $ionicPopup,$rootScope, Merchant, $http, REST_URL, $stateParams, $ionicSlideBoxDelegate, $ionicModal) {
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.commentData = [];
+    if (!Merchant.sellerId) {
+        popup.alert($ionicPopup, {
+            scope: $scope,
+            template: '请选择一个厨房！'
+        });
+        $state.go('tab.dash');
+    }
     $scope.params = {
         pageNo: 1,
         pageSize: 10,
         asc: false,
-        sortBy: "ct"
+        sortBy: "ct",
+        params:{
+            mid:Merchant.sellerId
+        }
     }
     $scope.initComment = function () {
         $http.post(REST_URL + "/cm/getCommentPager", $scope.params).success(function (result) {
@@ -14,7 +24,7 @@ ControllerModule.controller('CommentListCtrl', function ($scope, $rootScope, $ht
                     item["img"] = "img/2.jpeg";
                     var dateTime = new Date(item["commentTime"]).Format("yyyy-M-d hh:mm:ss");
                     item["commentTime"] = dateTime;
-                    item["replay_date"]=item.replay_date?new Date(item["replay_date"]).Format("yyyy-M-d hh:mm:ss"):'';
+                    item["replay_date"] = item.replay_date ? new Date(item["replay_date"]).Format("yyyy-M-d hh:mm:ss") : '';
                     $scope.comments.push(item)
                 });
             }

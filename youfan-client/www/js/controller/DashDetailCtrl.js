@@ -389,7 +389,6 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     } else {
                         _tmpData["canteenText"] = "不支持堂食";
                     }
-                    console.log(_tmpData);
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;
                     Merchant.sellerId = merchantId;
