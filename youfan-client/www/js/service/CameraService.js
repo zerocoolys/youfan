@@ -1,7 +1,7 @@
 /**
  * Created by xiaowei on 15-8-17.
  */
-ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicPopup,$ionicLoading, $cordovaCamera, $cordovaImagePicker) {
+ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicPopup, $ionicLoading, $cordovaCamera, $cordovaImagePicker) {
     return {
         createCameraPath: function ($scope, func) {
             $scope.createActionSheet = function () {
@@ -43,39 +43,37 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicPopup,
                         {
                             text: '从相册选择',
                             onclick: function () {
-                                if (!window.imagePicker) {
+                                if (!navigator.camera) {
                                     popup.alert($ionicPopup, {
                                         scope: $scope,
                                         template: '目前您的环境不支持相册上传！'
                                     });
                                     return;
                                 }
-                                var options = {
-                                    maximumImagesCount: 1,
-                                    width: 323,
-                                    height: 600,
-                                    quality: 80
-                                };
                                 //var options = {
-                                //    quality: 100,
-                                //    destinationType: Camera.DestinationType.FILE_URI,
-                                //    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                                //    allowEdit: false,
-                                //    encodingType: Camera.EncodingType.JPEG,
-                                //    targetWidth: 323,
-                                //    targetHeight: 600,
-                                //    popoverOptions: CameraPopoverOptions,
-                                //    correctOrientation: true,
-                                //    saveToPhotoAlbum: false
+                                //    maximumImagesCount: 1,
+                                //    width: 323,
+                                //    height: 600,
+                                //    quality: 80
                                 //};
 
-                                $cordovaImagePicker.getPictures(options).then(function (results) {
+
+                                alert($cordovaCamera);
+                                var options = {
+                                    quality: 50,
+                                    destinationType: Camera.DestinationType.FILE_URI,
+                                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                                    targetWidth: 323,
+                                    targetHeight: 600
+                                };
+
                                 //$cordovaCamera.getPictures(options).then(function (results) {
+                                $cordovaCamera.getPictures(options).then(function (results) {
                                     if (func) {
                                         func({getType: 1, pathData: results})
                                     }
                                 }, function (error) {
-                                    console.log(error);
+                                    alert(error);
                                 });
                             }
                         }
