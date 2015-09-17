@@ -24,7 +24,8 @@ ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $i
                                 $state.go('tab.chats');
                             } else {
                                 var updateErr = $ionicPopup.show({
-                                    title: '网络异常,请重设密码',
+                                    cssClass: 'zan_popup',
+                                    template: '网络异常,请重设密码',
                                     scope: $scope
                                 });
                                 $timeout(function () {
@@ -38,7 +39,8 @@ ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $i
                             console.log(data);
 
                             var serverError = $ionicPopup.show({
-                                title: '网络连接失败',
+                                cssClass: 'zan_popup',
+                                template: '网络连接失败',
                                 scope: $scope
                             });
                             $timeout(function () {
@@ -47,7 +49,8 @@ ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $i
                         });
                     } else {
                         var pwdMatch = $ionicPopup.show({
-                            title: '两次输入的密码不一致',
+                            cssClass: 'zan_popup',
+                            template: '两次输入的密码不一致',
                             scope: $scope
                         });
                         $timeout(function () {
@@ -56,7 +59,8 @@ ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $i
                     }
                 } else {
                     var confirmPwdNull = $ionicPopup.show({
-                        title: '请确认密码',
+                        cssClass: 'zan_popup',
+                        template: '请确认密码',
                         scope: $scope
                     });
                     $timeout(function () {
@@ -65,7 +69,8 @@ ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $i
                 }
             } else {
                 var pwdFormat = $ionicPopup.show({
-                    title: '请按格式输入密码',
+                    cssClass: 'zan_popup',
+                    template: '请按格式输入密码',
                     scope: $scope
                 });
                 $timeout(function () {
@@ -74,7 +79,8 @@ ControllerModule.controller('ResetPwdTwoCtrl', function ($scope, $ionicPopup, $i
             }
         } else {
             var pwdNull = $ionicPopup.show({
-                title: '请输入密码',
+                cssClass: 'zan_popup',
+                template: '请输入密码',
                 scope: $scope
             });
             $timeout(function () {

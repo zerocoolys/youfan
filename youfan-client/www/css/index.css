@@ -533,6 +533,7 @@ Alpha(opacity = 100);
 
 .set .item-avatar .item-content, .set .item-avatar {
     padding-left: 5px;
+    min-height:54px;
 }
 
 .home_item .badge.badge-assertive {

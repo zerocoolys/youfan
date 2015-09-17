@@ -18,7 +18,8 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
         if (tel.trim() != "") {
             if (!re.test(tel.trim())) {
                 var telVerify = $ionicPopup.show({
-                    title: '请输入正确的手机号',
+                    cssClass: 'zan_popup',
+                    template: '请输入正确的手机号',
                     scope: $scope
                 });
                 $timeout(function () {
@@ -31,7 +32,8 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
                             $state.go('tab.reset-pwd-two', {telNo: tel});
                         } else if (data.payload != null && data.payload != captcha) {
                             var captchaError = $ionicPopup.show({
-                                title: '验证码错误',
+                                cssClass: 'zan_popup',
+                                template: '验证码错误',
                                 scope: $scope
                             });
                             $timeout(function () {
@@ -39,7 +41,8 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
                             }, 2000);
                         } else {
                             var captchaDied = $ionicPopup.show({
-                                title: '验证码失效',
+                                cssClass: 'zan_popup',
+                                template: '验证码失效',
                                 scope: $scope
                             });
                             $timeout(function () {
@@ -52,7 +55,8 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
                         });
                 } else {
                     var captchaNull = $ionicPopup.show({
-                        title: '请输入验证码',
+                        cssClass: 'zan_popup',
+                        template: '请输入验证码',
                         scope: $scope
                     });
                     $timeout(function () {
@@ -62,7 +66,8 @@ ControllerModule.controller('ResetPwdOneCtrl', function ($scope, $rootScope, $io
             }
         } else {
             var telNull = $ionicPopup.show({
-                title: '请输入手机号',
+                cssClass: 'zan_popup',
+                template: '请输入手机号',
                 scope: $scope
             });
             $timeout(function () {
