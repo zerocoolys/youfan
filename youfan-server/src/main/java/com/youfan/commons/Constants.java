@@ -83,7 +83,7 @@ public interface Constants {
 
 	String COLLECTION_COMMENT = "comment";
 	String COLLECTION_MESSAGE = "messages";
-	String COLLECTION_COUPONS = "coupons";
+	String COLLECTION_COUPON = "coupon";
 	// 支付渠道
 	String COLLECTION_PAY_WAY = "pay_way";
 	// 我的银行卡
@@ -103,7 +103,8 @@ public interface Constants {
 	String CONPONS_CREATEDATE = "cd";
 	String CONPONS_MODIFYDATE = "md";
 	String CONPONS_STATUS = "status";
-	String CONPONS_DATASTATUS = "ds";
+	//MrDeng 修改 原来的CONPONS_DATASTAUS 
+	String FIELD_DATA_STATUS = "ds";
 	String CONPONS_USERID = "userid";
 
 	/* MrDeng */

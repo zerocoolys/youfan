@@ -24,6 +24,7 @@ import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.commons.vo.ConditionVO;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.commons.vo.merchant.MerchantUserVO;
 import com.youfan.commons.vo.server.CouponTypeVO;
@@ -42,6 +43,7 @@ import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.data.dao.client.UserDao;
 import com.youfan.data.models.CouponContentEntity;
+import com.youfan.services.client.ClientUserService;
 import com.youfan.services.client.MenuService;
 import com.youfan.services.merchant.CommentService;
 import com.youfan.services.merchant.KitchenService;
@@ -90,7 +92,7 @@ public class PlatFormBusinessController {
 	@Resource
 	CommentService commentService;
 	@Resource
-	UserDao userDAO;
+	ClientUserService clientUserService;
 	@Resource
 	MerchantService merchantService;
 	@Resource
@@ -116,12 +118,12 @@ public class PlatFormBusinessController {
 	public Response test(HttpServletRequest request, HttpServletResponse response) {
 		// return activeSupportService.joinActive("client_register",
 		// userDAO.getUserByTel("13980041343"));
-		ClientUserVO user = userDAO.getUserByTel("13980041343");
+		ClientUserVO user = clientUserService.getUserByTel("13980041343");
 		user.setSex("男");
 		OrderVO ov = new OrderVO();
 		ov.setOrgPrice(1000);
 
-		return activeSupportService.joinActive("client_order_up_100", user, ov);
+		return activeSupportService.joinActive("client_register_10", user);
 	}
 
 	/**
@@ -446,7 +448,7 @@ public class PlatFormBusinessController {
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/updateCoupon/{id}")
 	public Response updateCoupon(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
 		try {
-//			CouponParams params = new CouponParams();
+			// CouponParams params = new CouponParams();
 			CouponVO vo = new CouponVO();
 			vo.setId(id);
 			vo.setDataStatus(1);
@@ -473,40 +475,17 @@ public class PlatFormBusinessController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/sys/saveActive")
 	public Response saveActive(HttpServletRequest request, HttpServletResponse response) {
-		Response res = null;
 		try {
-			if (request.getParameter("event") != null && request.getParameter("port") != null
-					&& request.getParameter("activeType") != null) {
+			ActiveVO vo = JSONUtils.json2pojo(request.getParameter("entity"), ActiveVO.class);
 
-				ActiveVO activeVo = new ActiveVO();
-				activeVo.setPort(Integer.valueOf(request.getParameter("port")));
-				activeVo.setEvent(request.getParameter("event"));
-				activeVo.setActiveType(Integer.valueOf(request.getParameter("activeType")));
-				activeVo.setUserConditions(request.getParameter("userCondition") == null ? null
-						: JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
-				activeVo.setOrderConditions(request.getParameter("orderCondition") == null ? null
-						: JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
-				activeVo.setAllowTimes(0);
-				activeVo.setDesc(request.getParameter("desc"));
-				activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));
-				activeVo.setCouponsType(Integer.valueOf(request.getParameter("couponsType")));
-				// 创建时间为保存时当前时间
-				activeVo.setCreateTime(new Date().getTime());
-				activeVo.setValidityTime(Long.valueOf(request.getParameter("validityTime")));
-				activeVo.setStartTime(Long.valueOf(request.getParameter("startTime")));
-				activeVo.setEndTime(Long.valueOf(request.getParameter("endTime")));
-				activeVo.setTitle(request.getParameter("title"));
-				activeService.save(activeVo);
-				res = Responses.SUCCESS().setMsg("数据保存成功");
-			} else {
-				res = Responses.FAILED().setMsg("数据保存异常:参数错误");
-			}
+			vo.setStatus(1);
+			activeService.save(vo);
+			return Responses.SUCCESS().setCode(1).setMsg("数据保存成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = Responses.FAILED().setMsg("数据保存异常：数据库异常");
 		}
 
-		return res;
+		return Responses.FAILED().setCode(0).setMsg("数据保存异常：数据库异常");
 	}
 
 	/**
@@ -563,34 +542,39 @@ public class PlatFormBusinessController {
 	public Response updateActive(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			ActiveVO activeVo = new ActiveVO();
-			activeVo.setPort(StringUtil.isNumber(request.getParameter("port"))
-					? Integer.valueOf(request.getParameter("port")) : null);
-			activeVo.setEvent(request.getParameter("event"));
-			activeVo.setActiveType(StringUtil.isNumber(request.getParameter("activeType"))
-					? Integer.valueOf(request.getParameter("activeType")) : null);
-			activeVo.setUserConditions(request.getParameter("userCondition") == null ? null
-					: JSONUtils.json2list(request.getParameter("userCondition"), ConditionVO.class));
-			activeVo.setOrderConditions(request.getParameter("orderCondition") == null ? null
-					: JSONUtils.json2list(request.getParameter("orderCondition"), ConditionVO.class));
-			activeVo.setAllowTimes(0);
-			activeVo.setDesc(request.getParameter("desc"));
-			activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));
-			activeVo.setCouponsType(StringUtil.isNumber(request.getParameter("couponsType"))
-					? Integer.valueOf(request.getParameter("couponsType")) : null);
-			// 创建时间为保存时当前时间
-			activeVo.setCreateTime(new Date().getTime());
-			activeVo.setValidityTime(StringUtil.isNumber(request.getParameter("validityTime"))
-					? Long.valueOf(request.getParameter("validityTime")) : null);
-			activeVo.setStartTime(StringUtil.isNumber(request.getParameter("startTime"))
-					? Long.valueOf(request.getParameter("startTime")) : null);
-			activeVo.setEndTime(StringUtil.isNumber(request.getParameter("endTime"))
-					? Long.valueOf(request.getParameter("endTime")) : null);
-			activeVo.setTitle(request.getParameter("title"));
-			activeVo.setPort(StringUtil.isNumber(request.getParameter("port"))
-					? Integer.valueOf(request.getParameter("port")) : null);
+			// activeVo.setPort(StringUtil.isNumber(request.getParameter("port"))
+			// ? Integer.valueOf(request.getParameter("port")) : null);
+			// activeVo.setEvent(request.getParameter("event"));
+			// activeVo.setActiveType(StringUtil.isNumber(request.getParameter("activeType"))
+			// ? Integer.valueOf(request.getParameter("activeType")) : null);
+			// activeVo.setUserConditions(request.getParameter("userCondition")
+			// == null ? null
+			// : JSONUtils.json2list(request.getParameter("userCondition"),
+			// ConditionVO.class));
+			// activeVo.setOrderConditions(request.getParameter("orderCondition")
+			// == null ? null
+			// : JSONUtils.json2list(request.getParameter("orderCondition"),
+			// ConditionVO.class));
+			// activeVo.setAllowTimes(0);
+			// activeVo.setDesc(request.getParameter("desc"));
+			// activeVo.setCouponsTypeId(request.getParameter("couponsTypeId"));
+			// activeVo.setCouponsType(StringUtil.isNumber(request.getParameter("couponsType"))
+			// ? Integer.valueOf(request.getParameter("couponsType")) : null);
+			// // 创建时间为保存时当前时间
+			// activeVo.setCreateTime(new Date().getTime());
+			// activeVo.setValidityTime(StringUtil.isNumber(request.getParameter("validityTime"))
+			// ? Long.valueOf(request.getParameter("validityTime")) : null);
+			// activeVo.setStartTime(StringUtil.isNumber(request.getParameter("startTime"))
+			// ? Long.valueOf(request.getParameter("startTime")) : null);
+			// activeVo.setEndTime(StringUtil.isNumber(request.getParameter("endTime"))
+			// ? Long.valueOf(request.getParameter("endTime")) : null);
+			// activeVo.setTitle(request.getParameter("title"));
+			// activeVo.setPort(StringUtil.isNumber(request.getParameter("port"))
+			// ? Integer.valueOf(request.getParameter("port")) : null);
+			// System.out.println(activeVo.toString());
 			int un = activeService.updateById(id, activeVo);
 			if (un == 1) {
-				return Responses.SUCCESS().setCode(1).setMsg("数据更新成功");
+				return Responses.SUCCESS().setCode(1).setMsg("活动更新成功");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -606,12 +590,12 @@ public class PlatFormBusinessController {
 			activeVo.setStatus(status);
 			int un = activeService.updateById(id, activeVo);
 			if (un == 1) {
-				return Responses.SUCCESS().setCode(1).setMsg("数据更新成功");
+				return Responses.SUCCESS().setCode(1).setMsg("活动状态更新成功");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Responses.SUCCESS().setCode(0).setMsg("活动更新失败");
+		return Responses.SUCCESS().setCode(0).setMsg("活动状态更新失败");
 	}
 
 	/**
@@ -840,7 +824,7 @@ public class PlatFormBusinessController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @description  按照ID更新 商家信息
+	 * @description 按照ID更新 商家信息
 	 * @version 1.0
 	 * @author QinghaiDeng
 	 * @update 2015年9月15日 上午11:36:01
@@ -896,9 +880,19 @@ public class PlatFormBusinessController {
 		return Responses.FAILED().setCode(0).setMsg("获取商家厨房信息失败");
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description TODO
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月15日 下午3:35:13
+	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/merchant/updateKitchen/{id}")
-	public Response updateKitchen(@PathVariable String id, HttpServletRequest request,
-			HttpServletResponse response) {
+	public Response updateKitchen(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			KitchenParams params = new KitchenParams();
 			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
@@ -914,12 +908,12 @@ public class PlatFormBusinessController {
 	}
 
 	/**
-	 * 获取菜单信息
+	 * 
 	 * 
 	 * @param request
 	 * @param response
 	 * @return
-	 * @description TODO
+	 * @description 获取菜单信息
 	 * @version 1.0
 	 * @author QinghaiDeng
 	 * @update 2015年9月14日 上午10:39:18
@@ -928,11 +922,12 @@ public class PlatFormBusinessController {
 	public Response getMenus(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			MenuParams params = new MenuParams();
-//			params.setPhone(request.getParameter("phone"));
-//			params.setRealName(request.getParameter("realName"));
-//			params.setUserName(request.getParameter("userName"));
-//			params.setStatus(request.getParameter(MONGO_STATUS) == null ? null
-//					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			// params.setPhone(request.getParameter("phone"));
+			// params.setRealName(request.getParameter("realName"));
+			// params.setUserName(request.getParameter("userName"));
+			// params.setStatus(request.getParameter(MONGO_STATUS) == null ?
+			// null
+			// : Integer.valueOf(request.getParameter(MONGO_STATUS)));
 			Pagination pager = new Pagination();
 			long recordCnt = menuService.count(params);
 			// 分页信息
@@ -943,13 +938,40 @@ public class PlatFormBusinessController {
 			pager.setSortBy(request.getParameter(PAGER.SORT_BY));
 			pager.setAsc(
 					request.getParameter(PAGER.ASC) == null ? false : Boolean.valueOf(request.getParameter(PAGER.ASC)));
-			CollectionVO<MerchantUserVO> payload = new CollectionVO<>(merchantService.getPagerByParams(params, pager),
+			CollectionVO<MenuVO> payload = new CollectionVO<>(menuService.getPagerByParams(params, pager),
 					(int) recordCnt, pager.getPageSize());
-			return Responses.SUCCESS().setCode(1).setPayload(payload).setMsg("获取商家信息成功");
+			return Responses.SUCCESS().setCode(1).setPayload(payload).setMsg("获取菜品信息成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return Responses.FAILED().setCode(0).setMsg("获取商家信息失败");
+		return Responses.FAILED().setCode(0).setMsg("获取菜品信息失败");
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return
+	 * @description 更新
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月15日 下午3:32:51
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/merchant/updateMenu/{id}")
+	public Response updateMenu(@PathVariable String id, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			MenuParams params = new MenuParams();
+			params.setReviewStatus(request.getParameter(MONGO_STATUS) == null ? null
+					: Integer.valueOf(request.getParameter(MONGO_STATUS)));
+			int rn = menuService.updateById(id, params);
+			if (rn == 1) {
+				return Responses.SUCCESS().setCode(1).setMsg("更新商家厨房信息成功");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Responses.FAILED().setCode(0).setMsg("更新商家厨房信息失败");
 	}
 
 }

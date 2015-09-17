@@ -206,9 +206,9 @@ public abstract class RSACoderUtil {
 	} 
 	
 	
-	public static void main(String[] args) {
-		try {
-			/* Map<String,Object> keyMap = initKey();
+	public static void main(String[] args) throws Exception {
+		/*try {
+			 Map<String,Object> keyMap = initKey();
 			byte[] pub = RSACoderUtil.getPublicKey(keyMap);
 			StringBuffer sf = new StringBuffer();
 			for(byte b:pub){
@@ -222,7 +222,7 @@ public abstract class RSACoderUtil {
 				sfO.append(",");
 			}
 			System.out.println(sf.toString());
-			System.out.println(sfO.toString());*/
+			System.out.println(sfO.toString());
 			byte[] daijiami = "你好,你叫什么名字".getBytes("utf-8");
 			byte[] jiamihoudate = RSACoderUtil.jiamiByPrivateKey(daijiami, RSACoderUtil.privateKey);
 			System.out.println("加密后："+RSACoderUtil.bytesToHexString(jiamihoudate));
@@ -232,6 +232,16 @@ public abstract class RSACoderUtil {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		String id = "1003";
+		byte[] date = sign(id.getBytes(), privateKey);
+		System.out.println(bytesToHexString(date));
+		
+		String tocken = "2d8693997be614ea01c9ccd3a0b864dbd7c72cb1d57dcda5e24bcf3d0b5ec8da646248b90c3e61836f38a4945679bdde148acff45dbc035f457a9113cc0cbcea";
+		
+		boolean flag = verify(id.getBytes(),publicKey,hexStringToBytes(tocken));
+		
+		System.out.println(flag);
+		
 	}
 }

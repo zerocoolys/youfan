@@ -19,7 +19,7 @@ public interface MealsAddressDao extends MongoBaseDAO<MealsAddressEntity, MealsA
 
     void update(String id, MealsAddressVO mealsAddressVO);
 
-    void delete(String id, String dataStatus);
+    void statusDelete(String id);
 
     default Class<MealsAddressEntity> getEntityClass() {
         return MealsAddressEntity.class;
@@ -30,7 +30,7 @@ public interface MealsAddressDao extends MongoBaseDAO<MealsAddressEntity, MealsA
     }
 
     default Query queryByUid(String uid) {
-        Criteria criteria = Criteria.where("uid").is(uid);
+        Criteria criteria = Criteria.where("uid").is(uid).and("dataStatus").is(1);
         return Query.query(criteria);
     }
 

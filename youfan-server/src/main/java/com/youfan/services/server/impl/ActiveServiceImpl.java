@@ -25,7 +25,7 @@ public class ActiveServiceImpl extends MongoServiceImpl<ActiveEntity, ActiveVO>i
 	@Override
 	public void saveActive(ActiveVO activeVo) {
 		activeVo.setStatus(1);// 状态默认为1 表示开启使用状态
-		activeVo.setDataStatus(1);//数据状态
+		
 		save(activeVo);
 	}
 

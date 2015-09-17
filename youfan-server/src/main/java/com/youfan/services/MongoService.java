@@ -96,6 +96,14 @@ public interface MongoService<E,T> extends Constants{
 	 * @update 2015年9月11日 上午10:29:56
 	 */
 	List<T> getPagerByParams(MongoParams params,Pagination pager);
-	
+	/**
+	 * 
+	 * @param params
+	 * @return
+	 * @description 条件查询
+	 * @version 1.0
+	 * @author QinghaiDeng
+	 * @update 2015年9月15日 下午2:50:00
+	 */
 	List<T> getByParams(MongoParams params);
 }

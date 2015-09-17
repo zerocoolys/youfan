@@ -96,17 +96,14 @@ public class AddressController {
         }
     }
 
-    @RequestMapping(path = "/r_info/", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(path = "/r_info", method = RequestMethod.POST, produces = "application/json")
     public void remove(@RequestBody String mealsAddressStr){
         ObjectMapper mapper = new ObjectMapper();
         MealsAddressParams params = null;
-        MealsAddressVO maVO = new MealsAddressVO();
 
         try {
             params = mapper.readValue(mealsAddressStr, MealsAddressParams.class);
-            maVO.setDataStatus(params.getDataStatus());
-
-            userService.updateMealsAddress(params.getId(), maVO);
+            userService.deleteMealsAddress(params.getId());
         } catch (Exception e) {
             logger.error(e.getMessage());
         }

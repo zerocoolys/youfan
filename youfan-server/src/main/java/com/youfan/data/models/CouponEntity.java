@@ -1,10 +1,14 @@
 package com.youfan.data.models;
 
-import static com.youfan.commons.Constants.COLLECTION_COUPONS;
+import static com.youfan.commons.Constants.COLLECTION_COUPON;
+
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.youfan.commons.vo.server.CouponDetailVO;
 
 /**
  * Created on 2015-08-21.
@@ -13,21 +17,19 @@ import org.springframework.data.mongodb.core.mapping.Field;
  *
  * @author dolphineor
  */
-@Document(collection = COLLECTION_COUPONS)
+@Document(collection = COLLECTION_COUPON)
 public class CouponEntity {
 	@Id
 	private String id;
 
 	// 用户id
-	@Field("userid")
+	@Field("uid")
 	private String userId;
 
 	/**
 	 * 优惠券名称
 	 */
-	
 	private String title;
-	
 	/**
 	 * 是否全场使用
 	 */
@@ -41,38 +43,41 @@ public class CouponEntity {
 	private String kitchenId;
 
 	/**
-	 * 优惠卷类型ID
+	 * 有效期
+	 * 具体日期
 	 */
-	@Field("ctid")
-	private String couponsTypeId;
-	/**
-	 * 有效期 具体日期
-	 */
-	@Field("vt")
+	@Field("vtime")
 	private Long validityTime;
 	/**
 	 * 创建时间
 	 */
-	@Field("ct")
+	@Field("ctime")
 	private Long createTime;
+	/**
+	 * 创建时间
+	 */
+	@Field("utime")
+	private Long updateTime;
+	@Field("aid")
+	private String activeId;
+	
+	/**
+	 * 优惠方式
+	 */
+	private String type;
+	
+	
+	/**
+	 * 活动优惠详情
+	 */
+	private List<CouponDetailVO> details;
+	
 	/**
 	 * 使用状态 (-1删除,0未使用,1已使用,)
 	 */
-	/**
-	 * 更新时间
-	 */
-	@Field("ut")
-	private Long updateTime;
 	private Integer status;
 	@Field("ds")
 	private Integer dataStatus=1;
-	
-	public Integer getDataStatus() {
-		return dataStatus;
-	}
-	public void setDataStatus(Integer dataStatus) {
-		this.dataStatus = dataStatus;
-	}
 	public String getId() {
 		return id;
 	}
@@ -84,6 +89,12 @@ public class CouponEntity {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public Boolean getIfAll() {
 		return ifAll;
@@ -97,12 +108,6 @@ public class CouponEntity {
 	public void setKitchenId(String kitchenId) {
 		this.kitchenId = kitchenId;
 	}
-	public String getCouponsTypeId() {
-		return couponsTypeId;
-	}
-	public void setCouponsTypeId(String couponsTypeId) {
-		this.couponsTypeId = couponsTypeId;
-	}
 	public Long getValidityTime() {
 		return validityTime;
 	}
@@ -115,24 +120,43 @@ public class CouponEntity {
 	public void setCreateTime(Long createTime) {
 		this.createTime = createTime;
 	}
-	public Integer getStatus() {
-		return status;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
 	public Long getUpdateTime() {
 		return updateTime;
 	}
 	public void setUpdateTime(Long updateTime) {
 		this.updateTime = updateTime;
 	}
-	public String getTitle() {
-		return title;
+	public String getActiveId() {
+		return activeId;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setActiveId(String activeId) {
+		this.activeId = activeId;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public List<CouponDetailVO> getDetails() {
+		return details;
+	}
+	public void setDetails(List<CouponDetailVO> details) {
+		this.details = details;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Integer getDataStatus() {
+		return dataStatus;
+	}
+	public void setDataStatus(Integer dataStatus) {
+		this.dataStatus = dataStatus;
+	}
+	
 	
 	
 }
