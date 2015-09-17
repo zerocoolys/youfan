@@ -69,7 +69,7 @@ angular.module('yf_merchant', ['ionic', 'ConfigModule', 'ionic-datepicker', 'ngC
     })
 
     .factory('YF_MERCHANT_HOST', function () {
-        return "http://192.168.1.110:8080";
+        return "http://localhost:8080";
     })
 
     .factory('YF_MERCHANT_INFO', function () {

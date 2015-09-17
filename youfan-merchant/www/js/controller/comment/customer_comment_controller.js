@@ -66,7 +66,8 @@
                         onTap: function (e) {
                             if ($scope.data.comment && cid) {
                                 $http.get(REST_URL + "/cm/replayComment?cid=" + cid + "&content=" + $scope.data.comment).success(function (result) {
-                                    if (result.code == 200) {
+                                    if (result.code == 0) {
+                                        $scope.comments=[];
                                         $scope.initComment();
                                         e.preventDefault();
                                     }
