@@ -34,7 +34,8 @@ ControllerModule.controller('SmsCaptchaCtrl', function ($scope, $ionicPopup, $in
         if (tel.trim() != "") {
             if (!re.test(tel.trim())) {
                 var telVerify = $ionicPopup.show({
-                    title: '请输入正确的手机号',
+                    cssClass: 'zan_popup',
+                    template: '请输入正确的手机号',
                     scope: $scope
                 });
                 $timeout(function () {
@@ -72,7 +73,8 @@ ControllerModule.controller('SmsCaptchaCtrl', function ($scope, $ionicPopup, $in
                         }
                     } else {
                         var smsError = $ionicPopup.show({
-                            title: '短信发送失败',
+                            cssClass: 'zan_popup',
+                            template: '短信发送失败',
                             scope: $scope
                         });
                         $timeout(function () {
@@ -86,7 +88,8 @@ ControllerModule.controller('SmsCaptchaCtrl', function ($scope, $ionicPopup, $in
             }
         } else {
             var telNull = $ionicPopup.show({
-                title: '请输入手机号',
+                cssClass: 'zan_popup',
+                template: '请输入手机号',
                 scope: $scope
             });
             $timeout(function () {
