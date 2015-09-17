@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/9/1.
  */
-ControllerModule.controller('SetPwdCtrl', function ($scope, $ionicModal, $ionicPopup, $timeout,AuthenticationService, $location, $http, UserService, $state, localStorageService) {
+ControllerModule.controller('SetPwdCtrl', function ($scope, PopupService, AuthenticationService, $location, $http, UserService, $state, localStorageService) {
 
     $scope.formValue = {};
 
@@ -13,108 +13,45 @@ ControllerModule.controller('SetPwdCtrl', function ($scope, $ionicModal, $ionicP
 
         var re = /[0-9 | A-Z | a-z]{6,16}/;
         if (oldPwd != "") {
-            if (newPwd.trim() != "") {
+            if (newPwd != "") {
                 if (re.test(newPwd)) {
-                    if (confirmPwd.trim() != "") {
-                        if (newPwd.trim() == confirmPwd.trim()) {
+                    if (confirmPwd != "") {
+                        if (newPwd == confirmPwd) {
                             UserService.signIn($scope.telNo, oldPwd).success(function (data) {
                                 if (data.code == 0) {
                                     UserService.resetPassword($scope.telNo, newPwd).success(function (data) {
                                         if (data.code == 0) {
                                             $state.go('tab.chats');
                                         } else {
-                                            var updateErr = $ionicPopup.show({
-                                                cssClass: 'zan_popup',
-                                                template: '网络异常,请重设密码',
-                                                scope: $scope
-                                            });
-                                            $timeout(function () {
-                                                updateErr.close();
-                                            }, 2000);
+                                            PopupService.showAlert($scope, '网络异常,请重置密码');
                                         }
 
                                     }).error(function (data) {
                                         console.log(status);
                                         console.log(data);
 
-                                        var serverError = $ionicPopup.show({
-                                            cssClass: 'zan_popup',
-                                            template: '网络连接失败',
-                                            scope: $scope
-                                        });
-                                        $timeout(function () {
-                                            serverError.close(); //由于某种原因2秒后关闭弹出
-                                        }, 2000);
+                                        PopupService.showAlert($scope, '网络链接失败');
                                     });
                                 } else {
-                                    var protoPwd = $ionicPopup.show({
-                                        cssClass: 'zan_popup',
-                                        template: '旧密码不对',
-                                        scope: $scope
-                                    });
-                                    $timeout(function () {
-                                        protoPwd.close(); //由于某种原因2秒后关闭弹出
-                                    }, 2000);
+                                    PopupService.showAlert($scope, '旧密码不对');
                                 }
                             }).error(function (data) {
-                                var oldErr = $ionicPopup.show({
-                                    cssClass: 'zan_popup',
-                                    template: '网络连接失败',
-                                    scope: $scope
-                                });
-                                $timeout(function () {
-                                    oldErr.close(); //由于某种原因2秒后关闭弹出
-                                }, 2000);
+                                PopupService.showAlert($scope, '网络链接失败');
                             });
                         } else {
-                            var pwdMatch = $ionicPopup.show({
-                                cssClass: 'zan_popup',
-                                template: '两次输入的密码不一致',
-                                scope: $scope
-                            });
-                            $timeout(function () {
-                                pwdMatch.close();
-                            }, 2000);
+                            PopupService.showAlert($scope, '两次输入的密码不一致');
                         }
                     } else {
-                        var confirmPwdNull = $ionicPopup.show({
-                            cssClass: 'zan_popup',
-                            template: '请确认密码',
-                            scope: $scope
-                        });
-                        $timeout(function () {
-                            confirmPwdNull.close();
-                        }, 2000);
+                        PopupService.showAlert($scope, '请确认密码');
                     }
                 } else {
-                    var pwdFormat = $ionicPopup.show({
-                        cssClass: 'zan_popup',
-                        template: '请按格式输入密码',
-                        scope: $scope
-                    });
-                    $timeout(function () {
-                        pwdFormat.close();
-                    }, 2000);
+                    PopupService.showAlert($scope, '请按格式输入密码');
                 }
             } else {
-                var pwdNull = $ionicPopup.show({
-                    cssClass: 'zan_popup',
-                    template: '请输入密码',
-                    scope: $scope
-                });
-                $timeout(function () {
-                    pwdNull.close();
-                }, 2000);
+                PopupService.showAlert($scope, '请输入密码');
             }
         } else {
-            var oldPwdNull = $ionicPopup.show({
-                cssClass: 'zan_popup',
-                template: '请输入旧密码',
-                scope: $scope
-            });
-            $timeout(function () {
-                oldPwdNull.close();
-            }, 2000);
+            PopupService.showAlert($scope, '请输入旧密码');
         }
     }
 });

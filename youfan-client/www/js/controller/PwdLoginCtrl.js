@@ -2,7 +2,7 @@
  * Created by ss on 2015/8/28.
  */
 //密码登录
-ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionicModal, $ionicPopup, $timeout, $location, $http, $state, $window, AuthenticationService, UserService, localStorageService, User, ResponseUser) {
+ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $location, $http, $state, AuthenticationService, UserService, localStorageService, PopupService, User, ResponseUser) {
     /**
      * 密码验证登陆
      */
@@ -11,26 +11,12 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
     /**
      * 登陆
      */
-    $scope.signIn = function (tel, password) {
+    $scope.login = function (tel, password) {
         if (tel == "") {
-            var popupNull = $ionicPopup.show({
-                cssClass: 'zan_popup',
-                template: '请输入手机号',
-                scope: $scope
-            });
-            $timeout(function () {
-                popupNull.close(); //由于某种原因2秒后关闭弹出
-            }, 2000);
+            PopupService.showAlert($scope, '请输入手机号');
         } else {
             if (password == "") {
-                var popupCodeNull = $ionicPopup.show({
-                    cssClass: 'zan_popup',
-                    template: '请输入密码',
-                    scope: $scope
-                });
-                $timeout(function () {
-                    popupCodeNull.close(); //由于某种原因2秒后关闭弹出
-                }, 2000);
+                PopupService.showAlert($scope, '请输入密码');
             } else {
                 UserService.signIn(tel, password).success(function (data) {
                     if (data.code == 0) {
@@ -73,27 +59,12 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                         $state.go('tab.chats', {userobj: data.payload.clientUserVO});
 
                     } else {
-                        var dataNull = $ionicPopup.show({
-                            cssClass: 'zan_popup',
-                            template: '手机号和密码不对',
-                            scope: $scope
-                        });
-                        $timeout(function () {
-                            dataNull.close(); //由于某种原因2秒后关闭弹出
-                        }, 2000);
+                        PopupService.showAlert($scope, '手机号和密码不对');
                     }
                 }).error(function (status, data) {
                     console.log(status);
                     console.log(data);
-
-                    var serverError = $ionicPopup.show({
-                        cssClass: 'zan_popup',
-                        template: '网络连接失败',
-                        scope: $scope
-                    });
-                    $timeout(function () {
-                        serverError.close(); //由于某种原因2秒后关闭弹出
-                    }, 2000);
+                    PopupService.showAlert($scope, '网络链接失败');
                 });
             }
         }

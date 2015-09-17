@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $window, $state, $stateParams, AuthenticationService, localStorageService, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $ionicPopup, $timeout, $http, UserService, $cordovaCamera, $cordovaImagePicker) {
+ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $timeout, $state, PopupService, $stateParams, AuthenticationService, localStorageService, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $http, UserService, $cordovaCamera, $cordovaImagePicker) {
 
     if (AuthenticationService.isLogged) {
         UserService.userInfo(localStorageService.get("userid")).success(function (data) {
@@ -78,7 +78,7 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
                     return true;
                 }
             })
-        }else if(id == 3){
+        } else if (id == 3) {
             $ionicActionSheet.show({
                 buttons: [
                     {
@@ -140,20 +140,10 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
 
     $scope.show = function (post) {
         UserService.updateInfo(post).success(function (data) {
-
-            //console.log(data);
-
             if (data.code == 0) {
                 $state.go('tab.chats');
             } else {
-                var updateErr = $ionicPopup.show({
-                    cssClass: 'zan_popup',
-                    template: '网络异常,请重设密码',
-                    scope: $scope
-                });
-                $timeout(function () {
-                    updateErr.close();
-                }, 2000);
+                PopupService.showAlert($scope, '网络异常,请重置密码');
             }
 
         })
@@ -161,7 +151,6 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
                 console.log(status);
                 console.log(data);
             });
-
 
         $ionicLoading.show({
             template: '<div><ion-spinner icon="bubbles" class="spinner-calm"></ion-spinner>保存中...</div>'
