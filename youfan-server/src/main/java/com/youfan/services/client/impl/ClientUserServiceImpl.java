@@ -111,7 +111,7 @@ public class ClientUserServiceImpl implements ClientUserService {
     }
 
     @Override
-    public void deleteMealsAddress(String id, String dataStatus) {
-        maDAO.delete(id, dataStatus);
+    public void deleteMealsAddress(String id) {
+        maDAO.statusDelete(id);
     }
 }

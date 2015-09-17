@@ -79,5 +79,5 @@ public interface ClientUserService {
 
     void updateMealsAddress(String id, MealsAddressVO mealsAddressVO);
 
-    void deleteMealsAddress(String id, String dataStatus);
+    void deleteMealsAddress(String id);
 }
