@@ -11,7 +11,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $locat
     /**
      * 登陆
      */
-    $scope.signIn = function (tel, password) {
+    $scope.login = function (tel, password) {
         if (tel == "") {
             PopupService.showAlert($scope, '请输入手机号');
         } else {
