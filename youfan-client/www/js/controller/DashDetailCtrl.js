@@ -37,21 +37,29 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 //        $ionicSlideBoxDelegate.slide(index);
 
         if (index == 0) {
-            $scope.slideIndex = 0;
+            $scope.orderType = index;
+
+            $scope.slideIndex = index;
             angular.element(document.querySelector('#todayDining'))
                 .removeClass('hide')
                 .addClass('show');
-            angular.element(document.querySelector('#yesterdayDining'))
+            angular.element(document.querySelector('#tomorrowDining'))
                 .removeClass('show')
                 .addClass('hide');
+
+            Order.cart = [];
         } else if (index == 1) {
-            $scope.slideIndex = 1;
-            angular.element(document.querySelector('#yesterdayDining'))
+            $scope.orderType = index;
+
+            $scope.slideIndex = index;
+            angular.element(document.querySelector('#tomorrowDining'))
                 .removeClass('hide')
                 .addClass('show');
             angular.element(document.querySelector('#todayDining'))
                 .removeClass('show')
                 .addClass('hide');
+
+            Order.cart = [];
         }
     };
     $scope.onContentScroll = function () {
@@ -78,6 +86,8 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
 
     };
     // ========================= dolphineor =========================
+    $scope.orderType = 0;
+
     $scope.items = {
         data: []
     };
@@ -260,6 +270,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     // 菜品列表Map
     $scope.menuItemMap = new Map();
 
+    // 用于页面菜品展示
     $scope.menuItemArr = [];
 
     // 请求菜品列表信息
@@ -283,9 +294,9 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             $scope.menuItemMap.put(jsonArr[i].id, jsonArr[i]);
         }
 
-        $scope.menuItemMap.put($scope.rice.id, $scope.rice);
-
         $scope.menuItemArr = $scope.menuItemMap.values();
+
+        $scope.menuItemMap.put($scope.rice.id, $scope.rice);
     });
 
     // 计算订单总计
@@ -313,6 +324,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
             return;
         }
         $scope.menuState.show = false;
+        Order.orderType = $scope.orderType;
         $state.go('tab.confirm-order');
     };
 
@@ -380,10 +392,10 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
                     console.log(_tmpData);
                     $scope.merchantObj = _tmpData;
                     Merchant.kinInfo = _tmpData;
-                    Merchant.sellerId=merchantId;
-                    Merchant.address=_tmpData["kitchenAddress"];
-                    Merchant.name=_tmpData["kitchenName"];
-                    Merchant.telNo=_tmpData["phoneNumber"];
+                    Merchant.sellerId = merchantId;
+                    Merchant.address = _tmpData["kitchenAddress"];
+                    Merchant.name = _tmpData["kitchenName"];
+                    Merchant.telNo = _tmpData["phoneNumber"];
                     //Merchant.telNo=_tmpData[]
                 }
                 if (result.payload.mu != null) {

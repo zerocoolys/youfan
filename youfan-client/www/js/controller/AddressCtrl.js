@@ -120,4 +120,8 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
             }, 2000);
         }
     };
+    /**删除***/
+    $scope.deleteItem = function (item) {
+        $scope.list.splice($scope.list.indexOf(item), 1);
+    };
 });
