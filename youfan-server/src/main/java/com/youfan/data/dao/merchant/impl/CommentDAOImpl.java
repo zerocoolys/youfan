@@ -81,7 +81,7 @@ public class CommentDAOImpl implements CommentDAO {
     @Override
     public long commentCount(String sellerId) {
         Query q = new Query();
-        q.addCriteria(Criteria.where(DATA_STATUS).is(1).and(Constants.SELLER_ID).is(sellerId));
+        q.addCriteria(Criteria.where(DATA_STATUS).is(1).and(Constants.COMMENT_MERCHANT_ID).is(sellerId));
         long count = mongoTemplate.count(q, getEntityClass());
         return count;
     }

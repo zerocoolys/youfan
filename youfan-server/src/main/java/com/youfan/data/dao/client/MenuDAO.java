@@ -5,6 +5,7 @@ import com.youfan.commons.vo.client.MenuVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.MenuEntity;
 import com.youfan.exceptions.MenuNameExistsException;
+
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -120,4 +121,6 @@ public interface MenuDAO extends MongoBaseDAO<MenuEntity, MenuVO, String> {
     List<MechantMenuVO> findByMenuIds(List<String> menuIds);
 
     void restNumManage();
+
+    void addRiceToMenu(MenuVO menu);
 }

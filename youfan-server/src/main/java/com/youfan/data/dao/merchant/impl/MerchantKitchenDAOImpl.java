@@ -77,7 +77,10 @@ public class MerchantKitchenDAOImpl implements MerchantKitchenDAO {
     public MerchantKitchenInfoVO findById(String id) {
         Query q = new Query().addCriteria(Criteria.where(Constants.FIELD_ID).is(id));
         MerchantKitchenInfoEntity mre = mongoTemplate.findOne(q, getEntityClass());
-        return convertToVO(mre);
+        if (mre != null)
+            return convertToVO(mre);
+
+        return null;
     }
 
     @Override

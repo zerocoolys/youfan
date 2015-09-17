@@ -25,14 +25,15 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author dolphineor
  */
 @Service("menuService")
-public class MenuServiceImpl extends MongoServiceImpl<MenuEntity, MenuVO> implements MenuService {
+public class MenuServiceImpl extends MongoServiceImpl<MenuEntity, MenuVO>
+        implements MenuService {
 
-	@Autowired
+    @Autowired
     public MenuServiceImpl(MongoBaseDAO<MenuEntity, MenuVO, String> mongoDao) {
-		super(mongoDao);
-	}
+        super(mongoDao);
+    }
 
-	private final ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock();
 
     @Resource
     private MenuDAO menuDAO;
@@ -204,6 +205,19 @@ public class MenuServiceImpl extends MongoServiceImpl<MenuEntity, MenuVO> implem
     @Override
     public List<MenuVO> findByIds(List<String> menuIds) {
         return menuDAO.findByIds(menuIds);
+    }
+
+    @Override
+    public void addRiceToMenu(String sellerId) {
+        MenuVO menu = new MenuVO();
+        menu.setName("米饭");
+        menu.setPrice(1);
+        menu.setStock(200);
+        menu.setSale(true);
+        menu.setReviewStatus(1);
+        menu.setSellerId(sellerId);
+        menu.setType("mf");
+        menuDAO.addRiceToMenu(menu);
     }
 
 }

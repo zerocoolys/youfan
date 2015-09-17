@@ -37,4 +37,9 @@ public class MerchantKitchenServiceImpl implements MerchantKitchenService {
     public CollectionVO<MerchantKitchenInfoVO> geographicalSearch(Pagination pagination) {
         return merchantKitchenDAO.getGeographicalSearch(pagination);
     }
+
+    @Override
+    public MerchantKitchenInfoVO findById(String id) {
+        return merchantKitchenDAO.findById(id);
+    }
 }
