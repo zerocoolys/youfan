@@ -4,10 +4,12 @@ import com.youfan.commons.Pagination;
 import com.youfan.commons.vo.CollectionVO;
 import com.youfan.commons.vo.CommentVO;
 import com.youfan.commons.vo.client.ClientUserVO;
+import com.youfan.commons.vo.merchant.MerchantKitchenInfoVO;
 import com.youfan.controllers.support.Response;
 import com.youfan.controllers.support.Responses;
 import com.youfan.services.client.ClientUserService;
 import com.youfan.services.merchant.CommentService;
+import com.youfan.services.merchant.MerchantKitchenService;
 import com.youfan.services.server.OrderService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,12 +39,19 @@ public class CommentController {
     @Resource
     private OrderService orderService;
 
+    @Resource
+    private MerchantKitchenService merchantKitchenService;
+
 
     @RequestMapping(value = "/save")
     public Response createComment(@RequestBody CommentVO cm) {
         ClientUserVO commentUser = clientUserService.findById(cm.getUser_id());
         if (commentUser != null)
             cm.setComment_user(commentUser.getName());
+
+        MerchantKitchenInfoVO mkv=merchantKitchenService.findById(cm.getMerchant_id());
+        if(mkv!=null)
+            cm.setMerchant_user(mkv.getKitchenName());
 
         Integer result = commentService.createCm(cm);
         if (result != 0) {

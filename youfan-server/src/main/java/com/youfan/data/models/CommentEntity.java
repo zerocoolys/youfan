@@ -19,6 +19,8 @@ public class CommentEntity {
 
     @Field(Constants.COMMENT_MERCHANT_ID)
     String merchant_id;//商家店铺id
+
+    String merchant_user;
     long order_id;
 
     @Field(Constants.COMMENT_USER)
@@ -181,5 +183,13 @@ public class CommentEntity {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getMerchant_user() {
+        return merchant_user;
+    }
+
+    public void setMerchant_user(String merchant_user) {
+        this.merchant_user = merchant_user;
     }
 }

@@ -11,6 +11,8 @@ public class CommentVO {
     String id;
 
     String merchant_id;
+
+    String merchant_user;
     long order_id;
 
     String comment_user;
@@ -164,5 +166,13 @@ public class CommentVO {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getMerchant_user() {
+        return merchant_user;
+    }
+
+    public void setMerchant_user(String merchant_user) {
+        this.merchant_user = merchant_user;
     }
 }

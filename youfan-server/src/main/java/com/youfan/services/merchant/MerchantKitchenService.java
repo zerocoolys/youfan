@@ -22,4 +22,6 @@ public interface MerchantKitchenService {
      * @return
      */
     CollectionVO<MerchantKitchenInfoVO> geographicalSearch(Pagination pagination);
+
+    MerchantKitchenInfoVO findById(String id);
 }

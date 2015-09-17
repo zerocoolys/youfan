@@ -49,8 +49,7 @@ public class MerchantRoomController implements ResponseConstants {
     public Response getMerchantOne(@PathVariable("id") String id) {
         MerchantKitchenInfoVO mk = merchantUsersService.mrFindById(id);
         MerchantUserVO mu = merchantUsersService.muFindById(id);
-        //TODO 查询该商家评论数需要将静态sellerId改为动态
-        long cc = commentService.commentCount("88888888");
+        long cc = commentService.commentCount(id);
         MerchantResultVO muk = new MerchantResultVO(mu, mk,cc);
         return Responses.SUCCESS().setPayload(muk);
     }
