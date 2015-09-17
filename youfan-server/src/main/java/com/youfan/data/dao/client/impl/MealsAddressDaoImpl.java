@@ -47,9 +47,9 @@ public class MealsAddressDaoImpl implements MealsAddressDao {
     }
 
     @Override
-    public void delete(String id, String dataStatus) {
+    public void statusDelete(String id) {
         Update update = new Update();
-        update.set("dataStatus", dataStatus);
+        update.set("dataStatus", 0);
 
         convertToVO(mongoTemplate.findAndModify(queryById(id), update, getEntityClass(), COLLECTION_CLIENT_MEALS_ADDRESS));
     }
