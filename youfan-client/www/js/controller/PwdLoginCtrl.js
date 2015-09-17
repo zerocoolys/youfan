@@ -14,7 +14,8 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
     $scope.signIn = function (tel, password) {
         if (tel == "") {
             var popupNull = $ionicPopup.show({
-                title: '请输入手机号',
+                cssClass: 'zan_popup',
+                template: '请输入手机号',
                 scope: $scope
             });
             $timeout(function () {
@@ -23,7 +24,8 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
         } else {
             if (password == "") {
                 var popupCodeNull = $ionicPopup.show({
-                    title: '请输入密码',
+                    cssClass: 'zan_popup',
+                    template: '请输入密码',
                     scope: $scope
                 });
                 $timeout(function () {
@@ -72,7 +74,8 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
 
                     } else {
                         var dataNull = $ionicPopup.show({
-                            title: '手机号和密码不对',
+                            cssClass: 'zan_popup',
+                            template: '手机号和密码不对',
                             scope: $scope
                         });
                         $timeout(function () {
@@ -84,7 +87,8 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $ionic
                     console.log(data);
 
                     var serverError = $ionicPopup.show({
-                        title: '网络连接失败',
+                        cssClass: 'zan_popup',
+                        template: '网络连接失败',
                         scope: $scope
                     });
                     $timeout(function () {

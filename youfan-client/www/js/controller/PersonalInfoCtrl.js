@@ -147,7 +147,8 @@ ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $w
                 $state.go('tab.chats');
             } else {
                 var updateErr = $ionicPopup.show({
-                    title: '网络异常,请重设密码',
+                    cssClass: 'zan_popup',
+                    template: '网络异常,请重设密码',
                     scope: $scope
                 });
                 $timeout(function () {

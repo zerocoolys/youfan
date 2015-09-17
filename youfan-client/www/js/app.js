@@ -106,7 +106,8 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //新增就餐地址
             .state('add-address', {
                 url: '/add_address',
-                templateUrl: 'templates/personalcenter/add-address.html'
+                templateUrl: 'templates/personalcenter/add-address.html',
+                controller: 'AddressCtrl'
             })
 
             .state('tab.dash', {

@@ -13,7 +13,6 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
 
     if (AuthenticationService.isLogged) {
         MealsAddressService.query(localStorageService.get("userid")).success(function (data) {
-            //console.log(data);
             if (data.payload != null) {
                 $scope.list = data.payload;
             } else {
@@ -51,9 +50,10 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
                             //console.log(data);
                             if (data.code == 0) {
                                 MealsAddressService.query(localStorageService.get("userid")).success(function (data) {
-                                    //console.log(data);
-                                    if (data.payload != null) {
+                                    console.log(data);
+                                    if (data.code != null) {
                                         $scope.list = data.payload;
+                                        $state.go("tab.address");
                                     } else {
 
                                     }
@@ -61,7 +61,6 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
                                     console.log(status);
                                     console.log(data);
                                 });
-                                $state.go("tab.address");
                             } else {
                                 var err = $ionicPopup.show({
                                     title: '网络异常',
@@ -120,5 +119,14 @@ ControllerModule.controller('AddressCtrl', function ($scope, $stateParams, $ioni
                 contactNull.close(); //由于某种原因2秒后关闭弹出
             }, 2000);
         }
+    };
+    /**删除***/
+    $scope.deleteItem = function (item, id) {
+        MealsAddressService.remove(id).success(function(data){
+            console.log(data);
+        }).error(function(data){
+            console.log(data);
+        });
+        $scope.list.splice($scope.list.indexOf(item), 1);
     };
 });

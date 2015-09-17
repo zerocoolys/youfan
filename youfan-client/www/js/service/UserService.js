@@ -74,7 +74,7 @@ ServiceModule
                 });
             },
             forgetPasswordCaptchaVerify: function (tel) {
-                return $http.post(api.base_url + '/captcha/verify', {captchaKey: "client_forgetpwd" + tel});
+                return $http.post(REST_URL + '/captcha/verify', {captchaKey: "client_forgetpwd" + tel});
             }
         }
     })
@@ -117,8 +117,8 @@ ServiceModule
             update: function (post) {
                 return $http.post(REST_URL + '/address/u_info/' + post);
             },
-            remove: function (id, dataStatus) {
-                return $http.get(REST_URL + '/address/r_info/' + {id: id, dataStatus: dataStatus});
+            remove: function (id) {
+                return $http.post(REST_URL + '/address/r_info', {id: id});
             }
         }
     })

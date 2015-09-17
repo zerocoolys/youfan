@@ -43,7 +43,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
         if (tel.trim() != "") {
             if (!re.test(tel.trim())) {
                 var telVerify = $ionicPopup.show({
-                    title: '请输入正确的手机号',
+                    cssClass: 'zan_popup',
+                    template: '请输入正确的手机号',
                     scope: $scope
                 });
                 $timeout(function () {
@@ -103,7 +104,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
 
                                                 } else {
                                                     var loginDied = $ionicPopup.show({
-                                                        title: '链接超时',
+                                                        cssClass: 'zan_popup',
+                                                        template: '链接超时',
                                                         scope: $scope
                                                     });
                                                     $timeout(function () {
@@ -113,7 +115,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
                                                 }
                                             } else {
                                                 var dataNull = $ionicPopup.show({
-                                                    title: '手机号和密码不对',
+                                                    cssClass: 'zan_popup',
+                                                    template: '手机号和密码不对',
                                                     scope: $scope
                                                 });
                                                 $timeout(function () {
@@ -124,7 +127,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
                                     }
                                     if (data.code == 1) {
                                         var telReg = $ionicPopup.show({
-                                            title: '该手机号已注册',
+                                            cssClass: 'zan_popup',
+                                            template: '该手机号已注册',
                                             scope: $scope
                                         });
                                         $timeout(function () {
@@ -158,7 +162,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
                                  });*/
                             } else {
                                 var passwordEquals = $ionicPopup.show({
-                                    title: '请确保两次输入的密码一致i',
+                                    cssClass: 'zan_popup',
+                                    template: '请确保两次输入的密码一致i',
                                     scope: $scope
                                 });
                                 $timeout(function () {
@@ -168,7 +173,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
 
                         } else {
                             var passwordNull = $ionicPopup.show({
-                                title: '请确认密码',
+                                cssClass: 'zan_popup',
+                                template: '请确认密码',
                                 scope: $scope
                             });
                             $timeout(function () {
@@ -177,7 +183,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
                         }
                     } else {
                         var passwordNull = $ionicPopup.show({
-                            title: '请输入密码',
+                            cssClass: 'zan_popup',
+                            template: '请输入密码',
                             scope: $scope
                         });
                         $timeout(function () {
@@ -186,7 +193,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
                     }
                 } else {
                     var popupCodeNull = $ionicPopup.show({
-                        title: '请输入验证码',
+                        cssClass: 'zan_popup',
+                        template: '请输入验证码',
                         scope: $scope
                     });
                     $timeout(function () {
@@ -196,7 +204,8 @@ ControllerModule.controller('UserRegisterCtrl', function ($scope, $ionicModal, $
             }
         } else {
             var popupNull = $ionicPopup.show({
-                title: '请输入手机号',
+                cssClass: 'zan_popup',
+                template: '请输入手机号',
                 scope: $scope
             });
             $timeout(function () {
