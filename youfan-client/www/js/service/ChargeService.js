@@ -3,12 +3,12 @@
  *
  * @author dolphineor
  */
-ServiceModule.factory('ChargeService', function ($q, $http, REST_URL) {
+ServiceModule.factory('ChargeService', function ($q, $http, localStorageService, REST_URL) {
     var q = $q.defer();
 
     return {
         getCharge: function (chargeParams) {
-            $http.post(REST_URL + '/platform/pay', chargeParams).then(function (charge) {
+            $http.post(REST_URL + '/platform/pay?access_token=' + localStorageService.get('token'), chargeParams).then(function (charge) {
                 q.resolve(charge);
             }, function (err) {
                 q.resolve(err);
