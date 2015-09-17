@@ -62,8 +62,8 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
             $http.post(REST_URL + "/mr/getGeographical", p).success(function (result) {
                 if (result.payload.list.length) {
                     result.payload.list.forEach(function (item) {
-                        item["src"] = "img/1.jpg";
-                        item["headImg"] = "img/avatar1.jpg";
+                        item["src"] =  item.kitchenPicUrl[0];
+                        item["headImg"] ="img/person.png";
                         item["loc"] = parseFloat(item['location']).toFixed(1) + "km";
                         $scope.merChantData.push(item);
                     });
@@ -133,8 +133,8 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
             if (result.payload.length) {
                 $scope.merChantData = [];
                 result.payload.forEach(function (item, i) {
-                    item["src"] = "img/1.jpg";
-                    item["headImg"] = "img/avatar1.jpg";
+                    item["src"] =  item.kitchenPicUrl[0];
+                    item["headImg"] ="img/person.png";
                     $scope.merChantData.push(item);
                 })
             }

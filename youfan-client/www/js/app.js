@@ -175,6 +175,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             //评论详情
             .state('tab.comment-detail', {
                 url: "/comment-detail",
+                cache:false,
                 views: {
                     'tab-dash': {
                         templateUrl: "templates/homepage/commentlist.html",
@@ -398,6 +399,7 @@ var app = angular.module('youfan.client', ['ionic', 'ConfigModule', 'ControllerM
             })
             .state('comment-details', {
                 url: '/comment-details',
+                cache:false,
                 templateUrl: 'templates/homepage/comment-detail.html',
                 controller: 'CommentDetailCtrl'
             })

@@ -32,7 +32,6 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicPopup,
                                 };
 
                                 $cordovaCamera.getPicture(options).then(function (imageURI) {
-                                    alert(imageURI);
                                     if (func) {
                                         func({getType: 0, pathData: imageURI})
                                     }
@@ -91,10 +90,7 @@ ServiceModule.factory('CameraService', function ($ionicActionSheet, $ionicPopup,
         },
         upImg: function (fileUrl, cb) {
             if (!fileUrl) {
-                popup.alert($ionicPopup, {
-                    scope: $scope,
-                    template: '请添加图片！'
-                });
+                alert("请选择图片！");
                 return;
             }
             var options = new FileUploadOptions();
