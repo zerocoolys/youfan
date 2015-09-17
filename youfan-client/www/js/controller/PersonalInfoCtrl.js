@@ -1,7 +1,7 @@
 /**
  * Created by ss on 2015/8/19.
  */
-ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $state, PopupService, $stateParams, AuthenticationService, localStorageService, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $http, UserService, $cordovaCamera, $cordovaImagePicker) {
+ControllerModule.controller('PersonalInfoCtrl', function ($scope, $rootScope, $timeout, $state, PopupService, $stateParams, AuthenticationService, localStorageService, $ionicSlideBoxDelegate, $ionicActionSheet, $ionicLoading, $http, UserService, $cordovaCamera, $cordovaImagePicker) {
 
     if (AuthenticationService.isLogged) {
         UserService.userInfo(localStorageService.get("userid")).success(function (data) {
