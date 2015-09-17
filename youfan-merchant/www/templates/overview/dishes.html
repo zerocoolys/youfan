@@ -1,58 +1,60 @@
 <!-- 帮助 -->
 <ion-view view-title="" hide-nav-bar="true" cache-view="false">
 
-    <ion-header-bar  align-title="center"  class="dishes-p" >
-            <a class="button button-clear   button-calm icon ion-ios-arrow-back" style="  padding: 0 5px;
-  margin-top: -2px;" href="#/overview" ></a>
-            <div class="button-bar  calm" >
-                <a class="button  calm-border calm " style="padding: 0;" ng-repeat="way in ways" ng-class="headerIndex ==way.code? 'button-calm':''"
-                                                                               ng-click="selectedHeader(way.code)">{{way.name}}</a>
-            </div>
-            <a class=" button button-clear button-calm "
-               href="#/query_order" >
-                查询
-            </a>
+    <ion-header-bar align-title="center" class="dishes-p">
+            <button class="button button-clear button-calm" data-ng-click="goState('overview')"><i
+                class="icon ion-ios-arrow-back"></i></button>
+        <div class="button-bar  calm">
+            <a class="button  calm-border calm " style="padding: 0;" ng-repeat="way in ways"
+               ng-class="headerIndex ==way.code? 'button-calm':''"
+               ng-click="selectedHeader(way.code)">{{way.name}}</a>
+        </div>
+        <a class=" button button-clear button-calm "
+           href="#/query_order">
+            查询
+        </a>
     </ion-header-bar>
 
-        <ion-content scrollbar-y="false" class="stable-bg" style="height:100%; " cache-view="false">
-            <div class="button-bar  light-bg dishes" ng-if=" headerIndex != 'YZDC' ">
-                <a class="button button-clear" ng-repeat="status in status_list"
-                   ng-class="statusIndex == status.id ? 'current':''"
-                   ng-click="selectedStatus(status.id)">{{status.name}}<i class="calm">{{status.number}}</i> </a>
-                                </div>
+    <ion-content scrollbar-y="false" class="stable-bg" style="height:100%; " cache-view="false">
+        <div class="button-bar  light-bg dishes" ng-if=" headerIndex != 'YZDC' ">
+            <a class="button button-clear"  ng-repeat="status in status_list"
+               ng-class="statusIndex == status.id ? 'current':''"
+               ng-click="selectedStatus(status.id)"><span style="display: block;margin-top: -5px;">{{status.name}}</span>
+                <i style="display: block;margin-top: -22px;" class="calm">{{status.number}}</i>
+            </a>
+        </div>
 
-                                        <ion-list ng-repeat="order in orders" style="margin-bottom: 20px">
-                                            <ion-item>
-                                                <span>订单编号：{{order.orderNo}}</span>
-                                <!--
-                                <p ng-class=" headerIndex=='YZDC' ? 'display_none':''" class="item-note mainColor">待付款</p>
-                                -->
-                            </ion-item>
-                            <ion-item class="item-thumbnail-left item-avatar">
+        <ion-list ng-repeat="order in orders" style="margin-bottom: 20px;">
+            <ion-item>
+                <span>订单编号：{{order.orderNo}}</span>
+                <!--
+                <p ng-class=" headerIndex=='YZDC' ? 'display_none':''" class="item-note mainColor">待付款</p>
+                -->
+            </ion-item>
+            <ion-item class="item item-thumbnail-left item-avatar-left dishes_order">
 
-                                <img src="{{order.img}}">
+                <img src="{{order.img}}">
 
-                                <h2>配送地点：{{order.repastAddress}}
+                <h3 style="white-space: normal;margin-right: 1%;"><span class="calm">配送地点：</span>{{order.repastAddress}}
 
                                     <span class="calm" ng-class=" headerIndex!='YZDC' ? 'display_none':''">
                                         (<span ng-repeat=" dishName in  order.dishNames">
                                             {{dishName}}
                                         </span>)
                                     </span>
-                                    <i ng-class=" headerIndex=='YZDC' ? 'display_none':''"
-                                       class="fr icon ion-chevron-right icon-accessory"></i></h2>
+                </h3>
+                <!--<i ng-class=" headerIndex=='YZDC' ? 'display_none':''"-->
+                   <!--class="fr icon ion-chevron-right icon-accessory"></i>-->
+                <h3 style="display: inline"> <span class="calm" style="white-space: normal">送达时间：</span>{{order.repastTime| date:'yyyy-MM-dd HH:mm:ss'}}</h3>
 
-                                <h2>送达时间：{{order.repastTime| date:'yyyy-MM-dd HH:mm:ss'}}</h2>
-
-                                <h2>订单金额：{{order.price}}
-                                    <button class="fr button button-calm button-small" style="padding: 0 20px;"
-                                            ng-class=" headerIndex=='YZDC' ? 'display_none':''"
-                                            ng-click=goToDetail(order.orderNo)>查看
-                                    </button>
-                                </h2>
-
-                            </ion-item>
-                        </ion-list>
+                <h3><span class="calm">订单金额：</span>￥{{order.price}}
+                    <button class="fr button button-calm button-small" style="padding: 0 20px;"
+                            ng-class=" headerIndex=='YZDC' ? 'display_none':''"
+                            ng-click=goToDetail(order.orderNo)>查看
+                    </button>
+                </h3>
+            </ion-item>
+        </ion-list>
     </ion-content>
 
 </ion-view>

@@ -5,14 +5,14 @@
         .module('yf_merchant')
         .controller('my_bill', MyBill);
 
-    function MyBill($scope, $filter, $state, $ionicTabsDelegate,$ionicPopup) {
+    function MyBill($scope, $filter, $state, $ionicTabsDelegate, $ionicPopup) {
 
         $scope.queryType = "分类";
 
-        $scope.selectTabWithIndex = function(index) {
+        $scope.selectTabWithIndex = function (index) {
 
 
-            if(index ==2) {
+            if (index == 2) {
 
                 $ionicPopup.show({
                     scope: $scope,
@@ -20,14 +20,14 @@
                         {
                             text: '<b>订单</b>',
                             type: 'button-positive',
-                            onTap: function(e) {
+                            onTap: function (e) {
                                 $scope.queryType = "订单";
                             }
                         },
                         {
                             text: '<b>提现</b>',
                             type: 'button-positive',
-                            onTap: function(e) {
+                            onTap: function (e) {
                                 $scope.queryType = "提现";
                             }
                         }
@@ -35,7 +35,7 @@
                         {
                             text: '<b>奖励</b>',
                             type: 'button-positive',
-                            onTap: function(e) {
+                            onTap: function (e) {
                                 $scope.queryType = "奖励";
                             }
                         }
@@ -45,9 +45,6 @@
 
             $ionicTabsDelegate.select(index);
         }
-
-
-
 
 
     }

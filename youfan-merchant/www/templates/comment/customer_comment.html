@@ -52,17 +52,17 @@
             </div>
 
             <div class="care_text item-note">
-               <span>饭友评论时间：</span> <span class="time item-note">{{comment.commentTime}}</span>
+               <span class="time item-note">{{comment.commentTime}}</span>
             </div>
 
 
-            <div class="care_text" style="margin-top: 5px;" ng-if="comment.replayed">
-                        <span>
+            <div class="care_text" style="margin-top: 15px;" ng-if="comment.replayed">
+                        <span class="calm">
                             [家厨回复] :
                         </span>
-                <span>{{comment.replay_comment}}</span>
+                <p>{{comment.replay_comment}}</p>
 
-                <div><span>卖家回复：</span> <p class="time item-note">{{comment.replay_date}}</p></div>
+
             </div>
 
 

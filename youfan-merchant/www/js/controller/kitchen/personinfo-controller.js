@@ -306,7 +306,7 @@
                     }
                     else if (index == 4) {
                         $scope.ages = "90后";
-                    }
+                    }   
                     return true;
                 }
             });

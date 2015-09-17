@@ -115,9 +115,10 @@ a {
     margin-top: 18px;
 }
 
-.order_Details b {
-    width: 100px;
-    text-align: right;
+.order_Details p {
+  display: inline;
+    color:#1dbeaf;
+
 }
 
 .display_none {
@@ -183,6 +184,7 @@ a {
 
 .overview_dish p {
     margin-top: 10px;
+    color: #0;
 }
 
 .overview_dish_a {
@@ -293,3 +295,9 @@ a {
     clear: both;
 }
 
+.dishes_order{
+    margin-bottom: 10px;;
+}
+.dishes_order h3{
+    margin-top: 8px;
+}

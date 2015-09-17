@@ -56,7 +56,7 @@
             return jpushServiceFactory;
         }]);
 
-    function news($scope, $filter, $state, $ionicSlideBoxDelegate, jpushService, $ionicPopup, $window) {
+    function news($scope, $filter, $state, $ionicSlideBoxDelegate, jpushService, $ionicPopup, $window,$ionicLoading) {
         var getMessage = function () {
             $window.plugins.jPushPlugin.receiveMessageIniOSCallback = function (data) {
                 console.log("abc");

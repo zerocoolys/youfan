@@ -238,8 +238,8 @@
 <div class="bar bar-footer bar-light light-border">
     <a href="tel:400-087-7000" class="title">客服电话：400-087-7000</a>
 </div>
-<div class="index_course" ng-hide="CourseNone">
-    <div ng-hide="GuideFirst">
+<div class="index_course" ng-show="!CourseNone">
+    <div ng-show="!GuideFirst">
         <div class="guide_circle">
             <img src="img/circle.png ">
         </div>
@@ -248,7 +248,7 @@
         </div>
         <a class="button-small button bar-balanced button-outline" ng-click="CourseClose()">关闭页面</a>
     </div>
-    <div class="guide_second_content" ng-hide="GuideSecond">
+    <div class="guide_second_content" ng-show="!GuideSecond">
         <div class="guide_second_top">
             <a href="#/shop-course" ng-click="GuideBack()"> <img src="img/guideback.png "></a>
             <span> <img src="img/guideclose.png " ng-click="GuideClose()"></span>
@@ -267,7 +267,7 @@
             </div>
         </div>
     </div>
-    <div class="guide_second_content guide_third_content" ng-hide="GuideThird">
+    <div class="guide_second_content guide_third_content" ng-show="!GuideThird">
         <div class="guide_second_top">
             <a href="#/shop-course" ng-click="GuideBack()"> <img src="img/guideback.png "></a>
             <span> <img src="img/guideclose.png " ng-click="GuideClose()"></span>

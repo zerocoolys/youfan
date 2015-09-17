@@ -329,9 +329,7 @@ angular.module('yf_merchant.m_d_nsc_controllers', [])
             $ionicLoading.show({
                 template:"设置成功"
             });
-            $timeout(function () {
-                $ionicLoading.hide();
-            }, 1000);
+
             //$scope.imgs.splice(0,1,[$scope.imgs[_index]]);
 
 
