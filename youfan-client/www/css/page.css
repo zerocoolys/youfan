@@ -242,6 +242,19 @@
 .confirm_order .order_list {
     margin-top: 10px;
 }
+.tastes button{
+    width: 25%;
+    height: 40px;
+    margin-bottom: 10px;
+}
+.tastes button:nth-child(even){
+    margin-left: 2%;
+}
+.confirm_order .fl p{
+    overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
 
 /*进度条样式*/
 .process_bar {

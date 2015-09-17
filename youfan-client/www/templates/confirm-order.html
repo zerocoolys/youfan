@@ -7,16 +7,16 @@
         <ion-content>
             <div class="list">
                 <ion-item class="item-icon-right" href="#/tab/dining-way">
-                    就餐方式
-                <span class="">
-                    <span ng-if="userDiningWay.address.name == null" class="alright">请选择</span>
-                    <span ng-if="userDiningWay.address.name != null">
-                        <p>{{userDiningWay.address.name}}</p>
-                        <p>{{userDiningWay.address.telNo}}</p>
-                        <p>{{userDiningWay.address.address}}</p>
+                    <span class="fl">自取</span>
+                    <span>
+                        <span ng-if="userDiningWay.address.name == null" class="alright">请选择</span>
+                        <span ng-if="userDiningWay.address.name != null" class="fl" style="width: 80%;margin-left: 10px">
+                            <p>{{userDiningWay.address.name}}</p>
+                            <p>{{userDiningWay.address.telNo}}</p>
+                            <p>{{userDiningWay.address.address}}</p>
+                        </span>
                     </span>
                     <i class="icon ion-chevron-right icon-accessory"></i>
-                </span>
                 </ion-item>
                 <ion-item class="item-icon-right" ng-click="diningTime()" ng-show="userDiningWay.address.name != null">
                     就餐时间
@@ -26,7 +26,7 @@
                 </ion-item>
                 <ion-item class="item-icon-right" ng-click="modal.show()">
                     给厨房捎句话
-                 <span class="item-note">{{comments}}
+                 <span class="item-note">{{formData.comments}}
                   <i class="icon ion-chevron-right icon-accessory"></i>
                 </span>
                 </ion-item>
@@ -123,8 +123,8 @@
                     <textarea placeholder="给厨房捎句话~" style="height: 120px" ng-model="formData.comments" maxlength="140" ng-change="textChange()"></textarea>
                 </ion-item>
                 <button class="button-clear"><span ng-bind="formData.comments.length"></span>/140字</button>
-                <div  class="confirm_list" style="margin-top: 10px">
-                    <button class="col col-25 col-offset-25 button-small button button-calm button-outline"
+                <div class="tastes" style="margin-top: 10px">
+                    <button class="col-25 col-offset-25 button-small button button-calm button-outline"
                             ng-bind="t.name" ng-click="addTasteComment(t)" ng-repeat="t in tastes"></button>
                 </div>
             </ion-list>

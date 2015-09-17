@@ -13,6 +13,10 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
     $scope.closeHourse = $scope.closeTime.split(":")[0];
     $scope.closeMinutes = $scope.closeTime.split(":")[1];
     $scope.eatTime = "请选择";
+    $scope.timeScroll = 0;/*当改变午餐和晚餐状态时候，时间的滚动*/
+    $scope.statusScroll = 0;/*当改变时间的时候，状态的滚动*/
+    $scope.timePosition = 0;/*记录上一次时间scroll所在位置*/
+    $scope.statusPosition = 0;/*记录上一次状态scroll所在位置*/
     /*获取的就餐时间*/
     $scope.currentMonth = parseInt(new Date().getMonth() + "") + 1 + '月' + new Date().getDate() + '日';
     function loaded() {
@@ -22,12 +26,25 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
                 hScrollbar: false,
                 vScrollbar: false,
                 onScrollEnd: function () {//滚动结束后执行的函数
-                    //console.log(this.y)
+//                    console.log(this.y);
+                    $scope.statusPosition = this.y;
+                    if(this.y == -36) {
+                        if(Math.abs($scope.timePosition) >= $scope.timeScroll*36){
+                            return;
+                        }else{
+                            $scope.timeSroll.scrollTo(0, $scope.timeScroll*36 + $scope.timePosition, 500, true);
+                        }
+                    }else{
+//                        console.log($scope.timePosition)
+//                        console.log($scope.timeScroll*36)
+                        if(Math.abs($scope.timePosition) <= $scope.timeScroll*36){
+                            return;
+                        }else{
+                            $scope.timeSroll.scrollTo(0, $scope.timePosition, 500, true);
+                        }
+                    }
                 }
             });
-            if (parseInt(new Date().getHours()) >= 15) {
-                $scope.diningScroll.scrollTo(0, 36, 500, true);
-            }
             $scope.diningScroll.refresh()
         }, 100);
         setTimeout(function () {
@@ -36,8 +53,26 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
                 hScrollbar: false,
                 vScrollbar: false,
                 onScrollEnd: function () {//滚动结束后执行的函数
+//                    console.log(this.y);
                     $scope.eatTime = $scope.choiceTimes[-this.y / 36];
-                    //console.log($scope.eatTime)
+                    $scope.timePosition = this.y;
+                    if(Math.abs(this.y) >= $scope.timeScroll*36){/*$scope.timeScroll*36 即为17:00所在的位置*/
+                        if( $scope.isShowDing == false){
+                            return;
+                        }else{
+                            if($scope.statusPosition == -36){
+                                return;
+                            }else{
+                                $scope.diningScroll.scrollTo(0, 36, 500, true);
+                            }
+                        }
+                    }else{
+                        if($scope.statusPosition == 0){
+                            return;
+                        }else{
+                            $scope.diningScroll.scrollTo(0, -36, 500, true);
+                        }
+                    }
                 }
             });
             $scope.timeSroll.scrollTo(0, 0, 500, true);
@@ -47,27 +82,33 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         }, 200);
         $scope.currentHours = parseInt(new Date().getHours());
         //console.log(new Date().getHours());
-        if (parseInt(new Date().getHours()) >= 17) {
-            $scope.isShowDing = false;
-        } else {
-            $scope.isShowDing = true;
-        }
+
         $scope.currentMinutes = parseInt(new Date().getMinutes());
         $scope.cookTime = $scope.currentMinutes + 45;
         if ($scope.cookTime > 60) {
             $scope.currentHours += 1;
-            $scope.earliestTime = $scope.cookTime - 60;
+            $scope.earliestTime = (Math.ceil(($scope.cookTime - 60)/10))*10;
+            console.log($scope.earliestTime);
             $scope.choiceTimes.push($scope.currentHours + ':' + $scope.earliestTime + '(最早)');
             if ($scope.earliestTime > 30) {
                 $scope.currentHours += 1;
-            }
-        } else {
-            $scope.choiceTimes.push($scope.currentHours + ':' + $scope.cookTime + '(最早)');
-            if ($scope.earliestTime > 30) {
-                $scope.currentHours += 1;
-            } else {
+            }else{
                 $scope.choiceTimes.push($scope.currentHours + ':' + '30');
             }
+        } else {
+            $scope.cookTime = (Math.ceil($scope.cookTime/10))*10;
+            if($scope.cookTime == 60){
+                $scope.currentHours += 1;
+                $scope.choiceTimes.push($scope.currentHours + ':' + '00' + '(最早)');
+            }else{
+                $scope.choiceTimes.push($scope.currentHours + ':' + $scope.cookTime + '(最早)');
+                $scope.currentHours += 1;
+            }
+        }
+        if ($scope.currentHours >= 17) {
+            $scope.isShowDing = false;
+        } else {
+            $scope.isShowDing = true;
         }
         // 比如厨房20:00关门;
         for ($scope.currentHours; $scope.currentHours <= $scope.closeHourse; $scope.currentHours++) {
@@ -81,6 +122,13 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             } else {
                 $scope.choiceTimes.push($scope.currentHours + ':' + '00');
                 $scope.choiceTimes.push($scope.currentHours + ':' + '30');
+            }
+        }
+
+        for(var i = 0 ;i<$scope.choiceTimes.length;i++){/*找到17:00所在的位置*/
+            if($scope.choiceTimes[i] == "17:00"){
+                $scope.timeScroll = i;
+                return;
             }
         }
     }
