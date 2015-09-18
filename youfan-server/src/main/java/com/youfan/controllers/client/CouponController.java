@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.youfan.commons.vo.ConditionVO;
+import com.youfan.commons.vo.client.CouponOrCouponTypeVo;
 import com.youfan.commons.vo.server.CouponVO;
 import com.youfan.controllers.params.server.CouponParams;
 import com.youfan.controllers.support.Response;
@@ -28,10 +29,8 @@ public class CouponController {
     @RequestMapping(path = "/getCouponInfo/{userid}", method = RequestMethod.GET, produces = "application/json")
     public Response addCoupon(@PathVariable String userid) {
 
-        CouponParams couponParams = new CouponParams();
-        couponParams.setUserId(userid);
-        couponParams.setStatus(0);
-        List<CouponVO> couponVOs = couponService.getPagerByParams(couponParams, null);
+
+        List<CouponOrCouponTypeVo> couponVOs = couponService.getMyCouponByuserId(userid);
 
         if (couponVOs.size() > 0) {
             return Responses.SUCCESS().setPayload(couponVOs).setCode(1);

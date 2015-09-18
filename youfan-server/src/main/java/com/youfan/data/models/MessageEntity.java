@@ -20,7 +20,7 @@ public class MessageEntity {
     private Integer status;//0 未读 ，1已读  2，删除
 
     //用户ID
-    private Long receiverId;
+    private String receiverId;
 
     //消息所属状态
     private Integer receiverPort;// 2用户端， 3商家端
@@ -37,16 +37,15 @@ public class MessageEntity {
     //消息标题
     private String title;
 
-    //消息摘要
-    private String des;
-
+    //数据有效性
+    private Integer dataStatus = 1;
 
     public MessageEntity() {
         super();
     }
 
 
-    public MessageEntity(Integer status, Long receiverId, Integer receiverPort, String data, Integer code, String title, String des) {
+    public MessageEntity(Integer status, String receiverId, Integer receiverPort, String data, Integer code, String title, Integer dataStatus) {
         super();
         this.status = status;
         this.receiverId = receiverId;
@@ -54,7 +53,7 @@ public class MessageEntity {
         this.data = data;
         this.code = code;
         this.title = title;
-        this.des = des;
+        this.dataStatus = dataStatus;
     }
 
 
@@ -82,11 +81,11 @@ public class MessageEntity {
         this.status = status;
     }
 
-    public Long getReceiverId() {
+    public String getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(Long receiverId) {
+    public void setReceiverId(String receiverId) {
         this.receiverId = receiverId;
     }
 
@@ -119,16 +118,16 @@ public class MessageEntity {
         this.title = title;
     }
 
-    public String getDes() {
-        return des;
-    }
-
-    public void setDes(String des) {
-        this.des = des;
-    }
-
     public void setDate(Long date) {
         this.date = date;
+    }
+
+    public Integer getDataStatus() {
+        return dataStatus;
+    }
+
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
     }
 
     /*public int sendMsg() {

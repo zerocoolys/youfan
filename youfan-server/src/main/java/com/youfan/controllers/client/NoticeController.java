@@ -26,24 +26,27 @@ public class NoticeController {
     @Resource
     private MessageService messageService;
 
-
     @RequestMapping(value = "/getNotice/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Response getNotice(@PathVariable Long userId) {
+    public Response getNotice(@PathVariable String userId) {
         List<MessageVO> entities = messageService.findMsgList(userId, 2);
-        return Responses.SUCCESS().setCode(1).setPayload(entities);
+        return Responses.SUCCESS().setPayload(entities);
     }
 
     @RequestMapping(value = "/getCount/{userId}", method = RequestMethod.GET, produces = "application/json")
-    public Response getCount(@PathVariable Long userId) {
+    public Response getCount(@PathVariable String userId) {
         Long entities = messageService.countUnreadMsg(userId, 2);
-        return Responses.SUCCESS().setCode(1).setPayload(entities);
+        return Responses.SUCCESS().setPayload(entities);
     }
 
     @RequestMapping(value = "/modifyMsg/{id}", method = RequestMethod.GET, produces = "application/json")
     public Response modifyMsg(@PathVariable String id) {
         boolean entities = messageService.updateMsg(id, 1);
-        return Responses.SUCCESS().setCode(1).setPayload(entities);
+        return Responses.SUCCESS().setPayload(entities);
     }
 
+    @RequestMapping(value = "/delMsg/{id}", method = RequestMethod.GET, produces = "application/json")
+    public void deleteMsg(@PathVariable String id) {
+       messageService.delMsg(id);
+    }
 
 }

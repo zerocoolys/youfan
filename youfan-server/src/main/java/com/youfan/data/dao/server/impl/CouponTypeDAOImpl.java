@@ -6,6 +6,8 @@ import com.youfan.commons.vo.server.CouponTypeVO;
 import com.youfan.data.dao.server.CouponTypeDAO;
 import com.youfan.data.models.CouponTypeEntity;
 
+import java.util.List;
+
 @Repository("couponsTypeDAO")
 public class CouponTypeDAOImpl implements CouponTypeDAO {
 
@@ -50,6 +52,12 @@ public class CouponTypeDAOImpl implements CouponTypeDAO {
 	public void insert(CouponTypeVO couponsTypeVO) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public CouponTypeVO findById(String couponTypeId) {
+		CouponTypeEntity entities = mongoTemplate.findById(couponTypeId, getEntityClass());
+		return convertToVO(entities);
 	}
 
 }

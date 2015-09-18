@@ -4,6 +4,7 @@ import com.youfan.utils.ConfigUtil;
 import com.youfan.utils.HttpClientUtil;
 
 import java.net.URLEncoder;
+import java.util.Date;
 
 /**
  * Created by subdong on 15-8-27.
@@ -16,7 +17,7 @@ public class MessageVO {
     private Integer status;//0 未读 ，1已读  2，删除
 
     //用户ID
-    private Long receiverId;
+    private String receiverId;
 
     //消息所属状态
     private Integer receiverPort;// 2用户端， 3商家端
@@ -25,7 +26,7 @@ public class MessageVO {
     private String data;
 
     //消息时间
-    private Long date;
+    private Long date = new Date().getTime();
 
     //消息状态
     private Integer code;
@@ -33,8 +34,8 @@ public class MessageVO {
     //消息标题
     private String title;
 
-    //消息摘要
-    private String des;
+    private Integer dataStatus = 1;
+
 
     public String getId() {
         return id;
@@ -44,7 +45,7 @@ public class MessageVO {
     public MessageVO() {
     }
 
-    public MessageVO(Integer status, Long receiverId, Integer receiverPort, String data, Integer code, String title, String des) {
+    public MessageVO(Integer status, String receiverId, Integer receiverPort, String data, Integer code, String title, Integer dataStatus) {
         super();
         this.status = status;
         this.receiverId = receiverId;
@@ -52,7 +53,7 @@ public class MessageVO {
         this.data = data;
         this.code = code;
         this.title = title;
-        this.des = des;
+        this.dataStatus = dataStatus;
     }
 
 
@@ -68,11 +69,11 @@ public class MessageVO {
         this.status = status;
     }
 
-    public Long getReceiverId() {
+    public String getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(Long receiverId) {
+    public void setReceiverId(String receiverId) {
         this.receiverId = receiverId;
     }
 
@@ -116,15 +117,16 @@ public class MessageVO {
         this.title = title;
     }
 
-    public String getDes() {
-        return des;
+public Integer getDataStatus() {
+        return dataStatus;
     }
 
-    public void setDes(String des) {
-        this.des = des;
+    public void setDataStatus(Integer dataStatus) {
+        this.dataStatus = dataStatus;
     }
 
-    public int sendMsg() {
+
+        public int sendMsg() {
         HttpClientUtil h = new HttpClientUtil();
         int result = 0;
         try {
@@ -135,6 +137,7 @@ public class MessageVO {
             h.addParameter("data", URLEncoder.encode(data, "utf-8"));
             h.addParameter("date", date.toString());
             h.addParameter("code", code.toString());
+            h.addParameter("dataStatus", dataStatus.toString());
             h.setRequestHeader("Cookie", "Language=zh_CN;UserAgent=PC");
             result = h.send();
             h.getResponseBodyAsString("utf-8");
@@ -145,20 +148,5 @@ public class MessageVO {
         }
 
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "MessageVO{" +
-                "id='" + id + '\'' +
-                ", status=" + status +
-                ", receiverId=" + receiverId +
-                ", receiverPort=" + receiverPort +
-                ", data='" + data + '\'' +
-                ", date=" + date +
-                ", code=" + code +
-                ", title='" + title + '\'' +
-                ", des='" + des + '\'' +
-                '}';
     }
 }

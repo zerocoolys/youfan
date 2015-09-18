@@ -1,10 +1,14 @@
 package com.youfan.data.dao.server.impl;
 
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.youfan.commons.vo.server.CouponVO;
 import com.youfan.data.dao.server.CouponDAO;
 import com.youfan.data.models.CouponEntity;
+
+import java.util.List;
 
 @Repository("couponDAO")
 public class CouponDAOImpl  implements CouponDAO{

@@ -30,7 +30,7 @@ public interface MessageService {
      * @param receiver 接收端标识符  2,用户端  3,商家断
      * @return
      */
-    List<MessageVO> findMsgList(Long userId, Integer receiver);
+    List<MessageVO> findMsgList(String userId, Integer receiver);
 
     /**
      * 通过用户ID 统计用户未读消息条数
@@ -39,6 +39,8 @@ public interface MessageService {
      * @param receiver 接收端标识符  2,用户端  3,商家断
      * @return
      */
-    Long countUnreadMsg(Long userId, Integer receiver);
+    Long countUnreadMsg(String userId, Integer receiver);
+
+    void delMsg(String id);
 
 }

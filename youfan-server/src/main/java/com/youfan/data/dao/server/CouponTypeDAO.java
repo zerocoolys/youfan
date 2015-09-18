@@ -4,6 +4,8 @@ import com.youfan.commons.vo.server.CouponTypeVO;
 import com.youfan.data.dao.MongoBaseDAO;
 import com.youfan.data.models.CouponTypeEntity;
 
+import java.util.List;
+
 /**
  * 
  * @title CouponTypeDAO.java
@@ -17,7 +19,9 @@ import com.youfan.data.models.CouponTypeEntity;
 public interface CouponTypeDAO extends  MongoBaseDAO<CouponTypeEntity, CouponTypeVO, String>{
 
 	public void insert(CouponTypeVO couponsTypeVO);
-	
+
+    CouponTypeVO findById(String couponTypeId);
+
 	@Override
     default Class<CouponTypeEntity> getEntityClass() {
         return CouponTypeEntity.class;

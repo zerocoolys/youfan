@@ -52,7 +52,7 @@ public class PlatFormController {
     @Resource
     private MessageService messageService;
     @Resource
-    private  ServerEventBus eventBus;
+    private ServerEventBus eventBus;
 
     public static Map<String, String> usermap = new HashMap<String, String>();// 测试用
     Logger logger = LoggerFactory.getLogger(PlatFormController.class);
@@ -180,10 +180,10 @@ public class PlatFormController {
             Event event = Webhooks.eventParse(buffer.toString());
             if ("charge.succeeded".equals(event.getType())) {
                 response.setStatus(200);
-                Map<String,Object> data =  event.getData();
-                Map<String,Object> obj = (Map<String, Object>) data.get("object");
-                ChargeLog.chargeLog(obj.get("order_no").toString(),obj.get("created").toString(),obj.get("amount").toString() );
-                
+                Map<String, Object> data = event.getData();
+                Map<String, Object> obj = (Map<String, Object>) data.get("object");
+                ChargeLog.chargeLog(obj.get("order_no").toString(), obj.get("created").toString(), obj.get("amount").toString());
+
             } else if ("refund.succeeded".equals(event.getType())) {
                 response.setStatus(200);
             } else {
@@ -274,18 +274,17 @@ public class PlatFormController {
     /**
      * @param userId   用户id
      * @param userPort 2用户端， 3商家端
-     * @param date     内容
+     * @param data     内容
      * @param title    标题
-     * @param des      摘要
      * @param code     消息类型
      * @description 发送消息
      * @author ZhangHuaRong
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/pushNice/{userId}/{userPort}/{date}/{title}/{des}/{code}", produces = "application/json; charset=UTF-8")
-    public int pushNice(@PathVariable Long userId, @PathVariable Integer userPort, @PathVariable String date, @PathVariable String title, @PathVariable String des, @PathVariable Integer code) {
+    @RequestMapping(method = RequestMethod.GET, path = "/pushNice/{userId}/{userPort}/{data}/{title}/{code}", produces = "application/json; charset=UTF-8")
+    public int pushNice(@PathVariable String userId, @PathVariable Integer userPort, @PathVariable String data, @PathVariable String title, @PathVariable Integer code) {
         int result = 0;
         try {
-            MessageVO ms = new MessageVO(0, userId, userPort, date, code, title, des);
+            MessageVO ms = new MessageVO(0, userId, userPort, data, code, title, 1);
             messageService.insert(ms);
             result = ms.sendMsg();
 
@@ -294,19 +293,17 @@ public class PlatFormController {
         }
         return result;
     }
-    
-    
-    
+
+
     @RequestMapping(method = RequestMethod.GET, path = "/event")
     public String event(HttpServletRequest request, HttpServletResponse response) {
-    	
-    	ActiveEvent event = new ActiveEvent("优惠券",100);
-    	eventBus.post(event);
-    	
-    	System.out.println("调用事件");
+
+        ActiveEvent event = new ActiveEvent("优惠券", 100);
+        eventBus.post(event);
+
+        System.out.println("调用事件");
         return "200";
     }
 
-    
-    
+
 }

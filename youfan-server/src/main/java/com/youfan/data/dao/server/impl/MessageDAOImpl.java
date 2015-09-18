@@ -43,8 +43,8 @@ public class MessageDAOImpl implements MessageDAO {
 
 
     @Override
-    public List<MessageVO> getMsgList(Long userId, Integer receiver) {
-        Query query = Query.query(Criteria.where(MESSAGE_RECEIVERID).is(userId).and(MESSAGE_RECEIVERPORT).is(receiver)).with(new Sort(Sort.Direction.DESC, MESSAGE_DATE));
+    public List<MessageVO> getMsgList(String userId, Integer receiver) {
+        Query query = Query.query(Criteria.where(MESSAGE_RECEIVERID).is(userId).and(MESSAGE_RECEIVERPORT).is(receiver).and(MONGO_DATA_STATUS).is(MONGO_NORMAL_DATA)).with(new Sort(Sort.Direction.DESC, MESSAGE_DATE));
         List<MessageEntity> entities = mongoTemplate.find(query, getEntityClass());
 
         if (entities == null || entities.isEmpty())
@@ -54,8 +54,8 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
-    public Long countUnreadMsg(Long userId, Integer receiver) {
-        Query query = Query.query(Criteria.where(MESSAGE_RECEIVERID).is(userId).and(MESSAGE_RECEIVERPORT).is(receiver).and(MESSAGE_STATUS).is(0));
+    public Long countUnreadMsg(String userId, Integer receiver) {
+        Query query = Query.query(Criteria.where(MESSAGE_RECEIVERID).is(userId).and(MESSAGE_RECEIVERPORT).is(receiver).and(MESSAGE_STATUS).is(0).and(MONGO_DATA_STATUS).is(MONGO_NORMAL_DATA));
         long number = mongoTemplate.count(query, getEntityClass());
         return number;
     }
@@ -69,6 +69,9 @@ public class MessageDAOImpl implements MessageDAO {
 
     @Override
     public void delete(String s) {
+        Query query = Query.query(Criteria.where(MESSAGE_ID).is(s));
+        Update update = Update.update(MONGO_DATA_STATUS, 0);
+        mongoTemplate.updateFirst(query,update,getEntityClass());
     }
 
     @Override

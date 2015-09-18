@@ -44,13 +44,18 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public List<MessageVO> findMsgList(Long userId, Integer receiver) {
+    public List<MessageVO> findMsgList(String userId, Integer receiver) {
         return messageDAO.getMsgList(userId, receiver);
     }
 
     @Override
-    public Long countUnreadMsg(Long userId, Integer receiver) {
+    public Long countUnreadMsg(String userId, Integer receiver) {
         return messageDAO.countUnreadMsg(userId, receiver);
+    }
+
+    @Override
+    public void delMsg(String id) {
+        messageDAO.delete(id);
     }
 
 
