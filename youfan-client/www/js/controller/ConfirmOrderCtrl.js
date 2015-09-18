@@ -37,10 +37,12 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
                     }else{
 //                        console.log($scope.timePosition)
 //                        console.log($scope.timeScroll*36)
-                        if(Math.abs($scope.timePosition) <= $scope.timeScroll*36){
-                            return;
-                        }else{
-                            $scope.timeSroll.scrollTo(0, $scope.timePosition, 500, true);
+                        if($scope.isShowDing){
+                            if(Math.abs($scope.timePosition) < $scope.timeScroll*36){
+                                return;
+                            }else{
+                                $scope.timeSroll.scrollTo(0, $scope.timePosition, 500, true);
+                            }
                         }
                     }
                 }
@@ -88,7 +90,6 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         if ($scope.cookTime > 60) {
             $scope.currentHours += 1;
             $scope.earliestTime = (Math.ceil(($scope.cookTime - 60)/10))*10;
-            console.log($scope.earliestTime);
             $scope.choiceTimes.push($scope.currentHours + ':' + $scope.earliestTime + '(最早)');
             if ($scope.earliestTime > 30) {
                 $scope.currentHours += 1;
