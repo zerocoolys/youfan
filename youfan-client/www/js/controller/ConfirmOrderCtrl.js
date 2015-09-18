@@ -33,7 +33,6 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
                 hScrollbar: false,
                 vScrollbar: false,
                 onScrollEnd: function () {//滚动结束后执行的函数
-//                    console.log(this.y);
                     $scope.statusPosition = this.y;
                     if (this.y == -36) {
                         if (Math.abs($scope.timePosition) >= $scope.timeScroll * 36) {
@@ -42,12 +41,12 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
                             $scope.timeSroll.scrollTo(0, $scope.timeScroll * 36 + $scope.timePosition, 500, true);
                         }
                     } else {
-//                        console.log($scope.timePosition)
-//                        console.log($scope.timeScroll*36)
-                        if (Math.abs($scope.timePosition) <= $scope.timeScroll * 36) {
-                            return;
-                        } else {
-                            $scope.timeSroll.scrollTo(0, $scope.timePosition, 500, true);
+                        if ($scope.isShowDing) {
+                            if (Math.abs($scope.timePosition) < $scope.timeScroll * 36) {
+                                return;
+                            } else {
+                                $scope.timeSroll.scrollTo(0, $scope.timePosition, 500, true);
+                            }
                         }
                     }
                 }
@@ -88,14 +87,12 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             }, 0);
         }, 200);
         $scope.currentHours = parseInt(new Date().getHours());
-        //console.log(new Date().getHours());
 
         $scope.currentMinutes = parseInt(new Date().getMinutes());
         $scope.cookTime = $scope.currentMinutes + 45;
         if ($scope.cookTime > 60) {
             $scope.currentHours += 1;
             $scope.earliestTime = (Math.ceil(($scope.cookTime - 60) / 10)) * 10;
-            console.log($scope.earliestTime);
             $scope.choiceTimes.push($scope.currentHours + ':' + $scope.earliestTime + '(最早)');
             if ($scope.earliestTime > 30) {
                 $scope.currentHours += 1;
