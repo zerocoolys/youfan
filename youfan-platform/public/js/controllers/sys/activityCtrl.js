@@ -3,23 +3,7 @@
  */
 define(["./module"], function (ctrs) {
     ctrs.controller('activityCtrl', function ($scope, $rootScope, $q, $state, $http, $location, ngDialog) {
-        $scope.active_model={
-            event:"",
-            title:"",
-            port:2,
-            activeType:null,
-            couponsType:1,
-            ifUnique:false,
-            ifUseCoupons:true,
-            ifAll:true,
-            kitchenId:null,
-            couponsTypeId:null,
-            validityTime:null,
-            startTime:null,
-            endTime:null,
-            activeDetailClazz:null,
-            desc:null
-        }
+        $scope.start_time = "01-01-2015 00:00:00";
         //筛选条件
         $scope.event = "";
         $scope.title = "";
@@ -32,16 +16,19 @@ define(["./module"], function (ctrs) {
             "1": "即时",
             "2": "延时",
         }
-        //$scope.statusDesc = {
-        //    "-1": "删除",
-        //    "0": "关闭",
-        //    "1": "开启",
-        //}
+        $scope.coupon_type_descs = {
+            "满减": "-",
+            "折扣": "*",
+            "返现": "+",
+            "-": "满减",
+            "*": "折扣",
+            "+": "返现"
+        }
         $rootScope.gridTitleArray = [
             {name: '事件', field: "event", maxWidth: 100},
             {name: '标题', field: "title", maxWidth: 150},
             //{name: '活动类型', field: "activeType", maxWidth: 80},
-            {name: '优惠类型', field: "couponsType", maxWidth: 80},
+            {name: '优惠类型', field: "couponTypeDes", maxWidth: 80},
             {name: '唯一使用', field: "ifUniqueDes", maxWidth: 80},
             {name: '同时使用优惠券', field: "ifUseCouponsDes", maxWidth: 150},
             {name: '全场', field: "ifAllDes", maxWidth: 60},
@@ -80,15 +67,7 @@ define(["./module"], function (ctrs) {
         }
 
         $scope.openAddActiveDialog = function (entity) {
-            $scope.dialog = ngDialog.open({
-                template: './sys/dialog/active_add_dialog.html',
-                className: 'ngdialog-theme-default admin_ngdialog',
-                scope: $scope
-            });
-            $scope.saveActive = function(){
-                $scope.dialog.close();
-            }
-
+            $state.go("activity_add",{});
         }
         //指定数据查询方法
         $rootScope.searchData = function () {
@@ -115,6 +94,8 @@ define(["./module"], function (ctrs) {
                 if( result.payload.list!=null){
                     $rootScope.gridOptions.data = result.payload.list;
                     $rootScope.gridOptions.data.forEach(function (item) {
+                        console.log(item)
+                        item.couponTypeDes=$scope.coupon_type_descs[item.couponType];
                         item.portDes = $scope.portDesc[item.port + ""]
                         item.timeLineDes = $scope.timeLineDesc[item.timeLine + ""]
                         item.allowTimesDes = item.allowTimes==0?"无限":(item.allowTimes+"次")

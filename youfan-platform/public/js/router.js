@@ -76,6 +76,15 @@ define(["angular", "./app"], function (angular, myApp) {
                     ])
                 }
             })
+            .state('activity_add', {
+                url: '/sys/activity_add',
+                templateUrl: 'sys/activity_add.html',
+                resolve: {
+                    load: loadDeps([
+                        'controllers/sys/activityAddCtrl'
+                    ])
+                }
+            })
             .state('voucher', {
                 url: '/sys/voucher',
                 templateUrl: 'sys/voucher.html',

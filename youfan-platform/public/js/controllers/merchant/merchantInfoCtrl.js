@@ -6,12 +6,14 @@ define(["./module"], function (ctrs) {
         //筛选条件
         $scope.userName = "";
         $scope.realName = "";
-        $scope.status = null;
+        $scope.statusDes = null;
         $scope.statusDesc = {
-            "-1":"删除",
             "0":"待审核",
             "1":"正常",
             "2":"冻结",
+            "待审核":"0",
+            "正常":"1",
+            "冻结":"2",
         }
         $rootScope.gridTitleArray = [
             {name: '账户名称', field: "userName"},
@@ -42,7 +44,7 @@ define(["./module"], function (ctrs) {
                 enableSorting: false
             },
 
-            {name: '状态', field: "status"},
+            {name: '状态', field: "statusDes"},
             {
                 name: "操作",
                 displayName: "操作",
@@ -52,8 +54,7 @@ define(["./module"], function (ctrs) {
             },
         ];
         $scope.ckeckMerchant = function (entity) {
-            //$scope.statusRadio = [false,false,false]
-            //$scope.statusRadio[entity.status] = true;
+            console.log("打开时"+entity.status)
             $scope.choosedStatus = entity.status;
             var dialog = ngDialog.open({
                 template: './merchant/dialog/checkmerchantdialog.html',
@@ -61,14 +62,21 @@ define(["./module"], function (ctrs) {
                 scope: $scope
             });
             $scope.radioChoosed = function (status) {
+                console.log("change to "+status)
                 $scope.choosedStatus = status;
             }
             $scope.submitCheck = function () {
-                $http({
-                    method: 'GET',
-                    url: 'merchant/checkStatus?id=' + entity.id + '&status=' + $scope.choosedStatus
-                }).success(function (data, status) {
-                })
+                console.log("update to "+$scope.choosedStatus)
+                if(entity.status!= $scope.choosedStatus){
+                    $http({
+                        method: 'GET',
+                        url: 'merchant/updateMerchant/' + entity.id + '?status=' + $scope.choosedStatus
+                    }).success(function (data, status) {
+                        if(data.code==1){
+                            entity.statusDes =$scope.statusDesc[$scope.choosedStatus+""]
+                        }
+                    })
+                }
                 dialog.close();
             }
         }
@@ -84,7 +92,7 @@ define(["./module"], function (ctrs) {
         $scope.clareSearchConditon = function () {
             $scope.port = null;
             $scope.timeLine = null;
-            $scope.status = null;
+            $scope.statusDes = null;
         }
         $scope.search = function () {
             var condition = "";
@@ -92,16 +100,16 @@ define(["./module"], function (ctrs) {
                 condition += "&userName=" + $scope.userName
             if ($scope.realName.trim() != "")
                 condition += "&realName=" + $scope.realName
-            //if ($scope.status != null)
-            //    condition += "&status=" + $scope.status
+            if ($scope.statusDes != null&&$scope.statusDes.trim()!='')
+                condition += "&status=" + $scope.statusDesc[$scope.statusDes]
             $http({
                 method: 'GET',
-                url: 'merchant/getPagerByParams?pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
+                url: 'merchant/getMerchants?pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize  + condition
             }).success(function (result, status) {
                 if(result.payload.list!=undefined){
                     $rootScope.gridOptions.data = result.payload.list;
                     $rootScope.gridOptions.data.forEach(function(item){
-                        item.status =$scope.statusDesc[item.status+""]
+                        item.statusDes =$scope.statusDesc[item.status+""]
                     })
                 }
                 $rootScope.pageCount = result.payload.pageCnt;

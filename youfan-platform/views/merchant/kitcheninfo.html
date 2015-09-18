@@ -2,18 +2,19 @@
     <div class="row-fluid">
         <div class="span12">
             <form class="form-search">
-                <label>姓名:</label>
+                <label>厨房名称:</label>
                 <input class="input-medium search-query" type="text" ng-model="name"/>
                 <label>电话号码:</label>
                 <input class="input-medium search-query" type="text" ng-model="phone"/>
                 <label>状态:</label>
-                <select class="selectpicker" data-ng-model="status">
-                    <option></option>
-                    <option>待审核</option>
-                    <option>正常</option>
-                    <option>冻结</option>
-                </select>
-                <button type="submit" class="btn btn-success" ng-click="searchData()">筛选</button>
+                <select class="selectpicker" data-ng-model="s_status">
+                        <option></option>
+                        <option>待审核</option>
+                        <option>正常</option>
+                        <option>冻结</option>
+                    </select>
+                <button type="submit" class="btn btn-success" ng-click="initSearchData()">筛选</button>
+                <button type="reset" class="btn btn-default" ng-click="clareSearchConditon()">清空</button>
             </form>
         </div>
     </div>

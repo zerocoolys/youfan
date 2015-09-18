@@ -1,0 +1,161 @@
+<div ng-controller="activeAddCtrl">
+    <div>
+        <div style="height:40px;">
+            <label>活动名称：</label>
+            <input type="text" data-ng-model="active.title">
+                        <span ng-if="title==''" class="alert alert-warning alert-dismissible" role="alert"
+                              style="height:15px;">
+                            <strong>提示：</strong> 不能为空!
+                        </span>
+        </div>
+        <div style="height:40px;">
+            <label>活动事件：</label>
+            <input type="text" data-ng-model="active.event">
+                        <span ng-if="event==''" class="alert alert-warning alert-dismissible" role="alert"
+                              style="height:15px;">
+                            <strong>提示：</strong> 不能为空!
+                        </span>
+        </div>
+        <div style="height:40px;">
+            <label>开始时间：</label>
+            <input ng-model="active.startTime" datetime-picker date-only date-format="yyyy/MM/dd 00:00:00"
+                   readonly/>
+        </div>
+        <div style="height:40px;">
+            <label>结束时间：</label>
+            <input ng-model="active.endTime" datetime-picker date-only date-format="yyyy/MM/dd 23:59:59"
+                   readonly/>
+        </div>
+        <div style="height:40px;">
+            <label>活动类型：</label>
+            <select class="selectpicker" data-ng-model="active.pointcut">
+                <option>新用户注册</option>
+                <option>用户登录</option>
+                <option>订单提交</option>
+                <option>订单完成</option>
+            </select>
+        </div>
+
+        <div style="height:40px;">
+            <label>活动条件-用户条件：</label>
+            <button class="btn" ng-click="addCondition(active.userConditions)"> +</button>
+        </div>
+        <div style="height:40px;" ng-repeat="userCond in active.userConditions">
+            <select class="selectpicker" data-ng-model="userCond.attr" style="width:80px;">
+                <option>性别</option>
+            </select>
+            <select class="selectpicker" data-ng-model="userCond.oper" style="width: 80px;">
+                <option>大于</option>
+                <option>大于等于</option>
+                <option>等于</option>
+                <option>小于</option>
+                <option>小于等于</option>
+            </select>
+            <input type="text" data-ng-model="userCond.value" style="width: 80px;">
+            <button class="btn" ng-click="deleteCondition(active.userConditions,$index)">删除</button>
+        </div>
+        <div style="height:40px;">
+            <label>活动条件-订单条件：</label>
+            <button class="btn" ng-click="addCondition(active.orderConditions)"> +</button>
+        </div>
+        <div style="height:40px;" ng-repeat="orderCond in active.orderConditions">
+            <select class="selectpicker" data-ng-model="orderCond.attr" style="width:80px;">
+                <option>价格</option>
+            </select>
+            <select class="selectpicker" data-ng-model="orderCond.oper" style="width: 80px;">
+                <option>大于</option>
+                <option>大于等于</option>
+                <option>等于</option>
+                <option>小于</option>
+                <option>小于等于</option>
+            </select>
+            <input type="text" data-ng-model="orderCond.value" style="width: 80px;">
+            <button class="btn" ng-click="deleteCondition(active.orderConditions,$index)">删除</button>
+        </div>
+
+
+        <div style="height:40px;">
+            <label>活动方式：</label>
+            <select class="selectpicker" data-ng-model="active.type">
+                <option>发放优惠券</option>
+                <option>订单直扣</option>
+            </select>
+        </div>
+        <ul ng-if="active.type=='发放优惠券'">
+            <div style="height:40px;">
+                <label>优惠券有效期：</label>
+                <input data-ng-model="active.validityTime" datetime-picker date-only date-format="yyyy/MM/dd 23:59:59"
+                       readonly>
+            </div>
+        </ul>
+        <div style="height: 40px;">
+            <label>优惠方式：</label>
+            <select class="selectpicker" data-ng-model="active.couponType">
+                <option>满减</option>
+                <option>折扣</option>
+                <option>返现</option>
+            </select>
+        </div>
+        <!--<div ng-if="active.title!=null&&active.event!=null&&active.startTime!=null&&active.endTime!=null&&active.pointcut!=null&&active.type!=null&&active.couponType!=null">-->
+        <div>
+            <div style="height:40px;">
+                <label>优惠详情：</label>
+                <button class="btn" ng-click="addCouponDetail(active.couponDetails)"> +</button>
+            </div>
+            <ul ng-repeat="detail in active.couponDetails">
+                <span><strong style="color:red;">优惠{{$index+1}}</strong></span>
+                <button class="btn" ng-click="deleteCouponDetail(active.couponDetails,$index)"> -</button>
+                <div style="height:40px;">
+                    <label>优惠条件-用户条件：</label>
+                    <button class="btn" ng-click="addCondition(detail.userConditions)"> +</button>
+                </div>
+                <div style="height:40px;" ng-repeat="userCond in detail.userConditions">
+                    <select class="selectpicker" data-ng-model="userCond.attr" style="width:80px;">
+                        <option>性别</option>
+                    </select>
+                    <select class="selectpicker" data-ng-model="userCond.oper" style="width: 80px;">
+                        <option>大于</option>
+                        <option>大于等于</option>
+                        <option>等于</option>
+                        <option>小于</option>
+                        <option>小于等于</option>
+                    </select>
+                    <input type="text" data-ng-model="userCond.value" style="width: 80px;">
+                    <button class="btn" ng-click="deleteCondition(detail.userConditions,$index)">删除</button>
+                </div>
+                <div style="height:40px;">
+                    <label>优惠条件-订单条件：</label>
+                    <button class="btn" ng-click="addCondition(detail.orderConditions)"> +</button>
+                </div>
+                <div style="height:40px;" ng-repeat="orderCond in detail.orderConditions">
+                    <select class="selectpicker" data-ng-model="orderCond.attr" style="width:80px;">
+                        <option>价格</option>
+                    </select>
+                    <select class="selectpicker" data-ng-model="orderCond.oper" style="width: 80px;">
+                        <option>大于</option>
+                        <option>大于等于</option>
+                        <option>等于</option>
+                        <option>小于</option>
+                        <option>小于等于</option>
+                    </select>
+                    <input type="text" data-ng-model="orderCond.value" style="width: 80px;">
+                    <button class="btn" ng-click="deleteCondition(detail.orderConditions,$index)">删除</button>
+                </div>
+                <div style="height:40px;">
+                    <label>优 惠 量 ：</label>
+                    <input type="text" data-ng-model="detail.value">
+                    <label ng-if="active.couponType=='满减'" style="color: blue">元(RMB)</label>
+                    <label ng-if="active.couponType=='折扣'" style="color: red">折 (如 0.8:八折 0.87:八七折)</label>
+                    <label ng-if="active.couponType=='返现'" style="color: blue">元(RMB)</label>
+                </div>
+                <HR size="3" width="300">
+            </ul>
+        </div>
+
+    </div>
+    <div>
+        <button style="float: left" type="submit" class="btn btn-success" ng-click="submitAddActivity()">保存优惠券
+        </button>
+        <button style="float: left" class="btn" ng-click="back()">返回</button>
+    </div>
+</div>

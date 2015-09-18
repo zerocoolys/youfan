@@ -4,41 +4,36 @@
 define(["./module"], function (ctrs) {
 
     ctrs.controller('dishesCheckCtrl', function ($scope, $rootScope, $q, $state, $http, $location,ngDialog) {
-        console.log("dishesCheckCtrl")
-        //分页信息
-        $rootScope.pageNo = 1;
-        $rootScope.pageSize = 20;
-        $rootScope.recordCount = 0;
-        $rootScope.pageCount = 0;
-        $rootScope.pages = [];
-
-
         $scope.statusDesc = {
-            "-1":"删除",
-            "0":"待审核",
-            "1":"正常",
-            "2":"冻结",
+            "0": "待审核",
+            "1": "正常",
+            "2": "冻结",
+            "待审核": "0",
+            "正常": "1",
+            "冻结": "2",
         }
         //筛选条件
-        $scope.kitchenName = "";
-        $scope.phoneNumber = "";
-        $scope.status = null;
+        $scope.s_kitchenName = "";
+        $scope.s_phone = "";
+        //$scope.s_cuisine="";
+        $scope.s_status = null;
         $rootScope.gridTitleArray = [
-            {name: '厨房名称', field: "merchantId"},
-            {name: '联系号码', field: "phoneNumber"},
-            {name: '菜系', field: "cuisine"},
-            {name: '开始营业时间', field: "startTime"},
-            {name: '停止营业时间', field: "endTime"},
+            {name: '卖家ID', field: "sellerId"},
+            {name: '名称', field: "name"},
+            {name: '菜系', field: "type"},
+            {name: '价格（￥）', field: "price"},
+
+            {name: '口味', field: "taste"},
+            {name: '描述', field: "description"},
             {
                 name: "厨房图片",
                 displayName: "厨房图片",
-                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showMultiPics(row.entity.kitchenPicUrl)' >查看厨房图片</a></div>",
+                cellTemplate: "<div class='table_admin'><a  ng-click='grid.appScope.showMultiPics(row.entity.picUrls)' >查看厨房图片</a></div>",
                 maxWidth: 100,
                 enableSorting: false
             },
 
-            {name: '状态', field: "status",maxWidth:80},
-            {name: '状态', field: "status"},
+            {name: '状态', field: "statusDes",maxWidth:80},
             {
                 name: "操作",
                 displayName: "操作",
@@ -49,8 +44,6 @@ define(["./module"], function (ctrs) {
         ];
 
         $scope.ckeckKitchen = function (entity) {
-            //$scope.statusRadio = [false,false,false]
-            //$scope.statusRadio[entity.status] = true;
             $scope.choosedStatus = entity.status;
             var dialog = ngDialog.open({
                 template: './merchant/dialog/checkmerchantdialog.html',
@@ -61,37 +54,52 @@ define(["./module"], function (ctrs) {
                 $scope.choosedStatus = status;
             }
             $scope.submitCheck = function () {
-                //$http({
-                //    method: 'GET',
-                //    url: 'merchant/checkStatus?id=' + entity.id + '&status=' + $scope.choosedStatus
-                //}).success(function (data, status) {
-                //})
+                //console.log($scope.choosedStatus)
+                $http({
+                    method: 'GET',
+                    url: 'merchant/updateMenu/' + entity.id + '?status=' +$scope.choosedStatus
+                }).success(function (data, status) {
+                    if (data.code == 1) {
+                        entity.statusDes = $scope.statusDesc[$scope.choosedStatus + ""]
+                    }
+                })
                 dialog.close();
             }
         }
         //指定数据查询方法
-        $rootScope.searchData = function(){
+        $rootScope.searchData = function () {
             $scope.search();
+        }
+        $rootScope.initSearchData = function () {
+            $rootScope.pageNo = 1;
+            $scope.search();
+        }
+        $scope.clareSearchConditon = function () {
+            $scope.s_kitchenName = "";
+            $scope.s_phone = "";
+            //$scope.s_cuisine="";
+            $scope.s_status = null;
         }
         $scope.search = function () {
             var condition = "";
-            if ($scope.kitchenName.trim() != "")
-                condition += "&kitchenName=" + $scope.kitchenName
-            if ($scope.phoneNumber.trim() != "")
-                condition += "&phoneNumber=" + $scope.phoneNumber
-            if ($scope.status != null)
-                condition += "&status=" + $scope.status
+            if ($scope.s_kitchenName.trim() != "")
+                condition += "&kitchenName=" + $scope.s_kitchenName
+            if ($scope.s_phone.trim() != "")
+                condition += "&phoneNumber=" + $scope.s_phone
+            if ($scope.s_status != null)
+                condition += "&status=" + $scope.statusDesc[$scope.status+""]
             $http({
                 method: 'GET',
-                url: 'merchant/getKitchen/' + $scope.pageNo + '/' + $scope.pageSize + "?" + condition
+                url: 'merchant/getMenus?pageNo=' + $scope.pageNo + '&pageSizez=' + $scope.pageSize + "&" + condition
             }).success(function (result, status) {
-                $rootScope.gridOptions.data = result.list;
-                $rootScope.pageCount = result.pageCnt;
-                $rootScope.recordCount = result.recordCnt;
-                $rootScope.gridOptions.data.forEach(function(item){
-                    item.status =$scope.statusDesc[item.status+""]
-                    console.log(item.status)
-                })
+                if(result.payload.list!=undefined){
+                    $rootScope.gridOptions.data = result.payload.list;
+                    $rootScope.gridOptions.data.forEach(function(item){
+                        item.statusDes =$scope.statusDesc[item.reviewStatus+""]
+                    })
+                }
+                $rootScope.pageCount = result.payload.pageCnt;
+                $rootScope.recordCount = result.payload.recordCnt;
                 //设置分页样式
                 $rootScope.setPagerBar();
             })

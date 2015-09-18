@@ -2,17 +2,19 @@
  * Created by Administrator on 2015/8/18.
  */
 define(["./module"], function (ctrs) {
-    ctrs.controller('kitchenInfoCtrl',function ($scope, $rootScope, $q,$state,$http,$location,ngDialog) {
+    ctrs.controller('kitchenInfoCtrl', function ($scope, $rootScope, $q, $state, $http, $location, ngDialog) {
         $scope.statusDesc = {
-            "-1":"删除",
-            "0":"待审核",
-            "1":"正常",
-            "2":"冻结",
+            "0": "待审核",
+            "1": "正常",
+            "2": "冻结",
+            "待审核": "0",
+            "正常": "1",
+            "冻结": "2",
         }
         //筛选条件
         $scope.name = "";
         $scope.phone = "";
-        $scope.status = null;
+        $scope.s_status = null;
         $rootScope.gridTitleArray = [
             {name: '厨房名称', field: "kitchenName"},
             {name: '联系号码', field: "phoneNumber"},
@@ -26,9 +28,7 @@ define(["./module"], function (ctrs) {
                 maxWidth: 100,
                 enableSorting: false
             },
-
-            {name: '状态', field: "status",maxWidth:80},
-            {name: '状态', field: "status"},
+            {name: '状态', field: "statusDes", maxWidth: 80},
             {
                 name: "操作",
                 displayName: "操作",
@@ -51,11 +51,14 @@ define(["./module"], function (ctrs) {
                 $scope.choosedStatus = status;
             }
             $scope.submitCheck = function () {
-                //$http({
-                //    method: 'GET',
-                //    url: 'merchant/checkStatus?id=' + entity.id + '&status=' + $scope.choosedStatus
-                //}).success(function (data, status) {
-                //})
+                $http({
+                    method: 'GET',
+                    url: 'merchant/updateKitchen/' + entity.id + '?status=' + $scope.choosedStatus
+                }).success(function (data, status) {
+                    if (data.code == 1) {
+                        entity.statusDes = $scope.statusDesc[$scope.choosedStatus + ""]
+                    }
+                })
                 dialog.close();
             }
         }
@@ -70,7 +73,7 @@ define(["./module"], function (ctrs) {
         $scope.clareSearchConditon = function () {
             $scope.name = "";
             $scope.phone = "";
-            $scope.status = null;
+            $scope.s_status = null;
         }
         $scope.search = function () {
             var condition = "";
@@ -78,16 +81,16 @@ define(["./module"], function (ctrs) {
                 condition += "&name=" + $scope.name
             if ($scope.phone.trim() != "")
                 condition += "&phone=" + $scope.phone
-            if ($scope.status != null)
-                condition += "&status=" + $scope.status
+            if ($scope.s_status != null)
+                condition += "&status=" +$scope.statusDesc[$scope.s_status + ""]
             $http({
                 method: 'GET',
-                url: 'merchant/getKitchens?pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize + "&" + condition
+                url: 'merchant/getKitchens?pageNo=' + $scope.pageNo + '&pageSize=' + $scope.pageSize  + condition
             }).success(function (result, status) {
-                if(result.code==1&&result.payload.list!=undefined){
+                if (result.code == 1 && result.payload.list != undefined) {
                     $rootScope.gridOptions.data = result.payload.list;
-                    $rootScope.gridOptions.data.forEach(function(item){
-                        item.status =$scope.statusDesc[item.status+""]
+                    $rootScope.gridOptions.data.forEach(function (item) {
+                        item.statusDes = $scope.statusDesc[item.status + ""]
                     })
                     $rootScope.pageCount = result.payload.pageCnt;
                     $rootScope.recordCount = result.payload.recordCnt;

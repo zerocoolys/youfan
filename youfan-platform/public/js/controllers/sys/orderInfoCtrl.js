@@ -115,7 +115,7 @@ define(["./module"], function (ctrs) {
                 method: 'GET',
                 url: 'sys/getOrder?orderBy=orderNo&pageNo=' + ($scope.pageNo - 1) + '&pageSize=' + $scope.pageSize + "" + condition
             }).success(function (result, status) {
-                if(result.payload.list!=null){
+                if(result.code==1&&result.payload.list!=undefined){
                     $rootScope.gridOptions.data = result.payload.list;
                     $rootScope.gridOptions.data.forEach(function (item) {
                         item.orderStatusDes = $scope.statusDesc[item.orderStatus + ""]
@@ -123,12 +123,12 @@ define(["./module"], function (ctrs) {
                         item.orderTimeDes = new Date(item.orderTime).format("yyyy-MM-dd hh:mm:ss")
                         item.repastTimeDes = new Date(item.repastTime).format("yyyy-MM-dd hh:mm:ss")
                     })
-                }
-                //设置分页样式
-                $rootScope.pageCount = result.payload.pageCnt;
-                $rootScope.recordCount = result.payload.recordCnt;
+                    //设置分页样式
+                    $rootScope.pageCount = result.payload.pageCnt;
+                    $rootScope.recordCount = result.payload.recordCnt;
 
-                $rootScope.setPagerBar();
+                    $rootScope.setPagerBar();
+                }
             })
         }
     })

@@ -9,6 +9,7 @@ define([
     "js006",
     "./angularjs/ui-bootstrap-tpls",
     "./angularjs/ui-grid-unstable.min",
+    "./angularjs/angularjs-datetime-picker",
 
     //业务模块控制器
     "./controllers/loginCtrl",
@@ -38,7 +39,12 @@ define([
         'ngDialog',
         'ngSanitize',
         'ui.select',
-        'ui.grid.selection'
+        'ui.grid.selection',
+        'angularjs-datetime-picker'
     ]);
+    myApp.run(function ($rootScope) {
+        console.log("run date time")
+        $rootScope.gmtDate = new Date('2015-01-01 00:00:00 -00:00');
+    });
     return myApp;
 });

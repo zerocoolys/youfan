@@ -2,47 +2,80 @@
     <div class="ngdialog-buttons">
         <div class="ngdialog-tilte">来自网页的消息</div>
         <div>
-            <div>
+            <!--<div>
                 <label>活动事件</label><input  type="text" ng-model="active_model.event">
-            </div>
-            <div>
-                <label>活动名称</label><input  type="text" ng-model="active_model.title">
-            </div>
+            </div>-->
+            <li>
+                <div style="height:40px;">
+                    <label>活动名称：</label>
+                    <input type="text" data-ng-model="add_active.title" style="height: 30px;width: 200px;">
+                </div>
+            </li>
+            <li>
+                <div style="height:40px;">
+                    <label>活动事件：</label>
+                    <input type="text" data-ng-model="add_active.title" style="height: 30px;width: 200px;">
+                </div>
+            </li>
             <!--<div>-->
             <!--<label>端：</label>-->
             <!--</div>-->
-            <div>
-                <label>活动类型（下拉选择框）</label>
-            </div>
-            <div>
-                <label>活动优惠方式（radio）</label>
-            </div>
-            <div>
-                <label>是否唯一参加活动（checkBox）</label>
-            </div>
-            <div>
-                <label>是否可以同时使用优惠券（checkBox）</label>
-            </div>
+            <li>
+                <div style="height:40px;">
+                    <label>活动类型：</label>
+                    <select class="selectpicker" data-ng-model="add_active.activeType" style="height: 30px;width: 200px;">
+                        <option>新用户注册</option>
+                        <option>用户登录</option>
+                        <option>订单提交</option>
+                        <option>订单完成</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div style="height:40px;">
+                <label>优惠方式：</label>
+                <select class="selectpicker" data-ng-model="add_active.couponsType" style="height: 30px;width: 200px;">
+                    <option>发放优惠券</option>
+                    <option>订单直扣</option>
+                </select>
+                </div>
+            </li>
+            <!--<div>-->
+                <!--<label>是否唯一参加活动（checkBox）</label>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<label>是否可以同时使用优惠券（checkBox）</label>-->
+            <!--</div>-->
             <!--<div>-->
             <!--<label>是否全场使用（checkBox）</label>-->
             <!--</div>-->
-            <div id="vadivdityTime">
-                <label>优惠券有效期</label><input  type="text" ng-model="active_model.validityTime">
-            </div>
+            <li >
+                <div style="height:40px;">
+                    <label>优惠券有效期：</label>
+                    <input type="text" data-ng-model="add_active.validityTime" style="height: 30px;width: 200px;">
+                </div>
+            </li>
+            <li>
+                <div style="height:40px;">
+                    <label>活动开始时间：</label>
+
+                    <input ng-model="start_time" datetime-picker date-only size="30" style="height: 30px;width: 200px;"/>
+                </div>
+
+            </li>
+            <li>
+                <div style="height:40px;">
+                    <label>活动结束时间：</label>
+                    <input ng-model="start_time" datetime-picker date-only size="30" style="height: 30px;width: 200px;"/>
+                </div>
+            </li>
             <div>
-                <label>活动开始时间</label><input type="text" ng-model="active_model.startTime">
             </div>
-            <div>
-                <label>活动结束时间</label><input  type="text" ng-model="active_model.endTime">
-            </div>
-            <div>
-                <label>活动处理类</label><input type="text" ng-model="active_model.activeDetailClazz">
-            </div>
-            <div>
-            </div>
-            <button type="submit" class="btn btn-success" ng-click="saveActive()">新增活动</button>
-            <button type="reset" class="btn " ng-click="reset()">重置</button>
-            <button type="console" class="btn" ng-click="closeDialog()">取消</button>
+        </div>
+        <div>
+            <button style="float: right" class="btn" ng-click="closeThisDialog()">取消</button>
+            <button style="float: right" type="submit" class="btn btn-success" ng-click="saveActive()">保存优惠券</button>
+
         </div>
 
     </div>
