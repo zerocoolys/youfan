@@ -9,10 +9,19 @@
             <label class="item-input-wrapper  ">
                 <i class="icon ion-ios-search placeholder-icon"></i>
                 <input type="search" ng-model="inputText.value" ng-change="keydown()" placeholder="小区/大厦/学校/街道"/>
+
             </label>
         </div>
-        <div id="mapContainer" style="left: 0;right: 0;bottom: 0; height:300px;"></div>
-        <ion-scroll zooming="true" direction="y" style="width: 100%; height: 500px;padding-bottom:48px;">
+        <div data-ng-repeat="item in items" id='divid{{$index + 1}}' data-ng-click='clickData($index)'
+             style="font-size: 13px;cursor:pointer;padding:5px 5px 5px 5px;">{{item.name}}<span style='color:#c1af72;'>{{item.value}}</span>
+        </div>
+        <div data-ng-if="mapPrompt == 1" style="text-align: center">
+            <i class="icon ion-sad-outline "></i>
+            "亲,优饭找不到结果哦！<br/><!--要不试试：<br/>1.确保所有字词拼写正确<br/>2.尝试不同的关键字<br/>3.尝试更宽泛的关键字"-->
+        </div>
+        <div id="mapContainer" ng-hide="showhi" style="left: 0;right: 0;bottom: 0; height:300px;"></div>
+        <ion-scroll zooming="true" ng-hide="showhi" direction="y"
+                    style="width: 100%; height: 500px;padding-bottom:48px;">
             <div class="list">
                 <div class="item" ng-repeat="item in datas" laglat="{{item.lngLat}}" id="divid{{$index+1}}"
                      data-ng-click='selectGEO($index)'>

@@ -19,6 +19,7 @@ ControllerModule.controller('PwdLoginCtrl', function ($scope, $rootScope, $locat
                 PopupService.showAlert($scope, '请输入密码');
             } else {
                 UserService.signIn(tel, password).success(function (data) {
+                    console.log(data)
                     if (data.code == 0) {
                         //angular 本地存储
                         //$scope.$watch('token', function () {

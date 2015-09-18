@@ -1,4 +1,4 @@
-ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $stateParams, UserService, localStorageService, $http, $state, REST_URL, AuthenticationService) {
+ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $stateParams, UserService, User, localStorageService, $http, $state, REST_URL, AuthenticationService) {
     $rootScope.hideTabs = false;
     $scope.chats = Chats.all();
     $scope.remove = function (chat) {
@@ -21,10 +21,10 @@ ControllerModule.controller('ChatsCtrl', function ($scope, $rootScope, Chats, $s
 
     $http({
         method: 'GET',
-        url: REST_URL + "/notice/getCount/2",
+        url: REST_URL + "/notice/getCount/" + User.id,
         dataType: "json"
     }).success(function (dataConfig) {
-        if (dataConfig.code == 1) {
+        if (dataConfig.code == 0) {
             $scope.msgNumber = dataConfig.payload
         }
     });

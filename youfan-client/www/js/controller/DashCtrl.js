@@ -1,5 +1,4 @@
 ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merchant, $state, $ionicModal, $rootScope) {
-    //console.log(Merchant.localRange + "<<<<<<<<")
     $rootScope.hideTabs = false;
     $scope.SearchShow = true;
     $scope.SearchIcon = function () {
@@ -50,13 +49,13 @@ ControllerModule.controller('DashCtrl', function ($scope, $http, REST_URL, Merch
             if (Merchant.localRange) {
                 per["lng"] = Merchant.localRange.split(",")[0];//104.069624;//
                 per["lat"] = Merchant.localRange.split(",")[1];//30.522269;//
-                per["scope"] = 300;
+                per["scope"] = 3;
                 p["params"] = per
                 Merchant.localRange = undefined;
             } else {
                 per["lng"] = data.split(",")[0];//104.070091;//
                 per["lat"] = data.split(",")[1];//30.510871;//
-                per["scope"] = 300;
+                per["scope"] = 3;
                 p["params"] = per
             }
             $http.post(REST_URL + "/mr/getGeographical", p).success(function (result) {

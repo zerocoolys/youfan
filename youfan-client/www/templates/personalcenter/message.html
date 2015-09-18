@@ -6,7 +6,7 @@
                 ng-click="showDelete = !showDelete"></button>
     </ion-header-bar>
     <ion-tabs class=" tabs-striped tabs-top">
-        <ion-tab title="通知">
+        <ion-tab title="通知" on-select="message()">
             <ion-content>
                 <ion-list show-delete="showDelete"
                           class="">
@@ -20,11 +20,11 @@
                     <div class="care_text">
                         <p>
                             <span class="alleft"><b>{{item.title}}</b></span>
-                            <span class="alright"><font style="font-size:12px;">{{item.date}}</font> &nbsp;<i
+                            <span class="alright"><span style="font-size:12px;">{{item.date}}</span> &nbsp;<i
                                     class="ion-ios-arrow-down" ng-click="item.active = !item.active"></i></span>
                         </p>
 
-                        <p class="message_text" ng-class="{add_text : item.active}">{{item.des}}</p>
+                        <p class="message_text" ng-class="{add_text : item.active}">{{item.context}}</p>
                     </div>
                     <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item)"></ion-delete-button>
                     </ion-item>
@@ -32,56 +32,17 @@
             </ion-content>
         </ion-tab>
 
-        <ion-tab title="评论">
+        <ion-tab title="评论" on-select="comment()">
             <ion-content>
-                <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
+                <ion-item class="item-remove-animate item-avatar" type="item-text-wrap" data-ng-repeat="item in commArray">
                     <img src="img/2.jpeg">
 
                     <div class="care_text">
-                        <span> y有饭1020 </span>
-
-                        <p>订购了鱼香茄子</p>
+                        <span> {{item.merchant_user}} </span>
+                        <p>{{item.replay_comment}}</p>
+                        <p>{{item.replay_date}}</p>
                     </div>
                 </ion-item>
-                <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
-                    <img src="img/2.jpeg">
-
-                    <div class="care_text">
-                        <span> y有饭1020 </span>
-
-                        <p>订购了鱼香茄子</p>
-                    </div>
-                </ion-item>
-                </ion-slide>
-                <ion-slide>
-                    <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
-                        <img src="img/2.jpeg">
-
-                        <div class="care_text">
-                            <span> y有饭1020回复了您 </span>
-
-                            <p>“鱼香茄子真好吃”</p>
-                        </div>
-                    </ion-item>
-                    <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
-                        <img src="img/2.jpeg">
-
-                        <div class="care_text">
-                            <span> y有饭1020回复了您 </span>
-
-                            <p>“鱼香茄子真好吃”</p>
-                        </div>
-                    </ion-item>
-                    <ion-item class="item-remove-animate item-avatar" type="item-text-wrap">
-                        <img src="img/2.jpeg">
-
-                        <div class="care_text">
-                            <span> y有饭1020回复了您 </span>
-
-                            <p>“鱼香茄子真好吃”</p>
-                        </div>
-                    </ion-item>
-
             </ion-content>
         </ion-tab>
 

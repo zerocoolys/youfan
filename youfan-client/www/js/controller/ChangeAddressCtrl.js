@@ -72,6 +72,7 @@ ControllerModule.controller('ChangeAddressCtrl', function ($scope, $ionicModal, 
         }
         Merchant.localRange=$scope.autoData[index].location.lng + "," + $scope.autoData[index].location.lat;
         $rootScope.mapCity = $scope.autoData[index].district;
+        $scope.$broadcast("dddddd","ddddd");
         $state.go('tab.dash');
         $scope.inputText.value = (document.getElementById("divid" + (index + 1)).innerHTML.replace(/<[^>].*?>.*<\/[^>].*?>/g, "")).trim();
         $scope.items = [];

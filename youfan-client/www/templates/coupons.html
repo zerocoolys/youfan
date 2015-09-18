@@ -7,17 +7,17 @@
     <div class="bar item-input-inset bar-subheader bar-light">
         <label class="item-input-wrapper item-button-right">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="请输入优惠吗">
+            <input type="search" placeholder="请输入优惠码">
         </label>
         <button class="button button-clear mainColor">确定</button>
     </div>
     <ion-content class="padding has-subheader">
         <ion-list>
-            <ion-item class="item-icon-right item-avatar">
+            <ion-item class="item-icon-right item-avatar" ng-repeat="item in dataArray">
                 <img class="full-image" src="img/2.jpeg">
-                优惠券折扣
+                {{item.title_msg}}
                 <span class="item-note">
-                  -￥11111
+                  {{item.title_type}}
                 </span>
             </ion-item>
         </ion-list>
