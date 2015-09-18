@@ -1,6 +1,7 @@
 /**
  * Created by on 2015-08-27.
  *
+ * TODO 支付功能调试及支付成功后的页面跳转设置
  * @author dolphineor
  */
 ControllerModule.controller('OrderPayCtrl', function ($scope, $stateParams, $http, ChargeService) {

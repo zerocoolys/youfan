@@ -1,5 +1,8 @@
 /**
  * Created by ss on 2015/8/17.
+ *
+ * TODO 就餐方式中的自取地址功能
+ * TODO 优惠券使用功能
  */
 ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $state, $http, $q, $ionicModal,
                                                           $ionicPopup, $timeout, localStorageService, User, Merchant, Order, REST_URL) {
@@ -13,10 +16,14 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
     $scope.closeHourse = $scope.closeTime.split(":")[0];
     $scope.closeMinutes = $scope.closeTime.split(":")[1];
     $scope.eatTime = "请选择";
-    $scope.timeScroll = 0;/*当改变午餐和晚餐状态时候，时间的滚动*/
-    $scope.statusScroll = 0;/*当改变时间的时候，状态的滚动*/
-    $scope.timePosition = 0;/*记录上一次时间scroll所在位置*/
-    $scope.statusPosition = 0;/*记录上一次状态scroll所在位置*/
+    $scope.timeScroll = 0;
+    /*当改变午餐和晚餐状态时候，时间的滚动*/
+    $scope.statusScroll = 0;
+    /*当改变时间的时候，状态的滚动*/
+    $scope.timePosition = 0;
+    /*记录上一次时间scroll所在位置*/
+    $scope.statusPosition = 0;
+    /*记录上一次状态scroll所在位置*/
     /*获取的就餐时间*/
     $scope.currentMonth = parseInt(new Date().getMonth() + "") + 1 + '月' + new Date().getDate() + '日';
     function loaded() {
@@ -28,18 +35,18 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
                 onScrollEnd: function () {//滚动结束后执行的函数
 //                    console.log(this.y);
                     $scope.statusPosition = this.y;
-                    if(this.y == -36) {
-                        if(Math.abs($scope.timePosition) >= $scope.timeScroll*36){
+                    if (this.y == -36) {
+                        if (Math.abs($scope.timePosition) >= $scope.timeScroll * 36) {
                             return;
-                        }else{
-                            $scope.timeSroll.scrollTo(0, $scope.timeScroll*36 + $scope.timePosition, 500, true);
+                        } else {
+                            $scope.timeSroll.scrollTo(0, $scope.timeScroll * 36 + $scope.timePosition, 500, true);
                         }
-                    }else{
+                    } else {
 //                        console.log($scope.timePosition)
 //                        console.log($scope.timeScroll*36)
-                        if(Math.abs($scope.timePosition) <= $scope.timeScroll*36){
+                        if (Math.abs($scope.timePosition) <= $scope.timeScroll * 36) {
                             return;
-                        }else{
+                        } else {
                             $scope.timeSroll.scrollTo(0, $scope.timePosition, 500, true);
                         }
                     }
@@ -56,20 +63,20 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
 //                    console.log(this.y);
                     $scope.eatTime = $scope.choiceTimes[-this.y / 36];
                     $scope.timePosition = this.y;
-                    if(Math.abs(this.y) >= $scope.timeScroll*36){/*$scope.timeScroll*36 即为17:00所在的位置*/
-                        if( $scope.isShowDing == false){
+                    if (Math.abs(this.y) >= $scope.timeScroll * 36) {/*$scope.timeScroll*36 即为17:00所在的位置*/
+                        if ($scope.isShowDing == false) {
                             return;
-                        }else{
-                            if($scope.statusPosition == -36){
+                        } else {
+                            if ($scope.statusPosition == -36) {
                                 return;
-                            }else{
+                            } else {
                                 $scope.diningScroll.scrollTo(0, 36, 500, true);
                             }
                         }
-                    }else{
-                        if($scope.statusPosition == 0){
+                    } else {
+                        if ($scope.statusPosition == 0) {
                             return;
-                        }else{
+                        } else {
                             $scope.diningScroll.scrollTo(0, -36, 500, true);
                         }
                     }
@@ -87,20 +94,20 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
         $scope.cookTime = $scope.currentMinutes + 45;
         if ($scope.cookTime > 60) {
             $scope.currentHours += 1;
-            $scope.earliestTime = (Math.ceil(($scope.cookTime - 60)/10))*10;
+            $scope.earliestTime = (Math.ceil(($scope.cookTime - 60) / 10)) * 10;
             console.log($scope.earliestTime);
             $scope.choiceTimes.push($scope.currentHours + ':' + $scope.earliestTime + '(最早)');
             if ($scope.earliestTime > 30) {
                 $scope.currentHours += 1;
-            }else{
+            } else {
                 $scope.choiceTimes.push($scope.currentHours + ':' + '30');
             }
         } else {
-            $scope.cookTime = (Math.ceil($scope.cookTime/10))*10;
-            if($scope.cookTime == 60){
+            $scope.cookTime = (Math.ceil($scope.cookTime / 10)) * 10;
+            if ($scope.cookTime == 60) {
                 $scope.currentHours += 1;
                 $scope.choiceTimes.push($scope.currentHours + ':' + '00' + '(最早)');
-            }else{
+            } else {
                 $scope.choiceTimes.push($scope.currentHours + ':' + $scope.cookTime + '(最早)');
                 $scope.currentHours += 1;
             }
@@ -125,8 +132,8 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
             }
         }
 
-        for(var i = 0 ;i<$scope.choiceTimes.length;i++){/*找到17:00所在的位置*/
-            if($scope.choiceTimes[i] == "17:00"){
+        for (var i = 0; i < $scope.choiceTimes.length; i++) {/*找到17:00所在的位置*/
+            if ($scope.choiceTimes[i] == "17:00") {
                 $scope.timeScroll = i;
                 return;
             }
@@ -250,7 +257,7 @@ ControllerModule.controller('ConfirmOrderCtrl', function ($scope, $rootScope, $s
     };
 
     // 给商家的留言
-    $scope.formData={};
+    $scope.formData = {};
     $scope.commentMap = new Map();
     $scope.formData.comments = "";
 

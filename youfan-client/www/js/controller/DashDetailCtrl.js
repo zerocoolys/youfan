@@ -334,6 +334,7 @@ ControllerModule.controller('DashDetailCtrl', function ($scope, $state, $http, $
     // 数量
     $scope.count = 0;
 
+    // TODO 菜单详情页的展示
     $scope.showDishDetail = function () {
         $scope.dishDetail = {
             name: "鱼香肉丝",

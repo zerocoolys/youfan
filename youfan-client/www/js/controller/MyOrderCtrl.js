@@ -1,8 +1,9 @@
 /**
  * Created by ss on 2015/8/19.
+ *
+ * TODO 确认收货功能(包括后台接口实现)
  */
 ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $http, User, Order, REST_URL) {
-
 
     $scope.$root.tabsHidden = "tabs-hide";
     $scope.slideIndex = 0;
@@ -12,86 +13,6 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
     $scope.activeSlide = function (index) {
         $ionicSlideBoxDelegate.slide(index);
     };
-    //// 订单详情
-    ///*未完成的订单*/
-    //$scope.orderUnfinishes = [{
-    //    number: '135268549',
-    //    status: '待评价',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00',
-    //    payWorld: '立即支付'
-    //}];
-    //
-    ///*已完成的订单*/
-    //$scope.orderFinishes = [{
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00'
-    //}, {
-    //    number: '135268549',
-    //    status: '待付款',
-    //    cookName: '河马堂药膳厨房',
-    //    singleTime: '2014.11.08 下午13:00',
-    //    price: '￥98.00'
-    //}];
 
 
     // ========================= dolphineor =========================
@@ -245,7 +166,7 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
         });
     };
 
-    $scope.goTo = function (orderObj,$event) {
+    $scope.goTo = function (orderObj, $event) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
             $state.go('comment-details');
@@ -253,7 +174,7 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
         }
     }
 
-    $scope.goTo = function (orderObj,$event) {
+    $scope.goTo = function (orderObj, $event) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
             $state.go('comment-details');
@@ -261,7 +182,7 @@ ControllerModule.controller('MyOrderCtrl', function ($scope, $state, $ionicSlide
         }
     }
 
-    $scope.goTo = function (orderObj,$event) {
+    $scope.goTo = function (orderObj, $event) {
         if (orderObj instanceof Object) {
             Order.comment = orderObj;
             $state.go('comment-details');
